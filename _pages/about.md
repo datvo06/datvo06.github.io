@@ -24,7 +24,8 @@ I am working on my thesis, which called "AI Software Reciprocal Improvement". Th
 For applying deep learning to improve the performance of program debugging, I have recently published the work title [FFL: Fine-grained Fault Localization for Student Program](https://datvo06.github.io/assets/pdf/FFL_final.pdf)
 
 **Experiences**
-
+I worked in Cinnamon AI, The University of Melbourne, and Singapore Management University
 
 **Extra-activities**
+Building robots
 
