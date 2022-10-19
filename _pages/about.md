@@ -1,7 +1,7 @@
 ---
 layout: about
 title: About
-permalink: 
+permalink: /index/
 subtitle: Ph.D Candidate at <a href='https://cis.unimelb.edu.au/'> School of Computing and Information Systems</a>, <a href='https://www.unimelb.edu.au/'>The University of Melbourne</a> , **email**: thanhdatn@student.unimelb.edu.au / datnt.hust59@gmail.com. 
 profile:
   align: right
