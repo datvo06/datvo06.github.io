@@ -7,9 +7,7 @@ profile:
   align: right
   image: profile.jpeg
   image_circular: true # crops the image to make it circular
-  address:
-    <p>Melbourne Connect, Level 2, 700 Swanston Street</p>
-    <p>Melbourne, Vic, 3000</p>
+  address: >
 
 news: true  # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
