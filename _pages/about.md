@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: Ph.D Candidate at <a href='https://cis.unimelb.edu.au/'> School of Computing and Information Systems</a>, <a href='https://www.unimelb.edu.au/'>The University of Melbourne</a> , **email**: thanhdatn@student.unimelb.edu.au / datnt.hust59@gmail.com. 
+subtitle: Ph.D Candidate at <a href='https://cis.unimelb.edu.au/'> School of Computing and Information Systems</a>, <a href='https://www.unimelb.edu.au/'>The University of Melbourne</a> 
 profile:
   align: right
   image: profile.jpeg
