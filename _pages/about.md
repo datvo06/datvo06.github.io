@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: <a href='#'>Affiliations</a>. University of Melbourne. ✉️a: thanhdatn@student.unimelb.edu.au / datnt.hust59@gmail.com. 
 
 profile:
   align: right
