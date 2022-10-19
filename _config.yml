@@ -126,7 +126,7 @@ disqus_shortname: # put your disqus shortname
 # External sources.
 # If you have blog posts published on medium.com or other exteranl sources,
 # you can display them in your blog by adding a link to the RSS feed.
-external_sources:
+# external_sources:
 
 # -----------------------------------------------------------------------------
 # Collections
@@ -228,8 +228,8 @@ display_tags: ['formatting', 'images', 'links', 'math', 'code'] # this tags will
 
 scholar:
 
-  last_name: [Einstein]
-  first_name: [Albert, A.]
+  last_name: [Nguyen]
+  first_name: [Thanh-Dat]
 
   style: apa
   locale: en
