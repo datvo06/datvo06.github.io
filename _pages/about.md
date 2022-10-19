@@ -6,7 +6,7 @@ subtitle: Ph.D Candidate at <a href='https://cis.unimelb.edu.au/'> School of Com
 profile:
   align: right
   image: profile.jpeg
-  image_circular: false # crops the image to make it circular
+  image_circular: true # crops the image to make it circular
   address: >
     <p>Melbourne Connect, Level 2, 700 Swanston Street</p>
     <p>Melbourne, Vic, 3000</p>
