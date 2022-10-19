@@ -21,7 +21,7 @@ social: true  # includes social icons at the bottom of the page
 I am currently a PhD Candidate at the University of Melbourne. 
 I am working on my thesis, which called "AI Software Reciprocal Improvement". The thesis focuses on two aspects: (1) using deep learning techniques to boost the performance of automated software debugging and analysis and (2) leveraging software analysis technique to improve deep neural networks' robustness, explainability and trustability using software analysis techniques.
 
-For the first aspect, I have recently published the work title ![*FFL: Fine-grained Fault Localization for Student Program*](https://datvo06.github.io/assets/papers/FFL_final.pdf)
+For the first aspect, I have recently published the work title [*FFL: Fine-grained Fault Localization for Student Program*](https://datvo06.github.io/assets/papers/FFL_final.pdf)
 
 **Experiences**
 
