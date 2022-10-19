@@ -1,13 +1,13 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: Ph.D Candidate at <a href='https://cis.unimelb.edu.au/'> School of Computing and Information Systems</a>, <a href='https://www.unimelb.edu.au/'>The University of Melbourne</a> , **email**: thanhdatn@student.unimelb.edu.au / datnt.hust59@gmail.com. 
 profile:
   align: right
   image: profile.jpeg
   image_circular: true # crops the image to make it circular
-  address: >
+  address:
     <p>Melbourne Connect, Level 2, 700 Swanston Street</p>
     <p>Melbourne, Vic, 3000</p>
 
