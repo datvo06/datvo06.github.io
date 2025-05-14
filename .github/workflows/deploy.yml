@@ -1,42 +1,50 @@
-name: deploy
+name: build‑and‑deploy
 
 on:
   push:
-    branches:
-      - master
-      - main
+    branches: [main, master]
   pull_request:
-    branches:
-      - master
-      - main
+    branches: [main, master]
+
+permissions:
+  contents: write          # needed for the gh‑pages push
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    - name: Setup Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0.2'
-        bundler-cache: true
-    - name: Install deps
-      run: |
-        npm install -g mermaid.cli
-    - name: Setup deploy options
-      id: setup
-      run: |
-        git config --global user.name "GitHub Action"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        if [[ ${GITHUB_REF} = refs/pull/*/merge ]]; then # pull request
-          echo "::set-output name=SRC_BRANCH::${GITHUB_HEAD_REF}"
-          echo "::set-output name=NO_PUSH::--no-push"
-        elif [[ ${GITHUB_REF} = refs/heads/* ]]; then # branch, e.g. master, source etc
-          echo "::set-output name=SRC_BRANCH::${GITHUB_REF#refs/heads/}"
-        fi
-        echo "::set-output name=DEPLOY_BRANCH::gh-pages"
-    - name: Deploy website 
-      run:  yes | bash bin/deploy --verbose ${{ steps.setup.outputs.NO_PUSH }}
-                    --src ${{ steps.setup.outputs.SRC_BRANCH }} 
-                    --deploy ${{ steps.setup.outputs.DEPLOY_BRANCH }} 
+      - uses: actions/checkout@v3
+
+      # ---------- Ruby & Bundler ----------
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Ruby 3.2 bundles a newer default‑gem set and works with the
+          # latest Bundler out of the box
+          ruby-version: 3.2
+          bundler: 2.4.22          # pick any 2.4.x; ≥2.4 fixes the uri clash
+          bundler-cache: true
+
+      - name: Update RubyGems (defensive but fast)
+        run: |
+          gem update --system --no-document          # keeps default gemspecs current
+          gem install bundler -v 2.4.22 --no-document
+
+      # ---------- Optional JS tooling ----------
+      - name: Install Mermaid CLI
+        run: npm install -g @mermaid-js/mermaid-cli
+
+      # ---------- Build the Jekyll site ----------
+      - name: Build with Jekyll
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --trace
+
+      # ---------- Deploy to gh‑pages ----------
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./_site
