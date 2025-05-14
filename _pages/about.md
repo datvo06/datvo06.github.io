@@ -38,6 +38,7 @@ Recent highlights:
 ---
 
 ### Positions  
+
 | Period | Role & Affiliation |
 |--------|-------------------|
 | **2025 – present** | Post‑doctoral Fellow, [Harvard SEAS](https://namin.seas.harvard.edu/) & [Basis Research Institute](https://basis.ai/) |
