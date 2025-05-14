@@ -1,12 +1,9 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - datvo06           # your profile card
 
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - datvo06/VRDSynth          # ISSTA’24 replication package
+  - FFL2022/FFL               # ICSME’22 Fine‑grained Fault Localization
+  - datvo06/MSAU              # ICPR’20 Multi‑Stage Attentional UNet
+  - datvo06/PlantCLEF2019MRIM # PlantCLEF 2019 DenseNet baseline
+  - datvo06/Origami           # Representative graph‑pattern mining

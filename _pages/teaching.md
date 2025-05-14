@@ -2,11 +2,16 @@
 layout: page
 permalink: /teaching/
 title: teaching
-description: Materials for courses you taught. Replace this text with your description.
+description: Courses and teaching activities at the University of Melbourne.
 nav: true
 nav_order: 5
 ---
 
-For now, this page is assumed to be a static description of your courses. You can convert it to a collection similar to `_projects/` so that you can have a dedicated page for each course.
+## University of Melbourne
 
-Organize your courses by years, topics, or universities, however you like!
+### Software Modeling & Design&nbsp;• 2023 — 2024
+Lead Tutor & Content Developer  
+- Designed weekly quizzes, lab tutorials, and a capstone group project focused on Java/OOP design.  
+- Coordinated ≈10 tutors: set rubrics, moderated marking, and handled special‑consideration cases.  
+- Maintained an active Ed Discussion forum (~900 posts/semester) on GRASP principles, GoF patterns, and UML sequence/class diagrams.  
+- Introduced a GitHub Classroom + JUnit autograding pipeline, cutting turnaround time from one week to < 48 hours.
