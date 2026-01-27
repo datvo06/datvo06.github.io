@@ -229,7 +229,7 @@ display_tags: ['formatting', 'images', 'links', 'math', 'code'] # this tags will
 scholar:
 
   last_name: [Nguyen]
-  first_name: [Thanh-Dat]
+  first_name: [Thanh-Dat, Thanh Dat, Dat]
 
   style: apa
   locale: en

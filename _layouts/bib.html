@@ -40,9 +40,12 @@
 
           {%- for author in entry.author_array limit: author_array_limit -%}
             {%- assign author_is_self = false -%}
-            {%- assign author_last_name = author.last | remove: "¶" | remove: "&" | remove: "*" | remove: "†" | remove: "^" -%}
-            {%- if site.scholar.last_name contains author_last_name -%}
-              {%- if site.scholar.first_name contains author.first -%}
+            {%- assign author_last_name = author.last | remove: "¶" | remove: "&" | remove: "*" | remove: "†" | remove: "^" | strip | downcase -%}
+            {%- assign author_first_name = author.first | strip | downcase -%}
+            {%- assign scholar_last_names = site.scholar.last_name | join: "," | downcase -%}
+            {%- assign scholar_first_names = site.scholar.first_name | join: "," | downcase -%}
+            {%- if scholar_last_names contains author_last_name -%}
+              {%- if scholar_first_names contains author_first_name -%}
                 {%- assign author_is_self = true -%}
               {%- endif -%}
             {%- endif -%}
