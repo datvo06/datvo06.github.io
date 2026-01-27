@@ -3,7 +3,7 @@ layout: page
 permalink: /teaching/
 title: teaching
 description: Courses and teaching activities at the University of Melbourne.
-nav: true
+nav: false
 nav_order: 5
 ---
 

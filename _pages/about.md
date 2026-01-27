@@ -32,8 +32,36 @@ At Basis, I am working on two projects: [MARA](https://www.basis.ai/blog/mara/) 
 - Explainability & robustness for ML models on code  
 
 Recent highlights:  
-* **VRDSynth for visually rich documents** (ISSTA ’24) [oai_citation:8‡ISSTA 2024](https://2024.issta.org/details/issta-2024-papers/57/VRDSynth-Synthesizing-Programs-for-Multilingual-Visually-Rich-Document-Information-E)  
-* **GNN‑based fault localisation** (ICSME ’22) [oai_citation:6‡SOAR](https://soarsmu.github.io/papers/2022/ICSME_FFL.pdf)  
+* **VRDSynth for visually rich documents** (ISSTA ’24) [paper](https://2024.issta.org/details/issta-2024-papers/57/VRDSynth-Synthesizing-Programs-for-Multilingual-Visually-Rich-Document-Information-E)  
+* **GNN‑based fault localisation** (ICSME ’22) [paper](https://soarsmu.github.io/papers/2022/ICSME_FFL.pdf)  
+* **Selected open‑source projects**: VRDSynth, VirDA, Autumn.cpp, FFL, MSAU  
+
+**Project demos**  
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:50%;">
+        <a href="https://github.com/datvo06/VRDSynth">VRDSynth</a>
+</th>
+      <th style="width:50%;">
+        <a href="https://github.com/BasisResearch/Autumn.cpp">Autumn.cpp</a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="width:50%; vertical-align:top;">
+        <img src="https://github.com/datvo06/VRDSynth/raw/main/assets/VRDSynth_Animation.gif" alt="VRDSynth" style="width:100%; height:auto;">
+        <br>
+      </td>
+      <td style="width:50%; vertical-align:top;">
+        <img src="https://github.com/BasisResearch/Autumn.cpp/raw/main/assets/examples_small.gif" alt="Autumn.cpp" style="width:100%; height:auto;">
+        <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 

@@ -2,8 +2,8 @@ github_users:
   - datvo06           # your profile card
 
 github_repos:
-  - datvo06/VRDSynth          # ISSTA’24 replication package
-  - FFL2022/FFL               # ICSME’22 Fine‑grained Fault Localization
-  - datvo06/MSAU              # ICPR’20 Multi‑Stage Attentional UNet
-  - datvo06/PlantCLEF2019MRIM # PlantCLEF 2019 DenseNet baseline
-  - datvo06/Origami           # Representative graph‑pattern mining
+  - datvo06/VRDSynth
+  - datvo06/VirDA
+  - datvo06/Autumn.cpp
+  - FFL2022/FFL
+  - datvo06/MSAU
