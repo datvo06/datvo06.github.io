@@ -2,7 +2,7 @@
 layout: post
 title: Bayesian synthesis of probabilistic programs for automatic data modeling
 date: 2026-01-23 09:00:00
-description: a practical view of combining evidence with Bayesian reasoning
+description: Building a chain of mutated programs for synthsizing probabilistic programs
 header_image: https://raw.githubusercontent.com/datvo06/BayesianSynthesis/main/assets/log_run_viz/round_03_mutation.gif
 ---
 
