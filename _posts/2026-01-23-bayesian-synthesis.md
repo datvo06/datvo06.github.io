@@ -95,7 +95,7 @@ $$
  Metropolis-Hastings relies on the property that, if the chain is irreducible (does not have any absorbing states) and aperiodic (does not have any cycles), then it will converge to a unique stationary distribution. By defining the transition based on the PCFG's proability distribution, we can guarantee that the chain is irreducible and aperiodic.
 
 ### Defining $\text{Expand}\llbracket \cdot \rrbracket(N\_i)$ and $\mathcal{T}$
-We will now define formally the prior $\mathsf{Prior}$ and then $\mathsf{Expand}[\![ \cdot ]\!](N\_i)$ accordingly. For that, we need to define a tagged probabilistic context-free grammar (PCFG) $G$, in the paper:
+We will now define formally the prior $\mathsf{Prior}$ and then $\mathsf{Expand}\llbracket \cdot \rrbracket(N\_i)$ accordingly. For that, we need to define a tagged probabilistic context-free grammar (PCFG) $G$, in the paper:
 <blockquote markdown="1">
 $\color{lightgreen}\textbf{Definition 4.1. (Tagged PCFG with Random Symbols)}$. Let $G = \langle \Sigma, N, R, T, P, Q, S\rangle$ denote a tagged PCFG with terminals, non-terminals, and production rules.
 
