@@ -148,10 +148,10 @@ Here, we would sever the first child of the root node, resulting in the $E\_{\te
 
 In conjunction with $\mathsf{Sever}$, let us define $\mathsf{SubExpr}_a$ which is the sub-expression at the index $a$. $\mathsf{SubExpr}_a$ has to be well-defined, so for an index $a$ that is out of range, it should return the empty expression $\emptyset$, otherwise, is is inductively defined as follows:
 $$
-\mathsf{SubExpr}_a[\![(t\ E_1\ E_2\ \ldots\ E_l)]\!] ::= \left\{\begin{array}{ll}
+\mathsf{SubExpr}_a\llbracket(t\ E_1\ E_2\ \ldots\ E_l)\rrbracket ::= \left\{\begin{array}{ll}
 \emptyset& \text{if \(a = ()\) or \(a_1 > k\)}\\
 E_j & \text{if \(a = (j)\) for some $1 \leq j \leq k$} \\
-\mathsf{SubExpr}_{(a_2, a_3, \ldots )} [\![E_j]\!] & \text{if $i\neq (j)$ and $a_1 = j$ for some $1 \leq j \leq k$}
+\mathsf{SubExpr}_{(a_2, a_3, \ldots )} \llbracket E_j\rrbracket & \text{if $i\neq (j)$ and $a_1 = j$ for some $1 \leq j \leq k$}
 \end{array}\right.
 $$
 
@@ -164,12 +164,12 @@ $$
 where
 $$\mathcal{T}(X, E \to E', a) ::= \left\{
 \begin{array}{l}
-\mathsf{Expand}\ [\![\mathsf{SubExpr}_a[\![E']\!]]\!](N_i)  \cdot \alpha(E, E') + \mathbb{I}[E = E'](1 - \alpha(E, E'))\\
-\qquad\ \text{ if \(\mathsf{Sever}_a[\![E]\!] = \mathsf{Sever}_a [\![E']\!] = (N_i, E_\text{hole}) \) for some $i$ and $E_\text{hole}$}\\
+\mathsf{Expand}\ \llbracket\mathsf{SubExpr}_a\llbracket E'\rrbracket\rrbracket(N_i)  \cdot \alpha(E, E') + \mathbb{I}[E = E'](1 - \alpha(E, E'))\\
+\qquad\ \text{ if \(\mathsf{Sever}_a\llbracket E\rrbracket = \mathsf{Sever}_a \llbracket E'\rrbracket = (N_i, E_\text{hole}) \) for some $i$ and $E_\text{hole}$}\\
 0\qquad\text{otherwise}
 \end{array}
 \right.$$
-Note that we discard terms in the sum with $a \in A_E \setminus A_{E'}$ because for these terms $\mathsf{Sever}_a[\![E']\!] =\emptyset$ and $\mathcal{T} (X, E\to E'; a) = 0$.
+Note that we discard terms in the sum with $a \in A_E \setminus A_{E'}$ because for these terms $\mathsf{Sever}_a\llbracket E'\rrbracket =\emptyset$ and $\mathcal{T} (X, E\to E'; a) = 0$.
 
 This is the end. After this, the process is pretty straightforward: we would sample a new expression $E'$ from the current expression $E$ using the Metropolis-Hastings algorithm, and then we would accept or reject the new expression based on the probability of accepting the mutation (Algorithm 2). The process is repeated for $n$ times, and we would return the last expression $E\_n$.
 
