@@ -36,6 +36,10 @@ Recent highlights:
 * **GNN‑based fault localisation** (ICSME ’22) [paper](https://soarsmu.github.io/papers/2022/ICSME_FFL.pdf)  
 * **Selected open‑source projects**: VRDSynth, VirDA, Autumn.cpp, FFL, MSAU  
 
+### Technical blogs
+- [Bayesian Synthesis]({{ '/blog/2026/bayesian-synthesis/' | relative_url }}) — Bayesian synthesis of probabilistic programs for automatic data modeling
+- [Technical Blogs index]({{ '/blog/' | relative_url }})
+
 **Project demos**  
 
 <table>
