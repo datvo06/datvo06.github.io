@@ -75,6 +75,7 @@ Let's break this down:
 1. $\text{SelectRandomElementUniformly}(A\_E)$ is a function that randomly selects a node in the parse tree $E$. When you have an expression $E$ defined in accordance with a PCFG, you can always pick a random terminal in the AST (the parse tree of the expression $E$).
 2. $\text{Sever}\_a\llbracket E \rrbracket$ is a function that severs the parse tree $E$ at the node $a \in A\_E$. Basically, one example of this is if you have an expression $E = (\cdot\ x\ y)$, and you select the node $a = (1)$ - meaning the 1st child of the root node, then $\text{Sever}\_a\llbracket E \rrbracket = (Variable, (\cdot\ \square\  y)$. Where $Variable$ is a non-terminal symbol in the PCFG that are used to produce terms like $x, y, z$, etc.
 3. $\text{Expand}\llbracket \cdot \rrbracket(N\_i)$ is a function that expands the non-terminal symbol $N\_i$ in the parse tree $E$ in accordance with the PCFG's probability distribution. We will be defining this below.
+4. Let's call $\alpha(E, E')$ the probability of accepting the mutation, defined as $$\alpha(E, E') = \min\left\{1,\left(\lvert A_E\rvert/\lvert A_{E'}\rvert\right)\cdot(L'/L)\right\}$$.
 
 $\color{lightgreen}Question$: Why it's called algorithm 2? Why not algorithm 1?
 
