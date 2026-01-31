@@ -50,27 +50,27 @@
       institution: University of Melbourne, Melbourne, Australia
       year: Sep 2024
       description:
-        - Advisor: Dr. Bach Le, Dr. Patanamon Thongtanunam.
-        - Projects: VRDSynth, GraphCodeAttack, GNNInfer, FFL.
-        - Skills: Bash, C++, Java, Python, PyTorch, Scikit-learn, ONNX, OpenCV, Z3, Gurobi.
+        - "Advisor: Dr. Bach Le, Dr. Patanamon Thongtanunam."
+        - "Projects: VRDSynth, GraphCodeAttack, GNNInfer, FFL."
+        - "Skills: Bash, C++, Java, Python, PyTorch, Scikit-learn, ONNX, OpenCV, Z3, Gurobi."
 
 - title: Selected Projects
   type: list
   contents:
-    - VRDSynth: DSL and program synthesis for visually rich document extraction.
-    - GraphCodeAttack: mining AST patterns to attack code LMs.
-    - GNNInfer: GNN to FNN conversion and constraint inference.
-    - FFL: fault localization on graph-based code representations.
+    - "VRDSynth: DSL and program synthesis for visually rich document extraction."
+    - "GraphCodeAttack: mining AST patterns to attack code LMs."
+    - "GNNInfer: GNN to FNN conversion and constraint inference."
+    - "FFL: fault localization on graph-based code representations."
 
 - title: Side Projects
   type: list
   contents:
-    - TensorFlowC: interface to load trained TensorFlow models in C for embedded devices.
-    - Origami: graph mining maintenance and Python bindings.
-    - LLVM dataflow instrumentation: LLVM pass for dataflow extraction.
-    - OpenGL tutorials: lighting, shaders, and rendering basics.
-    - 3D morphable model face swapping app (C++, Dlib, Eigen, 3DDFA).
-    - Algorithms in C/CPP for competitive programming.
+    - "TensorFlowC: interface to load trained TensorFlow models in C for embedded devices."
+    - "Origami: graph mining maintenance and Python bindings."
+    - "LLVM dataflow instrumentation: LLVM pass for dataflow extraction."
+    - "OpenGL tutorials: lighting, shaders, and rendering basics."
+    - "3D morphable model face swapping app (C++, Dlib, Eigen, 3DDFA)."
+    - "Algorithms in C/CPP for competitive programming."
 
 - title: Skills
   type: list
