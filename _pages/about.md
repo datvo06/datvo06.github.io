@@ -7,7 +7,7 @@ subtitle: >-
   <a href="https://www.basis.ai/">Basis Research Institute</a>
 profile:
   align: right
-  image: profile.jpeg
+  image: profile.jpg
   image_circular: true
   address: ""
 news: true            # show the “News” block
