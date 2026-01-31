@@ -1,97 +1,92 @@
 - title: General Information
   type: map
   contents:
-    - name: Full Name
-      value: Albert Einstein
-    - name: Date of Birth
-      value: 14th March 1879
-    - name: Languages
-      value: English, German
+    - name: Name
+      value: Dat Nguyen (Marc)
+    - name: Email
+      value: dat@basis.ai
+    - name: Location
+      value: Cambridge, MA
+
+- title: Summary
+  type: list
+  contents:
+    - Postdoctoral Fellow at Harvard University and incoming Postdoctoral Scientist at the Basis Research Institute, focusing on LLM-based program synthesis.
+    - PhD research on mining patterns in images, graphs, and code to analyze and improve graph neural networks and transformer-based language models.
+    - Engineering experience in C++, Java, Python and libraries for CV, graphics, code analysis, and graph mining.
+
+- title: Work Experience
+  type: time_table
+  contents:
+    - title: Postdoc – LLM, Probabilistic Programming Language and Program Synthesis
+      institution: Basis Research Institute
+      year: Starting Jan 2026
+      description:
+        - Effectful: effect handler-based framework for modeling LLM inference.
+        - MARA: agents that create and maintain world models as code.
+        - R-ADA: probabilistic inference for morphology sampling with a custom language.
+    - title: Postdoc – LLM and Program Synthesis
+      institution: Harvard University
+      year: Jan 2025 – Jan 2026
+      description:
+        - Truth-Maintaining Agent for Drug Repurposing: LLM exploration + knowledge graph + causal rule base.
+        - CASP: causal models to abstract proof search strategies in Lean.
+        - Joint with Basis Research Institute:
+        - MARA: interpreter for Autumn, MARAProtocol tests, and web interface for benchmarking.
+        - R-ADA: language for robot design search and LLM co-design loop.
+    - title: Senior Research Engineer
+      institution: Cinnamon AI Lab
+      year: Feb 2017 – Feb 2021
+      description:
+        - Segmentation-based information extraction from visually rich documents (MSAU, MSAU-PAF).
+        - Deployed projects using Docker, Flask, and FastAPI.
+        - Solution architect for client projects (Sony, Toyota, Prudential).
 
 - title: Education
   type: time_table
   contents:
-    - title: PhD
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1905
+    - title: PhD in Computer Science
+      institution: University of Melbourne, Melbourne, Australia
+      year: Sep 2024
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
-      description:
-        - Description 1.
-        - Description 2.
+        - Advisor: Dr. Bach Le, Dr. Patanamon Thongtanunam.
+        - Projects: VRDSynth, GraphCodeAttack, GNNInfer, FFL.
+        - Skills: Bash, C++, Java, Python, PyTorch, Scikit-learn, ONNX, OpenCV, Z3, Gurobi.
 
-- title: Experience
-  type: time_table
-  contents:
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
-      year: 1933 - 1955
-      description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Visiting Professor
-      institution: California Institute of Technology, Pasadena, California, US
-      year: 1933
-      description:
-        - Description 1.
-        - Description 2.
-
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
-
-    - title: Professor of Theoretical Physics
-      institution: Karl-Ferdinand University, Prague, Czechoslovakia
-      year: 1911 - 1917
-      description:
-
-    - title: Associate Professor of Theoretical Physics
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1909 - 1911
-
-- title: Open Source Projects
-  type: time_table
-  contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
-      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
-
-- title: Honors and Awards
-  type: time_table
-  contents:
-    - year: 1921
-      items: 
-        - Nobel Prize in Physics 
-        - Matteucci Medal
-    - year: 2029
-      items: 
-        - Max Planck Medal
-
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Topic 1.
-      items: 
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
-      items:
-        - Description 1.
-        - Description 2.
-
-- title: Other Interests
+- title: Selected Projects
   type: list
   contents:
-    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+    - VRDSynth: DSL and program synthesis for visually rich document extraction.
+    - GraphCodeAttack: mining AST patterns to attack code LMs.
+    - GNNInfer: GNN to FNN conversion and constraint inference.
+    - FFL: fault localization on graph-based code representations.
+
+- title: Side Projects
+  type: list
+  contents:
+    - TensorFlowC: interface to load trained TensorFlow models in C for embedded devices.
+    - Origami: graph mining maintenance and Python bindings.
+    - LLVM dataflow instrumentation: LLVM pass for dataflow extraction.
+    - OpenGL tutorials: lighting, shaders, and rendering basics.
+    - 3D morphable model face swapping app (C++, Dlib, Eigen, 3DDFA).
+    - Algorithms in C/CPP for competitive programming.
+
+- title: Skills
+  type: list
+  contents:
+    - Languages: C++, Java, Python, Bash.
+    - ML/DS: PyTorch, Scikit-learn, ONNX.
+    - CV/Graphics: OpenCV, OpenGL.
+    - Systems/Tools: LLVM, CMake, Docker, Flask, FastAPI.
+    - Formal/Optimization: Z3, Gurobi.
+
+- title: Publications (Selected)
+  type: list
+  contents:
+    - VirDA: Reusing Backbone for Unsupervised Domain Adaptation with Visual Reprogramming (TMLR, 2025).
+    - Benchmarking World-Model Learning (arXiv:2510.19788, under submission to ICLR 2026).
+    - ExoPredicator: Learning Abstract Models of Dynamic Worlds for Robot Planning (arXiv:2509.26255, under submission to ICLR 2026).
+    - Combining Induction and Transduction for Abstract Reasoning (preprint).
+    - VRDSynth: Synthesizing Programs for Multi-lingual Visually Rich Document Information Extraction (ISSTA 2024).
+    - FFL: Fine-grained Fault Localization for Student Programs (ICSME 2022).
+    - Towards Analysis of Graph Neural Networks (ICSE 2022).
