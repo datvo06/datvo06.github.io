@@ -3,9 +3,9 @@
   contents:
     - name: Name
       value: Dat Nguyen (Marc)
-    - name: Email (Basis)
+    - name: Email (works)
       value: "dat@basis.ai, datnguyen@seas.harvard.edu"
-    - name: Personal Email
+    - name: Email (personal)
       value: datnt.hust59@gmail.com
     - name: Location
       value: Cambridge, MA
