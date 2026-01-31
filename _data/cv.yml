@@ -22,18 +22,19 @@
       institution: Basis Research Institute
       year: Starting Jan 2026
       description:
-        - Effectful: effect handler-based framework for modeling LLM inference.
-        - MARA: agents that create and maintain world models as code.
-        - R-ADA: probabilistic inference for morphology sampling with a custom language.
+        - "Effectful: effect handler-based framework for modeling LLM inference."
+        - "MARA: agents that create and maintain world models as code."
+        - "R-ADA: probabilistic inference for morphology sampling with a custom language."
     - title: Postdoc – LLM and Program Synthesis
       institution: Harvard University
       year: Jan 2025 – Jan 2026
       description:
-        - Truth-Maintaining Agent for Drug Repurposing: LLM exploration + knowledge graph + causal rule base.
-        - CASP: causal models to abstract proof search strategies in Lean.
-        - Joint with Basis Research Institute:
-        - MARA: interpreter for Autumn, MARAProtocol tests, and web interface for benchmarking.
-        - R-ADA: language for robot design search and LLM co-design loop.
+        - "Truth-Maintaining Agent for Drug Repurposing: LLM exploration + knowledge graph + causal rule base."
+        - "CASP: causal models to abstract proof search strategies in Lean."
+        - title: Joint with Basis Research Institute
+          contents:
+            - "MARA: interpreter for Autumn, MARAProtocol tests, and web interface for benchmarking."
+            - "R-ADA: language for robot design search and LLM co-design loop."
     - title: Senior Research Engineer
       institution: Cinnamon AI Lab
       year: Feb 2017 – Feb 2021
