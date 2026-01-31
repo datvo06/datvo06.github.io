@@ -75,21 +75,36 @@
     - "Algorithms in C/CPP for competitive programming."
 
 - title: Skills
-  type: list
+  type: nested_list
   contents:
-    - Languages: C++, Java, Python, Bash.
-    - ML/DS: PyTorch, Scikit-learn, ONNX.
-    - CV/Graphics: OpenCV, OpenGL.
-    - Systems/Tools: LLVM, CMake, Docker, Flask, FastAPI.
-    - Formal/Optimization: Z3, Gurobi.
+    - title: Languages
+      items:
+        - C++
+        - Java
+        - Python
+        - Bash
+    - title: ML/DS
+      items:
+        - PyTorch
+        - Scikit-learn
+        - ONNX
+    - title: CV/Graphics
+      items:
+        - OpenCV
+        - OpenGL
+    - title: Systems/Tools
+      items:
+        - LLVM
+        - CMake
+        - Docker
+        - Flask
+        - FastAPI
+    - title: Formal/Optimization
+      items:
+        - Z3
+        - Gurobi
 
 - title: Publications (Selected)
   type: list
   contents:
-    - VirDA: Reusing Backbone for Unsupervised Domain Adaptation with Visual Reprogramming (TMLR, 2025).
-    - Benchmarking World-Model Learning (arXiv:2510.19788, under submission to ICLR 2026).
-    - ExoPredicator: Learning Abstract Models of Dynamic Worlds for Robot Planning (arXiv:2509.26255, under submission to ICLR 2026).
-    - Combining Induction and Transduction for Abstract Reasoning (preprint).
-    - VRDSynth: Synthesizing Programs for Multi-lingual Visually Rich Document Information Extraction (ISSTA 2024).
-    - FFL: Fine-grained Fault Localization for Student Programs (ICSME 2022).
-    - Towards Analysis of Graph Neural Networks (ICSE 2022).
+    - "Selected publications are listed on the Publications page: <a href=\"/publications/\">/publications/</a>."
