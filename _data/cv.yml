@@ -20,23 +20,15 @@
 - title: Work Experience
   type: time_table
   contents:
-    - title: Postdoc – LLM, Probabilistic Programming Language and Program Synthesis
-      institution: Basis Research Institute
-      year: Starting Jan 2026
+    - title: Joint Postdoc – LLM and Program Synthesis
+      institution: Harvard University & Basis Research Institute
+      year: Jan 2025 – Present
       description:
-        - "Effectful: effect handler-based framework for modeling LLM inference."
-        - "MARA: agents that create and maintain world models as code."
-        - "R-ADA: probabilistic inference for morphology sampling with a custom language."
-    - title: Postdoc – LLM and Program Synthesis
-      institution: Harvard University
-      year: Jan 2025 – Jan 2026
-      description:
-        - "Truth-Maintaining Agent for Drug Repurposing: LLM exploration + knowledge graph + causal rule base."
-        - "CASP: causal models to abstract proof search strategies in Lean."
-        - title: Joint with Basis Research Institute
-          contents:
-            - "MARA: interpreter for Autumn, MARAProtocol tests, and web interface for benchmarking."
-            - "R-ADA: language for robot design search and LLM co-design loop."
+        - "Truth‑Maintaining Agent: LLM exploration with knowledge‑graph and causal rules."
+        - "CASP: causal abstractions for proof search in Lean."
+        - "Effectful: effect‑handler framework for LLM inference."
+        - "MARA: agents that build and maintain world‑model code."
+        - "R‑ADA: probabilistic inference for robot morphology sampling."
     - title: Senior Research Engineer
       institution: Cinnamon AI Lab
       year: Feb 2017 – Feb 2021
