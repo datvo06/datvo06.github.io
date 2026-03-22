@@ -68,6 +68,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
+      <img src="{{ '/assets/img/exopredicator_teaser.png' | relative_url }}" alt="ExoPredicator" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://openreview.net/forum?id=a1zfcaNTkM">ExoPredicator</a></strong> (ICLR '26)<br>
