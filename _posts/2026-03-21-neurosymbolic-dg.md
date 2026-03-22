@@ -45,7 +45,7 @@ $$
 \end{aligned}
 $$
 
-That's 344 productions total. Each class $y$ has its own weight vector $\mathbf{w}_y \in \mathbb{R}^{344}$, normalized by **sparsemax** (Martins & Astudillo, 2016). Sparsemax is the key sparsity mechanism: unlike softmax which assigns nonzero weight to everything, sparsemax produces *exact zeros*. Each class commits to a small set of active productions — typically 3-8 out of 344.
+That's 344 productions total. Each class $y$ has its own weight vector $\mathbf{w}_y \in \mathbb{R}^{344}$, normalized by **sparsemax** ([Martins & Astudillo, 2016](https://arxiv.org/abs/1602.02068)). Sparsemax is the key sparsity mechanism: unlike softmax which assigns nonzero weight to everything, sparsemax produces *exact zeros*. Each class commits to a small set of active productions — typically 4-17 out of 344, with a mean of 8.
 
 The class score is the weighted marginal over all productions:
 
@@ -53,33 +53,37 @@ $$W_y(x) = \sum_{p=1}^{344} \underbrace{[\text{sparsemax}(\mathbf{w}_y)]_p}_{\te
 
 If you squint, this is a linear classifier — but over *spatial relation features* $\beta_p(x)$ instead of raw backbone features, with sparsemax forcing each class to pick a small structural explanation.
 
-## What a derivation looks like
+### Connection to neuro-symbolic scene understanding
 
-Under the symbolic handler, we can extract the actual derivation tree that the grammar produces for each class. Here's what a Robin's grammar looks like after training (showing only the active productions — the ones sparsemax kept nonzero):
+This grammar is semantically similar to the visual reasoning programs used in work like Neural-Symbolic VQA ([Yi et al., 2018](https://arxiv.org/abs/1810.02338)) and the CLEVR ecosystem ([Johnson et al., 2017](https://arxiv.org/abs/1612.06890)). In those systems, a parser produces a symbolic program (e.g., `filter(red) → relate(left_of) → query(shape)`) that executes on a scene representation to answer questions. The programs are compositional, the scene representation is object-centric, and the spatial relations are symbolic.
 
-```
-Layout("Robin")
-├── score(0.82) ── rel("above", p₃, p₁)      "head is above breast"
-├── score(0.71) ── rel("near", p₆, p₃)        "beak is near head"
-├── score(0.45) ── rel("left_of", p₂, p₄)     "wing is left-of tail"
-└── score(0.38) ── has(p₅)                     "legs are present"
-```
+Our DSL has the same flavor — `rel("above", p3, p1)` is not far from `relate(above, obj3, obj1)` in a CLEVR-style program. But there's a key difference in *how the semantics are given*:
 
-Four productions out of 344. The grammar says: "a Robin is a thing where the head is above the breast, the beak is near the head, the wing is left of the tail, and legs are present." Note that the primitives ($p_0, \ldots, p_7$) are anonymous — the network decides what they detect; the labels ("head", "beak") are our post-hoc interpretation from visualizing the heatmaps.
+- **CLEVR-style**: the semantics are **learned** — a neural module network or attention mechanism learns what "left_of" means from data. This is flexible but the learned semantics can overfit to the training distribution.
+- **Ours**: the semantics are **given differentiably** — `above(i, j) = σ(λ(cy_j - cy_i - m))` is a fixed functional form with learnable parameters. The *shape* of the relation is specified (sigmoid on coordinate difference), but the *threshold and sharpness* adapt. This gives us a strong inductive bias: "above" really does mean "higher in the image," it can't drift to mean something else. And because this inductive bias is domain-agnostic — coordinate differences don't depend on rendering style — the grammar is domain-invariant by construction.
 
-Compare that to a Woodpecker, which might look like:
+The tradeoff is expressiveness vs. invariance. Learned relation semantics can capture more complex patterns but may not transfer across domains. Fixed-form differentiable semantics transfer perfectly but can only express what the functional form allows. For spatial relations between detected parts, the sigmoid/Gaussian forms are expressive enough — and the domain invariance is worth it.
 
-```
-Layout("Woodpecker")
-├── score(0.91) ── rel("above", p₃, p₁)       "head is above breast"
-├── score(0.84) ── rel("aligned_v", p₆, p₃)   "beak is vertically aligned with head"
-├── score(0.67) ── rel("contains", p₁, p₇)    "breast contains belly-patch"
-└── score(0.52) ── has(p₄)                     "tail is present"
-```
+## What the grammar actually learns
 
-Different class, different spatial recipe, same grammar formalism. The beak-head relation changes from `near` to `aligned_v` (woodpeckers have long beaks aligned with their head axis). The `contains` relation captures the distinctive breast patch. These structural descriptions transfer across visual domains because they describe *where things are*, not *what they look like*.
+Here's what the trained grammar looks like on real CUB-DG checkpoints. These are the *actual* sparsemax-normalized production weights extracted from our best model (PCFG+CDAN, trained on Photo+Cartoon+Paint, tested on Art).
 
-Here's the critical observation: both derivations are valid whether the bird is rendered as a photograph, an oil painting, or a cartoon. The spatial relations — "above", "near", "aligned" — are invariant to rendering style. This is where the domain generalization comes from, and it falls out of the grammar's inductive bias without any explicit alignment objective.
+Each class uses only 4-17 active productions out of 344. The grammar learns a sparse structural recipe for each bird species:
+
+![Grammar productions per class]({{ '/assets/img/neurosymbolic_dg/grammar_productions.png' | relative_url }})
+
+A few things to notice:
+- **Different classes use different relations**: some are dominated by `above` (vertical spatial structure), others by `contains` (part-whole nesting), others by mixtures.
+- **Sparsemax sparsity is real**: most classes use 7-9 productions. The grammar doesn't hedge across all 344 — it commits to a small structural explanation.
+- **Productions reference specific primitive pairs**: `above(p1, p2)` means "primitive 1 is above primitive 2." The primitives are anonymous (the network decides what they detect), but the grammar locks in *which spatial relations between which pairs* define each class.
+
+### Same grammar, every domain
+
+The grammar weights are per-class, not per-domain. So the structural recipe for "Class 169" is identical whether the bird is a Photo, an Art painting, a Cartoon, or a Paint rendering. This is domain invariance by construction:
+
+![Cross-domain grammar invariance]({{ '/assets/img/neurosymbolic_dg/cross_domain_grammar.png' | relative_url }})
+
+The color coding shows relation types: red = `above`, green = `near`, teal = `contains`. The structural recipe doesn't change across domains — only the primitive detectors (backbone + bottleneck) adapt to the visual style. The grammar captures *what spatial structure defines each class*, and that structure is shared across all renderings.
 
 ## One program, three semantics
 
@@ -97,7 +101,7 @@ The eval handler interprets the DSL in the non-negative real semiring $(\mathbb{
 
 The inside handler interprets the same program in the *powerset semiring* — tracking which subsets of primitives each subprogram explains. This is the [inside algorithm](https://en.wikipedia.org/wiki/Inside%E2%80%93outside_algorithm) adapted from strings to sets: $I(A, S) = \sum_{A \to B\;C} w \sum_{S = S_1 \uplus S_2} I(B, S_1) \cdot I(C, S_2)$. You get exact marginals over all derivations, useful for adaptation.
 
-The symbolic handler builds an explicit `DerivNode` tree — that's how we extract the derivations shown above.
+The symbolic handler builds an explicit `DerivNode` tree — that's how we extract the derivation visualizations above.
 
 Same program, three abstract domains. The algebraic effects pattern makes this clean: you never modify the grammar definition, just swap the handler.
 
@@ -107,7 +111,7 @@ This is the same pattern from [my earlier post on Bayesian synthesis]({% post_ur
 
 ## The concrete setup
 
-Take CUB-DG: 200 bird species across 4 visual domains (Photo, Art, Cartoon, Paint). Train on 3 domains, test on the held-out one. Best published image-only method (CORAL): 49.9% avg. Best with image+text (CITGM): 53.6%.
+Take CUB-DG ([Min et al., ECCV 2022](https://arxiv.org/abs/2209.14108)): 200 bird species across 4 visual domains (Photo, Art, Cartoon, Paint). Train on 3 domains, test on the held-out one. Best published image-only method, CORAL ([Sun & Saenko, 2016](https://arxiv.org/abs/1607.01719)): 49.9% avg. Best with image+text, CITGM: 53.6%.
 
 We get **67.0%** with image only. Here's the full pipeline:
 
@@ -119,7 +123,7 @@ ResNet-50
   → class scores → log-softmax
 ```
 
-The concept bottleneck (the 1x1 conv + soft-argmax) forces the network to decompose its representation into $k=8$ spatially localized primitives. Each primitive has a location, bounding box, and confidence — the "atoms" that the grammar reasons over. No hand-designed primitive vocabulary; the primitives emerge from end-to-end training with the grammar objective.
+The concept bottleneck (the 1x1 conv + [spatial soft-argmax](https://kornia.readthedocs.io/en/latest/geometry.subpix.html)) forces the network to decompose its representation into $k=8$ spatially localized primitives. Each primitive has a location, bounding box, and confidence — the "atoms" that the grammar reasons over. No hand-designed primitive vocabulary; the primitives emerge from end-to-end training with the grammar objective.
 
 ## The grammar as an abstraction
 
@@ -129,7 +133,11 @@ This is why it works for domain generalization, and also why you can't improve i
 
 ## The evidence
 
+![CUB-DG results comparison]({{ '/assets/img/neurosymbolic_dg/fig1_cubdg_hero.png' | relative_url }})
+
 Same backbone, same data, same everything — swap the PCFG head for a linear classifier:
+
+![PCFG vs NoPCFG]({{ '/assets/img/neurosymbolic_dg/fig2_pcfg_vs_nopcfg.png' | relative_url }})
 
 | Method | Art | Cartoon | Paint | Avg |
 |--------|-----|---------|-------|-----|
@@ -143,9 +151,11 @@ Same backbone, same data, same everything — swap the PCFG head for a linear cl
 
 We tried several things to improve on top of the grammar. They all made it worse:
 
-- **Adversarial alignment** (-5.5pp): 3-way domain discriminator during training. The grammar already captures the right invariances; forcing alignment disrupts this.
+![Negative results]({{ '/assets/img/neurosymbolic_dg/fig10_negative_results.png' | relative_url }})
+
+- **Adversarial alignment** (-5.5pp): 3-way domain discriminator ([Ganin et al., 2016](https://arxiv.org/abs/1505.07818)) during training. The grammar already captures the right invariances; forcing alignment disrupts this.
 - **Deeper grammar** (-4.2pp): Hierarchical sublayouts (depth-2). Overfits to source domain structure.
-- **Production score alignment** (-12.9pp): MMD between production activations across domains. Redundant with the grammar's compositional structure.
+- **Production score alignment** (-12.9pp): MMD ([Gretton et al., 2012](https://jmlr.org/papers/v13/gretton12a.html)) between production activations across domains. Redundant with the grammar's compositional structure.
 
 The pattern: the grammar IS the domain invariance mechanism. Every explicit alignment attempt is either redundant or harmful. The right inductive bias does more work than the right loss function.
 
