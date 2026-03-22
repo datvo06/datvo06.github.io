@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Grammars that generalize: a weekend hack on domain-invariant bird recognition"
+title: "Grammars that generalize: trying to find domain-invariant bird recognition"
 date: 2026-03-21 10:00:00
 description: Combining a small DSL with a neural network for image classification gives domain invariance for free.
 ---
