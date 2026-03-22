@@ -5,7 +5,7 @@ date: 2026-03-21 10:00:00
 description: Combining a small DSL with a neural network for image classification gives domain invariance for free.
 ---
 
-Here's a question Duy and I were kicking around: what if you combined a small DSL with a neural network classifier and got domain invariance for free? No adversarial training, no MMD, no contrastive loss — just a different classifier head whose inductive bias *happens* to be domain-invariant by construction.
+Here's a question [Duy](https://github.com/Duy-Nguyen-Duc) and I were kicking around: what if you combined a small DSL with a neural network classifier and the classifier head itself *happened* to be domain-invariant by construction? Not as a replacement for adaptation methods like CDAN — but as a much stronger starting point for them.
 
 Turns out it works. We replaced a linear classification layer with a probabilistic context-free grammar over spatial layout programs and got +15pp on a hard fine-grained vision benchmark. The grammar doesn't know about domains. It just scores spatial relations between detected parts — and those relations don't change when you go from photos to paintings.
 
