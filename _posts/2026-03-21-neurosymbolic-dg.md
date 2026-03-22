@@ -94,18 +94,21 @@ Each class uses only 4-17 active productions out of 344. The grammar learns a sp
 
 <img src="{{ '/assets/img/neurosymbolic_dg/grammar_productions.png' | relative_url }}" alt="Grammar productions per class" style="max-width: 100%; height: auto;">
 
-A few things to notice:
-- **Different classes use different relations**: some are dominated by `above` (vertical spatial structure), others by `contains` (part-whole nesting), others by mixtures.
-- **Sparsemax sparsity is real**: most classes use 7-9 productions. The grammar doesn't hedge across all 344 — it commits to a small structural explanation.
-- **Productions reference specific primitive pairs**: `above(p1, p2)` means "primitive 1 is above primitive 2." The primitives are anonymous (the network decides what they detect), but the grammar locks in *which spatial relations between which pairs* define each class.
+But are the grammars actually different across classes, or do they all converge to the same pattern? Here are 5 maximally diverse species — picked by greedy selection to minimize mutual cosine similarity:
+
+<img src="{{ '/assets/img/neurosymbolic_dg/grammar_diversity.png' | relative_url }}" alt="Grammar diversity across 5 species" style="max-width: 100%; height: auto;">
+
+Very different fingerprints. Painted Bunting uses `left_of` and `above` and `contains`. Groove-billed Ani is dominated by a single strong `above` production. Gray Catbird mixes `contains` with `left_of`. Brown Creeper relies heavily on `left_of`. Each species has a distinct structural recipe — different relation types, different primitive pairs, different weight distributions.
+
+In fact, all 200 classes have unique active production sets (0 identical pairs), with a mean pairwise cosine similarity of just 0.04 — nearly orthogonal. Here's the Jaccard overlap matrix for 20 random classes:
+
+<img src="{{ '/assets/img/neurosymbolic_dg/grammar_overlap.png' | relative_url }}" alt="Grammar overlap matrix" style="max-width: 100%; height: auto;">
+
+Most off-diagonal cells are pale (low overlap). The grammar learns genuinely distinct structural descriptions per species, not a one-size-fits-all template.
 
 ### Same grammar, every domain
 
-The grammar weights are per-class, not per-domain. So the structural recipe for "Class 169" is identical whether the bird is a Photo, an Art painting, a Cartoon, or a Paint rendering. This is domain invariance by construction:
-
-<img src="{{ '/assets/img/neurosymbolic_dg/cross_domain_grammar.png' | relative_url }}" alt="Cross-domain grammar invariance" style="max-width: 100%; height: auto;">
-
-The color coding shows relation types: red = `above`, green = `near`, teal = `contains`. The structural recipe doesn't change across domains — only the primitive detectors (backbone + bottleneck) adapt to the visual style. The grammar captures *what spatial structure defines each class*, and that structure is shared across all renderings.
+The grammar weights are per-class, not per-domain. So the structural recipe for each species is identical whether the bird is a Photo, an Art painting, a Cartoon, or a Paint rendering — domain invariance by construction.
 
 ## Which relations survive training?
 
