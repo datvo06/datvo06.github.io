@@ -31,11 +31,13 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
 Recent highlights:  
 * **VRDSynth for visually rich documents** (ISSTA ’24) [paper](https://2024.issta.org/details/issta-2024-papers/57/VRDSynth-Synthesizing-Programs-for-Multilingual-Visually-Rich-Document-Information-E)  
 * **GNN‑based fault localization** (ICSME ’22) [paper](https://soarsmu.github.io/papers/2022/ICSME_FFL.pdf)  
+* **NeuroSymbolicDG** — PCFG over spatial layout DSL for domain-invariant recognition ([code](https://github.com/datvo06/NeuroSymbolicDG), [blog]({{ '/blog/2026/neurosymbolic-dg/' | relative_url }}))
 * **Open‑source projects**: VRDSynth, VirDA, Autumn.cpp, FFL, MSAU  
 
 ### Technical blogs
+- [Grammars that generalize]({{ '/blog/2026/neurosymbolic-dg/' | relative_url }}) — Combining a small DSL with a neural network for domain-invariant bird recognition
 - [Bayesian Synthesis]({{ '/blog/2026/bayesian-synthesis/' | relative_url }}) — Bayesian synthesis of probabilistic programs for automatic data modeling
-- [Technical Blogs index]({{ '/blog/' | relative_url }})
+- [All posts]({{ '/blog/' | relative_url }})
 
 **Project demos**  
 
