@@ -64,6 +64,22 @@ Our DSL has the same flavor — `rel("above", p3, p1)` is not far from `relate(a
 
 The tradeoff is expressiveness vs. invariance. Learned relation semantics can capture more complex patterns but may not transfer across domains. Fixed-form differentiable semantics transfer perfectly but can only express what the functional form allows. For spatial relations between detected parts, the sigmoid/Gaussian forms are expressive enough — and the domain invariance is worth it.
 
+## The full pipeline on a real image
+
+Here's the complete pipeline running on a Black-footed Albatross photo — from detected primitives through concept heatmaps to the grammar derivation:
+
+![Full pipeline visualization]({{ '/assets/img/neurosymbolic_dg/full_pipeline_viz.png' | relative_url }})
+
+Left: the 8 detected primitives overlaid on the input image. Middle: per-primitive concept heatmaps showing what each primitive attends to (bright = high activation). Right: the grammar's derivation for this class — 8 active productions out of 344, dominated by `contains` relations capturing part-whole nesting.
+
+## Same primitives, different domains
+
+The key claim is that the grammar's spatial structure transfers across visual domains. Here's the same species (Black-footed Albatross) across Photo, Art, and Cartoon renderings, with all 8 concept heatmaps:
+
+![Cross-domain heatmaps]({{ '/assets/img/neurosymbolic_dg/cross_domain_heatmaps.png' | relative_url }})
+
+The primitives detect similar spatial regions across domains — the heatmap patterns are consistent even though the pixel-level appearance changes dramatically. The grammar scores spatial relations between these primitives, and since the relations ("p0 contains p4", "p1 above p2") hold across all renderings, the grammar produces the same classification.
+
 ## What the grammar actually learns
 
 Here's what the trained grammar looks like on real CUB-DG checkpoints. These are the *actual* sparsemax-normalized production weights extracted from our best model (PCFG+CDAN, trained on Photo+Cartoon+Paint, tested on Art).
