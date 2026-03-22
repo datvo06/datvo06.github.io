@@ -107,6 +107,21 @@ The grammar weights are per-class, not per-domain. So the structural recipe for 
 
 The color coding shows relation types: red = `above`, green = `near`, teal = `contains`. The structural recipe doesn't change across domains — only the primitive detectors (backbone + bottleneck) adapt to the visual style. The grammar captures *what spatial structure defines each class*, and that structure is shared across all renderings.
 
+## Which relations survive training?
+
+We defined 6 spatial relations, but the grammar doesn't use them equally. Here's the breakdown across all 200 classes:
+
+<img src="{{ '/assets/img/neurosymbolic_dg/relation_usage.png' | relative_url }}" alt="Relation usage analysis" style="max-width: 100%; height: auto;">
+
+`contains` dominates (94% of classes), followed by `above` (84%). `left_of` drops to 39%, and `aligned`/`near`/`has` are barely used. Why?
+
+- **`contains`** is the most pose- and orientation-invariant relation. A wing is "inside" the body silhouette whether the bird faces left, right, or is in flight. It captures part-whole nesting, which is the dominant spatial structure in birds.
+- **`above`** holds reliably — birds have consistent vertical structure (head above breast above belly) across most poses.
+- **`left_of`** is pose-dependent. A bird facing left has its beak left-of-body; facing right, it's reversed. The training data includes random horizontal flips (RandAugment), so the grammar learns to avoid horizontal directional relations because they're not consistent.
+- **`aligned`** and **`near`** are too specific or redundant with `contains`. **`has`** alone (primitive exists, no spatial context) is nearly useless for fine-grained discrimination — all birds have all parts.
+
+The grammar discovers on its own which relations are domain-invariant by driving the non-invariant ones to zero via sparsemax. Nobody told it that `left_of` is unreliable — it learned this from the data.
+
 ## One program, three semantics
 
 The design principle is something that'll look familiar if you've done any work with abstract interpretation: define the grammar once as an effectful program, then choose your semantics at the call site.
