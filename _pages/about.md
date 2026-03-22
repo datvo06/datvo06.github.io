@@ -88,6 +88,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
+      <img src="{{ '/assets/img/gnninfer_teaser.jpg' | relative_url }}" alt="GNNInfer" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong>GNNInfer</strong> (ICSE '22, arXiv '24)<br>
@@ -97,6 +98,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
+      <img src="{{ '/assets/img/ffl_teaser.png' | relative_url }}" alt="FFL" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://github.com/FFL2022/FFL">FFL</a></strong> (ICSME '22)<br>
