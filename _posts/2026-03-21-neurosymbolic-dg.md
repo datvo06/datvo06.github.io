@@ -72,6 +72,12 @@ Here's the complete pipeline running on a Black-footed Albatross photo — from 
 
 Left: the 8 detected primitives overlaid on the input image. Middle: per-primitive concept heatmaps showing what each primitive attends to (bright = high activation). Right: the grammar's derivation for this class — 8 active productions out of 344, dominated by `contains` relations capturing part-whole nesting.
 
+And here's what each grammar rule looks like spatially — the top 6 active productions visualized with their bounding boxes and relation arrows:
+
+![Grammar rules with bounding boxes]({{ '/assets/img/neurosymbolic_dg/grammar_rules_viz.png' | relative_url }})
+
+Each subplot shows one active production. The colored bounding boxes are the spatial extent of each primitive (estimated from heatmap variance), and the arrows show the spatial relation being scored. For this Albatross, the grammar is dominated by `contains` relations — different primitives detecting nested body regions (body contains wing-patch, body contains tail, etc.).
+
 ## Same primitives, different domains
 
 The key claim is that the grammar's spatial structure transfers across visual domains. Here's the same species (Black-footed Albatross) across Photo, Art, and Cartoon renderings, with all 8 concept heatmaps:
