@@ -200,8 +200,22 @@ We tried several things to improve on top of the grammar. They all made it worse
 
 The pattern: the grammar IS the domain invariance mechanism. Every explicit alignment attempt is either redundant or harmful. The right inductive bias does more work than the right loss function.
 
+## Honest limitations
+
+Before you @ me on HN, let me get ahead of the obvious critiques:
+
+**"This isn't really a grammar."** Fair. At depth-1, the PCFG is a flat weighted sum over 344 fixed productions — no recursion, no hierarchical derivation. It's closer to a spatial relation feature selector with sparsemax sparsity than a context-free grammar in the Chomsky sense. The "grammar" framing is aspirational: the DSL, the handlers, the inside algorithm — the *infrastructure* supports genuine compositionality. But the configuration that works best on CUB-DG is the flat one. We tried the recursive version (depth-2) and it hurt.
+
+**"The depth-2 negative result is the most interesting finding."** I agree. Why doesn't compositionality help? My best explanation: the depth-1 abstraction is already coarse enough to be domain-invariant. Adding hierarchical structure (sublayouts, group-level relations) introduces more parameters that overfit to source domain structure — the *specific way* parts group in photos doesn't transfer to how they group in cartoons. The flat version avoids this by not committing to any grouping. This suggests there's a sweet spot of abstraction granularity for domain invariance: coarse enough to transfer, fine enough to discriminate. Depth-1 pairwise relations hit that sweet spot for birds.
+
+**"The ablation confounds architecture and features."** The PCFG head operates on spatial relation features (344-dim, sparsemax); the linear head operates on backbone features (2048-dim, softmax). Different capacity, different regularization, different feature space. A truly controlled ablation would match these — e.g., a linear head over the same 344 spatial features, or a PCFG head with softmax instead of sparsemax. We didn't run these, so the +15.6pp gap conflates the benefit of spatial features, sparsemax sparsity, and the grammar structure itself. The honest claim is: "this *combination* of inductive biases helps," not "the grammar alone accounts for all +15.6pp."
+
+**"The `contains` relation doesn't contain."** As discussed above — yes. The bounding boxes from heatmap spatial variance are too diffuse for geometric containment. What the model calls `contains` is better described as "asymmetric soft overlap." It still helps because the sigmoid-on-margins gives different gradient dynamics than `near`'s Gaussian-on-distance. But the name is misleading.
+
 ## What's next
 
 The grammar works because birds are compositional — parts with consistent spatial relationships. The natural question: what else is compositional enough? Documents, diagrams, multi-object scenes, maybe action recognition (body parts in motion). The framework is general; CUB-DG happened to be the right benchmark.
+
+The depth-2 failure is the most thought-provoking result. If flat pairwise relations already capture the right invariances, when *does* hierarchical composition become necessary? My guess: when the domain shift changes the *scale* of parts (e.g., macro vs. micro photography), you'd need group-level relations to capture "these parts form a unit at this scale." That's a different benchmark.
 
 The repo has training scripts, all ablations, and pretrained checkpoints on HuggingFace. If you have a compositional recognition task with domain shift, give it a try.
