@@ -115,12 +115,12 @@ We defined 6 spatial relations, but the grammar doesn't use them equally. Here's
 
 `contains` dominates (94% of classes), followed by `above` (84%). `left_of` drops to 39%, and `aligned`/`near`/`has` are barely used. Why?
 
-- **`contains`** is the most pose- and orientation-invariant relation. A wing is "inside" the body silhouette whether the bird faces left, right, or is in flight. It captures part-whole nesting, which is the dominant spatial structure in birds.
+- **`contains`** dominates — but with a caveat. The relation is *defined* as $\sigma(\lambda \min(\text{bbox margins}))$, but in practice the bounding boxes estimated from heatmap spatial variance are too diffuse for true containment. The "contains" the grammar learns is closer to a soft proximity with asymmetric margin scoring — not quite `near`, not quite geometric containment. It's the most useful relation because the sigmoid-on-margins gives the gradient a different shape than `near`'s Gaussian-on-distance, and it's pose-invariant: two overlapping primitives stay overlapping regardless of orientation.
 - **`above`** holds reliably — birds have consistent vertical structure (head above breast above belly) across most poses.
-- **`left_of`** is pose-dependent. A bird facing left has its beak left-of-body; facing right, it's reversed. The training data includes random horizontal flips (RandAugment), so the grammar learns to avoid horizontal directional relations because they're not consistent.
-- **`aligned`** and **`near`** are too specific or redundant with `contains`. **`has`** alone (primitive exists, no spatial context) is nearly useless for fine-grained discrimination — all birds have all parts.
+- **`left_of`** drops to 39%. It's pose-dependent: a bird facing left has its beak left-of-body; facing right, it's reversed. The training data includes random horizontal flips (RandAugment), so the grammar learns to avoid horizontal directional relations because they're not consistent.
+- **`aligned`** and **`near`** are too specific or redundant. **`has`** alone (primitive exists, no spatial context) is nearly useless — all birds have all parts.
 
-The grammar discovers on its own which relations are domain-invariant by driving the non-invariant ones to zero via sparsemax. Nobody told it that `left_of` is unreliable — it learned this from the data.
+The grammar discovers on its own which relations are domain-invariant by driving the non-invariant ones to zero via sparsemax. Nobody told it that `left_of` is unreliable or that `contains`-as-soft-overlap is more useful than `near` — it learned this from the data.
 
 ## One program, three semantics
 
