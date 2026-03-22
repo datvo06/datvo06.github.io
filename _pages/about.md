@@ -78,6 +78,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
+      <img src="{{ '/assets/img/virda_teaser.png' | relative_url }}" alt="VirDA" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://github.com/Duy-Nguyen-Duc/VirDA">VirDA</a></strong> (TMLR '25)<br>
