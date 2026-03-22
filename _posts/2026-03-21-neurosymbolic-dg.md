@@ -66,25 +66,25 @@ The tradeoff is expressiveness vs. invariance. Learned relation semantics can ca
 
 ## The full pipeline on a real image
 
-Here's the complete pipeline running on a Black-footed Albatross photo — from detected primitives through concept heatmaps to the grammar derivation:
+Here's the complete pipeline running on a Painted Bunting — from detected primitives through concept heatmaps to the grammar derivation:
 
 <img src="{{ '/assets/img/neurosymbolic_dg/full_pipeline_viz.png' | relative_url }}" alt="Full pipeline visualization" style="max-width: 100%; height: auto;">
 
-Left: the 8 detected primitives overlaid on the input image. Middle: per-primitive concept heatmaps showing what each primitive attends to (bright = high activation). Right: the grammar's derivation for this class — 8 active productions out of 344, dominated by `contains` relations capturing part-whole nesting.
+Left: the 8 detected primitives overlaid on the input image. Middle: per-primitive concept heatmaps showing what each primitive attends to (bright = high activation). Right: the grammar's derivation — 12 active productions out of 344, dominated by `contains` relations capturing spatial overlap between detected parts.
 
 And here's what each grammar rule looks like spatially — the top 6 active productions visualized with their bounding boxes and relation arrows:
 
 <img src="{{ '/assets/img/neurosymbolic_dg/grammar_rules_viz.png' | relative_url }}" alt="Grammar rules with bounding boxes" style="max-width: 100%; height: auto;">
 
-Each subplot shows one active production. The colored bounding boxes are the spatial extent of each primitive (estimated from heatmap variance), and the arrows show the spatial relation being scored. For this Albatross, the grammar is dominated by `contains` relations — different primitives detecting nested body regions (body contains wing-patch, body contains tail, etc.).
+Each subplot shows one active production. The colored bounding boxes show the spatial extent of each primitive (estimated from heatmap variance), and the arrows indicate which pair is being scored. The grammar captures spatial relationships between different parts of the bird — which regions overlap, which are above others.
 
 ## Same primitives, different domains
 
-The key claim is that the grammar's spatial structure transfers across visual domains. Here's the same species (Black-footed Albatross) across Photo, Art, and Cartoon renderings, with all 8 concept heatmaps:
+The key claim is that the grammar's spatial structure transfers across visual domains. Here's the same species (Painted Bunting) across Photo, Art, and Cartoon renderings, with all 8 concept heatmaps:
 
 <img src="{{ '/assets/img/neurosymbolic_dg/cross_domain_heatmaps.png' | relative_url }}" alt="Cross-domain heatmaps" style="max-width: 100%; height: auto;">
 
-The primitives detect similar spatial regions across domains — the heatmap patterns are consistent even though the pixel-level appearance changes dramatically. The grammar scores spatial relations between these primitives, and since the relations ("p0 contains p4", "p1 above p2") hold across all renderings, the grammar produces the same classification.
+The primitives detect similar spatial regions across domains — the heatmap patterns are consistent even though the pixel-level appearance changes. The grammar scores spatial relations between these primitives, and since the spatial structure holds across all renderings, the grammar produces the same classification.
 
 ## What the grammar actually learns
 
