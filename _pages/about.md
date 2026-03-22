@@ -72,16 +72,16 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://openreview.net/forum?id=a1zfcaNTkM">ExoPredicator</a></strong> (ICLR '26)<br>
       <em>Learning abstract models of dynamic worlds for robot planning.</em><br>
-      <a href="https://openreview.net/forum?id=a1zfcaNTkM">paper</a>
+      <a href="https://arxiv.org/abs/2509.26255">paper</a> · <a href="https://openreview.net/forum?id=a1zfcaNTkM">openreview</a>
     </td>
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
-      <strong><a href="https://openreview.net/forum?id=Qh7or7JRFI">VirDA</a></strong> (TMLR '25)<br>
+      <strong><a href="https://github.com/Duy-Nguyen-Duc/VirDA">VirDA</a></strong> (TMLR '25)<br>
       <em>Reusing backbone for unsupervised domain adaptation with visual reprogramming.</em><br>
-      <a href="https://openreview.net/forum?id=Qh7or7JRFI">paper</a>
+      <a href="https://github.com/Duy-Nguyen-Duc/VirDA">code</a> · <a href="https://openreview.net/forum?id=Qh7or7JRFI">paper</a>
     </td>
   </tr>
   <tr style="border: none;">
@@ -97,9 +97,9 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
-      <strong>FFL</strong> (ICSME '22)<br>
+      <strong><a href="https://github.com/FFL2022/FFL">FFL</a></strong> (ICSME '22)<br>
       <em>Fine-grained fault localization for student programs via syntactic and semantic reasoning.</em><br>
-      <a href="https://soarsmu.github.io/papers/2022/ICSME_FFL.pdf">paper</a>
+      <a href="https://github.com/FFL2022/FFL">code</a> · <a href="https://soarsmu.github.io/papers/2022/ICSME_FFL.pdf">paper</a>
     </td>
   </tr>
 </table>
