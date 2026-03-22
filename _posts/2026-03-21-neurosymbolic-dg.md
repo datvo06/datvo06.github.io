@@ -68,13 +68,13 @@ The tradeoff is expressiveness vs. invariance. Learned relation semantics can ca
 
 Here's the complete pipeline running on a Black-footed Albatross photo — from detected primitives through concept heatmaps to the grammar derivation:
 
-![Full pipeline visualization]({{ '/assets/img/neurosymbolic_dg/full_pipeline_viz.png' | relative_url }})
+<img src="{{ '/assets/img/neurosymbolic_dg/full_pipeline_viz.png' | relative_url }}" alt="Full pipeline visualization" style="max-width: 100%; height: auto;">
 
 Left: the 8 detected primitives overlaid on the input image. Middle: per-primitive concept heatmaps showing what each primitive attends to (bright = high activation). Right: the grammar's derivation for this class — 8 active productions out of 344, dominated by `contains` relations capturing part-whole nesting.
 
 And here's what each grammar rule looks like spatially — the top 6 active productions visualized with their bounding boxes and relation arrows:
 
-![Grammar rules with bounding boxes]({{ '/assets/img/neurosymbolic_dg/grammar_rules_viz.png' | relative_url }})
+<img src="{{ '/assets/img/neurosymbolic_dg/grammar_rules_viz.png' | relative_url }}" alt="Grammar rules with bounding boxes" style="max-width: 100%; height: auto;">
 
 Each subplot shows one active production. The colored bounding boxes are the spatial extent of each primitive (estimated from heatmap variance), and the arrows show the spatial relation being scored. For this Albatross, the grammar is dominated by `contains` relations — different primitives detecting nested body regions (body contains wing-patch, body contains tail, etc.).
 
@@ -82,7 +82,7 @@ Each subplot shows one active production. The colored bounding boxes are the spa
 
 The key claim is that the grammar's spatial structure transfers across visual domains. Here's the same species (Black-footed Albatross) across Photo, Art, and Cartoon renderings, with all 8 concept heatmaps:
 
-![Cross-domain heatmaps]({{ '/assets/img/neurosymbolic_dg/cross_domain_heatmaps.png' | relative_url }})
+<img src="{{ '/assets/img/neurosymbolic_dg/cross_domain_heatmaps.png' | relative_url }}" alt="Cross-domain heatmaps" style="max-width: 100%; height: auto;">
 
 The primitives detect similar spatial regions across domains — the heatmap patterns are consistent even though the pixel-level appearance changes dramatically. The grammar scores spatial relations between these primitives, and since the relations ("p0 contains p4", "p1 above p2") hold across all renderings, the grammar produces the same classification.
 
@@ -92,7 +92,7 @@ Here's what the trained grammar looks like on real CUB-DG checkpoints. These are
 
 Each class uses only 4-17 active productions out of 344. The grammar learns a sparse structural recipe for each bird species:
 
-![Grammar productions per class]({{ '/assets/img/neurosymbolic_dg/grammar_productions.png' | relative_url }})
+<img src="{{ '/assets/img/neurosymbolic_dg/grammar_productions.png' | relative_url }}" alt="Grammar productions per class" style="max-width: 100%; height: auto;">
 
 A few things to notice:
 - **Different classes use different relations**: some are dominated by `above` (vertical spatial structure), others by `contains` (part-whole nesting), others by mixtures.
@@ -103,7 +103,7 @@ A few things to notice:
 
 The grammar weights are per-class, not per-domain. So the structural recipe for "Class 169" is identical whether the bird is a Photo, an Art painting, a Cartoon, or a Paint rendering. This is domain invariance by construction:
 
-![Cross-domain grammar invariance]({{ '/assets/img/neurosymbolic_dg/cross_domain_grammar.png' | relative_url }})
+<img src="{{ '/assets/img/neurosymbolic_dg/cross_domain_grammar.png' | relative_url }}" alt="Cross-domain grammar invariance" style="max-width: 100%; height: auto;">
 
 The color coding shows relation types: red = `above`, green = `near`, teal = `contains`. The structural recipe doesn't change across domains — only the primitive detectors (backbone + bottleneck) adapt to the visual style. The grammar captures *what spatial structure defines each class*, and that structure is shared across all renderings.
 
@@ -155,11 +155,11 @@ This is why it works for domain generalization, and also why you can't improve i
 
 ## The evidence
 
-![CUB-DG results comparison]({{ '/assets/img/neurosymbolic_dg/fig1_cubdg_hero.png' | relative_url }})
+<img src="{{ '/assets/img/neurosymbolic_dg/fig1_cubdg_hero.png' | relative_url }}" alt="CUB-DG results comparison" style="max-width: 100%; height: auto;">
 
 Same backbone, same data, same everything — swap the PCFG head for a linear classifier:
 
-![PCFG vs NoPCFG]({{ '/assets/img/neurosymbolic_dg/fig2_pcfg_vs_nopcfg.png' | relative_url }})
+<img src="{{ '/assets/img/neurosymbolic_dg/fig2_pcfg_vs_nopcfg.png' | relative_url }}" alt="PCFG vs NoPCFG" style="max-width: 100%; height: auto;">
 
 | Method | Art | Cartoon | Paint | Avg |
 |--------|-----|---------|-------|-----|
@@ -173,7 +173,7 @@ Same backbone, same data, same everything — swap the PCFG head for a linear cl
 
 We tried several things to improve on top of the grammar. They all made it worse:
 
-![Negative results]({{ '/assets/img/neurosymbolic_dg/fig10_negative_results.png' | relative_url }})
+<img src="{{ '/assets/img/neurosymbolic_dg/fig10_negative_results.png' | relative_url }}" alt="Negative results" style="max-width: 100%; height: auto;">
 
 - **Adversarial alignment** (-5.5pp): 3-way domain discriminator ([Ganin et al., 2016](https://arxiv.org/abs/1505.07818)) during training. The grammar already captures the right invariances; forcing alignment disrupts this.
 - **Deeper grammar** (-4.2pp): Hierarchical sublayouts (depth-2). Overfits to source domain structure.
