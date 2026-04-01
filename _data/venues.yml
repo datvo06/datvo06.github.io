@@ -1,6 +1,31 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
+"ICLR":
+  url: https://iclr.cc/
+  color: "#4b2e83"
 
-"PhysRev":
-  url: https://journals.aps.org/
+"ISSTA":
+  url: https://conf.researchr.org/home/issta-2024
+  color: "#2e7d32"
+
+"ICSE":
+  url: https://www.icse-conferences.org/
+  color: "#1565c0"
+
+"ICSME":
+  url: https://www.ieee-icsme.org/
+  color: "#0277bd"
+
+"TMLR":
+  url: https://jmlr.org/tmlr/
+  color: "#c62828"
+
+"ICPR":
+  url: https://www.icpr.org/
+  color: "#e65100"
+
+"BMVC":
+  url: https://bmvc2019.org/
+  color: "#4a148c"
+
+"MAPR":
+  url: https://www.ieee.org/
+  color: "#00695c"

@@ -1,34 +1,70 @@
-"Adams":
-  - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
-    url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams
+"Le-Cong":
+  - firstname: ["Thanh", "Cong-Thanh"]
+    url: https://scholar.google.com/citations?user=fPeN8MEAAAAJ
 
-"Podolsky":
-  - firstname: ["Boris", "B.", "B. Y.", "Boris Yakovlevich"]
-    url: https://en.wikipedia.org/wiki/Boris_Podolsky
+"Le":
+  - firstname: ["Xuan-Bach D.", "Xuan Bach", "Bach"]
+    url: https://xuanbachle.github.io/
 
-"Rosen":
-  - firstname: ["Nathan", "N."]
-    url: https://en.wikipedia.org/wiki/Nathan_Rosen
+  - firstname: ["Hung"]
 
-"Bach": 
-  - firstname: ["Johann Sebastian", "J. S."]
-    url: https://en.wikipedia.org/wiki/Johann_Sebastian_Bach
+"Lo":
+  - firstname: ["David"]
+    url: https://davidlo.github.io/
 
-  - firstname: ["Carl Philipp Emanuel", "C. P. E."]
-    url: https://en.wikipedia.org/wiki/Carl_Philipp_Emanuel_Bach
+"Huynh":
+  - firstname: ["Quyet-Thang"]
 
-"Przibram":
-  - firstname: ["Karl"]
-    url: https://link.springer.com/article/10.1007/s00016-019-00242-z
+"Nguyen":
+  - firstname: ["ThanhVu H.", "ThanhVu"]
+    url: https://scholar.google.com/citations?user=FMnS0mAAAAAJ
 
-"Schrödinger":
-  - firstname: ["Erwin"]
-    url: https://en.wikipedia.org/wiki/Erwin_Schr%C3%B6dinger
+  - firstname: ["Duc-Duy"]
+    url: https://github.com/Duy-Nguyen-Duc
 
-"Lorentz":
-  - firstname: ["Hendrik Antoon"]
-    url: https://en.wikipedia.org/wiki/Hendrik_Lorentz
+"Nguyen Dang":
+  - firstname: ["Tuan-Anh", "Tuan Anh"]
 
-"Planck":
-  - firstname: ["Max"]
-    url: https://en.wikipedia.org/wiki/Max_Planck
+"Thongtanunam":
+  - firstname: ["Patanamon"]
+    url: https://patanamon.com/
+
+"McIntosh":
+  - firstname: ["Shane"]
+
+"Tian":
+  - firstname: ["Haoye"]
+
+"Ellis":
+  - firstname: ["Kevin"]
+    url: https://www.cs.cornell.edu/~ellisk/
+
+"Tavares":
+  - firstname: ["Zenna"]
+    url: https://www.basis.ai/about/
+
+"Tenenbaum":
+  - firstname: ["Joshua B."]
+    url: https://web.mit.edu/cocosci/josh.html
+
+"Silver":
+  - firstname: ["Tom"]
+    url: https://tomsilver.github.io/
+
+"Liang":
+  - firstname: ["Yichao"]
+
+"Li":
+  - firstname: ["Wen-Ding"]
+    url: https://wending.dev/
+
+  - firstname: ["Tianyang"]
+
+"Zhou":
+  - firstname: ["Yang"]
+
+"Quénot":
+  - firstname: ["George"]
+
+"Goeuriot":
+  - firstname: ["Lorraine"]
