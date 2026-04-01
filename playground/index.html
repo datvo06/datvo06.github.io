@@ -1,0 +1,768 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title>Autumn Playground | Dat Nguyen</title> <meta name="author" content="Dat Nguyen"/> <meta name="description" content="Write and run Autumn programs in your browser via WebAssembly."/> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"/> <meta property="og:site_name" content="Dat Nguyen"/> <meta property="og:type" content="website"/> <meta property="og:title" content="Dat Nguyen | Autumn Playground"/> <meta property="og:url" content="https://datvo06.github.io/playground/"/> <meta property="og:description" content="Write and run Autumn programs in your browser via WebAssembly."/> <meta property="og:image" content="assets/img/profile.jpg"/> <meta property="og:locale" content="en"/> <meta name="twitter:card" content="summary"/> <meta name="twitter:title" content="Autumn Playground"/> <meta name="twitter:description" content="Write and run Autumn programs in your browser via WebAssembly."/> <meta name="twitter:image" content="assets/img/profile.jpg"/> <script type="application/ld+json">
+      {
+        "author":
+        {
+          "@type": "Person",
+          "name": "Dat  Nguyen"
+        },
+        "url": "https://datvo06.github.io/playground/",
+        "@type": "WebSite",
+        "description": "Write and run Autumn programs in your browser via WebAssembly.",
+        "headline": "Autumn Playground",
+        "sameAs": ["https://scholar.google.com/citations?user=laTdjfAAAAAJ", "https://github.com/datvo06", "https://www.linkedin.com/in/thanh-dat-nguyen-b14859135", "https://www.kaggle.com/datvo06", "https://facebook.com/datvo06"],
+        "name": "Dat  Nguyen",
+        "@context": "https://schema.org"
+      }
+    </script> <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY=" crossorigin="anonymous"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous"/> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg=" crossorigin="anonymous"> <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light"/> <link rel="shortcut icon" href="/assets/img/gear.svg"/> <link rel="stylesheet" href="/assets/css/main.css"> <link rel="canonical" href="https://datvo06.github.io/playground/"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/native.css" media="none" id="highlight_theme_dark"/> <script src="/assets/js/theme.js"></script> <script src="/assets/js/dark_mode.js"></script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/">Dat Nguyen</a> <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse text-right" id="navbarNav"> <ul class="navbar-nav ml-auto flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">About</a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">Technical Blogs</a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications</a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">Repositories</a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">Resume</a> </li> <li class="toggle-container"> <button id="light-toggle" title="Change theme"> <i class="fas fa-moon"></i> <i class="fas fa-sun"></i> </button> </li> </ul> </div> </div> </nav> </header> <div class="container mt-5"> <div class="post"> <header class="post-header"> <h1 class="post-title">Autumn Playground</h1> <p class="post-description">Write and run Autumn programs in your browser via WebAssembly.</p> </header> <article> <style>.pg-container{display:flex;gap:16px;align-items:flex-start}.pg-editor-col{flex:1;min-width:0;display:flex;flex-direction:column}.pg-canvas-col{flex:0 0 auto;display:flex;flex-direction:column;align-items:center}.pg-canvas-wrapper{border:2px solid var(--global-divider-color,#444);border-radius:4px;overflow:hidden;line-height:0}#pg-canvas{image-rendering:pixelated;image-rendering:crisp-edges;cursor:pointer;width:320px;height:320px}.pg-toolbar{display:flex;gap:8px;margin-bottom:10px;align-items:center;flex-wrap:wrap}.pg-toolbar select,.pg-toolbar button{padding:5px 12px;border-radius:5px;border:1px solid var(--global-divider-color,#dee2e6);background:var(--global-bg-color,#fff);color:var(--global-text-color,#000);font-size:13px;cursor:pointer}.pg-toolbar button:hover{opacity:.8}#pg-run-btn{background:#2e7d32;color:#fff;border-color:#2e7d32;font-weight:600}#pg-status{font-size:12px;margin-top:8px;min-height:18px}.pg-keys{font-size:12px;color:var(--global-text-color-light,#666);margin-top:8px;text-align:center}.pg-keys kbd{display:inline-block;padding:2px 6px;font-size:11px;border:1px solid var(--global-divider-color,#ccc);border-radius:3px;background:var(--global-code-bg-color,#f5f5f5);color:var(--global-text-color,#333);font-family:monospace}#pg-editor{width:100%;min-height:420px;font-family:'JetBrains Mono','Fira Code','Consolas','Courier New',monospace;font-size:13px;line-height:1.6;padding:12px;border:1px solid var(--global-divider-color,#dee2e6);border-radius:6px;background:#272822;color:#f8f8f2;tab-size:2;resize:vertical;white-space:pre;overflow-wrap:normal;overflow-x:auto}#pg-editor:focus{outline:2px solid #a6e22e;outline-offset:-1px}.autumn-tooltip{position:fixed;background:#1e1e1e;color:#f8f8f2;border-radius:6px;padding:10px 12px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px;line-height:1.5;max-width:380px;border:1px solid #555;box-shadow:0 6px 20px rgba(0,0,0,0.4);z-index:9999;pointer-events:none;display:none}.autumn-tooltip.visible{display:block}.autumn-tooltip .tt-title{font-weight:bold;color:#a6e22e;margin-bottom:4px;padding-bottom:4px;border-bottom:1px solid #444;font-size:14px}.autumn-tooltip .tt-desc{margin-bottom:6px;color:#ccc}.autumn-tooltip .tt-params{background:#282828;border-radius:4px;padding:6px 8px;margin-top:6px}.autumn-tooltip .tt-params-title{font-weight:bold;color:#f92672;margin-bottom:3px;font-size:12px}.autumn-tooltip .tt-param{padding-left:8px;color:#e6db74;font-size:12px;line-height:1.6}.autumn-autocomplete{position:fixed;background:#1e1e1e;border:1px solid #444;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,0.4);z-index:10000;max-height:200px;overflow-y:auto;display:none;font-family:'JetBrains Mono',monospace;font-size:13px}.autumn-autocomplete.visible{display:block}.autumn-ac-item{padding:4px 10px;cursor:pointer;color:#f8f8f2}.autumn-ac-item:hover,.autumn-ac-item.selected{background:#383830;color:#a6e22e}.autumn-ac-desc{font-size:11px;color:#888;margin-left:8px}@media(max-width:768px){.pg-container{flex-direction:column}#pg-canvas{width:100%;height:auto;aspect-ratio:1}.pg-canvas-col{width:100%}#pg-editor{min-height:250px}}</style> <p style="margin-bottom: 12px;"> Write <a href="https://autumn.basis.ai" target="_blank" rel="noopener noreferrer">Autumn</a> programs and run them live via WebAssembly. Pick an example or write your own, then hit <strong>Run</strong>. Hover a function name for docs. <kbd style="font-size:11px;padding:1px 4px;border:1px solid #ccc;border-radius:3px;">Ctrl+Enter</kbd> to run. </p> <div class="pg-toolbar"> <select id="pg-select"></select> <button id="pg-run-btn">Run</button> <button id="pg-reset-btn">Reset</button> <button id="pg-pause-btn">Pause</button> </div> <div class="pg-container"> <div class="pg-editor-col"> <textarea id="pg-editor" spellcheck="false"></textarea> <div id="pg-status"></div> </div> <div class="pg-canvas-col"> <div class="pg-canvas-wrapper"> <canvas id="pg-canvas" width="640" height="640"></canvas> </div> <div class="pg-keys"> <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> Move · <kbd>Click</kbd> Interact </div> </div> </div> <div class="autumn-tooltip" id="autumn-tooltip"></div> <div class="autumn-autocomplete" id="autumn-ac"></div> <script type="module">
+// ── Autumn stdlib (shared) ──
+const autumnstdlib = `
+(module
+  (= GRID_SIZE 16)
+  (= FRAME_RATE 8)
+  (= background "black")
+  (= move (--> (obj dir)
+    (updateObj obj "origin"
+      (Position
+        (+ (.. (.. obj origin) x) (.. dir x))
+        (+ (.. (.. obj origin) y) (.. dir y))
+      )
+    )
+  ))
+  (= moveRight (--> obj (move obj (Position 1 0))))
+  (= moveLeft (--> obj (move obj (Position -1 0))))
+  (= moveUp (--> obj (move obj (Position 0 -1))))
+  (= moveDown (--> obj (move obj (Position 0 1))))
+  (= moveNoCollision (--> (obj x y)
+    (if (isFreeExcept (move obj (Position x y)) obj) then (move obj (Position x y)) else obj)
+  ))
+  (= moveCanCollision (--> (obj x y obj2)
+    (if (isFreeExcept (move obj (Position x y)) (list obj obj2)) then (move obj (Position x y)) else obj)
+  ))
+  (= rotateNoCollision (--> (obj)
+    (if (& (isWithinBounds (rotate obj)) (isFreeExcept (rotate obj) obj)) then (rotate obj) else obj)
+  ))
+  (= movePos (--> (pos dir)
+    (Position
+      (+ (.. pos x) (.. dir x))
+      (+ (.. pos y) (.. dir y))
+    )
+  ))
+  (= moveRightPos (--> pos (movePos pos (Position 1 0))))
+  (= moveLeftPos (--> pos (movePos pos (Position -1 0))))
+  (= moveUpPos (--> pos (movePos pos (Position 0 -1))))
+  (= moveDownPos (--> pos (movePos pos (Position 0 1))))
+  (= abs (--> x (if (< x 0) then (- x) else x)))
+  (= sign (--> x (if (== x 0) then 0 else (if (< x 0) then -1 else 1))))
+  (= vcat concat)
+  (= deltaPos (--> (pos1 pos2) (Position (- (.. pos2 x) (.. pos1 x)) (- (.. pos2 y) (.. pos1 y)))))
+  (= rect (--> (pos1 pos2) (
+    let (= xmin (.. pos1 x)) (= xmax (.. pos2 x)) (= ymin (.. pos1 y)) (= ymax (.. pos2 y))
+        (= rectPos (concat (map (--> y (map (--> x (Position x y)) (range xmin xmax))) (range ymin ymax))))
+        rectPos
+  )))
+  (= displacement deltaPos)
+  (= deltaElem (--> (e1 e2) (deltaPos (.. e1 position) (.. e2 position))))
+  (= deltaObj (--> (obj1 obj2) (deltaPos (.. obj1 origin) (.. obj2 origin))))
+  (= adjacentElem (--> (e1 e2) (
+      let (= delta (deltaPos (.. e1 position) (.. e2 position)))
+          (== (+ (abs (.. delta x)) (abs (.. delta y))) 1))))
+  (= adjacentPoss (--> (p1 p2 unitSize) (
+    let (= delta (deltaPos p1 p2)) (<= (+ (abs (.. delta x)) (abs (.. delta y))) unitSize))))
+  (= adjacentTwoObjs (--> (obj1 obj2 unitSize) (adjacentPoss (.. obj1 origin) (.. obj2 origin) unitSize)))
+  (= adjacentPossDiag (--> (p1 p2) (
+    let (= delta (deltaPos p1 p2)) (& (<= (abs (.. delta x)) 1) (<= (abs (.. delta y)) 1)))))
+  (= adjacentTwoObjsDiag (--> (obj1 obj2) (adjacentPossDiag (.. obj1 origin) (.. obj2 origin))))
+  (= adjacentObjs (--> (obj1 unitSize)
+    (if (isList obj1) then
+    (filter (--> obj2 (any (--> o1 (adjacentTwoObjs o1 obj2 unitSize)) obj1)) ((allObjs)))
+    else (filter (--> obj2 (adjacentTwoObjs obj1 obj2 unitSize)) ((allObjs))))))
+  (= adjacentObjsDiag (--> obj (
+    if (isList obj) then
+    (filter (--> obj2 (any (--> o1 (adjacentTwoObjsDiag o1 obj2)) obj)) ((allObjs)))
+    else (filter (--> obj2 (adjacentTwoObjsDiag obj obj2)) ((allObjs))))))
+  (= adj (--> (obj objs unitSize) (any (--> obj2 (adjacentTwoObjs obj obj2 unitSize)) objs)))
+  (= objClicked (--> (objs) (filter (--> obj (clicked obj)) objs)))
+  (= sqdist (--> (pos1 pos2)
+    (let (= delta (deltaPos pos1 pos2))
+         (+ (* (.. delta x) (.. delta x)) (* (.. delta y) (.. delta y))))))
+  (= unitVector (--> (obj target)
+    (let (= delta (deltaPos (.. obj origin) (.. target origin)))
+      (= sign_x (sign (.. delta x))) (= sign_y (sign (.. delta y)))
+      (if (and (== (abs sign_x) 1) (== (abs sign_y) 1)) then (Position sign_x 0) else (Position sign_x sign_y)))))
+  (= unitVectorObjPos (--> (obj pos)
+    (let (= delta (deltaPos (.. obj origin) pos))
+      (= sign_x (sign (.. delta x))) (= sign_y (sign (.. delta y)))
+      (if (and (== (abs sign_x) 1) (== (abs sign_y) 1)) then (Position sign_x 0) else (Position sign_x sign_y)))))
+  (= unitVectorSinglePos (--> (pos)
+    (let (= sign_x (sign (.. pos x))) (= sign_y (sign (.. pos y))) (Position sign_x sign_y))))
+  (= max (--> (a b) (if (< a b) then b else a)))
+  (= min (--> (a b) (if (< a b) then a else b)))
+  (= closest (--> (obj listObjs)
+    (if (== (length listObjs) 0) then obj else
+    (foldl (--> (obj1 obj2)
+      (if (< (sqdist (.. obj1 origin) (.. obj origin)) (sqdist (.. obj2 origin) (.. obj origin))) then obj1 else obj2
+    )) (head listObjs) listObjs))))
+  (= closestPos (--> (obj listPoss)
+    (if (== (length listPoss) 0) then (.. obj origin) else
+    (foldl (--> (pos1 pos2)
+      (if (< (sqdist pos1 (.. obj origin)) (sqdist pos2 (.. obj origin))) then pos1 else pos2
+    )) (head listPoss) listPoss))))
+  (= renderValue (--> obj (if (isList obj) then (concat (map renderValue obj)) else ((.. obj render)))))
+  (= sum (--> (l) (foldl (--> (acc x) (+ acc x)) 0 l)))
+  (= intersectsElems (--> (elems1 elems2) (
+    if (or (== (length elems1) 0) (== (length elems2) 0)) then false else
+    (any (--> elem1 (any (--> elem2 (== (.. elem1 position) (.. elem2 position))) elems2)) elems1))))
+  (= intersectsPosElems (--> (pos elems) (any (--> elem (== (.. elem position) pos)) elems)))
+  (= intersectsPosPoss (--> (pos poss) (any (--> pos2 (== pos pos2)) poss)))
+  (= intersects (--> (obj1 obj2) (intersectsElems (renderValue obj1) (renderValue obj2))))
+  (= isFree (--> obj (! (any (--> e (! (isFreePos (.. e position)))) (renderValue obj)))))
+  (= in (--> (e l) (any (--> x (== x e)) l)))
+  (= isFreeExcept (--> (obj prev_obj) (
+    let (= prev_elems (renderValue prev_obj))
+        (= curr_elems (renderValue obj))
+        (= filtered_elems (filter (--> elem (! (in elem prev_elems))) curr_elems))
+        (! (any (--> elem (! (isFreePos (.. elem position)))) filtered_elems)))))
+  (= isFreePosExceptObj (--> (pos obj) (
+    if (| (isFreePos pos) (intersectsPosElems pos (renderValue obj))) then true else false)))
+  (= isFreeRangeExceptObj (--> (start end obj) (
+    let (= allCheckedPos (map (--> (x) (Position x 0)) (range start end)))
+        (= prev_elems (renderValue obj))
+        (= filtered_pos (filter (--> pos (! (intersectsPosElems pos prev_elems))) allCheckedPos))
+        (! (any (--> pos (! (isFreePos pos))) filtered_pos)))))
+  (= moveLeftNoCollision (--> obj (let
+      (if (and (isWithinBounds (moveLeft obj)) (isFreeExcept (moveLeft obj) obj)) then (moveLeft obj) else obj))))
+  (= moveRightNoCollision (--> obj (let
+      (= wbound (isWithinBounds (moveRight obj)))
+      (= fr (isFreeExcept (moveRight obj) obj))
+      (= ret (if (& wbound fr) then (moveRight obj) else obj)) ret)))
+  (= moveUpNoCollision (--> obj (if (and (isWithinBounds (moveUp obj)) (isFreeExcept (moveUp obj) obj)) then (moveUp obj) else obj)))
+  (= moveDownNoCollision (--> obj (if (and (isWithinBounds (moveDown obj)) (isFreeExcept (moveDown obj) obj)) then (moveDown obj) else obj)))
+  (= nextSolid moveDownNoCollision)
+  (= nextLiquidClosestHole (--> (obj holes)
+      (if (== (length holes) 0) then obj else (
+        let (= closestHole (closestPos obj holes)) (nextLiquidMoveClosestHole obj closestHole)))))
+  (= nextLiquid (--> (obj) (
+    if (and (!= (.. (.. obj origin) y) (- GRID_SIZE 1)) (isFree (moveDown obj)))
+      then (moveDown obj) else (
+        let (= nextRowPos (rect (Position 0 (+ (.. (.. obj origin) y) 1)) (Position GRID_SIZE (+ (.. (.. obj origin) y) 2))))
+            (= nextRowPos (filter (--> p (!= (.. p y) GRID_SIZE)) nextRowPos))
+            (= holes (filter (--> p (and (isFreePos p) (isFreePos (moveUpPos p)))) nextRowPos))
+            (nextLiquidClosestHole obj holes)))))
+  (= nextLiquidMoveClosestHole (--> (obj closestHole) (
+     let (= dir (unitVectorObjPos obj (moveUpPos closestHole)))
+         (= movedObj (move obj dir))
+         (if (and (isFreePos (moveUpPos closestHole))
+              (and (isFreePos (.. movedObj origin)) (isWithinBounds movedObj)))
+           then movedObj else obj))))
+)
+`;
+
+// ── Autumn example programs (shared) ──
+const PROGRAMS = {
+  "Ice": `(program
+    (= GRID_SIZE 16)
+    (object CelestialBody (: day Bool) (list (Cell 0 0 (if day then "gold" else "gray"))
+                                            (Cell 0 1 (if day then "gold" else "gray"))
+                                            (Cell 1 0 (if day then "gold" else "gray"))
+                                            (Cell 1 1 (if day then "gold" else "gray"))))
+    (object Cloud (list (Cell -1 0 "gray") (Cell 0 0 "gray") (Cell 1 0 "gray")))
+    (object Water (: liquid Bool) (Cell 0 0 (if liquid then "blue" else "lightblue")))
+    (: celestialBody CelestialBody)
+    (= celestialBody (initnext (CelestialBody true (Position 0 0)) (prev celestialBody)))
+    (: cloud Cloud)
+    (= cloud (initnext (Cloud (Position 4 0)) (prev cloud)))
+    (: water (List Water))
+    (= water (initnext (list) (updateObj (prev water) nextWater)))
+    (on left (= cloud (nextCloud cloud (Position -1 0))))
+    (on right (= cloud (nextCloud cloud (Position 1 0))))
+    (on down (= water (addObj water (Water (.. celestialBody day) (movePos (.. cloud origin) (Position 0 1))))))
+    (on clicked (let
+      (= celestialBody (updateObj celestialBody "day" (! (.. celestialBody day))))
+      (= water (updateObj water (--> drop (updateObj drop "liquid" (! (.. drop liquid))))))
+    ))
+    (= nextWater (--> (drop)
+                    (if (.. drop liquid)
+                      then (nextLiquid drop)
+                      else (nextSolid drop))))
+    (= nextCloud (--> (cloud position)
+                    (if (isWithinBounds (move cloud position))
+                      then (move cloud position)
+                      else cloud)))
+)`,
+  "Space Invaders": `(program
+(= GRID_SIZE 16)
+(object Enemy (Cell 0 0 "blue"))
+(object Hero (: alive Bool) (Cell 0 0 (if alive then "gray" else "black")))
+(object Bullet (Cell 0 0 "red"))
+(object EnemyBullet (Cell 0 0 "orange"))
+(: enemies1 (List Enemy))
+(= enemies1 (initnext (map (--> pos (Enemy pos)) (filter (--> pos (and (== (.. pos y) 1) (== (% (.. pos x) 3) 1))) (allPositions GRID_SIZE))) (prev "enemies1")))
+(: enemies2 (List Enemy))
+(= enemies2 (initnext (map (--> pos (Enemy pos)) (filter (--> pos (and (== (.. pos y) 3) (== (% (.. pos x) 3) 2))) (allPositions GRID_SIZE))) (prev "enemies2")))
+(: hero Hero)
+(= hero (initnext (Hero true (Position 8 15)) (prev "hero")))
+(: enemyBullets (List EnemyBullet))
+(= enemyBullets (initnext (list) (prev "enemyBullets")))
+(: bullets (List Bullet))
+(= bullets (initnext (list) (prev "bullets")))
+(: time Int)
+(= time (initnext 0 (+ (prev "time") 1)))
+(on true (= enemyBullets (updateObj enemyBullets (--> obj (moveDown obj)))))
+(on true (= bullets (updateObj bullets (--> obj (moveUp obj)))))
+(on left (= hero (moveLeftNoCollision (prev "hero"))))
+(on right (= hero (moveRightNoCollision (prev "hero"))))
+(on (and ((up)) (.. (prev "hero") alive)) (= bullets (addObj bullets (Bullet (.. (prev "hero") origin)))))
+(on (== (% time 10) 5) (= enemies1 (updateObj enemies1 (--> obj (moveLeft obj)))))
+(on (== (% time 10) 0) (= enemies1 (updateObj enemies1 (--> obj (moveRight obj)))))
+(on (== (% time 10) 5) (= enemies2 (updateObj enemies2 (--> obj (moveRight obj)))))
+(on (== (% time 10) 0) (= enemies2 (updateObj enemies2 (--> obj (moveLeft obj)))))
+(on (intersects (prev "bullets") (prev "enemies1"))
+  (let (= bullets (removeObj (prev "bullets") (--> obj (intersects obj (prev "enemies1"))))) (= enemies1 (removeObj (prev "enemies1") (--> obj (intersects obj (prev "bullets")))))))
+(on (intersects (prev "bullets") (prev "enemies2"))
+  (let (= bullets (removeObj (prev "bullets") (--> obj (intersects obj (prev enemies2))))) (= enemies2 (removeObj (prev "enemies2") (--> obj (intersects obj (prev bullets)))))))
+(on (== (% time 5) 2) (= enemyBullets (addObj enemyBullets (EnemyBullet (uniformChoice (map (--> obj (.. obj origin)) (vcat (list (prev "enemies1") (prev "enemies2")))))))))
+(on (intersects (prev "hero") (prev "enemyBullets")) (= hero (updateObj (prev "hero") "alive" false)))
+(on (intersects (prev "bullets") (prev "enemyBullets"))
+  (let (= bullets (removeObj (prev "bullets") (--> obj (intersects obj (prev enemyBullets))))) (= enemyBullets (removeObj (prev "enemyBullets") (--> obj (intersects obj (prev bullets)))))))
+)`,
+  "Sokoban": `(program
+  (= GRID_SIZE 16)
+  (object Agent (Cell 0 0 "blue"))
+  (object Box (Cell 0 0 "gray"))
+  (object Goal (Cell 0 0 "red"))
+  (: agent Agent)
+  (= agent (initnext (Agent (Position 7 4)) (prev agent)))
+  (: boxes (List Box))
+  (= boxes (initnext (list (Box (Position 14 2)) (Box (Position 9 14)) (Box (Position 1 2)) (Box (Position 0 4)) (Box (Position 4 4)) (Box (Position 9 9)) (Box (Position 10 9)) (Box (Position 0 11))) (prev boxes)))
+  (: goal Goal)
+  (= goal (initnext (Goal (Position 0 0)) (prev goal)))
+  (on left (let (= boxes (moveBoxes (prev boxes) (prev agent) (prev goal) -1 0)) (= agent (moveAgent (prev agent) (prev boxes) (prev goal) -1 0))))
+  (on right (let (= boxes (moveBoxes (prev boxes) (prev agent) (prev goal) 1 0)) (= agent (moveAgent (prev agent) (prev boxes) (prev goal) 1 0))))
+  (on up (let (= boxes (moveBoxes (prev boxes) (prev agent) (prev goal) 0 -1)) (= agent (moveAgent (prev agent) (prev boxes) (prev goal) 0 -1))))
+  (on down (let (= boxes (moveBoxes (prev boxes) (prev agent) (prev goal) 0 1)) (= agent (moveAgent (prev agent) (prev boxes) (prev goal) 0 1))))
+  (on (& ((clicked)) (isFreePos click)) (= boxes (addObj boxes (Box (Position (.. click x) (.. click y))))))
+  (= moveBoxes (fn (boxes agent goal x y) (updateObj boxes (--> obj (if (intersects (move obj Position (x y)) goal) then (removeObj obj) else (moveNoCollision obj Position (x y)))) (--> obj (== (displacement (.. obj origin) (.. agent origin)) (Position (- 0 x) (- 0 y)))))))
+  (= moveAgent (fn (agent boxes goal x y) (if (intersects (list (move agent x y)) (moveBoxes boxes agent goal x y)) then agent else (move agent x y))))
+)`,
+  "Particles": `(program
+  (= GRID_SIZE 16)
+  (object Particle (Cell 0 0 "blue"))
+  (: particles (List Particle))
+  (= particles (initnext (list) (updateObj (prev particles) (--> obj (Particle (uniformChoice (adjPositions (.. obj origin))))))))
+  (on clicked (= particles (addObj (prev particles) (Particle (Position (.. click x) (.. click y)))))))`,
+  "Game of Life": `(program
+  (= GRID_SIZE 16)
+  (object Particle (: living Bool) (Cell 0 0 (if living then "lightpink" else "black")))
+  (= create_initial_particles (fn () (let
+   (= particles (map (--> (pos) (Particle false pos)) (allPositions GRID_SIZE)))
+   (= particles (updateObj particles (--> obj (updateObj obj "living" true)) (--> obj (in (.. obj origin)
+    (list (Position 2 3) (Position 3 3) (Position 3 1) (Position 4 3) (Position 4 2))
+   ))))
+   particles
+   )))
+  (: particles (List Particle))
+  (= particles (initnext ((create_initial_particles)) (prev particles)))
+  (object Button (: color String) (Cell 0 0 color))
+  (: buttonNext Button)
+  (= buttonNext (initnext (Button "green" (Position 0 (- GRID_SIZE 1))) (prev "buttonNext")))
+  (: buttonReset Button)
+  (= buttonReset (initnext (Button "silver" (Position (- GRID_SIZE 1) (- GRID_SIZE 1))) (prev "buttonReset")))
+  (on clicked (= particles (addObj (removeObj (prev particles) (--> obj (clicked obj))) (Particle true click))))
+  (on (clicked buttonNext) (= particles
+                      (let (= livingObjs (filter (--> o (.. o living)) (prev particles)))
+                           (updateObj (prev particles)
+                           (--> obj
+                           (let (= neighbours (list
+                            (Position (+ (.. (.. obj origin) x) 1) (+ (.. (.. obj origin) y) 1))
+                            (Position (+ (.. (.. obj origin) x) 1) (- (.. (.. obj origin) y) 1))
+                            (Position (- (.. (.. obj origin) x) 1) (+ (.. (.. obj origin) y) 1))
+                            (Position (- (.. (.. obj origin) x) 1) (- (.. (.. obj origin) y) 1))
+                            (Position (.. (.. obj origin) x) (+ (.. (.. obj origin) y) 1))
+                            (Position (.. (.. obj origin) x) (- (.. (.. obj origin) y) 1))
+                            (Position (+ (.. (.. obj origin) x) 1) (.. (.. obj origin) y))
+                            (Position (- (.. (.. obj origin) x) 1) (.. (.. obj origin) y))
+                            ))
+                            (= livingAdjObjs (filter (--> o (in (.. o origin) neighbours)) livingObjs))
+                            (= len (length livingAdjObjs))
+                            (if (.. obj living) then (let
+                              (if (| (<= len 1) (>= len 4)) then
+                                (updateObj obj "living" false) else
+                                obj)) else (let
+                              (if (== len 3) then
+                                (updateObj obj "living" true) else
+                                obj))))))
+                        )))
+  (on (clicked buttonReset) (= particles (map (--> (obj) (updateObj obj "living" false)) (prev particles))))
+)`,
+  "Gravity": `(program
+    (= GRID_SIZE 16)
+    (object Button (: color String) (Cell 0 0 color))
+    (object Blob (list (Cell 0 -1 "blue") (Cell 0 0 "blue") (Cell 1 -1 "blue") (Cell 1 0 "blue")))
+    (: leftButton Button)
+    (= leftButton (initnext (Button "red" (Position 0 7)) (prev leftButton)))
+    (: rightButton Button)
+    (= rightButton (initnext (Button "darkorange" (Position 15 7)) (prev rightButton)))
+    (: upButton Button)
+    (= upButton (initnext (Button "gold" (Position 7 0)) (prev upButton)))
+    (: downButton Button)
+    (= downButton (initnext (Button "green" (Position 7 15)) (prev downButton)))
+    (: blobs (List Blob))
+    (= blobs (initnext (list) (prev blobs)))
+    (: gravity String)
+    (= gravity (initnext "down" (prev "gravity")))
+    (on (== gravity "left") (= blobs (updateObj blobs (--> obj (moveLeft obj)))))
+    (on (== gravity "right") (= blobs (updateObj blobs (--> obj (moveRight obj)))))
+    (on (== gravity "up") (= blobs (updateObj blobs (--> obj (moveUp obj)))))
+    (on (== gravity "down") (= blobs (updateObj blobs (--> obj (moveDown obj)))))
+    (on (& ((clicked)) (isFreePos click)) (= blobs (addObj blobs (Blob (Position (.. click x) (.. click y))))))
+    (on (clicked leftButton) (= gravity "left"))
+    (on (clicked rightButton) (= gravity "right"))
+    (on (clicked upButton) (= gravity "up"))
+    (on (clicked downButton) (= gravity "down"))
+)`
+};
+
+// ── Autumn grid renderer (shared) ──
+const CSS_COLORS = {
+  black:[0,0,0],white:[255,255,255],red:[255,0,0],green:[0,128,0],
+  blue:[0,0,255],yellow:[255,255,0],orange:[255,165,0],gray:[128,128,128],
+  grey:[128,128,128],purple:[128,0,128],pink:[255,192,203],
+  lightblue:[173,216,230],lightpink:[255,182,193],darkblue:[0,0,139],
+  darkorange:[255,140,0],gold:[255,215,0],silver:[192,192,192],
+  cyan:[0,255,255],magenta:[255,0,255],brown:[165,42,42],
+  darkgreen:[0,100,0],lightgreen:[144,238,144],darkred:[139,0,0],
+  navy:[0,0,128],teal:[0,128,128],maroon:[128,0,0],olive:[128,128,0],
+  aqua:[0,255,255],lime:[0,255,0],coral:[255,127,80],
+  salmon:[250,128,114],khaki:[240,230,140],violet:[238,130,238],
+  indigo:[75,0,130],crimson:[220,20,60],tomato:[255,99,71],
+  turquoise:[64,224,208],skyblue:[135,206,235],steelblue:[70,130,180],
+  slategray:[112,128,144],dimgray:[105,105,105],darkgray:[169,169,169],
+  lightgray:[211,211,211],deeppink:[255,20,147],hotpink:[255,105,180],
+  firebrick:[178,34,34],forestgreen:[34,139,34],seagreen:[46,139,87],
+  sienna:[160,82,45],peru:[205,133,63],chocolate:[210,105,30]
+};
+
+function parseColor(s) {
+  const l = s.toLowerCase().trim();
+  if (CSS_COLORS[l]) return CSS_COLORS[l];
+  if (l.startsWith('#')) {
+    const h = l.slice(1);
+    if (h.length === 3) return [parseInt(h[0]+h[0],16),parseInt(h[1]+h[1],16),parseInt(h[2]+h[2],16)];
+    if (h.length === 6) return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];
+  }
+  const m = l.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+  if (m) return [+m[1],+m[2],+m[3]];
+  return [0,0,0];
+}
+
+function renderGrid(ctx, jsonStr, canvasSize) {
+  const parsed = JSON.parse(jsonStr);
+  const gridSize = parsed.GRID_SIZE || 16;
+  const cellSize = canvasSize / gridSize;
+
+  ctx.clearRect(0, 0, canvasSize, canvasSize);
+
+  // Subtle grid lines
+  ctx.strokeStyle = 'rgba(128,128,128,0.15)';
+  ctx.lineWidth = Math.max(0.5, canvasSize / 960);
+  for (let i = 0; i <= gridSize; i++) {
+    const pos = i * cellSize;
+    ctx.beginPath(); ctx.moveTo(pos, 0); ctx.lineTo(pos, canvasSize); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, pos); ctx.lineTo(canvasSize, pos); ctx.stroke();
+  }
+
+  // Draw entities
+  for (const key of Object.keys(parsed)) {
+    if (key === 'GRID_SIZE' || key === 'background') continue;
+    const entities = parsed[key];
+    if (!Array.isArray(entities)) continue;
+    for (const entity of entities) {
+      if (entity.position && entity.color) {
+        const { x, y } = entity.position;
+        if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
+          const [r, g, b] = parseColor(entity.color);
+          ctx.fillStyle = `rgb(${r},${g},${b})`;
+          const inset = Math.max(0.5, cellSize * 0.05);
+          ctx.fillRect(x * cellSize + inset, y * cellSize + inset, cellSize - inset * 2, cellSize - inset * 2);
+        }
+      }
+    }
+  }
+
+  return gridSize;
+}
+
+
+// ── Function docs ──
+const FUNC_DOCS = {
+  'GRID_SIZE': { desc: 'Sets the size of the grid', params: ['size: number'] },
+  'FRAME_RATE': { desc: 'Sets the frame rate (steps per second)', params: ['fps: number'] },
+  'Cell': { desc: 'Creates a cell at relative offset with a color', params: ['x: number', 'y: number', 'color: string'] },
+  'Position': { desc: 'Creates a position object', params: ['x: number', 'y: number'] },
+  'initnext': { desc: 'Initialize with initial value and per-step update', params: ['initial: any', 'next: any'] },
+  'prev': { desc: 'Gets the previous state of a variable', params: ['varName: string'] },
+  'object': { desc: 'Defines a new object type with fields and cells', params: ['name', 'fields...', 'cells...'] },
+  'on': { desc: 'Event handler: runs action when condition is true', params: ['condition', 'action'] },
+  'let': { desc: 'Local bindings; returns last expression', params: ['assignments...', 'result'] },
+  'if': { desc: 'Conditional: (if cond then a else b)', params: ['condition', 'then-branch', 'else-branch'] },
+  '-->': { desc: 'Lambda function', params: ['params...', 'body'] },
+  'fn': { desc: 'Named function definition', params: ['params...', 'body'] },
+  '..': { desc: 'Property access: (.. obj field)', params: ['obj', 'field'] },
+  'move': { desc: 'Moves object by direction vector', params: ['obj: Object', 'dir: Position'] },
+  'moveLeft': { desc: 'Move one unit left', params: ['obj'] },
+  'moveRight': { desc: 'Move one unit right', params: ['obj'] },
+  'moveUp': { desc: 'Move one unit up', params: ['obj'] },
+  'moveDown': { desc: 'Move one unit down', params: ['obj'] },
+  'moveLeftNoCollision': { desc: 'Move left if no collision', params: ['obj'] },
+  'moveRightNoCollision': { desc: 'Move right if no collision', params: ['obj'] },
+  'moveUpNoCollision': { desc: 'Move up if no collision', params: ['obj'] },
+  'moveDownNoCollision': { desc: 'Move down if no collision', params: ['obj'] },
+  'moveNoCollision': { desc: 'Move by (x,y) if destination is free', params: ['obj', 'x', 'y'] },
+  'movePos': { desc: 'Adds offset to position', params: ['pos', 'dir'] },
+  'rotateNoCollision': { desc: 'Rotate object if no collision', params: ['obj'] },
+  'updateObj': { desc: 'Update objects; optionally filtered by predicate', params: ['objects', 'transform: fn', 'predicate?: fn'] },
+  'addObj': { desc: 'Add object to a list', params: ['list', 'obj'] },
+  'removeObj': { desc: 'Remove objects matching predicate', params: ['list', 'predicate: fn'] },
+  'intersects': { desc: 'Check if two objects overlap on the grid', params: ['obj1', 'obj2'] },
+  'isFree': { desc: 'Check if object occupies only free cells', params: ['obj'] },
+  'isFreePos': { desc: 'Check if a position is unoccupied', params: ['pos'] },
+  'isFreeExcept': { desc: 'Check if free, ignoring prev_obj cells', params: ['obj', 'prev_obj'] },
+  'isWithinBounds': { desc: 'Check if within grid boundaries', params: ['obj'] },
+  'clicked': { desc: 'Check if object was clicked', params: ['target'] },
+  'uniformChoice': { desc: 'Random choice from a list', params: ['options: List'] },
+  'adjPositions': { desc: 'Get 4-adjacent positions', params: ['pos'] },
+  'allPositions': { desc: 'All positions in NxN grid', params: ['size'] },
+  'map': { desc: 'Transform each element', params: ['fn', 'list'] },
+  'filter': { desc: 'Keep elements where predicate is true', params: ['fn', 'list'] },
+  'any': { desc: 'True if predicate holds for any element', params: ['fn', 'list'] },
+  'foldl': { desc: 'Left fold / reduce', params: ['fn', 'init', 'list'] },
+  'head': { desc: 'First element of a list', params: ['list'] },
+  'concat': { desc: 'Flatten list of lists', params: ['lists'] },
+  'range': { desc: 'Integer range [start, end)', params: ['start', 'end'] },
+  'length': { desc: 'Number of elements', params: ['list'] },
+  'in': { desc: 'Check if element is in list', params: ['elem', 'list'] },
+  'list': { desc: 'Create a list from arguments', params: ['items...'] },
+  'deltaPos': { desc: 'Difference between two positions', params: ['pos1', 'pos2'] },
+  'sqdist': { desc: 'Squared distance between positions', params: ['pos1', 'pos2'] },
+  'closest': { desc: 'Find closest object from a list', params: ['obj', 'list'] },
+  'closestPos': { desc: 'Find closest position from a list', params: ['obj', 'positions'] },
+  'unitVector': { desc: 'Grid unit vector toward target', params: ['obj', 'target'] },
+  'rect': { desc: 'All positions in rectangle [p1, p2)', params: ['pos1', 'pos2'] },
+  'nextLiquid': { desc: 'Simulate liquid: fall or flow sideways', params: ['obj'] },
+  'nextSolid': { desc: 'Simulate solid: fall down if free', params: ['obj'] },
+  'abs': { desc: 'Absolute value', params: ['x'] },
+  'sign': { desc: 'Sign: -1, 0, or 1', params: ['x'] },
+  'max': { desc: 'Maximum of two values', params: ['a', 'b'] },
+  'min': { desc: 'Minimum of two values', params: ['a', 'b'] },
+  'sum': { desc: 'Sum of a list of numbers', params: ['list'] },
+  'print': { desc: 'Print value for debugging', params: ['value'] },
+  'renderValue': { desc: 'Get renderable cells from object', params: ['obj'] },
+  'vcat': { desc: 'Concatenate lists (alias for concat)', params: ['lists'] },
+};
+
+const FUNC_NAMES = Object.keys(FUNC_DOCS);
+
+// ── Elements ──
+const editor = document.getElementById('pg-editor');
+const canvas = document.getElementById('pg-canvas');
+const ctx = canvas.getContext('2d');
+const select = document.getElementById('pg-select');
+const statusEl = document.getElementById('pg-status');
+const btnRun = document.getElementById('pg-run-btn');
+const btnReset = document.getElementById('pg-reset-btn');
+const btnPause = document.getElementById('pg-pause-btn');
+const tooltipEl = document.getElementById('autumn-tooltip');
+const acEl = document.getElementById('autumn-ac');
+
+const CANVAS_SIZE = 640;
+let interpreter = null;
+let wasmModule = null;
+let gridSize = 16;
+let fps = 8;
+let paused = false;
+let animFrameId = null;
+let lastStepTime = 0;
+let acIndex = -1;
+let acItems = [];
+
+// Populate dropdown
+for (const name of Object.keys(PROGRAMS)) {
+  const opt = document.createElement('option');
+  opt.value = name;
+  opt.textContent = name;
+  select.appendChild(opt);
+}
+editor.value = PROGRAMS[select.value];
+select.addEventListener('change', () => { editor.value = PROGRAMS[select.value]; });
+
+// ── Tooltip on hover ──
+function getWordAt(text, pos) {
+  let start = pos, end = pos;
+  while (start > 0 && /[\w\-]/.test(text[start - 1])) start--;
+  while (end < text.length && /[\w\-]/.test(text[end])) end++;
+  return text.slice(start, end);
+}
+
+editor.addEventListener('mousemove', (e) => {
+  // Get caret position from mouse coordinates
+  if (typeof document.caretPositionFromPoint === 'function') {
+    const cp = document.caretPositionFromPoint(e.clientX, e.clientY);
+    if (cp && cp.offsetNode && cp.offsetNode.nodeType === 3) {
+      const word = getWordAt(editor.value, cp.offset + getTextOffset(cp.offsetNode));
+      showTooltip(word, e.clientX, e.clientY);
+      return;
+    }
+  }
+  // Fallback: use selectionStart-based approach
+  // For textarea, we'll use a simpler word-under-cursor approach
+  hideTooltip();
+});
+
+function getTextOffset(node) {
+  // For textarea this doesn't apply well, use selection-based approach instead
+  return 0;
+}
+
+// Better approach: detect word under mouse via hidden div mirroring
+editor.addEventListener('mousemove', (e) => {
+  const rect = editor.getBoundingClientRect();
+  const style = getComputedStyle(editor);
+  const lineHeight = parseFloat(style.lineHeight) || 20;
+  const paddingTop = parseFloat(style.paddingTop);
+  const paddingLeft = parseFloat(style.paddingLeft);
+
+  const relY = e.clientY - rect.top - paddingTop + editor.scrollTop;
+  const relX = e.clientX - rect.left - paddingLeft + editor.scrollLeft;
+
+  const lineIdx = Math.floor(relY / lineHeight);
+  const lines = editor.value.split('\n');
+  if (lineIdx < 0 || lineIdx >= lines.length) { hideTooltip(); return; }
+
+  const line = lines[lineIdx];
+  // Estimate char position (monospace)
+  const charWidth = measureCharWidth();
+  const charIdx = Math.round(relX / charWidth);
+
+  if (charIdx < 0 || charIdx >= line.length) { hideTooltip(); return; }
+  const word = getWordAt(line, charIdx);
+  showTooltip(word, e.clientX, e.clientY);
+});
+
+let _charWidth = null;
+function measureCharWidth() {
+  if (_charWidth) return _charWidth;
+  const span = document.createElement('span');
+  span.style.font = getComputedStyle(editor).font;
+  span.style.visibility = 'hidden';
+  span.style.position = 'absolute';
+  span.textContent = 'M';
+  document.body.appendChild(span);
+  _charWidth = span.getBoundingClientRect().width;
+  span.remove();
+  return _charWidth;
+}
+
+function showTooltip(word, x, y) {
+  const doc = FUNC_DOCS[word];
+  if (!doc) { hideTooltip(); return; }
+  let html = `<div class="tt-title">${word}</div><div class="tt-desc">${doc.desc}</div>`;
+  if (doc.params && doc.params.length > 0) {
+    html += `<div class="tt-params"><div class="tt-params-title">Parameters</div>`;
+    for (const p of doc.params) html += `<div class="tt-param">${p}</div>`;
+    html += `</div>`;
+  }
+  tooltipEl.innerHTML = html;
+  tooltipEl.style.left = Math.min(x + 12, window.innerWidth - 400) + 'px';
+  tooltipEl.style.top = (y - tooltipEl.offsetHeight - 8) + 'px';
+  tooltipEl.classList.add('visible');
+}
+
+function hideTooltip() {
+  tooltipEl.classList.remove('visible');
+}
+
+editor.addEventListener('mouseleave', hideTooltip);
+
+// ── Autocomplete ──
+editor.addEventListener('input', () => {
+  const pos = editor.selectionStart;
+  const textBefore = editor.value.slice(0, pos);
+  const match = textBefore.match(/([\w\-]+)$/);
+  if (!match || match[1].length < 2) { hideAc(); return; }
+  const prefix = match[1].toLowerCase();
+  acItems = FUNC_NAMES.filter(n => n.toLowerCase().startsWith(prefix) && n.toLowerCase() !== prefix);
+  if (acItems.length === 0) { hideAc(); return; }
+  acIndex = 0;
+  renderAc(pos);
+});
+
+function renderAc(caretPos) {
+  acEl.innerHTML = acItems.slice(0, 10).map((name, i) =>
+    `<div class="autumn-ac-item${i === acIndex ? ' selected' : ''}" data-idx="${i}">${name}<span class="autumn-ac-desc">${FUNC_DOCS[name]?.desc || ''}</span></div>`
+  ).join('');
+  // Position near caret
+  const coords = getCaretCoordinates(caretPos);
+  acEl.style.left = coords.x + 'px';
+  acEl.style.top = (coords.y + 20) + 'px';
+  acEl.classList.add('visible');
+
+  acEl.querySelectorAll('.autumn-ac-item').forEach(el => {
+    el.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      applyAc(+el.dataset.idx);
+    });
+  });
+}
+
+function getCaretCoordinates(pos) {
+  const rect = editor.getBoundingClientRect();
+  const style = getComputedStyle(editor);
+  const lines = editor.value.slice(0, pos).split('\n');
+  const lineIdx = lines.length - 1;
+  const colIdx = lines[lineIdx].length;
+  const lineHeight = parseFloat(style.lineHeight) || 20;
+  const charWidth = measureCharWidth();
+  const paddingTop = parseFloat(style.paddingTop);
+  const paddingLeft = parseFloat(style.paddingLeft);
+  return {
+    x: rect.left + paddingLeft + colIdx * charWidth - editor.scrollLeft,
+    y: rect.top + paddingTop + lineIdx * lineHeight - editor.scrollTop
+  };
+}
+
+function applyAc(idx) {
+  const name = acItems[idx];
+  if (!name) return;
+  const pos = editor.selectionStart;
+  const textBefore = editor.value.slice(0, pos);
+  const match = textBefore.match(/([\w\-]+)$/);
+  if (!match) return;
+  const start = pos - match[1].length;
+  editor.value = editor.value.slice(0, start) + name + editor.value.slice(pos);
+  editor.selectionStart = editor.selectionEnd = start + name.length;
+  editor.focus();
+  hideAc();
+}
+
+function hideAc() {
+  acEl.classList.remove('visible');
+  acItems = [];
+  acIndex = -1;
+}
+
+// ── Editor keyboard ──
+editor.addEventListener('keydown', (e) => {
+  if (acEl.classList.contains('visible')) {
+    if (e.key === 'ArrowDown') { e.preventDefault(); acIndex = Math.min(acIndex + 1, acItems.length - 1); renderAc(editor.selectionStart); return; }
+    if (e.key === 'ArrowUp') { e.preventDefault(); acIndex = Math.max(acIndex - 1, 0); renderAc(editor.selectionStart); return; }
+    if (e.key === 'Enter' || e.key === 'Tab') { e.preventDefault(); applyAc(acIndex); return; }
+    if (e.key === 'Escape') { hideAc(); return; }
+  }
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); runProgram(); }
+  if (e.key === 'Tab' && !acEl.classList.contains('visible')) {
+    e.preventDefault();
+    const s = editor.selectionStart, end = editor.selectionEnd;
+    editor.value = editor.value.substring(0, s) + '  ' + editor.value.substring(end);
+    editor.selectionStart = editor.selectionEnd = s + 2;
+  }
+});
+
+editor.addEventListener('blur', () => setTimeout(hideAc, 150));
+
+// ── Game engine ──
+function runProgram() {
+  const code = editor.value.trim();
+  if (!code || !wasmModule) return;
+  if (animFrameId) cancelAnimationFrame(animFrameId);
+  try {
+    interpreter = new wasmModule.Interpreter();
+    interpreter.runScript(code, autumnstdlib, '', BigInt(42));
+    fps = interpreter.getFrameRate() || 8;
+    paused = false;
+    btnPause.textContent = 'Pause';
+    statusEl.textContent = `Running (${fps} FPS)`;
+    statusEl.style.color = '';
+    gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
+    lastStepTime = performance.now();
+    gameLoop(performance.now());
+  } catch (e) {
+    statusEl.textContent = `Error: ${e.message || e}`;
+    statusEl.style.color = '#c62828';
+    console.error(e);
+  }
+}
+
+function gameLoop(ts) {
+  if (!interpreter) return;
+  if (!paused) {
+    const interval = 1000 / fps;
+    if (ts - lastStepTime >= interval) {
+      lastStepTime = ts;
+      try {
+        interpreter.step();
+        gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
+      } catch (e) {
+        statusEl.textContent = `Runtime error: ${e.message || e}`;
+        statusEl.style.color = '#c62828';
+        return;
+      }
+    }
+  }
+  animFrameId = requestAnimationFrame(gameLoop);
+}
+
+btnRun.addEventListener('click', runProgram);
+btnReset.addEventListener('click', runProgram);
+btnPause.addEventListener('click', () => {
+  paused = !paused;
+  btnPause.textContent = paused ? 'Resume' : 'Pause';
+});
+
+document.addEventListener('keydown', (e) => {
+  if (!interpreter || document.activeElement === editor) return;
+  const actions = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down' };
+  if (actions[e.key]) {
+    e.preventDefault();
+    try {
+      interpreter[actions[e.key]]();
+      interpreter.step();
+      gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
+    } catch (err) { console.error(err); }
+  }
+});
+
+canvas.addEventListener('click', (e) => {
+  if (!interpreter) return;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = CANVAS_SIZE / rect.width;
+  const scaleY = CANVAS_SIZE / rect.height;
+  const cellSize = CANVAS_SIZE / gridSize;
+  const x = Math.floor((e.clientX - rect.left) * scaleX / cellSize);
+  const y = Math.floor((e.clientY - rect.top) * scaleY / cellSize);
+  try {
+    interpreter.click(x, y);
+    interpreter.step();
+    gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
+  } catch (err) { console.error(err); }
+});
+
+async function init() {
+  statusEl.textContent = 'Loading WASM...';
+  try {
+    const moduleUrl = '/assets/wasm/interpreter_web.js';
+    const wasmUrl = '/assets/wasm/interpreter_web.wasm';
+    const { default: createInterpreterModule } = await import(moduleUrl);
+    wasmModule = await createInterpreterModule({
+      locateFile: (path) => path.endsWith('.wasm') ? wasmUrl : path
+    });
+    statusEl.textContent = 'Ready — hit Run or Ctrl+Enter';
+    runProgram();
+  } catch (e) {
+    statusEl.textContent = `Failed to load WASM: ${e.message || e}`;
+    statusEl.style.color = '#c62828';
+    console.error(e);
+  }
+}
+
+init();
+</script> </article> </div> </div> <footer class="fixed-bottom"> <div class="container mt-0"> © Copyright 2026 Dat Nguyen. </div> </footer> <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script> <script defer src="/assets/js/masonry.js" type="text/javascript"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script> <script defer src="/assets/js/zoom.js"></script> <script defer src="/assets/js/common.js"></script> <script type="text/javascript">window.MathJax={tex:{tags:"ams",inlineMath:[["$","$"],["\\(","\\)"]],macros:{llbracket:"\\lbrack\\!\\lbrack",rrbracket:"\\rbrack\\!\\rbrack"}}};</script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script> <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> </body> </html>
