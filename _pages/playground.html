@@ -1,0 +1,520 @@
+---
+layout: page
+title: Autumn Playground
+permalink: /playground/
+description: Write and run Autumn programs in your browser via WebAssembly.
+nav: false
+---
+
+<style>
+  .pg-container { display: flex; gap: 16px; align-items: flex-start; }
+  .pg-editor-col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .pg-canvas-col { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; }
+  .pg-canvas-wrapper { border: 2px solid var(--global-divider-color, #444); border-radius: 4px; overflow: hidden; line-height: 0; }
+  #pg-canvas { image-rendering: pixelated; image-rendering: crisp-edges; cursor: pointer; width: 320px; height: 320px; }
+  .pg-toolbar { display: flex; gap: 8px; margin-bottom: 10px; align-items: center; flex-wrap: wrap; }
+  .pg-toolbar select, .pg-toolbar button {
+    padding: 5px 12px; border-radius: 5px; border: 1px solid var(--global-divider-color, #dee2e6);
+    background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); font-size: 13px; cursor: pointer;
+  }
+  .pg-toolbar button:hover { opacity: 0.8; }
+  #pg-run-btn { background: #2e7d32; color: #fff; border-color: #2e7d32; font-weight: 600; }
+  #pg-status { font-size: 12px; margin-top: 8px; min-height: 18px; }
+  .pg-keys { font-size: 12px; color: var(--global-text-color-light, #666); margin-top: 8px; text-align: center; }
+  .pg-keys kbd {
+    display: inline-block; padding: 2px 6px; font-size: 11px;
+    border: 1px solid var(--global-divider-color, #ccc); border-radius: 3px;
+    background: var(--global-code-bg-color, #f5f5f5); color: var(--global-text-color, #333); font-family: monospace;
+  }
+  /* Editor textarea with good contrast */
+  #pg-editor {
+    width: 100%;
+    min-height: 420px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 12px;
+    border: 1px solid var(--global-divider-color, #dee2e6);
+    border-radius: 6px;
+    background: #272822;
+    color: #f8f8f2;
+    tab-size: 2;
+    resize: vertical;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+  }
+  #pg-editor:focus {
+    outline: 2px solid #a6e22e;
+    outline-offset: -1px;
+  }
+  /* Tooltip */
+  .autumn-tooltip {
+    position: fixed;
+    background: #1e1e1e;
+    color: #f8f8f2;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 380px;
+    border: 1px solid #555;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    z-index: 9999;
+    pointer-events: none;
+    display: none;
+  }
+  .autumn-tooltip.visible { display: block; }
+  .autumn-tooltip .tt-title { font-weight: bold; color: #a6e22e; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid #444; font-size: 14px; }
+  .autumn-tooltip .tt-desc { margin-bottom: 6px; color: #ccc; }
+  .autumn-tooltip .tt-params { background: #282828; border-radius: 4px; padding: 6px 8px; margin-top: 6px; }
+  .autumn-tooltip .tt-params-title { font-weight: bold; color: #f92672; margin-bottom: 3px; font-size: 12px; }
+  .autumn-tooltip .tt-param { padding-left: 8px; color: #e6db74; font-size: 12px; line-height: 1.6; }
+  /* Autocomplete dropdown */
+  .autumn-autocomplete {
+    position: fixed;
+    background: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    z-index: 10000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .autumn-autocomplete.visible { display: block; }
+  .autumn-ac-item {
+    padding: 4px 10px;
+    cursor: pointer;
+    color: #f8f8f2;
+  }
+  .autumn-ac-item:hover, .autumn-ac-item.selected {
+    background: #383830;
+    color: #a6e22e;
+  }
+  .autumn-ac-desc {
+    font-size: 11px;
+    color: #888;
+    margin-left: 8px;
+  }
+  @media (max-width: 768px) {
+    .pg-container { flex-direction: column; }
+    #pg-canvas { width: 100%; height: auto; aspect-ratio: 1; }
+    .pg-canvas-col { width: 100%; }
+    #pg-editor { min-height: 250px; }
+  }
+</style>
+
+<p style="margin-bottom: 12px;">
+  Write <a href="https://autumn.basis.ai">Autumn</a> programs and run them live via WebAssembly.
+  Pick an example or write your own, then hit <strong>Run</strong>.
+  Hover a function name for docs. <kbd style="font-size:11px;padding:1px 4px;border:1px solid #ccc;border-radius:3px;">Ctrl+Enter</kbd> to run.
+</p>
+
+<div class="pg-toolbar">
+  <select id="pg-select"></select>
+  <button id="pg-run-btn">Run</button>
+  <button id="pg-reset-btn">Reset</button>
+  <button id="pg-pause-btn">Pause</button>
+</div>
+
+<div class="pg-container">
+  <div class="pg-editor-col">
+    <textarea id="pg-editor" spellcheck="false"></textarea>
+    <div id="pg-status"></div>
+  </div>
+  <div class="pg-canvas-col">
+    <div class="pg-canvas-wrapper">
+      <canvas id="pg-canvas" width="640" height="640"></canvas>
+    </div>
+    <div class="pg-keys">
+      <kbd>&larr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd> Move
+      &middot; <kbd>Click</kbd> Interact
+    </div>
+  </div>
+</div>
+
+<div class="autumn-tooltip" id="autumn-tooltip"></div>
+<div class="autumn-autocomplete" id="autumn-ac"></div>
+
+<script type="module">
+{% include autumn_stdlib.js %}
+{% include autumn_programs.js %}
+{% include autumn_renderer.js %}
+
+// ── Function docs ──
+const FUNC_DOCS = {
+  'GRID_SIZE': { desc: 'Sets the size of the grid', params: ['size: number'] },
+  'FRAME_RATE': { desc: 'Sets the frame rate (steps per second)', params: ['fps: number'] },
+  'Cell': { desc: 'Creates a cell at relative offset with a color', params: ['x: number', 'y: number', 'color: string'] },
+  'Position': { desc: 'Creates a position object', params: ['x: number', 'y: number'] },
+  'initnext': { desc: 'Initialize with initial value and per-step update', params: ['initial: any', 'next: any'] },
+  'prev': { desc: 'Gets the previous state of a variable', params: ['varName: string'] },
+  'object': { desc: 'Defines a new object type with fields and cells', params: ['name', 'fields...', 'cells...'] },
+  'on': { desc: 'Event handler: runs action when condition is true', params: ['condition', 'action'] },
+  'let': { desc: 'Local bindings; returns last expression', params: ['assignments...', 'result'] },
+  'if': { desc: 'Conditional: (if cond then a else b)', params: ['condition', 'then-branch', 'else-branch'] },
+  '-->': { desc: 'Lambda function', params: ['params...', 'body'] },
+  'fn': { desc: 'Named function definition', params: ['params...', 'body'] },
+  '..': { desc: 'Property access: (.. obj field)', params: ['obj', 'field'] },
+  'move': { desc: 'Moves object by direction vector', params: ['obj: Object', 'dir: Position'] },
+  'moveLeft': { desc: 'Move one unit left', params: ['obj'] },
+  'moveRight': { desc: 'Move one unit right', params: ['obj'] },
+  'moveUp': { desc: 'Move one unit up', params: ['obj'] },
+  'moveDown': { desc: 'Move one unit down', params: ['obj'] },
+  'moveLeftNoCollision': { desc: 'Move left if no collision', params: ['obj'] },
+  'moveRightNoCollision': { desc: 'Move right if no collision', params: ['obj'] },
+  'moveUpNoCollision': { desc: 'Move up if no collision', params: ['obj'] },
+  'moveDownNoCollision': { desc: 'Move down if no collision', params: ['obj'] },
+  'moveNoCollision': { desc: 'Move by (x,y) if destination is free', params: ['obj', 'x', 'y'] },
+  'movePos': { desc: 'Adds offset to position', params: ['pos', 'dir'] },
+  'rotateNoCollision': { desc: 'Rotate object if no collision', params: ['obj'] },
+  'updateObj': { desc: 'Update objects; optionally filtered by predicate', params: ['objects', 'transform: fn', 'predicate?: fn'] },
+  'addObj': { desc: 'Add object to a list', params: ['list', 'obj'] },
+  'removeObj': { desc: 'Remove objects matching predicate', params: ['list', 'predicate: fn'] },
+  'intersects': { desc: 'Check if two objects overlap on the grid', params: ['obj1', 'obj2'] },
+  'isFree': { desc: 'Check if object occupies only free cells', params: ['obj'] },
+  'isFreePos': { desc: 'Check if a position is unoccupied', params: ['pos'] },
+  'isFreeExcept': { desc: 'Check if free, ignoring prev_obj cells', params: ['obj', 'prev_obj'] },
+  'isWithinBounds': { desc: 'Check if within grid boundaries', params: ['obj'] },
+  'clicked': { desc: 'Check if object was clicked', params: ['target'] },
+  'uniformChoice': { desc: 'Random choice from a list', params: ['options: List'] },
+  'adjPositions': { desc: 'Get 4-adjacent positions', params: ['pos'] },
+  'allPositions': { desc: 'All positions in NxN grid', params: ['size'] },
+  'map': { desc: 'Transform each element', params: ['fn', 'list'] },
+  'filter': { desc: 'Keep elements where predicate is true', params: ['fn', 'list'] },
+  'any': { desc: 'True if predicate holds for any element', params: ['fn', 'list'] },
+  'foldl': { desc: 'Left fold / reduce', params: ['fn', 'init', 'list'] },
+  'head': { desc: 'First element of a list', params: ['list'] },
+  'concat': { desc: 'Flatten list of lists', params: ['lists'] },
+  'range': { desc: 'Integer range [start, end)', params: ['start', 'end'] },
+  'length': { desc: 'Number of elements', params: ['list'] },
+  'in': { desc: 'Check if element is in list', params: ['elem', 'list'] },
+  'list': { desc: 'Create a list from arguments', params: ['items...'] },
+  'deltaPos': { desc: 'Difference between two positions', params: ['pos1', 'pos2'] },
+  'sqdist': { desc: 'Squared distance between positions', params: ['pos1', 'pos2'] },
+  'closest': { desc: 'Find closest object from a list', params: ['obj', 'list'] },
+  'closestPos': { desc: 'Find closest position from a list', params: ['obj', 'positions'] },
+  'unitVector': { desc: 'Grid unit vector toward target', params: ['obj', 'target'] },
+  'rect': { desc: 'All positions in rectangle [p1, p2)', params: ['pos1', 'pos2'] },
+  'nextLiquid': { desc: 'Simulate liquid: fall or flow sideways', params: ['obj'] },
+  'nextSolid': { desc: 'Simulate solid: fall down if free', params: ['obj'] },
+  'abs': { desc: 'Absolute value', params: ['x'] },
+  'sign': { desc: 'Sign: -1, 0, or 1', params: ['x'] },
+  'max': { desc: 'Maximum of two values', params: ['a', 'b'] },
+  'min': { desc: 'Minimum of two values', params: ['a', 'b'] },
+  'sum': { desc: 'Sum of a list of numbers', params: ['list'] },
+  'print': { desc: 'Print value for debugging', params: ['value'] },
+  'renderValue': { desc: 'Get renderable cells from object', params: ['obj'] },
+  'vcat': { desc: 'Concatenate lists (alias for concat)', params: ['lists'] },
+};
+
+const FUNC_NAMES = Object.keys(FUNC_DOCS);
+
+// ── Elements ──
+const editor = document.getElementById('pg-editor');
+const canvas = document.getElementById('pg-canvas');
+const ctx = canvas.getContext('2d');
+const select = document.getElementById('pg-select');
+const statusEl = document.getElementById('pg-status');
+const btnRun = document.getElementById('pg-run-btn');
+const btnReset = document.getElementById('pg-reset-btn');
+const btnPause = document.getElementById('pg-pause-btn');
+const tooltipEl = document.getElementById('autumn-tooltip');
+const acEl = document.getElementById('autumn-ac');
+
+const CANVAS_SIZE = 640;
+let interpreter = null;
+let wasmModule = null;
+let gridSize = 16;
+let fps = 8;
+let paused = false;
+let animFrameId = null;
+let lastStepTime = 0;
+let acIndex = -1;
+let acItems = [];
+
+// Populate dropdown
+for (const name of Object.keys(PROGRAMS)) {
+  const opt = document.createElement('option');
+  opt.value = name;
+  opt.textContent = name;
+  select.appendChild(opt);
+}
+editor.value = PROGRAMS[select.value];
+select.addEventListener('change', () => { editor.value = PROGRAMS[select.value]; });
+
+// ── Tooltip on hover ──
+function getWordAt(text, pos) {
+  let start = pos, end = pos;
+  while (start > 0 && /[\w\-]/.test(text[start - 1])) start--;
+  while (end < text.length && /[\w\-]/.test(text[end])) end++;
+  return text.slice(start, end);
+}
+
+editor.addEventListener('mousemove', (e) => {
+  // Get caret position from mouse coordinates
+  if (typeof document.caretPositionFromPoint === 'function') {
+    const cp = document.caretPositionFromPoint(e.clientX, e.clientY);
+    if (cp && cp.offsetNode && cp.offsetNode.nodeType === 3) {
+      const word = getWordAt(editor.value, cp.offset + getTextOffset(cp.offsetNode));
+      showTooltip(word, e.clientX, e.clientY);
+      return;
+    }
+  }
+  // Fallback: use selectionStart-based approach
+  // For textarea, we'll use a simpler word-under-cursor approach
+  hideTooltip();
+});
+
+function getTextOffset(node) {
+  // For textarea this doesn't apply well, use selection-based approach instead
+  return 0;
+}
+
+// Better approach: detect word under mouse via hidden div mirroring
+editor.addEventListener('mousemove', (e) => {
+  const rect = editor.getBoundingClientRect();
+  const style = getComputedStyle(editor);
+  const lineHeight = parseFloat(style.lineHeight) || 20;
+  const paddingTop = parseFloat(style.paddingTop);
+  const paddingLeft = parseFloat(style.paddingLeft);
+
+  const relY = e.clientY - rect.top - paddingTop + editor.scrollTop;
+  const relX = e.clientX - rect.left - paddingLeft + editor.scrollLeft;
+
+  const lineIdx = Math.floor(relY / lineHeight);
+  const lines = editor.value.split('\n');
+  if (lineIdx < 0 || lineIdx >= lines.length) { hideTooltip(); return; }
+
+  const line = lines[lineIdx];
+  // Estimate char position (monospace)
+  const charWidth = measureCharWidth();
+  const charIdx = Math.round(relX / charWidth);
+
+  if (charIdx < 0 || charIdx >= line.length) { hideTooltip(); return; }
+  const word = getWordAt(line, charIdx);
+  showTooltip(word, e.clientX, e.clientY);
+});
+
+let _charWidth = null;
+function measureCharWidth() {
+  if (_charWidth) return _charWidth;
+  const span = document.createElement('span');
+  span.style.font = getComputedStyle(editor).font;
+  span.style.visibility = 'hidden';
+  span.style.position = 'absolute';
+  span.textContent = 'M';
+  document.body.appendChild(span);
+  _charWidth = span.getBoundingClientRect().width;
+  span.remove();
+  return _charWidth;
+}
+
+function showTooltip(word, x, y) {
+  const doc = FUNC_DOCS[word];
+  if (!doc) { hideTooltip(); return; }
+  let html = `<div class="tt-title">${word}</div><div class="tt-desc">${doc.desc}</div>`;
+  if (doc.params && doc.params.length > 0) {
+    html += `<div class="tt-params"><div class="tt-params-title">Parameters</div>`;
+    for (const p of doc.params) html += `<div class="tt-param">${p}</div>`;
+    html += `</div>`;
+  }
+  tooltipEl.innerHTML = html;
+  tooltipEl.style.left = Math.min(x + 12, window.innerWidth - 400) + 'px';
+  tooltipEl.style.top = (y - tooltipEl.offsetHeight - 8) + 'px';
+  tooltipEl.classList.add('visible');
+}
+
+function hideTooltip() {
+  tooltipEl.classList.remove('visible');
+}
+
+editor.addEventListener('mouseleave', hideTooltip);
+
+// ── Autocomplete ──
+editor.addEventListener('input', () => {
+  const pos = editor.selectionStart;
+  const textBefore = editor.value.slice(0, pos);
+  const match = textBefore.match(/([\w\-]+)$/);
+  if (!match || match[1].length < 2) { hideAc(); return; }
+  const prefix = match[1].toLowerCase();
+  acItems = FUNC_NAMES.filter(n => n.toLowerCase().startsWith(prefix) && n.toLowerCase() !== prefix);
+  if (acItems.length === 0) { hideAc(); return; }
+  acIndex = 0;
+  renderAc(pos);
+});
+
+function renderAc(caretPos) {
+  acEl.innerHTML = acItems.slice(0, 10).map((name, i) =>
+    `<div class="autumn-ac-item${i === acIndex ? ' selected' : ''}" data-idx="${i}">${name}<span class="autumn-ac-desc">${FUNC_DOCS[name]?.desc || ''}</span></div>`
+  ).join('');
+  // Position near caret
+  const coords = getCaretCoordinates(caretPos);
+  acEl.style.left = coords.x + 'px';
+  acEl.style.top = (coords.y + 20) + 'px';
+  acEl.classList.add('visible');
+
+  acEl.querySelectorAll('.autumn-ac-item').forEach(el => {
+    el.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      applyAc(+el.dataset.idx);
+    });
+  });
+}
+
+function getCaretCoordinates(pos) {
+  const rect = editor.getBoundingClientRect();
+  const style = getComputedStyle(editor);
+  const lines = editor.value.slice(0, pos).split('\n');
+  const lineIdx = lines.length - 1;
+  const colIdx = lines[lineIdx].length;
+  const lineHeight = parseFloat(style.lineHeight) || 20;
+  const charWidth = measureCharWidth();
+  const paddingTop = parseFloat(style.paddingTop);
+  const paddingLeft = parseFloat(style.paddingLeft);
+  return {
+    x: rect.left + paddingLeft + colIdx * charWidth - editor.scrollLeft,
+    y: rect.top + paddingTop + lineIdx * lineHeight - editor.scrollTop
+  };
+}
+
+function applyAc(idx) {
+  const name = acItems[idx];
+  if (!name) return;
+  const pos = editor.selectionStart;
+  const textBefore = editor.value.slice(0, pos);
+  const match = textBefore.match(/([\w\-]+)$/);
+  if (!match) return;
+  const start = pos - match[1].length;
+  editor.value = editor.value.slice(0, start) + name + editor.value.slice(pos);
+  editor.selectionStart = editor.selectionEnd = start + name.length;
+  editor.focus();
+  hideAc();
+}
+
+function hideAc() {
+  acEl.classList.remove('visible');
+  acItems = [];
+  acIndex = -1;
+}
+
+// ── Editor keyboard ──
+editor.addEventListener('keydown', (e) => {
+  if (acEl.classList.contains('visible')) {
+    if (e.key === 'ArrowDown') { e.preventDefault(); acIndex = Math.min(acIndex + 1, acItems.length - 1); renderAc(editor.selectionStart); return; }
+    if (e.key === 'ArrowUp') { e.preventDefault(); acIndex = Math.max(acIndex - 1, 0); renderAc(editor.selectionStart); return; }
+    if (e.key === 'Enter' || e.key === 'Tab') { e.preventDefault(); applyAc(acIndex); return; }
+    if (e.key === 'Escape') { hideAc(); return; }
+  }
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); runProgram(); }
+  if (e.key === 'Tab' && !acEl.classList.contains('visible')) {
+    e.preventDefault();
+    const s = editor.selectionStart, end = editor.selectionEnd;
+    editor.value = editor.value.substring(0, s) + '  ' + editor.value.substring(end);
+    editor.selectionStart = editor.selectionEnd = s + 2;
+  }
+});
+
+editor.addEventListener('blur', () => setTimeout(hideAc, 150));
+
+// ── Game engine ──
+function runProgram() {
+  const code = editor.value.trim();
+  if (!code || !wasmModule) return;
+  if (animFrameId) cancelAnimationFrame(animFrameId);
+  try {
+    interpreter = new wasmModule.Interpreter();
+    interpreter.runScript(code, autumnstdlib, '', BigInt(42));
+    fps = interpreter.getFrameRate() || 8;
+    paused = false;
+    btnPause.textContent = 'Pause';
+    statusEl.textContent = `Running (${fps} FPS)`;
+    statusEl.style.color = '';
+    gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
+    lastStepTime = performance.now();
+    gameLoop(performance.now());
+  } catch (e) {
+    statusEl.textContent = `Error: ${e.message || e}`;
+    statusEl.style.color = '#c62828';
+    console.error(e);
+  }
+}
+
+function gameLoop(ts) {
+  if (!interpreter) return;
+  if (!paused) {
+    const interval = 1000 / fps;
+    if (ts - lastStepTime >= interval) {
+      lastStepTime = ts;
+      try {
+        interpreter.step();
+        gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
+      } catch (e) {
+        statusEl.textContent = `Runtime error: ${e.message || e}`;
+        statusEl.style.color = '#c62828';
+        return;
+      }
+    }
+  }
+  animFrameId = requestAnimationFrame(gameLoop);
+}
+
+btnRun.addEventListener('click', runProgram);
+btnReset.addEventListener('click', runProgram);
+btnPause.addEventListener('click', () => {
+  paused = !paused;
+  btnPause.textContent = paused ? 'Resume' : 'Pause';
+});
+
+document.addEventListener('keydown', (e) => {
+  if (!interpreter || document.activeElement === editor) return;
+  const actions = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down' };
+  if (actions[e.key]) {
+    e.preventDefault();
+    try {
+      interpreter[actions[e.key]]();
+      interpreter.step();
+      gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
+    } catch (err) { console.error(err); }
+  }
+});
+
+canvas.addEventListener('click', (e) => {
+  if (!interpreter) return;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = CANVAS_SIZE / rect.width;
+  const scaleY = CANVAS_SIZE / rect.height;
+  const cellSize = CANVAS_SIZE / gridSize;
+  const x = Math.floor((e.clientX - rect.left) * scaleX / cellSize);
+  const y = Math.floor((e.clientY - rect.top) * scaleY / cellSize);
+  try {
+    interpreter.click(x, y);
+    interpreter.step();
+    gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
+  } catch (err) { console.error(err); }
+});
+
+async function init() {
+  statusEl.textContent = 'Loading WASM...';
+  try {
+    const moduleUrl = '{{ "/assets/wasm/interpreter_web.js" | relative_url }}';
+    const wasmUrl = '{{ "/assets/wasm/interpreter_web.wasm" | relative_url }}';
+    const { default: createInterpreterModule } = await import(moduleUrl);
+    wasmModule = await createInterpreterModule({
+      locateFile: (path) => path.endsWith('.wasm') ? wasmUrl : path
+    });
+    statusEl.textContent = 'Ready — hit Run or Ctrl+Enter';
+    runProgram();
+  } catch (e) {
+    statusEl.textContent = `Failed to load WASM: ${e.message || e}`;
+    statusEl.style.color = '#c62828';
+    console.error(e);
+  }
+}
+
+init();
+</script>

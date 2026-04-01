@@ -70,7 +70,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong><br>
       <em>An <a href="https://autumn.basis.ai">Autumn</a> interpreter in C++ for MARA. Try it live &larr;</em><br>
-      <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">AutumnBench blog</a><br>
+      <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">AutumnBench blog</a> · <a href="{{ '/playground/' | relative_url }}">playground</a><br>
       <span style="font-size: 12px; color: var(--global-text-color-light, #666);">&darr; to spin droplet, click cloud &amp; sun to interact</span>
     </td>
   </tr>
