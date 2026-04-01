@@ -58,17 +58,25 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
-      <img src="https://github.com/BasisResearch/Autumn.cpp/raw/main/assets/examples_small.gif" alt="Autumn.cpp" style="width:100%; height:auto; border-radius: 4px;">
+      <div id="autumn-inline-wrapper" style="position: relative; width: 100%; aspect-ratio: 1; border-radius: 4px; overflow: hidden;">
+        <canvas id="autumn-canvas" style="width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; cursor: pointer; display: block;"></canvas>
+      </div>
+      <div style="margin-top: 6px; display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
+        <select id="autumn-program-select" style="font-size: 11px; padding: 2px 4px; border-radius: 3px; border: 1px solid var(--global-divider-color, #dee2e6); background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); max-width: 110px;"></select>
+        <button id="autumn-reset" style="font-size: 11px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--global-divider-color, #dee2e6); background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); cursor: pointer;">Reset</button>
+        <button id="autumn-pause" style="font-size: 11px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--global-divider-color, #dee2e6); background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); cursor: pointer;">Pause</button>
+      </div>
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
-      <strong><a href="https://github.com/BasisResearch/Autumn.cpp">Autumn.cpp</a></strong><br>
-      <em>An Autumn interpreter in C++ for MARA.</em><br>
-      <a href="https://github.com/BasisResearch/Autumn.cpp">code</a>
+      <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong><br>
+      <em>An <a href="https://autumn.basis.ai">Autumn</a> interpreter in C++ for MARA. Try it live &larr;</em><br>
+      <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">AutumnBench blog</a><br>
+      <span style="font-size: 12px; color: var(--global-text-color-light, #666);">&darr; to spin droplet, click cloud &amp; sun to interact</span>
     </td>
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
-      <img src="{{ '/assets/img/exopredicator_teaser.png' | relative_url }}" alt="ExoPredicator" style="width:100%; height:auto; border-radius: 4px;">
+      <img src="{{ '/assets/img/exopredicator_teaser.webp' | relative_url }}" alt="ExoPredicator" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://openreview.net/forum?id=a1zfcaNTkM">ExoPredicator</a></strong> (ICLR '26)<br>
@@ -78,7 +86,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
-      <img src="{{ '/assets/img/virda_teaser.png' | relative_url }}" alt="VirDA" style="width:100%; height:auto; border-radius: 4px;">
+      <img src="{{ '/assets/img/virda_teaser.webp' | relative_url }}" alt="VirDA" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://github.com/Duy-Nguyen-Duc/VirDA">VirDA</a></strong> (TMLR '25)<br>
@@ -88,7 +96,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
-      <img src="{{ '/assets/img/gnninfer_teaser.jpg' | relative_url }}" alt="GNNInfer" style="width:100%; height:auto; border-radius: 4px;">
+      <img src="{{ '/assets/img/gnninfer_teaser.webp' | relative_url }}" alt="GNNInfer" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong>GNNInfer</strong> (ICSE '22, arXiv '24)<br>
@@ -98,7 +106,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
-      <img src="{{ '/assets/img/ffl_teaser.png' | relative_url }}" alt="FFL" style="width:100%; height:auto; border-radius: 4px;">
+      <img src="{{ '/assets/img/ffl_teaser.webp' | relative_url }}" alt="FFL" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://github.com/FFL2022/FFL">FFL</a></strong> (ICSME '22)<br>
@@ -107,6 +115,10 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     </td>
   </tr>
 </table>
+
+<script type="module">
+{% include autumn_player.js %}
+</script>
 
 ---
 
