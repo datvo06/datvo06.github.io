@@ -66,6 +66,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
         <button id="autumn-reset" style="font-size: 11px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--global-divider-color, #dee2e6); background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); cursor: pointer;">Reset</button>
         <button id="autumn-pause" style="font-size: 11px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--global-divider-color, #dee2e6); background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); cursor: pointer;">Pause</button>
       </div>
+      {% include autumn_dpad.html id="autumn-dpad" %}
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong><br>

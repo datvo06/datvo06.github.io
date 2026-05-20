@@ -130,9 +130,9 @@ nav: false
     <div class="pg-canvas-wrapper">
       <canvas id="pg-canvas" width="640" height="640"></canvas>
     </div>
+    {% include autumn_dpad.html id="pg-dpad" %}
     <div class="pg-keys">
-      <kbd>&larr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd> Move
-      &middot; <kbd>Click</kbd> Interact
+      <kbd>&larr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd> or D-pad &middot; <kbd>Click</kbd> Interact
     </div>
   </div>
 </div>
@@ -470,17 +470,30 @@ btnPause.addEventListener('click', () => {
   btnPause.textContent = paused ? 'Resume' : 'Pause';
 });
 
+function sendDirection(dir) {
+  if (!interpreter || typeof interpreter[dir] !== 'function') return;
+  try {
+    interpreter[dir]();
+    interpreter.step();
+    gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
+  } catch (err) { console.error(err); }
+}
+
 document.addEventListener('keydown', (e) => {
   if (!interpreter || document.activeElement === editor) return;
   const actions = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down' };
   if (actions[e.key]) {
     e.preventDefault();
-    try {
-      interpreter[actions[e.key]]();
-      interpreter.step();
-      gridSize = renderGrid(ctx, interpreter.renderAll(), CANVAS_SIZE);
-    } catch (err) { console.error(err); }
+    sendDirection(actions[e.key]);
   }
+});
+
+document.querySelectorAll('#pg-dpad .autumn-dir').forEach((btn) => {
+  const dir = btn.dataset.dir;
+  btn.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    sendDirection(dir);
+  });
 });
 
 canvas.addEventListener('click', (e) => {

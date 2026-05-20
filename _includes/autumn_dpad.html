@@ -1,0 +1,118 @@
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Autumn D-Pad — retro Game Boy cross controller
+   4 buttons + 1 non-interactive hub arranged in a 3×3 grid.
+   Outer corners rounded, inner corners square, hub bridges
+   the seams so the whole thing reads as one molded piece.
+   ───────────────────────────────────────────────────────────── */
+.autumn-dpad {
+  --dpad-size: 120px;
+  --dpad-arm: #2a2d34;
+  --dpad-arm-deep: #1a1c22;
+  --dpad-arm-press: #14161b;
+  --dpad-glyph: #a8adb6;
+  --dpad-glyph-press: #6b6f78;
+  --dpad-edge: rgba(0, 0, 0, 0.55);
+  --dpad-light: rgba(255, 255, 255, 0.08);
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: var(--dpad-size);
+  height: var(--dpad-size);
+  margin: 14px auto 4px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.22))
+          drop-shadow(0 1px 0 rgba(0, 0, 0, 0.35));
+}
+
+@media (max-width: 768px) {
+  .autumn-dpad { --dpad-size: 150px; }
+}
+
+.autumn-dir {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(155deg, var(--dpad-arm) 0%, var(--dpad-arm-deep) 100%);
+  color: var(--dpad-glyph);
+  font: 14px/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  display: grid;
+  place-items: center;
+  text-shadow:
+    -1px -1px 0 rgba(0, 0, 0, 0.65),
+     1px  1px 0 rgba(255, 255, 255, 0.06);
+  transition: background 90ms ease, color 90ms ease, transform 90ms ease,
+              box-shadow 90ms ease;
+}
+
+.autumn-dir[data-dir="up"]    { grid-area: 1 / 2 / 2 / 3; border-radius: 9px 9px 0 0; }
+.autumn-dir[data-dir="left"]  { grid-area: 2 / 1 / 3 / 2; border-radius: 9px 0 0 9px; }
+.autumn-dir[data-dir="right"] { grid-area: 2 / 3 / 3 / 4; border-radius: 0 9px 9px 0; }
+.autumn-dir[data-dir="down"]  { grid-area: 3 / 2 / 4 / 3; border-radius: 0 0 9px 9px; }
+
+/* per-arm bevel: highlight on the outer edge, shadow on the seam side */
+.autumn-dir[data-dir="up"]    { box-shadow: inset 0  1px 0 var(--dpad-light), inset 0 -1px 0 var(--dpad-edge); }
+.autumn-dir[data-dir="down"]  { box-shadow: inset 0 -1px 0 var(--dpad-light), inset 0  1px 0 var(--dpad-edge); }
+.autumn-dir[data-dir="left"]  { box-shadow: inset  1px 0 0 var(--dpad-light), inset -1px 0 0 var(--dpad-edge); }
+.autumn-dir[data-dir="right"] { box-shadow: inset -1px 0 0 var(--dpad-light), inset  1px 0 0 var(--dpad-edge); }
+
+.autumn-dpad__hub {
+  grid-area: 2 / 2 / 3 / 3;
+  background: linear-gradient(155deg, var(--dpad-arm) 0%, var(--dpad-arm-deep) 100%);
+  position: relative;
+  pointer-events: none;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.45);
+}
+.autumn-dpad__hub::after {
+  content: "";
+  position: absolute;
+  inset: 35%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #3a3e47 0%, #14161b 75%);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+@media (hover: hover) {
+  .autumn-dir:hover { color: #c4c8d0; }
+}
+
+.autumn-dir:active,
+.autumn-dir.is-pressed {
+  background: var(--dpad-arm-press);
+  color: var(--dpad-glyph-press);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.75),
+              inset 0 0 0 1px var(--dpad-edge);
+}
+.autumn-dir[data-dir="up"]:active,    .autumn-dir[data-dir="up"].is-pressed    { transform: translateY( 1px); }
+.autumn-dir[data-dir="down"]:active,  .autumn-dir[data-dir="down"].is-pressed  { transform: translateY(-1px); }
+.autumn-dir[data-dir="left"]:active,  .autumn-dir[data-dir="left"].is-pressed  { transform: translateX( 1px); }
+.autumn-dir[data-dir="right"]:active, .autumn-dir[data-dir="right"].is-pressed { transform: translateX(-1px); }
+
+.autumn-dir:focus-visible {
+  outline: 2px solid #a6e22e;
+  outline-offset: 3px;
+  z-index: 1;
+}
+
+html[data-theme="dark"] .autumn-dpad {
+  filter:
+    drop-shadow( 1px  0 0 rgba(255, 255, 255, 0.10))
+    drop-shadow(-1px  0 0 rgba(255, 255, 255, 0.10))
+    drop-shadow( 0  1px 0 rgba(255, 255, 255, 0.10))
+    drop-shadow( 0 -1px 0 rgba(255, 255, 255, 0.10))
+    drop-shadow( 0  5px 14px rgba(0, 0, 0, 0.55));
+}
+</style>
+
+<div id="{{ include.id | default: 'autumn-dpad' }}" class="autumn-dpad" role="group" aria-label="Movement controls">
+  <button class="autumn-dir" data-dir="up"    aria-label="Move up">&#9650;</button>
+  <button class="autumn-dir" data-dir="left"  aria-label="Move left">&#9664;</button>
+  <span class="autumn-dpad__hub" aria-hidden="true"></span>
+  <button class="autumn-dir" data-dir="right" aria-label="Move right">&#9654;</button>
+  <button class="autumn-dir" data-dir="down"  aria-label="Move down">&#9660;</button>
+</div>

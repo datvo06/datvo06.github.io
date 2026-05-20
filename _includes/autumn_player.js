@@ -77,17 +77,30 @@ btnPause.addEventListener('click', () => {
   btnPause.textContent = paused ? 'Resume' : 'Pause';
 });
 
+function sendDirection(dir) {
+  if (!interpreter || typeof interpreter[dir] !== 'function') return;
+  try {
+    interpreter[dir]();
+    interpreter.step();
+    gridSize = renderGrid(ctx, interpreter.renderAll(), canvasSize);
+  } catch (err) { console.error(err); }
+}
+
 document.addEventListener('keydown', (e) => {
   if (!interpreter) return;
   const actions = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down' };
   if (actions[e.key]) {
     e.preventDefault();
-    try {
-      interpreter[actions[e.key]]();
-      interpreter.step();
-      gridSize = renderGrid(ctx, interpreter.renderAll(), canvasSize);
-    } catch (err) { console.error(err); }
+    sendDirection(actions[e.key]);
   }
+});
+
+document.querySelectorAll('#autumn-dpad .autumn-dir').forEach((btn) => {
+  const dir = btn.dataset.dir;
+  btn.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    sendDirection(dir);
+  });
 });
 
 canvas.addEventListener('click', (e) => {
