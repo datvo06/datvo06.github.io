@@ -16,6 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # ---------- ImageMagick (required by jekyll-imagemagick) ----------
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick webp
+
       # ---------- Ruby & Bundler ----------
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
