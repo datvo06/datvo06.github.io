@@ -18,7 +18,13 @@ nav: false
     background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); font-size: 13px; cursor: pointer;
   }
   .pg-toolbar button:hover { opacity: 0.8; }
-  #pg-run-btn { background: #2e7d32; color: #fff; border-color: #2e7d32; font-weight: 600; }
+  #pg-run-btn { background: #2e7d32; color: #fff; border-color: #2e7d32; font-weight: 600; padding: 6px 18px; }
+  .pg-toolbar-hint { font-size: 12px; color: var(--global-text-color-light, #666); }
+  .pg-toolbar-hint kbd {
+    display: inline-block; padding: 1px 5px; font-size: 11px;
+    border: 1px solid var(--global-divider-color, #ccc); border-radius: 3px;
+    background: var(--global-code-bg-color, #f5f5f5); color: var(--global-text-color, #333); font-family: 'JetBrains Mono', monospace;
+  }
   #pg-status { font-size: 12px; margin-top: 8px; min-height: 18px; }
   .pg-keys { font-size: 12px; color: var(--global-text-color-light, #666); margin-top: 8px; text-align: center; }
   .pg-keys kbd {
@@ -115,10 +121,8 @@ nav: false
 </p>
 
 <div class="pg-toolbar">
-  <select id="pg-select"></select>
   <button id="pg-run-btn">Run</button>
-  <button id="pg-reset-btn">Reset</button>
-  <button id="pg-pause-btn">Pause</button>
+  <span class="pg-toolbar-hint">edit code, then hit <kbd>Run</kbd> or <kbd>Ctrl+Enter</kbd></span>
 </div>
 
 <div class="pg-container">
@@ -130,7 +134,16 @@ nav: false
     <div class="pg-canvas-wrapper">
       <canvas id="pg-canvas" width="640" height="640"></canvas>
     </div>
-    {% include autumn_dpad.html id="pg-dpad" %}
+    <div class="autumn-console">
+      {% include autumn_dpad.html id="pg-dpad" %}
+      <div class="autumn-aux">
+        <select id="pg-select" class="autumn-aux-select" aria-label="Program"></select>
+        <div class="autumn-aux-row">
+          <button id="pg-reset-btn" class="autumn-aux-btn" type="button">Reset</button>
+          <button id="pg-pause-btn" class="autumn-aux-btn" type="button">Pause</button>
+        </div>
+      </div>
+    </div>
     <div class="pg-keys">
       <kbd>&larr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd> or D-pad &middot; <kbd>Click</kbd> Interact
     </div>

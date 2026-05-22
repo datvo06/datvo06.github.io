@@ -61,12 +61,16 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
       <div id="autumn-inline-wrapper" style="position: relative; width: 100%; aspect-ratio: 1; border-radius: 4px; overflow: hidden;">
         <canvas id="autumn-canvas" style="width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; cursor: pointer; display: block;"></canvas>
       </div>
-      <div style="margin-top: 6px; display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
-        <select id="autumn-program-select" style="font-size: 11px; padding: 2px 4px; border-radius: 3px; border: 1px solid var(--global-divider-color, #dee2e6); background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); max-width: 110px;"></select>
-        <button id="autumn-reset" style="font-size: 11px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--global-divider-color, #dee2e6); background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); cursor: pointer;">Reset</button>
-        <button id="autumn-pause" style="font-size: 11px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--global-divider-color, #dee2e6); background: var(--global-bg-color, #fff); color: var(--global-text-color, #000); cursor: pointer;">Pause</button>
+      <div class="autumn-console">
+        {% include autumn_dpad.html id="autumn-dpad" %}
+        <div class="autumn-aux">
+          <select id="autumn-program-select" class="autumn-aux-select" aria-label="Program"></select>
+          <div class="autumn-aux-row">
+            <button id="autumn-reset" class="autumn-aux-btn" type="button">Reset</button>
+            <button id="autumn-pause" class="autumn-aux-btn" type="button">Pause</button>
+          </div>
+        </div>
       </div>
-      {% include autumn_dpad.html id="autumn-dpad" %}
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong> (ICML '26)<br>
