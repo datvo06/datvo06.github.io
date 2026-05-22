@@ -21,6 +21,10 @@ $green-color-light:   #ddffdd !default;
 $green-color-bright:  #11D68B !default;
 $purple-color:        #B509AC !default;
 $light-purple-color:  color.adjust($purple-color, $lightness: 25%);
+
+// Accent palette (used by --global-theme-color in _themes.scss)
+$ink-blue:            #1E3A8A !default;  // light-mode accent
+$ink-blue-soft:       #93C5FD !default;  // dark-mode accent (readable on dark bg)
 $pink-color:          #f92080 !default;
 $pink-color-light:    #ffdddd !default;
 $yellow-color:        #efcc00 !default;
