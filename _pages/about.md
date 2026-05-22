@@ -69,9 +69,9 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
       {% include autumn_dpad.html id="autumn-dpad" %}
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
-      <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong><br>
-      <em>An <a href="https://autumn.basis.ai">Autumn</a> interpreter in C++ for MARA. Try it live &larr;</em><br>
-      <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">AutumnBench blog</a> · <a href="{{ '/playground/' | relative_url }}">playground</a><br>
+      <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong> (ICML '26)<br>
+      <em>An <a href="https://autumn.basis.ai">Autumn</a> interpreter in C++ for MARA &mdash; powers AutumnBench. Try it live &larr;</em><br>
+      <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://arxiv.org/abs/2510.19788">AutumnBench paper</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">blog</a> · <a href="{{ '/playground/' | relative_url }}">playground</a><br>
       <span style="font-size: 12px; color: var(--global-text-color-light, #666);">&darr; to spin droplet, click cloud &amp; sun to interact</span>
     </td>
   </tr>
@@ -125,10 +125,28 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
 
 ### Positions
 
-| Period | Role & Affiliation |
-|--------|-------------------|
-| **2025 -- present** | Post-doctoral Fellow, [Harvard SEAS](https://namin.seas.harvard.edu/) & [Basis Research Institute](https://basis.ai/) |
-| **2021 -- 2024** | PhD, School of Computing & Information Systems, University of Melbourne (Melbourne Research Scholarship) |
-| **2016 -- 2021** | AI Research Engineer, Cinnamon AI Lab |
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-when">2025 &mdash; present</div>
+    <div class="timeline-what">
+      <div class="timeline-role">Post-doctoral Fellow</div>
+      <div class="timeline-where"><a href="https://namin.seas.harvard.edu/">Harvard SEAS</a> &amp; <a href="https://basis.ai/">Basis Research Institute</a></div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-when">2021 &mdash; 2024</div>
+    <div class="timeline-what">
+      <div class="timeline-role">PhD, School of Computing &amp; Information Systems</div>
+      <div class="timeline-where">University of Melbourne &middot; Melbourne Research Scholarship</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-when">2016 &mdash; 2021</div>
+    <div class="timeline-what">
+      <div class="timeline-role">AI Research Engineer</div>
+      <div class="timeline-where">Cinnamon AI Lab</div>
+    </div>
+  </div>
+</div>
 
 ---
