@@ -911,7 +911,7 @@ async function init() {
     wasmModule = await createInterpreterModule({
       locateFile: (path) => path.endsWith('.wasm') ? wasmUrl : path
     });
-    statusEl.textContent = 'Ready — hit Run or Ctrl+Enter';
+    statusEl.textContent = 'Ready. Hit Run or Ctrl+Enter';
     runProgram();
   } catch (e) {
     statusEl.textContent = `Failed to load WASM: ${e.message || e}`;
