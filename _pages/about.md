@@ -43,7 +43,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://github.com/datvo06/NeuroSymbolicDG">NeuroSymbolicDG</a></strong><br>
       <em>PCFG over a spatial layout DSL as a domain-invariant classifier head for fine-grained bird recognition.</em><br>
-      <a href="https://github.com/datvo06/NeuroSymbolicDG">code</a> · <a href="{{ '/blog/2026/neurosymbolic-dg/' | relative_url }}">blog</a> · <a href="https://huggingface.co/datvo06/neurosymbolic-da-results">checkpoints</a>
+      <a href="https://github.com/datvo06/NeuroSymbolicDG">code</a> · <a href="https://arxiv.org/abs/2605.06043">paper</a> · <a href="{{ '/blog/2026/neurosymbolic-dg/' | relative_url }}">blog</a> · <a href="https://huggingface.co/datvo06/neurosymbolic-da-results">checkpoints</a>
     </td>
   </tr>
   <tr style="border: none;">
@@ -74,7 +74,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong> (ICML '26)<br>
-      <em>An <a href="https://autumn.basis.ai">Autumn</a> interpreter in C++ for MARA &mdash; powers AutumnBench. Try it live &larr;</em><br>
+      <em>An <a href="https://autumn.basis.ai">Autumn</a> interpreter in C++ for MARA. Powers AutumnBench. Try it live &larr;</em><br>
       <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://arxiv.org/abs/2510.19788">AutumnBench paper</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">blog</a> · <a href="{{ '/playground/' | relative_url }}">playground</a><br>
       <span style="font-size: 12px; color: var(--global-text-color-light, #666);">&darr; to spin droplet, click cloud &amp; sun to interact</span>
     </td>
@@ -131,21 +131,21 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
 
 <div class="timeline">
   <div class="timeline-item">
-    <div class="timeline-when">2025 &mdash; present</div>
+    <div class="timeline-when">2025 to present</div>
     <div class="timeline-what">
       <div class="timeline-role">Post-doctoral Fellow</div>
       <div class="timeline-where"><a href="https://namin.seas.harvard.edu/">Harvard SEAS</a> &amp; <a href="https://basis.ai/">Basis Research Institute</a></div>
     </div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-when">2021 &mdash; 2024</div>
+    <div class="timeline-when">2021 to 2024</div>
     <div class="timeline-what">
       <div class="timeline-role">PhD, School of Computing &amp; Information Systems</div>
       <div class="timeline-where">University of Melbourne &middot; Melbourne Research Scholarship</div>
     </div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-when">2016 &mdash; 2021</div>
+    <div class="timeline-when">2016 to 2021</div>
     <div class="timeline-what">
       <div class="timeline-role">AI Research Engineer</div>
       <div class="timeline-where">Cinnamon AI Lab</div>

@@ -9,7 +9,7 @@ nav_order: 5
 
 ## University of Melbourne
 
-### Software Modeling & Design&nbsp;• 2023 — 2024
+### Software Modeling & Design&nbsp;• 2023 to 2024
 Lead Tutor & Content Developer  
 - Designed weekly quizzes, lab tutorials, and a capstone group project focused on Java/OOP design.  
 - Coordinated ≈10 tutors: set rubrics, moderated marking, and handled special‑consideration cases.  

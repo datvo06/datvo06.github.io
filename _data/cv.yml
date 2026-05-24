@@ -20,9 +20,9 @@
 - title: Work Experience
   type: time_table
   contents:
-    - title: Joint Postdoc – LLM and Program Synthesis
+    - title: Joint Postdoc in LLM and Program Synthesis
       institution: Harvard University & Basis Research Institute
-      year: Jan 2025 – Present
+      year: Jan 2025 to Present
       description:
         - "Truth‑Maintaining Agent: LLM exploration with knowledge‑graph and causal rules."
         - "CASP: causal abstractions for proof search in Lean."
@@ -31,7 +31,7 @@
         - "R‑ADA: probabilistic inference for robot morphology sampling."
     - title: Senior Research Engineer
       institution: Cinnamon AI Lab
-      year: Feb 2017 – Feb 2021
+      year: Feb 2017 to Feb 2021
       description:
         - Segmentation-based information extraction from visually rich documents (MSAU, MSAU-PAF).
         - Deployed projects using Docker, Flask, and FastAPI.
@@ -42,7 +42,7 @@
   contents:
     - title: PhD in Computer Science
       institution: University of Melbourne, Melbourne, Australia
-      year: Sep 2021 – Nov 2024
+      year: Sep 2021 to Nov 2024
       description:
         - "Advisor: Dr. Bach Le, Dr. Patanamon Thongtanunam."
         - "Projects: VRDSynth, GraphCodeAttack, GNNInfer, FFL."
