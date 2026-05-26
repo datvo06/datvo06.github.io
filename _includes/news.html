@@ -11,8 +11,17 @@
     <div class="{% if site.news_scrollable and news_size > 3 %}news-scroll{% endif %}">
       <ol class="news-list">
         {% for item in news limit: news_limit %}
-          <li class="news-item">
-            <time class="news-date" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%b %-d, %Y" }}</time>
+          {% case item.type %}
+            {% when 'award' %}{% assign news_icon = 'fa-medal' %}
+            {% when 'accepted' %}{% assign news_icon = 'fa-bookmark' %}
+            {% when 'preprint' %}{% assign news_icon = 'fa-file-alt' %}
+            {% when 'feature' %}{% assign news_icon = 'fa-newspaper' %}
+            {% else %}{% assign news_icon = 'fa-circle' %}
+          {% endcase %}
+          <li class="news-item news-item--{{ item.type | default: 'note' }}">
+            <time class="news-date" datetime="{{ item.date | date_to_xmlschema }}">
+              <i class="fas {{ news_icon }} news-icon" aria-hidden="true"></i>{{ item.date | date: "%b %-d, %Y" }}
+            </time>
             <div class="news-content">
               {% if item.inline -%}
                 {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}

@@ -816,6 +816,37 @@ html.transition *:after {
     color: var(--global-text-color-light);
     white-space: nowrap;
     padding-top: 3px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .news-icon {
+    color: var(--global-theme-color);
+    font-size: 0.85rem;
+    width: 1.05rem;
+    text-align: center;
+    flex: 0 0 auto;
+    /* nudge so the icon sits with the baseline of the date caps */
+    transform: translateY(1px);
+  }
+
+  /* Awards stand out a touch more */
+  .news-item--award .news-icon { font-size: 0.95rem; }
+
+  /* Inline icons that decorate words and links inside the news body */
+  .news-content .fas,
+  .news-content .fab,
+  .news-content .ai {
+    color: var(--global-theme-color);
+    font-size: 0.85em;
+    margin-right: 0.18em;
+    opacity: 0.85;
+  }
+  .news-content a:hover .fas,
+  .news-content a:hover .fab,
+  .news-content a:hover .ai {
+    opacity: 1;
   }
 
   .news-content {
