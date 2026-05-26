@@ -10,7 +10,7 @@ profile:
   image: profile.jpg
   image_circular: true
   address: ""
-news: true            # show the "News" block
+news: false           # rendered inline below (above Technical blogs)
 selected_papers: true # show papers with selected={true}
 social: true          # show social icons
 ---
@@ -28,10 +28,12 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
 - Neuro-symbolic systems with LLMs and SMT
 - Reliable and explainable ML for software
 
+{% include news.html %}
+
 ### Technical blogs
-- [Grammars that generalize]({{ '/blog/2026/neurosymbolic-dg/' | relative_url }}) -- Combining a small DSL with a neural network for domain-invariant bird recognition
-- [Bayesian Synthesis]({{ '/blog/2026/bayesian-synthesis/' | relative_url }}) -- Bayesian synthesis of probabilistic programs for automatic data modeling
-- [All posts]({{ '/blog/' | relative_url }})
+- [Grammars that generalize]({{ '/blog/2026/neurosymbolic-dg/' | relative_url }}). Combining a small DSL with a neural network for domain-invariant bird recognition.
+- [Bayesian Synthesis]({{ '/blog/2026/bayesian-synthesis/' | relative_url }}). Probabilistic programs for automatic data modeling.
+- [All posts]({{ '/blog/' | relative_url }}).
 
 ### Project demos
 
