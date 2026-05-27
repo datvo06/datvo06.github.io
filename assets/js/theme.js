@@ -50,13 +50,11 @@ let transTheme = () => {
 
 
 let initTheme = (theme) => {
+  // Default to light for first-time visitors. The toggle still works and
+  // localStorage remembers the choice, so anyone who picks dark stays in dark.
   if (theme == null || theme == 'null') {
-    const userPref = window.matchMedia;
-    if (userPref && userPref('(prefers-color-scheme: dark)').matches) {
-        theme = 'dark';
-    }
+    theme = 'light';
   }
-  
   setTheme(theme);
 }
 
