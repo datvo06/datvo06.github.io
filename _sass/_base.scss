@@ -485,14 +485,6 @@ footer.sticky-bottom {
     span {
       font-size: 1.5rem;
     }
-    .full-list-link {
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-left: 0.5rem;
-      vertical-align: middle;
-    }
   }
   h2.year {
     color: var(--global-divider-color);
@@ -505,130 +497,66 @@ footer.sticky-bottom {
   ol.bibliography {
     list-style: none;
     padding: 0;
-    margin-top: 0;
+    margin: 0;
+    counter-reset: bib-counter;
 
     li {
-      margin-bottom: 1.6rem;
-      padding-bottom: 1.2rem;
-      border-bottom: 1px solid var(--global-divider-color);
-      &:last-child {
-        border-bottom: 0;
-        padding-bottom: 0;
-        margin-bottom: 0;
-      }
-      .preview {
-        width: 100%;
-        min-width: 80px;
-        max-width: 200px;
-      }
-      .abbr {
-        height: auto;
-        margin-bottom: 0.4rem;
-        abbr {
-          display: inline-block;
-          background-color: transparent;
-          color: var(--global-theme-color);
-          border: 1px solid var(--global-theme-color);
-          border-radius: 3px;
-          padding: 0.05rem 0.55rem;
-          font-size: 0.7rem;
-          font-weight: 600;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          a {
-            color: var(--global-theme-color);
-            &:hover {
-              text-decoration: none;
-            }
-          }
-        }
-        .award {
-          color: var(--global-theme-color) !important;
-          border: 1px solid var(--global-theme-color);
-        }
-      }
-      .title {
-        font-weight: 600;
-        font-size: 1.02rem;
-        line-height: 1.4;
-      }
-      .author {
-        font-size: 0.92rem;
-        margin-top: 0.15rem;
-        a {
-          border-bottom: 1px dashed var(--global-theme-color);
-          &:hover {
-              border-bottom-style: solid;
-              text-decoration: none;
-          }
-        }
-        > em {
-          color: var(--global-text-color);
-          font-weight: 600;
-          font-style: normal;
-          border-bottom: 2px solid var(--global-theme-color);
-          padding-bottom: 1px;
-        }
-        > span.more-authors {
-          color: var(--global-text-color-light);
-          border-bottom: 1px dashed var(--global-text-color-light);
-          cursor: pointer;
-          &:hover {
-              color: var(--global-text-color);
-              border-bottom: 1px dashed var(--global-text-color);
-          }
-        }
-      }
-      .links {
-        a.btn {
-          color: var(--global-text-color);
-          border: 1px solid var(--global-text-color);
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 0.25rem;
-          padding-bottom: 0.25rem;
-          &:hover {
-            color: var(--global-theme-color);
-            border-color: var(--global-theme-color);
-          }
-        }
-      }
-      .hidden {
-        font-size: 0.875rem;
-        max-height: 0px;
-        overflow: hidden;
-        text-align: justify;
-        transition-property: 0.15s ease;
-        -moz-transition: 0.15s ease;
-        -ms-transition: 0.15s ease;
-        -o-transition: 0.15s ease;
-        transition: all 0.15s ease;
+      margin: 0;
+      padding: 0.35rem 0;
+      border-bottom: 0;
+    }
 
-        p {
-          line-height: 1.4em;
-          margin: 10px;
-        }
-        pre {
-          font-size: 1em;
-          line-height: 1.4em;
-          padding: 10px;
-        }
-      }
-      .hidden.open {
-        max-height: 100em;
-        transition-property: 0.15s ease;
-        -moz-transition: 0.15s ease;
-        -ms-transition: 0.15s ease;
-        -o-transition: 0.15s ease;
-        transition: all 0.15s ease;
-      }
-      div.abstract.hidden {
-        border: dashed 1px var(--global-bg-color);
-      }
-      div.abstract.hidden.open {
-        border-color: var(--global-text-color);
+    .bib-row {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      column-gap: 0.9rem;
+      align-items: baseline;
+      line-height: 1.5;
+    }
+
+    .bib-venue abbr {
+      display: inline-block;
+      color: var(--global-theme-color);
+      border: 1px solid var(--global-theme-color);
+      border-radius: 3px;
+      padding: 0.02rem 0.45rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .bib-venue a { text-decoration: none; }
+
+    .bib-title {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--global-text-color);
+    }
+    a.bib-title:hover { color: var(--global-theme-color); }
+
+    .bib-author {
+      font-size: 0.85rem;
+      color: var(--global-text-color-light);
+      > em {
+        color: var(--global-text-color);
+        font-weight: 600;
+        font-style: normal;
+        border-bottom: 2px solid var(--global-theme-color);
+        padding-bottom: 1px;
       }
     }
+
+    @media (max-width: 540px) {
+      .bib-row {
+        grid-template-columns: 1fr;
+        row-gap: 0.15rem;
+      }
+    }
+
+    // Suppress legacy elements if the old template ever runs:
+    .preview, .links, .hidden, .periodical, .abbr { display: none; }
   }
 }
 
