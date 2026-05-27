@@ -5,4 +5,4 @@ inline: true
 type: accepted
 ---
 
-ExoPredicator learns symbolic state and causal processes (agent actions plus exogenous mechanisms) via variational Bayesian inference with LLM proposals. Accepted at ICLR'26; the learned abstract world models support robot planning on harder tabletop tasks. [<i class="ai ai-arxiv"></i>arXiv](https://arxiv.org/abs/2509.26255), [<i class="fas fa-comments"></i>openreview](https://openreview.net/forum?id=a1zfcaNTkM).
+ExoPredicator learns symbolic state and causal processes (agent actions plus exogenous mechanisms) via variational Bayesian inference with LLM proposals. Accepted at ICLR'26. [<i class="ai ai-arxiv"></i>arXiv](https://arxiv.org/abs/2509.26255), [<i class="fas fa-comments"></i>openreview](https://openreview.net/forum?id=a1zfcaNTkM).

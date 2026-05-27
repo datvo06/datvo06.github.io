@@ -5,4 +5,4 @@ inline: true
 type: accepted
 ---
 
-AutumnBench evaluates world-model learners across 43 grid-worlds and 129 tasks (masked-frame prediction, planning, causal-dynamics). Accepted at <i class="fas fa-graduation-cap"></i>ICML'26; Archana and I will be presenting, see you in Korea! Humans beat all three frontier models we tried. [<i class="ai ai-arxiv"></i>arXiv](https://arxiv.org/abs/2510.19788), [<i class="fas fa-flask"></i>project](https://www.basis.ai/blog/autumn-platform-2025/).
+Our work, WorldTest, is accepted at <i class="fas fa-graduation-cap"></i>ICML! WorldTest formulates world-model learning evaluation with environment-level queries that pose general questions about the environments, and we instantiated it with AutumnBench. See you in Korea! [<i class="ai ai-arxiv"></i>arXiv](https://arxiv.org/abs/2510.19788), [<i class="fas fa-flask"></i>project](https://www.basis.ai/blog/autumn-platform-2025/).
