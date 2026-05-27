@@ -44,7 +44,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://github.com/datvo06/NeuroSymbolicDG">NeuroSymbolicDG</a></strong><br>
-      <em>PCFG over a spatial layout DSL as a domain-invariant classifier head for fine-grained bird recognition.</em><br>
+      <em>Domain-invariant classifier head for fine-grained bird recognition, via a PCFG over spatial layouts.</em><br>
       <a href="https://github.com/datvo06/NeuroSymbolicDG">code</a> · <a href="https://arxiv.org/abs/2605.06043">paper</a> · <a href="{{ '/blog/2026/neurosymbolic-dg/' | relative_url }}">blog</a> · <a href="https://huggingface.co/datvo06/neurosymbolic-da-results">checkpoints</a>
     </td>
   </tr>
@@ -54,7 +54,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://github.com/datvo06/VRDSynth">VRDSynth</a></strong> (ISSTA '24)<br>
-      <em>Synthesizing programs for multilingual visually rich document information extraction.</em><br>
+      <em>Program synthesis for multilingual document information extraction.</em><br>
       <a href="https://github.com/datvo06/VRDSynth">code</a> · <a href="https://arxiv.org/abs/2407.06826">paper</a>
     </td>
   </tr>
@@ -76,7 +76,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong> (ICML '26)<br>
-      <em>An <a href="https://autumn.basis.ai">Autumn</a> interpreter in C++ for MARA. Powers AutumnBench. Try it live &larr;</em><br>
+      <em><a href="https://autumn.basis.ai">Autumn</a> interpreter in C++. Powers MARA and AutumnBench. Try it live &larr;</em><br>
       <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://arxiv.org/abs/2510.19788">AutumnBench paper</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">blog</a> · <a href="{{ '/playground/' | relative_url }}">playground</a><br>
       <span style="font-size: 12px; color: var(--global-text-color-light, #666);">&darr; to spin droplet, click cloud &amp; sun to interact</span>
     </td>
@@ -97,7 +97,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://github.com/Duy-Nguyen-Duc/VirDA">VirDA</a></strong> (TMLR '25)<br>
-      <em>Reusing backbone for unsupervised domain adaptation with visual reprogramming.</em><br>
+      <em>Unsupervised domain adaptation by reusing the backbone with visual reprogramming.</em><br>
       <a href="https://github.com/Duy-Nguyen-Duc/VirDA">code</a> · <a href="https://openreview.net/forum?id=Qh7or7JRFI">paper</a>
     </td>
   </tr>
@@ -117,7 +117,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://github.com/FFL2022/FFL">FFL</a></strong> (ICSME '22)<br>
-      <em>Fine-grained fault localization for student programs via syntactic and semantic reasoning.</em><br>
+      <em>Fine-grained fault localization for student programs.</em><br>
       <a href="https://github.com/FFL2022/FFL">code</a> · <a href="https://soarsmu.github.io/papers/2022/ICSME_FFL.pdf">paper</a>
     </td>
   </tr>
