@@ -16,7 +16,7 @@ social: true          # show social icons
 ---
 
 ### Short bio
-I am a **Postdoctoral Fellow** at [Harvard's Programming Languages and Formal Methods groups](https://pl.seas.harvard.edu/) and an incoming Postdoctoral Scientist at the [Basis Research Institute](https://www.basis.ai/about/).
+I am a **Joint Postdoctoral Fellow** at [Harvard's Programming Languages and Formal Methods groups](https://pl.seas.harvard.edu/) and the [Basis Research Institute](https://www.basis.ai/about/).
 
 My research focuses on program synthesis and probabilistic programming, with a track record in graph-based learning for code and documents. I completed my PhD at the [University of Melbourne](https://cis.unimelb.edu.au/) and previously worked at **Cinnamon AI Lab** on visually rich document information extraction.
 
@@ -135,7 +135,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
   <div class="timeline-item">
     <div class="timeline-when">2025 to present</div>
     <div class="timeline-what">
-      <div class="timeline-role">Post-doctoral Fellow</div>
+      <div class="timeline-role">Joint Post-doctoral Fellow</div>
       <div class="timeline-where"><a href="https://namin.seas.harvard.edu/">Harvard SEAS</a> &amp; <a href="https://basis.ai/">Basis Research Institute</a></div>
     </div>
   </div>
