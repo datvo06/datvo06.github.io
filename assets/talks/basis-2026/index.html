@@ -1596,7 +1596,7 @@ def KnobTarget(self, size):
     self.knob_angle = sensors.Position(self.knob_joint)
     self.loss = Equalize(self.knob_angle.get(), -tau / 4)   # quarter turn ccw</code></pre>
   </div>
-  <div style="flex: 1.15; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.35em; align-items: center; justify-content: center;">
+  <div style="flex: 1.15; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.35em; align-items: center; justify-content: flex-start;">
     <img src="./media/codesign/image11.png" alt="result chart" style="display: block; max-width: 100%; max-height: 35%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
     <video src="./media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline style="display: block; max-width: 100%; max-height: 65%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
   </div>
