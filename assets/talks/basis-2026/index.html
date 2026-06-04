@@ -74,6 +74,43 @@
 <li class="fragment fade-in-then-semi-out">Effectful LLM</li>
 </ul>
 </section>
+
+<section id="slide-thesis" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">The through-line: <span style="color: #1E3A8A;">programs as the substrate</span></h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.95em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0 0 0.35em 0; font-size: 0.46em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Claim.</strong>
+    The right symbolic substrate is a <em>language</em>. Programs in that language are the world model, the robot, the agent. The LLM writes the program. A simulator or handler gives it meaning.
+  </p>
+  <p style="margin: 0; font-size: 0.4em; color: #4a4f5a;">
+    Three projects, one recipe. MARA writes Autumn programs. R-ADA writes RoboTL programs. Effectful makes an LLM call <em>itself</em> a typed program. The same three properties keep showing up.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.4em; text-align: left; margin-bottom: 0.6em;">
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Composable</div>
+    <p style="margin: 0; color: #4a4f5a;">Small programs clip into bigger ones. POMDPs into POMDPs, components into robots, tools into agents.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Queryable</div>
+    <p style="margin: 0; color: #4a4f5a;">You can <em>ask</em> the program things: predict a frame, plan an action, score a discrepancy, evaluate a gradient.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Simulable</div>
+    <p style="margin: 0; color: #4a4f5a;">An interpreter or handler runs it. Swap handlers, swap semantics: eval, sample, differentiate, talk to an LLM.</p>
+  </div>
+
+</div>
+
+<p style="margin: 0.4em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
+  Watch for these three on every section header. The talk closes by naming them again.
+</p>
+</section>
 <section id="slide-3" class="slide level2">
 <div style="position: relative; display: inline-block; max-height: 80vh;">
   <img src="./media/image1.png" style="display: block; max-height: 80vh; width: auto;">
@@ -1161,7 +1198,7 @@ class SynthesizedWorld:
     <div style="flex: 1; text-align: left; min-width: 0;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part II</div>
       <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.5em 0;">R-ADA: Co-Design with LLM</h2>
-      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">RoboTL: a DSL for robots and objectives that unifies geometric and kinematic constraints. The LLM writes programs in it; CAD, JAX, and MuJoCo handlers answer.</p>
+      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">No substrate exists in this domain, so we engineer one: <strong>RoboTL</strong>, a DSL for robots and objectives that unifies geometric and kinematic constraints. The LLM writes programs in it; CAD, JAX, and MuJoCo handlers answer. <em>Same recipe as MARA</em>, manufactured substrate.</p>
     </div>
     <img src="./media/codesign/robotl_logo.png" alt="RoboTL logo" style="flex: 0 0 auto; max-height: 50vh; max-width: 35%; width: auto; height: auto; object-fit: contain;">
   </div>
