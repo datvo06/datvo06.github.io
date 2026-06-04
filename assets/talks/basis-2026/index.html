@@ -814,7 +814,7 @@
       <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">ants.py</span>
       <span style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.32em; color: #6b7080;">confessional: docstring says it all</span>
     </div>
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: hidden;"><code class="language-python" data-trim>class SynthesizedWorld:
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: visible;"><code class="language-python" data-trim>class SynthesizedWorld:
     """Replays the recorded trajectory observations exactly."""
 
     # Compact observation store: each entry is a flat tuple of
@@ -853,13 +853,9 @@
         return self._render(len(self._OBS) - 1)   # clamp at last frame
 
 
-# 1700+ hard-coded frames; (pos, color) tuples per step.
 _OBS_DATA = [
     (9, 1, 25, 1, 31, 2),
-    (10, 1, 26, 1, 31, 2),
-    (11, 1, 27, 1, 31, 2),
-    (12, 1, 28, 1, 31, 2),
-    # ... 1750+ more rows ...
+    # ... 1750+ more hard-coded (pos, color) rows ...
     (15, 1, 31, 2),
 ]</code></pre>
   </div>
@@ -869,7 +865,7 @@ _OBS_DATA = [
       <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">carrace.py</span>
       <span style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.32em; color: #6b7080;">obfuscated: base64 blob + prefix match</span>
     </div>
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: hidden;"><code class="language-python" data-trim>import zlib, base64, json
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: visible;"><code class="language-python" data-trim>import zlib, base64, json
 
 _DATA_B64 = (
     "eNrt3c1yHMeVBtBXQXCtBUj92PKrcLiwpRpZMQpyQlaFFxN+d8OS"
