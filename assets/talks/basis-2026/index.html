@@ -127,7 +127,7 @@
     </div>
     <p style="margin: 0 0 0.5em 0; color: #4a4f5a;">Learners that actually propose, test, and refine world models given a substrate and an evaluation.</p>
     <div style="border-top: 1px dashed #d0d5dc; padding-top: 0.4em; font-family: 'IBM Plex Mono', monospace;">
-      &rarr; <strong style="color: #1f2330;">Adversarial synthesis</strong>, BOED, particle filters
+      &rarr; <strong style="color: #1f2330;">Adversarial synthesis</strong>, BOED (Bayesian Optimal Experimental Design), particle filters
     </div>
   </div>
 
@@ -268,7 +268,7 @@
       <li>Case study: Grow (success)</li>
       <li>Case study: Sand (subtle failure)</li>
       <li>RQ1: AutumnBench scores</li>
-      <li>Unique-task analysis</li>
+      <li>RQ4: model fidelity</li>
     </ul>
   </div>
 
@@ -381,7 +381,7 @@
   <div style="flex: 1; max-width: 320px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Take-away</div>
     <ul style="margin: 0; padding-left: 1.1em; line-height: 1.4; color: #1f2330;">
-      <li>Humans &asymp; <strong>95% +</strong> on all three task families.</li>
+      <li>Humans &asymp; <strong>95%+</strong> on all three task families.</li>
       <li>Adversarial synthesis lags humans on planning and (especially) change detection.</li>
       <li>The loop converges fastest when the dynamics can be guessed from one or two observations.</li>
     </ul>
@@ -954,7 +954,7 @@ class SynthesizedWorld:
 
   <div style="flex: 1; max-width: 360px; padding: 0.7em 0.9em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">R-ADA</div>
-    <p style="margin: 0; color: #1f2330;">No substrate yet. We <strong>build RoboTL</strong> first &middot; a DSL for robots and objectives sitting between CAD and RoboGrammar &middot; and then let the LLM write programs in it.</p>
+    <p style="margin: 0; color: #1f2330;">No substrate yet. We <strong>build RoboTL</strong> first &middot; a DSL for robots and objectives sitting between CAD and RoboGrammar (Zhao et al., SIGGRAPH 2020, a graph grammar over robot morphologies) &middot; and then let the LLM write programs in it.</p>
   </div>
 
 </div>
@@ -969,7 +969,7 @@ class SynthesizedWorld:
     <div style="flex: 1; text-align: left; min-width: 0;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part II</div>
       <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.5em 0;">R-ADA: Co-Design with LLM</h2>
-      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">RoboTL: a DSL for robots and objectives, unified geometric and kinematic constraints. The LLM writes programs in it; CAD, JAX, and MuJoCo handlers answer.</p>
+      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">RoboTL: a DSL for robots and objectives that unifies geometric and kinematic constraints. The LLM writes programs in it; CAD, JAX, and MuJoCo handlers answer.</p>
     </div>
     <img src="./media/codesign/robotl_logo.png" alt="RoboTL logo" style="flex: 0 0 auto; max-height: 50vh; max-width: 35%; width: auto; height: auto; object-fit: contain;">
   </div>
