@@ -267,8 +267,8 @@
     <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
       <li>Case study: Grow (success)</li>
       <li>Case study: Sand (subtle failure)</li>
-      <li>RQ1: AutumnBench scores</li>
-      <li>RQ4: model fidelity</li>
+      <li>AutumnBench scores vs human</li>
+      <li>Does model fidelity drive performance?</li>
     </ul>
   </div>
 
@@ -1029,31 +1029,31 @@ class SynthesizedWorld:
 </p>
 </section>
 <section id="slide-34" class="slide level2" data-background-color="#fafbfc">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">RQ4: does model fidelity drive task performance?</h2>
+<h2 style="font-size: 0.95em; margin: 0 0 0.3em 0;">Does world-model fidelity drive task performance?</h2>
 
-<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
+<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.34em; text-align: left; max-height: 72vh;">
 
-  <div style="flex: 0 0 32%; max-width: 360px; display: flex; flex-direction: column; gap: 0.55em;">
-    <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.75em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Setup</div>
-      <p style="margin: 0; color: #4a4f5a;">Bucket worlds by rule-level fidelity (<em>poor</em> / <em>partial</em> / <em>high</em>). For each bucket, average the test-phase success rate per task family.</p>
+  <div style="flex: 0 0 30%; max-width: 340px; display: flex; flex-direction: column; gap: 0.45em;">
+    <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.65em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Setup</div>
+      <p style="margin: 0; color: #4a4f5a;">Bucket worlds by rule-level fidelity (<em>poor</em>, <em>partial</em>, <em>high</em>). Average the test-phase success rate per task family.</p>
     </div>
-    <div style="padding: 0.5em 0.75em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Take-away</div>
-      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
-        <li>Fidelity helps every family, monotone in all three.</li>
-        <li><strong>Masked frame prediction</strong>: 80 to <strong>100%</strong>. Pixels follow the rules.</li>
-        <li><strong>Planning</strong>: 70 to <strong>86%</strong>. Robust to partial fidelity.</li>
-        <li><strong>Change detection</strong>: 15 to <strong>43%</strong>. The hardest family even with a high-fidelity model.</li>
+    <div style="padding: 0.4em 0.65em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Take-away</div>
+      <ul style="margin: 0; padding-left: 1em; line-height: 1.4; color: #1f2330;">
+        <li>Monotone in all three families.</li>
+        <li><strong>Masked frame</strong>: 80 to <strong>100%</strong>.</li>
+        <li><strong>Planning</strong>: 70 to <strong>86%</strong>.</li>
+        <li><strong>Change detection</strong>: 15 to <strong>43%</strong>, hardest even at high fidelity.</li>
       </ul>
     </div>
-    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; padding: 0 0.25em;">n = 20 / 23 / 7 envs per fidelity bucket.</div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; padding: 0 0.15em; font-size: 0.92em;">n = 20 / 23 / 7 envs per bucket.</div>
   </div>
 
-  <div style="flex: 1; max-width: 620px; display: flex; flex-direction: column;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.05em;">Task success rate by world-model fidelity</div>
-    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.78em; color: #6b7080; margin-bottom: 0.3em;">x: rule-level fidelity bucket &middot; y: test-phase success</div>
-    <div style="position: relative; flex: 1; width: 100%; min-height: 52vh;">
+  <div style="flex: 1; max-width: 600px; display: flex; flex-direction: column; min-width: 0;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.88em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.05em;">Task success rate by world-model fidelity</div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.76em; color: #6b7080; margin-bottom: 0.25em;">x: rule-level fidelity bucket &middot; y: test-phase success</div>
+    <div style="position: relative; flex: 1; width: 100%; height: 56vh; max-height: 56vh; min-height: 0;">
       <canvas id="rq4-chart-fidelity"></canvas>
     </div>
   </div>
