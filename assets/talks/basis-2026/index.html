@@ -67,12 +67,40 @@
   </div>
 </section>
 <section id="slide-2" class="slide level2">
-<h2>What did I work on at Basis?</h2>
-<ul>
-<li class="fragment fade-in-then-semi-out">MARA</li>
-<li class="fragment fade-in-then-semi-out">R-ADA</li>
-<li class="fragment fade-in-then-semi-out">Effectful LLM</li>
+<h2 style="font-size: 1em; margin: 0 0 0.5em 0;">What did I work on at Basis?</h2>
+
+<ul style="font-size: 0.6em; margin: 0 auto 1em; max-width: 60%;">
+<li class="fragment fade-in-then-semi-out"><strong style="color: #1E3A8A;">MARA</strong> &middot; agents for intuitive scientific discovery</li>
+<li class="fragment fade-in-then-semi-out"><strong style="color: #1E3A8A;">R-ADA</strong> &middot; LLM-driven robot codesign</li>
+<li class="fragment fade-in-then-semi-out"><strong style="color: #1E3A8A;">Effectful LLM</strong> &middot; LLM calls as typed programs</li>
 </ul>
+
+<div style="margin: 1em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080;">
+  <div style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5em;">Timeline</div>
+  <div style="position: relative; height: 2.5em; margin: 0 0.5em;">
+    <div style="position: absolute; left: 0; right: 0; top: 1.05em; height: 2px; background: #d0d5dc;"></div>
+    <div style="position: absolute; left: 0%; top: 0; display: flex; flex-direction: column; align-items: center;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1f2330; font-size: 0.95em;">Jan 2025</div>
+      <div style="width: 10px; height: 10px; border-radius: 50%; background: #1E3A8A; margin-top: 0.3em;"></div>
+      <div style="margin-top: 0.3em; color: #4a4f5a;">join Basis</div>
+    </div>
+    <div style="position: absolute; left: 32%; top: 0; display: flex; flex-direction: column; align-items: center; transform: translateX(-50%);">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1f2330; font-size: 0.95em;">2025</div>
+      <div style="width: 10px; height: 10px; border-radius: 50%; background: #1E3A8A; margin-top: 0.3em;"></div>
+      <div style="margin-top: 0.3em; color: #4a4f5a;">MARA: Autumn.cpp + protocol + WorldTest</div>
+    </div>
+    <div style="position: absolute; left: 64%; top: 0; display: flex; flex-direction: column; align-items: center; transform: translateX(-50%);">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1f2330; font-size: 0.95em;">late 2025</div>
+      <div style="width: 10px; height: 10px; border-radius: 50%; background: #1E3A8A; margin-top: 0.3em;"></div>
+      <div style="margin-top: 0.3em; color: #4a4f5a;">R-ADA: RoboTL + codesign loop</div>
+    </div>
+    <div style="position: absolute; right: 0%; top: 0; display: flex; flex-direction: column; align-items: center;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1f2330; font-size: 0.95em;">2026</div>
+      <div style="width: 10px; height: 10px; border-radius: 50%; background: #1E3A8A; margin-top: 0.3em;"></div>
+      <div style="margin-top: 0.3em; color: #4a4f5a;">Effectful LLM, OrchestSynth, next</div>
+    </div>
+  </div>
+</div>
 </section>
 
 <section id="slide-thesis" class="slide level2">
@@ -97,7 +125,7 @@
 
   <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Queryable</div>
-    <p style="margin: 0; color: #4a4f5a;">You can <em>ask</em> the program things: predict a frame, plan an action, score a discrepancy, evaluate a gradient.</p>
+    <p style="margin: 0; color: #4a4f5a;">You can <em>ask</em> the program things: predict a frame, plan an action, score a discrepancy, evaluate a gradient, analyze coverage / traces / abstract semantics.</p>
   </div>
 
   <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
@@ -120,7 +148,10 @@
 </div>
 </section>
 <section id="slide-4" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">MARA: Modeling, Abstraction, and Reasoning Agents</h2>
+<h2 style="font-size: 1em; margin: 0 0 0.1em 0;">MARA: Modeling, Abstraction, and Reasoning Agents</h2>
+<p style="margin: 0 auto 0.4em; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left; font-style: italic;">
+  Research question: <em>can an agent do everyday "intuitive" scientific discovery on a small world?</em>
+</p>
 
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.9em; max-width: 86%; text-align: left;">
   <p style="margin: 0; font-size: 0.45em;">
@@ -246,7 +277,13 @@
 
 </div>
 
-<div style="display: flex; gap: 0.5em; justify-content: center; margin: 0.7em auto 0; max-width: 92%; flex-wrap: wrap; font-size: 0.3em; font-family: 'IBM Plex Mono', monospace;">
+<div style="display: flex; gap: 0.7em; justify-content: center; align-items: center; margin: 0.7em auto 0.25em; font-size: 0.3em; font-family: 'IBM Plex Mono', monospace; color: #6b7080;">
+  <span><span style="display: inline-block; width: 0.7em; height: 0.7em; vertical-align: middle; background: #ffffff; border: 1.5px solid #d0d5dc; border-radius: 999px; margin-right: 0.3em;"></span>synthesizer</span>
+  <span><span style="display: inline-block; width: 0.7em; height: 0.7em; vertical-align: middle; background: #ffffff; border: 1.5px solid #c08230; border-radius: 999px; margin-right: 0.3em;"></span>challenger</span>
+  <span><span style="display: inline-block; width: 0.7em; height: 0.7em; vertical-align: middle; background: #eef0fb; border: 1.5px solid #1E3A8A; border-radius: 999px; margin-right: 0.3em;"></span>stochastic mode add-ons</span>
+</div>
+
+<div style="display: flex; gap: 0.5em; justify-content: center; margin: 0 auto; max-width: 92%; flex-wrap: wrap; font-size: 0.3em; font-family: 'IBM Plex Mono', monospace;">
   <span style="padding: 0.2em 0.55em; background: #ffffff; border: 1px solid #d0d5dc; border-radius: 999px; color: #1f2330;">env_interact</span>
   <span style="padding: 0.2em 0.55em; background: #ffffff; border: 1px solid #d0d5dc; border-radius: 999px; color: #1f2330;">test_code</span>
   <span style="padding: 0.2em 0.55em; background: #ffffff; border: 1px solid #d0d5dc; border-radius: 999px; color: #1f2330;">submit_code</span>
@@ -265,7 +302,7 @@
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.6em; max-width: 88%; text-align: left;">
   <p style="margin: 0; font-size: 0.42em;">
     <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
-    A language-agnostic protocol for <em>composable</em> agent / environment interaction. A big POMDP is built from smaller POMDPs; an evaluation controller routes the agent across sub-environments and aggregates their rewards.
+    A standard plug for agents and environments. Build a big task by stitching small environments together; a controller decides which one the agent sees next and how their scores combine. Agents and environments can be in any language: protobuf over IPC.
   </p>
 </div>
 
@@ -1306,7 +1343,8 @@ class SynthesizedWorld:
   <div style="display: flex; align-items: center; gap: 2.5rem; padding: 0 2rem; max-height: 85vh;">
     <div style="flex: 1; text-align: left; min-width: 0;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part II</div>
-      <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.5em 0;">R-ADA: Co-Design with LLM</h2>
+      <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.3em 0;">R-ADA: Co-Design with LLM</h2>
+      <p style="font-size: 0.4em; color: #6b7080; margin: 0 0 0.4em 0; font-style: italic;">Research question: <em>can an LLM codesign robot morphology and control end-to-end, without bi-level optimization?</em></p>
       <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">No substrate exists in this domain, so we engineer one: <strong>RoboTL</strong>, a DSL for robots and objectives that unifies geometric and kinematic constraints. The LLM writes programs in it; CAD, JAX, and MuJoCo handlers answer. <em>Same recipe as MARA</em>, manufactured substrate.</p>
     </div>
     <img src="./media/codesign/robotl_logo.png" alt="RoboTL logo" style="flex: 0 0 auto; max-height: 50vh; max-width: 35%; width: auto; height: auto; object-fit: contain;">
@@ -1447,15 +1485,18 @@ if __name__ == "__main__":
 </section>
 
 <section id="slide-effectful-intro" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Why RoboTL works: <code style="font-size: 0.85em;">effectful</code>, the substrate underneath</h2>
+<h2 style="font-size: 1em; margin: 0 0 0.1em 0;">Why RoboTL works: <code style="font-size: 0.85em;">effectful</code>, the substrate underneath</h2>
+<p style="margin: 0 auto 0.15em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-style: italic;">
+  Research question: <em>can an LLM call be just another typed function call, with the meaning chosen at the call site?</em>
+</p>
 <p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
   <code>effectful</code> library &middot; <strong style="color: #1E3A8A;">Jack Feser</strong>, <strong style="color: #1E3A8A;">Eli Bingham</strong> et al. (Basis) &middot; <a href="https://github.com/BasisResearch/effectful" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
 </p>
 
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.6em; max-width: 90%; text-align: left;">
   <p style="margin: 0 0 0.3em 0; font-size: 0.4em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The library underneath.</strong>
-    RoboTL imports <code>effectful.handlers.jax.numpy as jnp</code>. Autumn's three-handler trick is implementable in it. The Part III LLM piece slots in as one more handler. <strong>One library, one pattern, three projects.</strong>
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">What it is.</strong>
+    <code>effectful</code> is an algebraic-effects library for Python: you <em>declare operations</em> (no implementation), then <em>swap their meaning</em> via handlers at the call site. Same program, different semantics, no rewrites. RoboTL uses it (e.g. <code>effectful.handlers.jax.numpy as jnp</code>); Autumn's three-handler trick is implementable in it; the LLM piece slots in as one more handler. <strong>One library, one pattern, three projects.</strong>
   </p>
   <p style="margin: 0; font-size: 0.36em; color: #4a4f5a;">
     <code>effectful</code> is what makes <strong style="color: #1E3A8A;">composable</strong>, <strong style="color: #1E3A8A;">queryable</strong>, and <strong style="color: #1E3A8A;">simulable</strong> the <em>same three lines of code</em> each time.
