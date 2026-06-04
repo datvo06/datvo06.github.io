@@ -1360,18 +1360,18 @@ def KnobTarget(self, size):
 <div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
 
   <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Morphology brittleness</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> When does the LLM's chosen morphology stop transferring across small variations of the same task? Concrete example.</p>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Hand-specific env, brittle swap</div>
+    <p style="margin: 0; color: #4a4f5a;">Reward terms in <code>CubeSpinningEnv</code> access LEAP-specific fields (<code>f.ft</code>, <code>seg3</code>). The env crashed on ShadowHand and ComicHand until we explicitly guarded them. Generic LLM hands do not port across envs the LLM did not also design.</p>
   </div>
 
   <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Objective staging</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Designed objectives only work when the stages can be named. Tasks without nameable sub-goals are still out of reach. Concrete example.</p>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Stages need names</div>
+    <p style="margin: 0; color: #4a4f5a;">Bottleneck succeeds because <code>stage = floor(time() / 2)</code> slices it into enter / turn (90.2&deg; rotation under MPC). <code>PathTracingEnv</code> traces a figure-8 under one continuous <code>Equalize(ee.pos, path(time()))</code>. No nameable stages, no clean win on this benchmark.</p>
   </div>
 
   <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Sim-to-real</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Friction, hand gain, time-step. Nothing here has touched real hardware yet. Caveats to flag.</p>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Sim params are hand-tuned</div>
+    <p style="margin: 0; color: #4a4f5a;">Friction per component: knob 0.1, slide 0.05, finger 0.01. DT tightened 0.005 to 0.002 for stable contact; <code>solref</code> bumped 0.01 to 0.02 for preset stability. Nothing here has touched real hardware yet.</p>
   </div>
 
 </div>
@@ -1406,7 +1406,7 @@ def KnobTarget(self, size):
 </div>
 </section>
 
-<!-- ─── Part III: Effectful LLM (placeholder) ─── -->
+<!-- Part III: LLM as an Effectful handler -->
 
 <section id="slide-eff-00" class="slide level2">
   <div style="display: flex; align-items: center; gap: 2.5rem; padding: 0 2rem; max-height: 85vh;">
