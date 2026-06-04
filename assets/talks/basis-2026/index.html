@@ -1554,13 +1554,13 @@ with handler(provider):                           # bind the meaning
 </section>
 
 <section id="slide-rada-10" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Codesigning morphology <em>and</em> control</h2>
-<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
-  Fix the sparse-reward problem by having the LLM write the auxiliary loss too. The objective stages the trajectory: enter, grasp, turn. With this in hand, the codesign loop succeeds with container.
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">Codesigning morphology <em>and</em> control</h2>
+<p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.36em; color: #4a4f5a; text-align: left;">
+  Fix the sparse-reward problem: have the LLM write the auxiliary loss too. The objective stages the trajectory (enter, grasp, turn) and the codesign loop succeeds with container.
 </p>
-<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
-  <div style="flex: 1; min-width: 0;">
-    <pre style="margin: 0; font-size: 0.24em; line-height: 1.35; max-height: 64vh; overflow: hidden;"><code class="language-python" data-trim># RoboTL: BottleneckEnv from robotl/examples/bottleneck.py
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 70vh; max-height: 70vh; overflow: hidden;">
+  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.22em; line-height: 1.3; overflow: hidden;"><code class="language-python" data-trim># RoboTL: BottleneckEnv from robotl/examples/bottleneck.py
 @defcomponent
 def BottleneckEnv(self, robot, target,
                   container_size=0.5, entrance_width=0.2, entrance_length=0.2):
@@ -1596,9 +1596,9 @@ def KnobTarget(self, size):
     self.knob_angle = sensors.Position(self.knob_joint)
     self.loss = Equalize(self.knob_angle.get(), -tau / 4)   # quarter turn ccw</code></pre>
   </div>
-  <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; justify-content: center;">
-    <img src="./media/codesign/image11.png" alt="result chart" style="width: 100%; height: 22vh; max-height: 22vh; object-fit: contain; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
-    <video src="./media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline style="width: 100%; height: 40vh; max-height: 40vh; object-fit: contain; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); background: #000;"></video>
+  <div style="flex: 1.15; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.35em;">
+    <img src="./media/codesign/image11.png" alt="result chart" style="width: 100%; flex: 0 1 35%; min-height: 0; object-fit: contain; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+    <video src="./media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline style="width: 100%; flex: 1 1 65%; min-height: 0; object-fit: contain; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); background: #000;"></video>
   </div>
 </div>
 </section>
