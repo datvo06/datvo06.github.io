@@ -227,9 +227,9 @@
 </div>
 
 <div style="margin: 0 auto; max-width: 88%; padding: 0.45em 0.8em; background: rgba(30,58,138,0.06); border-radius: 4px; font-size: 0.38em; text-align: left;">
-  <strong style="color: #1E3A8A;">Why translate queries to tasks?</strong>
-  Not every world-model learner exposes a general query-answering interface. Reducing each query to a concrete task (masked-frame prediction, planning to a goal, change detection) means the WorldTest score is just an aggregate over task rewards,
-  \( \;\text{WT}(A) = \frac{1}{|\mathcal{Q}|} \sum_{q \in \mathcal{Q}} R_q\bigl(\tau^{A,\hat{M}}_{E_q}\bigr) \), and any representation of \( \hat{M} \) can be scored under the same protocol.
+  <strong style="color: #1E3A8A;">The reduction: query answering = task solving.</strong>
+  <em>Any</em> world-model representation gets scored under one protocol, because the protocol never reads the model. It only reads task rewards. Each query becomes a concrete task (masked-frame prediction, planning to a goal, change detection); the WorldTest score is just an aggregate over those task rewards,
+  \( \;\text{WT}(A) = \frac{1}{|\mathcal{Q}|} \sum_{q \in \mathcal{Q}} R_q\bigl(\tau^{A,\hat{M}}_{E_q}\bigr) \). Autumn program, latent code, neural net, anything: same scoreboard.
 </div>
 
 <p style="margin: 0.6em auto 0; max-width: 88%; font-size: 0.36em; color: #6b7080; text-align: left;">
