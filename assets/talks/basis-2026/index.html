@@ -1042,7 +1042,7 @@ def OpenParametricHand(self,
 <section id="slide-rada-01b" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Anatomy of a RoboTL component</h2>
 <p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.38em; color: #4a4f5a; text-align: left;">
-  A two-link arm in 15 lines. Cylinders for the links, hinges for shoulder and elbow, welds attach pieces by their ports. The <code>tip</code> port is what downstream tasks reach with.
+  A two-link arm in 15 lines. The same program declares <strong style="color:#1E3A8A;">design-time geometry</strong> (cylinder shapes, link lengths, frame <code>Pose</code>) <em>and</em> <strong style="color:#1E3A8A;">runtime kinematics</strong> (hinge joints, axes, the <code>tip</code> port the simulator wires up) in one declarative pass. Most robot DSLs pick a side. <strong>RoboTL is the unification.</strong>
 </p>
 
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
