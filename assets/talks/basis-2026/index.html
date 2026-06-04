@@ -60,7 +60,7 @@
   <div style="display: flex; align-items: center; gap: 3rem; padding: 0 2rem;">
     <img src="./media/basis-logo.png" alt="Basis" style="height: 60vh; width: auto; flex: 0 0 auto;">
     <div style="text-align: left;">
-      <h2 style="font-size: 1.7em; line-height: 1.2; margin: 0 0 0.6em 0;">Symbolic Representations for World Modeling</h2>
+      <h2 style="font-size: 1.55em; line-height: 1.2; margin: 0 0 0.6em 0;">Giving AI the right symbolic structure<br><span style="font-size: 0.7em; color: #4a4f5a; font-weight: 400;">three projects, one recurring question</span></h2>
       <p style="font-size: 0.85em; color: #4a4f5a; margin: 0;">Basis Research Institute</p>
       <p style="font-size: 0.75em; color: #6b7080; margin: 0.4em 0 0;">Dat Nguyen &middot; 17 April 2026</p>
     </div>
@@ -184,6 +184,39 @@
 <iframe class="r-stretch" src="/talks/basis-2026/autumn-embed/" style="display: block; width: 95vw; border: 0; background: transparent;" loading="eager" allowtransparency="true"></iframe>
 </section>
 
+<section id="slide-5b" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Tools over the world model: <em>queryable</em>, in code</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    The Autumn semantics are formal, so the interpreter is more than a runner: it is an <strong>oracle</strong> the agent can query. Each query is exposed to the agent as a typed tool.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
+
+  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Condition triggered?</div>
+    <p style="margin: 0; color: #4a4f5a;">Ask the interpreter whether a rule fires under a given state and action. The planner uses it as a guard.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Region query</div>
+    <p style="margin: 0; color: #4a4f5a;">Read a specific patch of the observation grid for planning, without running the full simulator forward.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Random &middot; trace &middot; coverage</div>
+    <p style="margin: 0; color: #1f2330;">Sample states under priors, record execution traces, measure rule / cell coverage. Standard PL hygiene, exposed to the LLM.</p>
+  </div>
+
+</div>
+
+<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
+  This is the <strong>queryable</strong> property in concrete form. The same interpreter answers many questions, the LLM just picks which tool to call.
+</p>
+</section>
+
 <section id="slide-6" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">MARA Protocol</h2>
 
@@ -273,6 +306,40 @@
   Instantiation: <strong>AutumnBench</strong>. 43 grid-worlds, 129 tasks across three query families.
 </p>
 </section>
+
+<section id="slide-7b" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Why this reduction: <em>queries become tasks</em></h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Borrowed from synthesis, adapted to POMDPs.</strong>
+    Oracle-guided synthesis lets the synthesizer interrogate an oracle about the desired program. We want the same leverage for world-model learners. POMDP agents only know how to step in an environment, so we make stepping <em>be</em> the question.
+  </p>
+</div>
+
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">In SyGUS / oracle-guided synthesis</div>
+    <p style="margin: 0; color: #4a4f5a;">The synthesizer queries an oracle: <em>does the candidate program satisfy this property?</em> The oracle answers directly.</p>
+    <p style="margin: 0.5em 0 0; font-family: 'IBM Plex Mono', monospace; color: #1f2330; background: #f6f7fb; border-radius: 4px; padding: 0.35em 0.5em;">query(prop) &rarr; yes/no/witness</p>
+  </div>
+
+  <div style="flex: 0 0 auto; align-self: center; padding: 0 0.3em; font-size: 1.6em; color: #1E3A8A;">&rarr;</div>
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">In POMDPs (our move)</div>
+    <p style="margin: 0; color: #1f2330;">Reify each query as a <strong>task in an alternated environment</strong> with its own action space and reward. If the agent solves the task, it answered the query.</p>
+    <p style="margin: 0.5em 0 0; font-family: 'IBM Plex Mono', monospace; color: #1f2330; background: #ffffff; border-radius: 4px; padding: 0.35em 0.5em;">query \( q \) &rarr; sub-env \( E_q \); R<sub>q</sub>(&tau;) &equiv; ans<sub>q</sub>(M&#770;)</p>
+  </div>
+
+</div>
+
+<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
+  Consequence: the protocol stays representation-agnostic. Autumn program, latent code, neural net, anything that can step gets scored on the same yardstick.
+</p>
+</section>
+
 <section id="slide-8" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Outline of the agent section</h2>
 
@@ -1207,7 +1274,7 @@ class SynthesizedWorld:
 <section id="slide-rada-01" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Three ways to describe a robot</h2>
 <p style="margin: 0 auto 0.05em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  R-ADA designed by <strong style="color: #1E3A8A;">me with Tim Cooijmans</strong>, and previously with <strong style="color: #1E3A8A;">Sam</strong>.
+  RoboTL started by <strong style="color: #1E3A8A;">me with Sam</strong>, then <strong style="color: #1E3A8A;">Tim Cooijmans</strong>; the control interface (MPC + losses) is <strong style="color: #1E3A8A;">Tim and Markus</strong>.
 </p>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
   Both extremes pre-date the LLM era. Each has a real cost when you want to <em>codesign</em> at LLM speed. RoboTL is the missing middle.
@@ -1580,8 +1647,55 @@ with handler(provider):                           # bind the meaning
 
 </div>
 
-<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
+<div style="margin: 0.65em auto 0; max-width: 95%;">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.36em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Why naive co-design doesn't scale</div>
+  <div style="display: flex; gap: 0.7em; justify-content: center; font-size: 0.34em; text-align: left;">
+    <div style="flex: 1; max-width: 280px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Bi-level optimization.</strong> Optimize control inner loop, morphology outer loop. Expensive per iteration; doesn't scale.</div>
+    <div style="flex: 1; max-width: 280px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Learned graph model.</strong> Train a GNN over robot graphs to predict performance. Needs lots of data we don't have.</div>
+    <div style="flex: 1; max-width: 280px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Morphology only.</strong> Restrict to body parameters, freeze the controller. What Lang2Morph does. Cheap, but the task often needs both.</div>
+  </div>
+</div>
+
+<p style="margin: 0.6em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
   We reproduce Lang2Morph next to ground the comparison, then stage R-ADA on top of it.
+</p>
+</section>
+
+<section id="slide-rada-mpc" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What unlocks cheap codesign: <span style="color: #1E3A8A;">MPC + a loss interface</span></h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.9em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.44em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The key enabler.</strong>
+    RoboTL ships a <strong>differentiable controller (MPC)</strong> and an <strong>interface to define losses</strong> as part of the program. The LLM only has to write the morphology and the loss; MPC closes the control loop inside the simulator.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What the LLM writes</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>A <strong>morphology</strong>: components, joints, ports.</li>
+      <li>A <strong>loss</strong>: per-stage <code>Equalize</code>, <code>Reach</code>, sensors.</li>
+    </ul>
+  </div>
+
+  <div style="flex: 0 0 auto; align-self: center; padding: 0 0.3em; font-size: 1.6em; color: #1E3A8A;">&rarr;</div>
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What MPC + handler does</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>JAX handler: differentiable rollout.</li>
+      <li>MPC inner loop: solves control against the loss.</li>
+      <li>MuJoCo handler: simulates the result.</li>
+    </ul>
+  </div>
+
+</div>
+
+<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.38em; color: #6b7080; text-align: left;">
+  No bi-level optimization, no learned graph, no morphology-only restriction. The loss-and-MPC interface is what makes the LLM's outer loop cheap. Built by <strong style="color: #1E3A8A;">Tim and Markus</strong>.
 </p>
 </section>
 
@@ -1869,28 +1983,35 @@ reward += seg3.pos.z       # LEAP
 
 <section id="slide-rada-13" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Future work, next steps</h2>
-<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Open problems</div>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-      <li><strong>State estimation.</strong> Robot doesn't yet track everything we hand it now; it'll observe via sensors.</li>
-      <li><strong>Sim-to-real gap.</strong> Choosing friction coefficients, hand gain, simulation time-step.</li>
-      <li><strong>Control efficacy.</strong> Where does dense reward design break down?</li>
+<div style="display: flex; gap: 0.85em; justify-content: center; font-size: 0.36em; text-align: left;">
+  <div style="flex: 1; max-width: 270px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Open problems</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+      <li><strong>State estimation.</strong> Sensors instead of given state.</li>
+      <li><strong>Sim-to-real.</strong> Friction, hand gain, timestep.</li>
+      <li><strong>Control efficacy.</strong> Where does dense reward design break?</li>
     </ul>
   </div>
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Next on this task</div>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+  <div style="flex: 1; max-width: 270px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Next on this task</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
       <li>Regularize control.</li>
       <li>Co-design of the dense reward.</li>
       <li>Add tactile sensing.</li>
       <li>Proxy sim-to-real.</li>
     </ul>
   </div>
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Other codesign tasks</div>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-      <li>Imperial / Bristol gear rotation: can better model-based control shorten feedback cycles vs model-free RL (PPO)?</li>
+  <div style="flex: 1; max-width: 270px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Other codesign tasks</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+      <li>Imperial / Bristol gear rotation: model-based control vs PPO.</li>
+    </ul>
+  </div>
+  <div style="flex: 1; max-width: 270px; padding: 0.55em 0.75em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Merge Predicators + Autumn</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+      <li>Low-level dynamics, high-level actions as functions, predicate abstraction, all in one language.</li>
+      <li>Predicators' planner reads Autumn semantics directly; agent reasons across levels in one substrate.</li>
     </ul>
   </div>
 </div>
@@ -1939,6 +2060,30 @@ reward += seg3.pos.z       # LEAP
 <p style="margin: 1em auto 0; max-width: 88%; font-size: 0.4em; color: #1f2330; text-align: left;">
   Where AI struggles, building the right substrate is research. Where the substrate already exists, the AI does the work. Most of my job is figuring out which side of that line a problem is on.
 </p>
+</section>
+
+<section id="slide-synth-01" class="slide level2">
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2em; padding: 0 2rem; min-height: 70vh;">
+
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #1E3A8A; letter-spacing: 0.12em; text-transform: uppercase;">The recurring question</div>
+
+    <h2 style="font-size: 1.55em; line-height: 1.2; margin: 0; text-align: center; max-width: 95%;">
+      Can we give an AI the <span style="color: #1E3A8A;">right symbolic structure</span><br>to make problem solving easier,<br>and unlock something we couldn't otherwise?
+    </h2>
+
+    <div style="display: flex; gap: 1.2em; font-size: 0.42em; color: #4a4f5a;">
+      <div><strong style="color: #1E3A8A;">MARA</strong>: Autumn programs as world models.</div>
+      <div><strong style="color: #1E3A8A;">R-ADA</strong>: RoboTL programs as robots and objectives.</div>
+      <div><strong style="color: #1E3A8A;">Effectful</strong>: LLM calls as typed programs.</div>
+    </div>
+
+    <p style="margin: 0; font-size: 0.4em; color: #6b7080; text-align: center; max-width: 80%;">
+      Every project at Basis was a version of this question. The answer was always: build the substrate, then the LLM does the rest.
+    </p>
+
+    <p style="margin: 0; font-size: 0.36em; color: #6b7080; text-align: center;">Thank you. Questions?</p>
+
+  </div>
 </section>
     </div>
   </div>
