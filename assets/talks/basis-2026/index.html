@@ -1514,28 +1514,6 @@ with handler(provider):                           # bind the meaning
 </div>
 </section>
 
-<section id="slide-eff-00" class="slide level2">
-  <div style="display: flex; align-items: center; gap: 2.5rem; padding: 0 2rem; max-height: 85vh;">
-    <div style="flex: 1; text-align: left; min-width: 0;">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Foundation for the codesign agent</div>
-      <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.5em 0;">LLM as an Effectful handler</h2>
-      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0 0 0.45em 0;">The same library RoboTL is built on already ships an LLM handler. Tools and templates are operations; an Agent is a program; a provider is a handler. This is what lets the codesign agent in the next slides write RoboTL programs.</p>
-      <p style="font-size: 0.42em; color: #6b7080; margin: 0;"><em>One program, multiple semantics. Third time.</em></p>
-    </div>
-
-    <div style="flex: 0 0 42%; min-width: 0; padding: 0.7em 0.85em; border: 1px solid #1E3A8A; border-radius: 8px; background: #f3f5fb; font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; line-height: 1.5;">
-      <div style="text-align: center; padding: 0.35em 0.5em; border: 1.5px solid #1E3A8A; border-radius: 4px; background: #ffffff; font-weight: 600; color: #1f2330; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@Template.define def f(x): &hellip;</div>
-      <div style="text-align: center; color: #1E3A8A; font-size: 1.05em; line-height: 0.9; margin: 0.2em 0;">&darr;<br>handler({f: &hellip;})</div>
-      <div style="display: flex; flex-wrap: wrap; gap: 0.3em; justify-content: center;">
-        <div style="flex: 1 1 30%; min-width: 0; text-align: center; padding: 0.3em 0.35em; border: 1.5px solid #d0d5dc; border-radius: 4px; background: #ffffff; overflow: hidden; text-overflow: ellipsis;">LiteLLM</div>
-        <div style="flex: 1 1 30%; min-width: 0; text-align: center; padding: 0.3em 0.35em; border: 1.5px solid #d0d5dc; border-radius: 4px; background: #ffffff;">cached / replay</div>
-        <div style="flex: 1 1 30%; min-width: 0; text-align: center; padding: 0.3em 0.35em; border: 1.5px solid #d0d5dc; border-radius: 4px; background: #ffffff;">structured eval</div>
-      </div>
-      <p style="margin: 0.5em 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.78em; color: #6b7080; text-align: center;">Swap the handler, swap the semantics. Same program.</p>
-    </div>
-  </div>
-</section>
-
 <section id="slide-rada-02" class="slide level2" data-background-color="#fafbfc">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Visualization of hand-grasping</h2>
 <div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
