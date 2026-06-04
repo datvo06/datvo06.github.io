@@ -296,12 +296,43 @@
   </p>
 </div>
 
-<div style="display: flex; align-items: center; justify-content: center; gap: 0.7em; font-size: 0.38em; margin-bottom: 0.6em;">
-  <div style="padding: 0.55em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 600;">Synthesizer</div>
-  <span style="color: #1E3A8A; font-size: 1.3em;">&harr;</span>
-  <div style="padding: 0.55em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 600;">Challenger</div>
-  <span style="color: #6b7080;">surviving model &rarr;</span>
-  <div style="padding: 0.55em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; font-family: 'IBM Plex Mono', monospace; font-weight: 600;">Solver</div>
+<div style="display: flex; align-items: flex-start; justify-content: center; gap: 0.4em; font-size: 0.32em; margin-bottom: 0.7em;">
+
+  <!-- Synthesizer card: in (top) / role / out (bottom) -->
+  <div style="display: flex; flex-direction: column; align-items: center; max-width: 180px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; text-align: center; line-height: 1.3; margin-bottom: 0.25em;"><em>in:</em><br>env interactions, replay buffer</div>
+    <div style="padding: 0.5em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Synthesizer</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; text-align: center; line-height: 1.3; margin-top: 0.25em; font-weight: 600;"><em>out:</em><br>world model<br>(Autumn program)</div>
+  </div>
+
+  <!-- Bidirectional flow: synth -> challenger (model) and challenger -> synth (counterexample) -->
+  <div style="display: flex; flex-direction: column; align-items: center; padding: 1.5em 0.15em 0;">
+    <span style="color: #1E3A8A; font-size: 1.1em; line-height: 1;">&xrarr;</span>
+    <span style="font-family: 'IBM Plex Sans', sans-serif; color: #1E3A8A; font-size: 0.78em; margin: 0.1em 0;">world model</span>
+    <span style="color: #c08230; font-size: 1.1em; line-height: 1;">&xlarr;</span>
+    <span style="font-family: 'IBM Plex Sans', sans-serif; color: #c08230; font-size: 0.78em; text-align: center; line-height: 1.2;">counter<br>example</span>
+  </div>
+
+  <!-- Challenger card -->
+  <div style="display: flex; flex-direction: column; align-items: center; max-width: 180px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; text-align: center; line-height: 1.3; margin-bottom: 0.25em;"><em>in:</em><br>world model, real env</div>
+    <div style="padding: 0.5em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Challenger</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; text-align: center; line-height: 1.3; margin-top: 0.25em; font-weight: 600;"><em>out:</em><br>trajectory exposing<br>a discrepancy</div>
+  </div>
+
+  <!-- Forward arrow to solver -->
+  <div style="display: flex; flex-direction: column; align-items: center; padding: 1.95em 0.15em 0;">
+    <span style="color: #1E3A8A; font-size: 1.1em; line-height: 1;">&xrarr;</span>
+    <span style="font-family: 'IBM Plex Sans', sans-serif; color: #1E3A8A; font-size: 0.78em; text-align: center; line-height: 1.2; margin-top: 0.1em;">surviving<br>model</span>
+  </div>
+
+  <!-- Solver card -->
+  <div style="display: flex; flex-direction: column; align-items: center; max-width: 180px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; text-align: center; line-height: 1.3; margin-bottom: 0.25em;"><em>in:</em><br>surviving model, task</div>
+    <div style="padding: 0.5em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Solver</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; text-align: center; line-height: 1.3; margin-top: 0.25em; font-weight: 600;"><em>out:</em><br>action sequence<br>(task score)</div>
+  </div>
+
 </div>
 
 <div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.36em; text-align: left;">
@@ -1176,8 +1207,8 @@ with handler({add: beta}):
 <section id="slide-rada-02" class="slide level2" data-background-color="#fafbfc">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Visualization of hand-grasping</h2>
 <div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
-  <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-  <video src="./media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
 </div>
 </section>
 
