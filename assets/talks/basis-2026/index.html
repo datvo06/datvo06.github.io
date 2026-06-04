@@ -919,11 +919,17 @@ class SynthesizedWorld:
   In both cases the task score is achieved, but nothing transferable is learned. The submitted model is a transcript, not a theory. This is the failure mode of seeding from a human replay buffer without an incentive to <em>explain</em>.
 </p>
 </section>
-<section id="slide-34" class="slide level2">
-<h2>RQ4:  How much does model fidelity contribute to task
-performance?</h2>
-<p>( Note:   High  is  near-perfect + perfect )</p>
-<p><img data-src="./media/image25.png" /></p>
+<section id="slide-34" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">RQ4: how much does model fidelity contribute to task performance?</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Reading the chart.</strong>
+    Per-environment fidelity (rule-level "high" = near-perfect + perfect) on the x, task-phase score on the y. Higher-fidelity world models do help on average, but the spread shows tasks where moderate-fidelity models still score and tasks where high fidelity is not enough.
+  </p>
+</div>
+
+<img src="./media/image25.png" alt="RQ4: model fidelity vs task performance" style="display: block; margin: 0 auto; max-width: 92%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
 </section>
 
 <!-- ─── Part II: R-ADA / Co-Design with LLM ─── -->
