@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Dat's work at Basis</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/theme/white.css" id="theme">
+
+  <style>
+    /* match the rest of datvo06.github.io */
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    .reveal { font-family: "IBM Plex Sans", -apple-system, sans-serif; }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: "IBM Plex Serif", Georgia, serif;
+      text-transform: none;
+      letter-spacing: -0.015em;
+      font-weight: 600;
+      color: #1f2330;
+    }
+    .reveal a { color: #1E3A8A; }
+    .reveal a:hover { color: #3b5bbf; }
+    .reveal code, .reveal pre { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    .reveal section img { box-shadow: none; border: 0; max-height: 70vh; }
+  </style>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="slide-1" class="slide level2">
+  <div style="display: flex; align-items: center; gap: 3rem; padding: 0 2rem;">
+    <img src="./media/basis-logo.png" alt="Basis" style="height: 60vh; width: auto; flex: 0 0 auto;">
+    <div style="text-align: left;">
+      <h2 style="font-size: 1.7em; line-height: 1.2; margin: 0 0 0.6em 0;">Symbolic Representations for World Modeling</h2>
+      <p style="font-size: 0.85em; color: #4a4f5a; margin: 0;">Basis Research Institute</p>
+      <p style="font-size: 0.75em; color: #6b7080; margin: 0.4em 0 0;">Dat Nguyen &middot; 17 April 2026</p>
+    </div>
+  </div>
+</section>
+<section id="slide-2" class="slide level2">
+<h2>What did I work on at Basis?</h2>
+<ul>
+<li class="fragment fade-in-then-semi-out">MARA</li>
+<li class="fragment fade-in-then-semi-out">R-ADA</li>
+<li class="fragment fade-in-then-semi-out">Effectful LLM</li>
+</ul>
+</section>
+<section id="slide-3" class="slide level2">
+<div style="position: relative; display: inline-block; max-height: 80vh;">
+  <img src="./media/image1.png" style="display: block; max-height: 80vh; width: auto;">
+  <div class="fragment fade-in" style="position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); padding: 0.5em 0; text-align: center;">
+    <span style="font-family: 'IBM Plex Serif', Georgia, serif; font-size: 2em; font-weight: 600; letter-spacing: 0.05em; color: #ffffff;">MARA</span>
+  </div>
+</div>
+</section>
+<section id="slide-4" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">MARA: Modeling, Abstraction, and Reasoning Agents</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.9em; max-width: 86%; text-align: left;">
+  <p style="margin: 0; font-size: 0.45em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
+    Build agents that do everyday scientific discovery: propose hypotheses, run experiments, reason with abstract models. Concretely: <em>agents that build and maintain world-model code</em>.
+  </p>
+</div>
+
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.4em; color: #6b7080; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; margin-bottom: 0.5em;">
+  To make progress, three pieces have to land together
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.4em; text-align: left;">
+
+  <div class="fragment fade-in-then-semi-out" style="flex: 1; max-width: 280px; padding: 0.7em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.5em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600;">01</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Substrate</span>
+    </div>
+    <p style="margin: 0 0 0.5em 0; color: #4a4f5a;">A representation for world models that's compositional, interpretable, and fast enough to simulate in real time.</p>
+    <div style="border-top: 1px dashed #d0d5dc; padding-top: 0.4em; font-family: 'IBM Plex Mono', monospace;">
+      &rarr; <strong style="color: #1f2330;">Autumn</strong>, in C++/WASM
+    </div>
+  </div>
+
+  <div class="fragment fade-in-then-semi-out" style="flex: 1; max-width: 280px; padding: 0.7em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.5em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600;">02</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Evaluation</span>
+    </div>
+    <p style="margin: 0 0 0.5em 0; color: #4a4f5a;">A protocol that scores <em>any</em> world-model learner on the same suite, regardless of how the model is represented.</p>
+    <div style="border-top: 1px dashed #d0d5dc; padding-top: 0.4em; font-family: 'IBM Plex Mono', monospace;">
+      &rarr; <strong style="color: #1f2330;">WorldTest</strong> / MARA Protocol, instantiated as AutumnBench
+    </div>
+  </div>
+
+  <div class="fragment fade-in" style="flex: 1; max-width: 280px; padding: 0.7em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.5em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600;">03</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Agents</span>
+    </div>
+    <p style="margin: 0 0 0.5em 0; color: #4a4f5a;">Learners that actually propose, test, and refine world models given a substrate and an evaluation.</p>
+    <div style="border-top: 1px dashed #d0d5dc; padding-top: 0.4em; font-family: 'IBM Plex Mono', monospace;">
+      &rarr; <strong style="color: #1f2330;">Adversarial synthesis</strong>, BOED, particle filters
+    </div>
+  </div>
+
+</div>
+
+<p style="margin: 0.9em auto 0; max-width: 86%; font-size: 0.38em; color: #6b7080; text-align: left;">
+  The rest of the talk walks each piece in turn.
+</p>
+</section>
+<section id="slide-5" class="slide level2" data-background-color="#fafbfc">
+<h2 style="margin: 0; font-size: 1.1em;">Autumn Interpreter</h2>
+<p style="margin: 0.15em 0 0; font-size: 0.42em; font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #4a4f5a; letter-spacing: 0.04em;">
+  built in <strong style="color: #1E3A8A;">C++</strong>
+  &nbsp;&middot;&nbsp; compiled to <strong style="color: #1E3A8A;">WebAssembly</strong>
+  &nbsp;&middot;&nbsp; running <strong style="color: #1E3A8A;">real-time in your browser</strong>
+</p>
+<iframe class="r-stretch" src="/talks/basis-2026/autumn-embed/" style="display: block; width: 95vw; border: 0; background: transparent;" loading="eager" allowtransparency="true"></iframe>
+</section>
+
+<section id="slide-6" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">MARA Protocol</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.6em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
+    A language-agnostic protocol for <em>composable</em> agent / environment interaction. A big POMDP is built from smaller POMDPs; an evaluation controller routes the agent across sub-environments and aggregates their rewards.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left; margin-bottom: 0.6em;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 1em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Sub-environment (POMDP)</div>
+    <p style="margin: 0 0 0.3em 0;">\( E_i = \langle S, A(s), T, O, \Omega, R \rangle \)</p>
+    <p style="margin: 0; color: #4a4f5a;">Partial observability, dynamic action space \( A(s) \), reactive or time-dependent transitions. Independent reward, independent action/observation space.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 1em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Evaluation controller</div>
+    <p style="margin: 0 0 0.3em 0;">\( C = \langle \mathcal{E}, \mathcal{T}, O_C, R_C \rangle \)</p>
+    <p style="margin: 0; color: #4a4f5a;">\( \mathcal{E} = \{E_1, \ldots, E_N\} \) sub-envs; \( \mathcal{T}: \mathcal{E} \to \mathcal{E} \) routes the agent; \( O_C \) emits transition messages; \( R_C \) aggregates sub-env rewards.</p>
+  </div>
+
+</div>
+
+<div style="display: flex; align-items: center; justify-content: center; gap: 0.5em; font-size: 0.36em; margin-bottom: 0.5em; font-family: 'IBM Plex Mono', monospace;">
+  <div style="padding: 0.3em 0.7em; border: 1.5px solid #d0d5dc; border-radius: 4px; background: #ffffff;">E<sub>1</sub></div>
+  <span style="color: #1E3A8A;">&rarr;</span>
+  <div style="padding: 0.3em 0.7em; border: 1.5px solid #d0d5dc; border-radius: 4px; background: #ffffff;">E<sub>2</sub></div>
+  <span style="color: #1E3A8A;">&rarr;</span>
+  <div style="padding: 0.3em 0.7em; border: 1.5px solid #d0d5dc; border-radius: 4px; background: #ffffff;">E<sub>3</sub></div>
+  <span style="color: #6b7080; font-family: 'IBM Plex Sans', sans-serif; margin: 0 0.3em;">composed by</span>
+  <div style="padding: 0.3em 0.7em; border: 1.5px solid #1E3A8A; border-radius: 4px; background: #f3f5fb; font-weight: 600;">C</div>
+</div>
+
+<div style="margin: 0.3em auto 0; max-width: 88%; font-size: 0.36em; text-align: left;">
+  <ul style="margin: 0; padding-left: 1.1em; line-height: 1.4;">
+    <li><strong>Language-agnostic.</strong> Agents and environments in any language; protobuf over IPC.</li>
+    <li><strong>Composition is first-class.</strong> Define a large POMDP as a controller-managed collection of small ones. Menu opens, RPG store transitions, MCQ phases all become controller transitions instead of being flattened into one big env.</li>
+    <li><strong>Task layer decoupled.</strong> The same sub-environments can be reused under different evaluation protocols.</li>
+  </ul>
+</div>
+</section>
+
+<section id="slide-7" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">WorldTest: a specialization of MARA Protocol</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
+    Take MARA Protocol's composition and structure it as a two-phase loop: a <em>training-free exploration</em> phase, then a <em>query</em> phase where each query is realized as a task in a sub-environment.
+  </p>
+</div>
+
+<div style="display: flex; gap: 1em; justify-content: center; font-size: 0.38em; text-align: left; margin-bottom: 0.7em;">
+
+  <div style="flex: 1; max-width: 340px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.5em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600;">01</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Exploration</span>
+    </div>
+    <p style="margin: 0 0 0.3em 0; color: #4a4f5a;">Agent freely interacts with an environment. No reward signal. Builds any world-model representation it likes (Autumn program, latent code, neural net, &hellip;).</p>
+    <p style="margin: 0 0 0.3em 0;">\( \hat{M} = A(\tau_{\text{explore}}), \quad \tau_{\text{explore}} \sim E \)</p>
+    <p style="margin: 0; color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">training-free; the agent is the protocol</p>
+  </div>
+
+  <div style="flex: 1; max-width: 340px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.5em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600;">02</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Query</span>
+    </div>
+    <p style="margin: 0 0 0.3em 0; color: #4a4f5a;">Each environment-level query \( q \in \mathcal{Q} \) is realized as a task in a related sub-environment \( E_q \) (a separate POMDP, composed via MARA Protocol).</p>
+    <p style="margin: 0 0 0.3em 0;">\( \text{ans}_q(\hat{M}) \;\equiv\; R_q\bigl(\tau^{A,\hat{M}}_{E_q}\bigr) \)</p>
+    <p style="margin: 0; color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">solving the task &equiv; answering the query</p>
+  </div>
+
+</div>
+
+<div style="margin: 0 auto; max-width: 88%; padding: 0.45em 0.8em; background: rgba(30,58,138,0.06); border-radius: 4px; font-size: 0.38em; text-align: left;">
+  <strong style="color: #1E3A8A;">Why translate queries to tasks?</strong>
+  Not every world-model learner exposes a general query-answering interface. Reducing each query to a concrete task (masked-frame prediction, planning to a goal, change detection) means the WorldTest score is just an aggregate over task rewards,
+  \( \;\text{WT}(A) = \frac{1}{|\mathcal{Q}|} \sum_{q \in \mathcal{Q}} R_q\bigl(\tau^{A,\hat{M}}_{E_q}\bigr) \), and any representation of \( \hat{M} \) can be scored under the same protocol.
+</div>
+
+<p style="margin: 0.6em auto 0; max-width: 88%; font-size: 0.36em; color: #6b7080; text-align: left;">
+  Instantiation: <strong>AutumnBench</strong>. 43 grid-worlds, 129 tasks across three query families.
+</p>
+</section>
+<section id="slide-8" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Outline of the agent section</h2>
+
+<p style="margin: 0 auto 0.8em; max-width: 86%; font-size: 0.42em; color: #4a4f5a; text-align: left;">
+  Now: dn-boed, the agent we built on top of Autumn + WorldTest. Three beats: how it works, what it actually did, and what we took away.
+</p>
+
+<div style="display: flex; gap: 1em; justify-content: center; font-size: 0.38em; text-align: left;">
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.45em; margin-bottom: 0.35em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; font-size: 1.1em;">01</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Architecture</span>
+    </div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>Agent design (dn-boed)</li>
+      <li>Adversarial synthesis</li>
+      <li>Replay-buffer variant</li>
+      <li>Stochastic-mode tools, BOED</li>
+      <li>Model-based task solver</li>
+    </ul>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.45em; margin-bottom: 0.35em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; font-size: 1.1em;">02</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Evidence</span>
+    </div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>Case study: Grow (success)</li>
+      <li>Case study: Sand (subtle failure)</li>
+      <li>RQ1: AutumnBench scores</li>
+      <li>Unique-task analysis</li>
+    </ul>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.45em; margin-bottom: 0.35em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; font-size: 1.1em;">03</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Lessons</span>
+    </div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>What worked</li>
+      <li>Limitations</li>
+      <li>Where to go next</li>
+    </ul>
+  </div>
+
+</div>
+</section>
+<section id="slide-9" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Agent Design Overview: <span style="color: #1E3A8A;">dn-boed</span></h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
+    A three-role loop: a <strong>synthesizer</strong> proposes a world model in Autumn; a <strong>challenger</strong> attacks it for discrepancies with the real environment; a <strong>solver</strong> uses the surviving model to act in the WorldTest task suite.
+  </p>
+</div>
+
+<div style="display: flex; align-items: center; justify-content: center; gap: 0.7em; font-size: 0.38em; margin-bottom: 0.6em;">
+  <div style="padding: 0.55em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 600;">Synthesizer</div>
+  <span style="color: #1E3A8A; font-size: 1.3em;">&harr;</span>
+  <div style="padding: 0.55em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 600;">Challenger</div>
+  <span style="color: #6b7080;">surviving model &rarr;</span>
+  <div style="padding: 0.55em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; font-family: 'IBM Plex Mono', monospace; font-weight: 600;">Solver</div>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 250px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Two stochasticity modes</div>
+    <p style="margin: 0; color: #4a4f5a;"><strong>Non-stochastic.</strong> Ran on all environments.<br><strong>Stochastic.</strong> Adds MCMC, particle filters, weight optimization. Ran on environments known to be stochastic.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 250px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Two exploration modes</div>
+    <p style="margin: 0; color: #4a4f5a;"><strong>Pure synthesis.</strong> Synthesizer drives interaction.<br><strong>Human-trajectory-driven.</strong> Synthesizer steps through a replay buffer of a human solving the task.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 250px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Round structure</div>
+    <p style="margin: 0; color: #4a4f5a;">Up to <strong>5 rounds</strong>. Each round ends with a context wipe; only the current world model and a scratchpad survive into the next round.</p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-10" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">World Modeling via Adversarial Synthesis</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Per round:</strong>
+    Synthesizer interacts with the env and submits a world model. Challenger looks for discrepancies between synthetic and real worlds, submits trajectories that expose them. BOED replaces the challenger when multiple candidate models coexist.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 290px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Synthesizer tools</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">
+      <li>env_interact</li>
+      <li>test_code</li>
+      <li>submit_code</li>
+    </ul>
+    <p style="margin: 0.4em 0 0; color: #6b7080; font-size: 0.9em;"><em>Stochastic mode adds:</em></p>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #6b7080;">
+      <li>optimize_weights</li>
+      <li>optimize_mcmc</li>
+      <li>particle_filter</li>
+    </ul>
+  </div>
+
+  <div style="flex: 1; max-width: 290px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Challenger tools</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">
+      <li>fuzz</li>
+      <li>view_code</li>
+      <li>report</li>
+    </ul>
+    <p style="margin: 0.4em 0 0; color: #6b7080; font-size: 0.9em;"><em>BOED replaces the challenger when multiple candidate models exist (next slide).</em></p>
+  </div>
+
+</div>
+</section>
+
+<!-- ─── Motivating slides: gap vs human in performance and sample complexity ─── -->
+
+<section id="slide-10pre1" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Pure adversarial synthesis vs human</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.6em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Question.</strong>
+    With no human guidance, how close does the synthesizer + challenger loop get to human performance on AutumnBench?
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Take-away</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.4; color: #1f2330;">
+      <li>Humans &asymp; <strong>95% +</strong> on all three task families.</li>
+      <li>Adversarial synthesis lags humans on planning and (especially) change detection.</li>
+      <li>The loop converges fastest when the dynamics can be guessed from one or two observations.</li>
+    </ul>
+    <p style="margin: 0.4em 0 0; color: #6b7080;">Numbers from <a href="https://huggingface.co/datasets/datvo06/mara-adversarial-results">mara-adversarial-results</a>.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 500px; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.05em;">RQ1: task-level test-phase scores</div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75em; color: #6b7080; margin-bottom: 0.3em;">Claude Sonnet 4.6 &middot; n = 42 envs with human trajectories (lights excluded) &middot; missing = failure</div>
+    <div style="position: relative; width: 100%; height: 36vh;">
+      <canvas id="rq1-chart-purevhuman"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  let inited = false;
+  function init () {
+    if (inited) return;
+    const el = document.getElementById('rq1-chart-purevhuman');
+    if (!el || !window.Chart) return;
+    inited = true;
+    if (window.ChartDataLabels) Chart.register(window.ChartDataLabels);
+    new Chart(el, {
+      type: 'bar',
+      data: {
+        labels: ['masked frame prediction', 'change detection', 'planning'],
+        datasets: [
+          {
+            label: 'Adversarial synthesis',
+            data: [83.3, 26.2, 76.2],
+            backgroundColor: '#1E3A8A',
+            borderRadius: 4
+          },
+          {
+            label: 'Human  (top-5 avg)',
+            data: [97.6, 97.6, 95.2],
+            backgroundColor: '#b08d57',
+            borderRadius: 4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 700 },
+        layout: { padding: { top: 18 } },
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { font: { family: 'IBM Plex Sans', size: 12 }, boxWidth: 12 }
+          },
+          tooltip: {
+            callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y}%` }
+          },
+          datalabels: {
+            anchor: 'end', align: 'top', offset: 2, clip: false,
+            color: '#1f2330',
+            font: { family: 'IBM Plex Sans', size: 11, weight: '600' },
+            formatter: v => v.toFixed(1) + '%'
+          }
+        },
+        scales: {
+          x: {
+            ticks: { font: { family: 'IBM Plex Sans', size: 12 }, color: '#1f2330' },
+            grid:  { display: false }
+          },
+          y: {
+            beginAtZero: true,
+            max: 100,
+            ticks: {
+              font: { family: 'IBM Plex Sans', size: 11 },
+              color: '#4a4f5a',
+              callback: v => v + '%'
+            },
+            title: {
+              display: true,
+              text: '% envs with positive reward',
+              font: { family: 'IBM Plex Sans', size: 11, weight: '500' },
+              color: '#4a4f5a'
+            },
+            grid: { color: 'rgba(0,0,0,0.06)' }
+          }
+        }
+      }
+    });
+  }
+  // Reveal.js: only the active slide is fully laid out, so wait for activation.
+  if (window.Reveal) {
+    Reveal.on('ready', e => { if (e.currentSlide && e.currentSlide.id === 'slide-10pre1') init(); });
+    Reveal.on('slidechanged', e => { if (e.currentSlide.id === 'slide-10pre1') init(); });
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
+})();
+</script>
+</section>
+
+<section id="slide-10pre2" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Sample inefficiency vs human</h2>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Sample budget, median</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li><strong>Deterministic envs:</strong> <span style="color:#c0392b;">30k</span> samples.</li>
+      <li><strong>Stochastic envs:</strong> <span style="color:#c0392b;">282k</span> samples (<strong>10&times;</strong> more, heavier tail up to ~2M).</li>
+      <li>Humans solve most tasks in <strong>tens of steps</strong>.</li>
+    </ul>
+    <p style="margin: 0.4em 0 0; padding: 0.35em 0.55em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330;">A human solved trajectory is already a near-optimal exploration of the parts of state space that matter. <strong>Hand it to the synthesizer.</strong></p>
+  </div>
+
+  <div style="flex: 1; max-width: 500px; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.05em;">Sample budget by environment type</div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75em; color: #6b7080; margin-bottom: 0.3em;">samples used in interaction phase, log scale &middot; one dot per environment</div>
+    <div style="position: relative; width: 100%; height: 40vh;">
+      <canvas id="rq1-chart-samplebudget"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  let inited = false;
+  function init () {
+    if (inited) return;
+    const el = document.getElementById('rq1-chart-samplebudget');
+    if (!el || !window.Chart || !window.ChartBoxPlot) return;
+    inited = true;
+    // boxplot plugin auto-registers controllers/elements on script load,
+    // so no explicit Chart.register() call is needed here.
+
+    // Approximate per-env sample counts read from the boxplot in the talk deck.
+    const deterministic = [
+      3500, 5000, 5000, 6000, 9000,
+      14000, 14000, 14000, 15000, 17000,
+      25000, 25000, 30000, 31000, 33000,
+      35000, 35000, 35000, 38000, 42000,
+      50000, 60000, 70000, 140000
+    ];
+    const stochastic = [
+      14000, 18000, 25000, 40000, 55000,
+      60000, 220000, 282000, 420000, 450000,
+      720000, 1100000, 2200000
+    ];
+
+    new Chart(el, {
+      type: 'boxplot',
+      data: {
+        labels: ['Deterministic', 'Stochastic'],
+        datasets: [{
+          label: 'Samples used in interaction phase',
+          data: [deterministic, stochastic],
+          backgroundColor: ['rgba(30,58,138,0.18)', 'rgba(176,141,87,0.22)'],
+          borderColor:     ['#1E3A8A', '#b08d57'],
+          borderWidth: 1.5,
+          itemRadius: 3.2,
+          itemBackgroundColor: ['#1E3A8A', '#b08d57'],
+          itemBorderColor:     ['#1E3A8A', '#b08d57'],
+          outlierBackgroundColor: ['#1E3A8A', '#b08d57'],
+          medianColor: '#1f2330'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 700 },
+        layout: { padding: { top: 14 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: c => {
+                const s = c.parsed;
+                const fmt = v => v >= 1000 ? (v/1000).toFixed(0) + 'k' : v;
+                return `median ${fmt(s.median)} · IQR ${fmt(s.q1)} to ${fmt(s.q3)} · range ${fmt(s.min)} to ${fmt(s.max)}`;
+              }
+            }
+          },
+          datalabels: false
+        },
+        scales: {
+          x: {
+            ticks: { font: { family: 'IBM Plex Sans', size: 13 }, color: '#1f2330' },
+            grid: { display: false }
+          },
+          y: {
+            type: 'logarithmic',
+            min: 3000,
+            max: 3000000,
+            ticks: {
+              font: { family: 'IBM Plex Sans', size: 11 },
+              color: '#4a4f5a',
+              callback: v => {
+                const allowed = [10000, 100000, 1000000];
+                if (allowed.indexOf(v) === -1) return '';
+                return v === 10000 ? '10k' : v === 100000 ? '100k' : '1M';
+              }
+            },
+            title: {
+              display: true,
+              text: 'samples (log)',
+              font: { family: 'IBM Plex Sans', size: 11, weight: '500' },
+              color: '#4a4f5a'
+            },
+            grid: { color: 'rgba(0,0,0,0.06)' }
+          }
+        }
+      }
+    });
+  }
+  if (window.Reveal) {
+    Reveal.on('ready',        e => { if (e.currentSlide && e.currentSlide.id === 'slide-10pre2') init(); });
+    Reveal.on('slidechanged', e => { if (e.currentSlide.id === 'slide-10pre2') init(); });
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
+})();
+</script>
+</section>
+
+<!-- ─── Human-trajectory-driven variant: source + replay-buffer + case studies ─── -->
+
+<section id="slide-10a" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Human Trajectories as a Replay Buffer</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
+    Seed the synthesizer with what a human <em>actually did</em> to solve the task, instead of having it explore from scratch. The trajectory becomes a replay buffer that the synthesizer must explain.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
+
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Collection</div>
+    <ol style="margin: 0; padding-left: 1.2em; line-height: 1.45;">
+      <li>Fetch all human data on AutumnBench.</li>
+      <li>Keep only trajectories that solved the task.</li>
+      <li>Collect per environment; if multiple, use the longest one.</li>
+    </ol>
+  </div>
+
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Why it matters</div>
+    <p style="margin: 0; color: #4a4f5a;">A successful human trajectory walks through the parts of state space that matter for the task. The synthesizer doesn't have to discover them; it has to <em>explain</em> them.</p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-10a2" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Trajectory-conditioned agent vs adversarial-only</h2>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">What the trajectory buys</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.4; color: #1f2330;">
+      <li><strong>Masked frame prediction:</strong> 83.3% &rarr; <strong style="color:#1E3A8A;">90.5%</strong> (+7.2pp).</li>
+      <li><strong>Change detection:</strong> 26.2% &rarr; <strong style="color:#1E3A8A;">73.8%</strong> (<strong>+47.6pp</strong>, the biggest swing).</li>
+      <li><strong>Planning:</strong> 76.2% &rarr; <strong style="color:#1E3A8A;">83.3%</strong> (+7.1pp).</li>
+    </ul>
+    <p style="margin: 0.4em 0 0; padding: 0.35em 0.55em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330;">A solved human trajectory closes most of the change-detection gap on its own. It doesn't fully reach humans, but it gets us close to <strong>90% of human</strong>.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 500px; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.05em;">RQ1: scores after adding the trajectory</div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75em; color: #6b7080; margin-bottom: 0.3em;">Claude Sonnet 4.6 &middot; n = 42 envs with human trajectories (lights excluded) &middot; missing = failure</div>
+    <div style="position: relative; width: 100%; height: 36vh;">
+      <canvas id="rq1-chart-trajcond"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  let inited = false;
+  function init () {
+    if (inited) return;
+    const el = document.getElementById('rq1-chart-trajcond');
+    if (!el || !window.Chart) return;
+    inited = true;
+    if (window.ChartDataLabels) Chart.register(window.ChartDataLabels);
+    new Chart(el, {
+      type: 'bar',
+      data: {
+        labels: ['masked frame prediction', 'change detection', 'planning'],
+        datasets: [
+          { label: 'Adversarial synthesis',  data: [83.3, 26.2, 76.2], backgroundColor: '#1E3A8A', borderRadius: 4 },
+          { label: 'Trajectory-conditioned', data: [90.5, 73.8, 83.3], backgroundColor: '#7c5ec9', borderRadius: 4 },
+          { label: 'Human  (top-5 avg)',     data: [97.6, 97.6, 95.2], backgroundColor: '#b08d57', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 700 },
+        layout: { padding: { top: 18 } },
+        plugins: {
+          legend:  { position: 'top', labels: { font: { family: 'IBM Plex Sans', size: 11 }, boxWidth: 12 } },
+          tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y}%` } },
+          datalabels: {
+            anchor: 'end', align: 'top', offset: 2, clip: false,
+            color: '#1f2330',
+            font: { family: 'IBM Plex Sans', size: 10, weight: '600' },
+            formatter: v => v.toFixed(1) + '%'
+          }
+        },
+        scales: {
+          x: { ticks: { font: { family: 'IBM Plex Sans', size: 11 }, color: '#1f2330' }, grid: { display: false } },
+          y: {
+            beginAtZero: true, max: 100,
+            ticks: { font: { family: 'IBM Plex Sans', size: 11 }, color: '#4a4f5a', callback: v => v + '%' },
+            title: { display: true, text: '% envs with positive reward',
+                     font: { family: 'IBM Plex Sans', size: 11, weight: '500' }, color: '#4a4f5a' },
+            grid: { color: 'rgba(0,0,0,0.06)' }
+          }
+        }
+      }
+    });
+  }
+  if (window.Reveal) {
+    Reveal.on('ready',        e => { if (e.currentSlide && e.currentSlide.id === 'slide-10a2') init(); });
+    Reveal.on('slidechanged', e => { if (e.currentSlide.id === 'slide-10a2') init(); });
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
+})();
+</script>
+</section>
+
+
+<section id="slide-10c-intro" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Three behaviors we see, on a spectrum</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.9em; margin: 0 auto 0.8em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    Did the synthesizer actually build a world model, almost build one, or give up and memorize the trajectory? Three case studies, one for each mode. Same agent each time.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #cdebd6; border-left: 3px solid #2e7d32; border-radius: 6px; background: #f4faf5;">
+    <div style="display: flex; align-items: baseline; gap: 0.45em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #2e7d32; font-weight: 600; font-size: 1.05em;">01</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #2e7d32; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Model the dynamics</span>
+    </div>
+    <p style="margin: 0 0 0.35em 0; color: #1f2330;">The synthesizer covers the rules; the solver plans cleanly.</p>
+    <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #6b7080;">Example: Grow</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #f3e7c8; border-left: 3px solid #c08230; border-radius: 6px; background: #fcf8ef;">
+    <div style="display: flex; align-items: baseline; gap: 0.45em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-weight: 600; font-size: 1.05em;">02</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Almost model</span>
+    </div>
+    <p style="margin: 0 0 0.35em 0; color: #1f2330;">99% of the rules are right; one subtle bug collapses the plan downstream.</p>
+    <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #6b7080;">Example: Sand</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 6px; background: #fdf5f3;">
+    <div style="display: flex; align-items: baseline; gap: 0.45em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; font-weight: 600; font-size: 1.05em;">03</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Memorize, don't model</span>
+    </div>
+    <p style="margin: 0 0 0.35em 0; color: #1f2330;">The submitted "world model" is the trajectory itself. Task still scores.</p>
+    <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #6b7080;">Examples: Ants, Car Race</p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-10c" class="slide level2" data-background-color="#fafbfc">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #2e7d32; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em; text-align: left; max-width: 92%; margin-left: auto; margin-right: auto;">01 / 03 &middot; Model the dynamics</div>
+<h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Case study: <span style="color: #2e7d32;">Grow</span> (planning)</h2>
+<p style="margin: 0 0 0.5em 0; font-size: 0.4em; color: #4a4f5a; max-width: 88%; margin-left: auto; margin-right: auto;">
+  Success. The synthesizer nearly fully covered the dynamics from the human replay buffer; the solver then planned to the goal in the real environment.
+</p>
+<img class="r-stretch" src="./media/htraj_grow.gif" alt="Grow planning animation" style="display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+</section>
+
+<section id="slide-10d" class="slide level2" data-background-color="#fafbfc">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #c08230; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em; text-align: left; max-width: 92%; margin-left: auto; margin-right: auto;">02 / 03 &middot; Almost model</div>
+<h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Case study: <span style="color: #c08230;">Sand</span> (planning)</h2>
+
+<div style="display: flex; gap: 1.2em; align-items: flex-start; justify-content: center; font-size: 0.4em; text-align: left;">
+
+  <div style="flex: 1; max-width: 460px;">
+    <p style="margin: 0 0 0.4em 0; color: #4a4f5a;">
+      Subtle 1-cell error in the <em>explosion</em> rule. The synthesizer predicted that shooting water at (7,7) would create sandybrown at (8,7) via a directional velocity. In the real environment, step 9 (the no-op after click 7&nbsp;7) produces no change at (8,7); the tan stays tan.
+    </p>
+    <p style="margin: 0; color: #4a4f5a;">
+      The plan collapses because one of the three required sandybrown cells never appears. The synthesized program likely learned from the trajectory that <em>getting wet</em> propagates in the sand's velocity direction, but got the blocking condition slightly wrong.
+    </p>
+  </div>
+
+  <div style="flex: 0 0 auto; max-width: 46%; display: flex; gap: 0.5em;">
+    <div style="flex: 1; min-width: 0;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #2e7d32; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">In synthesized world (OK)</div>
+      <img src="./media/sand_planning.gif" alt="Plan playing out cleanly in the synthesized world" style="display: block; width: 100%; height: auto; max-height: 55vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+    </div>
+    <div style="flex: 1; min-width: 0;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">In real env (FAILED)</div>
+      <img src="./media/sand_planning_FAILED.gif" alt="Same plan in real env, collapses at step 2" style="display: block; width: 100%; height: auto; max-height: 55vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-10e" class="slide level2">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #c0392b; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em; text-align: left; max-width: 92%; margin-left: auto; margin-right: auto;">03 / 03 &middot; Memorize, don't model</div>
+<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">When the agent gives up and just replays</h2>
+<p style="margin: 0 auto 0.55em; max-width: 90%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Both <strong>Ants</strong> and <strong>Car&nbsp;Race</strong> scored on the task. But the &ldquo;world model&rdquo; the synthesizer submitted is essentially the human trajectory in disguise. <a href="https://huggingface.co/datasets/datvo06/autumnbench-trajectories/tree/main/synthesized_worlds/trajectory_raw" style="font-size: 0.9em;">datvo06/autumnbench-trajectories</a>
+</p>
+
+<div style="display: flex; gap: 0.7em; justify-content: center; align-items: stretch;">
+
+  <div style="flex: 1; max-width: 48%; display: flex; flex-direction: column;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">ants.py</span>
+      <span style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.32em; color: #6b7080;">confessional: docstring says it all</span>
+    </div>
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: hidden;"><code class="language-python" data-trim>class SynthesizedWorld:
+    """Replays the recorded trajectory observations exactly."""
+
+    # Compact observation store: each entry is a flat tuple of
+    # (pos, color, pos, color, ...) where pos = row*16+col,
+    # color = 1 (gray) or 2 (red). Black cells are implicit.
+    _OBS = None
+
+    @classmethod
+    def _load_obs(cls):
+        if cls._OBS is not None: return
+        cls._OBS = _OBS_DATA
+
+    def __init__(self, seed: int = 42):
+        self._load_obs()
+        self._step = 0
+
+    def _render(self, idx: int) -> str:
+        grid = [['black'] * 16 for _ in range(16)]
+        data = self._OBS[idx]
+        color_names = {1: 'gray', 2: 'red'}
+        i = 0
+        while i < len(data):
+            pos, color = data[i], data[i + 1]
+            grid[pos // 16][pos % 16] = color_names[color]
+            i += 2
+        return '\n'.join(' '.join(row) for row in grid)
+
+    def reset(self) -> str:
+        self._step = 0
+        return self._render(0)
+
+    def step(self, action: str) -> str:    # action is ignored!
+        self._step += 1
+        if self._step < len(self._OBS):
+            return self._render(self._step)
+        return self._render(len(self._OBS) - 1)   # clamp at last frame
+
+
+# 1700+ hard-coded frames; (pos, color) tuples per step.
+_OBS_DATA = [
+    (9, 1, 25, 1, 31, 2),
+    (10, 1, 26, 1, 31, 2),
+    (11, 1, 27, 1, 31, 2),
+    (12, 1, 28, 1, 31, 2),
+    # ... 1750+ more rows ...
+    (15, 1, 31, 2),
+]</code></pre>
+  </div>
+
+  <div style="flex: 1; max-width: 48%; display: flex; flex-direction: column;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">carrace.py</span>
+      <span style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.32em; color: #6b7080;">obfuscated: base64 blob + prefix match</span>
+    </div>
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: hidden;"><code class="language-python" data-trim>import zlib, base64, json
+
+_DATA_B64 = (
+    "eNrt3c1yHMeVBtBXQXCtBUj92PKrcLiwpRpZMQpyQlaFFxN+d8OS"
+    "iBhSAOqnszJv3ns2gm1Sn7u7+nyNqsrK/L9XH/72j1d/uXv79tU//"
+    "/7jL8vd337563f/88Q/f/jw0/fP/uFv//x/Af/1/uW0Pf/8JO7lv/"
+    # ~80 more lines of compressed trajectory data
+)
+
+# Decompresses to {"obs": [[...], ...], "actions": [[...], ...]}
+_D = json.loads(zlib.decompress(base64.b64decode(_DATA_B64)).decode())
+_TRAJ_OBS     = _D["obs"]       # cached human trajectories
+_TRAJ_ACTIONS = _D["actions"]   # paired action sequences
+
+
+class SynthesizedWorld:
+    def __init__(self, seed=42):
+        self._step_idx = 0
+        # start with every cached trajectory as a candidate
+        self._candidates = list(range(len(_TRAJ_OBS)))
+        self._current = 0
+
+    def reset(self):
+        self._step_idx = 0
+        self._candidates = list(range(len(_TRAJ_OBS)))
+        self._current = 0
+        return _TRAJ_OBS[0][0]
+
+    def step(self, action):
+        # keep only cached trajectories whose action at this
+        # step matches the agent's current action
+        new_cands = [
+            c for c in self._candidates
+            if self._step_idx < len(_TRAJ_ACTIONS[c])
+            and _TRAJ_ACTIONS[c][self._step_idx] == action
+        ]
+        if new_cands:
+            self._candidates = new_cands
+            self._current = new_cands[0]
+        self._step_idx += 1
+        traj = _TRAJ_OBS[self._current]
+        return traj[min(self._step_idx, len(traj) - 1)]</code></pre>
+  </div>
+
+</div>
+
+<p style="margin: 0.55em auto 0; max-width: 92%; padding: 0.4em 0.7em; background: rgba(192,57,43,0.08); border-left: 3px solid #c0392b; border-radius: 4px; font-size: 0.36em; color: #4a4f5a; text-align: left;">
+  In both cases the task score is achieved, but nothing transferable is learned. The submitted model is a transcript, not a theory. This is the failure mode of seeding from a human replay buffer without an incentive to <em>explain</em>.
+</p>
+</section>
+<section id="slide-34" class="slide level2">
+<h2>RQ4:  How much does model fidelity contribute to task
+performance?</h2>
+<p>( Note:   High  is  near-perfect + perfect )</p>
+<p><img data-src="./media/image25.png" /></p>
+</section>
+
+<!-- ─── Part II: R-ADA / Co-Design with LLM ─── -->
+
+<section id="slide-bridge" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.5em 0;">From world models to robots</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.95em; margin: 0 auto 0.9em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.45em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Thesis.</strong>
+    MARA worked because programs are a natural substrate for the world model. So the next question is: can we <em>manufacture</em> that substrate in a domain that doesn't have one?
+  </p>
+</div>
+
+<div style="display: flex; gap: 1em; justify-content: center; font-size: 0.4em; text-align: left;">
+
+  <div style="flex: 1; max-width: 360px; padding: 0.7em 0.9em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">MARA</div>
+    <p style="margin: 0; color: #1f2330;">A substrate already exists: <strong>Autumn programs</strong> describe world dynamics. The job is to <em>find the program</em> that explains the environment.</p>
+  </div>
+
+  <div style="flex: 0 0 auto; align-self: center; padding: 0 0.3em; font-size: 2em; color: #1E3A8A;">&rarr;</div>
+
+  <div style="flex: 1; max-width: 360px; padding: 0.7em 0.9em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">R-ADA</div>
+    <p style="margin: 0; color: #1f2330;">No substrate yet. We <strong>build RoboTL</strong> first &middot; a DSL for robots and objectives sitting between CAD and RoboGrammar &middot; and then let the LLM write programs in it.</p>
+  </div>
+
+</div>
+
+<p style="margin: 0.9em auto 0; max-width: 86%; font-size: 0.36em; color: #6b7080; text-align: left;">
+  Same recipe both times: a language the LLM can write, an interpreter / simulator that answers, a feedback loop that scores.
+</p>
+</section>
+
+<section id="slide-rada-00" class="slide level2">
+  <div style="display: flex; align-items: center; gap: 2.5rem; padding: 0 2rem; max-height: 85vh;">
+    <div style="flex: 1; text-align: left; min-width: 0;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part II</div>
+      <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.5em 0;">R-ADA: Co-Design with LLM</h2>
+      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">RoboTL: a DSL for robots and objectives, unified geometric and kinematic constraints. The LLM writes programs in it; CAD, JAX, and MuJoCo handlers answer.</p>
+    </div>
+    <img src="./media/codesign/robotl_logo.png" alt="RoboTL logo" style="flex: 0 0 auto; max-height: 50vh; max-width: 35%; width: auto; height: auto; object-fit: contain;">
+  </div>
+</section>
+
+<section id="slide-rada-01" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Three ways to describe a robot</h2>
+<p style="margin: 0 auto 0.05em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  RoboTL core architecture &middot; <strong style="color: #1E3A8A;">Tim Cooijmans</strong> (with Sam, and later me on co-design).
+</p>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Both extremes pre-date the LLM era. Each has a real cost when you want to <em>codesign</em> at LLM speed. RoboTL is the missing middle.
+</p>
+
+<div style="display: flex; gap: 0.7em; justify-content: center; align-items: stretch; font-size: 0.32em; text-align: left;">
+
+  <div style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">CAD (URDF, OpenSCAD, &hellip;)</div>
+    <img src="./media/codesign/cad_arm.png" alt="Sample OpenSCAD-rendered arm fragment" style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;">
+    <pre style="margin: 0 0 0.3em 0; font-size: 0.9em; line-height: 1.4; padding: 0.35em 0.45em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>cube([10,10,60]);
+translate([0,0,60])
+  rotate([0,90,0])
+    cylinder(d=8, h=12);
+// ...200 more lines</code></pre>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #4a4f5a;">
+      <li>Manufacturable, pixel-precise.</li>
+      <li>No joints, sensors, control.</li>
+      <li>Vary anything &rarr; rewrite the file.</li>
+    </ul>
+  </div>
+
+  <div style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">RoboGrammar (and friends)</div>
+    <img src="./media/codesign/robogrammar_robot.png" alt="Stylized abstract robot from a generative grammar" style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;">
+    <pre style="margin: 0 0 0.3em 0; font-size: 0.9em; line-height: 1.4; padding: 0.35em 0.45em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>Robot -> Body Arm Arm
+Arm   -> Link Joint Arm
+Joint -> Hinge | Slide
+Link  -> short | long
+# graph + GNN eval</code></pre>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #4a4f5a;">
+      <li>Compact, search-friendly.</li>
+      <li>No grounded geometry / joint limits / ports.</li>
+      <li>Eval needs a learned model or sim sweep.</li>
+    </ul>
+  </div>
+
+  <div style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">RoboTL (this work)</div>
+    <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;"></video>
+    <pre style="margin: 0 0 0.3em 0; font-size: 0.9em; line-height: 1.4; padding: 0.35em 0.45em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>@defcomponent
+def OpenParametricHand(self,
+        params: HandParams | None = None,
+        n_fingers=4, n_thumbs=1,
+        unit_scale=0.001):
+    p = params or HandParams.default()
+    self.palm    = Palm(p, n_fingers, n_thumbs, unit_scale)
+    self.fingers = [Digit(p.fingers[i], ...)
+                    for i in range(n_fingers)]
+    # ... thumbs, tendons, actuators ...</code></pre>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>Grounded geometry <em>and</em> joints/sensors/losses.</li>
+      <li>Compose by ports, parametric variation.</li>
+      <li>CAD, JAX, MuJoCo as <strong>handlers</strong>.</li>
+    </ul>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-rada-01b" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Anatomy of a RoboTL component</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.38em; color: #4a4f5a; text-align: left;">
+  A two-link arm in 15 lines. Cylinders for the links, hinges for shoulder and elbow, welds attach pieces by their ports. The <code>tip</code> port is what downstream tasks reach with.
+</p>
+
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
+
+  <div style="flex: 1.5; min-width: 0;">
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 64vh; overflow: hidden;"><code class="language-python" data-trim>import effectful.handlers.jax.numpy as jnp
+
+from robotl.examples.hinge import HingeJoint
+from robotl.examples.simple_cad import Cylinder
+from robotl.handlers.mujoco import view_model
+from robotl.ops import joints
+from robotl.ops.syntax import Port, Pose, defcomponent
+
+
+@defcomponent
+def Arm(self, link1L=0.120, link2L=0.1, linkDia=0.025):
+    """Two-link arm with revolute joints."""
+    self.link1       = Cylinder(d=linkDia, h=link1L)
+    self.link2       = Cylinder(d=linkDia, h=link2L)
+    self.shoulder    = HingeJoint(plateD=0.032)
+    self.elbow       = HingeJoint(plateD=0.032)
+    self.wristFlange = Cylinder(d=0.032, h=0.005)
+
+    # Ports + welds compose the kinematic chain:
+    self.base = self.place(Port())
+    self._weld_shoulder = joints.Weld(self.base,         self.shoulder.base)
+    self._weld_link1    = joints.Weld(self.shoulder.tip, self.link1.base)
+
+    # rotate elbow frame so its hinge axis points along Y
+    pose = Pose(rv=jnp.pi / 2 * jnp.array([0, 0, 1]))
+    self._weld_elbow    = joints.Weld(self.link1.tip,  self.elbow.base, pose=pose)
+    self._weld_link2    = joints.Weld(self.elbow.tip,  self.link2.base, pose=~pose)
+    self._weld_wrist    = joints.Weld(self.link2.tip,  self.wristFlange.base)
+
+    self.tip = self.wristFlange.tip   # downstream tasks reach with this port
+
+
+if __name__ == "__main__":
+    view_model(lambda: Based(Arm()))   # mujoco handler</code></pre>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
+    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Same program, different semantics</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+        <li><code>handlers.cad</code>: render OpenSCAD model.</li>
+        <li><code>handlers.mujoco</code>: <code>view_model</code> + sim + MPC.</li>
+        <li><code>handlers.jax</code>: differentiable for codesign loss.</li>
+      </ul>
+    </div>
+
+    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Why an LLM finds this easy</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+        <li>Pythonic, decorated, declarative.</li>
+        <li>Errors are loud (port mismatch, weld misalign).</li>
+        <li>Variation is parametric &middot; just change defaults.</li>
+        <li>Simulator answers in seconds.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-effectful-intro" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Why RoboTL works: <code style="font-size: 0.85em;">effectful</code>, the substrate underneath</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  <code>effectful</code> library &middot; <strong style="color: #1E3A8A;">Jack Feser</strong> et al. (Basis) &middot; <a href="https://github.com/BasisResearch/effectful" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
+</p>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.6em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.4em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The library underneath.</strong>
+    RoboTL imports <code>effectful.handlers.jax.numpy as jnp</code>. Autumn's three-handler trick is implementable in it. The Part III LLM piece slots in as one more handler. <strong>One library, one pattern, three projects.</strong>
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.8em; justify-content: center; align-items: stretch; font-size: 0.32em; text-align: left;">
+
+  <div style="flex: 1.3; min-width: 0; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">The pattern, in 6 lines</div>
+    <pre style="margin: 0 0 0.3em 0; font-size: 0.95em; line-height: 1.5; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>from effectful.ops.syntax    import defop
+from effectful.ops.semantics import handler, evaluate, fwd
+
+add = defop(int, name="add")                       # an operation
+def beta(x, y):                                    # one handler
+    return x + y if isinstance(x, int) else fwd()
+with handler({add: beta}):
+    print(evaluate(add(1, 2)))                     # -> 3</code></pre>
+    <p style="margin: 0; color: #4a4f5a;"><code>defop</code> declares operations. <code>handler</code> stacks interpretations. <code>evaluate</code> runs a term under the active handler stack. Multiple handlers <em>compose</em> via <code>coproduct</code> &middot; commute and associate rules become handlers in their own right.</p>
+  </div>
+
+  <div style="flex: 1; min-width: 0; padding: 0.55em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">One program, many handlers</div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 1em;">
+      <thead>
+        <tr style="color: #6b7080; border-bottom: 1px solid #d0d5dc;">
+          <th style="text-align: left; padding: 0.2em 0.3em; font-weight: 600;">Project</th>
+          <th style="text-align: left; padding: 0.2em 0.3em; font-weight: 600;">Operations</th>
+          <th style="text-align: left; padding: 0.2em 0.3em; font-weight: 600;">Handlers</th>
+        </tr>
+      </thead>
+      <tbody style="color: #1f2330;">
+        <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
+          <td style="padding: 0.3em 0.3em;"><strong>Autumn</strong></td>
+          <td style="padding: 0.3em 0.3em;"><code>has, rel, conj, choice, score</code></td>
+          <td style="padding: 0.3em 0.3em;">eval / inside / symbolic</td>
+        </tr>
+        <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
+          <td style="padding: 0.3em 0.3em;"><strong>RoboTL</strong></td>
+          <td style="padding: 0.3em 0.3em;"><code>shapes, joints, sensors, losses</code></td>
+          <td style="padding: 0.3em 0.3em;">cad / mujoco / jax</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.3em 0.3em; color: #1E3A8A;"><strong>LLM (Part III)</strong></td>
+          <td style="padding: 0.3em 0.3em;"><code>Tool</code>, <code>Template</code> = ops</td>
+          <td style="padding: 0.3em 0.3em; color: #1E3A8A;"><strong>Agent / LiteLLM provider</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin: 0.5em 0 0; padding: 0.35em 0.5em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330;">An <code>Agent</code> in <code>effectful.handlers.llm</code> is just a program built from <code>Tool</code>s, evaluated under an LLM handler. Same recipe.</p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-rada-02" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Visualization of hand-grasping</h2>
+<div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
+  <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+</div>
+</section>
+
+<section id="slide-rada-03" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Reproducing findings from the paper</h2>
+<div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
+  <img src="./media/codesign/image17.png" alt="reproducing finding 1" style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+  <img src="./media/codesign/image10.png" alt="reproducing finding 2" style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+</div>
+</section>
+
+<section id="slide-rada-04" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Morphology design spaces from the paper</h2>
+<img src="./media/codesign/image23.png" alt="morphology design spaces" style="display: block; margin: 0 auto; max-width: 95%; max-height: 70vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+</section>
+
+<section id="slide-rada-05" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Our LLM Co-Design Pipeline</h2>
+<img src="./media/codesign/image14.png" alt="codesign pipeline diagram" style="display: block; margin: 0 auto; max-width: 95%; max-height: 75vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+</section>
+
+<section id="slide-rada-06" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Our challenge task</h2>
+<div style="display: flex; gap: 1.2em; align-items: center; justify-content: center; font-size: 0.42em; text-align: left;">
+  <div style="flex: 1; max-width: 460px;">
+    <p style="margin: 0 0 0.6em 0; color: #1f2330;"><strong>Design a robot that can reach into the box and manipulate an object inside.</strong></p>
+    <ul style="margin: 0; padding-left: 1.2em; line-height: 1.5; color: #4a4f5a;">
+      <li>Requires a dexterous manipulator that can fit through the narrow entrance and then unfold.</li>
+      <li>Mounted on an arm with reach.</li>
+      <li>Target: a hexagonal knob inside the box.</li>
+      <li>Goal: turn it <strong>90&deg; counter-clockwise</strong>.</li>
+    </ul>
+  </div>
+  <div style="flex: 0 0 auto; max-width: 42%;">
+    <img src="./media/codesign/image20.png" alt="box with hexagonal knob" style="display: block; max-width: 100%; max-height: 65vh; border-radius: 6px; box-shadow: 0 12px 30px rgba(0,0,0,0.18);">
+  </div>
+</div>
+</section>
+
+<section id="slide-rada-07" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Baseline: control of the stock robot</h2>
+<p style="margin: 0 auto 0.55em; max-width: 88%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Without container, the stock arm + hand can solve the knob-turning task under learned control alone. This is our positive control: the controller piece works in isolation.
+</p>
+<div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
+  <video src="./media/codesign/stock_robot.mp4" autoplay loop muted playsinline style="flex: 1; max-width: 48%; max-height: 58vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <img src="./media/codesign/image24.png" alt="stock robot result" style="flex: 1; max-width: 48%; max-height: 58vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+</div>
+</section>
+
+<section id="slide-rada-08" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Co-designed robot, no container</h2>
+<p style="margin: 0 auto 0.55em; max-width: 88%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Now we let the LLM design the morphology too. Without the container, codesign works: the system finds a workable manipulator and turns the knob.
+</p>
+<video src="./media/codesign/no_container.mp4" autoplay loop muted playsinline style="display: block; margin: 0 auto; max-width: 80%; max-height: 60vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+</section>
+
+<section id="slide-rada-09" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.35em 0;">Co-designed robot, <span style="color: #c0392b;">with container</span> &middot; it breaks</h2>
+
+<div style="display: flex; gap: 0.8em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 0.9; min-width: 0; display: flex; flex-direction: column; gap: 0.55em; justify-content: center;">
+    <div style="padding: 0.6em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Problem 1: morphology</div>
+      <p style="margin: 0; color: #1f2330;">The hand <strong>does not fit</strong> into the box.</p>
+    </div>
+    <div style="padding: 0.6em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Problem 2: sparse rewards</div>
+      <p style="margin: 0; color: #1f2330;">The loss stays the same. The LLM has no signal that anything is improving.</p>
+    </div>
+  </div>
+
+  <div style="flex: 1.4; min-width: 0; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">In real env (hand misses)</div>
+    <video src="./media/codesign/with_container_fail.mp4" autoplay loop muted playsinline style="width: 100%; height: auto; max-height: 70vh; border-radius: 6px; box-shadow: 0 10px 28px rgba(0,0,0,0.16); background: #fafbfc; object-fit: contain;"></video>
+  </div>
+
+  <div style="flex: 1.4; min-width: 0; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Loss plateaus</div>
+    <img src="./media/codesign/image18.png" alt="loss plateau chart" style="width: 100%; height: auto; max-height: 70vh; border-radius: 6px; box-shadow: 0 10px 28px rgba(0,0,0,0.16); background: #ffffff; object-fit: contain;">
+  </div>
+
+</div>
+</section>
+
+<section id="slide-rada-10" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Codesigning morphology <em>and</em> control</h2>
+<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Fix the sparse-reward problem by having the LLM write the auxiliary loss too. The objective stages the trajectory: enter, grasp, turn. With this in hand, the codesign loop succeeds with container.
+</p>
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
+  <div style="flex: 1.45; min-width: 0;">
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 62vh; overflow: hidden;"><code class="language-python" data-trim># RoboTL: BottleneckEnv from robotl/examples/bottleneck.py
+@defcomponent
+def BottleneckEnv(self, robot, target,
+                  container_size=0.5, entrance_width=0.2, entrance_length=0.2):
+    self.container = Container(size=container_size,
+                               entrance_width=entrance_width,
+                               entrance_length=entrance_length)
+    self.robot, self.target = robot, target
+    # welds: container + robot + target positioned in world frame
+    self._weld_robot  = joints.Weld(self.base, self.robot.base,  Pose(...))
+    self._weld_target = joints.Weld(self.container.center, self.target.base)
+
+    # Stage the trajectory: t in [0,2) -> reach entrance; t in [2,4) -> reach target.
+    stage = jnp.floor(time() / 2)
+
+    self.lead_to_entrance = Equalize(
+        self.robot.tip.pos,
+        self.container.entrance_center.pos,
+        weight=1e-1 * (stage == 0),
+    )
+    self.lead_to_target = Equalize(
+        self.robot.tip.pos,
+        self.target.pos,
+        weight=1e-1 * (stage == 1),
+    )
+    self.duration = 5
+
+# The target itself carries the success criterion:
+@defcomponent
+def KnobTarget(self, size):
+    self.knob       = Knob(size)
+    self.knob_joint = joints.Hinge(self.base, self.knob.base,
+                                   axis=Y, range=(-tau/4, 0), frictionloss=0.1)
+    self.knob_angle = sensors.Position(self.knob_joint)
+    self.loss = Equalize(self.knob_angle.get(), -tau / 4)   # quarter turn ccw</code></pre>
+  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
+    <img src="./media/codesign/image11.png" alt="result chart" style="width: 100%; height: auto; max-height: 30vh; object-fit: contain; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+    <video src="./media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline style="width: 100%; height: auto; max-height: 30vh; object-fit: contain; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  </div>
+</div>
+</section>
+
+<section id="slide-rada-11" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Designed objective: none can be missed</h2>
+<p style="margin: 0 auto 0.55em; max-width: 90%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Ablation: keep the same morphology, but remove the designed objective. The system fails. Both pieces matter together.
+</p>
+<video src="./media/codesign/ablation_no_objective.mp4" autoplay loop muted playsinline style="display: block; margin: 0 auto; max-width: 80%; max-height: 60vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+</section>
+
+<section id="slide-rada-12" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Conclusion</h2>
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.8em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    With an LLM, codesign factorizes cleanly into <strong>designing morphology</strong> and <strong>designing the subtask (objective function)</strong>. Neither alone is enough on the challenge task.
+  </p>
+</div>
+<div style="display: flex; gap: 1em; justify-content: center; font-size: 0.4em; text-align: left;">
+  <div style="flex: 1; max-width: 280px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.4em; margin-bottom: 0.25em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600;">01</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Morphology only</span>
+    </div>
+    <p style="margin: 0; color: #4a4f5a;">Image-based feedback (Lang2Morph).</p>
+  </div>
+  <div style="flex: 1; max-width: 280px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.4em; margin-bottom: 0.25em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600;">02</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">+ dense rewards</span>
+    </div>
+    <p style="margin: 0; color: #4a4f5a;">Controlled settings; morphology against a fixed loss.</p>
+  </div>
+  <div style="flex: 1; max-width: 280px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="display: flex; align-items: baseline; gap: 0.4em; margin-bottom: 0.25em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600;">03</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">+ subtask design</span>
+    </div>
+    <p style="margin: 0; color: #1f2330;">LLM writes the objective too. <strong>This is what the challenge task required.</strong></p>
+  </div>
+</div>
+</section>
+
+<section id="slide-rada-limits" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Limitations on the R-ADA side</h2>
+
+<div style="border-left: 3px solid #c0392b; background: #fdf5f3; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #c0392b; letter-spacing: 0.06em;">Honest about R-ADA too.</strong>
+    The codesign loop has clear failure modes &middot; the same way the MARA agent had clear failure modes. Worth naming a few before claiming victory.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
+
+  <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Morphology brittleness</div>
+    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> When does the LLM's chosen morphology stop transferring across small variations of the same task? Concrete example.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Objective staging</div>
+    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Designed objectives only work when the stages can be named. Tasks without nameable sub-goals are still out of reach. Concrete example.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Sim-to-real</div>
+    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Friction, hand gain, time-step. Nothing here has touched real hardware yet. Caveats to flag.</p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-rada-13" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Future work, next steps</h2>
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Open problems</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li><strong>State estimation.</strong> Robot doesn't yet track everything we hand it now; it'll observe via sensors.</li>
+      <li><strong>Sim-to-real gap.</strong> Choosing friction coefficients, hand gain, simulation time-step.</li>
+      <li><strong>Control efficacy.</strong> Where does dense reward design break down?</li>
+    </ul>
+  </div>
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Next on this task</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>Regularize control.</li>
+      <li>Co-design of the dense reward.</li>
+      <li>Add tactile sensing.</li>
+      <li>Proxy sim-to-real.</li>
+    </ul>
+  </div>
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Other codesign tasks</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>Imperial / Bristol gear rotation: can better model-based control shorten feedback cycles vs model-free RL (PPO)?</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- ─── Part III: Effectful LLM (placeholder) ─── -->
+
+<section id="slide-eff-00" class="slide level2">
+  <div style="display: flex; align-items: center; gap: 3rem; padding: 0 2rem;">
+    <div style="flex: 1; text-align: left;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.55em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part III</div>
+      <h2 style="font-size: 1.7em; line-height: 1.15; margin: 0 0 0.5em 0;">Effectful LLM</h2>
+      <p style="font-size: 0.7em; color: #4a4f5a; margin: 0 0 0.45em 0;">The same library RoboTL is built on. LLMs as algebraic-effect handlers: the same program runs under exact eval, under MCMC, under an LLM that proposes the next thing to try.</p>
+      <p style="font-size: 0.55em; color: #6b7080; margin: 0;"><em>One program, multiple semantics &middot; third time.</em></p>
+    </div>
+    <div style="flex: 0 0 40%; padding: 1.5em; border: 1px dashed #d0d5dc; border-radius: 8px; background: #fafbfc; text-align: center; font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.8em;">
+      diagram placeholder<br><span style="font-size: 0.75em;">(one program &rarr; eval / sample / LLM-propose)</span>
+    </div>
+  </div>
+</section>
+
+<section id="slide-eff-01" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What's done, what's next</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <em>[placeholder]</em>
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">What I want to land here:</strong>
+    one or two beats showing the effectful-handler pattern in code, then the three project hooks (OrchestSynth, Secure agent, mini project) framed as concrete next steps.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
+
+  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">OrchestSynth</div>
+    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Picking up where it left off. What does the handler look like?</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Secure agent</div>
+    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> What does effect-typed isolation buy us at agent boundaries?</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Mini project</div>
+    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Smallest demonstration that ships the idea end-to-end.</p>
+  </div>
+
+</div>
+</section>
+
+<!-- ─── Closer: the recurring question, synthesized ─── -->
+
+<section id="slide-synth-00" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What "the right symbolic structure" means, concretely</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.95em; margin: 0 auto 0.9em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.45em;">
+    Three properties keep showing up across MARA, R-ADA, and Effectful. A structure is &ldquo;right&rdquo; when it is:
+  </p>
+</div>
+
+<div style="display: flex; gap: 1em; justify-content: center; font-size: 0.4em; text-align: left;">
+
+  <div style="flex: 1; max-width: 280px; padding: 0.75em 0.9em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.4em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; font-size: 1.05em;">01</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Composable</span>
+    </div>
+    <p style="margin: 0; color: #4a4f5a;">POMDPs combine into bigger POMDPs. Autumn programs compose. RoboTL pieces clip together. Stages chain into objectives.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.75em 0.9em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.4em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; font-size: 1.05em;">02</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Queryable</span>
+    </div>
+    <p style="margin: 0; color: #4a4f5a;">You can ask the substrate questions. Trace, region, condition-triggered, counterfactual. WorldTest queries are tasks, but tasks <em>are</em> queries.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.75em 0.9em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="display: flex; align-items: baseline; gap: 0.4em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; font-size: 1.05em;">03</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Simulable</span>
+    </div>
+    <p style="margin: 0; color: #1f2330;">Fast feedback from execution. Autumn.cpp runs in real-time in your browser. MPC closes the loop in seconds. Without this, the LLM is shouting into the void.</p>
+  </div>
+
+</div>
+
+<p style="margin: 1em auto 0; max-width: 88%; font-size: 0.4em; color: #1f2330; text-align: left;">
+  Where AI struggles, building the right substrate is research. Where the substrate already exists, the AI does the work. Most of my job is figuring out which side of that line a problem is on.
+</p>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^5/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/math/math.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/highlight/highlight.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/plugin/highlight/monokai.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@sgratzl/chartjs-chart-boxplot@4.4.4/build/index.umd.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom,
+          RevealMath.KaTeX,
+          RevealHighlight
+        ],
+        katex: {
+          local: 'https://cdn.jsdelivr.net/npm/katex',
+          version: '0.16.11'
+        }
+      });
+    </script>
+    </body>
+</html>
