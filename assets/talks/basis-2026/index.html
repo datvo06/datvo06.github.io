@@ -300,7 +300,11 @@
 
   <!-- Synthesizer card: in (top) / role / out (bottom) -->
   <div style="display: flex; flex-direction: column; align-items: center; max-width: 180px;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; text-align: center; line-height: 1.3; margin-bottom: 0.25em;"><em>in:</em><br>env interactions, replay buffer</div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2em; margin-bottom: 0.3em; min-height: 3.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; font-style: italic;">in</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #e8f3ec; border: 1px solid #6aae7c; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #2d6a4f; white-space: nowrap;">&#x21bb; real env</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #fbf1e0; border: 1px solid #c08230; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #8a5a1f; white-space: nowrap;">&#x25b7; replay buffer</span>
+    </div>
     <div style="display: flex; flex-direction: column; align-items: center; padding: 0.4em 0.9em 0.5em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff;">
       <img src="./media/icons/earth_query.svg" alt="" style="height: 36px; width: auto; margin-bottom: 0.2em;">
       <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Synthesizer</span>
@@ -318,7 +322,11 @@
 
   <!-- Challenger card -->
   <div style="display: flex; flex-direction: column; align-items: center; max-width: 180px;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; text-align: center; line-height: 1.3; margin-bottom: 0.25em;"><em>in:</em><br>world model, real env</div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2em; margin-bottom: 0.3em; min-height: 3.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; font-style: italic;">in</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #eef0fb; border: 1px solid #1E3A8A; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #1E3A8A; white-space: nowrap;">&#x2328; world model</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #e8f3ec; border: 1px solid #6aae7c; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #2d6a4f; white-space: nowrap;">&#x21bb; real env</span>
+    </div>
     <div style="display: flex; flex-direction: column; align-items: center; padding: 0.4em 0.9em 0.5em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff;">
       <img src="./media/icons/earth_arrow_earth.svg" alt="" style="height: 36px; width: auto; margin-bottom: 0.2em;">
       <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Challenger</span>
@@ -334,7 +342,11 @@
 
   <!-- Solver card -->
   <div style="display: flex; flex-direction: column; align-items: center; max-width: 180px;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; text-align: center; line-height: 1.3; margin-bottom: 0.25em;"><em>in:</em><br>surviving model, task</div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2em; margin-bottom: 0.3em; min-height: 3.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; font-style: italic;">in</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #eef0fb; border: 1px solid #1E3A8A; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #1E3A8A; white-space: nowrap;">&#x2328; surviving model</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #fdf5f3; border: 1px solid #c0392b; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #c0392b; white-space: nowrap;">&#x2691; task spec</span>
+    </div>
     <div style="display: flex; flex-direction: column; align-items: center; padding: 0.4em 0.9em 0.5em; border: 2px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
       <img src="./media/icons/flag_film.svg" alt="" style="height: 36px; width: auto; margin-bottom: 0.2em;">
       <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Solver</span>
