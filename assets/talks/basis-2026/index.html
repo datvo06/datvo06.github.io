@@ -1409,45 +1409,94 @@ def KnobTarget(self, size):
 <!-- ─── Part III: Effectful LLM (placeholder) ─── -->
 
 <section id="slide-eff-00" class="slide level2">
-  <div style="display: flex; align-items: center; gap: 3rem; padding: 0 2rem;">
-    <div style="flex: 1; text-align: left;">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.55em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part III</div>
-      <h2 style="font-size: 1.7em; line-height: 1.15; margin: 0 0 0.5em 0;">Effectful LLM</h2>
-      <p style="font-size: 0.7em; color: #4a4f5a; margin: 0 0 0.45em 0;">The same library RoboTL is built on. LLMs as algebraic-effect handlers: the same program runs under exact eval, under MCMC, under an LLM that proposes the next thing to try.</p>
-      <p style="font-size: 0.55em; color: #6b7080; margin: 0;"><em>One program, multiple semantics &middot; third time.</em></p>
+  <div style="display: flex; align-items: center; gap: 2.5rem; padding: 0 2rem; max-height: 85vh;">
+    <div style="flex: 1; text-align: left; min-width: 0;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part III</div>
+      <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.5em 0;">LLM as an Effectful handler</h2>
+      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0 0 0.45em 0;">The same library RoboTL is built on already ships an LLM handler. Tools and templates are operations; an Agent is a program; a provider is a handler. The recurring pattern, now exposed for the LLM.</p>
+      <p style="font-size: 0.42em; color: #6b7080; margin: 0;"><em>One program, multiple semantics. Third time.</em></p>
     </div>
-    <div style="flex: 0 0 40%; padding: 1.5em; border: 1px dashed #d0d5dc; border-radius: 8px; background: #fafbfc; text-align: center; font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.8em;">
-      diagram placeholder<br><span style="font-size: 0.75em;">(one program &rarr; eval / sample / LLM-propose)</span>
+
+    <div style="flex: 0 0 45%; min-width: 0; padding: 0.9em 1em; border: 1px solid #1E3A8A; border-radius: 8px; background: #f3f5fb; font-family: 'IBM Plex Mono', monospace; font-size: 0.5em; line-height: 1.6;">
+      <div style="text-align: center; padding: 0.4em 0.6em; border: 1.5px solid #1E3A8A; border-radius: 4px; background: #ffffff; font-weight: 600; color: #1f2330;">@Template.define def f(x): &hellip;</div>
+      <div style="text-align: center; color: #1E3A8A; font-size: 1.05em; line-height: 0.9; margin: 0.25em 0;">&darr;<br>handler({f: &hellip;})</div>
+      <div style="display: flex; gap: 0.4em; justify-content: center;">
+        <div style="flex: 1; text-align: center; padding: 0.4em 0.5em; border: 1.5px solid #d0d5dc; border-radius: 4px; background: #ffffff;">LiteLLMProvider</div>
+        <div style="flex: 1; text-align: center; padding: 0.4em 0.5em; border: 1.5px solid #d0d5dc; border-radius: 4px; background: #ffffff;">cached / replay</div>
+        <div style="flex: 1; text-align: center; padding: 0.4em 0.5em; border: 1.5px solid #d0d5dc; border-radius: 4px; background: #ffffff;">structured eval</div>
+      </div>
+      <p style="margin: 0.6em 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.7em; color: #6b7080; text-align: center;">Swap the handler, swap the semantics. Same program.</p>
     </div>
   </div>
 </section>
 
 <section id="slide-eff-01" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What's done, what's next</h2>
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">A concrete Agent, in the same effectful pattern</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  From <code>effectful/handlers/llm/template.py</code> &middot; <a href="https://github.com/BasisResearch/effectful/tree/master/effectful/handlers/llm" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
+</p>
 
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;">
-    <em>[placeholder]</em>
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">What I want to land here:</strong>
-    one or two beats showing the effectful-handler pattern in code, then the three project hooks (OrchestSynth, Secure agent, mini project) framed as concrete next steps.
-  </p>
-</div>
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
 
-<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
+  <div style="flex: 1.6; min-width: 0;">
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 64vh; overflow: hidden;"><code class="language-python" data-trim>import dataclasses
+from effectful.handlers.llm import Agent, Template, Tool
+from effectful.handlers.llm.completions import LiteLLMProvider
+from effectful.ops.semantics import handler
+from effectful.ops.types import NotHandled
 
-  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">OrchestSynth</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Picking up where it left off. What does the handler look like?</p>
+
+@dataclasses.dataclass
+class ChatBot(Agent):
+    """Friendly bot named {self.bot_name}."""
+
+    bot_name: str = "ChatBot"
+
+    @Tool.define                                  # a plain operation
+    def remember(self, fact: str) -> str:
+        """Persist a fact about the user."""
+        return f"noted: {fact}"
+
+    @Template.define                              # an LLM-implemented op
+    def send(self, user_input: str) -> str:
+        """User writes: {user_input}.
+        You may call `remember(...)` to keep facts across turns."""
+        raise NotHandled                          # left for the handler
+
+
+provider = LiteLLMProvider()                      # one handler
+chatbot  = ChatBot(bot_name="Otter")              # one program
+
+with handler(provider):                           # bind the meaning
+    chatbot.send("Hi! I am in France.")
+    chatbot.send("Where am I, again?")            # sees prior turn</code></pre>
   </div>
 
-  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Secure agent</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> What does effect-typed isolation buy us at agent boundaries?</p>
-  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
 
-  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Mini project</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Smallest demonstration that ships the idea end-to-end.</p>
+    <div style="padding: 0.55em 0.75em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Recognize the pattern</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+        <li><code>@Tool.define</code> declares an operation.</li>
+        <li><code>@Template.define</code> declares an operation that the LLM is responsible for.</li>
+        <li><code>handler(provider)</code> binds the meaning. Swap providers, swap semantics.</li>
+      </ul>
+    </div>
+
+    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">What handlers buy us</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+        <li><strong>Cached / deterministic.</strong> Replay completions for tests; no API calls.</li>
+        <li><strong>Structured output.</strong> Types in the signature constrain the decode.</li>
+        <li><strong>Sandboxing.</strong> A capability-typed handler exposes only safe tools to the LLM.</li>
+      </ul>
+    </div>
+
+    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Where I want to push this</div>
+      <p style="margin: 0; color: #4a4f5a;">Pick up <em>OrchestSynth</em> (Autumn + RoboTL agents as one orchestrated synth loop) and a <em>secure-agent</em> demo: same agent code, capability-typed handler, no rogue tool calls.</p>
+    </div>
+
   </div>
 
 </div>
