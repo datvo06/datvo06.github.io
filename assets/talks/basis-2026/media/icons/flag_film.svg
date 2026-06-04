@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="92" viewBox="0 0 128 92" role="img" aria-label="Cute small flag and film strip icon">
+  <!-- flag -->
+  <g transform="translate(16 16)">
+    <rect x="0" y="0" width="7" height="68" rx="3.5" fill="#1A1A1A"/>
+    <path d="M7 12h38c3 0 5 3.5 3.2 6L43 26l5.2 8c1.8 2.5-.2 6-3.2 6H7V12z" fill="#3F5A1F"/>
+  </g>
+
+  <!-- film strip body -->
+  <g transform="translate(58 38) rotate(8 26 22)">
+    <!-- outer film body (dark gray) -->
+    <path fill="#2D2D2A" fill-rule="evenodd" d="M6 0h40a6 6 0 0 1 6 6v32a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V6A6 6 0 0 1 6 0z
+    M5 6h5v5H5V6z M42 6h5v5h-5V6z
+    M5 17h5v5H5v-5z M42 17h5v5h-5v-5z
+    M5 28h5v5H5v-5z M42 28h5v5h-5v-5z"/>
+    <!-- film frames (light gray, like exposed celluloid) -->
+    <rect x="15" y="10" width="22" height="6" fill="#D6D2C4"/>
+    <rect x="15" y="19" width="22" height="6" fill="#D6D2C4"/>
+    <rect x="15" y="28" width="22" height="6" fill="#D6D2C4"/>
+  </g>
+</svg>

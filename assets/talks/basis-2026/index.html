@@ -74,6 +74,43 @@
 <li class="fragment fade-in-then-semi-out">Effectful LLM</li>
 </ul>
 </section>
+
+<section id="slide-thesis" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">The through-line: <span style="color: #1E3A8A;">programs as the substrate</span></h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.95em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0 0 0.35em 0; font-size: 0.46em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Claim.</strong>
+    The right symbolic substrate is a <em>language</em>. Programs in that language are the world model, the robot, the agent. The LLM writes the program. A simulator or handler gives it meaning.
+  </p>
+  <p style="margin: 0; font-size: 0.4em; color: #4a4f5a;">
+    Three projects, one recipe. MARA writes Autumn programs. R-ADA writes RoboTL programs. Effectful makes an LLM call <em>itself</em> a typed program. The same three properties keep showing up.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.4em; text-align: left; margin-bottom: 0.6em;">
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Composable</div>
+    <p style="margin: 0; color: #4a4f5a;">Small programs clip into bigger ones. POMDPs into POMDPs, components into robots, tools into agents.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Queryable</div>
+    <p style="margin: 0; color: #4a4f5a;">You can <em>ask</em> the program things: predict a frame, plan an action, score a discrepancy, evaluate a gradient.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Simulable</div>
+    <p style="margin: 0; color: #4a4f5a;">An interpreter or handler runs it. Swap handlers, swap semantics: eval, sample, differentiate, talk to an LLM.</p>
+  </div>
+
+</div>
+
+<p style="margin: 0.4em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
+  Watch for these three on every section header. The talk closes by naming them again.
+</p>
+</section>
 <section id="slide-3" class="slide level2">
 <div style="position: relative; display: inline-block; max-height: 80vh;">
   <img src="./media/image1.png" style="display: block; max-height: 80vh; width: auto;">
@@ -127,7 +164,7 @@
     </div>
     <p style="margin: 0 0 0.5em 0; color: #4a4f5a;">Learners that actually propose, test, and refine world models given a substrate and an evaluation.</p>
     <div style="border-top: 1px dashed #d0d5dc; padding-top: 0.4em; font-family: 'IBM Plex Mono', monospace;">
-      &rarr; <strong style="color: #1f2330;">Adversarial synthesis</strong>, BOED, particle filters
+      &rarr; <strong style="color: #1f2330;">Adversarial synthesis</strong>, BOED (Bayesian Optimal Experimental Design), particle filters
     </div>
   </div>
 
@@ -227,9 +264,9 @@
 </div>
 
 <div style="margin: 0 auto; max-width: 88%; padding: 0.45em 0.8em; background: rgba(30,58,138,0.06); border-radius: 4px; font-size: 0.38em; text-align: left;">
-  <strong style="color: #1E3A8A;">Why translate queries to tasks?</strong>
-  Not every world-model learner exposes a general query-answering interface. Reducing each query to a concrete task (masked-frame prediction, planning to a goal, change detection) means the WorldTest score is just an aggregate over task rewards,
-  \( \;\text{WT}(A) = \frac{1}{|\mathcal{Q}|} \sum_{q \in \mathcal{Q}} R_q\bigl(\tau^{A,\hat{M}}_{E_q}\bigr) \), and any representation of \( \hat{M} \) can be scored under the same protocol.
+  <strong style="color: #1E3A8A;">The reduction: query answering = task solving.</strong>
+  <em>Any</em> world-model representation gets scored under one protocol, because the protocol never reads the model. It only reads task rewards. Each query becomes a concrete task (masked-frame prediction, planning to a goal, change detection); the WorldTest score is just an aggregate over those task rewards,
+  \( \;\text{WT}(A) = \frac{1}{|\mathcal{Q}|} \sum_{q \in \mathcal{Q}} R_q\bigl(\tau^{A,\hat{M}}_{E_q}\bigr) \). Autumn program, latent code, neural net, anything: same scoreboard.
 </div>
 
 <p style="margin: 0.6em auto 0; max-width: 88%; font-size: 0.36em; color: #6b7080; text-align: left;">
@@ -267,8 +304,8 @@
     <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
       <li>Case study: Grow (success)</li>
       <li>Case study: Sand (subtle failure)</li>
-      <li>RQ1: AutumnBench scores</li>
-      <li>Unique-task analysis</li>
+      <li>AutumnBench scores vs human</li>
+      <li>Does model fidelity drive performance?</li>
     </ul>
   </div>
 
@@ -296,12 +333,64 @@
   </p>
 </div>
 
-<div style="display: flex; align-items: center; justify-content: center; gap: 0.7em; font-size: 0.38em; margin-bottom: 0.6em;">
-  <div style="padding: 0.55em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 600;">Synthesizer</div>
-  <span style="color: #1E3A8A; font-size: 1.3em;">&harr;</span>
-  <div style="padding: 0.55em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 600;">Challenger</div>
-  <span style="color: #6b7080;">surviving model &rarr;</span>
-  <div style="padding: 0.55em 0.9em; border: 2px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; font-family: 'IBM Plex Mono', monospace; font-weight: 600;">Solver</div>
+<div style="display: flex; align-items: flex-start; justify-content: center; gap: 0.4em; font-size: 0.32em; margin-bottom: 0.7em;">
+
+  <!-- Synthesizer card: in (top) / role / out (bottom) -->
+  <div style="display: flex; flex-direction: column; align-items: center; max-width: 180px;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2em; margin-bottom: 0.3em; min-height: 3.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; font-style: italic;">in</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #e8f3ec; border: 1px solid #6aae7c; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #2d6a4f; white-space: nowrap;">&#x21bb; real env</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #fbf1e0; border: 1px solid #c08230; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #8a5a1f; white-space: nowrap;">&#x25b7; replay buffer</span>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; padding: 0.4em 0.9em 0.5em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff;">
+      <img src="./media/icons/earth_query.svg" alt="" style="height: 36px; width: auto; margin-bottom: 0.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Synthesizer</span>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; text-align: center; line-height: 1.3; margin-top: 0.25em; font-weight: 600;"><em>out:</em><br>world model<br>(Autumn program)</div>
+  </div>
+
+  <!-- Bidirectional flow: synth -> challenger (model) and challenger -> synth (counterexample) -->
+  <div style="display: flex; flex-direction: column; align-items: center; padding: 1.5em 0.15em 0;">
+    <span style="color: #1E3A8A; font-size: 1.1em; line-height: 1;">&xrarr;</span>
+    <span style="font-family: 'IBM Plex Sans', sans-serif; color: #1E3A8A; font-size: 0.78em; margin: 0.1em 0;">world model</span>
+    <span style="color: #c08230; font-size: 1.1em; line-height: 1;">&xlarr;</span>
+    <span style="font-family: 'IBM Plex Sans', sans-serif; color: #c08230; font-size: 0.78em; text-align: center; line-height: 1.2;">counter<br>example</span>
+  </div>
+
+  <!-- Challenger card -->
+  <div style="display: flex; flex-direction: column; align-items: center; max-width: 180px;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2em; margin-bottom: 0.3em; min-height: 3.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; font-style: italic;">in</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #eef0fb; border: 1px solid #1E3A8A; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #1E3A8A; white-space: nowrap;">&#x2328; world model</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #e8f3ec; border: 1px solid #6aae7c; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #2d6a4f; white-space: nowrap;">&#x21bb; real env</span>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; padding: 0.4em 0.9em 0.5em; border: 2px solid #1E3A8A; border-radius: 6px; background: #ffffff;">
+      <img src="./media/icons/earth_arrow_earth.svg" alt="" style="height: 36px; width: auto; margin-bottom: 0.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Challenger</span>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; text-align: center; line-height: 1.3; margin-top: 0.25em; font-weight: 600;"><em>out:</em><br>trajectory exposing<br>a discrepancy</div>
+  </div>
+
+  <!-- Forward arrow to solver -->
+  <div style="display: flex; flex-direction: column; align-items: center; padding: 1.95em 0.15em 0;">
+    <span style="color: #1E3A8A; font-size: 1.1em; line-height: 1;">&xrarr;</span>
+    <span style="font-family: 'IBM Plex Sans', sans-serif; color: #1E3A8A; font-size: 0.78em; text-align: center; line-height: 1.2; margin-top: 0.1em;">surviving<br>model</span>
+  </div>
+
+  <!-- Solver card -->
+  <div style="display: flex; flex-direction: column; align-items: center; max-width: 180px;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2em; margin-bottom: 0.3em; min-height: 3.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; font-style: italic;">in</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #eef0fb; border: 1px solid #1E3A8A; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #1E3A8A; white-space: nowrap;">&#x2328; surviving model</span>
+      <span style="padding: 0.15em 0.55em; border-radius: 999px; background: #fdf5f3; border: 1px solid #c0392b; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #c0392b; white-space: nowrap;">&#x2691; task spec</span>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; padding: 0.4em 0.9em 0.5em; border: 2px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+      <img src="./media/icons/flag_film.svg" alt="" style="height: 36px; width: auto; margin-bottom: 0.2em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Solver</span>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; text-align: center; line-height: 1.3; margin-top: 0.25em; font-weight: 600;"><em>out:</em><br>action sequence<br>(task score)</div>
+  </div>
+
 </div>
 
 <div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.36em; text-align: left;">
@@ -319,6 +408,67 @@
   <div style="flex: 1; max-width: 250px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Round structure</div>
     <p style="margin: 0; color: #4a4f5a;">Up to <strong>5 rounds</strong>. Each round ends with a context wipe; only the current world model and a scratchpad survive into the next round.</p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-9b" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What the three roles actually emit: <span style="color: #1E3A8A;">grow, round 0</span></h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Concrete artifacts.</strong>
+    Every box on the previous slide is a real file in <a href="https://huggingface.co/datasets/Basis-MARA/mara-adversarial-results">Basis-MARA/mara-adversarial-results</a>. Here is one round on the <code>grow</code> env, lifted verbatim.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.7em; justify-content: center; font-size: 0.32em; text-align: left;">
+
+  <div style="flex: 1; max-width: 340px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.3em;">
+      <img src="./media/icons/earth_query.svg" alt="" style="height: 22px; width: auto;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Synthesizer out</span>
+    </div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.3em;"><code>synthesizer_code.py</code> in round 0 is empty: still exploring, no model yet. By the final round it grows to a 158 line <code>SynthesizedWorld</code> with explicit grid mechanics:</div>
+<pre style="margin: 0; padding: 0.45em 0.6em; background: #f6f7fb; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; line-height: 1.35; color: #1f2330; overflow: hidden;"><code># Ball physics (each tick):
+#  - falls 1 row per step
+#  - on green AND x &gt;= 5: makes
+#    new green, ball disappears
+#  - on green AND x &lt; 5: just
+#    disappears (no green made)</code></pre>
+  </div>
+
+  <div style="flex: 1; max-width: 340px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.3em;">
+      <img src="./media/icons/earth_arrow_earth.svg" alt="" style="height: 22px; width: auto;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Challenger out</span>
+    </div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.3em;">Round 0: 12 discrepancies filed before the synthesizer commits any code. <code>discrepancy_001.json</code>:</div>
+<pre style="margin: 0; padding: 0.45em 0.6em; background: #f6f7fb; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; line-height: 1.35; color: #1f2330; overflow: hidden;"><code>{
+ "description": "Synthesizer
+   returns all-black grid;
+   real env has 29 colored
+   cells (3x3 gold, 4x3 gray,
+   8 green on bottom row)",
+ "actions": "noop"
+}</code></pre>
+  </div>
+
+  <div style="flex: 1; max-width: 340px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #f3f5fb;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.3em;">
+      <img src="./media/icons/flag_film.svg" alt="" style="height: 22px; width: auto;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Round metrics</span>
+    </div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.3em;"><code>round_metrics.json</code> closes the loop, observation match plus a discrepancy budget:</div>
+<pre style="margin: 0; padding: 0.45em 0.6em; background: #ffffff; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; line-height: 1.35; color: #1f2330; overflow: hidden;"><code>{
+ "round_number": 0,
+ "observation_match_score": 1.0,
+ "num_discrepancies": 12,
+ "coverage": {
+   "action_types_used": 3,
+   "cell_coverage": 0.27 }
+}</code></pre>
   </div>
 
 </div>
@@ -381,7 +531,7 @@
   <div style="flex: 1; max-width: 320px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Take-away</div>
     <ul style="margin: 0; padding-left: 1.1em; line-height: 1.4; color: #1f2330;">
-      <li>Humans &asymp; <strong>95% +</strong> on all three task families.</li>
+      <li>Humans &asymp; <strong>95%+</strong> on all three task families.</li>
       <li>Adversarial synthesis lags humans on planning and (especially) change detection.</li>
       <li>The loop converges fastest when the dynamics can be guessed from one or two observations.</li>
     </ul>
@@ -390,7 +540,7 @@
 
   <div style="flex: 1; max-width: 500px; display: flex; flex-direction: column;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.05em;">RQ1: task-level test-phase scores</div>
-    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75em; color: #6b7080; margin-bottom: 0.3em;">Claude Sonnet 4.6 &middot; n = 42 envs with human trajectories (lights excluded) &middot; missing = failure</div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75em; color: #6b7080; margin-bottom: 0.3em;">Claude Sonnet 4.6 &middot; n = 42 envs (lights excluded, matched to human-trajectory subset) &middot; missing = failure</div>
     <div style="position: relative; width: 100%; height: 36vh;">
       <canvas id="rq1-chart-purevhuman"></canvas>
     </div>
@@ -419,7 +569,7 @@
             borderRadius: 4
           },
           {
-            label: 'Human  (top-5 avg)',
+            label: 'Human (top-5 avg)',
             data: [97.6, 97.6, 95.2],
             backgroundColor: '#b08d57',
             borderRadius: 4
@@ -679,7 +829,7 @@
         datasets: [
           { label: 'Adversarial synthesis',  data: [83.3, 26.2, 76.2], backgroundColor: '#1E3A8A', borderRadius: 4 },
           { label: 'Trajectory-conditioned', data: [90.5, 73.8, 83.3], backgroundColor: '#7c5ec9', borderRadius: 4 },
-          { label: 'Human  (top-5 avg)',     data: [97.6, 97.6, 95.2], backgroundColor: '#b08d57', borderRadius: 4 }
+          { label: 'Human (top-5 avg)',     data: [97.6, 97.6, 95.2], backgroundColor: '#b08d57', borderRadius: 4 }
         ]
       },
       options: {
@@ -814,7 +964,7 @@
       <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">ants.py</span>
       <span style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.32em; color: #6b7080;">confessional: docstring says it all</span>
     </div>
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: hidden;"><code class="language-python" data-trim>class SynthesizedWorld:
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: visible;"><code class="language-python" data-trim>class SynthesizedWorld:
     """Replays the recorded trajectory observations exactly."""
 
     # Compact observation store: each entry is a flat tuple of
@@ -853,13 +1003,9 @@
         return self._render(len(self._OBS) - 1)   # clamp at last frame
 
 
-# 1700+ hard-coded frames; (pos, color) tuples per step.
 _OBS_DATA = [
     (9, 1, 25, 1, 31, 2),
-    (10, 1, 26, 1, 31, 2),
-    (11, 1, 27, 1, 31, 2),
-    (12, 1, 28, 1, 31, 2),
-    # ... 1750+ more rows ...
+    # ... 1750+ more hard-coded (pos, color) rows ...
     (15, 1, 31, 2),
 ]</code></pre>
   </div>
@@ -869,7 +1015,7 @@ _OBS_DATA = [
       <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">carrace.py</span>
       <span style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.32em; color: #6b7080;">obfuscated: base64 blob + prefix match</span>
     </div>
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: hidden;"><code class="language-python" data-trim>import zlib, base64, json
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 60vh; overflow: visible;"><code class="language-python" data-trim>import zlib, base64, json
 
 _DATA_B64 = (
     "eNrt3c1yHMeVBtBXQXCtBUj92PKrcLiwpRpZMQpyQlaFFxN+d8OS"
@@ -919,11 +1065,96 @@ class SynthesizedWorld:
   In both cases the task score is achieved, but nothing transferable is learned. The submitted model is a transcript, not a theory. This is the failure mode of seeding from a human replay buffer without an incentive to <em>explain</em>.
 </p>
 </section>
-<section id="slide-34" class="slide level2">
-<h2>RQ4:  How much does model fidelity contribute to task
-performance?</h2>
-<p>( Note:   High  is  near-perfect + perfect )</p>
-<p><img data-src="./media/image25.png" /></p>
+<section id="slide-34" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 0.95em; margin: 0 0 0.3em 0;">Does world-model fidelity drive task performance?</h2>
+
+<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.34em; text-align: left; max-height: 72vh;">
+
+  <div style="flex: 0 0 30%; max-width: 340px; display: flex; flex-direction: column; gap: 0.45em;">
+    <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.65em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Setup</div>
+      <p style="margin: 0; color: #4a4f5a;">Bucket worlds by rule-level fidelity (<em>poor</em>, <em>partial</em>, <em>high</em>). Average the test-phase success rate per task family.</p>
+    </div>
+    <div style="padding: 0.4em 0.65em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Take-away</div>
+      <ul style="margin: 0; padding-left: 1em; line-height: 1.4; color: #1f2330;">
+        <li>Monotone in all three families.</li>
+        <li><strong>Masked frame</strong>: 80 to <strong>100%</strong>.</li>
+        <li><strong>Planning</strong>: 70 to <strong>86%</strong>.</li>
+        <li><strong>Change detection</strong>: 15 to <strong>43%</strong>, hardest even at high fidelity.</li>
+      </ul>
+    </div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; padding: 0 0.15em; font-size: 0.92em;">n = 20 / 23 / 7 envs per bucket.</div>
+  </div>
+
+  <div style="flex: 1; max-width: 600px; display: flex; flex-direction: column; min-width: 0;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.88em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.05em;">Task success rate by world-model fidelity</div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.76em; color: #6b7080; margin-bottom: 0.25em;">x: rule-level fidelity bucket &middot; y: test-phase success</div>
+    <div style="position: relative; flex: 1; width: 100%; height: 56vh; max-height: 56vh; min-height: 0;">
+      <canvas id="rq4-chart-fidelity"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  let inited = false;
+  function init () {
+    if (inited) return;
+    const el = document.getElementById('rq4-chart-fidelity');
+    if (!el || !window.Chart) return;
+    inited = true;
+    if (window.ChartDataLabels) Chart.register(window.ChartDataLabels);
+    new Chart(el, {
+      type: 'line',
+      data: {
+        labels: ['Poor', 'Partial', 'High'],
+        datasets: [
+          { label: 'Masked frame prediction', data: [80, 83, 100], borderColor: '#2d6a4f', backgroundColor: '#2d6a4f', tension: 0.15, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 6 },
+          { label: 'Planning',                data: [70, 78,  86], borderColor: '#c08230', backgroundColor: '#c08230', tension: 0.15, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 6 },
+          { label: 'Change detection',        data: [15, 22,  43], borderColor: '#c0392b', backgroundColor: '#c0392b', tension: 0.15, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 6 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 700 },
+        layout: { padding: { top: 16, right: 12 } },
+        plugins: {
+          legend: { position: 'top', align: 'start', labels: { font: { family: 'IBM Plex Sans', size: 12 }, boxWidth: 14 } },
+          tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y}%` } },
+          datalabels: {
+            anchor: 'end', align: 'top', offset: 4, clip: false,
+            color: c => c.dataset.borderColor,
+            font: { family: 'IBM Plex Sans', size: 10, weight: '600' },
+            formatter: v => v + '%'
+          }
+        },
+        scales: {
+          x: {
+            ticks: { font: { family: 'IBM Plex Sans', size: 12 }, color: '#1f2330' },
+            grid:  { display: false },
+            title: { display: true, text: 'World-model fidelity', font: { family: 'IBM Plex Sans', size: 11, weight: '500' }, color: '#4a4f5a' }
+          },
+          y: {
+            beginAtZero: true, max: 110,
+            ticks: { font: { family: 'IBM Plex Sans', size: 11 }, color: '#4a4f5a', stepSize: 25, callback: v => v <= 100 ? v + '%' : '' },
+            title: { display: true, text: 'Test-phase success rate', font: { family: 'IBM Plex Sans', size: 11, weight: '500' }, color: '#4a4f5a' },
+            grid: { color: 'rgba(0,0,0,0.06)' }
+          }
+        }
+      }
+    });
+  }
+  if (window.Reveal) {
+    Reveal.on('ready', e => { if (e.currentSlide && e.currentSlide.id === 'slide-34') init(); });
+    Reveal.on('slidechanged', e => { if (e.currentSlide.id === 'slide-34') init(); });
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
+})();
+</script>
 </section>
 
 <!-- ─── Part II: R-ADA / Co-Design with LLM ─── -->
@@ -932,9 +1163,12 @@ performance?</h2>
 <h2 style="font-size: 1em; margin: 0 0 0.5em 0;">From world models to robots</h2>
 
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.95em; margin: 0 auto 0.9em; max-width: 88%; text-align: left;">
-  <p style="margin: 0; font-size: 0.45em;">
+  <p style="margin: 0 0 0.35em 0; font-size: 0.45em;">
     <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Thesis.</strong>
     MARA worked because programs are a natural substrate for the world model. So the next question is: can we <em>manufacture</em> that substrate in a domain that doesn't have one?
+  </p>
+  <p style="margin: 0; font-size: 0.4em; color: #4a4f5a;">
+    What made Autumn the right substrate: it was <strong style="color: #1E3A8A;">composable</strong>, <strong style="color: #1E3A8A;">queryable</strong>, and <strong style="color: #1E3A8A;">simulable</strong>. RoboTL has to satisfy the same three. Keep these in mind; the talk ends on them.
   </p>
 </div>
 
@@ -949,7 +1183,7 @@ performance?</h2>
 
   <div style="flex: 1; max-width: 360px; padding: 0.7em 0.9em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">R-ADA</div>
-    <p style="margin: 0; color: #1f2330;">No substrate yet. We <strong>build RoboTL</strong> first &middot; a DSL for robots and objectives sitting between CAD and RoboGrammar &middot; and then let the LLM write programs in it.</p>
+    <p style="margin: 0; color: #1f2330;">No substrate yet. We <strong>build RoboTL</strong> first &middot; a DSL for robots and objectives sitting between CAD and RoboGrammar (Zhao et al., SIGGRAPH 2020, a graph grammar over robot morphologies) &middot; and then let the LLM write programs in it.</p>
   </div>
 
 </div>
@@ -964,7 +1198,7 @@ performance?</h2>
     <div style="flex: 1; text-align: left; min-width: 0;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part II</div>
       <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.5em 0;">R-ADA: Co-Design with LLM</h2>
-      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">RoboTL: a DSL for robots and objectives, unified geometric and kinematic constraints. The LLM writes programs in it; CAD, JAX, and MuJoCo handlers answer.</p>
+      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">No substrate exists in this domain, so we engineer one: <strong>RoboTL</strong>, a DSL for robots and objectives that unifies geometric and kinematic constraints. The LLM writes programs in it; CAD, JAX, and MuJoCo handlers answer. <em>Same recipe as MARA</em>, manufactured substrate.</p>
     </div>
     <img src="./media/codesign/robotl_logo.png" alt="RoboTL logo" style="flex: 0 0 auto; max-height: 50vh; max-width: 35%; width: auto; height: auto; object-fit: contain;">
   </div>
@@ -973,7 +1207,7 @@ performance?</h2>
 <section id="slide-rada-01" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Three ways to describe a robot</h2>
 <p style="margin: 0 auto 0.05em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  RoboTL core architecture &middot; <strong style="color: #1E3A8A;">Tim Cooijmans</strong> (with Sam, and later me on co-design).
+  R-ADA designed by <strong style="color: #1E3A8A;">me with Tim Cooijmans</strong>, and previously with <strong style="color: #1E3A8A;">Sam</strong>.
 </p>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
   Both extremes pre-date the LLM era. Each has a real cost when you want to <em>codesign</em> at LLM speed. RoboTL is the missing middle.
@@ -1037,13 +1271,13 @@ def OpenParametricHand(self,
 <section id="slide-rada-01b" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Anatomy of a RoboTL component</h2>
 <p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.38em; color: #4a4f5a; text-align: left;">
-  A two-link arm in 15 lines. Cylinders for the links, hinges for shoulder and elbow, welds attach pieces by their ports. The <code>tip</code> port is what downstream tasks reach with.
+  A two-link arm in 15 lines. The same program declares <strong style="color:#1E3A8A;">design-time geometry</strong> (cylinder shapes, link lengths, frame <code>Pose</code>) <em>and</em> <strong style="color:#1E3A8A;">runtime kinematics</strong> (hinge joints, axes, the <code>tip</code> port the simulator wires up) in one declarative pass. Most robot DSLs pick a side. <strong>RoboTL is the unification.</strong>
 </p>
 
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
 
   <div style="flex: 1.5; min-width: 0;">
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 64vh; overflow: hidden;"><code class="language-python" data-trim>import effectful.handlers.jax.numpy as jnp
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 64vh; overflow: visible;"><code class="language-python" data-trim>import effectful.handlers.jax.numpy as jnp
 
 from robotl.examples.hinge import HingeJoint
 from robotl.examples.simple_cad import Cylinder
@@ -1106,13 +1340,16 @@ if __name__ == "__main__":
 <section id="slide-effectful-intro" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Why RoboTL works: <code style="font-size: 0.85em;">effectful</code>, the substrate underneath</h2>
 <p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  <code>effectful</code> library &middot; <strong style="color: #1E3A8A;">Jack Feser</strong> et al. (Basis) &middot; <a href="https://github.com/BasisResearch/effectful" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
+  <code>effectful</code> library &middot; <strong style="color: #1E3A8A;">Jack Feser</strong>, <strong style="color: #1E3A8A;">Eli Bingham</strong> et al. (Basis) &middot; <a href="https://github.com/BasisResearch/effectful" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
 </p>
 
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.6em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.4em;">
+  <p style="margin: 0 0 0.3em 0; font-size: 0.4em;">
     <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The library underneath.</strong>
     RoboTL imports <code>effectful.handlers.jax.numpy as jnp</code>. Autumn's three-handler trick is implementable in it. The Part III LLM piece slots in as one more handler. <strong>One library, one pattern, three projects.</strong>
+  </p>
+  <p style="margin: 0; font-size: 0.36em; color: #4a4f5a;">
+    <code>effectful</code> is what makes <strong style="color: #1E3A8A;">composable</strong>, <strong style="color: #1E3A8A;">queryable</strong>, and <strong style="color: #1E3A8A;">simulable</strong> the <em>same three lines of code</em> each time.
   </p>
 </div>
 
@@ -1165,11 +1402,160 @@ with handler({add: beta}):
 </div>
 </section>
 
+<!-- LLM-as-handler foundation for the codesign agent -->
+
+<section id="slide-eff-template" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Design goal: <em>an LLM call is just another function call</em></h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  <code>@Template.define</code> &middot; from <code>effectful/handlers/llm/template.py</code>
+</p>
+
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
+
+  <div style="flex: 1.3; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.3em; line-height: 1.45; overflow: hidden;"><code class="language-python" data-trim>from effectful.handlers.llm import Template
+from effectful.ops.types import NotHandled
+
+
+# A Template *is* a Python function. Signature is typed.
+# The docstring is the prompt; the body is just `raise NotHandled`.
+
+@Template.define
+def limerick(theme: str) -> str:
+    """Write a limerick on the theme of {theme}. Do not use any tools."""
+    raise NotHandled
+
+
+# Structured output: return type drives constrained decoding.
+@Template.define
+def prime(first_digit: int) -> int:
+    """Give a prime number starting with {first_digit}. No tools."""
+    raise NotHandled
+
+
+@dataclasses.dataclass
+class KnockKnockJoke:
+    whos_there: str
+    punchline: str
+
+
+@Template.define
+def write_joke(theme: str) -> KnockKnockJoke:
+    """Write a knock-knock joke on the theme of {theme}. No tools."""
+    raise NotHandled
+
+
+# At the call site, you call them like any other function.
+with handler(LiteLLMProvider()):
+    print(limerick("autumn"))     # -> str
+    print(prime(7))               # -> int (e.g. 71)
+    joke = write_joke("recursion")
+    print(joke.whos_there, "/", joke.punchline)</code></pre>
+  </div>
+
+  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.55em; font-size: 0.34em; text-align: left;">
+
+    <div style="padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">The design goal, in one line</div>
+      <p style="margin: 0; color: #1f2330;">An LLM call should just be <strong>another function call</strong>. Same signature, same return type, same call site. The only difference: a handler decides who answers.</p>
+    </div>
+
+    <div style="padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What <code>@Template.define</code> gives you</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+        <li><strong>Docstring is the prompt.</strong> Format-string slots map to the typed parameters.</li>
+        <li><strong>Return type is the schema.</strong> <code>int</code>, dataclasses, anything with a decoder works.</li>
+        <li><strong>Body is <code>raise NotHandled</code>.</strong> The handler supplies the meaning.</li>
+        <li><strong>Templates are tools.</strong> They can call each other and other <code>@Tool.define</code>s.</li>
+      </ul>
+    </div>
+
+    <div style="padding: 0.55em 0.8em; border: 1px dashed #1E3A8A; border-radius: 6px; background: #ffffff; font-family: 'IBM Plex Sans', sans-serif; color: #4a4f5a;">
+      Next slide: stitch <code>@Tool.define</code> + <code>@Template.define</code> + a stateful <code>Agent</code> mixin into a chatbot, using the same pattern.
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<section id="slide-eff-01" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">A concrete Agent, in the same effectful pattern</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  From <code>effectful/handlers/llm/template.py</code> &middot; <a href="https://github.com/BasisResearch/effectful/tree/master/effectful/handlers/llm" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
+</p>
+
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
+
+  <div style="flex: 1.6; min-width: 0;">
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 64vh; overflow: visible;"><code class="language-python" data-trim>import dataclasses
+from effectful.handlers.llm import Agent, Template, Tool
+from effectful.handlers.llm.completions import LiteLLMProvider
+from effectful.ops.semantics import handler
+from effectful.ops.types import NotHandled
+
+
+@dataclasses.dataclass
+class ChatBot(Agent):
+    """Friendly bot named {self.bot_name}."""
+
+    bot_name: str = "ChatBot"
+
+    @Tool.define                                  # a plain operation
+    def remember(self, fact: str) -> str:
+        """Persist a fact about the user."""
+        return f"noted: {fact}"
+
+    @Template.define                              # an LLM-implemented op
+    def send(self, user_input: str) -> str:
+        """User writes: {user_input}.
+        You may call `remember(...)` to keep facts across turns."""
+        raise NotHandled                          # left for the handler
+
+
+provider = LiteLLMProvider()                      # one handler
+chatbot  = ChatBot(bot_name="Otter")              # one program
+
+with handler(provider):                           # bind the meaning
+    chatbot.send("Hi! I am in France.")
+    chatbot.send("Where am I, again?")            # sees prior turn</code></pre>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
+
+    <div style="padding: 0.55em 0.75em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Recognize the pattern</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+        <li><code>@Tool.define</code> declares an operation.</li>
+        <li><code>@Template.define</code> declares an operation that the LLM is responsible for.</li>
+        <li><code>handler(provider)</code> binds the meaning. Swap providers, swap semantics.</li>
+      </ul>
+    </div>
+
+    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">What handlers buy us</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+        <li><strong>Cached / deterministic.</strong> Replay completions for tests; no API calls.</li>
+        <li><strong>Structured output.</strong> Types in the signature constrain the decode.</li>
+        <li><strong>Sandboxing.</strong> A capability-typed handler exposes only safe tools to the LLM.</li>
+      </ul>
+    </div>
+
+    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Where I want to push this</div>
+      <p style="margin: 0; color: #4a4f5a;">Pick up <em>OrchestSynth</em> (Autumn + RoboTL agents as one orchestrated synth loop) and a <em>secure-agent</em> demo: same agent code, capability-typed handler, no rogue tool calls.</p>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
 <section id="slide-rada-02" class="slide level2" data-background-color="#fafbfc">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Visualization of hand-grasping</h2>
 <div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
-  <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-  <video src="./media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
 </div>
 </section>
 
@@ -1258,13 +1644,13 @@ with handler({add: beta}):
 </section>
 
 <section id="slide-rada-10" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Codesigning morphology <em>and</em> control</h2>
-<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
-  Fix the sparse-reward problem by having the LLM write the auxiliary loss too. The objective stages the trajectory: enter, grasp, turn. With this in hand, the codesign loop succeeds with container.
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">Codesigning morphology <em>and</em> control</h2>
+<p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.36em; color: #4a4f5a; text-align: left;">
+  Fix the sparse-reward problem: have the LLM write the auxiliary loss too. The objective stages the trajectory (enter, grasp, turn) and the codesign loop succeeds with container.
 </p>
-<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
-  <div style="flex: 1.45; min-width: 0;">
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; max-height: 62vh; overflow: hidden;"><code class="language-python" data-trim># RoboTL: BottleneckEnv from robotl/examples/bottleneck.py
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 78vh; max-height: 78vh; overflow: hidden;">
+  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.22em; line-height: 1.3; overflow: hidden;"><code class="language-python" data-trim># RoboTL: BottleneckEnv from robotl/examples/bottleneck.py
 @defcomponent
 def BottleneckEnv(self, robot, target,
                   container_size=0.5, entrance_width=0.2, entrance_length=0.2):
@@ -1300,9 +1686,9 @@ def KnobTarget(self, size):
     self.knob_angle = sensors.Position(self.knob_joint)
     self.loss = Equalize(self.knob_angle.get(), -tau / 4)   # quarter turn ccw</code></pre>
   </div>
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
-    <img src="./media/codesign/image11.png" alt="result chart" style="width: 100%; height: auto; max-height: 30vh; object-fit: contain; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
-    <video src="./media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline style="width: 100%; height: auto; max-height: 30vh; object-fit: contain; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <div style="flex: 1.15; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.35em; align-items: center; justify-content: flex-start;">
+    <img src="./media/codesign/image11.png" alt="result chart" style="display: block; max-width: 100%; max-height: 40%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+    <video src="./media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline style="display: block; max-width: 100%; max-height: 58%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
   </div>
 </div>
 </section>
@@ -1357,21 +1743,58 @@ def KnobTarget(self, size):
   </p>
 </div>
 
-<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
+<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
 
-  <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Morphology brittleness</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> When does the LLM's chosen morphology stop transferring across small variations of the same task? Concrete example.</p>
+  <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
+      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">1</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Brittle hand swap</span>
+    </div>
+    <p style="margin: 0 0 0.4em; color: #4a4f5a;">Reward terms in <code>CubeSpinningEnv</code> read LEAP-only fields. Crashed on ShadowHand and ComicHand until guarded. Generic LLM hands do not port to envs the LLM did not also design.</p>
+<pre style="margin: 0 0 0.35em; padding: 0.4em 0.55em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; line-height: 1.35; color: #1f2330; overflow: hidden;"><code>reward += f.ft.dot(...)    # LEAP
+reward += seg3.pos.z       # LEAP
+# ShadowHand: AttributeError</code></pre>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em; margin-top: auto; padding-top: 0.3em; font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #6b7080;">
+      <span style="padding: 0.1em 0.45em; background: #ffffff; border: 1px solid #d0d5dc; border-radius: 3px;">LEAP</span>
+      <span style="color: #1E3A8A;">&xrarr;</span>
+      <span style="padding: 0.1em 0.45em; background: #fdf5f3; border: 1px dashed #c0392b; border-radius: 3px; color: #c0392b;">ShadowHand</span>
+      <span style="color: #c0392b;">&#x2717;</span>
+    </div>
   </div>
 
-  <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Objective staging</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Designed objectives only work when the stages can be named. Tasks without nameable sub-goals are still out of reach. Concrete example.</p>
+  <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
+      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">2</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Stages need names</span>
+    </div>
+    <p style="margin: 0 0 0.4em; color: #4a4f5a;">Bottleneck wins because <code>stage = floor(t/2)</code> slices it into enter then turn. Figure-8 path tracing is one continuous goal, no nameable stages, no clean win.</p>
+    <div style="display: flex; gap: 0.45em; align-items: stretch; margin-bottom: 0.3em;">
+      <div style="flex: 1; padding: 0.35em 0.5em; background: #ffffff; border: 1px solid #cfe1d0; border-radius: 3px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #2d6a4f; font-weight: 600; margin-bottom: 0.15em;">Bottleneck &#x2713;</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.8em; color: #1f2330; line-height: 1.3;">stage 0: enter<br>stage 1: turn 90.2&deg;</div>
+      </div>
+      <div style="flex: 1; padding: 0.35em 0.5em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 3px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #c0392b; font-weight: 600; margin-bottom: 0.15em;">Figure-8 &#x2717;</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.8em; color: #1f2330; line-height: 1.3;">Equalize(<br>&nbsp;&nbsp;ee.pos,<br>&nbsp;&nbsp;path(time()))</div>
+      </div>
+    </div>
+    <div style="margin-top: auto; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85em; color: #6b7080; text-align: center;">Discrete switches name themselves. Continuous goals don't.</div>
   </div>
 
-  <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Sim-to-real</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Friction, hand gain, time-step. Nothing here has touched real hardware yet. Caveats to flag.</p>
+  <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
+      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">3</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Sim params are hand-tuned</span>
+    </div>
+    <p style="margin: 0 0 0.4em; color: #4a4f5a;">Friction, timestep, and contact solver all picked by hand for stable contact. Nothing here has touched real hardware yet.</p>
+    <table style="width: 100%; border-collapse: collapse; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 3px; overflow: hidden;">
+      <tbody>
+        <tr style="border-bottom: 1px solid #f3d0c8;"><td style="padding: 0.2em 0.5em; color: #6b7080;">friction</td><td style="padding: 0.2em 0.5em; color: #1f2330; text-align: right;">knob 0.10 / slide 0.05 / finger 0.01</td></tr>
+        <tr style="border-bottom: 1px solid #f3d0c8;"><td style="padding: 0.2em 0.5em; color: #6b7080;">dt</td><td style="padding: 0.2em 0.5em; color: #1f2330; text-align: right;">0.005 <span style="color: #c0392b;">&xrarr;</span> 0.002</td></tr>
+        <tr><td style="padding: 0.2em 0.5em; color: #6b7080;">solref</td><td style="padding: 0.2em 0.5em; color: #1f2330; text-align: right;">0.01 <span style="color: #c0392b;">&xrarr;</span> 0.02</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top: auto; padding-top: 0.35em; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85em; color: #6b7080; text-align: center;"><em>Sim &ne; hardware. Yet.</em></div>
   </div>
 
 </div>
@@ -1406,52 +1829,6 @@ def KnobTarget(self, size):
 </div>
 </section>
 
-<!-- ─── Part III: Effectful LLM (placeholder) ─── -->
-
-<section id="slide-eff-00" class="slide level2">
-  <div style="display: flex; align-items: center; gap: 3rem; padding: 0 2rem;">
-    <div style="flex: 1; text-align: left;">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.55em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part III</div>
-      <h2 style="font-size: 1.7em; line-height: 1.15; margin: 0 0 0.5em 0;">Effectful LLM</h2>
-      <p style="font-size: 0.7em; color: #4a4f5a; margin: 0 0 0.45em 0;">The same library RoboTL is built on. LLMs as algebraic-effect handlers: the same program runs under exact eval, under MCMC, under an LLM that proposes the next thing to try.</p>
-      <p style="font-size: 0.55em; color: #6b7080; margin: 0;"><em>One program, multiple semantics &middot; third time.</em></p>
-    </div>
-    <div style="flex: 0 0 40%; padding: 1.5em; border: 1px dashed #d0d5dc; border-radius: 8px; background: #fafbfc; text-align: center; font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.8em;">
-      diagram placeholder<br><span style="font-size: 0.75em;">(one program &rarr; eval / sample / LLM-propose)</span>
-    </div>
-  </div>
-</section>
-
-<section id="slide-eff-01" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What's done, what's next</h2>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;">
-    <em>[placeholder]</em>
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">What I want to land here:</strong>
-    one or two beats showing the effectful-handler pattern in code, then the three project hooks (OrchestSynth, Secure agent, mini project) framed as concrete next steps.
-  </p>
-</div>
-
-<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
-
-  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">OrchestSynth</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Picking up where it left off. What does the handler look like?</p>
-  </div>
-
-  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Secure agent</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> What does effect-typed isolation buy us at agent boundaries?</p>
-  </div>
-
-  <div style="flex: 1; max-width: 280px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Mini project</div>
-    <p style="margin: 0; color: #4a4f5a;"><em>[placeholder]</em> Smallest demonstration that ships the idea end-to-end.</p>
-  </div>
-
-</div>
-</section>
 
 <!-- ─── Closer: the recurring question, synthesized ─── -->
 
