@@ -682,60 +682,71 @@
 </section>
 
 <section id="slide-9b" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What the three roles actually emit: <span style="color: #1E3A8A;">grow, round 0</span></h2>
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What the three roles actually emit: <span style="color: #1E3A8A;">grow, round 1</span></h2>
 
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Concrete artifacts.</strong>
-    Every box on the previous slide is a real file in <a href="https://huggingface.co/datasets/Basis-MARA/mara-adversarial-results">Basis-MARA/mara-adversarial-results</a>. Here is one round on the <code>grow</code> env, lifted verbatim.
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.6em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.4em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">A complete cycle.</strong>
+    Synthesizer commits a 120 line <code>SynthesizedWorld</code> that handles gold / gray / blue balls / green cells. Challenger drives a trajectory that exposes a missing rule. Everything below is verbatim from <a href="https://huggingface.co/datasets/Basis-MARA/mara-adversarial-results/tree/main/adversarial_results_raw/grow/round_1">grow/round_1</a>.
   </p>
 </div>
 
 <div style="display: flex; gap: 0.7em; justify-content: center; font-size: 0.32em; text-align: left;">
 
   <div style="flex: 1; max-width: 340px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.3em;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.25em;">
       <img src="./media/icons/earth_query.svg" alt="" style="height: 22px; width: auto;">
       <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Synthesizer out</span>
     </div>
-    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.3em;"><code>synthesizer_code.py</code> in round 0 is empty: still exploring, no model yet. By the final round it grows to a 158 line <code>SynthesizedWorld</code> with explicit grid mechanics:</div>
-<pre style="margin: 0; padding: 0.45em 0.6em; background: #f6f7fb; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; line-height: 1.35; color: #1f2330; overflow: hidden;"><code># Ball physics (each tick):
-#  - falls 1 row per step
-#  - on green AND x &gt;= 5: makes
-#    new green, ball disappears
-#  - on green AND x &lt; 5: just
-#    disappears (no green made)</code></pre>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.25em;"><code>synthesizer_code.py</code> proposes ball physics: balls just <em>disappear</em> off the bottom. No "green grows" rule:</div>
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.4; color: #d4d7dc; overflow: hidden;"><code><span style="color:#6b7080;"># Layout: gold 3x3, gray 4x3,</span>
+<span style="color:#6b7080;"># green cells at y=15 odd x,</span>
+<span style="color:#6b7080;"># blue balls spawned by 'down'.</span>
+
+<span style="color:#6b7080;"># Balls disappear when y &gt;= 16.</span>
+def _move_balls(self):
+    self.balls = [
+        [bx, by + 1]
+        for bx, by in self.balls
+        if by + 1 &lt; self.GRID_SIZE
+    ]</code></pre>
   </div>
 
-  <div style="flex: 1; max-width: 340px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.3em;">
+  <div style="flex: 1; max-width: 340px; padding: 0.5em 0.7em; border: 1px solid #c08230; border-radius: 6px; background: #fdf7ef;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.25em;">
       <img src="./media/icons/earth_arrow_earth.svg" alt="" style="height: 22px; width: auto;">
       <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Challenger out</span>
     </div>
-    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.3em;">Round 0: 12 discrepancies filed before the synthesizer commits any code. <code>discrepancy_001.json</code>:</div>
-<pre style="margin: 0; padding: 0.45em 0.6em; background: #f6f7fb; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; line-height: 1.35; color: #1f2330; overflow: hidden;"><code>{
- "description": "Synthesizer
-   returns all-black grid;
-   real env has 29 colored
-   cells (3x3 gold, 4x3 gray,
-   8 green on bottom row)",
- "actions": "noop"
+    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.25em;"><code>discrepancy_001.json</code>: a 17-action trajectory that hits a real green cell where the synth predicts black:</div>
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.4; color: #1f2330; overflow: hidden;"><code>{
+ "description": "ball at x=11
+   falls to y=15 (green row).
+   Real env shows new green
+   cell at (11, 14), one row
+   above. Synth does not model
+   this. Cell persists even
+   after the ball disappears.",
+ "actions": "left,left,down,
+   noop,noop,noop,noop,noop,
+   noop,noop,noop,noop,noop,
+   noop,noop,noop,noop"
 }</code></pre>
   </div>
 
-  <div style="flex: 1; max-width: 340px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #f3f5fb;">
-    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.3em;">
+  <div style="flex: 1; max-width: 340px; padding: 0.5em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.25em;">
       <img src="./media/icons/flag_film.svg" alt="" style="height: 22px; width: auto;">
       <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Round metrics</span>
     </div>
-    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.3em;"><code>round_metrics.json</code> closes the loop, observation match plus a discrepancy budget:</div>
-<pre style="margin: 0; padding: 0.45em 0.6em; background: #ffffff; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; line-height: 1.35; color: #1f2330; overflow: hidden;"><code>{
- "round_number": 0,
+    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.25em;"><code>round_metrics.json</code>: model matches 100% of <em>passive</em> observations but the challenger's targeted probe still finds 4 dynamic gaps.</div>
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #ffffff; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.4; color: #1f2330; overflow: hidden;"><code>{
+ "round_number": 1,
  "observation_match_score": 1.0,
- "num_discrepancies": 12,
+ "num_discrepancies": 4,
+ "challenger_cost_usd": 2.15,
  "coverage": {
-   "action_types_used": 3,
-   "cell_coverage": 0.27 }
+   "cell_coverage": 0.11,
+   "unique_states_seen": 1 }
 }</code></pre>
   </div>
 
