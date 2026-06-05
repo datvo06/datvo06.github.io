@@ -1706,6 +1706,107 @@ def CircularPalm(self, n_fingers=3, ...):
 </p>
 </section>
 
+<section id="slide-effectful-minipyro" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">The pattern beyond robots: <span style="color: #1E3A8A;">minipyro on effectful</span></h2>
+<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  From <code>effectful/docs/source/minipyro.py</code> &middot; <strong style="color: #1E3A8A;">Jack Feser</strong>: a minimal Pyro rewritten on the effectful core, conformant to <code>pyroapi</code>.
+</p>
+
+<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.32em; text-align: left;">
+
+  <div style="flex: 1; min-width: 0; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;"><code>sample</code> and <code>param</code> are just ops</div>
+<pre style="margin: 0; padding: 0.45em 0.6em; background: #1f2330; border-radius: 4px; color: #d4d7dc; font-size: 0.95em; line-height: 1.45;"><code>from effectful.ops.syntax import defop
+
+@defop
+def sample(name: str,
+           dist: Distribution,
+           obs: Tensor | None = None
+          ) -&gt; Tensor:
+    raise RuntimeError(
+        "No default impl of sample")
+
+@defop
+def param(var_name: str,
+          init: Tensor | Callable | None = None,
+          constraint: Constraint | None = None,
+          event_dim: int | None = None
+         ) -&gt; Tensor:
+    raise RuntimeError(
+        "No default impl of param")</code></pre>
+    <p style="margin: 0.3em 0 0; color: #4a4f5a;">No implementation. The op only names the effect. Every Pyro program is a program over these ops.</p>
+  </div>
+
+  <div style="flex: 1; min-width: 0; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;"><code>Tracer</code> handler &middot; record what the program drew</div>
+<pre style="margin: 0; padding: 0.45em 0.6em; background: #1f2330; border-radius: 4px; color: #d4d7dc; font-size: 0.95em; line-height: 1.45;"><code>class Tracer(ObjectInterpretation):
+    TRACE: Trace
+
+    def __init__(self):
+        self.TRACE = OrderedDict()
+
+    @implements(sample)
+    def sample(self, var_name, dist, **kw):
+        # let the next handler actually draw
+        res = fwd()
+        # then record the draw
+        self.TRACE[var_name] = SampleMsg(
+            name=var_name, val=res,
+            dist=dist, obs=kw.get("obs"))
+        return res</code></pre>
+    <p style="margin: 0.3em 0 0; color: #4a4f5a;">Composes with a sampling handler underneath. <em>Same recipe as RoboTL's <code>solve_init</code>:</em> collect calls, hand off to a backend.</p>
+  </div>
+
+  <div style="flex: 0.95; min-width: 0; padding: 0.55em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">One program, several handlers</div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.98em; color: #1f2330;">
+      <tbody>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.3em 0.3em; vertical-align: top;"><code>Tracer</code></td>
+          <td style="padding: 0.3em 0.3em;">record every <code>sample</code> &amp; <code>param</code> draw</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.3em 0.3em; vertical-align: top;"><code>Replay</code></td>
+          <td style="padding: 0.3em 0.3em;">re-play a trace under a different prior</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.3em 0.3em; vertical-align: top;"><code>Seed</code></td>
+          <td style="padding: 0.3em 0.3em;">thread an RNG state through nested draws</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.3em 0.3em; vertical-align: top;"><code>SVI</code></td>
+          <td style="padding: 0.3em 0.3em;">elbo loss + optimizer over the trace</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin: 0.45em 0 0; padding: 0.3em 0.45em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330;">The Pyro programming model emerges from <em>two declared ops</em> and a stack of handlers. The same recipe RoboTL uses for <code>solve_init</code>.</p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-effectful-llm-bridge" class="slide level2">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; gap: 1.4em; padding: 0 2rem;">
+
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #1E3A8A; letter-spacing: 0.12em; text-transform: uppercase;">Third time</div>
+
+  <h2 style="font-size: 1.45em; line-height: 1.2; margin: 0; text-align: center; max-width: 95%;">
+    Now do it once more, with <span style="color: #1E3A8A;">LLM calls</span> as the effect.
+  </h2>
+
+  <div style="display: flex; gap: 1.2em; justify-content: center; font-size: 0.4em; color: #4a4f5a; max-width: 90%;">
+    <div style="flex: 1; max-width: 280px; text-align: left;"><strong style="color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;">RoboTL</strong>: ops are <code>choose / constrain / assert_transform</code>; <code>solve_init</code> samples them.</div>
+    <div style="flex: 1; max-width: 280px; text-align: left;"><strong style="color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;">minipyro</strong>: ops are <code>sample / param</code>; <code>Tracer / Replay / SVI</code> handle them.</div>
+    <div style="flex: 1; max-width: 280px; text-align: left;"><strong style="color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;">Effectful LLM</strong>: ops are <code>Tool / Template</code>; an <code>LiteLLM</code> provider answers.</div>
+  </div>
+
+  <p style="margin: 0; font-size: 0.36em; color: #6b7080; text-align: center; max-width: 80%;">
+    Same shape, three substrates. The next two slides show what an LLM call becomes when it's an op.
+  </p>
+
+</div>
+</section>
+
 <!-- LLM-as-handler foundation for the codesign agent -->
 
 <section id="slide-eff-template" class="slide level2">
