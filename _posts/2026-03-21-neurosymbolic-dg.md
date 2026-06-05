@@ -22,13 +22,13 @@ The pipeline:
 
 ```
 ResNet-50
-  → 1×1 conv → k=8 heatmaps
-  → spatial_soft_argmax → 8 primitives {(cx, cy, bbox, conf)}
-  → PCFG: 344 productions, sparsemax weights per class
+  → 1×1 conv → K=16 heatmaps
+  → spatial_soft_argmax → 16 primitives {(cx, cy, bbox, conf)}
+  → PCFG: ~130k enumerated productions, sparsemax weights per class
   → class scores → log-softmax
 ```
 
-The concept bottleneck (1x1 conv + [spatial soft-argmax](https://kornia.readthedocs.io/en/latest/geometry.subpix.html)) forces the network to decompose its representation into $k=8$ spatially localized primitives. Each primitive has a location, bounding box, and confidence. No hand-designed primitive vocabulary; the primitives emerge from end-to-end training.
+The concept bottleneck (1x1 conv + [spatial soft-argmax](https://kornia.readthedocs.io/en/latest/geometry.subpix.html)) forces the network to decompose its representation into K = 16 spatially localized primitives. Each primitive has a location, bounding box, and confidence. No hand-designed primitive vocabulary; the primitives emerge from end-to-end training.
 
 Per the paper's Table 1a, CUB-DG accuracy by target domain:
 
@@ -94,56 +94,68 @@ A standard classifier ends with a linear layer: backbone features $\to$ class lo
 - **Ternary relations** (2): `tri` (target interior angle of a triangle of three primitives) and `turn` (target turn angle along a primitive chain).
 - **Quaternary relations** (2): `orient` (target relative orientation between two primitive-pair edges) and `eqdist` (whether the two edges have similar length, via a log-ratio).
 
-The binary predicates are scored by sigmoid/Gaussian kernels over detected primitive coordinates:
+**Binary predicates.** The six binary predicates are sigmoid (directional, containment) or Gaussian (proximity, alignment) over primitive centers and soft bounding boxes:
+
+$$
+\begin{array}{ll}
+R_{\text{above}}(p_i, p_j) = \sigma\!\left(\kappa_{\uparrow} (c_j^y - c_i^y - m_{\uparrow})\right)
+& R_{\text{left}}(p_i, p_j) = \sigma\!\left(\kappa_{\leftarrow} (c_j^x - c_i^x - m_{\leftarrow})\right) \\\\[0.6em]
+R_{\text{h-align}}(p_i, p_j) = \exp\!\left(-\dfrac{(c_i^y - c_j^y)^2}{2\tau_h^2}\right)
+& R_{\text{v-align}}(p_i, p_j) = \exp\!\left(-\dfrac{(c_i^x - c_j^x)^2}{2\tau_v^2}\right) \\\\[0.6em]
+\multicolumn{2}{l}{R_{\text{near}}(p_i, p_j) = \exp\!\left(-\dfrac{\|c_i - c_j\|^2}{2\rho^2}\right)} \\\\[0.6em]
+\multicolumn{2}{l}{R_{\text{contains}}(p_i, p_j) = \sigma\!\left(\kappa_{\supset} \min\!\bigl[b_j^{x_1} - b_i^{x_1},\, b_j^{y_1} - b_i^{y_1},\, b_i^{x_2} - b_j^{x_2},\, b_i^{y_2} - b_j^{y_2}\bigr]\right)}
+\end{array}
+$$
+
+`R_above` and `R_left` score directional positions; `R_h-align` and `R_v-align` score whether two primitives share a horizontal or vertical line; `R_near` scores proximity; `R_contains` scores whether the soft bounding box of `p_i` encloses that of `p_j`. Sharpness `κ` and margins `m, τ, ρ` are learnable.
+
+**Ternary predicates.** Each predicate is a soft Gaussian on a target angle of a primitive triple:
+
+$$
+\begin{array}{ll}
+R_{\text{tri}}(p_i, p_j, p_k) = \exp\!\left(-\dfrac{(\alpha_{ijk} - \psi)^2}{2\beta^2}\right)
+& R_{\text{turn}}(p_i, p_j, p_k) = \exp\!\left(-\dfrac{(\theta_{ijk} - \phi)^2}{2\eta^2}\right)
+\end{array}
+$$
+
+where α<sub>ijk</sub> is the interior angle at p<sub>i</sub> in triangle (p<sub>i</sub>, p<sub>j</sub>, p<sub>k</sub>), and θ<sub>ijk</sub> = arccos(**v̂**<sub>ij</sub> · **v̂**<sub>jk</sub>) is the turn angle along the chain p<sub>i</sub> → p<sub>j</sub> → p<sub>k</sub>.
+
+`R_tri` scores triangular configurations against a target interior angle ψ; `R_turn` scores chain turns against a target turn angle φ.
+
+**Quaternary predicates.** Two primitive pairs are compared via their directed edges **v**<sub>ij</sub> = c<sub>j</sub> − c<sub>i</sub> and **v**<sub>kℓ</sub> = c<sub>ℓ</sub> − c<sub>k</sub>:
+
+$$
+\begin{array}{ll}
+R_{\text{orient}}(p_i, p_j, p_k, p_\ell) = \exp\!\left(-\dfrac{(\hat{\mathbf{v}}_{ij} \cdot \hat{\mathbf{v}}_{k\ell} - \cos\varphi)^2}{2\gamma^2}\right)
+& R_{\text{eqdist}}(p_i, p_j, p_k, p_\ell) = \exp\!\left(-\dfrac{1}{2\tau_d^2} \log^2\!\dfrac{\|\mathbf{v}_{ij}\|}{\|\mathbf{v}_{k\ell}\|}\right)
+\end{array}
+$$
+
+`R_orient` scores whether the two edges form a target relative angle φ; `R_eqdist` scores whether the two edges have similar length (the log-ratio form makes the comparison symmetric). Both are pose-and-scale invariants by construction.
+
+All shape parameters (sharpness &kappa;, margins m, tolerances &tau;, &rho;, target angles &psi;, &phi;, &phi;<sub>orient</sub>, and tolerances &beta;, &eta;, &gamma;, &tau;<sub>d</sub>) are learnable and jointly optimized with the rest of the network. The *form* of each predicate is locked in but the thresholds adapt.
+
+Given K = 16 primitives and the predicate vocabulary above, the grammar enumerates all valid spatial compositions (binary applied to ordered pairs, ternary to ordered triples, quaternary to ordered quadruples):
 
 $$
 \begin{aligned}
-\texttt{above}(i, j) &= \sigma\bigl(\lambda_1 (cy_j - cy_i - m_1)\bigr) \\\\
-\texttt{left_of}(i, j) &= \sigma\bigl(\lambda_2 (cx_j - cx_i - m_2)\bigr) \\\\
-\texttt{near}(i, j) &= \exp\bigl(-\|c_i - c_j\|^2 / 2\rho^2\bigr) \\\\
-\texttt{aligned_h}(i, j) &= \exp\bigl(-(cy_i - cy_j)^2 / 2\tau_1^2\bigr) \\\\
-\texttt{aligned_v}(i, j) &= \exp\bigl(-(cx_i - cx_j)^2 / 2\tau_2^2\bigr) \\\\
-\texttt{contains}(i, j) &= \sigma\bigl(\lambda_3 \min(\text{margin}_{ij})\bigr)
+\text{Constraint} &\to \text{has}(p_j) \\\\
+\text{Constraint} &\to \text{rel}(r, p_i, p_j) \\\\
+\text{Constraint} &\to \text{rel}_3(r, p_i, p_j, p_k) \\\\
+\text{Constraint} &\to \text{rel}_4(r, p_i, p_j, p_k, p_\ell) \\\\
+\text{Layout}_y   &\to \text{choice}\bigl(\text{score}(w_1, c_1), \ldots, \text{score}(w_M, c_M)\bigr)
 \end{aligned}
 $$
 
-**Ternary predicates.** Let $\alpha_{ijk}$ be the interior angle at $p_i$ in triangle $(p_i, p_j, p_k)$, and let $\theta^{\text{turn}}_{ijk} = \arccos(\hat{\mathbf{v}}_{ij} \cdot \hat{\mathbf{v}}_{jk})$ be the turn angle along the ordered chain $p_i \to p_j \to p_k$. Each predicate is a soft Gaussian on the target angle:
+The total number of enumerated productions M depends on K and on how many channels each higher-arity predicate spans; for CUB-DG, M ≈ 130,000 (paper Table 2b). Each class y has its own weight vector **w**<sub>y</sub> ∈ ℝ<sup>M</sup>, normalized by **sparsemax** ([Martins & Astudillo, 2016](https://arxiv.org/abs/1602.02068)). Sparsemax produces *exact zeros*, so each class commits to a small set of active productions: on CUB-DG, structural compaction prunes 99.3% of weights and leaves ~956 active per class on average (paper Table 2b). The class score is
 
 $$
 \begin{aligned}
-R_{\text{tri}}(p_i, p_j, p_k)  &= \exp\!\left(-\frac{(\alpha_{ijk} - \psi)^2}{2\beta^2}\right) \\\\
-R_{\text{turn}}(p_i, p_j, p_k) &= \exp\!\left(-\frac{(\theta^{\text{turn}}_{ijk} - \phi)^2}{2\eta^2}\right)
+W_y(x) &= \sum_{p=1}^{M} \omega_{y,p} \cdot \beta_p(x) \\\\
+\text{where } \omega_{y,p} &= [\text{sparsemax}(\mathbf{w}_y)]_p \quad \text{(grammar weight)} \\\\
+\beta_p(x) &= \text{predicate activation for production } p
 \end{aligned}
 $$
-
-**Quaternary predicates.** Two primitive pairs are compared via the directed edges $\mathbf{v}_{ij} = c_j - c_i$ and $\mathbf{v}_{k\ell} = c_\ell - c_k$, with unit vectors $\hat{\mathbf{v}}_{ij}$ and $\hat{\mathbf{v}}_{k\ell}$:
-
-$$
-\begin{aligned}
-R_{\text{orient}}(p_i, p_j, p_k, p_\ell)  &= \exp\!\left(-\frac{(\hat{\mathbf{v}}_{ij} \cdot \hat{\mathbf{v}}_{k\ell} - \cos\varphi)^2}{2\gamma^2}\right) \\\\
-R_{\text{eqdist}}(p_i, p_j, p_k, p_\ell)  &= \exp\!\left(-\frac{1}{2\tau_d^2} \log^2\!\frac{\|\mathbf{v}_{ij}\|}{\|\mathbf{v}_{k\ell}\|}\right)
-\end{aligned}
-$$
-
-$R_{\text{orient}}$ scores whether the two edges form a target relative angle $\varphi$; $R_{\text{eqdist}}$ scores whether the two edges have similar length (the log-ratio form makes the comparison symmetric). Both are pose-and-scale invariants by construction.
-
-All shape parameters $(\lambda, m, \tau, \rho, \psi, \beta, \phi, \eta, \varphi, \gamma, \tau_d)$ are learnable and jointly optimized with the rest of the network. The *form* of each predicate is locked in but the thresholds adapt.
-
-Given $K=16$ primitives and the predicate vocabulary above, the grammar enumerates all valid spatial compositions (binary applied to ordered pairs, ternary to ordered triples, quaternary to ordered quadruples):
-
-$$
-\begin{aligned}
-\texttt{Constraint} &\to \texttt{has}(p_j) \\\\
-\texttt{Constraint} &\to \texttt{rel}(r, p_i, p_j) \\\\
-\texttt{Constraint} &\to \texttt{rel}_3(r, p_i, p_j, p_k) \\\\
-\texttt{Constraint} &\to \texttt{rel}_4(r, p_i, p_j, p_k, p_\ell) \\\\
-\texttt{Layout}_y &\to \texttt{choice}\bigl(\texttt{score}(w_1, c_1), \ldots, \texttt{score}(w_M, c_M)\bigr)
-\end{aligned}
-$$
-
-The total number of enumerated productions $M$ depends on $K$ and on how many channels each higher-arity predicate spans; for CUB-DG, $M \approx 130{,}000$ (paper Table 2b). Each class $y$ has its own weight vector $\mathbf{w}_y \in \mathbb{R}^M$, normalized by **sparsemax** ([Martins & Astudillo, 2016](https://arxiv.org/abs/1602.02068)). Sparsemax produces *exact zeros*, so each class commits to a small set of active productions: on CUB-DG, structural compaction prunes 99.3% of weights and leaves ~956 active per class on average (paper Table 2b). The class score:
-
-$$W_y(x) = \sum_{p=1}^{M} \underbrace{[\text{sparsemax}(\mathbf{w}_y)]_p}_{\text{grammar weight}} \cdot \underbrace{\beta_p(x)}_{\text{predicate activation}}$$
 
 If you squint, this is a linear classifier over *spatial relation features* with sparsemax forcing each class to pick a small structural explanation. Here's what that looks like on a real image, a Painted Bunting, from detected primitives through heatmaps to the grammar derivation:
 
@@ -200,9 +212,15 @@ with handler(inside_handler):   table = grammar(class_idx)  # → InsideTable
 with handler(symbolic_handler): tree  = grammar(class_idx)  # → DerivNode
 ```
 
-The eval handler interprets the DSL in the non-negative real semiring $(\mathbb{R}_{\geq 0}, +, \times, 0, 1)$: `choice` is addition, `conj` is multiplication, `score` scales by the grammar weight. Fast scalar class score.
+The eval handler interprets the DSL in the non-negative real semiring (ℝ<sub>≥0</sub>, +, ×, 0, 1): `choice` is addition, `conj` is multiplication, `score` scales by the grammar weight. Fast scalar class score.
 
-The inside handler interprets the same program in the *powerset semiring*, tracking which subsets of primitives each subprogram explains. This is the [inside algorithm](https://en.wikipedia.org/wiki/Inside%E2%80%93outside_algorithm) adapted from strings to sets: $I(A, S) = \sum_{A \to B\;C} w \sum_{S = S_1 \uplus S_2} I(B, S_1) \cdot I(C, S_2)$. Exact marginals over all derivations.
+The inside handler interprets the same program in the *powerset semiring*, tracking which subsets of primitives each subprogram explains. This is the [inside algorithm](https://en.wikipedia.org/wiki/Inside%E2%80%93outside_algorithm) adapted from strings to sets:
+
+$$
+I(A, S) = \sum_{A \to B\;C} w \sum_{S = S_1 \uplus S_2} I(B, S_1) \cdot I(C, S_2)
+$$
+
+Exact marginals over all derivations.
 
 The symbolic handler builds an explicit `DerivNode` tree. That's how we extract the derivation visualizations above.
 
