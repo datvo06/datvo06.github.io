@@ -123,11 +123,19 @@ R_{\text{tri}}(p_i, p_j, p_k) &= \exp\!\left(-\dfrac{(\alpha_{ijk} - \psi)^2}{2\
 \end{aligned}
 $$
 
-where $\alpha_{ijk}$ is the interior angle at $p_i$ in the triangle $(p_i, p_j, p_k)$, and $\theta_{ijk} = \arccos(\hat{v}_{ij} \cdot \hat{v}_{jk})$ is the turn angle along the chain $p_i \to p_j \to p_k$.
+where
+
+$$
+\alpha_{ijk} = \text{interior angle at } p_i \text{ in the triangle } (p_i, p_j, p_k), \qquad \theta_{ijk} = \arccos(\hat{v}_{ij} \cdot \hat{v}_{jk}) \text{ along the chain } p_i \to p_j \to p_k.
+$$
 
 $R_\mathrm{tri}$ scores triangular configurations against a target interior angle $\psi$; $R_\mathrm{turn}$ scores chain turns against a target turn angle $\phi$.
 
-**Quaternary predicates.** Two primitive pairs are compared via their directed edges $v_{ij} = c_j - c_i$ and $v_{k\ell} = c_\ell - c_k$:
+**Quaternary predicates.** Two primitive pairs are compared via their directed edges,
+
+$$
+v_{ij} = c_j - c_i, \qquad v_{k\ell} = c_\ell - c_k.
+$$
 
 $$
 \begin{aligned}
