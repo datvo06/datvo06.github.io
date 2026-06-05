@@ -1963,44 +1963,6 @@ with handler(provider):                           # bind the meaning
 </p>
 </section>
 
-<section id="slide-rada-mpc" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What unlocks cheap codesign: <span style="color: #1E3A8A;">MPC + a loss interface</span></h2>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.9em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.44em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The key enabler.</strong>
-    RoboTL ships a <strong>differentiable controller (MPC)</strong> and an <strong>interface to define losses</strong> as part of the program. The LLM only has to write the morphology and the loss; MPC closes the control loop inside the simulator.
-  </p>
-</div>
-
-<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
-
-  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What the LLM writes</div>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-      <li>A <strong>morphology</strong>: components, joints, ports.</li>
-      <li>A <strong>loss</strong>: per-stage <code>Equalize</code>, <code>Reach</code>, sensors.</li>
-    </ul>
-  </div>
-
-  <div style="flex: 0 0 auto; align-self: center; padding: 0 0.3em; font-size: 1.6em; color: #1E3A8A;">&rarr;</div>
-
-  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What MPC + handler does</div>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-      <li>JAX handler: differentiable rollout.</li>
-      <li>MPC inner loop: solves control against the loss.</li>
-      <li>MuJoCo handler: simulates the result.</li>
-    </ul>
-  </div>
-
-</div>
-
-<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.38em; color: #6b7080; text-align: left;">
-  No bi-level optimization, no learned graph, no morphology-only restriction. The loss-and-MPC interface is what makes the LLM's outer loop cheap. Built by <strong style="color: #1E3A8A;">Tim and Markus</strong>.
-</p>
-</section>
-
 <section id="slide-rada-lang2morph" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Lang2Morph in one slide</h2>
 <p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
@@ -2051,6 +2013,44 @@ with handler(provider):                           # bind the meaning
   <img src="./media/codesign/image17.png" alt="reproducing finding 1" style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
   <img src="./media/codesign/image10.png" alt="reproducing finding 2" style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
 </div>
+</section>
+
+<section id="slide-rada-mpc" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What unlocks cheap codesign: <span style="color: #1E3A8A;">MPC + a loss interface</span></h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.9em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.44em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The key enabler.</strong>
+    RoboTL ships a <strong>differentiable controller (MPC)</strong> and an <strong>interface to define losses</strong> as part of the program. The LLM only has to write the morphology and the loss; MPC closes the control loop inside the simulator.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What the LLM writes</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>A <strong>morphology</strong>: components, joints, ports.</li>
+      <li>A <strong>loss</strong>: per-stage <code>Equalize</code>, <code>Reach</code>, sensors.</li>
+    </ul>
+  </div>
+
+  <div style="flex: 0 0 auto; align-self: center; padding: 0 0.3em; font-size: 1.6em; color: #1E3A8A;">&rarr;</div>
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What MPC + handler does</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>JAX handler: differentiable rollout.</li>
+      <li>MPC inner loop: solves control against the loss.</li>
+      <li>MuJoCo handler: simulates the result.</li>
+    </ul>
+  </div>
+
+</div>
+
+<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.38em; color: #6b7080; text-align: left;">
+  No bi-level optimization, no learned graph, no morphology-only restriction. The loss-and-MPC interface is what makes the LLM's outer loop cheap. Built by <strong style="color: #1E3A8A;">Tim and Markus</strong>.
+</p>
 </section>
 
 <section id="slide-rada-05" class="slide level2" data-background-color="#fafbfc">
