@@ -1495,7 +1495,7 @@ Link  -> short | long
 
   <div style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; display: flex; flex-direction: column;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">RoboTL (this work)</div>
-    <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;"></video>
+    <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;"></video>
     <pre style="margin: 0 0 0.3em 0; font-size: 0.9em; line-height: 1.4; padding: 0.35em 0.45em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>@defcomponent
 def OpenParametricHand(self,
         params: HandParams | None = None,
@@ -1587,67 +1587,87 @@ if __name__ == "__main__":
 
 <section id="slide-effectful-intro" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.1em 0;">Why RoboTL works: <code style="font-size: 0.85em;">effectful</code>, the substrate underneath</h2>
-<p style="margin: 0 auto 0.15em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-style: italic;">
-  Research question: <em>can an LLM call be just another typed function call, with the meaning chosen at the call site?</em>
-</p>
 <p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
   <code>effectful</code> library &middot; <strong style="color: #1E3A8A;">Jack Feser</strong>, <strong style="color: #1E3A8A;">Eli Bingham</strong> et al. (Basis) &middot; <a href="https://github.com/BasisResearch/effectful" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
 </p>
 
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.6em; max-width: 90%; text-align: left;">
-  <p style="margin: 0 0 0.3em 0; font-size: 0.4em;">
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.55em; max-width: 92%; text-align: left;">
+  <p style="margin: 0; font-size: 0.4em;">
     <strong style="color: #1E3A8A; letter-spacing: 0.06em;">What it is.</strong>
-    <code>effectful</code> is an algebraic-effects library for Python: you <em>declare operations</em> (no implementation), then <em>swap their meaning</em> via handlers at the call site. Same program, different semantics, no rewrites. RoboTL uses it (e.g. <code>effectful.handlers.jax.numpy as jnp</code>); Autumn's three-handler trick is implementable in it; the LLM piece slots in as one more handler. <strong>One library, one pattern, three projects.</strong>
-  </p>
-  <p style="margin: 0; font-size: 0.36em; color: #4a4f5a;">
-    <code>effectful</code> is what makes <strong style="color: #1E3A8A;">composable</strong>, <strong style="color: #1E3A8A;">queryable</strong>, and <strong style="color: #1E3A8A;">simulable</strong> the <em>same three lines of code</em> each time.
+    <code>effectful</code> is an algebraic-effects library for Python: <em>declare</em> operations (no implementation), <em>swap</em> their meaning via handlers at the call site. Same program, different semantics, no rewrites. RoboTL uses it as the substrate underneath every component, every constraint, every stochastic choice.
   </p>
 </div>
 
-<div style="display: flex; gap: 0.8em; justify-content: center; align-items: stretch; font-size: 0.32em; text-align: left;">
+<div style="display: flex; gap: 0.8em; justify-content: center; align-items: stretch; font-size: 0.3em; text-align: left;">
 
-  <div style="flex: 1.3; min-width: 0; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">The pattern, in 6 lines</div>
-    <pre style="margin: 0 0 0.3em 0; font-size: 0.95em; line-height: 1.5; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>from effectful.ops.syntax    import defop
-from effectful.ops.semantics import handler, evaluate, fwd
+  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Component author writes ops</div>
+    <p style="margin: 0 0 0.3em; color: #4a4f5a;">A RoboTL component just calls <code>choose</code>, <code>constrain</code>, <code>assert_transform</code>. No implementation, no MCMC import, no JAX:</p>
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; color: #d4d7dc; font-size: 0.95em; line-height: 1.4;"><code>import effectful.handlers.jax.numpy as jnp
+import effectful.handlers.numpyro as dist
 
-add = defop(int, name="add")                       # an operation
-def beta(x, y):                                    # one handler
-    return x + y if isinstance(x, int) else fwd()
-with handler({add: beta}):
-    print(evaluate(add(1, 2)))                     # -> 3</code></pre>
-    <p style="margin: 0; color: #4a4f5a;"><code>defop</code> declares operations. <code>handler</code> stacks interpretations. <code>evaluate</code> runs a term under the active handler stack. Multiple handlers <em>compose</em> via <code>coproduct</code> &middot; commute and associate rules become handlers in their own right.</p>
+@defcomponent
+def CircularPalm(self, n_fingers=3, ...):
+    # Dirichlet over n_fingers+1 gaps;
+    # NUTS samples them at init time.
+    gaps = choose(dist.Dirichlet(
+        jnp.ones(n_fingers + 1)))
+    spread = math.pi
+    finger_angles = (-spread/2
+        + spread * jnp.cumsum(gaps[:-1]))
+    _build_disc_palm(
+        self, finger_angles=finger_angles,
+        thumb_angle=math.pi, ...)</code></pre>
   </div>
 
-  <div style="flex: 1; min-width: 0; padding: 0.55em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">One program, many handlers</div>
-    <table style="width: 100%; border-collapse: collapse; font-size: 1em;">
-      <thead>
-        <tr style="color: #6b7080; border-bottom: 1px solid #d0d5dc;">
-          <th style="text-align: left; padding: 0.2em 0.3em; font-weight: 600;">Project</th>
-          <th style="text-align: left; padding: 0.2em 0.3em; font-weight: 600;">Operations</th>
-          <th style="text-align: left; padding: 0.2em 0.3em; font-weight: 600;">Handlers</th>
+  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;"><code>solve_init</code> handler &middot; collect, then sample</div>
+    <p style="margin: 0 0 0.3em; color: #4a4f5a;">A handler interprets <code>constrain</code>, <code>choose</code>, <code>assert_transform</code>: collect a constraint set + numpyro distribution per choice, then run NUTS:</p>
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; color: #d4d7dc; font-size: 0.95em; line-height: 1.4;"><code>def solve_init(model, **mcmc_kw):
+    choices, constraints = {}, []
+    kinematic = nx.DiGraph()
+
+    def _choose(d):
+        v = Operation.define(jax.Array)
+        choices[v] = d        # numpyro dist
+        return v()
+
+    def _constrain(loss):
+        constraints.append(loss.value)
+        return fwd()
+
+    with handler({choose: _choose,
+                  constrain: _constrain,
+                  assert_transform: _assert}):
+        m = model()           # symbolic Component
+
+    # NUTS over `choices` s.t. `constraints` &gt;= 0
+    return _run_mcmc(m, choices, constraints)</code></pre>
+  </div>
+
+  <div style="flex: 0.95; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">The same component, different handlers</div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.98em; color: #1f2330;">
+      <tbody>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>solve_init</code></td>
+          <td style="padding: 0.35em 0.3em;">NUTS over <code>choose</code>; returns concrete poses</td>
         </tr>
-      </thead>
-      <tbody style="color: #1f2330;">
-        <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-          <td style="padding: 0.3em 0.3em;"><strong>Autumn</strong></td>
-          <td style="padding: 0.3em 0.3em;"><code>has, rel, conj, choice, score</code></td>
-          <td style="padding: 0.3em 0.3em;">eval / inside / symbolic</td>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.cad</code></td>
+          <td style="padding: 0.35em 0.3em;">resolved component &rarr; OpenSCAD / STL</td>
         </tr>
-        <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-          <td style="padding: 0.3em 0.3em;"><strong>RoboTL</strong></td>
-          <td style="padding: 0.3em 0.3em;"><code>shapes, joints, sensors, losses</code></td>
-          <td style="padding: 0.3em 0.3em;">cad / mujoco / jax</td>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.mujoco</code></td>
+          <td style="padding: 0.35em 0.3em;">MJCF + MuJoCo rollout for the simulator</td>
         </tr>
         <tr>
-          <td style="padding: 0.3em 0.3em; color: #1E3A8A;"><strong>LLM (Part III)</strong></td>
-          <td style="padding: 0.3em 0.3em;"><code>Tool</code>, <code>Template</code> = ops</td>
-          <td style="padding: 0.3em 0.3em; color: #1E3A8A;"><strong>Agent / LiteLLM provider</strong></td>
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.jax</code></td>
+          <td style="padding: 0.35em 0.3em;">differentiable rollout for the codesign loss</td>
         </tr>
       </tbody>
     </table>
-    <p style="margin: 0.5em 0 0; padding: 0.35em 0.5em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330;">An <code>Agent</code> in <code>effectful.handlers.llm</code> is just a program built from <code>Tool</code>s, evaluated under an LLM handler. Same recipe.</p>
+    <p style="margin: 0.45em 0 0; padding: 0.3em 0.45em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330; font-size: 1em;">Write the parametric LEAP hand once. <code>solve_init</code> samples the Dirichlet, <code>cad</code> prints it, <code>mujoco</code> simulates it, <code>jax</code> trains against it. <em>Same program.</em></p>
   </div>
 
 </div>
@@ -1812,35 +1832,38 @@ with handler(provider):                           # bind the meaning
   </p>
 </div>
 
-<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
+<!-- Existing work: LLM x morphology / reward only -->
+<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.36em; text-align: left; margin-bottom: 0.55em;">
 
-  <div style="flex: 1; max-width: 290px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Language to morphology</div>
-    <p style="margin: 0; color: #4a4f5a;">LLM proposes a robot body from a task description. Examples: <strong>Lang2Morph</strong>, language-guided design copilots. Body only, no controller.</p>
+  <div style="flex: 1; max-width: 330px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Existing &middot; Language to morphology</div>
+    <p style="margin: 0; color: #4a4f5a;">LLM proposes a robot body from a task description. <strong>Lang2Morph</strong> and language-guided design copilots. Body only, no controller.</p>
   </div>
 
-  <div style="flex: 1; max-width: 290px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Language to reward / loss</div>
+  <div style="flex: 1; max-width: 330px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Existing &middot; Language to reward / loss</div>
     <p style="margin: 0; color: #4a4f5a;">LLM writes the objective function for a fixed body. Strong in controlled settings; brittle once morphology must change with the task.</p>
   </div>
 
-  <div style="flex: 1; max-width: 290px; padding: 0.7em 0.85em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Codesign (this work)</div>
-    <p style="margin: 0; color: #1f2330;">LLM writes <em>both</em>: morphology <em>and</em> objective, in <strong>one substrate (RoboTL)</strong>, simulated by one handler stack. Same recipe as MARA, with a manufactured DSL.</p>
-  </div>
-
 </div>
 
-<div style="margin: 0.65em auto 0; max-width: 95%;">
-  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.36em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Why naive co-design doesn't scale</div>
-  <div style="display: flex; gap: 0.7em; justify-content: center; font-size: 0.34em; text-align: left;">
-    <div style="flex: 1; max-width: 280px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Bi-level optimization.</strong> Optimize control inner loop, morphology outer loop. Expensive per iteration; doesn't scale.</div>
-    <div style="flex: 1; max-width: 280px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Learned graph model.</strong> Train a GNN over robot graphs to predict performance. Needs lots of data we don't have.</div>
-    <div style="flex: 1; max-width: 280px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Morphology only.</strong> Restrict to body parameters, freeze the controller. What Lang2Morph does. Cheap, but the task often needs both.</div>
+<!-- Existing work: why naive codesign doesn't scale -->
+<div style="margin: 0 auto 0.55em; max-width: 96%;">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.36em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em; text-align: left;">Existing &middot; why naive co-design doesn't scale</div>
+  <div style="display: flex; gap: 0.65em; justify-content: center; font-size: 0.33em; text-align: left;">
+    <div style="flex: 1; max-width: 290px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Bi-level optimization.</strong> Optimize control inner loop, morphology outer loop. Expensive per iteration; doesn't scale.</div>
+    <div style="flex: 1; max-width: 290px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Learned graph model.</strong> Train a GNN over robot graphs to predict performance. Needs lots of data we don't have.</div>
+    <div style="flex: 1; max-width: 290px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Morphology only.</strong> Restrict to body parameters, freeze the controller. What Lang2Morph does. Cheap, but the task often needs both.</div>
   </div>
 </div>
 
-<p style="margin: 0.6em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
+<!-- Our method as the answer to the gap above -->
+<div style="margin: 0 auto; max-width: 96%; padding: 0.65em 0.85em; border: 1.5px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; font-size: 0.4em; text-align: left;">
+  <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Codesign (this work)</div>
+  <p style="margin: 0; color: #1f2330;">LLM writes <em>both</em>: morphology <em>and</em> objective, in <strong>one substrate (RoboTL)</strong>, simulated by one handler stack. Same recipe as MARA, with a manufactured DSL.</p>
+</div>
+
+<p style="margin: 0.55em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">
   We reproduce Lang2Morph next to ground the comparison, then stage R-ADA on top of it.
 </p>
 </section>
@@ -1922,8 +1945,8 @@ with handler(provider):                           # bind the meaning
 <section id="slide-rada-02" class="slide level2" data-background-color="#fafbfc">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Reproducing Lang2Morph: hand-grasping visualization</h2>
 <div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
-  <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-  <video src="./media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
 </div>
 </section>
 
@@ -1964,7 +1987,7 @@ with handler(provider):                           # bind the meaning
   Without container, the stock arm + hand can solve the knob-turning task under learned control alone. This is our positive control: the controller piece works in isolation.
 </p>
 <div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
-  <video src="./media/codesign/stock_robot.mp4" autoplay loop muted playsinline style="flex: 1; max-width: 48%; max-height: 58vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/stock_robot.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 1; max-width: 48%; max-height: 58vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
   <img src="./media/codesign/image24.png" alt="stock robot result" style="flex: 1; max-width: 48%; max-height: 58vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
 </div>
 </section>
@@ -1974,7 +1997,7 @@ with handler(provider):                           # bind the meaning
 <p style="margin: 0 auto 0.55em; max-width: 88%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
   Now we let the LLM design the morphology too. Without the container, codesign works: the system finds a workable manipulator and turns the knob.
 </p>
-<video src="./media/codesign/no_container.mp4" autoplay loop muted playsinline style="display: block; margin: 0 auto; max-width: 80%; max-height: 60vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+<video src="./media/codesign/no_container.mp4" autoplay loop muted playsinline controls preload="auto" style="display: block; margin: 0 auto; max-width: 80%; max-height: 60vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
 </section>
 
 <section id="slide-rada-09" class="slide level2">
@@ -1982,7 +2005,7 @@ with handler(provider):                           # bind the meaning
 
 <div style="display: flex; gap: 0.8em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
 
-  <div style="flex: 0.9; min-width: 0; display: flex; flex-direction: column; gap: 0.55em; justify-content: center;">
+  <div style="flex: 0.7; min-width: 0; display: flex; flex-direction: column; gap: 0.55em; justify-content: center;">
     <div style="padding: 0.6em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Problem 1: morphology</div>
       <p style="margin: 0; color: #1f2330;">The hand <strong>does not fit</strong> into the box.</p>
@@ -1993,14 +2016,14 @@ with handler(provider):                           # bind the meaning
     </div>
   </div>
 
-  <div style="flex: 1.4; min-width: 0; display: flex; flex-direction: column;">
+  <div style="flex: 2.1; min-width: 0; display: flex; flex-direction: column;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">In real env (hand misses)</div>
-    <video src="./media/codesign/with_container_fail.mp4" autoplay loop muted playsinline style="width: 100%; height: auto; max-height: 70vh; border-radius: 6px; box-shadow: 0 10px 28px rgba(0,0,0,0.16); background: #fafbfc; object-fit: contain;"></video>
+    <video src="./media/codesign/with_container_fail.mp4" autoplay loop muted playsinline controls preload="auto" controls preload="auto" style="width: 100%; height: auto; max-height: 78vh; border-radius: 6px; box-shadow: 0 10px 28px rgba(0,0,0,0.16); background: #fafbfc; object-fit: contain;"></video>
   </div>
 
-  <div style="flex: 1.4; min-width: 0; display: flex; flex-direction: column;">
+  <div style="flex: 1.1; min-width: 0; display: flex; flex-direction: column;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Loss plateaus</div>
-    <img src="./media/codesign/image18.png" alt="loss plateau chart" style="width: 100%; height: auto; max-height: 70vh; border-radius: 6px; box-shadow: 0 10px 28px rgba(0,0,0,0.16); background: #ffffff; object-fit: contain;">
+    <img src="./media/codesign/image18.png" alt="loss plateau chart" style="width: 100%; height: auto; max-height: 78vh; border-radius: 6px; box-shadow: 0 10px 28px rgba(0,0,0,0.16); background: #ffffff; object-fit: contain;">
   </div>
 
 </div>
@@ -2051,7 +2074,7 @@ def KnobTarget(self, size):
   </div>
   <div style="flex: 1.15; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.35em; align-items: center; justify-content: flex-start;">
     <img src="./media/codesign/image11.png" alt="result chart" style="display: block; max-width: 100%; max-height: 40%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
-    <video src="./media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline style="display: block; max-width: 100%; max-height: 58%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+    <video src="./media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline controls preload="auto" style="display: block; max-width: 100%; max-height: 58%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
   </div>
 </div>
 </section>
@@ -2061,7 +2084,7 @@ def KnobTarget(self, size):
 <p style="margin: 0 auto 0.55em; max-width: 90%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
   Ablation: keep the same morphology, but remove the designed objective. The system fails. Both pieces matter together.
 </p>
-<video src="./media/codesign/ablation_no_objective.mp4" autoplay loop muted playsinline style="display: block; margin: 0 auto; max-width: 80%; max-height: 60vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+<video src="./media/codesign/ablation_no_objective.mp4" autoplay loop muted playsinline controls preload="auto" style="display: block; margin: 0 auto; max-width: 80%; max-height: 60vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
 </section>
 
 <section id="slide-rada-12" class="slide level2">
