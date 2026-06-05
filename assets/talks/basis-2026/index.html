@@ -879,6 +879,98 @@ def _move_balls(self):
 </script>
 </section>
 
+<section id="slide-34" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 0.95em; margin: 0 0 0.3em 0;">Does world-model fidelity drive task performance?</h2>
+
+<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.34em; text-align: left; max-height: 72vh;">
+
+  <div style="flex: 0 0 30%; max-width: 340px; display: flex; flex-direction: column; gap: 0.45em;">
+    <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.65em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Setup</div>
+      <p style="margin: 0; color: #4a4f5a;">Bucket worlds by rule-level fidelity (<em>poor</em>, <em>partial</em>, <em>high</em>). Average the test-phase success rate per task family.</p>
+    </div>
+    <div style="padding: 0.4em 0.65em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Take-away</div>
+      <ul style="margin: 0; padding-left: 1em; line-height: 1.4; color: #1f2330;">
+        <li>Monotone in all three families.</li>
+        <li><strong>Masked frame</strong>: 80 to <strong>100%</strong>.</li>
+        <li><strong>Planning</strong>: 70 to <strong>86%</strong>.</li>
+        <li><strong>Change detection</strong>: 15 to <strong>43%</strong>, hardest even at high fidelity.</li>
+      </ul>
+    </div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; padding: 0 0.15em; font-size: 0.92em;">n = 20 / 23 / 7 envs per bucket.</div>
+  </div>
+
+  <div style="flex: 1; max-width: 600px; display: flex; flex-direction: column; min-width: 0;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.88em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.05em;">Task success rate by world-model fidelity</div>
+    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.76em; color: #6b7080; margin-bottom: 0.25em;">x: rule-level fidelity bucket &middot; y: test-phase success</div>
+    <div style="position: relative; flex: 1; width: 100%; height: 56vh; max-height: 56vh; min-height: 0;">
+      <canvas id="rq4-chart-fidelity"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  let inited = false;
+  function init () {
+    if (inited) return;
+    const el = document.getElementById('rq4-chart-fidelity');
+    if (!el || !window.Chart) return;
+    inited = true;
+    if (window.ChartDataLabels) Chart.register(window.ChartDataLabels);
+    new Chart(el, {
+      type: 'line',
+      data: {
+        labels: ['Poor', 'Partial', 'High'],
+        datasets: [
+          { label: 'Masked frame prediction', data: [80, 83, 100], borderColor: '#2d6a4f', backgroundColor: '#2d6a4f', tension: 0.15, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 6 },
+          { label: 'Planning',                data: [70, 78,  86], borderColor: '#c08230', backgroundColor: '#c08230', tension: 0.15, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 6 },
+          { label: 'Change detection',        data: [15, 22,  43], borderColor: '#c0392b', backgroundColor: '#c0392b', tension: 0.15, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 6 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 700 },
+        layout: { padding: { top: 16, right: 12 } },
+        plugins: {
+          legend: { position: 'top', align: 'start', labels: { font: { family: 'IBM Plex Sans', size: 12 }, boxWidth: 14 } },
+          tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y}%` } },
+          datalabels: {
+            anchor: 'end', align: 'top', offset: 4, clip: false,
+            color: c => c.dataset.borderColor,
+            font: { family: 'IBM Plex Sans', size: 10, weight: '600' },
+            formatter: v => v + '%'
+          }
+        },
+        scales: {
+          x: {
+            ticks: { font: { family: 'IBM Plex Sans', size: 12 }, color: '#1f2330' },
+            grid:  { display: false },
+            title: { display: true, text: 'World-model fidelity', font: { family: 'IBM Plex Sans', size: 11, weight: '500' }, color: '#4a4f5a' }
+          },
+          y: {
+            beginAtZero: true, max: 110,
+            ticks: { font: { family: 'IBM Plex Sans', size: 11 }, color: '#4a4f5a', stepSize: 25, callback: v => v <= 100 ? v + '%' : '' },
+            title: { display: true, text: 'Test-phase success rate', font: { family: 'IBM Plex Sans', size: 11, weight: '500' }, color: '#4a4f5a' },
+            grid: { color: 'rgba(0,0,0,0.06)' }
+          }
+        }
+      }
+    });
+  }
+  if (window.Reveal) {
+    Reveal.on('ready', e => { if (e.currentSlide && e.currentSlide.id === 'slide-34') init(); });
+    Reveal.on('slidechanged', e => { if (e.currentSlide.id === 'slide-34') init(); });
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
+})();
+</script>
+</section>
+
 <section id="slide-10pre2" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Sample inefficiency vs human</h2>
 
@@ -1312,98 +1404,6 @@ class SynthesizedWorld:
   In both cases the task score is achieved, but nothing transferable is learned. The submitted model is a transcript, not a theory. This is the failure mode of seeding from a human replay buffer without an incentive to <em>explain</em>.
 </p>
 </section>
-<section id="slide-34" class="slide level2" data-background-color="#fafbfc">
-<h2 style="font-size: 0.95em; margin: 0 0 0.3em 0;">Does world-model fidelity drive task performance?</h2>
-
-<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.34em; text-align: left; max-height: 72vh;">
-
-  <div style="flex: 0 0 30%; max-width: 340px; display: flex; flex-direction: column; gap: 0.45em;">
-    <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.65em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Setup</div>
-      <p style="margin: 0; color: #4a4f5a;">Bucket worlds by rule-level fidelity (<em>poor</em>, <em>partial</em>, <em>high</em>). Average the test-phase success rate per task family.</p>
-    </div>
-    <div style="padding: 0.4em 0.65em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Take-away</div>
-      <ul style="margin: 0; padding-left: 1em; line-height: 1.4; color: #1f2330;">
-        <li>Monotone in all three families.</li>
-        <li><strong>Masked frame</strong>: 80 to <strong>100%</strong>.</li>
-        <li><strong>Planning</strong>: 70 to <strong>86%</strong>.</li>
-        <li><strong>Change detection</strong>: 15 to <strong>43%</strong>, hardest even at high fidelity.</li>
-      </ul>
-    </div>
-    <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; padding: 0 0.15em; font-size: 0.92em;">n = 20 / 23 / 7 envs per bucket.</div>
-  </div>
-
-  <div style="flex: 1; max-width: 600px; display: flex; flex-direction: column; min-width: 0;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.88em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.05em;">Task success rate by world-model fidelity</div>
-    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.76em; color: #6b7080; margin-bottom: 0.25em;">x: rule-level fidelity bucket &middot; y: test-phase success</div>
-    <div style="position: relative; flex: 1; width: 100%; height: 56vh; max-height: 56vh; min-height: 0;">
-      <canvas id="rq4-chart-fidelity"></canvas>
-    </div>
-  </div>
-
-</div>
-
-<script>
-(function () {
-  let inited = false;
-  function init () {
-    if (inited) return;
-    const el = document.getElementById('rq4-chart-fidelity');
-    if (!el || !window.Chart) return;
-    inited = true;
-    if (window.ChartDataLabels) Chart.register(window.ChartDataLabels);
-    new Chart(el, {
-      type: 'line',
-      data: {
-        labels: ['Poor', 'Partial', 'High'],
-        datasets: [
-          { label: 'Masked frame prediction', data: [80, 83, 100], borderColor: '#2d6a4f', backgroundColor: '#2d6a4f', tension: 0.15, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 6 },
-          { label: 'Planning',                data: [70, 78,  86], borderColor: '#c08230', backgroundColor: '#c08230', tension: 0.15, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 6 },
-          { label: 'Change detection',        data: [15, 22,  43], borderColor: '#c0392b', backgroundColor: '#c0392b', tension: 0.15, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 6 }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: { duration: 700 },
-        layout: { padding: { top: 16, right: 12 } },
-        plugins: {
-          legend: { position: 'top', align: 'start', labels: { font: { family: 'IBM Plex Sans', size: 12 }, boxWidth: 14 } },
-          tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y}%` } },
-          datalabels: {
-            anchor: 'end', align: 'top', offset: 4, clip: false,
-            color: c => c.dataset.borderColor,
-            font: { family: 'IBM Plex Sans', size: 10, weight: '600' },
-            formatter: v => v + '%'
-          }
-        },
-        scales: {
-          x: {
-            ticks: { font: { family: 'IBM Plex Sans', size: 12 }, color: '#1f2330' },
-            grid:  { display: false },
-            title: { display: true, text: 'World-model fidelity', font: { family: 'IBM Plex Sans', size: 11, weight: '500' }, color: '#4a4f5a' }
-          },
-          y: {
-            beginAtZero: true, max: 110,
-            ticks: { font: { family: 'IBM Plex Sans', size: 11 }, color: '#4a4f5a', stepSize: 25, callback: v => v <= 100 ? v + '%' : '' },
-            title: { display: true, text: 'Test-phase success rate', font: { family: 'IBM Plex Sans', size: 11, weight: '500' }, color: '#4a4f5a' },
-            grid: { color: 'rgba(0,0,0,0.06)' }
-          }
-        }
-      }
-    });
-  }
-  if (window.Reveal) {
-    Reveal.on('ready', e => { if (e.currentSlide && e.currentSlide.id === 'slide-34') init(); });
-    Reveal.on('slidechanged', e => { if (e.currentSlide.id === 'slide-34') init(); });
-  } else {
-    document.addEventListener('DOMContentLoaded', init);
-  }
-})();
-</script>
-</section>
-
 <!-- ─── Part II: R-ADA / Co-Design with LLM ─── -->
 
 <section id="slide-bridge" class="slide level2">
