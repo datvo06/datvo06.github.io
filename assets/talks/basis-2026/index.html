@@ -2284,8 +2284,8 @@ reward += seg3.pos.z       # LEAP
 <section id="slide-rada-13" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.35em 0;">Future work, next steps</h2>
 
-<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left; margin-bottom: 0.6em;">
-  <div style="flex: 1; max-width: 320px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+<div style="display: flex; gap: 0.7em; justify-content: center; align-items: stretch; font-size: 0.34em; text-align: left; margin-bottom: 0.55em;">
+  <div style="flex: 1; max-width: 280px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Open problems</div>
     <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
       <li><strong>State estimation.</strong> Sensors instead of given state.</li>
@@ -2293,7 +2293,16 @@ reward += seg3.pos.z       # LEAP
       <li><strong>Control efficacy.</strong> Where does dense reward design break?</li>
     </ul>
   </div>
-  <div style="flex: 1; max-width: 320px; padding: 0.55em 0.75em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+  <div style="flex: 1; max-width: 280px; padding: 0.55em 0.7em; border: 1px solid #2d6a4f; border-radius: 6px; background: #ecf5ef;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">More effectful machinery</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+      <li><strong>SVI handler over <code>solve_init</code>.</strong> Amortize the morphology prior into a variational posterior.</li>
+      <li><strong>Loss designer as handler.</strong> Synthesize <code>aux_losses</code> from a natural-language stage spec.</li>
+      <li><strong>Tactile / proprio sensors</strong> as more handler backends (alongside cad / mujoco / jax).</li>
+      <li><strong>Cached &middot; replay &middot; capability-typed</strong> LLM handler stacks for the codesign agent.</li>
+    </ul>
+  </div>
+  <div style="flex: 1; max-width: 280px; padding: 0.55em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Merge Predicators + Autumn</div>
     <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
       <li>Low-level dynamics, high-level actions as functions, predicate abstraction, all in one language.</li>
