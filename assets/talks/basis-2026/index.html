@@ -615,6 +615,10 @@
       <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Synthesizer</span>
     </div>
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; text-align: center; line-height: 1.3; margin-top: 0.25em; font-weight: 600;"><em>out:</em><br>world model<br>(Autumn program)</div>
+    <div style="margin-top: 0.35em; padding: 0.3em 0.45em; border-top: 1px dashed #d0d5dc; font-family: 'IBM Plex Mono', monospace; font-size: 0.74em; color: #4a4f5a; text-align: center; line-height: 1.4;">
+      <span style="color: #6b7080;">tools:</span> env_interact &middot; test_code &middot; submit_code
+      <div style="color: #8a8f99; font-size: 0.95em; margin-top: 0.15em;">+ optimize_weights / optimize_mcmc / particle_filter <em>(stochastic)</em></div>
+    </div>
   </div>
 
   <!-- Bidirectional flow: synth -> challenger (model) and challenger -> synth (counterexample) -->
@@ -637,6 +641,10 @@
       <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.1em;">Challenger</span>
     </div>
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; text-align: center; line-height: 1.3; margin-top: 0.25em; font-weight: 600;"><em>out:</em><br>trajectory exposing<br>a discrepancy</div>
+    <div style="margin-top: 0.35em; padding: 0.3em 0.45em; border-top: 1px dashed #d0d5dc; font-family: 'IBM Plex Mono', monospace; font-size: 0.74em; color: #4a4f5a; text-align: center; line-height: 1.4;">
+      <span style="color: #6b7080;">tools:</span> fuzz &middot; view_code &middot; report
+      <div style="color: #8a8f99; font-size: 0.95em; margin-top: 0.15em;">BOED replaces this when multiple candidate models coexist</div>
+    </div>
   </div>
 
   <!-- Forward arrow to solver -->
@@ -748,46 +756,6 @@ def _move_balls(self):
    "cell_coverage": 0.11,
    "unique_states_seen": 1 }
 }</code></pre>
-  </div>
-
-</div>
-</section>
-
-<section id="slide-10" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">World Modeling via Adversarial Synthesis</h2>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Per round:</strong>
-    Synthesizer interacts with the env and submits a world model. Challenger looks for discrepancies between synthetic and real worlds, submits trajectories that expose them. BOED replaces the challenger when multiple candidate models coexist.
-  </p>
-</div>
-
-<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.36em; text-align: left;">
-
-  <div style="flex: 1; max-width: 290px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Synthesizer tools</div>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">
-      <li>env_interact</li>
-      <li>test_code</li>
-      <li>submit_code</li>
-    </ul>
-    <p style="margin: 0.4em 0 0; color: #6b7080; font-size: 0.9em;"><em>Stochastic mode adds:</em></p>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #6b7080;">
-      <li>optimize_weights</li>
-      <li>optimize_mcmc</li>
-      <li>particle_filter</li>
-    </ul>
-  </div>
-
-  <div style="flex: 1; max-width: 290px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 5px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Challenger tools</div>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">
-      <li>fuzz</li>
-      <li>view_code</li>
-      <li>report</li>
-    </ul>
-    <p style="margin: 0.4em 0 0; color: #6b7080; font-size: 0.9em;"><em>BOED replaces the challenger when multiple candidate models exist (next slide).</em></p>
   </div>
 
 </div>
