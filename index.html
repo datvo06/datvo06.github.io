@@ -578,22 +578,38 @@ function renderGrid(ctx, jsonStr, canvasSize) {
     ctx.beginPath(); ctx.moveTo(0, pos); ctx.lineTo(canvasSize, pos); ctx.stroke();
   }
 
-  // Draw entities
+  // Collect entities into a per-cell map so two objects on the same cell
+  // are merged instead of overdrawing (matters for sand-style updates where
+  // Autumn's parallel `updateObj` can land two grains on one cell).
+  const cells = new Map();
+  // Lighter-color names (the "dry" / non-liquid states) should win on tie so
+  // wet sand doesn't visually erase a dry pile underneath it.
+  const lightnessBias = (col) => {
+    const [r, g, b] = parseColor(col);
+    return r + g + b;
+  };
   for (const key of Object.keys(parsed)) {
     if (key === 'GRID_SIZE' || key === 'background') continue;
     const entities = parsed[key];
     if (!Array.isArray(entities)) continue;
     for (const entity of entities) {
-      if (entity.position && entity.color) {
-        const { x, y } = entity.position;
-        if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
-          const [r, g, b] = parseColor(entity.color);
-          ctx.fillStyle = `rgb(${r},${g},${b})`;
-          const inset = Math.max(0.5, cellSize * 0.05);
-          ctx.fillRect(x * cellSize + inset, y * cellSize + inset, cellSize - inset * 2, cellSize - inset * 2);
-        }
+      if (!entity.position || !entity.color) continue;
+      const { x, y } = entity.position;
+      if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) continue;
+      const k = y * gridSize + x;
+      const prior = cells.get(k);
+      if (!prior || lightnessBias(entity.color) > lightnessBias(prior.color)) {
+        cells.set(k, entity);
       }
     }
+  }
+
+  const inset = Math.max(0.5, cellSize * 0.05);
+  for (const entity of cells.values()) {
+    const { x, y } = entity.position;
+    const [r, g, b] = parseColor(entity.color);
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.fillRect(x * cellSize + inset, y * cellSize + inset, cellSize - inset * 2, cellSize - inset * 2);
   }
 
   return gridSize;
