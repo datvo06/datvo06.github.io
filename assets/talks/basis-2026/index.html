@@ -75,30 +75,79 @@
 <li class="fragment fade-in-then-semi-out"><strong style="color: #1E3A8A;">Effectful LLM</strong> &middot; LLM calls as typed programs</li>
 </ul>
 
-<div style="margin: 1em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080;">
-  <div style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5em;">Timeline</div>
-  <div style="position: relative; height: 2.5em; margin: 0 0.5em;">
-    <div style="position: absolute; left: 0; right: 0; top: 1.05em; height: 2px; background: #d0d5dc;"></div>
-    <div style="position: absolute; left: 0%; top: 0; display: flex; flex-direction: column; align-items: center;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1f2330; font-size: 0.95em;">Jan 2025</div>
-      <div style="width: 10px; height: 10px; border-radius: 50%; background: #1E3A8A; margin-top: 0.3em;"></div>
-      <div style="margin-top: 0.3em; color: #4a4f5a;">join Basis</div>
+<div style="margin: 1em auto 0; max-width: 96%; font-size: 0.3em; color: #6b7080;">
+  <div style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Timeline (parallel tracks)</div>
+
+  <div style="position: relative; padding-left: 5.2em;">
+
+    <!-- Quarter header row -->
+    <div style="position: relative; height: 1.3em; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #1f2330; border-bottom: 1px solid #d0d5dc; margin-bottom: 0.5em;">
+      <span style="position: absolute; left: 0%;">Jan 25</span>
+      <span style="position: absolute; left: 18%; transform: translateX(-50%);">Apr 25</span>
+      <span style="position: absolute; left: 41%; transform: translateX(-50%);">Aug 25</span>
+      <span style="position: absolute; left: 59%; transform: translateX(-50%);">Nov 25</span>
+      <span style="position: absolute; left: 76%; transform: translateX(-50%);">Feb 26</span>
+      <span style="position: absolute; right: 0%;">Jun 26</span>
     </div>
-    <div style="position: absolute; left: 32%; top: 0; display: flex; flex-direction: column; align-items: center; transform: translateX(-50%);">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1f2330; font-size: 0.95em;">2025</div>
-      <div style="width: 10px; height: 10px; border-radius: 50%; background: #1E3A8A; margin-top: 0.3em;"></div>
-      <div style="margin-top: 0.3em; color: #4a4f5a;">MARA: Autumn.cpp + protocol + WorldTest</div>
+
+    <!-- MARA track -->
+    <div style="position: relative; height: 3.3em; margin-bottom: 0.6em;">
+      <div style="position: absolute; left: -5em; top: 0.35em; width: 4.6em; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #1E3A8A;">MARA</div>
+      <div style="position: absolute; left: 0; right: 0; top: 0.7em; height: 2px; background: rgba(30,58,138,0.25);"></div>
+      <!-- ongoing arrow tip -->
+      <div style="position: absolute; right: -0.4em; top: 0.3em; color: rgba(30,58,138,0.45); font-size: 1.1em;">&rarr;</div>
+
+      <!-- WorldTest paper bar (Jun 25 -> now) -->
+      <div style="position: absolute; left: 29%; right: 0%; top: 1.6em; height: 0.55em; background: rgba(30,58,138,0.18); border-radius: 3px;"></div>
+      <div style="position: absolute; left: 50%; top: 2.2em; transform: translateX(-50%); color: rgba(30,58,138,0.65); font-style: italic; white-space: nowrap;">WorldTest paper (writing)</div>
+
+      <!-- Autumn.cpp -->
+      <div style="position: absolute; left: 0%; top: 0.4em; width: 8px; height: 8px; border-radius: 50%; background: #1E3A8A;"></div>
+      <div style="position: absolute; left: 0%; top: -0.95em; white-space: nowrap; color: #1f2330;">Autumn.cpp</div>
+
+      <!-- Protocol -->
+      <div style="position: absolute; left: 12%; top: 0.4em; width: 8px; height: 8px; border-radius: 50%; background: #1E3A8A;"></div>
+      <div style="position: absolute; left: 12%; top: -0.95em; transform: translateX(-50%); white-space: nowrap; color: #1f2330;">Protocol</div>
+
+      <!-- WorldTest web -->
+      <div style="position: absolute; left: 23%; top: 0.4em; width: 8px; height: 8px; border-radius: 50%; background: #1E3A8A;"></div>
+      <div style="position: absolute; left: 23%; top: -0.95em; transform: translateX(-50%); white-space: nowrap; color: #1f2330;">WorldTest web</div>
+
+      <!-- LLM AutumnSynth (abandoned) -->
+      <div style="position: absolute; left: 65%; top: 0.4em; width: 8px; height: 8px; border-radius: 50%; background: #ffffff; border: 1.5px solid #c0392b;"></div>
+      <div style="position: absolute; left: 65%; top: -0.95em; transform: translateX(-50%); white-space: nowrap; color: #c0392b;">LLM AutumnSynth (dropped)</div>
+
+      <!-- Adversarial synth + Claude Code -->
+      <div style="position: absolute; left: 80%; top: 0.4em; width: 8px; height: 8px; border-radius: 50%; background: #1E3A8A;"></div>
+      <div style="position: absolute; left: 80%; top: -0.95em; transform: translateX(-50%); white-space: nowrap; color: #1f2330;">Adv. synth + Claude Code</div>
     </div>
-    <div style="position: absolute; left: 64%; top: 0; display: flex; flex-direction: column; align-items: center; transform: translateX(-50%);">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1f2330; font-size: 0.95em;">late 2025</div>
-      <div style="width: 10px; height: 10px; border-radius: 50%; background: #1E3A8A; margin-top: 0.3em;"></div>
-      <div style="margin-top: 0.3em; color: #4a4f5a;">R-ADA: RoboTL + codesign loop</div>
+
+    <!-- R-ADA track -->
+    <div style="position: relative; height: 2.4em; margin-bottom: 0.6em;">
+      <div style="position: absolute; left: -5em; top: 0.35em; width: 4.6em; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #c08230;">R-ADA</div>
+      <div style="position: absolute; left: 6%; right: 0; top: 0.7em; height: 2px; background: rgba(192,130,48,0.3);"></div>
+      <div style="position: absolute; right: -0.4em; top: 0.3em; color: rgba(192,130,48,0.5); font-size: 1.1em;">&rarr;</div>
+
+      <!-- Start (Feb 25) -->
+      <div style="position: absolute; left: 6%; top: 0.4em; width: 8px; height: 8px; border-radius: 50%; background: #c08230;"></div>
+      <div style="position: absolute; left: 6%; top: 1.3em; transform: translateX(-15%); white-space: nowrap; color: #1f2330;">start (with Sam)</div>
+
+      <!-- Codesign loop done (Aug 25) -->
+      <div style="position: absolute; left: 41%; top: 0.4em; width: 8px; height: 8px; border-radius: 50%; background: #c08230;"></div>
+      <div style="position: absolute; left: 41%; top: 1.3em; transform: translateX(-50%); white-space: nowrap; color: #1f2330;">first codesign loop works (with Tim, Markus)</div>
     </div>
-    <div style="position: absolute; right: 0%; top: 0; display: flex; flex-direction: column; align-items: center;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1f2330; font-size: 0.95em;">2026</div>
-      <div style="width: 10px; height: 10px; border-radius: 50%; background: #1E3A8A; margin-top: 0.3em;"></div>
-      <div style="margin-top: 0.3em; color: #4a4f5a;">Effectful LLM, OrchestSynth, next</div>
+
+    <!-- Effectful / OrchestSynth track -->
+    <div style="position: relative; height: 2.4em;">
+      <div style="position: absolute; left: -5em; top: 0.35em; width: 4.6em; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #2d6a4f;">Effectful</div>
+      <div style="position: absolute; left: 59%; right: 0; top: 0.7em; height: 2px; background: rgba(45,106,79,0.3);"></div>
+      <div style="position: absolute; right: -0.4em; top: 0.3em; color: rgba(45,106,79,0.5); font-size: 1.1em;">&rarr;</div>
+
+      <!-- Effectful LLM + OrchestSynth (Nov 25) -->
+      <div style="position: absolute; left: 59%; top: 0.4em; width: 8px; height: 8px; border-radius: 50%; background: #2d6a4f;"></div>
+      <div style="position: absolute; left: 59%; top: 1.3em; transform: translateX(-15%); white-space: nowrap; color: #1f2330;">Effectful LLM + OrchestSynth (started, non-lame in progress)</div>
     </div>
+
   </div>
 </div>
 </section>
