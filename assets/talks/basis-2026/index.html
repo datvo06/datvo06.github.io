@@ -186,39 +186,74 @@
 </section>
 
 <section id="slide-thesis" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">The through-line: <span style="color: #1E3A8A;">programs as the substrate</span></h2>
+<h2 style="font-size: 1em; margin: 0 0 0.35em 0;">Three projects, <span style="color: #1E3A8A;">one recurring pattern</span></h2>
 
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.95em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0 0 0.35em 0; font-size: 0.46em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Claim.</strong>
-    The right symbolic substrate is a <em>language</em>. Programs in that language are the world model, the robot, the agent. The LLM writes the program. A simulator or handler gives it meaning.
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.85em; margin: 0 auto 0.55em; max-width: 92%; text-align: left;">
+  <p style="margin: 0 0 0.3em; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The question I keep asking.</strong>
+    What happens when you give an AI the right symbolic tools? And what shape do those tools take?
   </p>
-  <p style="margin: 0; font-size: 0.4em; color: #4a4f5a;">
-    Three projects, one recipe. MARA writes Autumn programs. R-ADA writes RoboTL programs. Effectful makes an LLM call <em>itself</em> a typed program. The same three properties keep showing up.
+  <p style="margin: 0; font-size: 0.38em; color: #4a4f5a;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The recipe I keep using.</strong>
+    <span style="font-family: 'IBM Plex Mono', monospace;">[1]</span> build a small language &rarr; <span style="font-family: 'IBM Plex Mono', monospace;">[2]</span> let an LLM write programs in it &rarr; <span style="font-family: 'IBM Plex Mono', monospace;">[3]</span> run those programs under an interpreter / handler that gives them meaning.
   </p>
 </div>
 
-<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.4em; text-align: left; margin-bottom: 0.6em;">
-
-  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Composable</div>
-    <p style="margin: 0; color: #4a4f5a;">Small programs clip into bigger ones. POMDPs into POMDPs, components into robots, tools into agents.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Queryable</div>
-    <p style="margin: 0; color: #4a4f5a;">You can <em>ask</em> the program things: predict a frame, plan an action, score a discrepancy, evaluate a gradient, analyze coverage / traces / abstract semantics.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 280px; padding: 0.7em 0.85em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Simulable</div>
-    <p style="margin: 0; color: #4a4f5a;">An interpreter or handler runs it. Swap handlers, swap semantics: eval, sample, differentiate, talk to an LLM.</p>
-  </div>
-
+<div style="margin: 0 auto 0.65em; max-width: 92%;">
+  <table style="width: 100%; border-collapse: collapse; font-size: 0.38em; color: #1f2330;">
+    <thead>
+      <tr style="border-bottom: 1.5px solid #444;">
+        <th style="text-align: left; padding: 0.3em 0.5em; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7080; font-weight: 600; font-size: 0.85em;">Project</th>
+        <th style="text-align: left; padding: 0.3em 0.5em; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7080; font-weight: 600; font-size: 0.85em;">Language</th>
+        <th style="text-align: left; padding: 0.3em 0.5em; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7080; font-weight: 600; font-size: 0.85em;">LLM produces</th>
+        <th style="text-align: left; padding: 0.3em 0.5em; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7080; font-weight: 600; font-size: 0.85em;">Oracle / handler</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid #ececf2;">
+        <td style="padding: 0.35em 0.5em;"><strong style="color: #1E3A8A;">MARA</strong></td>
+        <td style="padding: 0.35em 0.5em;">Autumn</td>
+        <td style="padding: 0.35em 0.5em;">world-model programs</td>
+        <td style="padding: 0.35em 0.5em;">Autumn.cpp interpreter</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #ececf2;">
+        <td style="padding: 0.35em 0.5em;"><strong style="color: #c08230;">R-ADA</strong></td>
+        <td style="padding: 0.35em 0.5em;">RoboTL</td>
+        <td style="padding: 0.35em 0.5em;">morphology &amp; objective</td>
+        <td style="padding: 0.35em 0.5em;">JAX / MuJoCo / MPC</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.35em 0.5em;"><strong style="color: #2d6a4f;">Effectful</strong></td>
+        <td style="padding: 0.35em 0.5em;">host language (typed)</td>
+        <td style="padding: 0.35em 0.5em;">LLM calls as functions</td>
+        <td style="padding: 0.35em 0.5em;">LiteLLM / replay / mocks</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-<p style="margin: 0.4em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
-  Watch for these three on every section header. The talk closes by naming them again.
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.4em; color: #1f2330; text-align: left;">
+  <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Prediction.</strong>
+  If the recipe is right, the same three properties of the language show up in every project:
+</p>
+
+<div style="display: flex; gap: 0.8em; justify-content: center; font-size: 0.36em; text-align: left;">
+  <div style="flex: 1; max-width: 260px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">1 &middot; Composable</div>
+    <p style="margin: 0; color: #4a4f5a;">small programs assemble into bigger ones, mechanically.</p>
+  </div>
+  <div style="flex: 1; max-width: 260px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">2 &middot; Queryable</div>
+    <p style="margin: 0; color: #4a4f5a;">same program answers different questions: predict, plan, score, differentiate.</p>
+  </div>
+  <div style="flex: 1; max-width: 260px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">3 &middot; Simulable</div>
+    <p style="margin: 0; color: #4a4f5a;">execution is fast enough to close a feedback loop.</p>
+  </div>
+</div>
+
+<p style="margin: 0.4em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">
+  Each section calls them out. The closer revisits them with evidence.
 </p>
 </section>
 <section id="slide-3" class="slide level2">
