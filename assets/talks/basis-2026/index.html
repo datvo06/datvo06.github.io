@@ -699,11 +699,11 @@
       <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Synthesizer out</span>
     </div>
     <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.25em;"><code>synthesizer_code.py</code> proposes ball physics: balls just <em>disappear</em> off the bottom. No "green grows" rule:</div>
-<pre style="margin: 0; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.4; color: #d4d7dc; overflow: hidden;"><code><span style="color:#6b7080;"># Layout: gold 3x3, gray 4x3,</span>
-<span style="color:#6b7080;"># green cells at y=15 odd x,</span>
-<span style="color:#6b7080;"># blue balls spawned by 'down'.</span>
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.4; color: #d4d7dc; overflow: hidden;"><code># Layout: gold 3x3, gray 4x3,
+# green cells at y=15 odd x,
+# blue balls spawned by 'down'.
 
-<span style="color:#6b7080;"># Balls disappear when y &gt;= 16.</span>
+# Balls disappear when y &gt;= 16.
 def _move_balls(self):
     self.balls = [
         [bx, by + 1]
