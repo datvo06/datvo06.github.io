@@ -167,10 +167,14 @@
     <text x="471" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">first codesign loop</text>
     <text x="471" y="304" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Aug '25</text>
 
-    <!-- MPC controller (Markus + Tim) on R-ADA · Mar '25 (label ABOVE the branch to avoid RoboTL below) -->
-    <circle cx="325" cy="260" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
-    <text x="325" y="246" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">MPC controller</text>
-    <text x="325" y="230" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Mar '25</text>
+    <!-- MPC controller on R-ADA · Feb '26 (label ABOVE the branch); enables Effectful-for-codesign right after -->
+    <circle cx="755" cy="260" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
+    <text x="755" y="246" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">MPC controller</text>
+    <text x="755" y="230" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Feb '26</text>
+
+    <!-- R-ADA -> Effectful: MPC enables Effectful for codesign (dashed amber arrow down) -->
+    <line x1="755" y1="268" x2="755" y2="334" stroke="#c08230" stroke-width="2" stroke-dasharray="4 3" stroke-opacity="0.65"/>
+    <polygon points="751,332 759,332 755,342" fill="#c08230" fill-opacity="0.8"/>
 
     <!-- Effectful milestone (label BELOW the branch) -->
     <circle cx="663" cy="340" r="8" fill="#ffffff" stroke="#2d6a4f" stroke-width="2.5"/>
