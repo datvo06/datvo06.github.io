@@ -182,7 +182,7 @@ The grammar learns genuinely distinct structural descriptions per species, not a
 
 ## Why it works
 
-The paper's motivating example: take the same bird species in Photo and Cartoon. The local parts (eyes, beak, wings) shift in appearance, with flattened colors, simplified textures, missing specular highlights. But their coarse spatial organization is invariant. The beak still lies near the eyes along the head; the wings still sit in characteristic positions relative to the body. A classifier that reads off "beak near eyes, wings to the side of body" gets the same signal in both domains; a classifier that reads off pixels does not.
+As a motivating example, consider the same bird species in Photo and Cartoon. The local parts (eyes, beak, wings) shift in appearance, with flattened colors, simplified textures, missing specular highlights. But their coarse spatial organization is invariant. The beak still lies near the eyes along the head; the wings still sit in characteristic positions relative to the body. A classifier that reads off "beak near eyes, wings to the side of body" gets the same signal in both domains; a classifier that reads off pixels does not.
 
 In PL terms, the grammar weights define a *finite abstraction* of the image. You go from a continuous pixel space to a sparse vector of spatial-predicate scores, a coarse summary. Domain shift is a transformation in the concrete (pixel) domain. The grammar's abstraction is coarse enough to be invariant to it: "beak near eyes" and "wings beside body" hold in photos and in cartoons even though the pixels look nothing alike.
 
@@ -200,12 +200,12 @@ This is also why you can't improve it by adding alignment losses. The abstractio
 
 ### Connection to neuro-symbolic scene understanding
 
-This grammar is semantically similar to the visual reasoning programs in Neural-Symbolic VQA ([Yi et al., 2018](https://arxiv.org/abs/1810.02338)) and the CLEVR ecosystem ([Johnson et al., 2017](https://arxiv.org/abs/1612.06890)). Our `rel("above", p3, p1)` is not far from `relate(above, obj3, obj1)` in a CLEVR-style program. But there's a key difference:
+The grammar is semantically close to the visual reasoning programs in Neural-Symbolic VQA ([Yi et al., 2018](https://arxiv.org/abs/1810.02338)) and the CLEVR ecosystem ([Johnson et al., 2017](https://arxiv.org/abs/1612.06890)). Our $\mathrm{rel}(\text{above}, p_3, p_1)$ is not far from $\mathrm{relate}(\text{above}, \mathrm{obj}_3, \mathrm{obj}_1)$ in a CLEVR-style program. One key difference in the semantics:
 
-- **CLEVR-style**: the semantics are **learned**. A neural module learns what "left_of" means. Flexible but can overfit to the training distribution.
-- **Ours**: the semantics are **given differentiably**. `above(i, j) = σ(λ(cy_j - cy_i - m))` is a fixed functional form with learnable parameters. The *shape* of the relation is locked in ("above" really means "higher"), but the threshold adapts. This is what makes it domain-invariant by construction.
+- **CLEVR-style**: the semantics are *learned*. A neural module fits what "left_of" means from data. Flexible, but the relation itself can overfit to the source distribution.
+- **Ours**: the semantics are *given differentiably*. $R_\mathrm{above}(p_i, p_j) = \sigma(\kappa (c_j^y - c_i^y - m))$ is a fixed functional form with learnable parameters. The *shape* of the relation is locked in ("above" really means "higher"); only the sharpness and margin adapt. Same shape for binary, ternary, and quaternary predicates: the form is hand-specified, the thresholds train. This is what makes the structural prior domain-invariant by construction.
 
-The tradeoff is expressiveness vs. invariance. For spatial relations between detected bird parts, the sigmoid/Gaussian forms are expressive enough, and the invariance is worth it.
+The tradeoff is expressiveness for invariance. For spatial relations between detected bird parts the sigmoid / Gaussian / cosine forms are expressive enough, and the invariance is worth it.
 
 ## One program, several semantics
 
