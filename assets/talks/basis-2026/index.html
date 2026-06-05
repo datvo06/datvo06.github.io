@@ -96,9 +96,16 @@
     <path d="M 187 170 C 187 220, 237 220, 237 260 L 945 260" stroke="#c08230" stroke-width="3" fill="none" stroke-linecap="round"/>
     <polygon points="945,252 965,260 945,268" fill="#c08230"/>
 
-    <!-- Effectful branch: forks DOWN from MARA at Nov '25 -->
+    <!-- Effectful pre-existing line (Jack Feser et al., before user joined) -->
+    <line x1="140" y1="340" x2="663" y2="340" stroke="#2d6a4f" stroke-width="2.5" stroke-dasharray="4 4" stroke-opacity="0.45"/>
+    <text x="250" y="328" text-anchor="middle" font-size="13" font-style="italic" fill="#2d6a4f" fill-opacity="0.75" font-family="'IBM Plex Sans', sans-serif">Jack Feser et al. (pre-existing)</text>
+
+    <!-- Effectful branch: user joins / merges in from MARA at Nov '25 -->
     <path d="M 613 170 C 613 280, 663 280, 663 340 L 945 340" stroke="#2d6a4f" stroke-width="3" fill="none" stroke-linecap="round"/>
     <polygon points="945,332 965,340 945,348" fill="#2d6a4f"/>
+
+    <!-- Effectful -> MARA merge-back at AutumnSynth-LLM (Dec '25, dropped) -->
+    <path d="M 663 340 C 663 240, 720 240, 720 170" stroke="#2d6a4f" stroke-width="2.5" stroke-dasharray="4 3" stroke-opacity="0.6" fill="none" stroke-linecap="round"/>
 
     <!-- WT paper fork start (date only, track label says WT paper) -->
     <circle cx="332" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
@@ -147,6 +154,11 @@
     <text x="803" y="200" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Adv. synthesis</text>
     <text x="803" y="216" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Feb '26</text>
 
+    <!-- AutumnSynth-LLM on MARA · Dec '25, dropped (after Effectful LLM, merged back from Effectful) -->
+    <circle cx="720" cy="170" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5" stroke-dasharray="3 2"/>
+    <text x="680" y="200" text-anchor="middle" font-size="15" font-weight="500" fill="#6b7080" text-decoration="line-through">AutumnSynth-LLM</text>
+    <text x="680" y="216" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Dec '25 &#183; dropped</text>
+
     <!-- R-ADA milestones (labels BELOW the branch) -->
     <circle cx="237" cy="260" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
     <text x="237" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">RoboTL</text>
@@ -156,15 +168,15 @@
     <text x="471" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">first codesign loop</text>
     <text x="471" y="304" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Aug '25</text>
 
+    <!-- MPC controller (Markus + Tim) on R-ADA · Mar '25 (label ABOVE the branch to avoid RoboTL below) -->
+    <circle cx="325" cy="260" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
+    <text x="325" y="246" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">MPC controller</text>
+    <text x="325" y="230" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Mar '25</text>
+
     <!-- Effectful milestone (label BELOW the branch) -->
     <circle cx="663" cy="340" r="8" fill="#ffffff" stroke="#2d6a4f" stroke-width="2.5"/>
     <text x="663" y="368" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Effectful LLM &#183; OrchestSynth</text>
     <text x="663" y="384" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Nov '25</text>
-
-    <!-- AutumnSynth-LLM attempt (Dec '25, dropped) -->
-    <circle cx="855" cy="340" r="8" fill="#ffffff" stroke="#2d6a4f" stroke-width="2.5" stroke-dasharray="3 2"/>
-    <text x="855" y="368" text-anchor="middle" font-size="15" font-weight="500" fill="#6b7080" text-decoration="line-through">AutumnSynth-LLM</text>
-    <text x="855" y="384" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Dec '25 &#183; dropped</text>
 
   </svg>
 </div>
