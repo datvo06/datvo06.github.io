@@ -56,6 +56,11 @@ permalink: /talks/basis-2026/autumn-embed/
       <button id="autumn-reset" class="autumn-aux-btn" type="button">Reset</button>
       <button id="autumn-pause" class="autumn-aux-btn" type="button">Pause</button>
     </div>
+    <div class="autumn-aux-row" style="display: flex; align-items: center; gap: 0.5em; margin-top: 0.35em;">
+      <label for="autumn-fps" style="font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #4a4f5a; letter-spacing: 0.05em; text-transform: uppercase;">FPS</label>
+      <input id="autumn-fps" type="range" min="1" max="120" step="1" value="8" style="flex: 1; accent-color: #1E3A8A;">
+      <span id="autumn-fps-readout" style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #1f2330; min-width: 2.6em; text-align: right;">8</span>
+    </div>
   </div>
 </div>
 
@@ -69,6 +74,8 @@ const ctx = canvas.getContext('2d');
 const select = document.getElementById('autumn-program-select');
 const btnReset = document.getElementById('autumn-reset');
 const btnPause = document.getElementById('autumn-pause');
+const fpsSlider = document.getElementById('autumn-fps');
+const fpsReadout = document.getElementById('autumn-fps-readout');
 
 let interpreter = null;
 let wasmModule = null;
@@ -108,6 +115,10 @@ function loadProgram(name) {
     interpreter = new wasmModule.Interpreter();
     interpreter.runScript(code, autumnstdlib, '', BigInt(42));
     fps = interpreter.getFrameRate() || 8;
+    if (fpsSlider) {
+      fpsSlider.value = Math.max(1, Math.min(120, fps));
+      if (fpsReadout) fpsReadout.textContent = String(fps);
+    }
     paused = false;
     btnPause.textContent = 'Pause';
     gridSize = renderGrid(ctx, interpreter.renderAll(), canvasSize);
@@ -137,6 +148,16 @@ btnPause.addEventListener('click', () => {
   paused = !paused;
   btnPause.textContent = paused ? 'Resume' : 'Pause';
 });
+
+if (fpsSlider) {
+  fpsSlider.addEventListener('input', () => {
+    const v = parseInt(fpsSlider.value, 10);
+    if (Number.isFinite(v) && v > 0) {
+      fps = v;
+      if (fpsReadout) fpsReadout.textContent = String(v);
+    }
+  });
+}
 
 function sendDirection(dir) {
   if (!interpreter || typeof interpreter[dir] !== 'function') return;
