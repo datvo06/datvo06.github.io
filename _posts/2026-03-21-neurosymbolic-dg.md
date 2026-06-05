@@ -97,45 +97,50 @@ A standard classifier ends with a linear layer: backbone features $\to$ class lo
 **Binary predicates.** The six binary predicates are sigmoid (directional, containment) or Gaussian (proximity, alignment) over primitive centers and soft bounding boxes:
 
 $$
-\begin{array}{ll}
-R_{\text{above}}(p_i, p_j) = \sigma\!\left(\kappa_{\uparrow} (c_j^y - c_i^y - m_{\uparrow})\right)
-& R_{\text{left}}(p_i, p_j) = \sigma\!\left(\kappa_{\leftarrow} (c_j^x - c_i^x - m_{\leftarrow})\right) \\\\[0.6em]
-R_{\text{h-align}}(p_i, p_j) = \exp\!\left(-\dfrac{(c_i^y - c_j^y)^2}{2\tau_h^2}\right)
-& R_{\text{v-align}}(p_i, p_j) = \exp\!\left(-\dfrac{(c_i^x - c_j^x)^2}{2\tau_v^2}\right) \\\\[0.6em]
-\multicolumn{2}{l}{R_{\text{near}}(p_i, p_j) = \exp\!\left(-\dfrac{\|c_i - c_j\|^2}{2\rho^2}\right)} \\\\[0.6em]
-\multicolumn{2}{l}{R_{\text{contains}}(p_i, p_j) = \sigma\!\left(\kappa_{\supset} \min\!\bigl[b_j^{x_1} - b_i^{x_1},\, b_j^{y_1} - b_i^{y_1},\, b_i^{x_2} - b_j^{x_2},\, b_i^{y_2} - b_j^{y_2}\bigr]\right)}
-\end{array}
+\begin{aligned}
+R_{\text{above}}(p_i, p_j) &= \sigma\!\left(\kappa_{\uparrow} (c_j^y - c_i^y - m_{\uparrow})\right)
+& R_{\text{left}}(p_i, p_j) &= \sigma\!\left(\kappa_{\leftarrow} (c_j^x - c_i^x - m_{\leftarrow})\right) \\\\
+R_{\text{h-align}}(p_i, p_j) &= \exp\!\left(-\dfrac{(c_i^y - c_j^y)^2}{2\tau_h^2}\right)
+& R_{\text{v-align}}(p_i, p_j) &= \exp\!\left(-\dfrac{(c_i^x - c_j^x)^2}{2\tau_v^2}\right)
+\end{aligned}
 $$
 
-`R_above` and `R_left` score directional positions; `R_h-align` and `R_v-align` score whether two primitives share a horizontal or vertical line; `R_near` scores proximity; `R_contains` scores whether the soft bounding box of `p_i` encloses that of `p_j`. Sharpness `κ` and margins `m, τ, ρ` are learnable.
+$$
+\begin{aligned}
+R_{\text{near}}(p_i, p_j)     &= \exp\!\left(-\dfrac{\|c_i - c_j\|^2}{2\rho^2}\right) \\\\
+R_{\text{contains}}(p_i, p_j) &= \sigma\!\left(\kappa_{\supset} \min\!\bigl[b_j^{x_1} - b_i^{x_1},\, b_j^{y_1} - b_i^{y_1},\, b_i^{x_2} - b_j^{x_2},\, b_i^{y_2} - b_j^{y_2}\bigr]\right)
+\end{aligned}
+$$
+
+$R_\mathrm{above}$ and $R_\mathrm{left}$ score directional positions; $R_\mathrm{h\text{-}align}$ and $R_\mathrm{v\text{-}align}$ score whether two primitives share a horizontal or vertical line; $R_\mathrm{near}$ scores proximity; $R_\mathrm{contains}$ scores whether the soft bounding box of $p_i$ encloses that of $p_j$. Sharpness $\kappa$ and margins $m$, $\tau$, $\rho$ are learnable.
 
 **Ternary predicates.** Each predicate is a soft Gaussian on a target angle of a primitive triple:
 
 $$
-\begin{array}{ll}
-R_{\text{tri}}(p_i, p_j, p_k) = \exp\!\left(-\dfrac{(\alpha_{ijk} - \psi)^2}{2\beta^2}\right)
-& R_{\text{turn}}(p_i, p_j, p_k) = \exp\!\left(-\dfrac{(\theta_{ijk} - \phi)^2}{2\eta^2}\right)
-\end{array}
+\begin{aligned}
+R_{\text{tri}}(p_i, p_j, p_k) &= \exp\!\left(-\dfrac{(\alpha_{ijk} - \psi)^2}{2\beta^2}\right)
+& R_{\text{turn}}(p_i, p_j, p_k) &= \exp\!\left(-\dfrac{(\theta_{ijk} - \phi)^2}{2\eta^2}\right)
+\end{aligned}
 $$
 
-where α<sub>ijk</sub> is the interior angle at p<sub>i</sub> in triangle (p<sub>i</sub>, p<sub>j</sub>, p<sub>k</sub>), and θ<sub>ijk</sub> = arccos(**v̂**<sub>ij</sub> · **v̂**<sub>jk</sub>) is the turn angle along the chain p<sub>i</sub> → p<sub>j</sub> → p<sub>k</sub>.
+where $\alpha_{ijk}$ is the interior angle at $p_i$ in the triangle $(p_i, p_j, p_k)$, and $\theta_{ijk} = \arccos(\hat{v}_{ij} \cdot \hat{v}_{jk})$ is the turn angle along the chain $p_i \to p_j \to p_k$.
 
-`R_tri` scores triangular configurations against a target interior angle ψ; `R_turn` scores chain turns against a target turn angle φ.
+$R_\mathrm{tri}$ scores triangular configurations against a target interior angle $\psi$; $R_\mathrm{turn}$ scores chain turns against a target turn angle $\phi$.
 
-**Quaternary predicates.** Two primitive pairs are compared via their directed edges **v**<sub>ij</sub> = c<sub>j</sub> − c<sub>i</sub> and **v**<sub>kℓ</sub> = c<sub>ℓ</sub> − c<sub>k</sub>:
+**Quaternary predicates.** Two primitive pairs are compared via their directed edges $v_{ij} = c_j - c_i$ and $v_{k\ell} = c_\ell - c_k$:
 
 $$
-\begin{array}{ll}
-R_{\text{orient}}(p_i, p_j, p_k, p_\ell) = \exp\!\left(-\dfrac{(\hat{\mathbf{v}}_{ij} \cdot \hat{\mathbf{v}}_{k\ell} - \cos\varphi)^2}{2\gamma^2}\right)
-& R_{\text{eqdist}}(p_i, p_j, p_k, p_\ell) = \exp\!\left(-\dfrac{1}{2\tau_d^2} \log^2\!\dfrac{\|\mathbf{v}_{ij}\|}{\|\mathbf{v}_{k\ell}\|}\right)
-\end{array}
+\begin{aligned}
+R_{\text{orient}}(p_i, p_j, p_k, p_\ell) &= \exp\!\left(-\dfrac{(\hat{\mathbf{v}}_{ij} \cdot \hat{\mathbf{v}}_{k\ell} - \cos\varphi)^2}{2\gamma^2}\right) \\\\
+R_{\text{eqdist}}(p_i, p_j, p_k, p_\ell) &= \exp\!\left(-\dfrac{1}{2\tau_d^2} \log^2\!\dfrac{\|\mathbf{v}_{ij}\|}{\|\mathbf{v}_{k\ell}\|}\right)
+\end{aligned}
 $$
 
-`R_orient` scores whether the two edges form a target relative angle φ; `R_eqdist` scores whether the two edges have similar length (the log-ratio form makes the comparison symmetric). Both are pose-and-scale invariants by construction.
+$R_\mathrm{orient}$ scores whether the two edges form a target relative angle $\varphi$; $R_\mathrm{eqdist}$ scores whether the two edges have similar length (the log-ratio form makes the comparison symmetric). Both are pose-and-scale invariants by construction.
 
-All shape parameters (sharpness &kappa;, margins m, tolerances &tau;, &rho;, target angles &psi;, &phi;, &phi;<sub>orient</sub>, and tolerances &beta;, &eta;, &gamma;, &tau;<sub>d</sub>) are learnable and jointly optimized with the rest of the network. The *form* of each predicate is locked in but the thresholds adapt.
+All shape parameters (sharpness $\kappa$, margins $m$, tolerances $\tau$, $\rho$, target angles $\psi$, $\phi$, $\varphi$, and tolerances $\beta$, $\eta$, $\gamma$, $\tau_d$) are learnable and jointly optimized with the rest of the network. The *form* of each predicate is locked in but the thresholds adapt.
 
-Given K = 16 primitives and the predicate vocabulary above, the grammar enumerates all valid spatial compositions (binary applied to ordered pairs, ternary to ordered triples, quaternary to ordered quadruples):
+Given $K = 16$ primitives and the predicate vocabulary above, the grammar enumerates all valid spatial compositions (binary applied to ordered pairs, ternary to ordered triples, quaternary to ordered quadruples):
 
 $$
 \begin{aligned}
@@ -147,12 +152,12 @@ $$
 \end{aligned}
 $$
 
-The total number of enumerated productions M depends on K and on how many channels each higher-arity predicate spans; for CUB-DG, M ≈ 130,000 (paper Table 2b). Each class y has its own weight vector **w**<sub>y</sub> ∈ ℝ<sup>M</sup>, normalized by **sparsemax** ([Martins & Astudillo, 2016](https://arxiv.org/abs/1602.02068)). Sparsemax produces *exact zeros*, so each class commits to a small set of active productions: on CUB-DG, structural compaction prunes 99.3% of weights and leaves ~956 active per class on average (paper Table 2b). The class score is
+The total number of enumerated productions $M$ depends on $K$ and on how many channels each higher-arity predicate spans; for CUB-DG, $M \approx 130{,}000$ (paper Table 2b). Each class $y$ has its own weight vector $\mathbf{w}_y \in \mathbb{R}^M$, normalized by **sparsemax** ([Martins & Astudillo, 2016](https://arxiv.org/abs/1602.02068)). Sparsemax produces *exact zeros*, so each class commits to a small set of active productions: on CUB-DG, structural compaction prunes 99.3% of weights and leaves $\sim 956$ active per class on average (paper Table 2b). The class score is
 
 $$
 \begin{aligned}
 W_y(x) &= \sum_{p=1}^{M} \omega_{y,p} \cdot \beta_p(x) \\\\
-\text{where } \omega_{y,p} &= [\text{sparsemax}(\mathbf{w}_y)]_p \quad \text{(grammar weight)} \\\\
+\text{where } \omega_{y,p} &= [\mathrm{sparsemax}(\mathbf{w}_y)]_p \quad \text{(grammar weight)} \\\\
 \beta_p(x) &= \text{predicate activation for production } p
 \end{aligned}
 $$
@@ -200,33 +205,70 @@ This grammar is semantically similar to the visual reasoning programs in Neural-
 
 The tradeoff is expressiveness vs. invariance. For spatial relations between detected bird parts, the sigmoid/Gaussian forms are expressive enough, and the invariance is worth it.
 
-## One program, three semantics
+## One program, several semantics
 
-The design principle is something that'll look familiar if you've done any work with abstract interpretation: define the grammar once as an effectful program, then choose your semantics at the call site.
-
-The grammar is implemented using [effectful](https://github.com/BasisResearch/effectful) algebraic effects. The five DSL operations (`has`, `rel`, `conj`, `choice`, `score`) are declared as algebraic effects via `@Operation.define`. The same program runs under different handlers:
+We declare the grammar as a program over [effectful](https://github.com/BasisResearch/effectful) algebraic ops once, then bind it to several different interpreters. The DSL surface is concrete:
 
 ```python
-with handler(eval_handler):     score = grammar(class_idx)  # → Tensor
-with handler(inside_handler):   table = grammar(class_idx)  # → InsideTable
-with handler(symbolic_handler): tree  = grammar(class_idx)  # → DerivNode
+# neurosymbolic_da/dsl/ops.py
+@defop
+def has(type_idx: int) -> Tensor: ...
+@defop
+def rel(name: str, a: int, b: int) -> Tensor: ...
+@defop
+def conj(c1: Tensor, c2: Tensor) -> Tensor: ...
+@defop
+def choice(*alternatives: Tensor) -> Tensor: ...
+@defop
+def score(weight: Tensor, body: Tensor) -> Tensor: ...
+
+# higher-arity ops (paper §3 ternary / quaternary)
+@defop
+def angle_rel(r1, r2, channel): ...     # quaternary: angle between two pair-edges
+@defop
+def same_distance(r1, r2): ...          # quaternary: equal pair distances
+@defop
+def triplet_rel(r1, r2, r3, channel): ... # ternary: triangle geometry
+@defop
+def chain_rel(...): ...
+@defop
+def betweenness(...): ...
+@defop
+def cross_ratio(...): ...
+@defop
+def group_rel(...): ...
 ```
 
-The eval handler interprets the DSL in the non-negative real semiring (ℝ<sub>≥0</sub>, +, ×, 0, 1): `choice` is addition, `conj` is multiplication, `score` scales by the grammar weight. Fast scalar class score.
+Each `@defop` declares an *unhandled* operation. The same `grammar(class_idx)` program runs under different handlers:
 
-The inside handler interprets the same program in the *powerset semiring*, tracking which subsets of primitives each subprogram explains. This is the [inside algorithm](https://en.wikipedia.org/wiki/Inside%E2%80%93outside_algorithm) adapted from strings to sets:
+```python
+with handler(make_eval_handler(env, params)):
+    score = grammar(class_idx)              # → Tensor (forward training)
+with handler(inside_handler):
+    table = grammar(class_idx)              # → InsideTable (exact marginals)
+with handler(symbolic_handler):
+    tree  = grammar(class_idx)              # → DerivNode (visualization)
+with handler(abstract_handler):
+    bound = grammar(class_idx)              # → IntervalBound (robustness analysis)
+```
+
+The handlers live in `dsl/handlers/` as `eval.py`, `inside.py`, `symbolic.py`, `abstract.py` (plus `cad_eval.py`/`cad_symbolic.py` for the CAD-style sub-language). One concrete design note worth flagging: the eval handler *does not* dispatch `rel` and `has` directly. They stay as unevaluated `Term`s and get evaluated on demand by `score` / `choice` / `conj`. This is what lets the higher-arity ops (`angle_rel`, `same_distance`, etc.) inspect the `Term.args` of their `rel` inputs and pull out the primitive indices they need, without forcing the `rel` to be evaluated to a scalar first. Without this trick, you cannot write a quaternary predicate over two binary `rel` calls without either (a) running `rel` twice and losing the index information, or (b) hand-wiring the indices outside the DSL.
+
+Concretely, the three main semantics are:
+
+- **eval**: maps each op to a non-negative real. `choice` is sum, `conj` is product, `score` multiplies by the grammar weight. Forward-pass training is just `evaluate(grammar(y))` under this handler. (Algebraically, this is the standard non-negative real interpretation: addition, multiplication, identities 0 and 1.)
+- **inside**: indexes intermediate values by *which subset of primitives* the subprogram covers, then sums weighted contributions across all assignments. Concretely, for each nonterminal A and primitive subset S,
 
 $$
 I(A, S) = \sum_{A \to B\;C} w \sum_{S = S_1 \uplus S_2} I(B, S_1) \cdot I(C, S_2)
 $$
 
-Exact marginals over all derivations.
+  This is the same kind of bottom-up dynamic program as the [inside algorithm](https://en.wikipedia.org/wiki/Inside%E2%80%93outside_algorithm) for context-free grammars on strings, with one change: the yield is a subset rather than a substring, so the split `S = S_1 ⊎ S_2` ranges over disjoint partitions of the covered set instead of contiguous substrings. The algebra is still ordinary `+` and `×`; the subset index is what differs from the eval handler. We use this to read off the exact contribution of each primitive subset to a class score, which is how the per-derivation visualizations are computed.
+- **symbolic**: doesn't reduce the program at all; it returns an effectful `Term` tree. The `DerivNode` view rendered earlier in the post is built by walking that tree.
 
-The symbolic handler builds an explicit `DerivNode` tree. That's how we extract the derivation visualizations above.
+The forward path used at training time is `forward_vectorized()` (`dsl/grammar.py:838`), which sidesteps the handler dispatch and computes the same eval-handler output via a fused tensor kernel. The code comment on `scripts/train_hybrid.py:108` notes it is "same as inside algorithm but ~26x faster via tensor ops." (To be precise: at depth-1 the inside and eval outputs agree, and `forward_vectorized` matches both.) The handler-based versions are what we use for analysis and non-standard semantics; the vectorized path is what makes training tractable.
 
-Same program, three abstract domains. This is the same pattern from [my earlier post on Bayesian synthesis]({% post_url 2026-01-23-bayesian-synthesis %}): there we had MCMC over program structures with a PCFG prior. Here, the programs are spatial layout grammars and the data is images, but the birth/death/swap moves over derivation trees are the same idea.
-
-(In practice, we bypass effectful for training via `forward_vectorized()`: pure tensor ops, ~26x faster. But the handler-based version is what makes the system compositional.)
+The recurring shape (one program, multiple semantics via handlers) is the same pattern I used in [my earlier post on Bayesian synthesis]({% post_url 2026-01-23-bayesian-synthesis %}). Different domain, same machinery.
 
 ## What doesn't work, and what that tells us
 
@@ -240,15 +282,15 @@ We tried several things to improve on top of the grammar. They all made it worse
 
 Now let me be honest about what this all means.
 
-**"It's just a kernel machine with hand-designed spatial features and sparsemax. Why call it a grammar?"** Partly fair. At depth-1, the PCFG is a flat weighted sum over 344 fixed productions: no recursion, no hierarchical derivation. You could rewrite the whole thing as `class_score = sparsemax(W) @ spatial_features(x)` and it would be mathematically identical. So why the grammar framing?
+**"It's just a kernel machine with hand-designed spatial features and sparsemax. Why call it a grammar?"** Partly fair. At depth-1, the PCFG is a flat weighted sum over a fixed predicate-application set (~130k productions for CUB-DG, pruned to ~956 active per class after sparsemax). No recursion, no hierarchical derivation. You could rewrite the whole thing as `class_score = sparsemax(W) @ predicate_features(x)` and it would be mathematically identical. So why the grammar framing?
 
-Two reasons. First, the *infrastructure* does more than the depth-1 config uses. The DSL, the handlers, and the inside algorithm support genuine compositionality. We tried it (depth-2) and it hurt on this benchmark, but the machinery is there for tasks where hierarchical structure matters. Second, the grammar framing is what led us to this design. "Enumerate all pairwise spatial relations and let the model pick a sparse subset per class" is a natural consequence of thinking in terms of productions. If we'd started from "let's design spatial kernel features," we might have ended up somewhere similar, but we probably wouldn't have built the handler-based architecture that makes the system extensible.
+The DSL, the handlers, and the inside computation all support real compositionality, even though the depth-1 config doesn't use it. Depth-2 hurt on CUB-DG, but the machinery is there for a task that actually needs it. The grammar framing is also what produced the design. "Enumerate predicate applications and let sparsemax pick a sparse subset per class" is a natural move once you're thinking in terms of productions. If we'd started from "design some spatial kernel features", we probably wouldn't have ended up with the handler-based architecture.
 
-That said: if you want to call it a spatial relation feature selector with sparsemax sparsity, I won't fight you. The results don't change.
+Call it a spatial-predicate feature selector with sparsemax if you want. The results are the same.
 
-**"The depth-2 result is the most interesting finding."** I agree. Why doesn't compositionality help? The depth-1 abstraction is already coarse enough to be domain-invariant. Adding hierarchical structure introduces more parameters that overfit to source domain structure: the *specific way* parts group in photos doesn't transfer to how they group in cartoons. The flat version avoids this by not committing to any grouping. There's a sweet spot of abstraction granularity: coarse enough to transfer, fine enough to discriminate. Pairwise relations hit it for birds. Whether that generalizes is an open question.
+**"The depth-2 result is the most interesting finding."** I agree. Why doesn't compositionality help? The depth-1 abstraction is already coarse enough to be domain-invariant. Adding hierarchical structure introduces more parameters that overfit to source domain structure: the *specific way* parts group in photos doesn't transfer to how they group in cartoons. The flat version avoids this by not committing to any grouping. There's a sweet spot of abstraction granularity: coarse enough to transfer, fine enough to discriminate. Pairwise + a few higher-arity relations hit it for birds. Whether that generalizes is an open question.
 
-**"The ablation confounds architecture and features."** The PCFG head operates on 344-dim spatial features with sparsemax; the linear head operates on 2048-dim backbone features with softmax. Different capacity, different regularization, different feature space. The honest claim is: this *combination* of inductive biases helps, not that the grammar alone accounts for all +15.6pp. A fairer ablation would be a linear head over the same 344 spatial features, or sparsemax without the grammar structure. We didn't run those. If someone does and the gap shrinks to 5pp, the interesting part is still which 5pp the grammar contributes and why.
+**"The ablation confounds architecture and features."** The PCFG head operates on the ~130k-dim predicate feature space with sparsemax; the linear head operates on 2048-dim backbone features with softmax. Different capacity, different regularization, different feature space. The honest claim is: this *combination* of inductive biases helps, not that the grammar alone accounts for all +4.5pp over ERM++. A fairer ablation would be a linear head over the same predicate features, or sparsemax without the grammar structure. The paper's Table 2a is the closest thing to that: it varies which predicate families the head can use (No Rel → Binary → +Ternary → +Quaternary → All), holding the bottleneck fixed. Going from No Rel to All adds +2.7pp on average (62.9 → 65.6), with the largest gain on Art (+2.7) and Paint (+1.9). That gives you a structural-prior delta isolated from the architectural delta of the bottleneck itself.
 
 **"How does this compare to concept bottleneck models?"** CBMs ([Koh et al., 2020](https://arxiv.org/abs/2007.04612)) also decompose representations into interpretable concepts. The difference is what sits on top. A CBM feeds concept activations into a linear classifier. We feed spatially localized primitives into a grammar that scores pairwise spatial relations. The CBM asks "which concepts are present?"; the grammar asks "how are the concepts spatially arranged?" For tasks where spatial structure matters (fine-grained species recognition), the arrangement is what discriminates classes, not just the presence of parts. All birds have beaks and wings. What distinguishes species is *where* they are relative to each other.
 
