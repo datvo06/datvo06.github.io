@@ -75,22 +75,65 @@
 <li class="fragment fade-in-then-semi-out"><strong style="color: #1E3A8A;">Effectful LLM</strong> &middot; LLM calls as typed programs</li>
 </ul>
 
-<div style="margin: 1.6em auto 0; max-width: 80%; font-size: 0.5em; color: #4a4f5a;">
-  <div style="display: flex; align-items: baseline; gap: 1.2em; padding: 0.45em 0; border-top: 1px solid #ececf2;">
-    <div style="flex: 0 0 5.5em; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #1E3A8A;">MARA</div>
-    <div style="flex: 0 0 4.6em; font-family: 'IBM Plex Mono', monospace; color: #6b7080; white-space: nowrap; font-size: 0.92em;">Jan&nbsp;'25&nbsp;&rarr;</div>
-    <div style="flex: 1; color: #1f2330;">Autumn.cpp &middot; Protocol &middot; WorldTest web &amp; paper &middot; Adv. synthesis</div>
-  </div>
-  <div style="display: flex; align-items: baseline; gap: 1.2em; padding: 0.45em 0; border-top: 1px solid #ececf2;">
-    <div style="flex: 0 0 5.5em; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #c08230;">R-ADA</div>
-    <div style="flex: 0 0 4.6em; font-family: 'IBM Plex Mono', monospace; color: #6b7080; white-space: nowrap; font-size: 0.92em;">Feb&nbsp;'25&nbsp;&rarr;</div>
-    <div style="flex: 1; color: #1f2330;">RoboTL &middot; first codesign loop (Aug&nbsp;'25)</div>
-  </div>
-  <div style="display: flex; align-items: baseline; gap: 1.2em; padding: 0.45em 0; border-top: 1px solid #ececf2; border-bottom: 1px solid #ececf2;">
-    <div style="flex: 0 0 5.5em; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #2d6a4f;">Effectful</div>
-    <div style="flex: 0 0 4.6em; font-family: 'IBM Plex Mono', monospace; color: #6b7080; white-space: nowrap; font-size: 0.92em;">Nov&nbsp;'25&nbsp;&rarr;</div>
-    <div style="flex: 1; color: #1f2330;">Effectful LLM handler &middot; OrchestSynth</div>
-  </div>
+<div style="margin: 1.3em auto 0; max-width: 96%;">
+  <svg viewBox="0 0 980 320" style="width: 100%; height: auto; font-family: 'IBM Plex Sans', -apple-system, sans-serif;">
+
+    <!-- Track labels -->
+    <text x="20" y="86"  font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#1E3A8A" font-size="20">MARA</text>
+    <text x="20" y="186" font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#c08230" font-size="20">R-ADA</text>
+    <text x="20" y="266" font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#2d6a4f" font-size="20">Effectful</text>
+
+    <!-- MARA trunk (main line) -->
+    <line x1="140" y1="80" x2="945" y2="80" stroke="#1E3A8A" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="945,72 965,80 945,88" fill="#1E3A8A"/>
+
+    <!-- R-ADA branch: forks down from MARA at Feb '25 -->
+    <path d="M 188 80 C 188 130, 238 130, 238 180 L 945 180" stroke="#c08230" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <polygon points="945,172 965,180 945,188" fill="#c08230"/>
+
+    <!-- Effectful branch: forks down from MARA at Nov '25 -->
+    <path d="M 616 80 C 616 200, 666 200, 666 260 L 945 260" stroke="#2d6a4f" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <polygon points="945,252 965,260 945,268" fill="#2d6a4f"/>
+
+    <!-- WorldTest paper bar (ongoing) -->
+    <rect x="283" y="74" width="640" height="12" rx="6" fill="#1E3A8A" fill-opacity="0.14"/>
+    <text x="603" y="83" text-anchor="middle" font-size="13" fill="#1E3A8A" font-style="italic" font-weight="500">WorldTest paper (writing)</text>
+
+    <!-- MARA milestones (above the trunk) -->
+    <!-- Autumn.cpp · Jan '25 -->
+    <circle cx="140" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+    <text x="140" y="50" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Autumn.cpp</text>
+    <text x="140" y="34" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Jan '25</text>
+
+    <!-- Protocol -->
+    <circle cx="235" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+    <text x="235" y="50" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Protocol</text>
+
+    <!-- WorldTest web -->
+    <circle cx="283" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+
+    <!-- Adv. synthesis · Feb '26 -->
+    <circle cx="807" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+    <text x="807" y="50" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Adv. synthesis</text>
+    <text x="807" y="34" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Feb '26</text>
+
+    <!-- R-ADA milestones (below the branch) -->
+    <!-- RoboTL · Feb '25 (where branch lands) -->
+    <circle cx="238" cy="180" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
+    <text x="238" y="208" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">RoboTL</text>
+    <text x="238" y="224" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Feb '25</text>
+
+    <!-- first codesign loop · Aug '25 -->
+    <circle cx="473" cy="180" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
+    <text x="473" y="208" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">first codesign loop</text>
+    <text x="473" y="224" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Aug '25</text>
+
+    <!-- Effectful milestone (below the branch) -->
+    <circle cx="666" cy="260" r="8" fill="#ffffff" stroke="#2d6a4f" stroke-width="2.5"/>
+    <text x="666" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Effectful LLM &#183; OrchestSynth</text>
+    <text x="666" y="304" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Nov '25</text>
+
+  </svg>
 </div>
 </section>
 
