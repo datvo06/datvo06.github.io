@@ -8,7 +8,7 @@ header_image: /assets/img/neurosymbolic_dg/thumbnail.png
 
 Here's a question [Duy](https://github.com/Duy-Nguyen-Duc) and I were kicking around: what if you combined a small DSL with a neural network classifier and the classifier head itself *happened* to be domain-invariant by construction? Not as a replacement for adaptation methods like CDAN, but as a much stronger starting point for them.
 
-Turns out it works. We replaced a linear classification layer with a probabilistic context-free grammar over spatial layout programs. The grammar scores spatial relations between detected parts, and those relations don't change when you go from photos to paintings.
+Turns out it works. We replaced a linear classification layer with a probabilistic context-free grammar over spatial layout programs. The grammar scores spatial relations between detected parts, and those relations don't change when you go from photos to paintings. We call this **PARSE** (Primitive-Aware Relational Structure for domain gEneralization); paper at [arXiv:2605.06043](https://arxiv.org/abs/2605.06043).
 
 Code: [datvo06/NeuroSymbolicDG](https://github.com/datvo06/NeuroSymbolicDG). Checkpoints: [HuggingFace](https://huggingface.co/datvo06/neurosymbolic-da-results).
 
@@ -30,53 +30,102 @@ ResNet-50
 
 The concept bottleneck (1x1 conv + [spatial soft-argmax](https://kornia.readthedocs.io/en/latest/geometry.subpix.html)) forces the network to decompose its representation into $k=8$ spatially localized primitives. Each primitive has a location, bounding box, and confidence. No hand-designed primitive vocabulary; the primitives emerge from end-to-end training.
 
-Same backbone, same data, same everything. Swap the PCFG head for a linear classifier:
+Per the paper's Table 1a, CUB-DG accuracy by target domain:
 
-<img src="{{ '/assets/img/neurosymbolic_dg/fig2_pcfg_vs_nopcfg.png' | relative_url }}" alt="PCFG vs NoPCFG" style="max-width: 100%; height: auto;">
+<table style="border-collapse: collapse; margin: 1em 0; font-size: 0.95em;">
+  <thead>
+    <tr style="border-bottom: 2px solid #444;">
+      <th style="text-align: left; padding: 0.4em 0.8em;">Method</th>
+      <th style="padding: 0.4em 0.8em;">Photo</th>
+      <th style="padding: 0.4em 0.8em;">Cartoon</th>
+      <th style="padding: 0.4em 0.8em;">Art</th>
+      <th style="padding: 0.4em 0.8em;">Paint</th>
+      <th style="padding: 0.4em 0.8em;">Avg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom: 1px solid #ddd;">
+      <td style="padding: 0.4em 0.8em;">CORAL (<a href="https://arxiv.org/abs/1607.01719">Sun &amp; Saenko, 2016</a>)</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">72.2</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">63.5</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">50.3</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">35.8</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">55.5</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #ddd;">
+      <td style="padding: 0.4em 0.8em;">GVRT</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">74.6</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">64.2</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">52.2</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">37.0</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">57.0</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #ddd;">
+      <td style="padding: 0.4em 0.8em;">ERM++ (prior best)</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">60.3</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">61.6</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">56.8</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;"><strong>65.8</strong></td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">61.1</td>
+    </tr>
+    <tr style="background: #f3f5fb;">
+      <td style="padding: 0.4em 0.8em;"><strong>PARSE</strong></td>
+      <td style="text-align: center; padding: 0.4em 0.8em;"><strong>75.7</strong></td>
+      <td style="text-align: center; padding: 0.4em 0.8em;"><strong>69.1</strong></td>
+      <td style="text-align: center; padding: 0.4em 0.8em;"><strong>68.2</strong></td>
+      <td style="text-align: center; padding: 0.4em 0.8em;">49.3</td>
+      <td style="text-align: center; padding: 0.4em 0.8em;"><strong>65.6</strong></td>
+    </tr>
+  </tbody>
+</table>
 
-| Method | Art | Cartoon | Paint | Avg |
-|--------|-----|---------|-------|-----|
-| NoPCFG+CDAN | 52.4% | 56.2% | 45.7% | 51.4% |
-| **PCFG+CDAN** | **68.8%** | **71.8%** | **60.5%** | **67.0%** |
-| Grammar $\Delta$ | +16.4 | +15.6 | +14.8 | **+15.6** |
++4.5pp over ERM++ on average. The gain concentrates on the harder stylistic domains (Photo, Cartoon, Art); Paint regresses (PARSE 49.3 vs ERM++ 65.8), which I discuss later. Now let me explain what that classifier head actually is.
 
-+15.6pp from changing the classifier head. The gap is remarkably consistent across targets. Now let me explain what that classifier head actually is.
+Same backbone, same data, same everything. Vary the predicate arities the head can use:
+
+<img src="{{ '/assets/img/neurosymbolic_dg/fig2_arity_ablation.png' | relative_url }}" alt="Predicate-arity ablation" style="max-width: 100%; height: auto;">
 
 ## The grammar
 
-A standard classifier ends with a linear layer: backbone features $\to$ class logits. We replace that with a PCFG over a small layout DSL. The DSL has two sorts of terminals:
+A standard classifier ends with a linear layer: backbone features $\to$ class logits. We replace that with a PCFG over a small layout DSL. The DSL has one unary terminal and a family of relations of varying arity:
 
 - **Existence**: $\texttt{has}(j)$ returns the confidence that primitive $j$ is present, a value in $[0,1]$.
-- **Relation**: $\texttt{rel}(r, i, j)$ returns a soft score for the proposition "primitive $i$ is in spatial relation $r$ to primitive $j$."
+- **Binary relation**: $\texttt{rel}(r, i, j)$ for pairwise spatial constraints.
+- **Ternary relation**: $\texttt{rel}_3(r, i, j, k)$ for triangle / chain layouts.
+- **Quaternary relation**: $\texttt{rel}_4(r, i, j, k, \ell)$ for predicates that compare two primitive pairs.
 
-The spatial relations are scored by sigmoid/Gaussian kernels over detected primitive coordinates:
+The binary predicates are scored by sigmoid/Gaussian kernels over detected primitive coordinates:
 
 $$
 \begin{aligned}
-\texttt{above}(i, j) &= \sigma\bigl(\lambda_1 (cy_j - cy_i - m_1)\bigr) \\
-\texttt{left\_of}(i, j) &= \sigma\bigl(\lambda_2 (cx_j - cx_i - m_2)\bigr) \\
-\texttt{near}(i, j) &= \exp\bigl(-\|c_i - c_j\|^2 / 2\rho^2\bigr) \\
-\texttt{aligned\_h}(i, j) &= \exp\bigl(-(cy_i - cy_j)^2 / 2\tau_1^2\bigr) \\
-\texttt{aligned\_v}(i, j) &= \exp\bigl(-(cx_i - cx_j)^2 / 2\tau_2^2\bigr) \\
+\texttt{above}(i, j) &= \sigma\bigl(\lambda_1 (cy_j - cy_i - m_1)\bigr) \\\\
+\texttt{left_of}(i, j) &= \sigma\bigl(\lambda_2 (cx_j - cx_i - m_2)\bigr) \\\\
+\texttt{near}(i, j) &= \exp\bigl(-\|c_i - c_j\|^2 / 2\rho^2\bigr) \\\\
+\texttt{aligned_h}(i, j) &= \exp\bigl(-(cy_i - cy_j)^2 / 2\tau_1^2\bigr) \\\\
+\texttt{aligned_v}(i, j) &= \exp\bigl(-(cx_i - cx_j)^2 / 2\tau_2^2\bigr) \\\\
 \texttt{contains}(i, j) &= \sigma\bigl(\lambda_3 \min(\text{margin}_{ij})\bigr)
 \end{aligned}
 $$
 
-All parameters $(\lambda, m, \tau, \rho)$ are learnable, jointly optimized with the rest of the network. The geometry of "above" and "near" adapts to the data; we don't hand-code thresholds.
+Ternary and quaternary predicates capture geometric patterns that pairwise relations cannot easily express. The two ternary predicates are $\texttt{tri}(i, j, k)$ (interior angle of the triangle formed by three primitives) and $\texttt{turn}(i, j, k)$ (turn angle along a primitive chain). The quaternary predicates compare two primitive pairs: $\texttt{orient}(i, j, k, \ell)$ checks whether vectors $\mathbf{v}_{ij}$ and $\mathbf{v}_{k\ell}$ form a target relative angle (via a soft cosine match), and $\texttt{eqdist}(i, j, k, \ell)$ checks whether $\|\mathbf{v}_{ij}\|$ and $\|\mathbf{v}_{k\ell}\|$ have a target log-ratio. These are pose-and-scale invariants by construction.
 
-Given $k=8$ primitive types and 6 relation types, the universal grammar enumerates all possible spatial constraints:
+All shape parameters $(\lambda, m, \tau, \rho, \text{target angles, target ratios})$ are learnable and jointly optimized with the rest of the network. The *form* of each predicate is locked in but the thresholds adapt.
+
+Given $K=16$ primitives and the predicate vocabulary above, the grammar enumerates all valid spatial compositions (binary applied to ordered pairs, ternary to ordered triples, quaternary to ordered quadruples):
 
 $$
 \begin{aligned}
-\texttt{Constraint} &\to \texttt{has}(p_j) && \text{for } j \in \{0, \ldots, 7\} && \text{(8 productions)} \\
-\texttt{Constraint} &\to \texttt{rel}(r, p_i, p_j) && \text{for } r \in \mathcal{R},\; i \neq j && \text{(6 × 56 = 336 productions)} \\
-\texttt{Layout}_y &\to \texttt{choice}(\texttt{score}(w_1, c_1), \ldots, \texttt{score}(w_{344}, c_{344})) && && \text{(marginalization)}
+\texttt{Constraint} &\to \texttt{has}(p_j) \\\\
+\texttt{Constraint} &\to \texttt{rel}(r, p_i, p_j) \\\\
+\texttt{Constraint} &\to \texttt{rel}_3(r, p_i, p_j, p_k) \\\\
+\texttt{Constraint} &\to \texttt{rel}_4(r, p_i, p_j, p_k, p_\ell) \\\\
+\texttt{Layout}_y &\to \texttt{choice}\bigl(\texttt{score}(w_1, c_1), \ldots, \texttt{score}(w_M, c_M)\bigr)
 \end{aligned}
 $$
 
-344 productions total. Each class $y$ has its own weight vector $\mathbf{w}_y \in \mathbb{R}^{344}$, normalized by **sparsemax** ([Martins & Astudillo, 2016](https://arxiv.org/abs/1602.02068)). Unlike softmax, sparsemax produces *exact zeros*: each class commits to a small set of active productions (typically 4 to 17 out of 344, mean 8). The class score:
+The total number of enumerated productions $M$ depends on $K$ and on how many channels each higher-arity predicate spans; for CUB-DG, $M \approx 130{,}000$ (paper Table 2b). Each class $y$ has its own weight vector $\mathbf{w}_y \in \mathbb{R}^M$, normalized by **sparsemax** ([Martins & Astudillo, 2016](https://arxiv.org/abs/1602.02068)). Sparsemax produces *exact zeros*, so each class commits to a small set of active productions: on CUB-DG, structural compaction prunes 99.3% of weights and leaves ~956 active per class on average (paper Table 2b). The class score:
 
-$$W_y(x) = \sum_{p=1}^{344} \underbrace{[\text{sparsemax}(\mathbf{w}_y)]_p}_{\text{grammar weight}} \cdot \underbrace{\beta_p(x)}_{\text{spatial score}}$$
+$$W_y(x) = \sum_{p=1}^{M} \underbrace{[\text{sparsemax}(\mathbf{w}_y)]_p}_{\text{grammar weight}} \cdot \underbrace{\beta_p(x)}_{\text{predicate activation}}$$
 
 If you squint, this is a linear classifier over *spatial relation features* with sparsemax forcing each class to pick a small structural explanation. Here's what that looks like on a real image, a Painted Bunting, from detected primitives through heatmaps to the grammar derivation:
 
