@@ -23,12 +23,14 @@ The pipeline:
 ```
 ResNet-50
   → 1×1 conv → K=16 heatmaps
-  → spatial_soft_argmax → 16 primitives {(cx, cy, bbox, conf)}
-  → PCFG: ~130k enumerated productions, sparsemax weights per class
-  → class scores → log-softmax
+  → diff. heatmap-to-coord (Nibali et al. 2018) → 16 primitives {(cx, cy, σ, δx, δy)}
+        cx, cy: centroid       σ: presence confidence (sigmoid of max)
+        δx, δy: spatial extent (2× std under the temperature-softmax heatmap)
+  → enumerate predicate applications: ~130k for CUB-DG
+  → sparsemax per-class weights, sparse dot product → class scores → softmax CE
 ```
 
-The concept bottleneck (1x1 conv + [spatial soft-argmax](https://kornia.readthedocs.io/en/latest/geometry.subpix.html)) forces the network to decompose its representation into K = 16 spatially localized primitives. Each primitive has a location, bounding box, and confidence. No hand-designed primitive vocabulary; the primitives emerge from end-to-end training.
+The concept bottleneck (1×1 conv + the differentiable heatmap-to-coordinate transform of [Nibali et al., 2018](https://arxiv.org/abs/1801.07372)) forces the network to decompose its representation into $K=16$ spatially localized primitives. Each primitive carries a centroid, a presence confidence (sigmoid of the heatmap max), and a spatial extent (twice the coordinate-wise standard deviation under the temperature-softmax heatmap). No hand-designed primitive vocabulary: the primitives emerge from end-to-end training with image-level class labels only.
 
 Per the paper's Table 1a, CUB-DG accuracy by target domain:
 
