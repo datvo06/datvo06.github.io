@@ -87,12 +87,12 @@ Same backbone, same data, same everything. Vary the predicate arities the head c
 
 ## The grammar
 
-A standard classifier ends with a linear layer: backbone features $\to$ class logits. We replace that with a PCFG over a small layout DSL. The DSL has one unary terminal and a family of relations of varying arity:
+A standard classifier ends with a linear layer: backbone features $\to$ class logits. We replace that with a PCFG over a small layout DSL. The DSL has one unary terminal and three families of relations:
 
-- **Existence**: $\texttt{has}(j)$ returns the confidence that primitive $j$ is present, a value in $[0,1]$.
-- **Binary relation**: $\texttt{rel}(r, i, j)$ for pairwise spatial constraints.
-- **Ternary relation**: $\texttt{rel}_3(r, i, j, k)$ for triangle / chain layouts.
-- **Quaternary relation**: $\texttt{rel}_4(r, i, j, k, \ell)$ for predicates that compare two primitive pairs.
+- **Existence** (unary): `has` returns the confidence that a primitive is present.
+- **Binary relations** (6): `above`, `left_of`, `near`, `aligned_h`, `aligned_v`, `contains`. Score pairwise spatial constraints between two primitives.
+- **Ternary relations** (2): `tri` (target interior angle of a triangle of three primitives) and `turn` (target turn angle along a primitive chain).
+- **Quaternary relations** (2): `orient` (target relative orientation between two primitive-pair edges) and `eqdist` (whether the two edges have similar length, via a log-ratio).
 
 The binary predicates are scored by sigmoid/Gaussian kernels over detected primitive coordinates:
 
@@ -107,9 +107,27 @@ $$
 \end{aligned}
 $$
 
-Ternary and quaternary predicates capture geometric patterns that pairwise relations cannot easily express. The two ternary predicates are $\texttt{tri}(i, j, k)$ (interior angle of the triangle formed by three primitives) and $\texttt{turn}(i, j, k)$ (turn angle along a primitive chain). The quaternary predicates compare two primitive pairs: $\texttt{orient}(i, j, k, \ell)$ checks whether vectors $\mathbf{v}_{ij}$ and $\mathbf{v}_{k\ell}$ form a target relative angle (via a soft cosine match), and $\texttt{eqdist}(i, j, k, \ell)$ checks whether $\|\mathbf{v}_{ij}\|$ and $\|\mathbf{v}_{k\ell}\|$ have a target log-ratio. These are pose-and-scale invariants by construction.
+**Ternary predicates.** Let $\alpha_{ijk}$ be the interior angle at $p_i$ in triangle $(p_i, p_j, p_k)$, and let $\theta^{\text{turn}}_{ijk} = \arccos(\hat{\mathbf{v}}_{ij} \cdot \hat{\mathbf{v}}_{jk})$ be the turn angle along the ordered chain $p_i \to p_j \to p_k$. Each predicate is a soft Gaussian on the target angle:
 
-All shape parameters $(\lambda, m, \tau, \rho, \text{target angles, target ratios})$ are learnable and jointly optimized with the rest of the network. The *form* of each predicate is locked in but the thresholds adapt.
+$$
+\begin{aligned}
+R_{\text{tri}}(p_i, p_j, p_k)  &= \exp\!\left(-\frac{(\alpha_{ijk} - \psi)^2}{2\beta^2}\right) \\\\
+R_{\text{turn}}(p_i, p_j, p_k) &= \exp\!\left(-\frac{(\theta^{\text{turn}}_{ijk} - \phi)^2}{2\eta^2}\right)
+\end{aligned}
+$$
+
+**Quaternary predicates.** Two primitive pairs are compared via the directed edges $\mathbf{v}_{ij} = c_j - c_i$ and $\mathbf{v}_{k\ell} = c_\ell - c_k$, with unit vectors $\hat{\mathbf{v}}_{ij}$ and $\hat{\mathbf{v}}_{k\ell}$:
+
+$$
+\begin{aligned}
+R_{\text{orient}}(p_i, p_j, p_k, p_\ell)  &= \exp\!\left(-\frac{(\hat{\mathbf{v}}_{ij} \cdot \hat{\mathbf{v}}_{k\ell} - \cos\varphi)^2}{2\gamma^2}\right) \\\\
+R_{\text{eqdist}}(p_i, p_j, p_k, p_\ell)  &= \exp\!\left(-\frac{1}{2\tau_d^2} \log^2\!\frac{\|\mathbf{v}_{ij}\|}{\|\mathbf{v}_{k\ell}\|}\right)
+\end{aligned}
+$$
+
+$R_{\text{orient}}$ scores whether the two edges form a target relative angle $\varphi$; $R_{\text{eqdist}}$ scores whether the two edges have similar length (the log-ratio form makes the comparison symmetric). Both are pose-and-scale invariants by construction.
+
+All shape parameters $(\lambda, m, \tau, \rho, \psi, \beta, \phi, \eta, \varphi, \gamma, \tau_d)$ are learnable and jointly optimized with the rest of the network. The *form* of each predicate is locked in but the thresholds adapt.
 
 Given $K=16$ primitives and the predicate vocabulary above, the grammar enumerates all valid spatial compositions (binary applied to ordered pairs, ternary to ordered triples, quaternary to ordered quadruples):
 
