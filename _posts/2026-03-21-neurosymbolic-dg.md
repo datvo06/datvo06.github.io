@@ -182,7 +182,9 @@ The grammar learns genuinely distinct structural descriptions per species, not a
 
 ## Why it works
 
-If you think about it in PL terms, the grammar weights define a *finite abstraction* of the image. You go from a continuous pixel space to a sparse vector of spatial relation scores, a very coarse summary. Domain shift is a transformation in the concrete (pixel) domain. But the grammar's abstraction is coarse enough to be invariant to it: "beak above breast" holds in photos and in oil paintings, even though the pixels are completely different.
+The paper's motivating example: take the same bird species in Photo and Cartoon. The local parts (eyes, beak, wings) shift in appearance, with flattened colors, simplified textures, missing specular highlights. But their coarse spatial organization is invariant. The beak still lies near the eyes along the head; the wings still sit in characteristic positions relative to the body. A classifier that reads off "beak near eyes, wings to the side of body" gets the same signal in both domains; a classifier that reads off pixels does not.
+
+In PL terms, the grammar weights define a *finite abstraction* of the image. You go from a continuous pixel space to a sparse vector of spatial-predicate scores, a coarse summary. Domain shift is a transformation in the concrete (pixel) domain. The grammar's abstraction is coarse enough to be invariant to it: "beak near eyes" and "wings beside body" hold in photos and in cartoons even though the pixels look nothing alike.
 
 Here's the same species across Photo, Art, and Cartoon. The heatmap patterns are consistent despite dramatic appearance changes:
 
