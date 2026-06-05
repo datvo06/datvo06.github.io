@@ -75,63 +75,67 @@
 <li class="fragment fade-in-then-semi-out"><strong style="color: #1E3A8A;">Effectful LLM</strong> &middot; LLM calls as typed programs</li>
 </ul>
 
-<div style="margin: 1.3em auto 0; max-width: 96%;">
-  <svg viewBox="0 0 980 320" style="width: 100%; height: auto; font-family: 'IBM Plex Sans', -apple-system, sans-serif;">
+<div style="margin: 1em auto 0; max-width: 96%;">
+  <svg viewBox="0 0 980 410" style="width: 100%; height: auto; font-family: 'IBM Plex Sans', -apple-system, sans-serif;">
 
-    <!-- Track labels -->
-    <text x="20" y="86"  font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#1E3A8A" font-size="20">MARA</text>
-    <text x="20" y="186" font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#c08230" font-size="20">R-ADA</text>
-    <text x="20" y="266" font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#2d6a4f" font-size="20">Effectful</text>
+    <!-- Track labels at left -->
+    <text x="20" y="86"  font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#1E3A8A" font-size="18">WT paper</text>
+    <text x="20" y="176" font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#1E3A8A" font-size="20">MARA</text>
+    <text x="20" y="266" font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#c08230" font-size="20">R-ADA</text>
+    <text x="20" y="346" font-family="'IBM Plex Mono', monospace" font-weight="700" fill="#2d6a4f" font-size="20">Effectful</text>
 
-    <!-- MARA trunk (main line) -->
-    <line x1="140" y1="80" x2="945" y2="80" stroke="#1E3A8A" stroke-width="3" stroke-linecap="round"/>
-    <polygon points="945,72 965,80 945,88" fill="#1E3A8A"/>
+    <!-- MARA trunk (middle, the main line) -->
+    <line x1="140" y1="170" x2="945" y2="170" stroke="#1E3A8A" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="945,162 965,170 945,178" fill="#1E3A8A"/>
 
-    <!-- R-ADA branch: forks down from MARA at Feb '25 -->
-    <path d="M 188 80 C 188 130, 238 130, 238 180 L 945 180" stroke="#c08230" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <polygon points="945,172 965,180 945,188" fill="#c08230"/>
+    <!-- WorldTest paper branch: forks UP from MARA at Apr '25 -->
+    <path d="M 282 170 C 282 130, 332 130, 332 80 L 945 80" stroke="#1E3A8A" stroke-width="3" fill="none" stroke-linecap="round" stroke-opacity="0.75"/>
+    <polygon points="945,72 965,80 945,88" fill="#1E3A8A" fill-opacity="0.75"/>
 
-    <!-- Effectful branch: forks down from MARA at Nov '25 -->
-    <path d="M 616 80 C 616 200, 666 200, 666 260 L 945 260" stroke="#2d6a4f" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <polygon points="945,252 965,260 945,268" fill="#2d6a4f"/>
+    <!-- R-ADA branch: forks DOWN from MARA at Feb '25 -->
+    <path d="M 187 170 C 187 220, 237 220, 237 260 L 945 260" stroke="#c08230" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <polygon points="945,252 965,260 945,268" fill="#c08230"/>
 
-    <!-- WorldTest paper bar (ongoing) -->
-    <rect x="283" y="74" width="640" height="12" rx="6" fill="#1E3A8A" fill-opacity="0.14"/>
-    <text x="603" y="83" text-anchor="middle" font-size="13" fill="#1E3A8A" font-style="italic" font-weight="500">WorldTest paper (writing)</text>
+    <!-- Effectful branch: forks DOWN from MARA at Nov '25 -->
+    <path d="M 613 170 C 613 280, 663 280, 663 340 L 945 340" stroke="#2d6a4f" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <polygon points="945,332 965,340 945,348" fill="#2d6a4f"/>
 
-    <!-- MARA milestones (above the trunk) -->
-    <!-- Autumn.cpp · Jan '25 -->
-    <circle cx="140" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
-    <text x="140" y="50" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Autumn.cpp</text>
-    <text x="140" y="34" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Jan '25</text>
+    <!-- WT paper fork start -->
+    <circle cx="332" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+    <text x="332" y="50" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">writing begins</text>
+    <text x="332" y="34" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Apr '25</text>
 
-    <!-- Protocol -->
-    <circle cx="235" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
-    <text x="235" y="50" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Protocol</text>
+    <!-- AutumnBench blogpost · Jul '25 -->
+    <circle cx="425" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+    <text x="425" y="50" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">AutumnBench post</text>
+    <text x="425" y="34" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Jul '25</text>
 
-    <!-- WorldTest web -->
-    <circle cx="283" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+    <!-- MARA milestones (labels ABOVE the trunk) -->
+    <circle cx="140" cy="170" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+    <text x="140" y="145" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Autumn.cpp</text>
+    <text x="140" y="129" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Jan '25</text>
 
-    <!-- Adv. synthesis · Feb '26 -->
-    <circle cx="807" cy="80" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
-    <text x="807" y="50" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Adv. synthesis</text>
-    <text x="807" y="34" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Feb '26</text>
+    <circle cx="235" cy="170" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+    <text x="235" y="145" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Protocol</text>
+    <text x="235" y="129" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Mar '25</text>
 
-    <!-- R-ADA milestones (below the branch) -->
-    <!-- RoboTL · Feb '25 (where branch lands) -->
-    <circle cx="238" cy="180" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
-    <text x="238" y="208" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">RoboTL</text>
-    <text x="238" y="224" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Feb '25</text>
+    <circle cx="803" cy="170" r="8" fill="#ffffff" stroke="#1E3A8A" stroke-width="2.5"/>
+    <text x="803" y="145" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Adv. synthesis</text>
+    <text x="803" y="129" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Feb '26</text>
 
-    <!-- first codesign loop · Aug '25 -->
-    <circle cx="473" cy="180" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
-    <text x="473" y="208" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">first codesign loop</text>
-    <text x="473" y="224" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Aug '25</text>
+    <!-- R-ADA milestones (labels BELOW the branch) -->
+    <circle cx="237" cy="260" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
+    <text x="237" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">RoboTL</text>
+    <text x="237" y="304" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Feb '25</text>
 
-    <!-- Effectful milestone (below the branch) -->
-    <circle cx="666" cy="260" r="8" fill="#ffffff" stroke="#2d6a4f" stroke-width="2.5"/>
-    <text x="666" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Effectful LLM &#183; OrchestSynth</text>
-    <text x="666" y="304" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Nov '25</text>
+    <circle cx="471" cy="260" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
+    <text x="471" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">first codesign loop</text>
+    <text x="471" y="304" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Aug '25</text>
+
+    <!-- Effectful milestone (label BELOW the branch) -->
+    <circle cx="663" cy="340" r="8" fill="#ffffff" stroke="#2d6a4f" stroke-width="2.5"/>
+    <text x="663" y="368" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Effectful LLM &#183; OrchestSynth</text>
+    <text x="663" y="384" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Nov '25</text>
 
   </svg>
 </div>
