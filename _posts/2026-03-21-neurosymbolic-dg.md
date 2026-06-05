@@ -14,7 +14,7 @@ Code: [datvo06/NeuroSymbolicDG](https://github.com/datvo06/NeuroSymbolicDG). Che
 
 ## The setup and the result
 
-The benchmark is CUB-DG ([Min et al., ECCV 2022](https://arxiv.org/abs/2209.14108)): 200 bird species across 4 visual domains (Photo, Art, Cartoon, Paint). Train on 3 domains, test on the held-out one. Best published image-only method, CORAL ([Sun & Saenko, 2016](https://arxiv.org/abs/1607.01719)): 49.9% avg. Best with image+text, CITGM: 53.6%. We get **67.0%** with image only.
+The benchmark is CUB-DG ([Min et al., ECCV 2022](https://arxiv.org/abs/2209.14108)): 200 bird species across 4 visual domains (Photo, Art, Cartoon, Paint). Train on 3 domains, test on the held-out one. The prior best image-only method is ERM++ ([Teterwak et al., 2025](https://arxiv.org/abs/2304.01973)) at 61.1% average; CORAL ([Sun & Saenko, 2016](https://arxiv.org/abs/1607.01719)) sits at 55.5%, GVRT ([Min et al., 2022](https://arxiv.org/abs/2207.02014)) at 57.0%. PARSE reaches **65.6%** with image only.
 
 <img src="{{ '/assets/img/neurosymbolic_dg/fig1_cubdg_hero.png' | relative_url }}" alt="CUB-DG results comparison" style="max-width: 100%; height: auto;">
 
