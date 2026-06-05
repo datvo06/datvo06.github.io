@@ -176,6 +176,11 @@
     <line x1="755" y1="268" x2="755" y2="334" stroke="#c08230" stroke-width="2" stroke-dasharray="4 3" stroke-opacity="0.65"/>
     <polygon points="751,332 759,332 755,342" fill="#c08230" fill-opacity="0.8"/>
 
+    <!-- codesign w/ MPC on R-ADA · Apr '26 (user returns to codesign with the new controller) -->
+    <circle cx="870" cy="260" r="8" fill="#ffffff" stroke="#c08230" stroke-width="2.5"/>
+    <text x="870" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">codesign w/ MPC</text>
+    <text x="870" y="304" text-anchor="middle" font-size="12" fill="#6b7080" font-family="'IBM Plex Mono', monospace">Apr '26</text>
+
     <!-- Effectful milestone (label BELOW the branch) -->
     <circle cx="663" cy="340" r="8" fill="#ffffff" stroke="#2d6a4f" stroke-width="2.5"/>
     <text x="663" y="368" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2330">Effectful LLM &#183; OrchestSynth</text>
@@ -1906,9 +1911,12 @@ with handler(provider):                           # bind the meaning
 </p>
 
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;">
+  <p style="margin: 0 0 0.25em; font-size: 0.42em;">
     <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
     Natural-language task &rarr; LLM picks semantic tags &rarr; structural grammar over the <strong>Open Parametric Hand (OPH)</strong> &rarr; LLM refines parameters across <strong>~5 iterations</strong>. Output: a 3D-printable, task-specific robotic hand.
+  </p>
+  <p style="margin: 0; font-size: 0.36em; color: #1E3A8A; font-style: italic;">
+    We only reproduced this paper. R-ADA is the separate work.
   </p>
 </div>
 
@@ -1946,11 +1954,6 @@ with handler(provider):                           # bind the meaning
   <img src="./media/codesign/image17.png" alt="reproducing finding 1" style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
   <img src="./media/codesign/image10.png" alt="reproducing finding 2" style="flex: 1; max-width: 48%; max-height: 65vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
 </div>
-</section>
-
-<section id="slide-rada-04" class="slide level2" data-background-color="#fafbfc">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Morphology design spaces from the paper</h2>
-<img src="./media/codesign/image23.png" alt="morphology design spaces" style="display: block; margin: 0 auto; max-width: 95%; max-height: 70vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
 </section>
 
 <section id="slide-rada-05" class="slide level2" data-background-color="#fafbfc">
