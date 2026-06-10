@@ -1955,32 +1955,13 @@ with handler(provider):                           # bind the meaning
   </p>
 </div>
 
-<div style="display: flex; gap: 0.9em; justify-content: center; font-size: 0.38em; text-align: left;">
-
-  <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Substrate</div>
-    <p style="margin: 0; color: #4a4f5a;">OPH: a parametric hand family. The grammar enumerates valid configurations; LLM picks parameter values.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Feedback</div>
-    <p style="margin: 0; color: #4a4f5a;">Selection + refinement loop scores candidates by semantic alignment and size compatibility. Body-only design; no controller, no simulator in the loop.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 300px; padding: 0.65em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What we take from it</div>
-    <p style="margin: 0; color: #1f2330;">Parametric hand as the morphology substrate. <strong>R-ADA adds:</strong> a controller, an objective, and a simulator handler, all in the same DSL.</p>
-  </div>
-
-</div>
-</section>
-
-<section id="slide-rada-02" class="slide level2" data-background-color="#fafbfc">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Reproducing Lang2Morph: hand-grasping visualization</h2>
 <div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
-  <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-  <video src="./media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 0 0 auto; width: 45%; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="./media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
 </div>
+<p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: center;">
+  Our reproduction: hand-grasping rollouts from the Lang2Morph pipeline.
+</p>
 </section>
 
 <section id="slide-rada-03" class="slide level2" data-background-color="#fafbfc">
