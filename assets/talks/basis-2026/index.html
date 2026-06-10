@@ -2168,23 +2168,6 @@ with handler(provider):                           # bind the meaning
   <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
     <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
       <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">1</span>
-      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Brittle hand swap</span>
-    </div>
-    <p style="margin: 0 0 0.4em; color: #4a4f5a;">Reward terms in <code>CubeSpinningEnv</code> read LEAP-only fields. Crashed on ShadowHand and ComicHand until guarded. Generic LLM hands do not port to envs the LLM did not also design.</p>
-<pre style="margin: 0 0 0.35em; padding: 0.4em 0.55em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; line-height: 1.35; color: #1f2330; overflow: hidden;"><code>reward += f.ft.dot(...)    # LEAP
-reward += seg3.pos.z       # LEAP
-# ShadowHand: AttributeError</code></pre>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em; margin-top: auto; padding-top: 0.3em; font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #6b7080;">
-      <span style="padding: 0.1em 0.45em; background: #ffffff; border: 1px solid #d0d5dc; border-radius: 3px;">LEAP</span>
-      <span style="color: #1E3A8A;">&xrarr;</span>
-      <span style="padding: 0.1em 0.45em; background: #fdf5f3; border: 1px dashed #c0392b; border-radius: 3px; color: #c0392b;">ShadowHand</span>
-      <span style="color: #c0392b;">&#x2717;</span>
-    </div>
-  </div>
-
-  <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
-    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
-      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">2</span>
       <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Stages need names</span>
     </div>
     <p style="margin: 0 0 0.4em; color: #4a4f5a;">Bottleneck wins because <code>stage = floor(t/2)</code> slices it into enter then turn. Figure-8 path tracing is one continuous goal, no nameable stages, no clean win.</p>
@@ -2203,7 +2186,7 @@ reward += seg3.pos.z       # LEAP
 
   <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
     <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
-      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">3</span>
+      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">2</span>
       <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Sim params are hand-tuned</span>
     </div>
     <p style="margin: 0 0 0.4em; color: #4a4f5a;">Friction, timestep, and contact solver all picked by hand for stable contact. Nothing here has touched real hardware yet.</p>
