@@ -2168,6 +2168,14 @@ with handler(provider):                           # bind the meaning
   <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
     <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
       <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">1</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">State estimation</span>
+    </div>
+    <p style="margin: 0; color: #4a4f5a;">Today the env hands over state directly; real deployment needs to estimate it from sensors.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
+      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">2</span>
       <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Sim params are hand-tuned</span>
     </div>
     <p style="margin: 0 0 0.4em; color: #4a4f5a;">Friction, timestep, and contact solver all picked by hand for stable contact. Nothing here has touched real hardware yet.</p>
@@ -2183,14 +2191,10 @@ with handler(provider):                           # bind the meaning
 
   <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
     <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
-      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">2</span>
-      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Open problems</span>
+      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">3</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Control efficacy</span>
     </div>
-    <ul style="margin: 0.1em 0 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-      <li><strong>State estimation.</strong> Sensors instead of given state.</li>
-      <li><strong>Sim-to-real.</strong> Friction, hand gain, timestep.</li>
-      <li><strong>Control efficacy.</strong> Where does dense reward design break?</li>
-    </ul>
+    <p style="margin: 0; color: #4a4f5a;">Where does dense, hand-designed reward shaping stop working?</p>
   </div>
 
 </div>
