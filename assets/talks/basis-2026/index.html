@@ -2087,44 +2087,26 @@ with handler(provider):                           # bind the meaning
   Fix the sparse-reward problem: have the LLM write the auxiliary loss too. The objective stages the trajectory (enter, grasp, turn) and the codesign loop succeeds with container.
 </p>
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 78vh; max-height: 78vh; overflow: hidden;">
-  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.22em; line-height: 1.3; overflow: hidden;"><code class="language-python" data-trim># RoboTL: BottleneckEnv from robotl/examples/bottleneck.py
-@defcomponent
-def BottleneckEnv(self, robot, target,
-                  container_size=0.5, entrance_width=0.2, entrance_length=0.2):
-    self.container = Container(size=container_size,
-                               entrance_width=entrance_width,
-                               entrance_length=entrance_length)
-    self.robot, self.target = robot, target
-    # welds: container + robot + target positioned in world frame
-    self._weld_robot  = joints.Weld(self.base, self.robot.base,  Pose(...))
-    self._weld_target = joints.Weld(self.container.center, self.target.base)
-
-    # Stage the trajectory: t in [0,2) -> reach entrance; t in [2,4) -> reach target.
-    stage = jnp.floor(time() / 2)
-
-    self.lead_to_entrance = Equalize(
-        self.robot.tip.pos,
-        self.container.entrance_center.pos,
-        weight=1e-1 * (stage == 0),
-    )
-    self.lead_to_target = Equalize(
-        self.robot.tip.pos,
-        self.target.pos,
-        weight=1e-1 * (stage == 1),
-    )
-    self.duration = 5
-
-# The target itself carries the success criterion:
-@defcomponent
-def KnobTarget(self, size):
-    self.knob       = Knob(size)
-    self.knob_joint = joints.Hinge(self.base, self.knob.base,
-                                   axis=Y, range=(-tau/4, 0), frictionloss=0.1)
-    self.knob_angle = sensors.Position(self.knob_joint)
-    self.loss = Equalize(self.knob_angle.get(), -tau / 4)   # quarter turn ccw</code></pre>
+  <div style="flex: 1.3; min-width: 0; min-height: 0; display: flex; flex-direction: column; justify-content: center;">
+    <pre style="margin: 0; font-size: 0.27em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-line-numbers="1-10|11|12|13|14|15|16">def aux_losses(env) -&gt; dict:
+    tip = env.robot.tip.pos
+    target = env.target.pos
+    entrance = jnp.array([0.0, 1.1, target[2] - 0.01])
+    pregrasp = jnp.array([0.0, target[1] - 0.03, target[2]])
+    t = sim_time()
+    s1 = jnp.clip(t / 1.0, 0.0, 1.0)
+    s2 = jnp.clip((t - 1.0) / 1.5, 0.0, 1.0)
+    guide = (1.0 - s1) * entrance + s1 * ((1.0 - s2) * pregrasp + s2 * target)
+    return {
+        "staged_centerline_insert": Equalize(tip, guide, weight=0.012),
+        "forward_progress": Maximize(tip[1], weight=0.008),
+        "depth_match": Nullify(tip[1] - target[1], weight=0.02),
+        "height_match": Nullify(tip[2] - target[2], weight=0.015),
+        "soft_center_x": Nullify(tip[0], weight=0.006),
+        "entrance_band_x": KeepBelow(jnp.abs(tip[0]), 0.05, weight=0.015),
+    }</code></pre>
   </div>
-  <div style="flex: 1.15; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.35em; align-items: center; justify-content: flex-start;">
+  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.35em; align-items: center; justify-content: flex-start;">
     <img src="./media/codesign/image11.png" alt="result chart" style="display: block; max-width: 100%; max-height: 40%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
     <video src="./media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline controls preload="auto" style="display: block; max-width: 100%; max-height: 58%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
   </div>
