@@ -40,6 +40,12 @@ permalink: /talks/basis-2026/autumn-embed/
     cursor: pointer;
     display: block;
   }
+  /* Compact mode (?compact=1): stack canvas over a slim control row, hide the
+     program picker + FPS slider. Used when the embed sits beside code on a slide. */
+  body.compact { flex-direction: column; gap: 10px; padding: 10px; }
+  body.compact #autumn-inline-wrapper { width: min(82vw, 64vh); max-width: 82vw; }
+  body.compact #autumn-program-select,
+  body.compact #autumn-fps-row { display: none; }
 </style>
 </head>
 <body>
@@ -56,7 +62,7 @@ permalink: /talks/basis-2026/autumn-embed/
       <button id="autumn-reset" class="autumn-aux-btn" type="button">Reset</button>
       <button id="autumn-pause" class="autumn-aux-btn" type="button">Pause</button>
     </div>
-    <div class="autumn-aux-row" style="display: flex; align-items: center; gap: 0.5em; margin-top: 0.35em;">
+    <div class="autumn-aux-row" id="autumn-fps-row" style="display: flex; align-items: center; gap: 0.5em; margin-top: 0.35em;">
       <label for="autumn-fps" style="font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; color: #4a4f5a; letter-spacing: 0.05em; text-transform: uppercase;">FPS</label>
       <input id="autumn-fps" type="range" min="1" max="120" step="1" value="8" style="flex: 1; accent-color: #1E3A8A;">
       <span id="autumn-fps-readout" style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #1f2330; min-width: 2.6em; text-align: right;">8</span>
@@ -105,6 +111,17 @@ for (const name of Object.keys(PROGRAMS)) {
   opt.value = name;
   opt.textContent = name;
   select.appendChild(opt);
+}
+
+// Per-embed config via query string: ?program=Sand preselects a game,
+// ?compact=1 switches to the stacked, chrome-light layout for slide use.
+const embedParams = new URLSearchParams(location.search);
+const requestedProgram = embedParams.get('program');
+if (requestedProgram && PROGRAMS[requestedProgram]) {
+  select.value = requestedProgram;
+}
+if (embedParams.get('compact') === '1') {
+  document.body.classList.add('compact');
 }
 
 function loadProgram(name) {
