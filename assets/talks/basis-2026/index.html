@@ -722,6 +722,45 @@ def _move_balls(self):
 </div>
 </section>
 
+<section id="slide-9c" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Model-based task solver</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.8em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">How a task gets answered.</strong>
+    The solver agent leverages the synthesized <code>world.py</code> to solve each task family. Every algorithm below runs the model, and each is handed to the agent <em>as a tool</em>.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.8em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left; margin-bottom: 0.7em;">
+
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35em; font-weight: 600;">Masked frame prediction</div>
+    <p style="margin: 0; color: #1f2330;">Run the same action sequence as the example, then compare the model's cells at the <em>masked</em> positions against each candidate choice.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35em; font-weight: 600;">Change detection</div>
+    <p style="margin: 0; color: #1f2330;">Run the same random action sequence on both the synthetic and the true environment, then report the first step where they diverge.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35em; font-weight: 600;">Planning</div>
+    <p style="margin: 0; color: #1f2330;">BFS over action sequences on the synthetic world up to a fixed depth (default 8), then check whether the grid matches the goal within the mask.</p>
+  </div>
+
+</div>
+
+<div style="margin: 0 auto; max-width: 90%; text-align: left;">
+  <p style="margin: 0 0 0.3em; font-size: 0.36em; color: #1f2330;">
+    These algorithms are presented to the solve agent as <strong style="color: #1E3A8A;">tools</strong>: the agent has the freedom not to follow their results exactly.
+  </p>
+  <p style="margin: 0; font-size: 0.36em; color: #8a5a1f; font-style: italic;">
+    For planning tasks, many agent instances are observed to plan in natural language instead.
+  </p>
+</div>
+</section>
+
 <!-- ─── Motivating slides: gap vs human in performance and sample complexity ─── -->
 
 <section id="slide-10pre1" class="slide level2">
@@ -1398,7 +1437,7 @@ class SynthesizedWorld:
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part II</div>
       <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.3em 0;">R-ADA: Co-Design with LLM</h2>
       <p style="font-size: 0.4em; color: #6b7080; margin: 0 0 0.4em 0; font-style: italic;">Research question: <em>can an LLM codesign robot morphology and control end-to-end, without bi-level optimization?</em></p>
-      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">No substrate exists in this domain, so we engineer one: <strong>RoboTL</strong>, a DSL for robots and objectives that unifies geometric and kinematic constraints. The LLM writes programs in it; CAD, JAX, and MuJoCo handlers answer. <em>Same recipe as MARA</em>, manufactured substrate.</p>
+      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">No substrate exists in this domain, so we engineer one: <strong>RoboTL</strong>.</p>
     </div>
     <img src="./media/codesign/robotl_logo.png" alt="RoboTL logo" style="flex: 0 0 auto; max-height: 50vh; max-width: 35%; width: auto; height: auto; object-fit: contain;">
   </div>
