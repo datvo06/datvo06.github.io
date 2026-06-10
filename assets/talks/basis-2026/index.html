@@ -430,6 +430,39 @@
 </div>
 </section>
 
+<section id="slide-7b" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">From oracle-guided synthesis to WorldTest</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Borrowed from synthesis, adapted to POMDPs.</strong>
+    Oracle-guided synthesis lets the synthesizer interrogate an oracle about the desired program. We want the same leverage for world-model learners. POMDP agents only know how to step in an environment, so we make stepping <em>be</em> the question.
+  </p>
+</div>
+
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">In SyGUS / oracle-guided synthesis</div>
+    <p style="margin: 0; color: #4a4f5a;">The synthesizer queries an oracle: <em>does the candidate program satisfy this property?</em> The oracle answers directly.</p>
+    <p style="margin: 0.5em 0 0; font-family: 'IBM Plex Mono', monospace; color: #1f2330; background: #f6f7fb; border-radius: 4px; padding: 0.35em 0.5em;">query(prop) &rarr; yes/no/witness</p>
+  </div>
+
+  <div style="flex: 0 0 auto; align-self: center; padding: 0 0.3em; font-size: 1.6em; color: #1E3A8A;">&rarr;</div>
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">In POMDPs (our move)</div>
+    <p style="margin: 0; color: #1f2330;">Reify each query as a <strong>task in an alternated environment</strong> with its own action space and reward. If the agent solves the task, it answered the query.</p>
+    <p style="margin: 0.5em 0 0; font-family: 'IBM Plex Mono', monospace; color: #1f2330; background: #ffffff; border-radius: 4px; padding: 0.35em 0.5em;">query \( q \) &rarr; sub-env \( E_q \); R<sub>q</sub>(&tau;) &equiv; ans<sub>q</sub>(M&#770;)</p>
+  </div>
+
+</div>
+
+<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
+  Consequence: the evaluation stays representation-agnostic, it never reads the model, only task rewards. Next: WorldTest makes this a two-phase loop.
+</p>
+</section>
+
 <section id="slide-7" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">WorldTest: a specialization of MARA Protocol</h2>
 
@@ -472,39 +505,6 @@
 
 <p style="margin: 0.6em auto 0; max-width: 88%; font-size: 0.36em; color: #6b7080; text-align: left;">
   Instantiation: <strong>AutumnBench</strong>. 43 grid-worlds, 129 tasks across three query families.
-</p>
-</section>
-
-<section id="slide-7b" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Why this reduction: <em>queries become tasks</em></h2>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Borrowed from synthesis, adapted to POMDPs.</strong>
-    Oracle-guided synthesis lets the synthesizer interrogate an oracle about the desired program. We want the same leverage for world-model learners. POMDP agents only know how to step in an environment, so we make stepping <em>be</em> the question.
-  </p>
-</div>
-
-<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
-
-  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">In SyGUS / oracle-guided synthesis</div>
-    <p style="margin: 0; color: #4a4f5a;">The synthesizer queries an oracle: <em>does the candidate program satisfy this property?</em> The oracle answers directly.</p>
-    <p style="margin: 0.5em 0 0; font-family: 'IBM Plex Mono', monospace; color: #1f2330; background: #f6f7fb; border-radius: 4px; padding: 0.35em 0.5em;">query(prop) &rarr; yes/no/witness</p>
-  </div>
-
-  <div style="flex: 0 0 auto; align-self: center; padding: 0 0.3em; font-size: 1.6em; color: #1E3A8A;">&rarr;</div>
-
-  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">In POMDPs (our move)</div>
-    <p style="margin: 0; color: #1f2330;">Reify each query as a <strong>task in an alternated environment</strong> with its own action space and reward. If the agent solves the task, it answered the query.</p>
-    <p style="margin: 0.5em 0 0; font-family: 'IBM Plex Mono', monospace; color: #1f2330; background: #ffffff; border-radius: 4px; padding: 0.35em 0.5em;">query \( q \) &rarr; sub-env \( E_q \); R<sub>q</sub>(&tau;) &equiv; ans<sub>q</sub>(M&#770;)</p>
-  </div>
-
-</div>
-
-<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;">
-  Consequence: the protocol stays representation-agnostic. Autumn program, latent code, neural net, anything that can step gets scored on the same yardstick.
 </p>
 </section>
 
@@ -693,18 +693,15 @@ def _move_balls(self):
       <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Challenger out</span>
     </div>
     <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.25em;"><code>discrepancy_001.json</code>: a 17-action trajectory that hits a real green cell where the synth predicts black:</div>
-<pre style="margin: 0; padding: 0.4em 0.55em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.4; color: #1f2330; overflow: hidden;"><code>{
- "description": "ball at x=11
-   falls to y=15 (green row).
-   Real env shows new green
-   cell at (11, 14), one row
-   above. Synth does not model
-   this. Cell persists even
-   after the ball disappears.",
- "actions": "left,left,down,
-   noop,noop,noop,noop,noop,
-   noop,noop,noop,noop,noop,
-   noop,noop,noop,noop"
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.4; color: #1f2330; overflow: hidden; white-space: pre-wrap; word-break: break-word;"><code>{
+  "description": "ball at x=11 falls to y=15 (green row); real env shows a new green cell at (11,14), one row above. Synth never models this, and the cell persists after the ball disappears.",
+  "actions": [
+    "left", "left", "down",
+    "noop", "noop", "noop", "noop",
+    "noop", "noop", "noop", "noop",
+    "noop", "noop", "noop", "noop",
+    "noop", "noop"
+  ]
 }</code></pre>
   </div>
 
@@ -1233,16 +1230,7 @@ def _move_balls(self):
 
 <div style="display: flex; gap: 1.2em; align-items: flex-start; justify-content: center; font-size: 0.4em; text-align: left;">
 
-  <div style="flex: 1; max-width: 460px;">
-    <p style="margin: 0 0 0.4em 0; color: #4a4f5a;">
-      Subtle 1-cell error in the <em>explosion</em> rule. The synthesizer predicted that shooting water at (7,7) would create sandybrown at (8,7) via a directional velocity. In the real environment, step 9 (the no-op after click 7&nbsp;7) produces no change at (8,7); the tan stays tan.
-    </p>
-    <p style="margin: 0; color: #4a4f5a;">
-      The plan collapses because one of the three required sandybrown cells never appears. The synthesized program likely learned from the trajectory that <em>getting wet</em> propagates in the sand's velocity direction, but got the blocking condition slightly wrong.
-    </p>
-  </div>
-
-  <div style="flex: 0 0 auto; max-width: 46%; display: flex; gap: 0.5em;">
+  <div style="flex: 0 0 auto; max-width: 72%; display: flex; gap: 0.6em;">
     <div style="flex: 1; min-width: 0;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #2e7d32; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">In synthesized world (OK)</div>
       <img src="./media/sand_planning.gif" alt="Plan playing out cleanly in the synthesized world" style="display: block; width: 100%; height: auto; max-height: 55vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
