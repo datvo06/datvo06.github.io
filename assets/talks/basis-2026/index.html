@@ -693,18 +693,15 @@ def _move_balls(self):
       <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Challenger out</span>
     </div>
     <div style="font-family: 'IBM Plex Sans', sans-serif; color: #6b7080; margin-bottom: 0.25em;"><code>discrepancy_001.json</code>: a 17-action trajectory that hits a real green cell where the synth predicts black:</div>
-<pre style="margin: 0; padding: 0.4em 0.55em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.4; color: #1f2330; overflow: hidden;"><code>{
- "description": "ball at x=11
-   falls to y=15 (green row).
-   Real env shows new green
-   cell at (11, 14), one row
-   above. Synth does not model
-   this. Cell persists even
-   after the ball disappears.",
- "actions": "left,left,down,
-   noop,noop,noop,noop,noop,
-   noop,noop,noop,noop,noop,
-   noop,noop,noop,noop"
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.4; color: #1f2330; overflow: hidden; white-space: pre-wrap; word-break: break-word;"><code>{
+  "description": "ball at x=11 falls to y=15 (green row); real env shows a new green cell at (11,14), one row above. Synth never models this, and the cell persists after the ball disappears.",
+  "actions": [
+    "left", "left", "down",
+    "noop", "noop", "noop", "noop",
+    "noop", "noop", "noop", "noop",
+    "noop", "noop", "noop", "noop",
+    "noop", "noop"
+  ]
 }</code></pre>
   </div>
 
@@ -1233,16 +1230,7 @@ def _move_balls(self):
 
 <div style="display: flex; gap: 1.2em; align-items: flex-start; justify-content: center; font-size: 0.4em; text-align: left;">
 
-  <div style="flex: 1; max-width: 460px;">
-    <p style="margin: 0 0 0.4em 0; color: #4a4f5a;">
-      Subtle 1-cell error in the <em>explosion</em> rule. The synthesizer predicted that shooting water at (7,7) would create sandybrown at (8,7) via a directional velocity. In the real environment, step 9 (the no-op after click 7&nbsp;7) produces no change at (8,7); the tan stays tan.
-    </p>
-    <p style="margin: 0; color: #4a4f5a;">
-      The plan collapses because one of the three required sandybrown cells never appears. The synthesized program likely learned from the trajectory that <em>getting wet</em> propagates in the sand's velocity direction, but got the blocking condition slightly wrong.
-    </p>
-  </div>
-
-  <div style="flex: 0 0 auto; max-width: 46%; display: flex; gap: 0.5em;">
+  <div style="flex: 0 0 auto; max-width: 72%; display: flex; gap: 0.6em;">
     <div style="flex: 1; min-width: 0;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; color: #2e7d32; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">In synthesized world (OK)</div>
       <img src="./media/sand_planning.gif" alt="Plan playing out cleanly in the synthesized world" style="display: block; width: 100%; height: auto; max-height: 55vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
