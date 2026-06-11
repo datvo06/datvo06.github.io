@@ -1538,7 +1538,7 @@ if __name__ == "__main__":
       <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
         <li><code>handlers.cad</code>: render OpenSCAD model.</li>
         <li><code>handlers.mujoco</code>: <code>view_model</code> + sim + MPC.</li>
-        <li><code>handlers.jax</code>: differentiable for codesign loss.</li>
+        <li><code>handlers.jax</code>: constraint solving; backs <code>solve_init</code>.</li>
       </ul>
     </div>
 
@@ -1632,11 +1632,11 @@ def CircularPalm(self, n_fingers=3, ...):
         </tr>
         <tr>
           <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.jax</code></td>
-          <td style="padding: 0.35em 0.3em;">differentiable rollout for the codesign loss</td>
+          <td style="padding: 0.35em 0.3em;">turns <code>choose</code> / <code>constrain</code> into an optimization; backs <code>solve_init</code></td>
         </tr>
       </tbody>
     </table>
-    <p style="margin: 0.45em 0 0; padding: 0.3em 0.45em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330; font-size: 1em;">Write the parametric LEAP hand once. <code>solve_init</code> samples the Dirichlet, <code>cad</code> prints it, <code>mujoco</code> simulates it, <code>jax</code> trains against it. <em>Same program.</em></p>
+    <p style="margin: 0.45em 0 0; padding: 0.3em 0.45em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330; font-size: 1em;">Write the parametric LEAP hand once. <code>solve_init</code> samples the Dirichlet, <code>cad</code> prints it, <code>mujoco</code> simulates it and MPC controls it. <em>Same program.</em></p>
   </div>
 
 </div>
@@ -1940,7 +1940,7 @@ with handler(provider):                           # bind the meaning
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.9em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
   <p style="margin: 0; font-size: 0.44em;">
     <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The key enabler.</strong>
-    RoboTL ships a <strong>differentiable controller (MPC)</strong> and an <strong>interface to define losses</strong> as part of the program. The LLM only has to write the morphology and the loss; MPC closes the control loop inside the simulator.
+    RoboTL ships a <strong>sampling-based controller (MPC)</strong> and an <strong>interface to define losses</strong> as part of the program. The LLM only has to write the morphology and the loss; MPC closes the control loop inside the simulator.
   </p>
 </div>
 
@@ -1959,9 +1959,9 @@ with handler(provider):                           # bind the meaning
   <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What MPC + handler does</div>
     <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-      <li>JAX handler: differentiable rollout.</li>
-      <li>MPC inner loop: solves control against the loss.</li>
-      <li>MuJoCo handler: simulates the result.</li>
+      <li>Samples a population of candidate control plans.</li>
+      <li>Batched MuJoCo rollouts, scored by the loss.</li>
+      <li>Loss-weighted update (MPPI-style); best plan executes.</li>
     </ul>
   </div>
 
