@@ -488,6 +488,38 @@
 <img class="r-stretch" src="./media/autumnbench_overview.png" alt="WorldTest framework and AutumnBench instantiation: 43 grid-world environments, an interaction phase that builds a world model, and a test phase with masked frame prediction, planning, and change detection tasks" style="display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); background: #ffffff;">
 </section>
 
+<section id="slide-worldtest" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">Does a learned model answer questions about the <span style="color: #1E3A8A;">whole environment?</span></h2>
+
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Warrier et al. &middot; ICML 2026 &middot; WorldTest: a behavior-based protocol for evaluating world-model learning, instantiated as AutumnBench</p>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong> Today's evaluations only test what you can read off one observed trajectory (next-frame prediction, task return). A real world model should answer many <em>different</em> questions about an environment. WorldTest scores exactly that, and humans beat every frontier model on it.</p>
+</div>
+
+<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">The gap</div>
+    <p style="margin: 0; color: #4a4f5a;">An <strong style="color: #1f2330;">environment-level query</strong> asks about the whole environment, not one run: what is behind an occlusion, is state B reachable from state A, did the dynamics change. Trajectory metrics never check these.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">WorldTest</div>
+    <p style="margin: 0; color: #1f2330;">Two phases. First, <strong>reward-free</strong> interaction (the agent explores freely, can reset to retest). Then a query becomes a modified environment with an explicit objective: <strong>completing it = answering the query</strong>. Scored by behavior alone, so any agent type, including humans, can be compared on equal terms.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Why models lose</div>
+    <p style="margin: 0; color: #4a4f5a;"><strong style="color: #1f2330;">Exploration:</strong> humans reset to run experiments in every environment; Claude skipped resets in 31 of 43. <strong style="color: #1f2330;">Belief updating:</strong> models keep trusting old rules even when test observations contradict them.</p>
+  </div>
+
+</div>
+
+<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.36em; color: #6b7080; text-align: left;"><strong style="color: #c0392b;">Result.</strong> On AutumnBench (43 grid-world environments, 129 tasks), 517 humans <strong style="color: #1f2330;">substantially outperform</strong> all five frontier reasoning models (Claude 4 Sonnet, Gemini 2.5 Pro / Flash, o3, Qwen3-235B) on every environment and every task type. Humans average &asymp; 0.935 (near-optimal); more compute rarely helps, with 42% of environments seeing no benefit.</p>
+
+</section>
+
 <section id="slide-8" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Outline of the agent section</h2>
 
