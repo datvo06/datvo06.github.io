@@ -27,10 +27,53 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="slide-title" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">Does a learned model answer questions about the <span style="color: #1E3A8A;">whole environment?</span></h2>
+<section id="slide-cover" class="slide level2">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.45em; min-height: 72vh; padding: 0 2rem; text-align: center;">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.4em; color: #1E3A8A; letter-spacing: 0.16em; text-transform: uppercase;">WorldTest &middot; AutumnBench</div>
+  <h2 style="font-size: 1.45em; line-height: 1.18; margin: 0; max-width: 96%;">Benchmarking World-Model Learning<br>with <span style="color: #1E3A8A;">Environment-Level Queries</span></h2>
+  <p style="margin: 0.15em 0 0; font-size: 0.42em; color: #4a4f5a; max-width: 78%; line-height: 1.4;">A behavior-based benchmark for world-model learning. 517 humans versus five frontier AI models.</p>
+  <p style="margin: 0.75em 0 0; font-size: 0.35em; color: #1f2330; max-width: 92%; line-height: 1.55;">Archana Warrier &middot; <strong style="color: #1E3A8A;">Thanh Dat Nguyen</strong> &middot; Michelangelo Naim &middot; Moksh Jain &middot; Yichao Liang &middot; Karen Schroeder &middot; Cambridge Yang &middot; Joshua B. Tenenbaum &middot; Sebastian Vollmer &middot; Kevin Ellis &middot; Zenna Tavares</p>
+  <p style="margin: 0.4em 0 0; font-size: 0.34em; color: #6b7080;">ICML 2026 &middot; PMLR 306, Seoul</p>
+  <p style="margin: 0.1em 0 0; font-size: 0.3em; color: #6b7080; max-width: 90%;">Basis Research Institute &middot; DFKI &middot; Harvard &middot; Mila / Universite de Montreal &middot; Cambridge &middot; MIT &middot; Cornell</p>
+</div>
+</section>
 
-<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Benchmarking World-Model Learning with Environment-Level Queries &middot; Warrier et al., ICML 2026 (PMLR 306, Seoul)</p>
+<section id="slide-agenda" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Roadmap</h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Where we are going, in five parts</p>
+
+<div style="display: flex; flex-direction: column; gap: 0.45em; max-width: 86%; margin: 0 auto; font-size: 0.4em; text-align: left;">
+
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">01</span>
+    <div><strong style="color: #1f2330;">The problem.</strong> Why world models matter, and why today's evaluations cannot really test them.</div>
+  </div>
+
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">02</span>
+    <div><strong style="color: #1f2330;">The idea.</strong> Environment-level queries: questions whose answers depend on the whole environment.</div>
+  </div>
+
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">03</span>
+    <div><strong style="color: #1f2330;">The test and the benchmark.</strong> WorldTest, a two-phase behavior-based protocol, and AutumnBench, the 43-environment benchmark that instantiates it.</div>
+  </div>
+
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">04</span>
+    <div><strong style="color: #1f2330;">The results.</strong> 517 humans versus five frontier reasoning models, and what the scores show.</div>
+  </div>
+
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #1E3A8A; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #f3f5fb;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">05</span>
+    <div><strong style="color: #1f2330;">Why humans win.</strong> Strategic experiments and flexible belief updating, plus what comes next.</div>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-thesis" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">Does a learned model answer questions about the <span style="color: #1E3A8A;">whole environment?</span></h2>
 
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
   <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">In one line.</strong> A <em>world model</em> is an agent's internal model of how its environment works. WorldTest is a behavior-based way to test whether a learned world model can answer many different questions about an environment, not just predict the next frame. We use it to compare 517 humans against five frontier AI models.</p>
@@ -54,8 +97,6 @@
   </div>
 
 </div>
-
-<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">Basis Research Institute &middot; DFKI &middot; Harvard &middot; Mila / Universite de Montreal &middot; Cambridge &middot; MIT &middot; Cornell</p>
 
 </section>
 
