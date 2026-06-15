@@ -172,6 +172,57 @@
 
 </section>
 
+<section id="slide-arc-example" class="slide level2">
+<style>
+#slide-arc-example .arc-g{display:inline-grid;grid-template-columns:repeat(4,13px);grid-auto-rows:13px;gap:2px;background:#2a2f3a;padding:3px;border-radius:3px;vertical-align:middle;}
+#slide-arc-example .arc-g i{background:#10141c;border-radius:1px;display:block;}
+#slide-arc-example .arc-g i.r{background:#e8443b;}
+#slide-arc-example .arc-g i.b{background:#3b82e8;}
+#slide-arc-example .arc-g i.y{background:#e6b822;}
+#slide-arc-example .arc-g i.g{background:#2ea44f;}
+#slide-arc-example .arc-ar{color:#6b7080;padding:0 0.3em;vertical-align:middle;font-size:0.5em;}
+#slide-arc-example .arc-q{display:inline-grid;place-items:center;width:60px;height:60px;background:#f3f5fb;border:1px dashed #1E3A8A;border-radius:3px;color:#1E3A8A;font-weight:700;font-size:0.6em;vertical-align:middle;}
+#slide-arc-example .arc-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.3em;color:#6b7080;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.25em;}
+</style>
+<h2 style="font-size: 1em; margin: 0 0 0.2em 0;">What <span style="color: #c0392b;">non-interactive</span> looks like: infer a rule from fixed examples</h2>
+
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.33em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">An ARC-style task (Chollet, 2019): you see a few input to output examples, infer the hidden rule, and produce the answer. You never act in the world.</p>
+
+<div style="display: flex; gap: 1.1em; align-items: center; justify-content: center;">
+
+  <div style="flex: 0 0 auto; text-align: left;">
+    <div class="arc-lbl">Examples you are given</div>
+    <div style="margin-bottom: 0.5em;">
+      <span class="arc-g"><i></i><i class="r"></i><i></i><i class="b"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="arc-ar">&rarr;</span><span class="arc-g"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i class="b"></i></span>
+      <span style="display:inline-block;width:1.1em;"></span>
+      <span class="arc-g"><i></i><i></i><i class="y"></i><i></i><i class="g"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="arc-ar">&rarr;</span><span class="arc-g"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="g"></i><i></i><i class="y"></i><i></i></span>
+    </div>
+    <div class="arc-lbl">Now infer the rule, then answer</div>
+    <div>
+      <span class="arc-g"><i class="r"></i><i></i><i></i><i class="b"></i><i></i><i class="y"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="arc-ar">&rarr;</span><span class="arc-q">?</span><span class="fragment"><span class="arc-ar">=</span><span class="arc-g" style="outline:2px solid #2ea44f;outline-offset:2px;"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i class="y"></i><i></i><i class="b"></i></span></span>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-width: 0; max-width: 360px; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
+    <div style="border-left: 3px solid #c0392b; background: #fdf5f3; padding: 0.45em 0.7em; border-radius: 0 6px 6px 0;">
+      <p style="margin: 0; color: #1f2330;">The agent sees only fixed before-and-after snapshots. It <strong>cannot act</strong>: no resetting, no retrying, no running an experiment to see how the world responds.</p>
+    </div>
+    <div style="padding: 0.5em 0.7em; border: 1px solid #c0392b; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; text-transform: uppercase; margin-bottom: 0.2em;">What is missing</div>
+      <p style="margin: 0; color: #4a4f5a;">The dynamics. You are handed the result of a rule, never a live environment you can poke to discover it.</p>
+    </div>
+    <div style="padding: 0.5em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; text-transform: uppercase; margin-bottom: 0.2em;">The alternative</div>
+      <p style="margin: 0; color: #1f2330;">Let the agent <strong>interact</strong> with a live environment first, learn its dynamics by doing, then answer. That is the move WorldTest makes.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="fragment" style="margin: 0.55em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">The rule here is gravity: every colored cell falls to the bottom. But notice, even to solve it you only <em>watched</em> fixed examples. You never chose to drop a block and see what happens.</p>
+
+</section>
+
 <section id="slide-queries" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The key idea: <span style="color: #1E3A8A;">environment-level queries</span></h2>
 
