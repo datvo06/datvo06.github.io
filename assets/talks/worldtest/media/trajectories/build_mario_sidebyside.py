@@ -126,8 +126,9 @@ segments = human["trajectories"]            # 5 segments == 5 human runs (resets
 
 # Build the human panel frame list: for each segment, dedupe consecutive identical
 # grids (compresses real-time noop idling), sample up to N_PER frames, then a reset flash.
-N_PER = 9
-human_frames = []   # list of (PIL image,)
+N_PER = 12
+human_frames = []   # list of PIL image
+human_is_reset = []  # parallel bool: is this frame a RESET flash?
 for si, seg in enumerate(segments):
     obss = seg["observations"]
     distinct=[]
@@ -149,17 +150,16 @@ for si, seg in enumerate(segments):
         img,d,cell=base_canvas(GRID)
         draw_cells(d,cell,cells)
         ImageDraw.Draw(img).text((6,6),f"RUN {si+1}/{len(segments)}",fill=(255,255,255),font=_font(15))
-        human_frames.append(img)
-    # reset flash (2 frames) except after the last run
+        human_frames.append(img); human_is_reset.append(False)
+    # reset flash (held long via per-frame duration) except after the last run
     if si < len(segments)-1:
-        for _ in range(2):
-            img=Image.new("RGB",(CANVAS,CANVAS),(30,12,12))
-            dd=ImageDraw.Draw(img)
-            f=_font(22)
-            t="RESET"
-            w=dd.textlength(t,font=f)
-            dd.text(((CANVAS-w)/2,CANVAS/2-14),t,fill=(255,120,120),font=f)
-            human_frames.append(img)
+        img=Image.new("RGB",(CANVAS,CANVAS),(30,12,12))
+        dd=ImageDraw.Draw(img)
+        f=_font(22)
+        t="RESET"
+        w=dd.textlength(t,font=f)
+        dd.text(((CANVAS-w)/2,CANVAS/2-14),t,fill=(255,120,120),font=f)
+        human_frames.append(img); human_is_reset.append(True)
 
 # ── load model trajectory (local MARA) ──
 model_path=os.path.join(MARA,"adversarial_solver_results_trajectory_raw/mario/planning/real_env_observations.json")
@@ -197,6 +197,7 @@ def pad(frames,n):
     return frames+[frames[-1]]*(n-len(frames)) if frames else []
 human_frames=pad(human_frames,N)
 model_frames=pad(model_frames,N)
+human_is_reset = human_is_reset + [False]*(N-len(human_is_reset))
 
 # ── compose side by side with header labels ──
 HEADER=34; GAP=14; PANEL=CANVAS
@@ -218,9 +219,12 @@ for i in range(N):
     canvas.paste(model_frames[i],(PANEL+GAP,HEADER))
     frames.append(canvas)
 
+# Per-frame timing: ~3.6 fps normal play (was ~7), RESET held ~0.9s so it reads.
+durations=[900 if human_is_reset[i] else 280 for i in range(N)]
 frames[0].save(OUT_GIF,save_all=True,append_images=frames[1:],
-               duration=140,loop=0,optimize=True,disposal=2)
-print("wrote",OUT_GIF,"frames=",len(frames),"size=",frames[0].size)
+               duration=durations,loop=0,optimize=True,disposal=2)
+print("wrote",OUT_GIF,"frames=",len(frames),"size=",frames[0].size,
+      "total_seconds=",round(sum(durations)/1000,1))
 print("human_frames=",len(human_frames),"(",len(segments),"segments )  model states=",len(model_states))
 
 # ── verification montage: 12 evenly sampled composed frames ──
