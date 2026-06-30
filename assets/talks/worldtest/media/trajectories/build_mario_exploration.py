@@ -1,24 +1,35 @@
 #!/usr/bin/env python3
-"""Render a real human (reset-and-replay) vs model (single run) side-by-side
-GIF on the AutumnBench `mario` planning environment.
+"""Render the winning human's reset-and-replay exploration on the AutumnBench
+`mario` planning environment (anonymized env code N2NTD) as a single-panel GIF.
 
-Human trajectory: HF datvo06/autumnbench-trajectories  json/human/mario.json
-  (5 segments == the human resetting and re-running the task).
-Model trajectory: local MARA mirror
-  adversarial_solver_results_trajectory_raw/mario/planning/real_env_observations.json
-  (one uninterrupted run: reset, then up/right/left/click navigation).
+Source: HF datvo06/autumnbench-trajectories  json/human/mario.json.
+This is the TOP-SCORING human on mario_planning: user 686fdaf134a16302c77f4c2f,
+score 0.9847267700970721, the decisive winner of the 60 people who played it
+(runner-up 0.44). Its 5 segments are that human's 5 interactive-phase runs,
+separated by 5 real resets. The segment seeds
+[400698, 584177, 404831, 69433, 399857] were verified to match exactly the
+winner's interactive-phase reset seeds in the raw participant log
+MARA/data/autumnbench_human_participants.json.
 
-Rasterizer matches _includes/autumn_renderer.js: same CSS color map, faint grid
-lines, inset cell rects, lighter-color-wins on cell collisions. Mario's true
-background is black (confirmed from the model raw render), so both panels render
-entities on black for visual consistency.
+There is no comparable agent grid-exploration trajectory: the protocol solver
+(claude-sonnet-4-6) explores by synthesizing and running candidate world-model
+programs, not by resetting and replaying the grid. So this is a single human
+panel; the human-vs-AI contrast is carried by the numbers slide and the Basis
+side-by-side clip.
+
+Rasterizer matches _includes/autumn_renderer.js (same CSS color map, faint grid
+lines, inset cell rects, lighter-color-wins on cell collisions). Mario's true
+background is black, so entities render on black.
+
+The raw trace is real-time and ~99% noop idling; identical consecutive grid
+states are deduped and each run is sampled to N_PER frames, so the states are
+real but the playback is time-compressed.
 """
 import json, os, re, urllib.request, hashlib
 from PIL import Image, ImageDraw, ImageFont
 
-OUT_GIF = os.path.join(os.path.dirname(__file__), "mario_human_vs_model.gif")
+OUT_GIF = os.path.join(os.path.dirname(__file__), "mario_winner_exploration.gif")
 MONTAGE = os.path.join(os.path.dirname(__file__), "_verify_montage.png")
-MARA = "/Users/datnguyen/Marc/MARA"
 
 # ── color map copied verbatim from _includes/autumn_renderer.js ──
 CSS_COLORS = {
@@ -52,7 +63,7 @@ def parse_color(s):
     if m: return (int(m[1]),int(m[2]),int(m[3]))
     return (0,0,0)
 
-CANVAS = 300
+CANVAS = 400
 BG = (8,8,10)         # mario background is black; nudge off pure-black so grid reads
 GRID_LINE = (44,44,50)
 
@@ -84,7 +95,7 @@ def draw_cells(d, cell, cells):
 def entity_cells(obs):
     """Human entity-JSON observation -> {(x,y):rgb}, lighter color wins on tie."""
     grid=obs.get("GRID_SIZE",12)
-    best={}  # (x,y) -> (rgb, bias)
+    best={}
     for k,v in obs.items():
         if k in ("GRID_SIZE","background") or not isinstance(v,list): continue
         for e in v:
@@ -98,21 +109,9 @@ def entity_cells(obs):
                 best[(x,y)]=(rgb,bias)
     return grid, {k:v[0] for k,v in best.items()}
 
-def raw_cells(render, grid):
-    """Model raw render string -> {(x,y):rgb}; skip black background cells."""
-    toks=render.replace("\\n"," ").replace("\n"," ").split()
-    cells={}
-    for i,t in enumerate(toks):
-        if i>=grid*grid: break
-        x=i%grid; y=i//grid
-        if t.lower()=="black": continue   # background
-        cells[(x,y)]=parse_color(t)
-    return cells
-
 def cells_key(cells):
     return hashlib.md5(repr(sorted(cells.items())).encode()).hexdigest()
 
-# ── load human trajectory (HF) ──
 def hf(path):
     tok=open(os.path.expanduser("~/.cache/huggingface/token")).read().strip()
     req=urllib.request.Request(
@@ -120,27 +119,25 @@ def hf(path):
         headers={"Authorization":f"Bearer {tok}"})
     return json.loads(urllib.request.urlopen(req).read())
 
+# ── load the verified winner trajectory ──
 human = hf("json/human/mario.json")
+assert abs(human["source"]["score"]-0.9847267700970721) < 1e-9, "not the winner score"
 GRID = human["grid_size"]
 segments = human["trajectories"]            # 5 segments == 5 human runs (resets between)
 
-# Build the human panel frame list: for each segment, dedupe consecutive identical
-# grids (compresses real-time noop idling), sample up to N_PER frames, then a reset flash.
+# Build the panel: for each run, dedupe consecutive identical grids (compresses
+# real-time noop idling), sample up to N_PER frames, then a held RESET flash.
 N_PER = 12
-human_frames = []   # list of PIL image
-human_is_reset = []  # parallel bool: is this frame a RESET flash?
+panel_imgs = []
+is_reset = []
 for si, seg in enumerate(segments):
-    obss = seg["observations"]
-    distinct=[]
-    last=None
-    for o in obss:
+    distinct=[]; last=None
+    for o in seg["observations"]:
         if not isinstance(o,dict): continue
-        g,cells = entity_cells(o)
+        _,cells = entity_cells(o)
         k=cells_key(cells)
-        if k!=last:
-            distinct.append(cells); last=k
+        if k!=last: distinct.append(cells); last=k
     if not distinct: continue
-    # sample evenly to N_PER (keep first & last)
     if len(distinct)>N_PER:
         idx=[round(j*(len(distinct)-1)/(N_PER-1)) for j in range(N_PER)]
         sampled=[distinct[i] for i in sorted(set(idx))]
@@ -149,85 +146,37 @@ for si, seg in enumerate(segments):
     for cells in sampled:
         img,d,cell=base_canvas(GRID)
         draw_cells(d,cell,cells)
-        ImageDraw.Draw(img).text((6,6),f"RUN {si+1}/{len(segments)}",fill=(255,255,255),font=_font(15))
-        human_frames.append(img); human_is_reset.append(False)
-    # reset flash (held long via per-frame duration) except after the last run
+        ImageDraw.Draw(img).text((10,9),f"RUN {si+1}/{len(segments)}",fill=(255,255,255),font=_font(20))
+        panel_imgs.append(img); is_reset.append(False)
     if si < len(segments)-1:
         img=Image.new("RGB",(CANVAS,CANVAS),(30,12,12))
-        dd=ImageDraw.Draw(img)
-        f=_font(22)
-        t="RESET"
+        dd=ImageDraw.Draw(img); f=_font(30); t="RESET"
         w=dd.textlength(t,font=f)
-        dd.text(((CANVAS-w)/2,CANVAS/2-14),t,fill=(255,120,120),font=f)
-        human_frames.append(img); human_is_reset.append(True)
+        dd.text(((CANVAS-w)/2,CANVAS/2-20),t,fill=(255,120,120),font=f)
+        panel_imgs.append(img); is_reset.append(True)
 
-# ── load model trajectory (local MARA) ──
-model_path=os.path.join(MARA,"adversarial_solver_results_trajectory_raw/mario/planning/real_env_observations.json")
-model=json.load(open(model_path))
-def extract_render(o):
-    if not isinstance(o,str): return None
-    m=re.search(r'"render"\s*:\s*"([^"]*)"',o)
-    return m.group(1) if m else None
-
-model_states=[]
-for r in model:
-    rnd=extract_render(r.get("observation"))
-    if rnd is None: continue
-    model_states.append((r.get("action"), raw_cells(rnd, GRID)))
-# dedupe consecutive identical
-ded=[]; last=None
-for act,cells in model_states:
-    k=cells_key(cells)
-    if k!=last: ded.append((act,cells)); last=k
-model_states=ded
-
-model_frames=[]
-for act,cells in model_states:
-    img,d,cell=base_canvas(GRID)
-    draw_cells(d,cell,cells)
-    ImageDraw.Draw(img).text((6,6),"RUN 1/1",fill=(255,255,255),font=_font(15))
-    model_frames.append(img)
-# repeat each model state so its single run spans more wall-clock (deliberate moves)
-HOLD=2
-model_frames=[f for f in model_frames for _ in range(HOLD)]
-
-# ── synchronize lengths: pad the shorter panel by holding its last frame ──
-N=max(len(human_frames),len(model_frames))
-def pad(frames,n):
-    return frames+[frames[-1]]*(n-len(frames)) if frames else []
-human_frames=pad(human_frames,N)
-model_frames=pad(model_frames,N)
-human_is_reset = human_is_reset + [False]*(N-len(human_is_reset))
-
-# ── compose side by side with header labels ──
-HEADER=34; GAP=14; PANEL=CANVAS
-W=PANEL*2+GAP; Hh=HEADER+PANEL
-hf_label=_font(17)
-def header(label,color):
-    strip=Image.new("RGB",(PANEL,HEADER),(248,249,251))
-    d=ImageDraw.Draw(strip)
-    d.text((10,8),label,fill=color,font=hf_label)
-    return strip
+# ── compose single panel with a header strip ──
+HEADER=44; PANEL=CANVAS
+W=PANEL; Hh=HEADER+PANEL
+hf_label=_font(20)
+strip=Image.new("RGB",(PANEL,HEADER),(248,249,251))
+ImageDraw.Draw(strip).text((12,12),"WINNING HUMAN  ·  mario exploration",fill=(30,58,138),font=hf_label)
 
 frames=[]
-lh=header("HUMAN  ·  resets & re-runs",(30,58,138))
-lm=header("MODEL  ·  one run",(192,57,43))
-for i in range(N):
+for img in panel_imgs:
     canvas=Image.new("RGB",(W,Hh),(248,249,251))
-    canvas.paste(lh,(0,0)); canvas.paste(lm,(PANEL+GAP,0))
-    canvas.paste(human_frames[i],(0,HEADER))
-    canvas.paste(model_frames[i],(PANEL+GAP,HEADER))
+    canvas.paste(strip,(0,0)); canvas.paste(img,(0,HEADER))
     frames.append(canvas)
 
-# Per-frame timing: ~3.6 fps normal play (was ~7), RESET held ~0.9s so it reads.
-durations=[900 if human_is_reset[i] else 280 for i in range(N)]
+N=len(frames)
+# ~3.6 fps normal play, RESET held ~0.9s so it reads.
+durations=[900 if is_reset[i] else 280 for i in range(N)]
 frames[0].save(OUT_GIF,save_all=True,append_images=frames[1:],
                duration=durations,loop=0,optimize=True,disposal=2)
 print("wrote",OUT_GIF,"frames=",len(frames),"size=",frames[0].size,
-      "total_seconds=",round(sum(durations)/1000,1))
-print("human_frames=",len(human_frames),"(",len(segments),"segments )  model states=",len(model_states))
+      "total_seconds=",round(sum(durations)/1000,1),"runs=",len(segments))
 
-# ── verification montage: 12 evenly sampled composed frames ──
+# ── verification montage: 12 evenly sampled frames ──
 pick=[round(j*(N-1)/11) for j in range(12)]
 cols,rows=4,3
 mw,mh=W//2,Hh//2
