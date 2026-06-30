@@ -21,11 +21,10 @@ Rasterizer matches _includes/autumn_renderer.js (same CSS color map, faint grid
 lines, inset cell rects, lighter-color-wins on cell collisions). Mario's true
 background is black, so entities render on black.
 
-Every native frame animates (about 6 of ~144 cells change per step), so frames
-are kept CONTIGUOUS (stride 1) to stay smooth; sparse sampling made the human
-teleport. Each run is shown as a window of its first MAXF states (its opening),
-not the full run, to keep the loop a sane length. The states are real and in
-order; the clip just stops each run early before the reset.
+Every native frame animates (about 6 of ~144 cells change per step), so every
+distinct state is kept CONTIGUOUS (stride 1) to stay smooth; sparse sampling
+made the human teleport. All 5 runs are shown in full (every real state, in
+order), so the loop is long but faithful.
 """
 import json, os, re, urllib.request, hashlib
 from PIL import Image, ImageDraw, ImageFont
@@ -129,8 +128,6 @@ segments = human["trajectories"]            # 5 segments == 5 human runs (resets
 
 # Build the panel: for each run, dedupe consecutive identical grids (compresses
 # real-time noop idling), sample up to N_PER frames, then a held RESET flash.
-MAXF = 34   # frames shown per run: a contiguous window from the start (stride 1),
-            # so motion is one native game step per frame instead of teleporting.
 panel_imgs = []
 is_reset = []
 for si, seg in enumerate(segments):
@@ -141,7 +138,7 @@ for si, seg in enumerate(segments):
         k=cells_key(cells)
         if k!=last: distinct.append(cells); last=k
     if not distinct: continue
-    sampled=distinct[:MAXF]
+    sampled=distinct          # full run: every distinct state, in order
     for cells in sampled:
         img,d,cell=base_canvas(GRID)
         draw_cells(d,cell,cells)
@@ -168,9 +165,9 @@ for img in panel_imgs:
     frames.append(canvas)
 
 N=len(frames)
-# Contiguous frames at ~6.7 fps (150ms): one native game step per frame, smooth.
+# Contiguous frames at ~8 fps (125ms): one native game step per frame, smooth.
 # RESET held ~0.7s so it reads.
-durations=[700 if is_reset[i] else 150 for i in range(N)]
+durations=[700 if is_reset[i] else 125 for i in range(N)]
 frames[0].save(OUT_GIF,save_all=True,append_images=frames[1:],
                duration=durations,loop=0,optimize=True,disposal=2)
 print("wrote",OUT_GIF,"frames=",len(frames),"size=",frames[0].size,
