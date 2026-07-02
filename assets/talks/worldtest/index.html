@@ -637,41 +637,6 @@
 
 </section>
 
-<section id="slide-tasks-detail" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The three challenges <span style="color: #1E3A8A;">in detail</span></h2>
-
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Each query family compiles into a scored challenge. Same benchmark, three different things to get right.</p>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">How scoring works.</strong> Every task is graded purely by behavior, with no inspection of the agent's internals, so a human and an AI are scored the same way. Below: what each task asks, and exactly how a point is awarded.</p>
-</div>
-
-<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
-
-  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Masked Frame Prediction</div>
-    <p style="margin: 0 0 0.35em; color: #4a4f5a;">Watch a trajectory whose frames are partially masked, then predict the masked content of the <strong style="color: #1f2330;">final frame</strong> by choosing from <strong style="color: #1f2330;">six options</strong> (one matches ground truth).</p>
-    <p style="margin: 0; color: #1E3A8A;"><strong>Score:</strong> 1 if correct, else 0.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Change Detection</div>
-    <p style="margin: 0 0 0.35em; color: #4a4f5a;">In a modified environment, one rule changes at some <strong style="color: #1f2330;">hidden timestep</strong> during the test. Report the <strong style="color: #1f2330;">earliest timestep</strong> at which the rule changes.</p>
-    <p style="margin: 0; color: #c08230;"><strong>Score:</strong> 1 for the correct timestep, partial credit for late detection, 0 if too early.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Planning</div>
-    <p style="margin: 0 0 0.35em; color: #4a4f5a;">Given a target configuration of a subgrid, interact and produce an action sequence that drives the subgrid into that target. Here <strong style="color: #1f2330;">reset is not available</strong>.</p>
-    <p style="margin: 0; color: #2d6a4f;"><strong>Score:</strong> 1 if the target is reached, else 0.</p>
-  </div>
-
-</div>
-
-<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">Together these probe three distinct abilities: prediction of hidden state, detecting change in the rules, and long-horizon planning.</p>
-
-</section>
-
 <section id="slide-eval-setup" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.25em 0;">How it was run: <span style="color: #1E3A8A;">same benchmark, two interfaces</span></h2>
 
