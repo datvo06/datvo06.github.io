@@ -649,23 +649,24 @@
 
 <div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; margin-bottom: 0.55em;">
   <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; text-align: left;">
-    <div style="font-size: 1.8em; font-weight: 700; color: #1E3A8A;">&asymp; 12.5%</div>
-    <div style="font-size: 0.34em; color: #4a4f5a;">share of human actions spent on resets, and about another 12.5% on no-ops</div>
+    <div style="font-size: 1.8em; font-weight: 700; color: #1E3A8A;">12.5%</div>
+    <div style="font-size: 0.34em; color: #4a4f5a;">of humans' unique actions are resets; every model uses fewer, from 6.8% (Qwen) down to 2.1% (Claude)</div>
   </div>
   <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left;">
-    <div style="font-size: 1.8em; font-weight: 700; color: #c0392b;">< 7%</div>
-    <div style="font-size: 0.34em; color: #4a4f5a;">every model's share on resets and no-ops combined; Claude lowest at 2.1%</div>
+    <div style="font-size: 1.8em; font-weight: 700; color: #2d6a4f;">0.827</div>
+    <div style="font-size: 0.34em; color: #4a4f5a;">mean human LCS ratio around resets (median 0.900): after a reset, humans largely replay the same action sequence</div>
   </div>
   <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left;">
-    <div style="font-size: 1.8em; font-weight: 700; color: #2d6a4f;">0.637</div>
-    <div style="font-size: 0.34em; color: #4a4f5a;">human action-subsequence overlap around resets, vs 0.188 to 0.360 for models</div>
+    <div style="font-size: 1.8em; font-weight: 700; color: #c0392b;">0.188 to 0.359</div>
+    <div style="font-size: 0.34em; color: #4a4f5a;">every model's LCS ratio: o3 0.188, Gemini Flash 0.273, Qwen 0.325, Claude 0.347, Gemini Pro 0.359</div>
   </div>
 </div>
 
 <div style="font-size: 0.36em; text-align: left; max-width: 90%; margin: 0 auto;">
   <div style="padding: 0.55em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What the overlap means</div>
-    <p style="margin: 0; color: #4a4f5a;">After a reset, humans replay <strong style="color: #1f2330;">similar action sequences</strong> to the ones they ran before, holding most steps fixed while varying a few. That high overlap is evidence of <strong style="color: #1f2330;">systematic hypothesis testing</strong>: rerun a controlled experiment to isolate one rule. Models that skip resets rarely run such controlled repeats.</p>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What the LCS ratio measures</div>
+    <p style="margin: 0 0 0.35em; color: #4a4f5a;">Take the action sequences <strong style="color: #1f2330;">immediately before and after each reset</strong> and compute their longest-common-subsequence ratio. Replaying a similar sequence gives a ratio near 1; unstructured resets give a ratio near 0. Humans sit at 0.827; every model sits far below, and the difference is statistically significant for each model (Appendix E.6).</p>
+    <p style="margin: 0; color: #4a4f5a;">Rerunning a controlled variation of your last experiment is the signature of <strong style="color: #1f2330;">hypothesis testing</strong>, matching behavior documented in cognitive science (Coenen et al. 2015; Bramley et al. 2018). Scratchpad analysis shows the contrast: models rarely revise their hypotheses after unexpected observations. One caveat, stated in the paper's own terms: this link is <strong style="color: #1f2330;">correlational</strong>; testing it causally would need designs that manipulate reset availability.</p>
   </div>
 </div>
 
