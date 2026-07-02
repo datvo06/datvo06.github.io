@@ -183,7 +183,7 @@
   <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; text-transform: uppercase; margin-bottom: 0.2em;">Representation-based</div>
     <p style="margin: 0 0 0.25em; color: #4a4f5a;">Require a fixed output format (next frames, programs, causal graphs) scored by format-specific proxies.</p>
-    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> narrow targets prevent fair comparison across agent types.</p>
+    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> the proxies are often inadequate, so they cannot faithfully measure the learned model or benchmark agents against humans.</p>
   </div>
 
   <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
@@ -193,9 +193,9 @@
   </div>
 
   <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; text-transform: uppercase; margin-bottom: 0.2em;">Two-phase RL</div>
-    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Separate learning from evaluation (unsupervised RL, in-context RL).</p>
-    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> both phases share one environment with reward signals; no structural or counterfactual test.</p>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; text-transform: uppercase; margin-bottom: 0.2em;">Unsupervised RL</div>
+    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Two-phase protocols (URLB): explore without objectives, then face downstream tasks.</p>
+    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> both phases use the same environment, and evaluation sees only action-reward sequences, so structural and counterfactual understanding goes untested.</p>
   </div>
 
 </div>
@@ -205,15 +205,15 @@
 </div>
 
 <div style="display: flex; gap: 0.7em; align-items: stretch; justify-content: center; font-size: 0.32em; text-align: left;">
-  <div style="flex: 1; max-width: 240px; padding: 0.4em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+  <div class="fragment" style="flex: 1; max-width: 240px; padding: 0.4em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; text-transform: uppercase; margin-bottom: 0.15em;">Representation-agnostic</div>
     <p style="margin: 0; color: #1f2330;">No predefined output format at test.</p>
   </div>
-  <div style="flex: 1; max-width: 240px; padding: 0.4em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+  <div class="fragment" style="flex: 1; max-width: 240px; padding: 0.4em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; text-transform: uppercase; margin-bottom: 0.15em;">Reward-free training</div>
     <p style="margin: 0; color: #1f2330;">Interaction carries no reward signal.</p>
   </div>
-  <div style="flex: 1; max-width: 240px; padding: 0.4em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+  <div class="fragment" style="flex: 1; max-width: 240px; padding: 0.4em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; text-transform: uppercase; margin-bottom: 0.15em;">Modified test env</div>
     <p style="margin: 0; color: #1f2330;">Tested in a changed environment.</p>
   </div>
@@ -317,27 +317,37 @@
 <div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left; margin-bottom: 0.6em;">
 
   <div style="flex: 1; max-width: 360px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">1. Interaction phase</div>
-    <p style="margin: 0; color: #1f2330;">The agent explores on its own with <strong>no external goals or rewards</strong>. It may <strong>reset</strong> the environment to its initial state at any time, to test hypotheses. It ends the phase when it chooses; finite resources, not a hard clock, limit exploration.</p>
+    <div style="display: flex; align-items: baseline; gap: 0.5em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600;">01</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Interaction phase</span>
+    </div>
+    <p style="margin: 0 0 0.35em; color: #1f2330;">The agent explores on its own with <strong>no external goals or rewards</strong>. It may <strong>reset</strong> the environment to its initial state at any time, to test hypotheses. It ends the phase when it chooses; finite resources, not a hard clock, limit exploration. It may build <strong>any internal representation it likes</strong>: a program, a latent code, a neural net.</p>
+    <p style="margin: 0 0 0.2em; color: #1f2330; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">M&#770; = A(&tau;<sub>explore</sub>), &nbsp;&tau;<sub>explore</sub> &sim; E</p>
+    <p style="margin: 0; color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; font-size: 0.9em;">training-free; the agent is the protocol</p>
   </div>
 
   <div style="flex: 1; max-width: 360px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">2. Test phase</div>
-    <p style="margin: 0; color: #4a4f5a;">A query becomes a <strong style="color: #1f2330;">challenge environment</strong>: the same world with one or more components changed (its transitions, observations, or actions) plus an explicit objective. <strong style="color: #1f2330;">Completing the objective = answering the query.</strong> The score depends only on behavior here.</p>
+    <div style="display: flex; align-items: baseline; gap: 0.5em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-weight: 600;">02</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Test phase</span>
+    </div>
+    <p style="margin: 0 0 0.35em; color: #4a4f5a;">A query becomes a <strong style="color: #1f2330;">challenge environment</strong>: the same world with one or more components changed (its transitions, observations, or actions) plus an explicit objective. The score depends only on behavior here.</p>
+    <p style="margin: 0 0 0.2em; color: #1f2330; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">ans<sub>q</sub>(M&#770;) &equiv; R<sub>q</sub>(&tau;<sub>E<sub>q</sub></sub>)</p>
+    <p style="margin: 0; color: #c08230; font-family: 'IBM Plex Mono', monospace; font-size: 0.9em;">solving the task &equiv; answering the query</p>
   </div>
 
 </div>
 
 <div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.34em; text-align: left;">
-  <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+  <div class="fragment" style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; text-transform: uppercase; margin-bottom: 0.2em;">Representation-agnostic</div>
     <p style="margin: 0; color: #4a4f5a;">Scored by behavior alone. No peeking inside the agent, no manual or AI judging, so humans and AI compare on equal terms.</p>
   </div>
-  <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+  <div class="fragment" style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; text-transform: uppercase; margin-bottom: 0.2em;">Goal-free interaction</div>
     <p style="margin: 0; color: #4a4f5a;">Reward-free exploration encourages learning transferable dynamics, not optimizing one task-specific objective.</p>
   </div>
-  <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+  <div class="fragment" style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; text-transform: uppercase; margin-bottom: 0.2em;">Query-driven</div>
     <p style="margin: 0; color: #4a4f5a;">The test compiles each query into an objective, directly measuring whether the model supports downstream inference and planning.</p>
   </div>
@@ -401,26 +411,32 @@
   <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">Why Autumn.</strong> It lets you specify environments <strong>succinctly, expressively, and extensibly</strong>. Crucially, one specification drives <strong>both</strong> a text-based interface for AI agents and a browser-based graphical interface for humans, so the exact same world is played by both.</p>
 </div>
 
-<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
+<div style="display: flex; gap: 1.1em; align-items: stretch; justify-content: center; max-width: 94%; margin: 0 auto;">
 
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">One declarative spec</div>
-    <p style="margin: 0; color: #4a4f5a;">A single functional reactive specification captures the causal rules of a 2D-grid world. Specs are compact and easy to extend with new environments.</p>
+  <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; text-align: left;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.32em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35em;"><code>(on cond body)</code> &middot; sand.sexp / ants.sexp</div>
+<pre style="margin: 0; padding: 0.8em 1em; background: #1f2330; border-radius: 6px; font-size: 0.36em; line-height: 1.55; text-align: left; overflow: hidden;"><code style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e8eaf0; background: transparent; display: block;"><span style="color: #8b93a7;">; from sand.sexp: conditional rules</span>
+(<span style="color: #f0c674;">on</span> (clicked sandButton)
+    (= clickType <span style="color: #9ec99a;">"sand"</span>))
+(<span style="color: #f0c674;">on</span> (&amp; (clicked) (isFreePos click)
+       (== clickType <span style="color: #9ec99a;">"water"</span>))
+    (= water (addObj water ...)))
+
+<span style="color: #8b93a7;">; from ants.sexp: spatial, temporal, stochastic</span>
+(closest obj foods)
+(filter (--&gt; obj (! (intersects obj (<span style="color: #f0c674;">prev</span> ants))))
+        (<span style="color: #f0c674;">prev</span> foods))
+(<span style="color: #f0c674;">randomPositions</span> GRID_SIZE 2)</code></pre>
+    <p style="margin: 0.5em 0 0; font-size: 0.32em; color: #6b7080; line-height: 1.4;"><code>(on cond body)</code> is the conditional rule form: the guard is evaluated against the current state each tick and the body fires when it holds. The stdlib adds spatial operators (<code>closest</code>, <code>intersects</code>), temporal reads (<code>prev</code> reads the last tick), and stochastic primitives (<code>randomPositions</code>).</p>
   </div>
 
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Two interfaces, one world</div>
-    <p style="margin: 0; color: #1f2330;">The same spec renders as <strong>text</strong> for AI agents and as a <strong>browser GUI</strong> for humans. Both play an identical world, so their scores are directly comparable.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">State as colors</div>
-    <p style="margin: 0; color: #4a4f5a;">A grid state is represented as a <strong>2D array of color strings</strong>: one color per cell. This shared format is what both interfaces read from and render.</p>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.32em; color: #c08230; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35em; text-align: left;">live &middot; Sand &middot; click to drop sand, the rules at left are running</div>
+    <iframe data-src="/talks/basis-2026/autumn-embed/?program=Sand&amp;compact=1" style="flex: 1; width: 100%; min-height: 44vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
+    <p style="margin: 0.5em 0 0; font-size: 0.32em; color: #6b7080; text-align: left; line-height: 1.4;">This GUI is what humans play; AI agents get the same world as text (a 2D array of color strings). One world, two interfaces, fair comparison.</p>
   </div>
 
 </div>
-
-<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">Functional reactive means the world is described by how each cell reacts to events over time, rather than by hand-coded update loops. One world, two interfaces, fair comparison.</p>
 
 </section>
 
@@ -530,9 +546,23 @@
 
 <p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.33em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">517 human participants vs five frontier reasoning models (Claude 4 Sonnet, Gemini 2.5 Pro, Gemini 2.5 Flash, o3, Qwen3-235B). Human score = the 80th-percentile score across 20 attempts per problem. A simulator with ground-truth program access is shown only as a reference.</p>
 
-<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center;">
+<div style="display: flex; gap: 0.9em; align-items: center; justify-content: center;">
 
-  <img src="./media/results_scores.png" alt="Aggregate scores over all AutumnBench problems. Panel a, score by stochasticity: models score higher on stochastic than deterministic environments, while humans are consistent across both. Panel b, score by task type: humans outperform all reasoning models on change detection, masked frame prediction, and planning. Panel c, per-environment score distributions: the human violin sits near 1.0 and every model violin is far lower." style="display: block; margin: 0; max-width: 68%; max-height: 50vh; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); background: #ffffff;">
+  <div style="position: relative; max-width: 72%; flex: 0 1 auto;">
+    <img src="./media/results_scores.png" alt="Aggregate scores over all AutumnBench problems. Panel a, score by stochasticity: models score higher on stochastic than deterministic environments, while humans are consistent across both. Panel b, score by task type: humans outperform all reasoning models on change detection, masked frame prediction, and planning. Panel c, per-environment score distributions: the human violin sits near 1.0 and every model violin is far lower." style="display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); background: #ffffff;">
+    <!-- step 1: the human columns, all three panels -->
+    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 26.4%; top: 15.5%; width: 3.1%; height: 42%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
+    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 39.9%; top: 16.5%; width: 1.9%; height: 33.5%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
+    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 47.6%; top: 15.8%; width: 1.9%; height: 34.2%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
+    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 55.2%; top: 15.3%; width: 1.9%; height: 34.7%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
+    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 82.4%; top: 3%; width: 5.4%; height: 45%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
+    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 26%; top: 60%; font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; font-weight: 600; letter-spacing: 0.05em; pointer-events: none;">humans, near-ceiling everywhere</div>
+    <!-- step 2: the three task families -->
+    <div class="fragment" data-fragment-index="1" style="position: absolute; left: 35.3%; top: 12.5%; width: 6.8%; height: 46%; border: 2.5px solid #c08230; border-radius: 4px; background: rgba(192,130,48,0.10); pointer-events: none;"></div>
+    <div class="fragment" data-fragment-index="1" style="position: absolute; left: 43.0%; top: 12.5%; width: 6.8%; height: 46%; border: 2.5px solid #c08230; border-radius: 4px; background: rgba(192,130,48,0.10); pointer-events: none;"></div>
+    <div class="fragment" data-fragment-index="1" style="position: absolute; left: 50.6%; top: 12.5%; width: 6.8%; height: 46%; border: 2.5px solid #c08230; border-radius: 4px; background: rgba(192,130,48,0.10); pointer-events: none;"></div>
+    <div class="fragment" data-fragment-index="1" style="position: absolute; left: 35.3%; top: 63%; font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #c08230; font-weight: 600; letter-spacing: 0.05em; pointer-events: none;">three task families, humans win each</div>
+  </div>
 
   <div style="display: flex; flex-direction: column; gap: 0.5em; justify-content: center; font-size: 0.34em; text-align: left;">
     <div style="padding: 0.5em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
@@ -543,15 +573,11 @@
       <div style="font-size: 1.8em; font-weight: 700; color: #c0392b;">all 3</div>
       <div style="color: #4a4f5a;">task families won by humans: change detection, masked frame prediction, planning</div>
     </div>
-    <div style="padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-      <div style="font-size: 1.8em; font-weight: 700; color: #2d6a4f;">42%</div>
-      <div style="color: #4a4f5a;">of environments saw no benefit from extra compute; the gap is not a scaling problem</div>
-    </div>
   </div>
 
 </div>
 
-<p style="margin: 0.35em auto 0; max-width: 92%; font-size: 0.31em; color: #6b7080; text-align: left;">Models did better on stochastic environments than deterministic ones; humans were nearly identical across both. Higher cost-per-problem helped in only about 37% of masked-frame and planning tasks and about 33% of change-detection.</p>
+<p style="margin: 0.35em auto 0; max-width: 92%; font-size: 0.31em; color: #6b7080; text-align: left;">Panel (a): models did better on stochastic environments than deterministic ones; humans were nearly identical across both. More on that next.</p>
 
 </section>
 
