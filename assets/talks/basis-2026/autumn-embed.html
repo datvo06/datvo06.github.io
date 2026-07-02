@@ -123,6 +123,13 @@ if (requestedProgram && PROGRAMS[requestedProgram]) {
 if (embedParams.get('compact') === '1') {
   document.body.classList.add('compact');
 }
+// ?bg=black: paint the grid on the benchmark's canonical background
+// (AutumnBench traces and the MARA renderer use black; the shared renderer
+// leaves the canvas transparent, so this shows through behind the cells).
+const bgOverride = embedParams.get('bg');
+if (bgOverride && /^[a-z]{3,20}$/.test(bgOverride)) {
+  canvas.style.background = bgOverride;
+}
 
 function loadProgram(name) {
   const code = PROGRAMS[name];
