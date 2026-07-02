@@ -165,9 +165,9 @@ for img in panel_imgs:
     frames.append(canvas)
 
 N=len(frames)
-# Contiguous frames at ~8 fps (125ms): one native game step per frame, smooth.
-# RESET held ~0.7s so it reads.
-durations=[700 if is_reset[i] else 125 for i in range(N)]
+# Contiguous frames at ~16.7 fps (60ms): one native game step per frame.
+# RESET held ~0.35s so it reads.
+durations=[350 if is_reset[i] else 60 for i in range(N)]
 frames[0].save(OUT_GIF,save_all=True,append_images=frames[1:],
                duration=durations,loop=0,optimize=True,disposal=2)
 print("wrote",OUT_GIF,"frames=",len(frames),"size=",frames[0].size,
