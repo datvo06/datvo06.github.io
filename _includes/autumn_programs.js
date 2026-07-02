@@ -222,6 +222,34 @@ const PROGRAMS = {
   (on (& (& ((clicked)) (isFreePos click)) (== clickType "sand"))  (= sand (addObj sand (Sand false (Position (.. click x) (.. click y))))))
   (on (& (& ((clicked)) (isFreePos click)) (== clickType "water")) (= water (addObj water (Water (Position (.. click x) (.. click y))))))
 )`,
+  // AutumnBench env `gravity_3` (code QQM74) from the official Zenodo release (record 19498269).
+  "Gravity 3": `(program
+  (= GRID_SIZE 21)
+  (= background "black")
+    
+  (object Button (: color String) (Cell 0 0 color))
+  (object Blob (list (Cell 0 0 "blue")))
+  
+  (: blobs (List Blob))
+  (= blobs (initnext (list (Blob (Position (/ GRID_SIZE 2) (/ GRID_SIZE 2)))) (prev blobs)))
+  
+  (: xVel Number)
+  (= xVel (initnext 0 (prev xVel)))
+  
+  (: yVel Number)
+  (= yVel (initnext 0 (prev yVel)))
+            
+  (on (& ((clicked)) (isFreePos click)) (= blobs (addObj blobs (Blob (Position (.. click x) (.. click y))))))
+  
+  (on (& ((left)) (!= (prev xVel) -1)) (= xVel (- (prev xVel) 1)))
+  (on (& ((right)) (!= (prev xVel) 1)) (= xVel (+ (prev xVel) 1)))
+  
+  (on (& ((up)) (!= (prev yVel) -1)) (= yVel (- (prev yVel) 1)))
+  (on (& ((down)) (!= (prev yVel) 1)) (= yVel (+ (prev yVel) 1)))
+  
+  (on true (= blobs (updateObj blobs (--> obj (move obj (Position (prev xVel) (prev yVel)))))))
+)`,
+
   // AutumnBench env `bbq` (code 27VWC) from the official Zenodo release (record 19498269).
   "BBQ": `(program
   (= GRID_SIZE 7)

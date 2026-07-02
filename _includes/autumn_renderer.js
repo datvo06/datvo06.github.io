@@ -17,7 +17,10 @@ const CSS_COLORS = {
   firebrick:[178,34,34],forestgreen:[34,139,34],seagreen:[46,139,87],
   sienna:[160,82,45],peru:[205,133,63],chocolate:[210,105,30],
   tan:[210,180,140],sandybrown:[244,164,96],wheat:[245,222,179],
-  beige:[245,245,220],burlywood:[222,184,135]
+  beige:[245,245,220],burlywood:[222,184,135],
+  // remaining names from the AutumnBench palette (color_dict.yaml, Zenodo 19498269)
+  mediumpurple:[147,112,219],orangered:[255,69,0],lightcyan:[224,255,255],
+  darkgrey:[169,169,169],goldenrod:[218,165,32],limegreen:[50,205,50]
 };
 
 function parseColor(s) {
@@ -40,8 +43,18 @@ function renderGrid(ctx, jsonStr, canvasSize) {
 
   ctx.clearRect(0, 0, canvasSize, canvasSize);
 
+  // Paint the environment's declared background (e.g. gravity_3 sets "black");
+  // benchmark programs rely on it for contrast.
+  let bgLight = true;
+  if (parsed.background && parsed.background !== 'transparent') {
+    const [br, bg, bb] = parseColor(parsed.background);
+    ctx.fillStyle = `rgb(${br},${bg},${bb})`;
+    ctx.fillRect(0, 0, canvasSize, canvasSize);
+    bgLight = (br + bg + bb) > 382;
+  }
+
   // Subtle grid lines
-  ctx.strokeStyle = 'rgba(128,128,128,0.15)';
+  ctx.strokeStyle = bgLight ? 'rgba(128,128,128,0.15)' : 'rgba(200,200,210,0.18)';
   ctx.lineWidth = Math.max(0.5, canvasSize / 960);
   for (let i = 0; i <= gridSize; i++) {
     const pos = i * cellSize;
@@ -65,6 +78,8 @@ function renderGrid(ctx, jsonStr, canvasSize) {
     if (!Array.isArray(entities)) continue;
     for (const entity of entities) {
       if (!entity.position || !entity.color) continue;
+      // "transparent" is the palette's empty marker; drawing it would show black
+      if (entity.color.toLowerCase().trim() === 'transparent') continue;
       const { x, y } = entity.position;
       if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) continue;
       const k = y * gridSize + x;
@@ -81,6 +96,13 @@ function renderGrid(ctx, jsonStr, canvasSize) {
     const [r, g, b] = parseColor(entity.color);
     ctx.fillStyle = `rgb(${r},${g},${b})`;
     ctx.fillRect(x * cellSize + inset, y * cellSize + inset, cellSize - inset * 2, cellSize - inset * 2);
+    // white/near-white cells are real state (e.g. bbq's unlit fire); outline them
+    // so they stay visible on a light background
+    if (bgLight && r + g + b > 700) {
+      ctx.strokeStyle = 'rgba(100,105,120,0.4)';
+      ctx.lineWidth = Math.max(0.5, canvasSize / 960);
+      ctx.strokeRect(x * cellSize + inset, y * cellSize + inset, cellSize - inset * 2, cellSize - inset * 2);
+    }
   }
 
   return gridSize;
