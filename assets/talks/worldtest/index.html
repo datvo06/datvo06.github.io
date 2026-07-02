@@ -603,19 +603,20 @@
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; max-width: 94%; margin: 0 auto;">
 
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #2d6a4f; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Improves with compute &middot; live &middot; gravity_3</div>
-    <iframe data-src="/talks/basis-2026/autumn-embed/?program=Gravity%203&amp;compact=1" style="flex: 1; width: 100%; min-height: 34vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Improves with compute &middot; live &middot; mario</div>
+    <iframe data-src="/talks/basis-2026/autumn-embed/?program=Mario&amp;compact=1&amp;bg=black" style="flex: 1; width: 100%; min-height: 34vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
+    <p style="margin: 0.35em 0 0; font-size: 0.29em; color: #4a4f5a; text-align: left; line-height: 1.35;">Model scores improve with compute on masked frame prediction and change detection here. Click the panel, then arrow keys move mario.</p>
   </div>
 
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #c0392b; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #c0392b; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">No improvement on any task &middot; live &middot; bbq</div>
-    <iframe data-src="/talks/basis-2026/autumn-embed/?program=BBQ&amp;compact=1" style="flex: 1; width: 100%; min-height: 34vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
+    <iframe data-src="/talks/basis-2026/autumn-embed/?program=BBQ&amp;compact=1&amp;bg=black" style="flex: 1; width: 100%; min-height: 34vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
     <p style="margin: 0.35em 0 0; font-size: 0.29em; color: #4a4f5a; text-align: left; line-height: 1.35;">bbq, carrace, chinese_checkers, and crystallization show no improvement in any task: their difficulty sits at extremes that additional compute cannot address. Click the grill to light it, the yellow button to add gas.</p>
   </div>
 
 </div>
 
-<p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">In most cases more compute did not help. This points to reasoning limitations beyond scaling, not a shortage of compute. Both worlds above run live on the Autumn WASM interpreter, loaded from the official benchmark release (Zenodo 19498269; gravity_3 = QQM74, bbq = 27VWC).</p>
+<p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">In most cases more compute did not help. This points to reasoning limitations beyond scaling, not a shortage of compute. Both worlds above run live on the Autumn WASM interpreter, loaded from the official benchmark release (Zenodo 19498269; mario = N2NTD, bbq = 27VWC).</p>
 
 </section>
 
@@ -634,13 +635,10 @@
     <canvas id="wt-chart-resets" width="280" height="150"></canvas>
     <div style="font-size: 0.28em; color: #6b7080; margin-top: 0.2em;">Humans 12.5%; every model lower, from 7.1% (Gemini Flash) down to 1.4% (Claude). Paper Figure 5 data.</div>
   </div>
-  <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left;">
-    <div style="font-size: 1.8em; font-weight: 700; color: #2d6a4f;">0.827</div>
-    <div style="font-size: 0.34em; color: #4a4f5a;">mean human LCS ratio around resets (median 0.900): after a reset, humans largely replay the same action sequence</div>
-  </div>
-  <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left;">
-    <div style="font-size: 1.8em; font-weight: 700; color: #c0392b;">0.188 to 0.359</div>
-    <div style="font-size: 0.34em; color: #4a4f5a;">every model's LCS ratio: o3 0.188, Gemini Flash 0.273, Qwen 0.325, Claude 0.347, Gemini Pro 0.359</div>
+  <div style="flex: 1.3; max-width: 310px; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">LCS ratio around resets</div>
+    <canvas id="wt-chart-lcs" width="280" height="150"></canvas>
+    <div style="font-size: 0.28em; color: #6b7080; margin-top: 0.2em;">Mean human 0.827 (median 0.900): after a reset, humans largely replay the same action sequence. Every model sits far below. Appendix E.6.</div>
   </div>
 </div>
 
@@ -1005,6 +1003,25 @@
         options: { indexAxis: 'y', responsive: false, animation: false,
           plugins: { legend: { display: false }, tooltip: { enabled: false } },
           scales: { x: { min: 0, max: 14, ticks: { callback: function (v) { return v + '%'; }, font: { size: 8 } }, grid: { color: 'rgba(128,128,128,0.14)' } },
+                    y: { ticks: { font: { size: 8 } }, grid: { display: false } } } },
+        plugins: [plotBg]
+      });
+    }
+
+    // slide-behav-exploration: LCS ratio around resets (values from the authors'
+    // OpenReview rebuttal / Appendix E.6)
+    const lcsEl = document.getElementById('wt-chart-lcs');
+    if (lcsEl) {
+      new Chart(lcsEl, {
+        type: 'bar',
+        data: {
+          labels: ['human', 'gemini-2.5-pro', 'claude-4-sonnet', 'qwen3-235b', 'gemini-2.5-flash', 'o3'],
+          datasets: [{ data: [0.827, 0.359, 0.347, 0.325, 0.273, 0.188],
+            backgroundColor: ['rgb(0,158,115)', 'rgb(230,159,0)', 'rgb(86,180,233)', 'rgb(204,121,167)', 'rgb(240,228,66)', 'rgb(213,94,0)'] }]
+        },
+        options: { indexAxis: 'y', responsive: false, animation: false,
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: { x: { min: 0, max: 1, ticks: { stepSize: 0.25, font: { size: 8 } }, grid: { color: 'rgba(128,128,128,0.14)' } },
                     y: { ticks: { font: { size: 8 } }, grid: { display: false } } } },
         plugins: [plotBg]
       });
