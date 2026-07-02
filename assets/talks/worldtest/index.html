@@ -443,7 +443,7 @@
 <section id="slide-autumnbench" class="slide level2" data-background-color="#fafbfc">
 <h2 style="font-size: 1em; margin: 0 0 0.15em 0;">AutumnBench: WorldTest made <span style="color: #1E3A8A;">concrete</span></h2>
 
-<p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.33em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">43 interactive grid-world environments &middot; 129 tasks &middot; three query families &middot; the same benchmark is playable by humans (browser) and AI (text). Grids 3x3 to 25x25, up to 5 object types each, 17 of 43 stochastic.</p>
+<p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.33em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">43 interactive grid-world environments &middot; 129 tasks &middot; three query families &middot; the same benchmark is playable by humans (browser) and AI (text). Grids 3x3 to 25x25, up to 5 object types each, 19 of 43 stochastic.</p>
 
 <img src="./media/autumnbench_overview.png" alt="The WorldTest framework and AutumnBench instantiation: nine example grid environments, an interaction phase with an observation and action loop plus reset and go-to-test buttons, the AI or human agent, and a test phase with three task panels: Masked Frame Prediction, Planning, and Change Detection." style="display: block; margin: 0 auto; max-width: 96%; max-height: 50vh; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); background: #ffffff;">
 
@@ -591,20 +591,20 @@
 <div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
 
   <div style="flex: 1; max-width: 360px; padding: 0.6em 0.8em; border: 1px solid #c0392b; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Models: a big gap</div>
-    <p style="margin: 0 0 0.35em; color: #1f2330;">Models did <strong>much better on stochastic</strong> environments than on deterministic ones.</p>
-    <p style="margin: 0; color: #4a4f5a;">Performance that swings with the kind of environment is a sign of fragile, surface-level understanding rather than a transferable grasp of how the world works.</p>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Models: a significant split</div>
+    <p style="margin: 0 0 0.35em; color: #1f2330;">Reasoning models performed <strong>significantly better on stochastic</strong> environments than on deterministic ones.</p>
+    <p style="margin: 0; color: #4a4f5a;">Their score depends on the kind of environment they are dropped into. 19 of the 43 environments are stochastic: the same action from the same state can produce different outcomes.</p>
   </div>
 
   <div style="flex: 1; max-width: 360px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Humans: consistent</div>
-    <p style="margin: 0 0 0.35em; color: #1f2330;">Humans scored <strong>nearly the same</strong> on stochastic and deterministic environments.</p>
-    <p style="margin: 0; color: #4a4f5a;">Consistent performance regardless of randomness is a signature of genuine model-based understanding: the same grasp of the rules transfers across both kinds of world.</p>
+    <p style="margin: 0 0 0.35em; color: #1f2330;">Humans maintained <strong>nearly identical</strong> performance on stochastic and deterministic environments.</p>
+    <p style="margin: 0; color: #4a4f5a;">Whatever humans learn during exploration, it carries across both kinds of world with barely any change in score.</p>
   </div>
 
 </div>
 
-<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">This split is qualitative here: it points to where the models' understanding breaks down, not a single headline number.</p>
+<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">The paper reports this split as an observation (Figure 3a) and does not attribute a cause. What it shows directly: model performance swings with the type of environment, and human performance does not.</p>
 
 </section>
 
