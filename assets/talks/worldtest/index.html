@@ -644,9 +644,10 @@
 </div>
 
 <div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; margin-bottom: 0.55em;">
-  <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; text-align: left;">
-    <div style="font-size: 1.8em; font-weight: 700; color: #1E3A8A;">12.5%</div>
-    <div style="font-size: 0.34em; color: #4a4f5a;">of humans' unique actions are resets; every model uses fewer, from 6.8% (Qwen) down to 2.1% (Claude)</div>
+  <div style="flex: 1.3; max-width: 310px; padding: 0.45em 0.6em; border: 1px solid #1E3A8A; border-radius: 6px; background: #ffffff; text-align: left;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Reset share of actions</div>
+    <canvas id="wt-chart-resets" width="280" height="150"></canvas>
+    <div style="font-size: 0.28em; color: #6b7080; margin-top: 0.2em;">Humans 12.5%; every model lower, from 7.1% (Gemini Flash) down to 1.4% (Claude). Paper Figure 5 data.</div>
   </div>
   <div style="flex: 1; max-width: 240px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left;">
     <div style="font-size: 1.8em; font-weight: 700; color: #2d6a4f;">0.827</div>
@@ -1001,6 +1002,25 @@
           scales: { y: yScale, x: { type: 'linear', min: -0.7, max: 6.7,
             ticks: { stepSize: 1, callback: function (v) { return D.short[v] !== undefined ? D.short[v] : ''; }, maxRotation: 42, minRotation: 42, font: { size: 8 }, autoSkip: false },
             grid: { display: false } } } },
+        plugins: [plotBg]
+      });
+    }
+
+    // slide-behav-exploration: reset share per agent (Figure 5 data,
+    // new_plots/data/action_fractions_by_agent.csv, frac_resets column)
+    const resetEl = document.getElementById('wt-chart-resets');
+    if (resetEl) {
+      new Chart(resetEl, {
+        type: 'bar',
+        data: {
+          labels: ['human', 'gemini-2.5-flash', 'qwen3-235b', 'o3', 'gemini-2.5-pro', 'claude-4-sonnet'],
+          datasets: [{ data: [12.5, 7.1, 5.4, 5.1, 4.6, 1.4],
+            backgroundColor: ['rgb(0,158,115)', 'rgb(240,228,66)', 'rgb(204,121,167)', 'rgb(213,94,0)', 'rgb(230,159,0)', 'rgb(86,180,233)'] }]
+        },
+        options: { indexAxis: 'y', responsive: false, animation: false,
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: { x: { min: 0, max: 14, ticks: { callback: function (v) { return v + '%'; }, font: { size: 8 } }, grid: { color: 'rgba(128,128,128,0.14)' } },
+                    y: { ticks: { font: { size: 8 } }, grid: { display: false } } } },
         plugins: [plotBg]
       });
     }
