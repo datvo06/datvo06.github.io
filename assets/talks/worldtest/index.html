@@ -465,7 +465,7 @@
       <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Interaction phase</span>
     </div>
     <p style="margin: 0 0 0.35em; color: #1f2330;">The agent explores on its own with <strong>no external goals or rewards</strong>. It may <strong>reset</strong> the environment to its initial state at any time, to test hypotheses. It ends the phase when it chooses; finite resources, not a hard clock, limit exploration. It may build <strong>any internal representation it likes</strong>: a program, a latent code, a neural net.</p>
-    <p style="margin: 0 0 0.2em; color: #1f2330; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">M&#770; = A(&tau;<sub>explore</sub>), &nbsp;&tau;<sub>explore</sub> &sim; E</p>
+    <p style="margin: 0 0 0.2em; color: #1f2330; font-size: 0.95em;">\( \hat{M} = A(\tau_{\text{explore}}), \quad \tau_{\text{explore}} \sim E \)</p>
     <p style="margin: 0; color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; font-size: 0.9em;">training-free; the agent is the protocol</p>
   </div>
 
@@ -475,7 +475,7 @@
       <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Test phase</span>
     </div>
     <p style="margin: 0 0 0.35em; color: #4a4f5a;">A query becomes a <strong style="color: #1f2330;">challenge environment</strong>: the same world with one or more components changed (its transitions, observations, or actions) plus an explicit objective. The score depends only on behavior here.</p>
-    <p style="margin: 0 0 0.2em; color: #1f2330; font-family: 'IBM Plex Mono', monospace; font-size: 0.95em;">ans<sub>q</sub>(M&#770;) &equiv; R<sub>q</sub>(&tau;<sub>E<sub>q</sub></sub>)</p>
+    <p style="margin: 0 0 0.2em; color: #1f2330; font-size: 0.95em;">\( \text{ans}_q(\hat{M}) \equiv R_q\bigl(\tau_{E_q}\bigr) \)</p>
     <p style="margin: 0; color: #c08230; font-family: 'IBM Plex Mono', monospace; font-size: 0.9em;">solving the task &equiv; answering the query</p>
   </div>
 
@@ -504,7 +504,7 @@
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">A query is a question about the whole environment. WorldTest compiles it into a challenge environment with an explicit goal, then scores the agent's behavior there.</p>
 
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The transformation.</strong> A fixed rule (call it <em>tau</em>) takes the base reward-free environment plus a <strong>hidden task parameter</strong> and produces a <strong>modified environment</strong>, an objective, and a horizon H. The modified environment differs from the base by changes to its state, dynamics, observations, or rewards. Completing the objective answers the query.</p>
+  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The transformation.</strong> A fixed rule \( \tau \) takes the base reward-free environment plus a <strong>hidden task parameter</strong> and produces a <strong>modified environment</strong>, an objective, and a horizon \( H \). The modified environment differs from the base by changes to its state, dynamics, observations, or rewards. Completing the objective answers the query.</p>
 </div>
 
 <div style="display: flex; gap: 0.7em; align-items: stretch; justify-content: center; font-size: 0.32em; text-align: left;">
@@ -521,7 +521,7 @@
 
   <div style="flex: 1; max-width: 200px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">3. Instantiate</div>
-    <p style="margin: 0; color: #4a4f5a;">On proceeding, <strong>sample the hidden parameters</strong> and apply tau to build the modified environment, objective, and horizon H.</p>
+    <p style="margin: 0; color: #4a4f5a;">On proceeding, <strong>sample the hidden parameters</strong> and apply \( \tau \) to build the modified environment, objective, and horizon \( H \).</p>
   </div>
 
   <div style="flex: 1; max-width: 200px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
@@ -1037,6 +1037,7 @@
     </div>
   </div>
   <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/math/math.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@sgratzl/chartjs-chart-boxplot@4.4.4/build/index.umd.min.js"></script>
   <script src="./media/results_data.js"></script>
@@ -1047,7 +1048,8 @@
       progress: false,
       center: true,
       transition: 'fade',
-      preloadIframes: true
+      preloadIframes: true,
+      plugins: [ RevealMath.KaTeX ]
     });
   </script>
   <script>
