@@ -546,38 +546,38 @@
 
 <p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.33em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">517 human participants vs five frontier reasoning models (Claude 4 Sonnet, Gemini 2.5 Pro, Gemini 2.5 Flash, o3, Qwen3-235B). Human score = the 80th-percentile score across 20 attempts per problem. A simulator with ground-truth program access is shown only as a reference.</p>
 
-<div style="display: flex; gap: 0.9em; align-items: center; justify-content: center;">
-
-  <div style="position: relative; max-width: 72%; flex: 0 1 auto;">
-    <img src="./media/results_scores.png" alt="Aggregate scores over all AutumnBench problems. Panel a, score by stochasticity: models score higher on stochastic than deterministic environments, while humans are consistent across both. Panel b, score by task type: humans outperform all reasoning models on change detection, masked frame prediction, and planning. Panel c, per-environment score distributions: the human violin sits near 1.0 and every model violin is far lower." style="display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); background: #ffffff;">
-    <!-- step 1: the human columns, all three panels -->
-    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 26.4%; top: 15.5%; width: 3.1%; height: 42%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
-    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 39.9%; top: 16.5%; width: 1.9%; height: 33.5%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
-    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 47.6%; top: 15.8%; width: 1.9%; height: 34.2%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
-    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 55.2%; top: 15.3%; width: 1.9%; height: 34.7%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
-    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 82.4%; top: 3%; width: 5.4%; height: 45%; border: 2.5px solid #2d6a4f; border-radius: 4px; background: rgba(45,106,79,0.12); pointer-events: none;"></div>
-    <div class="fragment" data-fragment-index="0" style="position: absolute; left: 26%; top: 60%; font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; font-weight: 600; letter-spacing: 0.05em; pointer-events: none;">humans, near-ceiling everywhere</div>
-    <!-- step 2: the three task families -->
-    <div class="fragment" data-fragment-index="1" style="position: absolute; left: 35.3%; top: 12.5%; width: 6.8%; height: 46%; border: 2.5px solid #c08230; border-radius: 4px; background: rgba(192,130,48,0.10); pointer-events: none;"></div>
-    <div class="fragment" data-fragment-index="1" style="position: absolute; left: 43.0%; top: 12.5%; width: 6.8%; height: 46%; border: 2.5px solid #c08230; border-radius: 4px; background: rgba(192,130,48,0.10); pointer-events: none;"></div>
-    <div class="fragment" data-fragment-index="1" style="position: absolute; left: 50.6%; top: 12.5%; width: 6.8%; height: 46%; border: 2.5px solid #c08230; border-radius: 4px; background: rgba(192,130,48,0.10); pointer-events: none;"></div>
-    <div class="fragment" data-fragment-index="1" style="position: absolute; left: 35.3%; top: 63%; font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #c08230; font-weight: 600; letter-spacing: 0.05em; pointer-events: none;">three task families, humans win each</div>
+<!-- Figure 3 reproduced in JS (Chart.js) from the paper's own plot data:
+     new_plots/data/{stoch_vs_det,score_by_task_type,score_by_env_violin}.csv -->
+<div style="display: flex; gap: 12px; align-items: flex-end; justify-content: center;">
+  <div id="wt-panel-a" style="transition: opacity 0.35s;">
+    <canvas id="wt-chart-a" width="272" height="292"></canvas>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.27em; color: #6b7080; text-align: center; margin-top: 2px;">(a) score by stochasticity</div>
   </div>
-
-  <div style="display: flex; flex-direction: column; gap: 0.5em; justify-content: center; font-size: 0.34em; text-align: left;">
-    <div style="padding: 0.5em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-      <div style="font-size: 1.8em; font-weight: 700; color: #1E3A8A;">&asymp; 0.935</div>
-      <div style="color: #4a4f5a;">average human score, near-optimal; models frequently fail</div>
-    </div>
-    <div style="padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-      <div style="font-size: 1.8em; font-weight: 700; color: #c0392b;">all 3</div>
-      <div style="color: #4a4f5a;">task families won by humans: change detection, masked frame prediction, planning</div>
-    </div>
+  <div id="wt-panel-b" style="transition: opacity 0.35s, box-shadow 0.35s; border-radius: 6px;">
+    <canvas id="wt-chart-b" width="366" height="292"></canvas>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.27em; color: #6b7080; text-align: center; margin-top: 2px;">(b) score by task type</div>
   </div>
-
+  <div id="wt-panel-c" style="transition: opacity 0.35s;">
+    <canvas id="wt-chart-c" width="272" height="292"></canvas>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.27em; color: #6b7080; text-align: center; margin-top: 2px;">(c) per-environment score</div>
+  </div>
 </div>
 
-<p style="margin: 0.35em auto 0; max-width: 92%; font-size: 0.31em; color: #6b7080; text-align: left;">Panel (a): models did better on stochastic environments than deterministic ones; humans were nearly identical across both. More on that next.</p>
+<span class="fragment" data-hl="humans" data-fragment-index="0" style="display: none;"></span>
+<span class="fragment" data-hl="tasks" data-fragment-index="1" style="display: none;"></span>
+
+<div style="display: flex; gap: 0.7em; justify-content: center; margin-top: 0.4em; font-size: 0.32em; text-align: left;">
+  <div style="display: flex; align-items: center; gap: 0.5em; padding: 0.35em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; max-width: 330px;">
+    <div style="font-size: 1.7em; font-weight: 700; color: #1E3A8A;">&asymp; 0.935</div>
+    <div style="color: #4a4f5a;">average human score, near-optimal; models frequently fail</div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 0.5em; padding: 0.35em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; max-width: 330px;">
+    <div style="font-size: 1.7em; font-weight: 700; color: #c0392b;">all 3</div>
+    <div style="color: #4a4f5a;">task families won by humans: change detection, masked frame prediction, planning</div>
+  </div>
+</div>
+
+<p style="margin: 0.3em auto 0; max-width: 92%; font-size: 0.3em; color: #6b7080; text-align: left;">Panel (a): models did better on stochastic environments than deterministic ones; humans were nearly identical across both. More on that next. Bars carry standard-error whiskers; panel (c) shows one dot per environment, circle = mean.</p>
 
 </section>
 
@@ -890,6 +890,8 @@
     </div>
   </div>
   <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.js"></script>
+  <script src="./media/results_data.js"></script>
   <script>
     Reveal.initialize({
       hash: true,
@@ -898,6 +900,115 @@
       center: true,
       transition: 'fade'
     });
+  </script>
+  <script>
+  // Figure 3 reproduced with Chart.js from the paper's plot CSVs (see media/results_data.js).
+  (function () {
+    if (typeof Chart === 'undefined' || typeof WT_DATA === 'undefined') return;
+    Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
+    Chart.defaults.font.size = 10;
+    Chart.defaults.color = '#4a4f5a';
+    const D = WT_DATA, H = D.humanIdx;
+    const fade = (rgb, a) => rgb.replace('rgb(', 'rgba(').replace(')', ',' + a + ')');
+
+    // plot-area tint matching the paper's PlotBackground (243,246,255)
+    const plotBg = { id: 'plotBg', beforeDraw(c) {
+      const { left, top, width, height } = c.chartArea;
+      c.ctx.save(); c.ctx.fillStyle = '#f3f6ff'; c.ctx.fillRect(left, top, width, height); c.ctx.restore();
+    } };
+    // standard-error whiskers, from dataset.sem
+    const errBars = { id: 'errBars', afterDatasetsDraw(c) {
+      const ctx = c.ctx; ctx.save();
+      ctx.strokeStyle = 'rgba(60,60,70,0.85)'; ctx.lineWidth = 1;
+      c.data.datasets.forEach(function (ds, di) {
+        if (!ds.sem) return;
+        const meta = c.getDatasetMeta(di);
+        meta.data.forEach(function (el, i) {
+          const v = ds.data[i], s = ds.sem[i];
+          if (v == null || s == null) return;
+          const y0 = c.scales.y.getPixelForValue(Math.max(0, v - s));
+          const y1 = c.scales.y.getPixelForValue(Math.min(1, v + s));
+          ctx.beginPath(); ctx.moveTo(el.x, y0); ctx.lineTo(el.x, y1);
+          ctx.moveTo(el.x - 2.5, y0); ctx.lineTo(el.x + 2.5, y0);
+          ctx.moveTo(el.x - 2.5, y1); ctx.lineTo(el.x + 2.5, y1);
+          ctx.stroke();
+        });
+      });
+      ctx.restore();
+    } };
+
+    const yScale = { min: 0, max: 1, ticks: { stepSize: 0.5 }, grid: { color: 'rgba(128,128,128,0.14)' }, title: { display: true, text: 'Score', font: { size: 10 } } };
+
+    // (a) score by stochasticity: grouped bars per agent
+    const chA = new Chart(document.getElementById('wt-chart-a'), {
+      type: 'bar',
+      data: { labels: D.short, datasets: [
+        { label: 'deterministic', data: D.panelA.det, sem: D.panelA.detSem, backgroundColor: D.short.map(() => 'rgb(97,156,255)') },
+        { label: 'stochastic', data: D.panelA.stoch, sem: D.panelA.stochSem, backgroundColor: D.short.map(() => 'rgb(248,118,109)') }
+      ] },
+      options: { responsive: false, animation: false, plugins: { legend: { position: 'top', labels: { boxWidth: 9, boxHeight: 9, font: { size: 9 } } }, tooltip: { enabled: false } },
+        scales: { y: yScale, x: { ticks: { maxRotation: 42, minRotation: 42, font: { size: 8 }, autoSkip: false }, grid: { display: false } } } },
+      plugins: [plotBg, errBars]
+    });
+
+    // (b) score by task type: CD / MFP / PL, one dataset per agent
+    const chB = new Chart(document.getElementById('wt-chart-b'), {
+      type: 'bar',
+      data: { labels: ['CD', 'MFP', 'PL'], datasets: D.order.map(function (a, k) {
+        return { label: D.short[k], data: [D.panelB.CD.means[k], D.panelB.MFP.means[k], D.panelB.PL.means[k]],
+                 sem: [D.panelB.CD.sems[k], D.panelB.MFP.sems[k], D.panelB.PL.sems[k]],
+                 backgroundColor: D.colors[k] };
+      }) },
+      options: { responsive: false, animation: false, plugins: { legend: { position: 'top', labels: { boxWidth: 9, boxHeight: 9, font: { size: 8 } } }, tooltip: { enabled: false } },
+        scales: { y: yScale, x: { grid: { display: false } } } },
+      plugins: [plotBg, errBars]
+    });
+
+    // (c) per-environment scores: one dot per environment + open circle at the mean
+    const jitter = function (k) { return ((k * 29) % 13 - 6) / 24; };
+    const dotSets = D.order.map(function (a, k) {
+      return { type: 'scatter', label: D.short[k], showLine: false,
+        data: D.panelC[k].map(function (v, i) { return { x: k + jitter(i), y: v }; }),
+        pointRadius: 2, pointBackgroundColor: fade(D.colors[k], 0.55), pointBorderWidth: 0 };
+    });
+    const meanSet = { type: 'scatter', label: 'mean', showLine: false,
+      data: D.panelCMeans.map(function (m, k) { return { x: k, y: m }; }),
+      pointRadius: 4.5, pointBackgroundColor: 'rgba(0,0,0,0)', pointBorderColor: '#1f2330', pointBorderWidth: 1.4 };
+    const chC = new Chart(document.getElementById('wt-chart-c'), {
+      data: { datasets: dotSets.concat([meanSet]) },
+      options: { responsive: false, animation: false, plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: { y: yScale, x: { type: 'linear', min: -0.7, max: 6.7,
+          ticks: { stepSize: 1, callback: function (v) { return D.short[v] !== undefined ? D.short[v] : ''; }, maxRotation: 42, minRotation: 42, font: { size: 8 }, autoSkip: false },
+          grid: { display: false } } } },
+      plugins: [plotBg]
+    });
+
+    // fragment-driven highlighting: step 0 = human columns, step 1 = the three task families
+    const wrapA = document.getElementById('wt-panel-a'), wrapB = document.getElementById('wt-panel-b'), wrapC = document.getElementById('wt-panel-c');
+    function humans(on) {
+      chA.data.datasets[0].backgroundColor = D.short.map(function (_, i) { return (i === H || !on) ? 'rgb(97,156,255)' : 'rgba(97,156,255,0.16)'; });
+      chA.data.datasets[1].backgroundColor = D.short.map(function (_, i) { return (i === H || !on) ? 'rgb(248,118,109)' : 'rgba(248,118,109,0.16)'; });
+      chB.data.datasets.forEach(function (ds, k) { ds.backgroundColor = (k === H || !on) ? D.colors[k] : fade(D.colors[k], 0.14); });
+      chC.data.datasets.forEach(function (ds, k) {
+        if (k < D.order.length) ds.pointBackgroundColor = (k === H || !on) ? fade(D.colors[k], 0.55) : fade(D.colors[k], 0.10);
+      });
+      chA.update('none'); chB.update('none'); chC.update('none');
+    }
+    function tasks(on) {
+      wrapA.style.opacity = wrapC.style.opacity = on ? 0.22 : 1;
+      wrapB.style.boxShadow = on ? '0 0 0 3px #c08230' : 'none';
+    }
+    Reveal.on('fragmentshown', function (e) {
+      const k = e.fragment.dataset.hl;
+      if (k === 'humans') humans(true);
+      if (k === 'tasks') { humans(false); tasks(true); }
+    });
+    Reveal.on('fragmenthidden', function (e) {
+      const k = e.fragment.dataset.hl;
+      if (k === 'humans') humans(false);
+      if (k === 'tasks') { tasks(false); humans(true); }
+    });
+  })();
   </script>
 </body>
 </html>
