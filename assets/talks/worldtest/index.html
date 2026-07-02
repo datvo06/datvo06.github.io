@@ -156,33 +156,6 @@
 
 </section>
 
-<section id="slide-problem" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">Why current evaluations <span style="color: #c0392b;">fall short</span></h2>
-
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">World models are central to flexible reasoning and planning, yet we mostly measure them one trajectory at a time</p>
-
-<div style="border-left: 3px solid #c0392b; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #c0392b; letter-spacing: 0.06em;">The gap.</strong> Today's metrics test only properties measurable from one observed interaction. A general-purpose world model should answer many different questions about an environment, including its global structure and counterfactual consequences. We do not test that.</p>
-</div>
-
-<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
-
-  <div style="flex: 1; max-width: 340px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What we measure now</div>
-    <p style="margin: 0; color: #4a4f5a;">Trajectory-level metrics such as <strong style="color: #1f2330;">next-frame prediction</strong> (does the model predict the next observation) and <strong style="color: #1f2330;">task return</strong> (does it score well on one fixed goal). Both read off a single observed run.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 340px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What goes untested</div>
-    <p style="margin: 0; color: #1f2330;">Whether the model supports <strong>diverse</strong> questions: the environment's global structure and the <strong>counterfactual</strong> consequences of actions it has not yet seen. A model can ace next-frame prediction and still understand the world poorly.</p>
-  </div>
-
-</div>
-
-<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">What would a test of that even look like?</p>
-
-</section>
-
 <section id="slide-thesis" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The idea: ask questions about the <span style="color: #1E3A8A;">whole environment</span></h2>
 
