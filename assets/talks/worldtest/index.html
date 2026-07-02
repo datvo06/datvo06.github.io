@@ -80,15 +80,6 @@
 </div>
 </section>
 
-<section id="slide-thesis" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">Does a learned model answer questions about the <span style="color: #1E3A8A;">whole environment?</span></h2>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">In one line.</strong> A <em>world model</em> is an agent's internal model of how its environment works. WorldTest is a behavior-based way to test whether a learned world model can answer many different questions about an environment, not just predict the next frame. We use it to compare 517 humans against five frontier AI models.</p>
-</div>
-
-</section>
-
 <section id="slide-motivation" class="slide level2">
 <style>
 #slide-motivation .mot-vig{position:relative;height:78px;background:linear-gradient(#f7f8fb,#e9edf3);border-radius:6px;margin-bottom:0.45em;overflow:hidden;}
@@ -121,7 +112,7 @@
 </style>
 <h2 style="font-size: 1em; margin: 0 0 0.25em 0;">Why world models <span style="color: #1E3A8A;">matter</span></h2>
 
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">A flexible, predictive, counterfactual understanding of how an environment works. Learning one is argued to be pivotal for the next step in AI.</p>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">A flexible, predictive, counterfactual understanding of how an environment works. Learning one is a pivotal open problem for the next step in AI.</p>
 
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
   <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">A worked example.</strong> Someone who cooks regularly builds an internal model of their kitchen: where tools live, how appliances behave. That one model is general-purpose. It supports many different everyday capabilities about the same environment, not just a single task.</p>
@@ -161,7 +152,7 @@
 
 </div>
 
-<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">A good world model answers many such different questions about one environment.</p>
+<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">Hold on to these three. They come back as the benchmark's three tests.</p>
 
 </section>
 
@@ -188,14 +179,25 @@
 
 </div>
 
-<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">If a learned model is good, it should generalize to many questions about the same environment. So that is what we should measure.</p>
+<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">What would a test of that even look like?</p>
+
+</section>
+
+<section id="slide-thesis" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The idea: ask questions about the <span style="color: #1E3A8A;">whole environment</span></h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">In one line.</strong> A <em>world model</em> is an agent's internal model of how its environment works. WorldTest is a behavior-based way to test whether a learned world model can answer many different questions about an environment, not just predict the next frame. We use it to compare 517 humans against five frontier AI models.</p>
+</div>
+
+<p style="margin: 0 auto; max-width: 90%; font-size: 0.34em; color: #6b7080; text-align: left;">Before the how: does anything existing already test this?</p>
 
 </section>
 
 <section id="slide-prior-work" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.2em 0;">The evaluation landscape and <span style="color: #c0392b;">what it misses</span></h2>
 
-<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.33em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Four families of benchmarks each probe an agent's knowledge in an incomplete way. None unifies a representation-agnostic, reward-free test of environment-level queries.</p>
+<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.33em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Four families of benchmarks each probe an agent's knowledge in an incomplete way.</p>
 
 <div style="display: flex; gap: 0.7em; align-items: stretch; justify-content: center; font-size: 0.32em; text-align: left; margin-bottom: 0.55em;">
 
@@ -226,7 +228,7 @@
 </div>
 
 <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.85em; margin: 0 auto 0.5em; max-width: 92%; text-align: left;">
-  <p style="margin: 0; font-size: 0.36em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">Punchline.</strong> AutumnBench is the only benchmark that is representation-agnostic AND reward-free in training AND uses a modified test environment. It is a POMDP, the most general environment type.</p>
+  <p style="margin: 0; font-size: 0.36em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">Punchline.</strong> AutumnBench is the only benchmark that is representation-agnostic AND reward-free in training AND uses a modified test environment.</p>
 </div>
 
 </section>
@@ -618,7 +620,9 @@
 #slide-autumnbench .hs .tip strong{color:#ffffff;}
 #slide-autumnbench .hs .tip .tt{font-family:'IBM Plex Mono',monospace;letter-spacing:0.05em;text-transform:uppercase;color:#9db3e8;margin-bottom:0.25em;}
 </style>
-<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">AutumnBench: WorldTest made <span style="color: #1E3A8A;">concrete</span></h2>
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">AutumnBench: WorldTest made <span style="color: #1E3A8A;">concrete</span></h2>
+
+<p style="margin: 0 auto 0.35em; max-width: 92%; font-size: 0.31em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The kitchen test, formalized: Predict becomes Masked Frame Prediction, Adapt becomes Change Detection, Plan becomes Planning.</p>
 
 <div style="position: relative; width: fit-content; margin: 0 auto;">
   <img src="./media/autumnbench_overview.png" alt="The WorldTest framework and AutumnBench instantiation: nine example grid environments, an interaction phase with an observation and action loop plus reset and go-to-test buttons, the AI or human agent, and a test phase with three task panels: Masked Frame Prediction, Planning, and Change Detection." style="display: block; max-width: 100%; max-height: 62vh; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); background: #ffffff;">
@@ -628,7 +632,7 @@
     <span class="hq">?</span>
     <div class="tip" style="left: 4%; top: 103%;">
       <div class="tt">43 environments</div>
-      Interactive grid worlds written in Autumn: grids 3x3 to 25x25, up to 5 object types each, 19 of 43 stochastic. The same worlds are playable by humans in the browser and by AI as text.
+      Interactive grid worlds written in Autumn: grids 3x3 to 25x25, up to 5 object types each, 19 of 43 stochastic. The same worlds are playable by humans in the browser and by AI as text. Each is a POMDP, the most general environment type.
     </div>
   </div>
 
@@ -636,7 +640,7 @@
     <span class="hq">?</span>
     <div class="tip" style="left: 6%; bottom: 103%;">
       <div class="tt">Masked Frame Prediction</div>
-      Predict the masked content of the final frame by choosing one of six options. Tests prediction of hidden state.
+      Predict the masked content of the final frame by choosing one of six options. Tests prediction of hidden state. The kitchen's Predict.
     </div>
   </div>
 
@@ -644,7 +648,7 @@
     <span class="hq" style="background:#c08230;">?</span>
     <div class="tip" style="left: 6%; bottom: 103%;">
       <div class="tt" style="color:#e8c890;">Planning</div>
-      Drive a subgrid into a target configuration with an action sequence. Tests long-horizon control and reachability.
+      Drive a subgrid into a target configuration with an action sequence. Tests long-horizon control and reachability. The kitchen's Plan.
     </div>
   </div>
 
@@ -652,7 +656,7 @@
     <span class="hq" style="background:#2d6a4f;">?</span>
     <div class="tip" style="right: 4%; bottom: 103%;">
       <div class="tt" style="color:#9fd8b8;">Change Detection</div>
-      One rule changes mid-test. Report the earliest timestep at which it changed. Tests detecting shifts in dynamics.
+      One rule changes mid-test. Report the earliest timestep at which it changed. Tests detecting shifts in dynamics. The kitchen's Adapt.
     </div>
   </div>
 
@@ -736,7 +740,7 @@
   </div>
   <div style="display: flex; align-items: center; gap: 0.5em; padding: 0.35em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; max-width: 330px;">
     <div style="font-size: 1.7em; font-weight: 700; color: #c0392b;">all 3</div>
-    <div style="color: #4a4f5a;">task families won by humans: change detection, masked frame prediction, planning</div>
+    <div style="color: #4a4f5a;">task families won by humans: change detection, masked frame prediction, planning. The kitchen's Adapt, Predict, Plan.</div>
   </div>
 </div>
 
