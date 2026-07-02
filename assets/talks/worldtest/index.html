@@ -620,7 +620,6 @@
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #2d6a4f; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Improves with compute &middot; live &middot; gravity_3</div>
     <iframe data-src="/talks/basis-2026/autumn-embed/?program=Gravity%203&amp;compact=1" style="flex: 1; width: 100%; min-height: 34vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
-    <p style="margin: 0.35em 0 0; font-size: 0.29em; color: #4a4f5a; text-align: left; line-height: 1.35;">One of the four environments that benefit consistently across multiple tasks, with gameoflife, scotland_yard, and tictactoe. Click a free cell to drop a blob; click the panel first, then arrow keys steer the shared gravity.</p>
   </div>
 
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #c0392b; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
@@ -889,6 +888,7 @@
   </div>
   <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@sgratzl/chartjs-chart-boxplot@4.4.4/build/index.umd.min.js"></script>
   <script src="./media/results_data.js"></script>
   <script>
     Reveal.initialize({
@@ -963,24 +963,47 @@
       plugins: [plotBg, errBars]
     });
 
-    // (c) per-environment scores: one dot per environment + open circle at the mean
-    const jitter = function (k) { return ((k * 29) % 13 - 6) / 24; };
-    const dotSets = D.order.map(function (a, k) {
-      return { type: 'scatter', label: D.short[k], showLine: false,
-        data: D.panelC[k].map(function (v, i) { return { x: k + jitter(i), y: v }; }),
-        pointRadius: 2, pointBackgroundColor: fade(D.colors[k], 0.55), pointBorderWidth: 0 };
-    });
-    const meanSet = { type: 'scatter', label: 'mean', showLine: false,
-      data: D.panelCMeans.map(function (m, k) { return { x: k, y: m }; }),
-      pointRadius: 4.5, pointBackgroundColor: 'rgba(0,0,0,0)', pointBorderColor: '#1f2330', pointBorderWidth: 1.4 };
-    const chC = new Chart(document.getElementById('wt-chart-c'), {
-      data: { datasets: dotSets.concat([meanSet]) },
-      options: { responsive: false, animation: false, plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: { y: yScale, x: { type: 'linear', min: -0.7, max: 6.7,
-          ticks: { stepSize: 1, callback: function (v) { return D.short[v] !== undefined ? D.short[v] : ''; }, maxRotation: 42, minRotation: 42, font: { size: 8 }, autoSkip: false },
-          grid: { display: false } } } },
-      plugins: [plotBg]
-    });
+    // (c) per-environment score distributions: violins (KDE) with per-env dots
+    // and an open circle at the mean, matching the paper's panel (c).
+    let chC;
+    const violinOk = typeof ChartBoxPlot !== 'undefined' && ChartBoxPlot.ViolinController;
+    if (violinOk) {
+      Chart.register(ChartBoxPlot.ViolinController, ChartBoxPlot.Violin, ChartBoxPlot.BoxPlotController, ChartBoxPlot.BoxAndWiskers);
+      chC = new Chart(document.getElementById('wt-chart-c'), {
+        type: 'violin',
+        data: { labels: D.short, datasets: [
+          { data: D.panelC,
+            backgroundColor: D.colors.map(function (c) { return fade(c, 0.55); }),
+            borderColor: D.colors, borderWidth: 1,
+            itemRadius: 1.6, itemStyle: 'circle', itemBackgroundColor: 'rgba(60,60,70,0.4)', itemBorderWidth: 0,
+            meanRadius: 0, medianColor: 'rgba(0,0,0,0)' },
+          { type: 'line', data: D.panelCMeans, showLine: false,
+            pointRadius: 4.5, pointBackgroundColor: 'rgba(0,0,0,0)', pointBorderColor: '#1f2330', pointBorderWidth: 1.4 }
+        ] },
+        options: { responsive: false, animation: false, plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: { y: yScale, x: { ticks: { maxRotation: 42, minRotation: 42, font: { size: 8 }, autoSkip: false }, grid: { display: false } } } },
+        plugins: [plotBg]
+      });
+    } else {
+      // fallback if the violin extension fails to load: jittered dots + mean circle
+      const jitter = function (k) { return ((k * 29) % 13 - 6) / 24; };
+      const dotSets = D.order.map(function (a, k) {
+        return { type: 'scatter', label: D.short[k], showLine: false,
+          data: D.panelC[k].map(function (v, i) { return { x: k + jitter(i), y: v }; }),
+          pointRadius: 2, pointBackgroundColor: fade(D.colors[k], 0.55), pointBorderWidth: 0 };
+      });
+      const meanSet = { type: 'scatter', label: 'mean', showLine: false,
+        data: D.panelCMeans.map(function (m, k) { return { x: k, y: m }; }),
+        pointRadius: 4.5, pointBackgroundColor: 'rgba(0,0,0,0)', pointBorderColor: '#1f2330', pointBorderWidth: 1.4 };
+      chC = new Chart(document.getElementById('wt-chart-c'), {
+        data: { datasets: dotSets.concat([meanSet]) },
+        options: { responsive: false, animation: false, plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: { y: yScale, x: { type: 'linear', min: -0.7, max: 6.7,
+            ticks: { stepSize: 1, callback: function (v) { return D.short[v] !== undefined ? D.short[v] : ''; }, maxRotation: 42, minRotation: 42, font: { size: 8 }, autoSkip: false },
+            grid: { display: false } } } },
+        plugins: [plotBg]
+      });
+    }
 
     // fragment-driven highlighting: step 0 = human columns, step 1 = the three task families
     const wrapA = document.getElementById('wt-panel-a'), wrapB = document.getElementById('wt-panel-b'), wrapC = document.getElementById('wt-panel-c');
@@ -988,9 +1011,14 @@
       chA.data.datasets[0].backgroundColor = D.short.map(function (_, i) { return (i === H || !on) ? 'rgb(97,156,255)' : 'rgba(97,156,255,0.16)'; });
       chA.data.datasets[1].backgroundColor = D.short.map(function (_, i) { return (i === H || !on) ? 'rgb(248,118,109)' : 'rgba(248,118,109,0.16)'; });
       chB.data.datasets.forEach(function (ds, k) { ds.backgroundColor = (k === H || !on) ? D.colors[k] : fade(D.colors[k], 0.14); });
-      chC.data.datasets.forEach(function (ds, k) {
-        if (k < D.order.length) ds.pointBackgroundColor = (k === H || !on) ? fade(D.colors[k], 0.55) : fade(D.colors[k], 0.10);
-      });
+      if (violinOk) {
+        chC.data.datasets[0].backgroundColor = D.colors.map(function (c, k) { return fade(c, (k === H || !on) ? 0.55 : 0.08); });
+        chC.data.datasets[0].borderColor = D.colors.map(function (c, k) { return (k === H || !on) ? c : fade(c, 0.15); });
+      } else {
+        chC.data.datasets.forEach(function (ds, k) {
+          if (k < D.order.length) ds.pointBackgroundColor = (k === H || !on) ? fade(D.colors[k], 0.55) : fade(D.colors[k], 0.10);
+        });
+      }
       chA.update('none'); chB.update('none'); chC.update('none');
     }
     function tasks(on) {
