@@ -618,9 +618,9 @@
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; max-width: 94%; margin: 0 auto;">
 
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #2d6a4f; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Improves with compute &middot; live &middot; gameoflife</div>
-    <iframe data-src="/talks/basis-2026/autumn-embed/?program=Game%20of%20Life&amp;compact=1" style="flex: 1; width: 100%; min-height: 34vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
-    <p style="margin: 0.35em 0 0; font-size: 0.29em; color: #4a4f5a; text-align: left; line-height: 1.35;">One of the four environments that benefit consistently across multiple tasks, with gravity_3, scotland_yard, and tictactoe: long-horizon rule interactions that reward more reasoning.</p>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Improves with compute &middot; live &middot; gravity_3</div>
+    <iframe data-src="/talks/basis-2026/autumn-embed/?program=Gravity%203&amp;compact=1" style="flex: 1; width: 100%; min-height: 34vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
+    <p style="margin: 0.35em 0 0; font-size: 0.29em; color: #4a4f5a; text-align: left; line-height: 1.35;">One of the four environments that benefit consistently across multiple tasks, with gameoflife, scotland_yard, and tictactoe. Click a free cell to drop a blob; click the panel first, then arrow keys steer the shared gravity.</p>
   </div>
 
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #c0392b; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
@@ -631,7 +631,7 @@
 
 </div>
 
-<p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">In most cases more compute did not help. This points to reasoning limitations beyond scaling, not a shortage of compute. Both worlds above run live on the Autumn WASM interpreter; bbq is loaded from the official benchmark release (Zenodo 19498269, env code 27VWC).</p>
+<p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">In most cases more compute did not help. This points to reasoning limitations beyond scaling, not a shortage of compute. Both worlds above run live on the Autumn WASM interpreter, loaded from the official benchmark release (Zenodo 19498269; gravity_3 = QQM74, bbq = 27VWC).</p>
 
 </section>
 
@@ -896,7 +896,8 @@
       controls: true,
       progress: false,
       center: true,
-      transition: 'fade'
+      transition: 'fade',
+      preloadIframes: true
     });
   </script>
   <script>
