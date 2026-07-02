@@ -262,6 +262,164 @@
 
 </section>
 
+<section id="slide-repr-example" class="slide level2">
+<style>
+#slide-repr-example .fr-g{display:inline-grid;grid-template-columns:repeat(5,11px);grid-auto-rows:11px;gap:2px;background:#2a2f3a;padding:3px;border-radius:3px;vertical-align:middle;}
+#slide-repr-example .fr-g i{background:#10141c;border-radius:1px;display:block;}
+#slide-repr-example .fr-g i.w{background:#e8eaf0;}
+#slide-repr-example .fr-g i.h{background:#5a5f6e;}
+#slide-repr-example .fr-ar{color:#6b7080;padding:0 0.2em;vertical-align:middle;font-size:0.45em;}
+#slide-repr-example .ex-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.3em;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.3em;}
+#slide-repr-example .ex-note{font-size:0.3em;color:#6b7080;margin-top:0.4em;max-width:360px;}
+#slide-repr-example .fmt{padding:0.4em 0.6em;border:1px solid #d0d5dc;border-radius:6px;background:#ffffff;font-size:0.32em;max-width:200px;text-align:left;}
+</style>
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">What <span style="color: #c0392b;">representation-based</span> looks like: the format is the exam</h2>
+
+<p style="margin: 0 auto 0.45em; max-width: 94%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The agent must produce a fixed output format, then a format-specific proxy scores it. Moving MNIST (Srivastava et al., 2015): predict the next video frame, scored by reconstruction error.</p>
+
+<div style="display: flex; gap: 1.6em; align-items: flex-start; justify-content: center;">
+
+  <div style="flex: 0 0 auto; text-align: left;">
+    <div class="ex-lbl" style="color: #c0392b;">Next-frame prediction &middot; a ball falls</div>
+    <div style="margin-bottom: 0.3em;">
+      <span class="fr-g"><i></i><i></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="fr-ar">&rarr;</span><span class="fr-g"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="fr-ar">&rarr;</span><span class="fr-g"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="fr-ar">&rarr;</span><span style="display:inline-grid;place-items:center;width:44px;height:44px;background:#f3f5fb;border:1px dashed #1E3A8A;border-radius:3px;color:#1E3A8A;font-weight:700;font-size:0.5em;vertical-align:middle;">t+1</span>
+    </div>
+    <div class="fragment">
+      <div style="display:flex; gap:1.2em; align-items:center; margin-top:0.35em;">
+        <div>
+          <span class="fr-g"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="h"></i><i></i><i></i><i></i><i></i><i class="h"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <div class="ex-note" style="margin-top:0.2em;">Blurry average of futures.<br><span style="color:#2d6a4f;font-weight:600;">Low pixel error: scored well.</span></div>
+        </div>
+        <div>
+          <span class="fr-g"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <div class="ex-note" style="margin-top:0.2em;">Crisp, physically right guess.<br><span style="color:#c0392b;font-weight:600;">Higher pixel error: scored worse.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="ex-note">Reconstruction error rewards hedged blur over committed physics. The proxy measures pixels, not understanding.</div>
+  </div>
+
+  <div style="flex: 0 0 auto; text-align: left;">
+    <div class="ex-lbl" style="color: #1E3A8A;">One required format per benchmark</div>
+    <div style="display: flex; flex-direction: column; gap: 0.5em;">
+      <div class="fmt"><strong style="color:#1f2330;">Next frames</strong><br><span style="color:#6b7080;">scored by reconstruction error (Moving MNIST, BAIR robot pushing)</span></div>
+      <div class="fmt"><strong style="color:#1f2330;">Text descriptions</strong><br><span style="color:#6b7080;">scored by LLM-based evaluation (DiscoveryWorld)</span></div>
+      <div class="fmt"><strong style="color:#1f2330;">Predicates and graphs</strong><br><span style="color:#6b7080;">scored by predicate accuracy (CLEVRER, CATER, CausalWorld)</span></div>
+    </div>
+    <div class="ex-note">An agent whose knowledge lives in a policy, a program, or a plan cannot even enter the exam.</div>
+  </div>
+
+</div>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.85em; margin: 0.6em auto 0; max-width: 94%; text-align: left;">
+  <p style="margin: 0; font-size: 0.36em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The common thread.</strong> These proxies are often inadequate: they measure fit to the format, not the world model, and they lock out agents (and humans) whose knowledge is not expressible in that format. <strong>WorldTest's move:</strong> score behavior in a challenge environment, so any internal representation competes on equal terms.</p>
+</div>
+
+</section>
+
+<section id="slide-gym-example" class="slide level2">
+<style>
+#slide-gym-example .gy-scr{position:relative;width:250px;height:150px;background:#10141c;border-radius:6px;border:1px solid #2a2f3a;overflow:hidden;}
+#slide-gym-example .gy-brick{position:absolute;width:26px;height:9px;border-radius:1px;}
+#slide-gym-example .gy-paddle{position:absolute;bottom:10px;width:40px;height:7px;background:#e8eaf0;border-radius:2px;}
+#slide-gym-example .gy-ball{position:absolute;width:8px;height:8px;background:#e6b822;border-radius:50%;}
+#slide-gym-example .gy-score{position:absolute;top:6px;right:10px;font-family:'IBM Plex Mono',monospace;font-size:0.4em;color:#e8eaf0;}
+#slide-gym-example .ex-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.3em;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.3em;}
+#slide-gym-example .ex-note{font-size:0.3em;color:#6b7080;margin-top:0.4em;max-width:270px;}
+</style>
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">What <span style="color: #c0392b;">gym-like</span> looks like: chase the reward</h2>
+
+<p style="margin: 0 auto 0.45em; max-width: 94%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Decision-making with explicit rewards: Atari / ALE (Bellemare et al., 2013), OpenAI Gym, ProcGen, NetHack. The score IS the reward counter. Schematic below, in the style of Breakout.</p>
+
+<div style="display: flex; gap: 1.6em; align-items: flex-start; justify-content: center;">
+
+  <div style="flex: 0 0 auto; text-align: left;">
+    <div class="ex-lbl" style="color: #2d6a4f;">Deterministic game &middot; replayed policy</div>
+    <div class="gy-scr">
+      <div class="gy-score">SCORE 312</div>
+      <div class="gy-brick" style="left:12px;top:26px;background:#e8443b;"></div><div class="gy-brick" style="left:42px;top:26px;background:#e8443b;"></div><div class="gy-brick" style="left:72px;top:26px;background:#e8443b;"></div><div class="gy-brick" style="left:132px;top:26px;background:#e8443b;"></div><div class="gy-brick" style="left:162px;top:26px;background:#e8443b;"></div><div class="gy-brick" style="left:222px;top:26px;background:#e8443b;"></div>
+      <div class="gy-brick" style="left:12px;top:40px;background:#e6b822;"></div><div class="gy-brick" style="left:72px;top:40px;background:#e6b822;"></div><div class="gy-brick" style="left:102px;top:40px;background:#e6b822;"></div><div class="gy-brick" style="left:192px;top:40px;background:#e6b822;"></div>
+      <div class="gy-ball" style="left:118px;top:92px;"></div>
+      <div class="gy-paddle" style="left:104px;"></div>
+    </div>
+    <div class="ex-note">A fixed action sequence, replayed. In a deterministic game it clears level after level. The reward counter cannot tell this apart from understanding.</div>
+  </div>
+
+  <div class="fragment" style="flex: 0 0 auto; text-align: left;">
+    <div class="ex-lbl" style="color: #c0392b;">Same policy &middot; slightly changed layout</div>
+    <div class="gy-scr">
+      <div class="gy-score" style="color:#e8443b;">SCORE 14</div>
+      <div class="gy-brick" style="left:27px;top:26px;background:#e8443b;"></div><div class="gy-brick" style="left:57px;top:26px;background:#e8443b;"></div><div class="gy-brick" style="left:117px;top:26px;background:#e8443b;"></div><div class="gy-brick" style="left:147px;top:26px;background:#e8443b;"></div><div class="gy-brick" style="left:207px;top:26px;background:#e8443b;"></div>
+      <div class="gy-brick" style="left:27px;top:40px;background:#e6b822;"></div><div class="gy-brick" style="left:87px;top:40px;background:#e6b822;"></div><div class="gy-brick" style="left:177px;top:40px;background:#e6b822;"></div><div class="gy-brick" style="left:207px;top:40px;background:#e6b822;"></div>
+      <div class="gy-ball" style="left:60px;top:70px;"></div>
+      <div class="gy-paddle" style="left:180px;"></div>
+    </div>
+    <div class="ex-note">Shift the bricks and the memorized sequence collapses. ProcGen exists precisely because of this: procedural levels to defeat memorization.</div>
+  </div>
+
+</div>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.85em; margin: 0.6em auto 0; max-width: 94%; text-align: left;">
+  <p style="margin: 0; font-size: 0.36em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The common thread.</strong> Reward measures task success, not world-model quality: high performance may come from a memorized policy rather than a generalizable grasp of the environment's structure. <strong>WorldTest's move:</strong> no reward during learning at all; the score comes from answering queries about how the world works.</p>
+</div>
+
+</section>
+
+<section id="slide-url-example" class="slide level2">
+<style>
+#slide-url-example .ur-g{display:inline-grid;grid-template-columns:repeat(6,13px);grid-auto-rows:13px;gap:2px;background:#2a2f3a;padding:4px;border-radius:3px;vertical-align:middle;}
+#slide-url-example .ur-g i{background:#10141c;border-radius:1px;display:block;}
+#slide-url-example .ur-g i.b{background:#3b82e8;}
+#slide-url-example .ur-g i.y{background:#e6b822;}
+#slide-url-example .ur-g i.g{background:#2ea44f;}
+#slide-url-example .ur-g i.r{background:#e8443b;}
+#slide-url-example .ur-ar{color:#6b7080;padding:0 0.35em;vertical-align:middle;font-size:0.5em;}
+#slide-url-example .ex-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.3em;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.35em;}
+#slide-url-example .ex-note{font-size:0.3em;color:#6b7080;margin-top:0.35em;}
+#slide-url-example .ph{font-family:'IBM Plex Mono',monospace;font-size:0.28em;letter-spacing:0.05em;text-transform:uppercase;color:#6b7080;margin-top:0.25em;text-align:center;}
+</style>
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">What <span style="color: #c0392b;">unsupervised RL</span> looks like: two phases, one world</h2>
+
+<p style="margin: 0 auto 0.45em; max-width: 94%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The closest relative of WorldTest. URLB (Laskin et al., 2021): first explore with no reward, then face downstream reward tasks. But both phases run in the very same environment.</p>
+
+<div style="text-align: center;">
+  <div class="ex-lbl" style="color: #c0392b; text-align: left; max-width: 94%; margin: 0 auto 0.35em;">Unsupervised RL: train and test in the same world</div>
+  <div>
+    <span style="display:inline-block;">
+      <span class="ur-g"><i></i><i class="y"></i><i></i><i></i><i class="b"></i><i></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i class="b"></i><i></i><i></i><i></i><i class="y"></i><i></i><i></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i></i><i></i></span>
+      <div class="ph">phase 1 &middot; explore, no reward</div>
+    </span>
+    <span class="ur-ar">&rarr;</span>
+    <span style="display:inline-block;">
+      <span class="ur-g"><i></i><i class="y"></i><i></i><i></i><i class="b"></i><i></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i class="b"></i><i></i><i></i><i></i><i class="y"></i><i></i><i></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i></i><i></i></span>
+      <div class="ph">phase 2 &middot; same world + reward</div>
+    </span>
+  </div>
+  <div class="ex-note" style="max-width: 94%; margin: 0.35em auto 0; text-align: left;">The two grids are identical. Whatever the agent memorized in phase 1 transfers literally; evaluation only ever sees action-reward sequences in the world it already knows.</div>
+
+  <div class="fragment">
+    <div class="ex-lbl" style="color: #1E3A8A; text-align: left; max-width: 94%; margin: 0.5em auto 0.35em;">WorldTest: the test happens in a modified world</div>
+    <div>
+      <span style="display:inline-block;">
+        <span class="ur-g"><i></i><i class="y"></i><i></i><i></i><i class="b"></i><i></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i class="b"></i><i></i><i></i><i></i><i class="y"></i><i></i><i></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i></i><i></i></span>
+        <div class="ph">interact &middot; no reward</div>
+      </span>
+      <span class="ur-ar">&rarr;</span>
+      <span style="display:inline-block;">
+        <span class="ur-g" style="outline:2px solid #1E3A8A;outline-offset:2px;"><i></i><i class="y"></i><i></i><i></i><i class="b"></i><i></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i class="r"></i><i></i><i></i><i class="b"></i><i></i><i></i><i></i><i class="y"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i class="y"></i><i></i><i></i></span>
+        <div class="ph" style="color:#1E3A8A;">test &middot; components changed + objective</div>
+      </span>
+    </div>
+    <div class="ex-note" style="max-width: 94%; margin: 0.35em auto 0; text-align: left;">The challenge environment differs from the one explored: state, dynamics, observations, or actions changed. Memorizing the training world is not enough; you need a model of how it works.</div>
+  </div>
+</div>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.85em; margin: 0.6em auto 0; max-width: 94%; text-align: left;">
+  <p style="margin: 0; font-size: 0.36em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The common thread.</strong> Two phases, but one environment and reward-based evaluation: properties you cannot observe through action-reward sequences, like structure and counterfactuals, go untested. <strong>WorldTest's move:</strong> compile each query into a modified challenge environment, so the test itself probes what the agent knows about the world.</p>
+</div>
+
+</section>
+
 <section id="slide-queries" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The key idea: <span style="color: #1E3A8A;">environment-level queries</span></h2>
 
