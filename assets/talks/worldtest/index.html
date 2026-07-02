@@ -90,6 +90,35 @@
 </section>
 
 <section id="slide-motivation" class="slide level2">
+<style>
+#slide-motivation .mot-vig{position:relative;height:78px;background:linear-gradient(#f7f8fb,#e9edf3);border-radius:6px;margin-bottom:0.45em;overflow:hidden;}
+#slide-motivation .mot-chip{position:absolute;right:7px;top:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:999px;color:#ffffff;}
+/* predict: covered pot, steam rising */
+#slide-motivation .mot-stove{position:absolute;left:26px;bottom:9px;width:88px;height:8px;background:#2a2f3a;border-radius:2px;}
+#slide-motivation .mot-pot{position:absolute;left:40px;bottom:17px;width:60px;height:26px;background:linear-gradient(#9aa2ae,#6d7480);border-radius:0 0 7px 7px;}
+#slide-motivation .mot-lid{position:absolute;left:36px;bottom:43px;width:68px;height:8px;background:#4a4f5a;border-radius:4px;}
+#slide-motivation .mot-lid::after{content:'';position:absolute;left:29px;top:-5px;width:10px;height:5px;background:#4a4f5a;border-radius:3px 3px 0 0;}
+#slide-motivation .mot-steam{position:absolute;bottom:54px;width:8px;height:8px;border-radius:50%;background:rgba(110,122,145,0.55);animation:mot-steam 2.6s infinite;}
+#slide-motivation .mot-steam.s2{left:66px;animation-delay:0.9s;}
+#slide-motivation .mot-steam.s3{left:80px;animation-delay:1.7s;}
+#slide-motivation .mot-steam.s1{left:52px;}
+@keyframes mot-steam{0%{transform:translateY(0) scale(0.8);opacity:0;}25%{opacity:0.85;}100%{transform:translateY(-32px) scale(1.35);opacity:0;}}
+/* adapt: knife moves to a different drawer */
+#slide-motivation .mot-dr{position:absolute;left:38px;width:70px;height:26px;border:2px solid #6d7480;border-radius:3px;background:#eef0f4;}
+#slide-motivation .mot-dr::after{content:'';position:absolute;left:50%;top:50%;width:16px;height:3px;margin:-1.5px 0 0 -8px;background:#6d7480;border-radius:2px;}
+#slide-motivation .mot-dr.d1{top:9px;}
+#slide-motivation .mot-dr.d2{top:41px;animation:mot-flash 3.4s infinite;}
+@keyframes mot-flash{0%,46%{border-color:#6d7480;}56%,80%{border-color:#c08230;}100%{border-color:#6d7480;}}
+#slide-motivation .mot-knife{position:absolute;left:48px;top:18px;width:44px;height:8px;border-radius:4px 2px 2px 4px;background:linear-gradient(90deg,#c3cad6 0 60%,#3a3f4a 60%);animation:mot-knife 3.4s infinite;z-index:2;}
+@keyframes mot-knife{0%,38%{transform:translateY(0);}52%,100%{transform:translateY(32px);}}
+/* plan: steps fire in order */
+#slide-motivation .mot-steps{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:7px;}
+#slide-motivation .mot-st{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 8px;border:1.5px solid #d0d5dc;border-radius:5px;background:#ffffff;color:#4a4f5a;animation:mot-st 3.6s infinite;}
+#slide-motivation .mot-st.t2{animation-delay:0.6s;}
+#slide-motivation .mot-st.t3{animation-delay:1.2s;}
+#slide-motivation .mot-sar{color:#9aa2ae;font-size:11px;}
+@keyframes mot-st{0%{background:#ffffff;color:#4a4f5a;border-color:#d0d5dc;}9%,42%{background:#2d6a4f;color:#ffffff;border-color:#2d6a4f;}58%,100%{background:#ffffff;color:#4a4f5a;border-color:#d0d5dc;}}
+</style>
 <h2 style="font-size: 1em; margin: 0 0 0.25em 0;">Why world models <span style="color: #1E3A8A;">matter</span></h2>
 
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">A flexible, predictive, counterfactual understanding of how an environment works. Learning one is argued to be pivotal for the next step in AI.</p>
@@ -100,17 +129,32 @@
 
 <div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
 
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+  <div style="flex: 1; max-width: 300px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div class="mot-vig">
+      <div class="mot-stove"></div><div class="mot-pot"></div><div class="mot-lid"></div>
+      <span class="mot-steam s1"></span><span class="mot-steam s2"></span><span class="mot-steam s3"></span>
+      <span class="mot-chip" style="background:#1E3A8A;">ready in ?</span>
+    </div>
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Predict</div>
     <p style="margin: 0; color: #4a4f5a;">Estimate how long the hidden contents of a covered pot will take to finish cooking, from the steam and the elapsed time.</p>
   </div>
 
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+  <div style="flex: 1; max-width: 300px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div class="mot-vig">
+      <div class="mot-dr d1"></div><div class="mot-dr d2"></div>
+      <div class="mot-knife"></div>
+      <span class="mot-chip" style="background:#c08230;">moved!</span>
+    </div>
     <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Adapt</div>
     <p style="margin: 0; color: #4a4f5a;">Recognize and adapt to changes in the kitchen, such as a knife that has been moved to a different drawer.</p>
   </div>
 
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+  <div style="flex: 1; max-width: 300px; padding: 0.55em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div class="mot-vig">
+      <div class="mot-steps">
+        <span class="mot-st t1">1 chop</span><span class="mot-sar">&rarr;</span><span class="mot-st t2">2 boil</span><span class="mot-sar">&rarr;</span><span class="mot-st t3">3 serve</span>
+      </div>
+    </div>
     <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Plan</div>
     <p style="margin: 0; color: #4a4f5a;">Plan a sequence of actions to complete a set of recipes, ordering steps so everything comes together.</p>
   </div>
