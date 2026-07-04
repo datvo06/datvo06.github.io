@@ -545,65 +545,11 @@
 
 </section>
 
-<section id="slide-autumnbench" class="slide level2" data-background-color="#fafbfc">
-<style>
-#slide-autumnbench .hs{position:absolute;border:2px solid transparent;border-radius:6px;cursor:help;transition:border-color 0.2s, background 0.2s;}
-#slide-autumnbench .hs:hover{background:rgba(30,58,138,0.06);}
-#slide-autumnbench .hs .hq{position:absolute;top:-7px;right:-7px;width:17px;height:17px;border-radius:50%;background:#1E3A8A;color:#ffffff;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:17px;text-align:center;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,0.25);}
-#slide-autumnbench .hs .tip{display:none;position:absolute;z-index:30;width:270px;background:#1f2330;color:#e8eaf0;font-size:0.3em;line-height:1.45;text-align:left;padding:0.6em 0.8em;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,0.3);}
-#slide-autumnbench .hs:hover .tip{display:block;}
-#slide-autumnbench .hs .tip strong{color:#ffffff;}
-#slide-autumnbench .hs .tip .tt{font-family:'IBM Plex Mono',monospace;letter-spacing:0.05em;text-transform:uppercase;color:#9db3e8;margin-bottom:0.25em;}
-</style>
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">AutumnBench: WorldTest made <span style="color: #1E3A8A;">concrete</span></h2>
-
-<p style="margin: 0 auto 0.35em; max-width: 92%; font-size: 0.31em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The kitchen test, formalized: Predict becomes Masked Frame Prediction, Adapt becomes Change Detection, Plan becomes Planning.</p>
-
-<div style="position: relative; width: fit-content; margin: 0 auto;">
-  <img src="./media/autumnbench_overview.png" alt="The WorldTest framework and AutumnBench instantiation: nine example grid environments, an interaction phase with an observation and action loop plus reset and go-to-test buttons, the AI or human agent, and a test phase with three task panels: Masked Frame Prediction, Planning, and Change Detection." style="display: block; max-width: 100%; max-height: 62vh; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); background: #ffffff;">
-
-  <!-- hover hotspots: hover any outlined region for its tooltip -->
-  <div class="hs" style="left: 1.2%; top: 1.5%; width: 34.5%; height: 52%; border-color: rgba(30,58,138,0.35);">
-    <span class="hq">?</span>
-    <div class="tip" style="left: 4%; top: 103%;">
-      <div class="tt">43 environments</div>
-      Interactive grid worlds written in Autumn: grids 3x3 to 25x25, up to 5 object types each, 19 of 43 stochastic. The same worlds are playable by humans in the browser and by AI as text. Each is a POMDP, the most general environment type.
-    </div>
-  </div>
-
-  <div class="hs" style="left: 1.2%; top: 60%; width: 40%; height: 38.5%; border-color: rgba(30,58,138,0.35);">
-    <span class="hq">?</span>
-    <div class="tip" style="left: 6%; bottom: 103%;">
-      <div class="tt">Masked Frame Prediction</div>
-      Predict the masked content of the final frame by choosing one of six options. Tests prediction of hidden state. The kitchen's Predict.
-    </div>
-  </div>
-
-  <div class="hs" style="left: 42%; top: 60%; width: 26%; height: 38.5%; border-color: rgba(192,130,48,0.45);">
-    <span class="hq" style="background:#c08230;">?</span>
-    <div class="tip" style="left: 6%; bottom: 103%;">
-      <div class="tt" style="color:#e8c890;">Planning</div>
-      Drive a subgrid into a target configuration with an action sequence. Tests long-horizon control and reachability. The kitchen's Plan.
-    </div>
-  </div>
-
-  <div class="hs" style="left: 68.8%; top: 60%; width: 30%; height: 38.5%; border-color: rgba(45,106,79,0.45);">
-    <span class="hq" style="background:#2d6a4f;">?</span>
-    <div class="tip" style="right: 4%; bottom: 103%;">
-      <div class="tt" style="color:#9fd8b8;">Change Detection</div>
-      One rule changes mid-test. Report the earliest timestep at which it changed. Tests detecting shifts in dynamics. The kitchen's Adapt.
-    </div>
-  </div>
-
-  <!-- step: the multiplication pops over the figure -->
-  <div class="fragment fade-up" style="position: absolute; left: 50%; top: 43%; transform: translateX(-50%); z-index: 20; background: #1E3A8A; color: #ffffff; padding: 0.35em 0.9em; border-radius: 999px; font-size: 0.42em; font-weight: 600; box-shadow: 0 10px 28px rgba(30,58,138,0.4); white-space: nowrap;">43 environments &times; 3 task families = <span style="color:#ffd76e;">129 tasks</span></div>
-</div>
-
-</section>
+<!-- slide-autumnbench (figure + tooltips) parked in ./parked/slide-autumnbench.html -->
 
 <section id="slide-autumnbench-live" class="slide level2" data-background-color="#fafbfc">
 <h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">The benchmark, <span style="color: #1E3A8A;">live</span></h2>
-<p style="margin: 0 auto 0.35em; max-width: 96%; font-size: 0.28em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The 20 environments in the public release, all running right now. Every tile is its own Autumn interpreter (C++ compiled to WebAssembly) playing a random action stream. Click any world to take over; the robot backs off.</p>
+<p style="margin: 0 auto 0.35em; max-width: 96%; font-size: 0.28em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The 20 environments in the public release, all running right now, each on its own Autumn interpreter (C++ compiled to WebAssembly) playing a random action stream. Click any world to take over. The kitchen test, formalized: Predict becomes Masked Frame Prediction, Adapt becomes Change Detection, Plan becomes Planning.</p>
 
 <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; max-width: 96%; margin: 0 auto; position: relative;">
   <div>
