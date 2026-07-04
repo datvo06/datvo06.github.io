@@ -1464,16 +1464,13 @@ function renderGrid(ctx, jsonStr, canvasSize) {
     ctx.beginPath(); ctx.moveTo(0, pos); ctx.lineTo(canvasSize, pos); ctx.stroke();
   }
 
-  // Collect entities into a per-cell map so two objects on the same cell
-  // are merged instead of overdrawing (matters for sand-style updates where
-  // Autumn's parallel `updateObj` can land two grains on one cell).
-  const cells = new Map();
-  // Lighter-color names (the "dry" / non-liquid states) should win on tie so
-  // wet sand doesn't visually erase a dry pile underneath it.
-  const lightnessBias = (col) => {
-    const [r, g, b] = parseColor(col);
-    return r + g + b;
-  };
+  // Painter's algorithm, matching the official AutumnBench renderer
+  // (MARA python_test_mpl_viz.py adds patches in iteration order): draw
+  // entities in renderAll's key order, later keys on top. Key order follows
+  // the program's declaration order, so e.g. buoyancy's crate (declared after
+  // water) floats visibly ON the water. The old lighter-color-wins merge
+  // inverted that and hid dark objects under light ones.
+  const inset = Math.max(0.5, cellSize * 0.05);
   for (const key of Object.keys(parsed)) {
     if (key === 'GRID_SIZE' || key === 'background') continue;
     const entities = parsed[key];
@@ -1484,26 +1481,16 @@ function renderGrid(ctx, jsonStr, canvasSize) {
       if (entity.color.toLowerCase().trim() === 'transparent') continue;
       const { x, y } = entity.position;
       if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) continue;
-      const k = y * gridSize + x;
-      const prior = cells.get(k);
-      if (!prior || lightnessBias(entity.color) > lightnessBias(prior.color)) {
-        cells.set(k, entity);
+      const [r, g, b] = parseColor(entity.color);
+      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      ctx.fillRect(x * cellSize + inset, y * cellSize + inset, cellSize - inset * 2, cellSize - inset * 2);
+      // white/near-white cells are real state (e.g. bbq's unlit fire); outline them
+      // so they stay visible on a light background
+      if (bgLight && r + g + b > 700) {
+        ctx.strokeStyle = 'rgba(100,105,120,0.4)';
+        ctx.lineWidth = Math.max(0.5, canvasSize / 960);
+        ctx.strokeRect(x * cellSize + inset, y * cellSize + inset, cellSize - inset * 2, cellSize - inset * 2);
       }
-    }
-  }
-
-  const inset = Math.max(0.5, cellSize * 0.05);
-  for (const entity of cells.values()) {
-    const { x, y } = entity.position;
-    const [r, g, b] = parseColor(entity.color);
-    ctx.fillStyle = `rgb(${r},${g},${b})`;
-    ctx.fillRect(x * cellSize + inset, y * cellSize + inset, cellSize - inset * 2, cellSize - inset * 2);
-    // white/near-white cells are real state (e.g. bbq's unlit fire); outline them
-    // so they stay visible on a light background
-    if (bgLight && r + g + b > 700) {
-      ctx.strokeStyle = 'rgba(100,105,120,0.4)';
-      ctx.lineWidth = Math.max(0.5, canvasSize / 960);
-      ctx.strokeRect(x * cellSize + inset, y * cellSize + inset, cellSize - inset * 2, cellSize - inset * 2);
     }
   }
 
