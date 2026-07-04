@@ -161,41 +161,6 @@
 </div>
 </section>
 
-<section id="slide-prior-work" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.2em 0;">The evaluation landscape and <span style="color: #c0392b;">what it misses</span></h2>
-
-<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.33em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Four families of benchmarks each probe an agent's knowledge in an incomplete way.</p>
-
-<div style="display: flex; gap: 0.7em; align-items: stretch; justify-content: center; font-size: 0.32em; text-align: left; margin-bottom: 0.55em;">
-
-  <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; text-transform: uppercase; margin-bottom: 0.2em;">Non-interactive</div>
-    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Infer hidden rules from a few static examples (ARC, RAVEN, CLEVR variants).</p>
-    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> no learning through interaction with a dynamic environment.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; text-transform: uppercase; margin-bottom: 0.2em;">Representation-based</div>
-    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Require a fixed output format (next frames, programs, causal graphs) scored by format-specific proxies.</p>
-    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> the proxies are often inadequate, so they cannot faithfully measure the learned model or benchmark agents against humans.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; text-transform: uppercase; margin-bottom: 0.2em;">Gym-like</div>
-    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Decision-making with explicit rewards (Atari, Gym, Procgen, NetHack).</p>
-    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> measures task success, not world-model quality; a memorized policy can win.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; text-transform: uppercase; margin-bottom: 0.2em;">Unsupervised RL</div>
-    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Two-phase protocols (URLB): explore without objectives, then face downstream tasks.</p>
-    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> both phases use the same environment, and evaluation sees only action-reward sequences, so structural and counterfactual understanding goes untested.</p>
-  </div>
-
-</div>
-
-</section>
-
 <section id="slide-arc-example" class="slide level2">
 <style>
 #slide-arc-example .arc-g{display:inline-grid;grid-template-columns:repeat(4,11px);grid-auto-rows:11px;gap:2px;background:#2a2f3a;padding:3px;border-radius:3px;vertical-align:middle;}
@@ -439,6 +404,41 @@
 </div>
 
 <p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">These are the kinds of questions a flexible world model should handle. The next step is a way to score them fairly across very different agents.</p>
+
+</section>
+
+<section id="slide-prior-work" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.2em 0;">The evaluation landscape and <span style="color: #c0392b;">what it misses</span></h2>
+
+<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.33em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Four families of benchmarks each probe an agent's knowledge in an incomplete way.</p>
+
+<div style="display: flex; gap: 0.7em; align-items: stretch; justify-content: center; font-size: 0.32em; text-align: left; margin-bottom: 0.55em;">
+
+  <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; text-transform: uppercase; margin-bottom: 0.2em;">Non-interactive</div>
+    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Infer hidden rules from a few static examples (ARC, RAVEN, CLEVR variants).</p>
+    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> no learning through interaction with a dynamic environment.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; text-transform: uppercase; margin-bottom: 0.2em;">Representation-based</div>
+    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Require a fixed output format (next frames, programs, causal graphs) scored by format-specific proxies.</p>
+    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> the proxies are often inadequate, so they cannot faithfully measure the learned model or benchmark agents against humans.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; text-transform: uppercase; margin-bottom: 0.2em;">Gym-like</div>
+    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Decision-making with explicit rewards (Atari, Gym, Procgen, NetHack).</p>
+    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> measures task success, not world-model quality; a memorized policy can win.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 250px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; text-transform: uppercase; margin-bottom: 0.2em;">Unsupervised RL</div>
+    <p style="margin: 0 0 0.25em; color: #4a4f5a;">Two-phase protocols (URLB): explore without objectives, then face downstream tasks.</p>
+    <p style="margin: 0; color: #c0392b;"><strong>Misses:</strong> both phases use the same environment, and evaluation sees only action-reward sequences, so structural and counterfactual understanding goes untested.</p>
+  </div>
+
+</div>
 
 </section>
 
