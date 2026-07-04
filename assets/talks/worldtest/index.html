@@ -570,44 +570,6 @@
 
 </section>
 
-<section id="slide-autumn-lang" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The <span style="color: #1E3A8A;">Autumn</span> language</h2>
-
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">AutumnBench worlds are written in Autumn, a functional reactive language for specifying causal interactions in 2D grids (Das et al. 2023).</p>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">Why Autumn.</strong> It lets you specify environments <strong>succinctly, expressively, and extensibly</strong>. Crucially, one specification drives <strong>both</strong> a text-based interface for AI agents and a browser-based graphical interface for humans, so the exact same world is played by both.</p>
-</div>
-
-<div style="display: flex; gap: 1.1em; align-items: stretch; justify-content: center; max-width: 94%; margin: 0 auto;">
-
-  <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; text-align: left;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.32em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35em;"><code>(on cond body)</code> &middot; sand.sexp / ants.sexp</div>
-<pre style="margin: 0; padding: 0.8em 1em; background: #1f2330; border-radius: 6px; font-size: 0.36em; line-height: 1.55; text-align: left; overflow: hidden;"><code style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e8eaf0; background: transparent; display: block;"><span style="color: #8b93a7;">; from sand.sexp: conditional rules</span>
-(<span style="color: #f0c674;">on</span> (clicked sandButton)
-    (= clickType <span style="color: #9ec99a;">"sand"</span>))
-(<span style="color: #f0c674;">on</span> (&amp; (clicked) (isFreePos click)
-       (== clickType <span style="color: #9ec99a;">"water"</span>))
-    (= water (addObj water ...)))
-
-<span style="color: #8b93a7;">; from ants.sexp: spatial, temporal, stochastic</span>
-(closest obj foods)
-(filter (--&gt; obj (! (intersects obj (<span style="color: #f0c674;">prev</span> ants))))
-        (<span style="color: #f0c674;">prev</span> foods))
-(<span style="color: #f0c674;">randomPositions</span> GRID_SIZE 2)</code></pre>
-    <p style="margin: 0.5em 0 0; font-size: 0.32em; color: #6b7080; line-height: 1.4;"><code>(on cond body)</code> is the conditional rule form: the guard is evaluated against the current state each tick and the body fires when it holds. The stdlib adds spatial operators (<code>closest</code>, <code>intersects</code>), temporal reads (<code>prev</code> reads the last tick), and stochastic primitives (<code>randomPositions</code>).</p>
-  </div>
-
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.32em; color: #c08230; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35em; text-align: left;">live &middot; Sand &middot; click to drop sand, the rules at left are running</div>
-    <iframe data-src="/talks/basis-2026/autumn-embed/?program=Sand&amp;compact=1" style="flex: 1; width: 100%; min-height: 44vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
-    <p style="margin: 0.5em 0 0; font-size: 0.32em; color: #6b7080; text-align: left; line-height: 1.4;">This GUI is what humans play; AI agents get the same world as text (a 2D array of color strings). One world, two interfaces, fair comparison.</p>
-  </div>
-
-</div>
-
-</section>
-
 <!-- slide-autumnbench (figure + tooltips) parked in ./parked/slide-autumnbench.html -->
 
 <section id="slide-autumnbench-live" class="slide level2" data-background-color="#fafbfc">
@@ -695,6 +657,44 @@
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.22em; color: #6b7080; text-align: center; margin-top: 1px;">wind</div>
   </div>
   <div class="fragment fade-up" style="position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%); z-index: 20; background: #1E3A8A; color: #ffffff; padding: 0.35em 0.9em; border-radius: 999px; font-size: 0.42em; font-weight: 600; box-shadow: 0 10px 28px rgba(30,58,138,0.4); white-space: nowrap;">43 environments &times; 3 task families = <span style="color:#ffd76e;">129 tasks</span></div>
+</div>
+
+</section>
+
+<section id="slide-autumn-lang" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The <span style="color: #1E3A8A;">Autumn</span> language</h2>
+
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">AutumnBench worlds are written in Autumn, a functional reactive language for specifying causal interactions in 2D grids (Das et al. 2023).</p>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">Why Autumn.</strong> It lets you specify environments <strong>succinctly, expressively, and extensibly</strong>. Crucially, one specification drives <strong>both</strong> a text-based interface for AI agents and a browser-based graphical interface for humans, so the exact same world is played by both.</p>
+</div>
+
+<div style="display: flex; gap: 1.1em; align-items: stretch; justify-content: center; max-width: 94%; margin: 0 auto;">
+
+  <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; text-align: left;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.32em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35em;"><code>(on cond body)</code> &middot; sand.sexp / ants.sexp</div>
+<pre style="margin: 0; padding: 0.8em 1em; background: #1f2330; border-radius: 6px; font-size: 0.36em; line-height: 1.55; text-align: left; overflow: hidden;"><code style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e8eaf0; background: transparent; display: block;"><span style="color: #8b93a7;">; from sand.sexp: conditional rules</span>
+(<span style="color: #f0c674;">on</span> (clicked sandButton)
+    (= clickType <span style="color: #9ec99a;">"sand"</span>))
+(<span style="color: #f0c674;">on</span> (&amp; (clicked) (isFreePos click)
+       (== clickType <span style="color: #9ec99a;">"water"</span>))
+    (= water (addObj water ...)))
+
+<span style="color: #8b93a7;">; from ants.sexp: spatial, temporal, stochastic</span>
+(closest obj foods)
+(filter (--&gt; obj (! (intersects obj (<span style="color: #f0c674;">prev</span> ants))))
+        (<span style="color: #f0c674;">prev</span> foods))
+(<span style="color: #f0c674;">randomPositions</span> GRID_SIZE 2)</code></pre>
+    <p style="margin: 0.5em 0 0; font-size: 0.32em; color: #6b7080; line-height: 1.4;"><code>(on cond body)</code> is the conditional rule form: the guard is evaluated against the current state each tick and the body fires when it holds. The stdlib adds spatial operators (<code>closest</code>, <code>intersects</code>), temporal reads (<code>prev</code> reads the last tick), and stochastic primitives (<code>randomPositions</code>).</p>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.32em; color: #c08230; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35em; text-align: left;">live &middot; Sand &middot; click to drop sand, the rules at left are running</div>
+    <iframe data-src="/talks/basis-2026/autumn-embed/?program=Sand&amp;compact=1" style="flex: 1; width: 100%; min-height: 44vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
+    <p style="margin: 0.5em 0 0; font-size: 0.32em; color: #6b7080; text-align: left; line-height: 1.4;">This GUI is what humans play; AI agents get the same world as text (a 2D array of color strings). One world, two interfaces, fair comparison.</p>
+  </div>
+
 </div>
 
 </section>
