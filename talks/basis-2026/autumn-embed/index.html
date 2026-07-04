@@ -1550,6 +1550,34 @@ const bgOverride = embedParams.get('bg');
 if (bgOverride && /^[a-z]{3,20}$/.test(bgOverride)) {
   canvas.style.background = bgOverride;
 }
+// ?auto=1: play a random action stream (arrows + clicks) so grid-of-worlds
+// slides show live dynamics without input. Backs off for 8s whenever the
+// user interacts, so manual pokes are not fought by the robot.
+const autoPlay = embedParams.get('auto') === '1';
+let autoPauseUntil = 0;
+if (autoPlay) {
+  const bump = () => { autoPauseUntil = performance.now() + 8000; };
+  canvas.addEventListener('pointerdown', bump);
+  document.addEventListener('keydown', bump);
+  const dirs = ['left', 'right', 'up', 'down'];
+  const tick = () => {
+    if (interpreter && !paused && performance.now() >= autoPauseUntil) {
+      try {
+        if (Math.random() < 0.45) {
+          const x = Math.floor(Math.random() * gridSize);
+          const y = Math.floor(Math.random() * gridSize);
+          interpreter.click(x, y);
+          interpreter.step();
+          gridSize = renderGrid(ctx, interpreter.renderAll(), canvasSize);
+        } else {
+          sendDirection(dirs[Math.floor(Math.random() * dirs.length)]);
+        }
+      } catch (err) { console.error(err); }
+    }
+    setTimeout(tick, 450 + Math.random() * 900);
+  };
+  setTimeout(tick, 600 + Math.random() * 1200);
+}
 
 function loadProgram(name) {
   const code = PROGRAMS[name];
