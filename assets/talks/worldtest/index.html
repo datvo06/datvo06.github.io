@@ -494,49 +494,15 @@
 </section>
 
 <section id="slide-protocol-formal" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The protocol, <span style="color: #1E3A8A;">step by step</span></h2>
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Try it <span style="color: #1E3A8A;">yourself</span></h2>
 
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">A query is a question about the whole environment. WorldTest compiles it into a challenge environment with an explicit goal, then scores the agent's behavior there.</p>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The transformation.</strong> A fixed rule \( \tau \) takes the base reward-free environment plus a <strong>hidden task parameter</strong> and produces a <strong>modified environment</strong>, an objective, and a horizon \( H \). The modified environment differs from the base by changes to its state, dynamics, observations, or rewards. Completing the objective answers the query.</p>
+<div style="display: flex; gap: 1.6em; align-items: center; justify-content: center;">
+  <img src="./media/qr_autumn.png" alt="QR code linking to autumn.basis.ai" style="width: 280px; height: 280px; border: 1px solid #d0d5dc; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.10); background: #ffffff;">
+  <div style="text-align: left; max-width: 380px;">
+    <p style="margin: 0 0 0.25em; font-size: 0.62em; font-family: 'IBM Plex Mono', monospace;"><a href="https://autumn.basis.ai" style="color: #1E3A8A; text-decoration: none;">autumn.basis.ai</a></p>
+    <p style="margin: 0; font-size: 0.36em; color: #4a4f5a; line-height: 1.5;">Play the protocol live: explore an environment reward-free, reset whenever you want, then face the same tests the 517 participants and five frontier models faced.</p>
+  </div>
 </div>
-
-<div style="display: flex; gap: 0.7em; align-items: stretch; justify-content: center; font-size: 0.32em; text-align: left;">
-
-  <div style="flex: 1; max-width: 200px; padding: 0.5em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">1. Disclose</div>
-    <p style="margin: 0; color: #1f2330;">Reveal the task <strong>type</strong>: the challenge actions, observations, and the form of the objective. The hidden parameters stay secret.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 200px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">2. Interact</div>
-    <p style="margin: 0; color: #4a4f5a;">Explore the base environment <strong>reward-free</strong>. Reset to the start or proceed at will, building an internal model.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 200px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">3. Instantiate</div>
-    <p style="margin: 0; color: #4a4f5a;">On proceeding, <strong>sample the hidden parameters</strong> and apply \( \tau \) to build the modified environment, objective, and horizon \( H \).</p>
-  </div>
-
-  <div style="flex: 1; max-width: 200px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">4. Plan</div>
-    <p style="margin: 0; color: #4a4f5a;">Produce a <strong>policy</strong> from the learned model and from knowledge of how tau reshaped the world.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 200px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">5. Execute</div>
-    <p style="margin: 0; color: #4a4f5a;">Run the policy in the modified environment for <strong>H steps</strong>.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 200px; padding: 0.5em 0.7em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">6. Score</div>
-    <p style="margin: 0; color: #4a4f5a;">Score the resulting <strong>behavior</strong> against the objective. No internals, no judge.</p>
-  </div>
-
-</div>
-
-<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">Because the parameters are hidden until the agent proceeds, it cannot prepare for one specific answer. It must learn dynamics that generalize across the whole challenge space.</p>
 
 </section>
 
