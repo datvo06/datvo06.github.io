@@ -375,38 +375,6 @@
 
 </section>
 
-<section id="slide-queries" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The key idea: <span style="color: #1E3A8A;">environment-level queries</span></h2>
-
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Questions whose answers depend on the entire environment, not on one observed trajectory</p>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">Definition.</strong> An <strong>environment-level query</strong> is a question about a property of the whole environment. Answering it requires understanding the underlying rules, not just replaying what was seen. Contrast with a trajectory-level metric like next-frame prediction, which only checks one run.</p>
-</div>
-
-<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
-
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Occlusion</div>
-    <p style="margin: 0; color: #4a4f5a;">What is hidden behind an occlusion. Infer the parts of the environment you cannot directly see.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Change</div>
-    <p style="margin: 0; color: #4a4f5a;">Detect a change in the environment's dynamics. Notice when a rule of the world has shifted.</p>
-  </div>
-
-  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Reachability</div>
-    <p style="margin: 0; color: #4a4f5a;">Determine whether one state is reachable from another. Reason about the global structure of what is possible.</p>
-  </div>
-
-</div>
-
-<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">These are the kinds of questions a flexible world model should handle. The next step is a way to score them fairly across very different agents.</p>
-
-</section>
-
 <section id="slide-prior-work" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.2em 0;">The evaluation landscape and <span style="color: #c0392b;">what it misses</span></h2>
 
@@ -439,6 +407,38 @@
   </div>
 
 </div>
+
+</section>
+
+<section id="slide-queries" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">The key idea: <span style="color: #1E3A8A;">environment-level queries</span></h2>
+
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Questions whose answers depend on the entire environment, not on one observed trajectory</p>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">Definition.</strong> An <strong>environment-level query</strong> is a question about a property of the whole environment. Answering it requires understanding the underlying rules, not just replaying what was seen. Contrast with a trajectory-level metric like next-frame prediction, which only checks one run.</p>
+</div>
+
+<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Occlusion</div>
+    <p style="margin: 0; color: #4a4f5a;">What is hidden behind an occlusion. Infer the parts of the environment you cannot directly see.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Change</div>
+    <p style="margin: 0; color: #4a4f5a;">Detect a change in the environment's dynamics. Notice when a rule of the world has shifted.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 300px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Reachability</div>
+    <p style="margin: 0; color: #4a4f5a;">Determine whether one state is reachable from another. Reason about the global structure of what is possible.</p>
+  </div>
+
+</div>
+
+<p style="margin: 0.7em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">These are the kinds of questions a flexible world model should handle. The next step is a way to score them fairly across very different agents.</p>
 
 </section>
 
