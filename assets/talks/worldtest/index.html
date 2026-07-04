@@ -831,17 +831,17 @@
 
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Spending more on each problem rarely closed the gap to human performance</p>
 
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.85em; margin: 0 auto 0.5em; max-width: 92%; text-align: left;"><p style="margin: 0; font-size: 0.38em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The test.</strong> Rank the five models by cost-per-problem (Gemini Flash, Qwen3, Gemini Pro, Claude Sonnet, o3, ascending) and check whether score climbs with budget. In <strong>25 of 43</strong> environments it does; in <strong>18 of 43 (42%)</strong> it plateaus or decreases. No environment is solved perfectly by the cheapest model. By task: MFP improves in 16 of 43, planning in 16, change detection in only 14. (Appendix E.3.3)</p></div>
+<div class="fragment" data-fragment-index="0" style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.85em; margin: 0 auto 0.5em; max-width: 92%; text-align: left;"><p style="margin: 0; font-size: 0.38em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The test.</strong> Rank the five models by cost-per-problem (Gemini Flash, Qwen3, Gemini Pro, Claude Sonnet, o3, ascending) and check whether score climbs with budget. In <strong>25 of 43</strong> environments it does; in <strong>18 of 43 (42%)</strong> it plateaus or decreases. No environment is solved perfectly by the cheapest model. By task: MFP improves in 16 of 43, planning in 16, change detection in only 14. (Appendix E.3.3)</p></div>
 
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; max-width: 94%; margin: 0 auto;">
 
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #2d6a4f; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
+  <div class="fragment" data-fragment-index="1" style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #2d6a4f; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Improves with compute &middot; live &middot; mario</div>
     <iframe data-src="/talks/basis-2026/autumn-embed/?program=Mario&amp;compact=1&amp;bg=black" style="flex: 1; width: 100%; min-height: 34vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
     <p style="margin: 0.35em 0 0; font-size: 0.29em; color: #4a4f5a; text-align: left; line-height: 1.35;">Model scores improve with compute on masked frame prediction and change detection here. Click the panel, then arrow keys move mario.</p>
   </div>
 
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #c0392b; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
+  <div class="fragment" data-fragment-index="2" style="flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1.5px solid #c0392b; border-radius: 8px; padding: 0.45em 0.6em; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #c0392b; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">No improvement on any task &middot; live &middot; bbq</div>
     <iframe data-src="/talks/basis-2026/autumn-embed/?program=BBQ&amp;compact=1&amp;bg=black" style="flex: 1; width: 100%; min-height: 34vh; border: 0; border-radius: 6px; background: transparent;" loading="lazy" allowtransparency="true"></iframe>
     <p style="margin: 0.35em 0 0; font-size: 0.29em; color: #4a4f5a; text-align: left; line-height: 1.35;">bbq, carrace, chinese_checkers, and crystallization show no improvement in any task: their difficulty sits at extremes that additional compute cannot address. Click the grill to light it, the yellow button to add gas.</p>
