@@ -134,6 +134,10 @@ if (bgOverride && /^[a-z]{3,20}$/.test(bgOverride)) {
 // slides show live dynamics without input. Backs off for 8s whenever the
 // user interacts, so manual pokes are not fought by the robot.
 const autoPlay = embedParams.get('auto') === '1';
+// ?autoclick=top: the auto stream ONLY clicks the top row (y=0). For envs
+// like buoyancy whose sole rule is click-to-spawn, this drops objects from
+// above the water instead of teleporting them into it.
+const autoClickTop = embedParams.get('autoclick') === 'top';
 let autoPauseUntil = 0;
 if (autoPlay) {
   const bump = () => { autoPauseUntil = performance.now() + 8000; };
@@ -143,9 +147,9 @@ if (autoPlay) {
   const tick = () => {
     if (interpreter && !paused && performance.now() >= autoPauseUntil) {
       try {
-        if (Math.random() < 0.45) {
+        if (autoClickTop || Math.random() < 0.45) {
           const x = Math.floor(Math.random() * gridSize);
-          const y = Math.floor(Math.random() * gridSize);
+          const y = autoClickTop ? 0 : Math.floor(Math.random() * gridSize);
           interpreter.click(x, y);
           interpreter.step();
           gridSize = renderGrid(ctx, interpreter.renderAll(), canvasSize);
