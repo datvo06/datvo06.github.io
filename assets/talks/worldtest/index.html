@@ -883,25 +883,25 @@
 
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">During exploration the agent can reset the environment to its initial state at will. Humans treat reset as an experimental tool; models mostly do not.</p>
 
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+<div class="fragment" data-fragment-index="0" style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
   <p style="margin: 0; font-size: 0.42em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The signature.</strong> Humans reset at least once in <strong>every</strong> environment and beat the per-environment model reset-mean in <strong>33 of 43</strong>. Models often skip resets entirely: Claude in 31 environments, Qwen in 8, Gemini Pro in 7, Gemini Flash in 4, o3 in 3.</p>
 </div>
 
 <div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; margin-bottom: 0.55em;">
-  <div style="flex: 1.3; max-width: 310px; padding: 0.45em 0.6em; border: 1px solid #1E3A8A; border-radius: 6px; background: #ffffff; text-align: left;">
+  <div class="fragment" data-fragment-index="1" style="flex: 1.3; max-width: 310px; padding: 0.45em 0.6em; border: 1px solid #1E3A8A; border-radius: 6px; background: #ffffff; text-align: left;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Reset share of actions</div>
     <canvas id="wt-chart-resets" width="280" height="150"></canvas>
     <div style="font-size: 0.28em; color: #6b7080; margin-top: 0.2em;">Humans 12.5%; every model lower, from 7.1% (Gemini Flash) down to 1.4% (Claude). Paper Figure 5 data.</div>
   </div>
-  <div class="fragment" data-fragment-index="1" style="flex: 1.3; max-width: 310px; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left;">
+  <div class="fragment" data-fragment-index="3" style="flex: 1.3; max-width: 310px; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">LCS ratio around resets</div>
     <canvas id="wt-chart-lcs" width="280" height="150"></canvas>
     <div style="font-size: 0.28em; color: #6b7080; margin-top: 0.2em;">Mean human 0.827 (median 0.900): after a reset, humans largely replay the same action sequence. Every model sits far below. Appendix E.6.</div>
   </div>
 </div>
 
-<span class="fragment" data-hl="resets-human" data-fragment-index="0" style="display: none;"></span>
-<span class="fragment" data-hl="lcs-human" data-fragment-index="2" style="display: none;"></span>
+<span class="fragment" data-hl="resets-human" data-fragment-index="2" style="display: none;"></span>
+<span class="fragment" data-hl="lcs-human" data-fragment-index="4" style="display: none;"></span>
 
 </section>
 
