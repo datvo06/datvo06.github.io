@@ -902,6 +902,41 @@
 
 </section>
 
+<section id="slide-behav-snake" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.25em 0;">Inside the scratchpad: the snake that <span style="color: #c0392b;">&ldquo;fell&rdquo;</span></h2>
+
+<div style="display: flex; gap: 1.1em; align-items: stretch; justify-content: center; max-width: 96%; margin: 0 auto;">
+
+  <div style="flex: 0 0 34%; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">The real environment &middot; live</div>
+    <iframe data-src="/talks/basis-2026/autumn-embed/?program=Snake&amp;compact=1&amp;bg=black" style="flex: 1; width: 100%; min-height: 44vh; border: 1px solid #2a2f3a; border-radius: 6px; background: #10141c;" loading="lazy" allowtransparency="true"></iframe>
+    <p style="margin: 0.35em 0 0; font-size: 0.28em; color: #6b7080; text-align: left; line-height: 1.4;">A snake: arrow keys set its direction (click the panel first); eating the pink food makes it grow. There is no gravity.</p>
+  </div>
+
+  <div style="flex: 1; display: flex; flex-direction: column; gap: 0.5em; justify-content: center; text-align: left;">
+    <div class="fragment" data-fragment-index="0" style="border-left: 3px solid #c08230; background: #ffffff; border-radius: 0 6px 6px 0; padding: 0.45em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.26em; color: #c08230; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Forms a hypothesis</div>
+      <p style="margin: 0; font-size: 0.3em; color: #1f2330; font-family: 'IBM Plex Mono', monospace; line-height: 1.45;">&ldquo;Key observation: The green object &hellip; has fallen down one row and the bottom part moved right one column. This looks like <strong>gravity or falling behavior!</strong>&rdquo;</p>
+    </div>
+    <div class="fragment" data-fragment-index="1" style="border-left: 3px solid #c0392b; background: #ffffff; border-radius: 0 6px 6px 0; padding: 0.45em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.26em; color: #c0392b; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Evidence contradicts; the belief survives</div>
+      <p style="margin: 0 0 0.25em; font-size: 0.3em; color: #1f2330; font-family: 'IBM Plex Mono', monospace; line-height: 1.45;">&ldquo;Observation: Both left and right arrow keys don't move the falling green object.&rdquo;</p>
+      <p style="margin: 0; font-size: 0.3em; color: #1f2330; font-family: 'IBM Plex Mono', monospace; line-height: 1.45;">&ldquo;Action taken: click 1 9 &hellip; Result: MAJOR CHANGE! The green object has transformed!&rdquo;</p>
+    </div>
+    <div class="fragment" data-fragment-index="2" style="border-left: 3px solid #6b7080; background: #ffffff; border-radius: 0 6px 6px 0; padding: 0.45em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.26em; color: #6b7080; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Test: confident, and wrong</div>
+      <p style="margin: 0; font-size: 0.3em; color: #1f2330; font-family: 'IBM Plex Mono', monospace; line-height: 1.45;">&ldquo;Option 3 looks most consistent with: vertical green object at column 2 &hellip; pink object at row 1, col 3.&rdquo; <span style="color: #c0392b;">Its model never learned that the snake eats food and grows.</span></p>
+    </div>
+  </div>
+
+</div>
+
+<div class="fragment" data-fragment-index="3" style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.85em; margin: 0.55em auto 0; max-width: 96%; text-align: left;">
+  <p style="margin: 0; font-size: 0.34em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">What happened.</strong> Claude 4 Sonnet's actual reasoning trace. A prior key press set the snake's direction; the model observed every transition correctly, attributed the motion to gravity, kept the belief through contradicting evidence, and answered the test confidently from the wrong model. Full traces released at zenodo.org/records/17728515.</p>
+</div>
+
+</section>
+
 <section id="slide-behav-watch" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.2em 0;">Watch the <span style="color: #1E3A8A;">difference</span></h2>
 
