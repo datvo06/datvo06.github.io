@@ -201,7 +201,7 @@
 #slide-arc-example .ex-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.3em;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.3em;}
 #slide-arc-example .ex-note{font-size:0.3em;color:#6b7080;margin-top:0.4em;max-width:340px;}
 </style>
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">What <span style="color: #c0392b;">non-interactive</span> looks like: infer from fixed examples</h2>
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">2.1 <span style="color: #c0392b;">Non-interactive</span> evaluation - Testing rule inference from static examples</h2>
 
 <p style="margin: 0 auto 0.45em; max-width: 94%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Two classic benchmarks. ARC (Chollet, 2019): infer a grid rule from input to output examples. CLEVR (Johnson et al., 2017): answer a compositional question about one rendered scene. In both, you never act in the world.</p>
 
@@ -255,7 +255,7 @@
 #slide-repr-example .ex-note{font-size:0.3em;color:#6b7080;margin-top:0.4em;max-width:360px;}
 #slide-repr-example .fmt{padding:0.4em 0.6em;border:1px solid #d0d5dc;border-radius:6px;background:#ffffff;font-size:0.32em;max-width:200px;text-align:left;}
 </style>
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">What <span style="color: #c0392b;">representation-based</span> looks like: the format is the exam</h2>
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">2.2 <span style="color: #c0392b;">Representation-based</span> evaluation - Testing through a fixed output format</h2>
 
 <p style="margin: 0 auto 0.45em; max-width: 94%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The agent must produce a fixed output format, then a format-specific proxy scores it. Moving MNIST (Srivastava et al., 2015): predict the next video frame, scored by reconstruction error.</p>
 
@@ -309,7 +309,7 @@
 #slide-gym-example .ex-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.3em;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.3em;}
 #slide-gym-example .ex-note{font-size:0.3em;color:#6b7080;margin-top:0.4em;max-width:270px;}
 </style>
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">What <span style="color: #c0392b;">gym-like</span> looks like: chase the reward</h2>
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">2.3 <span style="color: #c0392b;">Gym-like</span> evaluation - Testing task success through rewards</h2>
 
 <p style="margin: 0 auto 0.45em; max-width: 94%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Decision-making with explicit rewards: Atari / ALE (Bellemare et al., 2013), OpenAI Gym, ProcGen, NetHack. The score IS the reward counter. Schematic below, in the style of Breakout.</p>
 
@@ -360,7 +360,7 @@
 #slide-url-example .ex-note{font-size:0.3em;color:#6b7080;margin-top:0.35em;}
 #slide-url-example .ph{font-family:'IBM Plex Mono',monospace;font-size:0.28em;letter-spacing:0.05em;text-transform:uppercase;color:#6b7080;margin-top:0.25em;text-align:center;}
 </style>
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">What <span style="color: #c0392b;">unsupervised RL</span> looks like: two phases, one world</h2>
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">2.4 <span style="color: #c0392b;">Unsupervised RL</span> evaluation - Testing in the same world after reward-free exploration</h2>
 
 <div style="text-align: center;">
   <div class="ex-lbl" style="color: #c0392b; text-align: left; max-width: 94%; margin: 0 auto 0.35em;">Unsupervised RL: train and test in the same world</div>
