@@ -260,8 +260,10 @@ window.addEventListener('resize', resizeCanvas);
 async function init() {
   resizeCanvas();
   try {
-    const moduleUrl = '/assets/wasm/interpreter_web.js';
-    const wasmUrl = '/assets/wasm/interpreter_web.wasm';
+    // ?v= busts caches when the interpreter build changes: the Emscripten JS
+    // glue and .wasm must be a matched pair, or instantiation fails.
+    const moduleUrl = '/assets/wasm/interpreter_web.js?v=2';
+    const wasmUrl = '/assets/wasm/interpreter_web.wasm?v=2';
     const { default: createInterpreterModule } = await import(moduleUrl);
     wasmModule = await createInterpreterModule({
       locateFile: (path) => path.endsWith('.wasm') ? wasmUrl : path
