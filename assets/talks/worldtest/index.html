@@ -201,7 +201,7 @@
 
 <div style="display: flex; gap: 1.6em; align-items: flex-start; justify-content: center;">
 
-  <div style="flex: 0 0 auto; text-align: left;">
+  <div class="fragment" data-fragment-index="0" style="flex: 0 0 auto; text-align: left;">
     <div class="ex-lbl" style="color: #c0392b;">ARC &middot; infer a grid rule</div>
     <div style="margin-bottom: 0.3em;">
       <span class="arc-g"><i></i><i class="r"></i><i></i><i class="b"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="arc-ar">&rarr;</span><span class="arc-g"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i class="b"></i></span>
@@ -209,12 +209,12 @@
       <span class="arc-g"><i></i><i></i><i class="y"></i><i></i><i class="g"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="arc-ar">&rarr;</span><span class="arc-g"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="g"></i><i></i><i class="y"></i><i></i></span>
     </div>
     <div>
-      <span class="arc-g"><i class="r"></i><i></i><i></i><i class="b"></i><i></i><i class="y"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="arc-ar">&rarr;</span><span class="arc-q">?</span><span class="fragment"><span class="arc-ar">=</span><span class="arc-g" style="outline:2px solid #2ea44f;outline-offset:2px;"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i class="y"></i><i></i><i class="b"></i></span></span>
+      <span class="arc-g"><i class="r"></i><i></i><i></i><i class="b"></i><i></i><i class="y"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="arc-ar">&rarr;</span><span class="arc-q">?</span><span class="fragment" data-fragment-index="1"><span class="arc-ar">=</span><span class="arc-g" style="outline:2px solid #2ea44f;outline-offset:2px;"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i class="y"></i><i></i><i class="b"></i></span></span>
     </div>
     <div class="ex-note">Two examples, then infer the rule (gravity: every cell falls to the bottom) and fill the test.</div>
   </div>
 
-  <div style="flex: 0 0 auto; text-align: left;">
+  <div class="fragment" data-fragment-index="2" style="flex: 0 0 auto; text-align: left;">
     <div class="ex-lbl" style="color: #1E3A8A;">CLEVR &middot; answer about a scene</div>
     <div style="position: relative; width: 320px; height: 120px; background: linear-gradient(#eef0f2, #d7dbe0); border-radius: 6px; border: 1px solid #d0d5dc; overflow: hidden;">
       <div style="position:absolute; left:48px; bottom:24px; width:48px; height:12px; background:rgba(0,0,0,0.16); border-radius:50%; filter:blur(2px);"></div>
@@ -226,13 +226,13 @@
       <div style="position:absolute; left:198px; bottom:30px; width:32px; height:42px; border-radius:50%/20%; background:linear-gradient(90deg,#1fa3b3,#9fe9f2 45%,#1fa3b3);"></div>
       <div style="position:absolute; left:252px; bottom:46px; width:28px; height:28px; border-radius:3px; background:linear-gradient(150deg,#7aa7f0,#3b82e8 55%,#2255b8); box-shadow:inset 0 2px 2px rgba(255,255,255,0.4), inset 0 -2px 3px rgba(0,0,0,0.22);"></div>
     </div>
-    <div style="font-size: 0.34em; margin-top: 0.4em; color: #1f2330; max-width: 320px;"><span style="font-family:'IBM Plex Mono',monospace;color:#1E3A8A;">Q.</span> How many objects are <strong>either a cube or red</strong>? <span class="fragment"><span style="font-family:'IBM Plex Mono',monospace;color:#2d6a4f;">A.</span> <strong>3</strong></span></div>
+    <div style="font-size: 0.34em; margin-top: 0.4em; color: #1f2330; max-width: 320px;"><span style="font-family:'IBM Plex Mono',monospace;color:#1E3A8A;">Q.</span> How many objects are <strong>either a cube or red</strong>? <span class="fragment" data-fragment-index="3"><span style="font-family:'IBM Plex Mono',monospace;color:#2d6a4f;">A.</span> <strong>3</strong></span></div>
     <div class="ex-note">One static image, one compositional question.</div>
   </div>
 
 </div>
 
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.85em; margin: 0.6em auto 0; max-width: 94%; text-align: left;">
+<div class="fragment" data-fragment-index="4" style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.4em 0.85em; margin: 0.6em auto 0; max-width: 94%; text-align: left;">
   <p style="margin: 0; font-size: 0.36em;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">The common thread.</strong> Both are static: you infer from fixed examples or one rendered image, and never act in the environment to gather its dynamics.</p>
 </div>
 
