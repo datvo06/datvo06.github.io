@@ -1109,10 +1109,10 @@
 <section id="slide-other-work" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Other <span style="color: #1E3A8A;">projects</span></h2>
 
-<div style="display: flex; flex-direction: column; gap: 0.55em; max-width: 94%; margin: 0 auto;">
+<div style="display: flex; flex-direction: column; gap: 0.3em; max-width: 94%; margin: 0 auto;">
 
   <div style="display: flex; gap: 0.6em; align-items: flex-start; justify-content: center; text-align: left;">
-    <div style="flex: 1; min-width: 0; padding: 0.45em 0.6em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div class="fragment" data-fragment-index="0" style="flex: 1; min-width: 0; padding: 0.45em 0.6em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.25em;">RoboTL</div>
       <video autoplay muted loop playsinline style="width: 100%; max-height: 14vh; object-fit: contain; border-radius: 4px; background: #ffffff; margin-bottom: 0.25em;">
         <source src="./media/handgrasp_a.mp4" type="video/mp4">
@@ -1133,7 +1133,7 @@
         <li>CAD, JAX, MuJoCo as <strong>handlers</strong>.</li>
       </ul>
     </div>
-    <div style="flex: 1; min-width: 0; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div class="fragment" data-fragment-index="1" style="flex: 1; min-width: 0; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.25em;">effectful</div>
 <pre style="margin: 0; padding: 0.55em 0.7em; background: #1f2330; border-radius: 5px; font-size: 0.22em; line-height: 1.5; overflow: hidden; text-align: left;"><code style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e8eaf0; background: transparent; display: block;"><span style="color: #9db3e8;">from</span> effectful.handlers.llm <span style="color: #9db3e8;">import</span> Template
 
@@ -1147,13 +1147,13 @@
       <p style="margin: 0.3em 0 0; font-size: 0.27em; color: #4a4f5a; line-height: 1.4;">Algebraic effects for Python: the docstring is the prompt, the signature is the contract, and a handler decides which LLM answers.</p>
       <img src="./media/qr_effectful.png" alt="QR code to github.com/BasisResearch/effectful" style="width: 64px; height: 64px; border: 1px solid #eef0f4; border-radius: 4px; display: block; margin: 0.3em auto 0;">
     </div>
-    <div style="flex: 0 0 21%; min-width: 0; display: flex; flex-direction: column; justify-content: flex-start; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div class="fragment" data-fragment-index="3" style="flex: 0 0 21%; min-width: 0; display: flex; flex-direction: column; justify-content: flex-start; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #6b7080; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">ExoPredicator &middot; ICLR'26</div>
     <img src="./media/chain_final_right.gif" alt="ExoPredicator robot arm simulation" style="width: 100%; border-radius: 6px; border: 1px solid #d0d5dc;">
     <p style="margin: 0.35em 0 0; font-size: 0.27em; color: #4a4f5a; text-align: left; line-height: 1.4;">Learns abstract models of dynamic worlds for robot planning: symbolic state and causal processes (agent actions plus exogenous mechanisms) via variational Bayesian inference with LLM proposals.</p>
     <img src="./media/qr_exopredicator.png" alt="QR code to the ExoPredicator arXiv page" style="width: 64px; height: 64px; border: 1px solid #eef0f4; border-radius: 4px; display: block; margin: 0.3em auto 0;">
   </div>
-    <div class="fragment" style="flex: 0 0 17%; min-width: 0; display: flex; flex-direction: column; justify-content: flex-start; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div class="fragment" data-fragment-index="4" style="flex: 0 0 17%; min-width: 0; display: flex; flex-direction: column; justify-content: flex-start; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #c08230; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Baby robot</div>
     <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px; border: 1px solid #d0d5dc; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
       <source src="./media/babyrobot.mp4" type="video/mp4">
@@ -1162,7 +1162,7 @@
   </div>
   </div>
 
-  <div style="min-width: 0; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left; display: flex; gap: 0.7em; align-items: center;">
+  <div class="fragment" data-fragment-index="2" style="min-width: 0; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; text-align: left; display: flex; gap: 0.7em; align-items: center;">
     <div style="flex: 0 0 15%; font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #c0392b; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.5;">PARSE &middot; domain generalization by spatial predicate induction</div>
     <img src="./media/parse_overview.jpg" alt="PARSE method overview" style="flex: 1; min-width: 0; width: 100%; max-height: 23vh; object-fit: contain; border-radius: 5px; background: #ffffff;">
   </div>
