@@ -1113,20 +1113,20 @@
 
   <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0.55em; align-content: center; text-align: left;">
     <div style="padding: 0.45em 0.6em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.25em;">RoboTL (this work)</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.25em;">RoboTL</div>
       <video autoplay muted loop playsinline style="width: 100%; max-height: 14vh; object-fit: contain; border-radius: 4px; background: #ffffff; margin-bottom: 0.25em;">
         <source src="./media/handgrasp_a.mp4" type="video/mp4">
       </video>
-<pre style="margin: 0 0 0.25em; padding: 0.5em 0.6em; background: #1f2330; border-radius: 4px; font-size: 0.22em; line-height: 1.45; overflow: hidden; text-align: left;"><code style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #d4d7dc; background: transparent; display: block;">@defcomponent
-def OpenParametricHand(self,
-        params: HandParams | None = None,
-        n_fingers=4, n_thumbs=1,
-        unit_scale=0.001):
-    p = params or HandParams.default()
-    self.palm    = Palm(p, n_fingers, n_thumbs, unit_scale)
+<pre style="margin: 0 0 0.25em; padding: 0.5em 0.6em; background: #1f2330; border-radius: 4px; font-size: 0.23em; line-height: 1.45; overflow: hidden; text-align: left;"><code style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #d4d7dc; background: transparent; display: block;"><span style="color: #f0c674;">@defcomponent</span>
+<span style="color: #9db3e8;">def</span> OpenParametricHand(self,
+        params=None, n_fingers=4,
+        n_thumbs=1):
+    p = params <span style="color: #9db3e8;">or</span> HandParams.default()
+    self.palm = Palm(p, n_fingers,
+                     n_thumbs)
     self.fingers = [Digit(p.fingers[i], ...)
-                    for i in range(n_fingers)]
-    # ... thumbs, tendons, actuators ...</code></pre>
+        <span style="color: #9db3e8;">for</span> i <span style="color: #9db3e8;">in</span> range(n_fingers)]
+    <span style="color: #8b93a7;"># ... thumbs, tendons, actuators ...</span></code></pre>
       <ul style="margin: 0; padding-left: 1.1em; font-size: 0.26em; line-height: 1.5; color: #1f2330;">
         <li>Grounded geometry <em>and</em> joints/sensors/losses.</li>
         <li>Compose by ports, parametric variation.</li>
