@@ -1135,15 +1135,16 @@ def OpenParametricHand(self,
     </div>
     <div style="padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #2d6a4f; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.25em;">effectful</div>
-<pre style="margin: 0; padding: 0.55em 0.7em; background: #1f2330; border-radius: 5px; font-size: 0.24em; line-height: 1.5; overflow: hidden; text-align: left;"><code style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e8eaf0; background: transparent; display: block;"><span style="color: #f0c674;">@defcomponent</span>
-<span style="color: #9db3e8;">def</span> CircularPalm(self, n_fingers=3, ...):
-    gaps = <span style="color: #f0c674;">choose</span>(dist.Dirichlet(
-        jnp.ones(n_fingers + 1)))
-    finger_angles = (-spread/2
-        + spread * jnp.cumsum(gaps[:-1]))
-    _build_disc_palm(self,
-        finger_angles=finger_angles, ...)</code></pre>
-      <p style="margin: 0.3em 0 0; font-size: 0.27em; color: #4a4f5a; line-height: 1.4;">Algebraic effects for Python (Jack Feser, Eli Bingham et al., Basis): declare ops, swap their meaning via handlers. Same program, different semantics. github.com/BasisResearch/effectful</p>
+<pre style="margin: 0; padding: 0.55em 0.7em; background: #1f2330; border-radius: 5px; font-size: 0.24em; line-height: 1.5; overflow: hidden; text-align: left;"><code style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e8eaf0; background: transparent; display: block;"><span style="color: #9db3e8;">from</span> effectful.handlers.llm <span style="color: #9db3e8;">import</span> Template
+
+<span style="color: #f0c674;">@Template.define</span>
+<span style="color: #9db3e8;">def</span> limerick(theme: str) -> str:
+    <span style="color: #9ec99a;">"""Write a limerick on the theme of {theme}."""</span>
+    <span style="color: #9db3e8;">raise</span> NotHandled
+
+<span style="color: #9db3e8;">with</span> handler(LiteLLMProvider()):
+    print(limerick(<span style="color: #9ec99a;">"autumn"</span>))</code></pre>
+      <p style="margin: 0.3em 0 0; font-size: 0.27em; color: #4a4f5a; line-height: 1.4;">Algebraic effects for Python (Jack Feser, Eli Bingham et al., Basis): the docstring is the prompt, the signature is the contract, and a handler decides which LLM answers. github.com/BasisResearch/effectful</p>
     </div>
     <div style="grid-column: 1 / -1; padding: 0.45em 0.6em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #c0392b; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.25em;">PARSE &middot; domain generalization</div>
@@ -1153,7 +1154,8 @@ def OpenParametricHand(self,
 
   <div style="flex: 0 0 22%; display: flex; flex-direction: column; justify-content: center;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #6b7080; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Predicators</div>
-    <img src="./media/chain_final.gif" alt="Predicators chain simulation" style="width: 100%; border-radius: 6px; border: 1px solid #d0d5dc;">
+    <img src="./media/chain_final_right.gif" alt="Predicators robot arm simulation" style="width: 100%; border-radius: 6px; border: 1px solid #d0d5dc;">
+    <p style="margin: 0.35em 0 0; font-size: 0.27em; color: #4a4f5a; text-align: left; line-height: 1.4;">Bilevel task-and-motion planning: the predicators planner reads Autumn semantics directly, one substrate across abstraction levels.</p>
   </div>
 
   <div class="fragment" style="flex: 0 0 18%; display: flex; flex-direction: column; justify-content: center;">
