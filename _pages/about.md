@@ -31,6 +31,7 @@ At Harvard, I work on proof automation in **Lean** and causal systems for drug r
 {% include news.html %}
 
 ### Technical blogs
+- [WorldTest and AutumnBench: the talk]({{ '/blog/2026/worldtest-talk/' | relative_url }}). Slides from my TAIC'26 talk on benchmarking world-model learning.
 - [Grammars that generalize]({{ '/blog/2026/neurosymbolic-dg/' | relative_url }}). Combining a small DSL with a neural network for domain-invariant bird recognition.
 - [Bayesian Synthesis]({{ '/blog/2026/bayesian-synthesis/' | relative_url }}). Probabilistic programs for automatic data modeling.
 - [All posts]({{ '/blog/' | relative_url }}).
