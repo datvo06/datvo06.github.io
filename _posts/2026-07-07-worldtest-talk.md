@@ -125,20 +125,26 @@ The 20 environments in the [public release](https://zenodo.org/records/19498269)
 
 Every environment above is a short program in Autumn, a functional reactive language for specifying causal interactions in 2D grids ([Das et al., POPL 2023](https://doi.org/10.1145/3571249)). One declarative specification drives both a text interface for AI agents and the browser GUI humans play, so the exact same world is played by both:
 
-```lisp
-; from sand.sexp: conditional rules
+<div style="display: flex; gap: 14px; align-items: stretch; margin: 1em 0; flex-wrap: wrap;">
+<pre style="flex: 1 1 340px; min-width: 0; margin: 0; padding: 14px 16px; background: #1f2330; color: #e8eaf0; border-radius: 8px; font-size: 0.82em; line-height: 1.55; overflow-x: auto;"><code>; from sand.sexp: conditional rules
 (on (clicked sandButton)
     (= clickType "sand"))
 (on (& (clicked) (isFreePos click)
        (== clickType "water"))
     (= water (addObj water ...)))
 
-; from ants.sexp: spatial, temporal, stochastic
+; from ants.sexp: spatial, temporal,
+; stochastic
 (closest obj foods)
-(filter (--> obj (! (intersects obj (prev ants))))
-        (prev foods))
-(randomPositions GRID_SIZE 2)
-```
+(filter (--> obj
+    (! (intersects obj (prev ants))))
+  (prev foods))
+(randomPositions GRID_SIZE 2)</code></pre>
+<div style="flex: 0 1 300px; display: flex; flex-direction: column;">
+  <iframe src="/talks/basis-2026/autumn-embed/?program=Sand&compact=1" style="flex: 1; width: 100%; min-height: 280px; border: 1px solid #d0d5dc; border-radius: 8px;" loading="lazy"></iframe>
+  <p style="margin: 6px 0 0; font-size: 0.82em; color: #6b7080;">Sand, live: click to drop sand; the rules on the left are running.</p>
+</div>
+</div>
 
 `(on cond body)` is the conditional rule form: the guard is evaluated against the current state each tick and the body fires when it holds. The stdlib adds spatial operators (`closest`, `intersects`), temporal reads (`prev`), and stochastic primitives (`randomPositions`).
 
