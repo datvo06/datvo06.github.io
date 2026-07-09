@@ -5,7 +5,8 @@ date: 2026-07-07 00:01:00
 description: A linearized, story version of my TAIC'26 talk on benchmarking world-model learning with environment-level queries. With live environments you can play.
 header_image: /assets/img/worldtest_talk/workshop_talk.jpg
 _styles: >
-  .post img, .post iframe, .post video { max-width: 100%; height: auto; }
+  .post img, .post video { max-width: 100%; height: auto; }
+  .post iframe { max-width: 100%; }
   .post .chartbox { position: relative; width: 100%; height: 320px; margin: 0.6em 0; }
 ---
 
@@ -88,7 +89,7 @@ This is a live AutumnBench task, running on the real platform. Explore reward-fr
 **How to interact:** click inside the frame once to give it focus. Arrow keys move; clicking a grid cell interacts with it; noop lets time pass. The Reset button restarts the world so you can rerun an experiment, and when you think you understand the rules, press Go to Test.
 
 <div style="width: 100%; margin: 1em auto;">
-  <iframe src="https://autumn.basis.ai/task-selection?taskId=Y59YE&embedded=1" width="100%" height="560" style="border: 1px solid #d0d5dc; border-radius: 8px;" loading="lazy"></iframe>
+  <iframe src="https://autumn.basis.ai/task-selection?taskId=Y59YE&embedded=1" width="100%" style="height: 560px; border: 1px solid #d0d5dc; border-radius: 8px;" loading="lazy"></iframe>
 </div>
 
 More at [autumn.basis.ai](https://autumn.basis.ai).
