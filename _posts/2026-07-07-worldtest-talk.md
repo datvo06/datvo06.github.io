@@ -102,7 +102,7 @@ AutumnBench instantiates WorldTest with 43 interactive grid-world environments (
 - **Change detection** (Adapt): one rule changes mid-test; report the earliest timestep at which it changed.
 - **Planning** (Plan): drive the world into a target configuration with a sequence of actions.
 
-The 20 environments in the [public release](https://zenodo.org/records/19498269) are all running below, right now. Every tile is its own Autumn interpreter (C++ compiled to WebAssembly) playing a random action stream. Click any world to take over; the robot backs off for a few seconds.
+The 20 environments in the [public release](https://zenodo.org/records/19498269) are all running below, right now. Every tile is its own Autumn interpreter (C++ compiled to WebAssembly) playing a random action stream.
 
 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 1em 0;">
 <iframe src="/talks/basis-2026/autumn-embed/?program=ants&compact=1&bg=black&auto=1" style="width:100%;height:150px;border:1px solid #2a2f3a;border-radius:4px;background:#10141c;" loading="lazy"></iframe>
@@ -126,6 +126,8 @@ The 20 environments in the [public release](https://zenodo.org/records/19498269)
 <iframe src="/talks/basis-2026/autumn-embed/?program=waterplug&compact=1&bg=black&auto=1" style="width:100%;height:150px;border:1px solid #2a2f3a;border-radius:4px;background:#10141c;" loading="lazy"></iframe>
 <iframe src="/talks/basis-2026/autumn-embed/?program=wind&compact=1&bg=black&auto=1" style="width:100%;height:150px;border:1px solid #2a2f3a;border-radius:4px;background:#10141c;" loading="lazy"></iframe>
 </div>
+
+<p style="text-align: center; margin: 0.6em 0 1.2em; font-size: 1.02em;"><strong style="background: #f3f5fb; border-left: 4px solid #1E3A8A; padding: 0.4em 0.8em; border-radius: 0 6px 6px 0; display: inline-block; color: #1E3A8A;">Click any world to take over; the robot backs off for a few seconds.</strong></p>
 
 ## The Autumn language
 
