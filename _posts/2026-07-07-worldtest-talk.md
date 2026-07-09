@@ -83,13 +83,19 @@ Three properties fall out of this design: it is **representation-agnostic** (sco
 
 ## Try it yourself, right now
 
-This is a live AutumnBench task, running on the real platform. Explore reward-free, reset whenever you want, then take the test:
+This is a live AutumnBench task, running on the real platform. Explore reward-free, reset whenever you want, then take the test.
+
+**How to interact:** click inside the frame once to give it focus. Arrow keys move; clicking a grid cell interacts with it; noop lets time pass. The Reset button restarts the world so you can rerun an experiment, and when you think you understand the rules, press Go to Test.
 
 <div style="width: 100%; max-width: 680px; margin: 1em auto;">
   <iframe src="https://autumn.basis.ai/task-selection?taskId=Y59YE&embedded=1" width="100%" height="440" style="border: 1px solid #d0d5dc; border-radius: 8px;" loading="lazy"></iframe>
 </div>
 
-More at [autumn.basis.ai](https://autumn.basis.ai).
+If you prefer buttons to keys, here is the same engine as a playground with a joystick: pick an environment from the dropdown, steer with the d-pad, click cells to interact, and Reset at will. (This one is exploration only; the full task with the test phase is the frame above, or [autumn.basis.ai](https://autumn.basis.ai).)
+
+<div style="width: 100%; max-width: 680px; margin: 1em auto;">
+  <iframe src="/talks/basis-2026/autumn-embed/?program=Mario&bg=black" width="100%" height="430" style="border: 1px solid #d0d5dc; border-radius: 8px;" loading="lazy"></iframe>
+</div>
 
 ## AutumnBench: 43 environments, 129 tasks
 
