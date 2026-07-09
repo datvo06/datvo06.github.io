@@ -94,7 +94,7 @@ This is a live AutumnBench task, running on the real platform. Explore reward-fr
 If you prefer buttons to keys, here is the same engine as a playground with a joystick: pick an environment from the dropdown, steer with the d-pad, click cells to interact, and Reset at will. (This one is exploration only; the full task with the test phase is the frame above, or [autumn.basis.ai](https://autumn.basis.ai).)
 
 <div style="width: 100%; max-width: 680px; margin: 1em auto;">
-  <iframe src="/talks/basis-2026/autumn-embed/?program=Mario&bg=black" width="100%" height="430" style="border: 1px solid #d0d5dc; border-radius: 8px;" loading="lazy"></iframe>
+  <iframe src="/talks/basis-2026/autumn-embed/?program=Mario&bg=black" width="100%" height="640" style="border: 1px solid #d0d5dc; border-radius: 8px;" loading="lazy"></iframe>
 </div>
 
 ## AutumnBench: 43 environments, 129 tasks
