@@ -58,7 +58,9 @@ An **environment-level query** is a question about a property of the whole envir
 
 Readers from the program synthesis community will recognize the move we are about to make. Synthesis has a long tradition of learning through queries to an oracle: Angluin's membership and equivalence queries against a minimally adequate teacher ([Angluin 1987](https://doi.org/10.1016/0890-5401(87)90052-6)), counterexample-guided inductive synthesis in sketching ([Solar-Lezama et al. 2006](https://doi.org/10.1145/1168857.1168907)), and the general theory of oracle-guided inductive synthesis ([Jha & Seshia 2017](https://doi.org/10.1007/s00236-017-0294-5)). In all of these, the interface to knowledge is a query, and the answer never depends on how the learner represents what it knows.
 
-We want the same leverage for evaluating world-model learners, with the roles reversed: the benchmark interrogates the agent. The catch is that a POMDP agent does not answer propositions; it only knows how to step in an environment. So we make stepping be the question: each query is reified as a task in a derived environment, and solving the task is answering the query. The evaluation never reads the model, only behavior.
+<div style="border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.9em 1.1em; border-radius: 0 8px 8px 0; margin: 1.2em 0;">
+We want the same leverage for evaluating world-model learners, with the roles reversed: <strong>the benchmark interrogates the agent</strong>. The catch is that a POMDP agent does not answer propositions; it only knows how to step in an environment. So <strong>we make stepping be the question</strong>: each query is reified as a task in a derived environment, and solving the task is answering the query. The evaluation never reads the model, only behavior.
+</div>
 
 ## The WorldTest protocol
 
@@ -72,7 +74,7 @@ $$ (\mathcal{M}', R, H) = \tau(\mathcal{M}, \xi), \quad \xi \sim P_{\Xi} $$
 
 The score depends only on the agent's behavior in \\( \mathcal{M}' \\). Solving the task is answering the query.
 
-![The WorldTest framework and its AutumnBench instantiation](/assets/talks/worldtest/media/autumnbench_overview.png)
+<img src="/assets/talks/worldtest/media/autumnbench_overview.png" alt="The WorldTest framework and its AutumnBench instantiation" style="max-width: 100%; height: auto; border-radius: 6px;">
 
 Three properties fall out of this design: it is **representation-agnostic** (scored by behavior alone, so humans and AI compare on equal terms), **reward-free during learning** (interaction carries no signal to exploit), and the test happens in a **modified environment** (memorizing the training world is not enough).
 
@@ -144,7 +146,7 @@ Every environment above is a short program in Autumn, a functional reactive lang
 
 We compared 517 human participants (recruited via Prolific, screened for attention and color blindness) against five frontier reasoning models: Claude 4 Sonnet, Gemini 2.5 Pro, Gemini 2.5 Flash, o3, and Qwen3-235b-a22b-thinking-2507.
 
-![Aggregate scores over all AutumnBench problems: humans dominate every panel](/assets/talks/worldtest/media/results_scores.png)
+<img src="/assets/talks/worldtest/media/results_scores.png" alt="Aggregate scores over all AutumnBench problems: humans dominate every panel" style="max-width: 100%; height: auto; border-radius: 6px;">
 
 Humans beat every model, on every task family. The average human per-environment score sits around 0.935, near the ceiling; the best models hover far below. One curious split in panel (a): models did better on stochastic environments than deterministic ones, while humans were nearly identical across both. The paper reports the split as an observation and does not attribute a cause.
 
@@ -235,7 +237,7 @@ Across the masked frame prediction tasks especially, reasoning models often fail
 
 There is a temptation to call this familiar. Psychology has documented for decades that people, too, defend beliefs against evidence: belief perseverance survives even after the original evidence is fully discredited ([Ross, Lepper & Hubbard 1975](https://doi.org/10.1037/0022-3514.32.5.880)), and confirmation bias is "a ubiquitous phenomenon in many guises" ([Nickerson 1998](https://doi.org/10.1037/1089-2680.2.2.175)). So why do humans win here?
 
-Because human belief revision, whatever its biases, is *adaptive under interaction*. When people can act on a causal system, they do not restart their theory from scratch with every surprise; they make local, targeted repairs to the part of the theory the evidence touched, an algorithmic picture formalized as "Neurath's ship" ([Bramley, Dayan, Griffiths & Lakatos-style local edits, *Psychological Review* 2017](https://doi.org/10.1037/rev0000061)). Interactive settings are exactly where this machinery shines: you feel the contradiction, you design the small experiment that isolates it, you patch the rule, and you move on. AutumnBench is built out of such settings.
+Because human belief revision, whatever its biases, is *adaptive under interaction*. When people can act on a causal system, they do not restart their theory from scratch with every surprise; they make local, targeted repairs to the part of the theory the evidence touched, an algorithmic picture formalized as "Neurath's ship" ([Bramley, Dayan, Griffiths & Lagnado 2017, *Psychological Review*](https://doi.org/10.1037/rev0000061)). Interactive settings are exactly where this machinery shines: you feel the contradiction, you design the small experiment that isolates it, you patch the rule, and you move on. AutumnBench is built out of such settings.
 
 The quantitative trace of this in our data is perplexity, how surprised an agent is by what it sees next. Humans reach lower normalized perplexity over the course of their interaction: their expectations sharpen as evidence accumulates, which is what calibrated revision looks like from the outside. Models show no such reliable sharpening, and their exploration perplexity barely predicts their test score. Their learning is neither targeted nor cumulative in the same way.
 
@@ -252,6 +254,20 @@ Closing the gap likely needs better priors and advances in strategic experimenta
 
 ## The team
 
-This is joint work by eleven authors across Basis Research Institute, DFKI, Harvard, Mila / Universite de Montreal, Cambridge, MIT, and Cornell: Archana Warrier, Dat Nguyen, Michelangelo Naim, Moksh Jain, Yichao Liang, Karen Schroeder, Cambridge Yang, Joshua B. Tenenbaum, Sebastian Vollmer, Kevin Ellis, and Zenna Tavares.
+Joint work by eleven authors across Basis Research Institute, DFKI, Harvard, Mila / Universite de Montreal, Cambridge, MIT, and Cornell.
+
+<div style="display: flex; flex-wrap: wrap; gap: 14px 18px; justify-content: center; margin: 1em 0;">
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/warrier.jpg" alt="Archana Warrier" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Archana Warrier</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/dat.jpg" alt="Dat Nguyen" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #1E3A8A;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Dat Nguyen</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/naim.jpg" alt="Michelangelo Naim" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Michelangelo Naim</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/moksh.jpg" alt="Moksh Jain" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Moksh Jain</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/liang.png" alt="Yichao Liang" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Yichao Liang</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/schroeder.jpg" alt="Karen Schroeder" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Karen Schroeder</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/camyang.png" alt="Cambridge Yang" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Cambridge Yang</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/tenenbaum.jpg" alt="Joshua B. Tenenbaum" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Joshua B. Tenenbaum</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/vollmer.jpg" alt="Sebastian Vollmer" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Sebastian Vollmer</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/ellis.jpg" alt="Kevin Ellis" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Kevin Ellis</div></div>
+  <div style="width: 96px; text-align: center;"><img src="/assets/talks/worldtest/media/team/tavares.jpg" alt="Zenna Tavares" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid #d0d5dc;"><div style="font-size: 0.78em; line-height: 1.2; margin-top: 4px;">Zenna Tavares</div></div>
+</div>
 
 Paper: [arXiv:2510.19788](https://arxiv.org/abs/2510.19788) · Slides: [the interactive deck](/assets/talks/worldtest/) · Play: [autumn.basis.ai](https://autumn.basis.ai) · Interpreter: [BasisResearch/Autumn.cpp](https://github.com/BasisResearch/Autumn.cpp) · Baselines: [BasisResearch/MARAProtocol](https://github.com/BasisResearch/MARAProtocol)
