@@ -88,7 +88,7 @@ This is a live AutumnBench task, running on the real platform. Explore reward-fr
 **How to interact:** click inside the frame once to give it focus. Arrow keys move; clicking a grid cell interacts with it; noop lets time pass. The Reset button restarts the world so you can rerun an experiment, and when you think you understand the rules, press Go to Test.
 
 <div style="width: 100%; margin: 1em auto;">
-  <iframe src="https://autumn.basis.ai/task-selection?taskId=Y59YE&embedded=1" width="100%" style="height: 85vh; min-height: 640px; border: 1px solid #d0d5dc; border-radius: 8px;" loading="lazy"></iframe>
+  <iframe src="https://autumn.basis.ai/task-selection?taskId=Y59YE&embedded=1" width="100%" height="560" style="border: 1px solid #d0d5dc; border-radius: 8px;" loading="lazy"></iframe>
 </div>
 
 More at [autumn.basis.ai](https://autumn.basis.ai).
