@@ -4,6 +4,9 @@ title: "WorldTest: how do we know whether an AI has learned how a world works?"
 date: 2026-07-07 00:01:00
 description: A linearized, story version of my TAIC'26 talk on benchmarking world-model learning with environment-level queries. With live environments you can play.
 header_image: /assets/img/worldtest_talk/workshop_talk.jpg
+_styles: >
+  .post img, .post iframe, .post video { max-width: 100%; height: auto; }
+  .post .chartbox { position: relative; width: 100%; height: 320px; margin: 0.6em 0; }
 ---
 
 I gave a talk on our ICML 2026 paper [Benchmarking World-Model Learning with Environment-Level Queries](https://arxiv.org/abs/2510.19788) at [TAIC'26 (Thinking about AI's Capability)](https://taic-workshop.github.io/), a pre-ICML workshop at GIST. This post is the talk, linearized: the same story, with the figures, the numbers, and the live environments embedded along the way. If you prefer the slide form, [the interactive deck is here](/assets/talks/worldtest/).
@@ -152,7 +155,10 @@ Every environment above is a short program in Autumn, a functional reactive lang
 
 We compared 517 human participants (recruited via Prolific, screened for attention and color blindness) against five frontier reasoning models: Claude 4 Sonnet, Gemini 2.5 Pro, Gemini 2.5 Flash, o3, and Qwen3-235b-a22b-thinking-2507.
 
-<img src="/assets/talks/worldtest/media/results_scores.png" alt="Aggregate scores over all AutumnBench problems: humans dominate every panel" style="max-width: 100%; height: auto; border-radius: 6px;">
+<div class="chartbox"><canvas id="bt-chart-a"></canvas></div>
+<div class="chartbox"><canvas id="bt-chart-b"></canvas></div>
+<div class="chartbox"><canvas id="bt-chart-c"></canvas></div>
+<p style="font-size: 0.85em; color: #6b7080;">Score by stochasticity, score by task type, and per-environment score distributions. Interactive: hover the bars and violins. Data extracted from the paper's plot files.</p>
 
 Humans beat every model, on every task family. The average human per-environment score sits around 0.935, near the ceiling; the best models hover far below. One curious split in panel (a): models did better on stochastic environments than deterministic ones, while humans were nearly identical across both. The paper reports the split as an observation and does not attribute a cause.
 
@@ -277,3 +283,73 @@ Joint work by eleven authors across Basis Research Institute, DFKI, Harvard, Mil
 </div>
 
 Paper: [arXiv:2510.19788](https://arxiv.org/abs/2510.19788) · Slides: [the interactive deck](/assets/talks/worldtest/) · Play: [autumn.basis.ai](https://autumn.basis.ai) · Interpreter: [BasisResearch/Autumn.cpp](https://github.com/BasisResearch/Autumn.cpp) · Baselines: [BasisResearch/MARAProtocol](https://github.com/BasisResearch/MARAProtocol)
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@sgratzl/chartjs-chart-boxplot@4.4.4/build/index.umd.min.js"></script>
+<script src="/assets/talks/worldtest/media/results_data.js"></script>
+<script>
+(function () {
+  if (typeof Chart === 'undefined' || typeof WT_DATA === 'undefined') return;
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = '#4a4f5a';
+  var D = WT_DATA;
+  var fade = function (rgb, a) { return rgb.replace('rgb(', 'rgba(').replace(')', ',' + a + ')'); };
+  var plotBg = { id: 'plotBg', beforeDraw: function (c) {
+    var a = c.chartArea; c.ctx.save(); c.ctx.fillStyle = '#f3f6ff'; c.ctx.fillRect(a.left, a.top, a.width, a.height); c.ctx.restore();
+  } };
+  var errBars = { id: 'errBars', afterDatasetsDraw: function (c) {
+    var ctx = c.ctx; ctx.save(); ctx.strokeStyle = 'rgba(60,60,70,0.85)'; ctx.lineWidth = 1;
+    c.data.datasets.forEach(function (ds, di) {
+      if (!ds.sem) return;
+      c.getDatasetMeta(di).data.forEach(function (el, i) {
+        var v = ds.data[i], s = ds.sem[i];
+        if (v == null || s == null) return;
+        var y0 = c.scales.y.getPixelForValue(Math.max(0, v - s));
+        var y1 = c.scales.y.getPixelForValue(Math.min(1, v + s));
+        ctx.beginPath(); ctx.moveTo(el.x, y0); ctx.lineTo(el.x, y1);
+        ctx.moveTo(el.x - 3, y0); ctx.lineTo(el.x + 3, y0);
+        ctx.moveTo(el.x - 3, y1); ctx.lineTo(el.x + 3, y1); ctx.stroke();
+      });
+    });
+    ctx.restore();
+  } };
+  var yScale = { min: 0, max: 1, ticks: { stepSize: 0.5 }, grid: { color: 'rgba(128,128,128,0.14)' }, title: { display: true, text: 'Score' } };
+  new Chart(document.getElementById('bt-chart-a'), {
+    type: 'bar',
+    data: { labels: D.short, datasets: [
+      { label: 'deterministic', data: D.panelA.det, sem: D.panelA.detSem, backgroundColor: 'rgb(97,156,255)' },
+      { label: 'stochastic', data: D.panelA.stoch, sem: D.panelA.stochSem, backgroundColor: 'rgb(248,118,109)' } ] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: { legend: { position: 'top' }, title: { display: true, text: 'Score by stochasticity' } },
+      scales: { y: yScale, x: { ticks: { maxRotation: 30, minRotation: 30, autoSkip: false }, grid: { display: false } } } },
+    plugins: [plotBg, errBars]
+  });
+  new Chart(document.getElementById('bt-chart-b'), {
+    type: 'bar',
+    data: { labels: ['CD', 'MFP', 'PL'], datasets: D.order.map(function (a, k) {
+      return { label: D.short[k], data: [D.panelB.CD.means[k], D.panelB.MFP.means[k], D.panelB.PL.means[k]],
+               sem: [D.panelB.CD.sems[k], D.panelB.MFP.sems[k], D.panelB.PL.sems[k]], backgroundColor: D.colors[k] }; }) },
+    options: { responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: { legend: { position: 'top' }, title: { display: true, text: 'Score by task type' } },
+      scales: { y: yScale, x: { grid: { display: false } } } },
+    plugins: [plotBg, errBars]
+  });
+  var el = document.getElementById('bt-chart-c');
+  if (typeof ChartBoxPlot !== 'undefined' && ChartBoxPlot.ViolinController) {
+    Chart.register(ChartBoxPlot.ViolinController, ChartBoxPlot.Violin, ChartBoxPlot.BoxPlotController, ChartBoxPlot.BoxAndWiskers);
+    new Chart(el, {
+      type: 'violin',
+      data: { labels: D.short, datasets: [
+        { data: D.panelC, backgroundColor: D.colors.map(function (c) { return fade(c, 0.55); }),
+          borderColor: D.colors, borderWidth: 1, itemRadius: 1.6, itemBackgroundColor: 'rgba(60,60,70,0.4)' },
+        { type: 'line', data: D.panelCMeans, showLine: false, pointRadius: 4.5,
+          pointBackgroundColor: 'rgba(0,0,0,0)', pointBorderColor: '#1f2330', pointBorderWidth: 1.4 } ] },
+      options: { responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { display: false }, title: { display: true, text: 'Per-environment score distributions' } },
+        scales: { y: yScale, x: { ticks: { maxRotation: 30, minRotation: 30, autoSkip: false }, grid: { display: false } } } },
+      plugins: [plotBg]
+    });
+  }
+})();
+</script>
