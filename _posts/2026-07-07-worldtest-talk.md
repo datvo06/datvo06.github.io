@@ -28,7 +28,7 @@ Four families of benchmarks each probe an agent's knowledge, and each captures s
 
 **Non-interactive benchmarks** ([ARC](https://arxiv.org/abs/1911.01547), RAVEN, CLEVR variants) test whether you can infer hidden rules from a few static examples.
 
-![Non-interactive evaluation: infer the rule from fixed examples](/assets/img/worldtest_talk/rw_noninteractive.gif)
+![Non-interactive evaluation: ARC rule inference beside a CLEVR scene question](/assets/img/worldtest_talk/rw_noninteractive.gif)
 
 They capture environment-level reasoning: rule induction, concept induction, causal reasoning. But you never act in the world. The data you learn from is fixed by the benchmark designer, not gathered by your own experiments.
 
@@ -177,13 +177,15 @@ Rerunning a controlled variation of your last experiment is the signature of hyp
 
 Here is what that looks like in practice. This is the top-scoring human on the mario planning task (score 0.985, the decisive winner among the twenty people who played it), and these are their five real exploration runs from the recorded data, played back time-compressed. The click pattern tells the story on its own: in run 1, all 16 clicks land in the final 13% of the run; in run 2, the first click comes 6% in; runs 3 to 5 use only 4, 1, and 1 clicks.
 
-**Run 1: figure out the world.** One long run of pure navigation: arrows, platforms, coins, the enemy. Then, at the very end of the run, the discovery: clicking does something too. Sixteen clicks in quick succession, all in the last stretch.
+<div style="display: flex; gap: 18px; align-items: center; margin: 1em 0;">
+  <img src="/assets/img/worldtest_talk/mario_run1.gif" alt="Run 1 of 5" style="flex: 0 0 46%; min-width: 0; border-radius: 6px;">
+  <p style="flex: 1; margin: 0;"><strong>Run 1: figure out the world.</strong> One long run of pure navigation: arrows, platforms, coins, the enemy. Then, at the very end of the run, the discovery: clicking does something too. Sixteen clicks in quick succession, all in the last stretch.</p>
+</div>
 
-![Run 1 of 5](/assets/img/worldtest_talk/mario_run1.gif)
-
-**Run 2: experiment with the new tool.** They reset, and clicking starts almost immediately, ten clicks woven through a much shorter run. This is the reset-as-experiment pattern from the charts above, in the flesh: same setup, one new variable.
-
-![Run 2 of 5](/assets/img/worldtest_talk/mario_run2.gif)
+<div style="display: flex; gap: 18px; align-items: center; margin: 1em 0;">
+  <p style="flex: 1; margin: 0;"><strong>Run 2: experiment with the new tool.</strong> They reset, and clicking starts almost immediately, ten clicks woven through a much shorter run. This is the reset-as-experiment pattern from the charts above, in the flesh: same setup, one new variable.</p>
+  <img src="/assets/img/worldtest_talk/mario_run2.gif" alt="Run 2 of 5" style="flex: 0 0 46%; min-width: 0; border-radius: 6px;">
+</div>
 
 **Runs 3 to 5: consolidate and master.** The remaining runs get shorter and more economical: four clicks, then one, then one. By the end they are not exploring anymore; they are rehearsing.
 
