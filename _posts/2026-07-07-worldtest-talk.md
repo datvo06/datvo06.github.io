@@ -12,6 +12,12 @@ _styles: >
 
 I gave a talk on our ICML 2026 paper [Benchmarking World-Model Learning with Environment-Level Queries](https://arxiv.org/abs/2510.19788) at [TAIC'26 (Thinking about AI's Capability)](https://taic-workshop.github.io/), a pre-ICML workshop at GIST. This post is the talk, linearized: the same story, with the figures, the numbers, and the live environments embedded along the way. If you prefer the slide form, [the interactive deck is here](/assets/talks/worldtest/).
 
+## For context: everyone is talking about world models
+
+"World model" has lately gone from a niche reinforcement-learning term to one of the most contested phrases in AI. [Ha & Schmidhuber's *World Models*](https://arxiv.org/abs/1803.10122) made the modern case for learning a compressed simulator of the environment and training inside the dream; [DreamerV3](https://arxiv.org/abs/2301.04104) showed the recipe mastering diverse domains; OpenAI pitched Sora as a "world simulator"; DeepMind's [Genie](https://arxiv.org/abs/2402.15391) learns playable interactive worlds from video; [World Labs](https://www.worldlabs.ai/) was founded on the bet that spatial world models are the next frontier. In parallel runs a sharper debate about whether today's models already have world models: probing studies found [emergent board-state representations](https://arxiv.org/abs/2210.13382) inside a sequence model trained on Othello moves, while [Vafa et al.](https://arxiv.org/abs/2406.03689) showed a generative model can ace next-turn prediction of Manhattan taxi routes while carrying an incoherent map of Manhattan itself.
+
+With this many takes in play, two questions are worth pinning down: what exactly do we mean by a world model, and how would we know whether an agent has learned one? The first has a short answer. The second is what our paper is about.
+
 ## What is a world model?
 
 A **world model** is an agent's flexible, predictive, and counterfactual understanding of how its environment works. Cognitive science treats this kind of understanding as a core substrate of human intelligence ([Weisberg & Gopnik 2013, *Cognitive Science*](https://doi.org/10.1111/cogs.12069)), and many researchers argue that learning such models is pivotal for the next step in AI ([LeCun 2022](https://openreview.net/forum?id=BZ5a1r-kVsf)).
