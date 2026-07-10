@@ -22,17 +22,13 @@ So, two questions worth pinning down before joining the noise: what do we actual
 
 ## What is a world model?
 
-A **world model** is an agent's flexible, predictive, and counterfactual understanding of how its environment works. Cognitive science treats this kind of understanding as a core substrate of human intelligence ([Weisberg & Gopnik 2013, *Cognitive Science*](https://doi.org/10.1111/cogs.12069)), and many researchers argue that learning such models is pivotal for the next step in AI ([LeCun 2022](https://openreview.net/forum?id=BZ5a1r-kVsf)).
-
-## Why it matters: the kitchen
-
-Someone who cooks regularly builds an internal model of their kitchen: where tools live, how appliances behave. That one model is general-purpose. It supports many different everyday capabilities about the same environment, not just a single task:
+Let's start with a running example. Consider someone who has cooked in the same kitchen for a long time. They develop an intuition for it: where the tools live, how the stove behaves, how long things take. That intuition is general-purpose. It supports many different everyday capabilities about the same kitchen, not just a single dish:
 
 - **Predict.** Estimate how long the hidden contents of a covered pot will take to finish cooking, from the steam and the elapsed time.
-- **Adapt.** Recognize and adapt to changes in the kitchen, such as a knife that has been moved to a different drawer.
+- **Adapt.** Change the layout of the kitchen, or swap out some ingredients: they recognize what changed and can tell whether the dish is still makeable.
 - **Plan.** Plan a sequence of actions to complete a set of recipes, ordering steps so everything comes together.
 
-A good world model answers many such different questions about one environment. Hold on to these three capabilities; they come back as the benchmark's three task families.
+This flexible, predictive, and counterfactual understanding of how an environment works is what we call a **world model**. Cognitive science treats it as a core substrate of human intelligence ([Weisberg & Gopnik 2013, *Cognitive Science*](https://doi.org/10.1111/cogs.12069)), and many researchers argue that learning such models is pivotal for the next step in AI ([LeCun 2022](https://openreview.net/forum?id=BZ5a1r-kVsf)). Hold on to the three capabilities above; they come back as the benchmark's three task families.
 
 ## How do we currently evaluate world-model learning?
 
