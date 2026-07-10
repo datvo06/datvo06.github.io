@@ -2,9 +2,14 @@ github_users:
   - datvo06           # your profile card
 
 github_repos:
+  # current work: WorldTest / AutumnBench / Basis stack
+  - BasisResearch/Autumn.cpp      # the Autumn interpreter (C++ / WASM) behind AutumnBench
+  - BasisResearch/MARAProtocol    # agent-environment protocol + WorldTest baselines
+  - BasisResearch/effectful       # algebraic effects for Python; LLM generation as an effect
+  - datvo06/NeuroSymbolicDG       # PARSE: spatial predicate induction for domain generalization
+  # earlier work
   - datvo06/VRDSynth
   - datvo06/VirDA
-  - datvo06/Autumn.cpp
   - datvo06/BayesianSynthesis
   - FFL2022/FFL
   - datvo06/MSAU
