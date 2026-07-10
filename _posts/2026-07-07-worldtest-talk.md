@@ -12,13 +12,13 @@ _styles: >
 
 I gave a talk on our ICML 2026 paper [Benchmarking World-Model Learning with Environment-Level Queries](https://arxiv.org/abs/2510.19788) at [TAIC'26 (Thinking about AI's Capability)](https://taic-workshop.github.io/), a pre-ICML workshop at GIST. This post is the talk, linearized: the same story, with the figures, the numbers, and the live environments embedded along the way. If you prefer the slide form, [the interactive deck is here](/assets/talks/worldtest/).
 
-## For context: everyone has a world model take
+## The contexts surrounding world modelings
 
-Lately it feels like everyone has a take on world models. [Ha & Schmidhuber](https://arxiv.org/abs/1803.10122) made the modern case for learning a compressed simulator and training your agent inside the dream, and [DreamerV3](https://arxiv.org/abs/2301.04104) showed the recipe actually mastering dozens of domains. OpenAI pitched Sora as a "world simulator". DeepMind's [Genie](https://arxiv.org/abs/2402.15391) learns playable worlds from video. Fei-Fei Li started [a whole company](https://www.worldlabs.ai/) on the bet that spatial world models are the next frontier.
+Recently, world models have been at the center of many discussions in AI, and the discussions come in two kinds. The first is about building them: [Ha & Schmidhuber](https://arxiv.org/abs/1803.10122) made the modern case for learning a compressed simulator of the environment and training the agent inside it, [DreamerV3](https://arxiv.org/abs/2301.04104) showed the recipe mastering dozens of domains, [Genie](https://arxiv.org/abs/2402.15391) learns playable worlds directly from video, OpenAI pitched Sora as a "world simulator", and [World Labs](https://www.worldlabs.ai/) bets that spatial world models are the next frontier.
 
-And then there is the other camp, asking whether LLMs secretly have world models already. Probe a sequence model trained on Othello moves and you find [a board inside it](https://arxiv.org/abs/2210.13382). But test a model on Manhattan taxi routes, as [Vafa et al.](https://arxiv.org/abs/2406.03689) did, and it predicts the next turn almost perfectly while carrying an internal map that looks nothing like Manhattan.
+The second is about measuring them: do our current models already have world models? The evidence is mixed. Probing a sequence model trained on Othello moves recovers [a board-like representation inside it](https://arxiv.org/abs/2210.13382). On the other hand, [Vafa et al.](https://arxiv.org/abs/2406.03689) showed that a model can predict the next turn of Manhattan taxi routes with high accuracy while its implicit street map is incoherent.
 
-So, two questions worth pinning down before joining the noise: what do we actually mean by a world model, and how would we know whether an agent has learned one?
+Both kinds of discussion run into the same two questions: what exactly counts as a world model, and how do we measure whether an agent has learned one?
 
 ## What is a world model?
 
@@ -48,7 +48,7 @@ The proxy measures fit to the format, not the world model. Reconstruction error 
 
 **Gym-like benchmarks** (Atari/ALE, OpenAI Gym, ProcGen, NetHack) provide decision-making with explicit rewards.
 
-![Gym-like evaluation: the memorized script collapses when the layout shifts](/assets/img/worldtest_talk/rw_gym.gif)
+![Gym-like evaluation: a game of Pong where the reward counter is the only measurement](/assets/img/worldtest_talk/rw_gym_pong.gif)
 
 Reward measures task success, not world-model quality: high performance may come from a memorized policy rather than a generalizable grasp of the environment's structure. ProcGen exists precisely because agents memorize levels.
 
