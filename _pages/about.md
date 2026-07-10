@@ -23,9 +23,9 @@ My research focuses on program synthesis and probabilistic programming, with a t
 At Basis, I work on modeling uncertainty in symbolic world models in [MARA](https://www.basis.ai/blog/mara/), designing a robot design language that captures both morphology and control in [R-ADA](https://www.basis.ai/our-work/r-ada/), and modeling LLM generation as an effect, as a framework for building agent harnesses, in [effectful](https://github.com/BasisResearch/effectful). At Harvard, I work on proof automation in **Lean** and causal systems for drug repurposing.
 
 ### Research interests
-- World-model learning and evaluation; uncertainty in symbolic world models
-- Declarative robot design languages capturing morphology and control
-- LLM generation as an algebraic effect; frameworks for agent harnesses
+- World models: learning, evaluation, and uncertainty
+- Languages and abstractions for robot design
+- Programming abstractions for LLM agents
 - Program synthesis and probabilistic programming
 - Neuro-symbolic systems with LLMs and SMT
 - Graph-based learning for code and documents
