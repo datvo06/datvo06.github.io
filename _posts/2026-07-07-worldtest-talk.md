@@ -18,7 +18,7 @@ Lately it feels like everyone has a take on world models. [Ha & Schmidhuber](htt
 
 And then there is the other camp, asking whether LLMs secretly have world models already. Probe a sequence model trained on Othello moves and you find [a board inside it](https://arxiv.org/abs/2210.13382). But test a model on Manhattan taxi routes, as [Vafa et al.](https://arxiv.org/abs/2406.03689) did, and it predicts the next turn beautifully while its internal map of Manhattan is, well, not Manhattan.
 
-So, two questions worth pinning down before joining the noise: what do we actually mean by a world model, and how would we know whether an agent has learned one? The first has a one-sentence answer. The second one took us a paper.
+So, two questions worth pinning down before joining the noise: what do we actually mean by a world model, and how would we know whether an agent has learned one?
 
 ## What is a world model?
 
