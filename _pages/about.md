@@ -24,12 +24,10 @@ At Basis, I work on modeling uncertainty in symbolic world models in [MARA](http
 
 ### Research interests
 - World models: learning, evaluation, and uncertainty
-- Languages and abstractions for robot design
-- Programming abstractions for LLM agents
+- Languages and abstractions for robot design and LLM agents
 - Program synthesis and probabilistic programming
 - Neuro-symbolic systems with LLMs and SMT
-- Graph-based learning for code and documents
-- Reliable and explainable ML for software
+- Reliable, explainable ML for software, including graph-based learning for code and documents
 
 {% include news.html %}
 
