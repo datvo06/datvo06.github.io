@@ -186,15 +186,17 @@ In most cases more compute did not help. The bottleneck is algorithmic, not comp
 
 ## Where the gap comes from: humans experiment
 
-During exploration the agent can reset the environment to its initial state at will. Humans treat reset as an experimental tool. They reset at least once in every environment, and they spend about 12.5% of their unique actions on resets; every model spends less, from 7.1% (Gemini Flash) down to 1.4% (Claude).
+During exploration the agent can reset the environment to its initial state at will. The first thing we noticed in the interaction logs was a plain asymmetry: every human reset at least once in every environment, while models often never pressed reset at all. Claude skipped resets entirely in 31 of the 43 environments, Qwen in 8, Gemini Pro in 7, Gemini Flash in 4, and o3 in 3.
 
-![Reset share of actions per agent](/assets/img/worldtest_talk/reset_share.png)
+So we counted. Humans spend about 12.5% of their unique actions on resets; every model spends less, from 7.1% (Gemini Flash) down to 1.4% (Claude):
 
-More telling than how often is *how*. Take the action sequences immediately before and after each reset and compute their longest-common-subsequence ratio: replaying a similar sequence gives a ratio near 1, unstructured resets give a ratio near 0. Humans sit at 0.827 (median 0.900); every model sits far below, and the difference is statistically significant for each model.
+<div class="chartbox" style="height: 260px;"><canvas id="bt-chart-resets"></canvas></div>
 
-![LCS ratio around resets per agent](/assets/img/worldtest_talk/lcs_ratio.png)
+A frequency gap alone does not say why. Our hypothesis: humans use reset as an experimental tool, replaying the same setup to isolate one rule at a time. If that is right, the actions before and after a reset should look alike. So we measured exactly that: take the action sequences immediately before and after each reset and compute their longest-common-subsequence ratio. Replaying a similar sequence gives a ratio near 1; unstructured resets give a ratio near 0.
 
-Rerunning a controlled variation of your last experiment is the signature of hypothesis testing, and it matches behavior documented in cognitive science:
+<div class="chartbox" style="height: 260px;"><canvas id="bt-chart-lcs"></canvas></div>
+
+Humans sit at 0.827 (median 0.900); every model sits far below, and the difference is statistically significant for each model. Rerunning a controlled variation of your last experiment is the signature of hypothesis testing, and it matches behavior documented in cognitive science:
 
 <div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"Instead, people select strategies in an adaptive fashion that trades off their expected performance and cognitive effort."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1016/j.cogpsych.2015.02.004" style="color: #6b7080;">Coenen, Rehder &amp; Gureckis 2015. Strategies to intervene on causal systems are adaptively selected. Cognitive Psychology 79.</a></div></div>
 <div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"...learners who freely interacted with the physical system selectively produced evidence that revealed the physical property consistent with their inquiry goal."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1016/j.cogpsych.2018.05.001" style="color: #6b7080;">Bramley, Gerstenberg, Tenenbaum &amp; Gureckis 2018. Intuitive experimentation in the physical world. Cognitive Psychology 105.</a></div></div>
@@ -357,6 +359,25 @@ Paper: [arXiv:2510.19788](https://arxiv.org/abs/2510.19788) · Slides: [the inte
       scales: { y: yScale, x: { grid: { display: false } } } },
     plugins: [plotBg, errBars]
   });
+  var AGENT_COLORS = { human: 'rgb(0,158,115)', 'gemini-2.5-flash': 'rgb(240,228,66)', 'qwen3-235b': 'rgb(204,121,167)', o3: 'rgb(213,94,0)', 'gemini-2.5-pro': 'rgb(230,159,0)', 'claude-4-sonnet': 'rgb(86,180,233)' };
+  function hbar(id, labels, vals, xMax, xTitle, fmt) {
+    var el2 = document.getElementById(id);
+    if (!el2) return;
+    new Chart(el2, {
+      type: 'bar',
+      data: { labels: labels, datasets: [{ data: vals, backgroundColor: labels.map(function (l) { return AGENT_COLORS[l]; }) }] },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { display: false }, title: { display: true, text: xTitle },
+          tooltip: { callbacks: { label: function (c) { return fmt(c.parsed.x); } } } },
+        scales: { x: { min: 0, max: xMax, ticks: { callback: fmt } , grid: { color: 'rgba(128,128,128,0.14)' } },
+                  y: { grid: { display: false } } } },
+      plugins: [plotBg]
+    });
+  }
+  hbar('bt-chart-resets', ['human', 'gemini-2.5-flash', 'qwen3-235b', 'o3', 'gemini-2.5-pro', 'claude-4-sonnet'],
+       [12.5, 7.1, 5.4, 5.1, 4.6, 1.4], 14, 'Share of unique actions spent on resets', function (v) { return v + '%'; });
+  hbar('bt-chart-lcs', ['human', 'gemini-2.5-pro', 'claude-4-sonnet', 'qwen3-235b', 'gemini-2.5-flash', 'o3'],
+       [0.827, 0.359, 0.347, 0.325, 0.273, 0.188], 1, 'LCS ratio between action sequences before and after each reset', function (v) { return v; });
   var el = document.getElementById('bt-chart-c');
   if (typeof ChartBoxPlot !== 'undefined' && ChartBoxPlot.ViolinController) {
     Chart.register(ChartBoxPlot.ViolinController, ChartBoxPlot.Violin, ChartBoxPlot.BoxPlotController, ChartBoxPlot.BoxAndWiskers);
