@@ -26,7 +26,7 @@ At Basis, I work on modeling uncertainty in symbolic world models in [MARA](http
 - World models: learning, evaluation, and uncertainty
 - Languages and abstractions for robot design and LLM agents
 - Program synthesis and probabilistic programming
-- Neuro-symbolic systems with LLMs and SMT
+- Neuro-symbolic systems modeled with LLMs, PPLs, and NNs
 - Reliable, explainable ML for software, including graph-based learning for code and documents
 
 {% include news.html %}
