@@ -16,7 +16,7 @@ I gave a talk on our ICML 2026 paper [Benchmarking World-Model Learning with Env
 
 Lately it feels like everyone has a take on world models. [Ha & Schmidhuber](https://arxiv.org/abs/1803.10122) made the modern case for learning a compressed simulator and training your agent inside the dream, and [DreamerV3](https://arxiv.org/abs/2301.04104) showed the recipe actually mastering dozens of domains. OpenAI pitched Sora as a "world simulator". DeepMind's [Genie](https://arxiv.org/abs/2402.15391) learns playable worlds from video. Fei-Fei Li started [a whole company](https://www.worldlabs.ai/) on the bet that spatial world models are the next frontier.
 
-And then there is the other camp, asking whether LLMs secretly have world models already. Probe a sequence model trained on Othello moves and you find [a board inside it](https://arxiv.org/abs/2210.13382). But test a model on Manhattan taxi routes, as [Vafa et al.](https://arxiv.org/abs/2406.03689) did, and it predicts the next turn beautifully while its internal map of Manhattan is, well, not Manhattan.
+And then there is the other camp, asking whether LLMs secretly have world models already. Probe a sequence model trained on Othello moves and you find [a board inside it](https://arxiv.org/abs/2210.13382). But test a model on Manhattan taxi routes, as [Vafa et al.](https://arxiv.org/abs/2406.03689) did, and it predicts the next turn almost perfectly while carrying an internal map that looks nothing like Manhattan.
 
 So, two questions worth pinning down before joining the noise: what do we actually mean by a world model, and how would we know whether an agent has learned one?
 
@@ -90,7 +90,7 @@ The score depends only on the agent's behavior in \\( \mathcal{M}' \\). Solving 
 
 Three properties fall out of this design: it is **representation-agnostic** (scored by behavior alone, so humans and AI compare on equal terms), **reward-free during learning** (interaction carries no signal to exploit), and the test happens in a **modified environment** (memorizing the training world is not enough).
 
-## Try it yourself, right now
+## Try it yourself
 
 This is a live AutumnBench task, running on the real platform. Explore reward-free, reset whenever you want, then take the test.
 
@@ -173,7 +173,7 @@ We compared 517 human participants (recruited via Prolific, screened for attenti
 <div class="chartbox"><canvas id="bt-chart-c"></canvas></div>
 <p style="font-size: 0.85em; color: #6b7080;">Score by stochasticity, score by task type, and per-environment score distributions. Interactive: hover the bars and violins. Data extracted from the paper's plot files.</p>
 
-Humans beat every model, on every task family. The average human per-environment score sits around 0.935, near the ceiling; the best models hover far below. One curious split in panel (a): models did better on stochastic environments than deterministic ones, while humans were nearly identical across both. The paper reports the split as an observation and does not attribute a cause.
+Humans beat every model, on every task family. The average human per-environment score sits around 0.935, near the ceiling; the best models hover far below. One curious split in the stochasticity chart: models did better on stochastic environments than deterministic ones, while humans were nearly identical across both. The paper reports the split as an observation and does not attribute a cause.
 
 ## More compute is not the fix
 
@@ -202,6 +202,7 @@ Rerunning a controlled variation of your last experiment is the signature of hyp
 
 <div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"Instead, people select strategies in an adaptive fashion that trades off their expected performance and cognitive effort."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1016/j.cogpsych.2015.02.004" style="color: #6b7080;">Coenen, Rehder &amp; Gureckis 2015. Strategies to intervene on causal systems are adaptively selected. Cognitive Psychology 79.</a></div></div>
 <div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"...learners who freely interacted with the physical system selectively produced evidence that revealed the physical property consistent with their inquiry goal."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1016/j.cogpsych.2018.05.001" style="color: #6b7080;">Bramley, Gerstenberg, Tenenbaum &amp; Gureckis 2018. Intuitive experimentation in the physical world. Cognitive Psychology 105.</a></div></div>
+
 One honest caveat, in the paper's own terms: this link is correlational; testing it causally would need designs that manipulate reset availability.
 
 ## Watch the winner learn
@@ -218,7 +219,7 @@ Here is what that looks like in practice. This is the top-scoring human on the m
   <img src="/assets/img/worldtest_talk/mario_run2.gif" alt="Run 2 of 5" style="flex: 0 0 46%; min-width: 0; border-radius: 6px;">
 </div>
 
-**Runs 3 to 5: consolidate and master.** The remaining runs get shorter and more economical: four clicks, then one, then one. By the end they are not exploring anymore; they are rehearsing.
+**Runs 3 to 5: consolidate and master.** The remaining runs get shorter and more economical: four clicks, then one, then one. By run 5 it looks less like exploring and more like rehearsing the solution.
 
 <div style="display: flex; gap: 8px; margin: 1em 0;">
   <img src="/assets/img/worldtest_talk/mario_run3.gif" alt="Run 3 of 5" style="flex:1;min-width:0;">
@@ -267,12 +268,14 @@ Across the masked frame prediction tasks especially, reasoning models often fail
 There is a temptation to call this familiar. Psychology has documented for decades that people, too, defend beliefs against evidence: belief perseverance survives even after the original evidence is fully discredited ([Ross, Lepper & Hubbard 1975](https://doi.org/10.1037/0022-3514.32.5.880)), and confirmation bias is, in the words of the classic review:
 
 <div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"...a ubiquitous phenomenon in many guises."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1037/1089-2680.2.2.175" style="color: #6b7080;">Nickerson 1998. Confirmation Bias: A Ubiquitous Phenomenon in Many Guises. Review of General Psychology 2(2).</a></div></div>
+
 So why do humans win here?
 
 Because human belief revision, whatever its biases, is *adaptive under interaction*. When people can act on a causal system, they do not restart their theory from scratch with every surprise; they make local, targeted repairs to the part of the theory the evidence touched:
 
 <div style="border-left: 4px solid #1E3A8A; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"Formalizing Neurath's ship: Approximate algorithms for online causal learning."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1037/rev0000061" style="color: #6b7080;">Bramley, Dayan, Griffiths &amp; Lagnado 2017. Psychological Review 124(3).</a></div></div>
-The ship is rebuilt plank by plank while staying afloat; the theory is repaired piece by piece while staying in use. Interactive settings are exactly where this machinery shines: you feel the contradiction, you design the small experiment that isolates it, you patch the rule, and you move on. AutumnBench is built out of such settings.
+
+Neurath's image: you rebuild the ship plank by plank while staying at sea, and people patch their theories the same way, without ever stopping to rebuild from the keel. Interactive settings are exactly where this machinery shines: you feel the contradiction, you design the small experiment that isolates it, you patch the rule, and you move on. AutumnBench is built out of such settings.
 
 The quantitative trace of this in our data is perplexity, how surprised an agent is by what it sees next. Humans reach lower normalized perplexity over the course of their interaction: their expectations sharpen as evidence accumulates, which is what calibrated revision looks like from the outside. Models show no such reliable sharpening, and their exploration perplexity barely predicts their test score. Their learning is neither targeted nor cumulative in the same way.
 
