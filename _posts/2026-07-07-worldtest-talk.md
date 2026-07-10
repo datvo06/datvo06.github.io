@@ -32,7 +32,7 @@ This flexible, predictive, and counterfactual understanding of how an environmen
 
 ## How do we currently evaluate world-model learning?
 
-Four families of benchmarks each probe an agent's knowledge, and each captures something real while missing something essential.
+We can group existing evaluations into four families. Each probes an agent's knowledge in a different and incomplete way: each captures a real capability, and each misses one.
 
 **Non-interactive benchmarks** ([ARC](https://arxiv.org/abs/1911.01547), RAVEN, CLEVR variants) test whether you can infer hidden rules from a few static examples.
 
@@ -44,13 +44,13 @@ They capture environment-level reasoning: rule induction, concept induction, cau
 
 ![Representation-based evaluation: pixel error rewards the blurry hedge](/assets/img/worldtest_talk/rw_representation.gif)
 
-The proxy measures fit to the format, not the world model. Reconstruction error famously rewards a blurry average of possible futures over a crisp, physically right prediction. And an agent whose knowledge lives in a policy, a program, or a plan cannot even enter the exam.
+The proxy measures fit to the format, not the world model. Reconstruction error rewards a blurry average of possible futures over a crisp, physically right prediction. And an agent whose knowledge lives in a policy, a program, or a plan has no way to express it in the required format at all.
 
 **Gym-like benchmarks** (Atari/ALE, OpenAI Gym, ProcGen, NetHack) provide decision-making with explicit rewards.
 
 ![Gym-like evaluation: a game of Pong where the reward counter is the only measurement](/assets/img/worldtest_talk/rw_gym_pong.gif)
 
-Reward measures task success, not world-model quality: high performance may come from a memorized policy rather than a generalizable grasp of the environment's structure. ProcGen exists precisely because agents memorize levels.
+Reward measures task success, not world-model quality: high performance may come from a memorized policy rather than a generalizable grasp of the environment's structure. ProcGen was built to counter exactly this, with procedurally generated levels to defeat memorization.
 
 **Unsupervised RL benchmarks** ([URLB](https://arxiv.org/abs/2110.15191)) are the closest relative of our setup: explore without objectives first, face downstream tasks second. But both phases run in the very same environment, and evaluation only ever sees action-reward sequences, so structural and counterfactual understanding goes untested.
 
