@@ -196,14 +196,9 @@ A frequency gap alone does not say why. Our hypothesis: humans use reset as an e
 
 <div class="chartbox" style="height: 260px;"><canvas id="bt-chart-lcs"></canvas></div>
 
-Humans sit at 0.827 (median 0.900); every model sits far below, and the difference is statistically significant for each model. Rerunning a controlled variation of your last experiment is the signature of hypothesis testing, and it matches behavior documented in cognitive science:
+Humans sit at 0.827 (median 0.900); every model sits far below, and the difference is statistically significant for each model.
 
-<div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"Instead, people select strategies in an adaptive fashion that trades off their expected performance and cognitive effort."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1016/j.cogpsych.2015.02.004" style="color: #6b7080;">Coenen, Rehder &amp; Gureckis 2015. Strategies to intervene on causal systems are adaptively selected. Cognitive Psychology 79.</a></div></div>
-<div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"...learners who freely interacted with the physical system selectively produced evidence that revealed the physical property consistent with their inquiry goal."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1016/j.cogpsych.2018.05.001" style="color: #6b7080;">Bramley, Gerstenberg, Tenenbaum &amp; Gureckis 2018. Intuitive experimentation in the physical world. Cognitive Psychology 105.</a></div></div>
-
-One honest caveat, in the paper's own terms: this link is correlational; testing it causally would need designs that manipulate reset availability.
-
-## Watch the winner learn
+### Watch the winner learn
 
 Here is what that looks like in practice. This is the top-scoring human on the mario planning task (score 0.985, the decisive winner among the twenty people who played it), and these are their five real exploration runs from the recorded data, played back time-compressed. The click pattern tells the story on its own: in run 1, all 16 clicks land in the final 13% of the run; in run 2, the first click comes 6% in; runs 3 to 5 use only 4, 1, and 1 clicks.
 
@@ -226,6 +221,13 @@ Here is what that looks like in practice. This is the top-scoring human on the m
 </div>
 
 They went on to score 0.985 on the test.
+
+Rerunning a controlled variation of your last experiment is the signature of hypothesis testing, and it matches behavior documented in cognitive science:
+
+<div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"Instead, people select strategies in an adaptive fashion that trades off their expected performance and cognitive effort."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1016/j.cogpsych.2015.02.004" style="color: #6b7080;">Coenen, Rehder &amp; Gureckis 2015. Strategies to intervene on causal systems are adaptively selected. Cognitive Psychology 79.</a></div></div>
+<div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.8em 1em; border-radius: 0 8px 8px 0; margin: 0.9em 0;"><p style="margin: 0 0 0.35em; font-style: italic; color: #1f2330;">"...learners who freely interacted with the physical system selectively produced evidence that revealed the physical property consistent with their inquiry goal."</p><div style="font-family: ui-monospace, monospace; font-size: 0.78em; color: #6b7080;"><a href="https://doi.org/10.1016/j.cogpsych.2018.05.001" style="color: #6b7080;">Bramley, Gerstenberg, Tenenbaum &amp; Gureckis 2018. Intuitive experimentation in the physical world. Cognitive Psychology 105.</a></div></div>
+
+One honest caveat, in the paper's own terms: this link is correlational; testing it causally would need designs that manipulate reset availability.
 
 ## The snake that "fell"
 
