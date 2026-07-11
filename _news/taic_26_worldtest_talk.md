@@ -5,4 +5,4 @@ inline: true
 type: talk
 ---
 
-Delivered a talk on WorldTest and AutumnBench at [TAIC'26 (Thinking about AI's Capability), a pre-ICML workshop at GIST](https://taic-workshop.github.io/). Check out the slides [<i class="fas fa-chalkboard-teacher"></i>here](https://datvo06.github.io/assets/talks/worldtest/).
+Delivered a talk on WorldTest and AutumnBench at [TAIC'26 (Thinking about AI's Capability), a pre-ICML workshop at GIST](https://taic-workshop.github.io/). Check out the slides [<i class="fas fa-chalkboard-teacher"></i>here](https://datvo06.github.io/assets/talks/worldtest/) and the blogpost [<i class="fas fa-file-alt"></i>here](https://datvo06.github.io/blog/2026/worldtest-talk/).
