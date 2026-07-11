@@ -3,7 +3,7 @@ layout: post
 title: "WorldTest: how do we know whether an AI has learned how a world works?"
 date: 2026-07-07 00:01:00
 description: A linearized, story version of my TAIC'26 talk on benchmarking world-model learning with environment-level queries. With live environments you can play.
-header_image: /assets/img/worldtest_talk/workshop_talk.jpg
+header_image: /assets/img/worldtest_talk/autumnbench_showcase.gif
 _styles: >
   .post img, .post video { max-width: 100%; height: auto; }
   .post iframe { max-width: 100%; }
