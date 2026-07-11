@@ -84,7 +84,7 @@ The score depends only on the agent's behavior in \\( \mathcal{M}' \\). Solving 
 
 <img src="/assets/talks/worldtest/media/autumnbench_overview.png" alt="The WorldTest framework and its AutumnBench instantiation" style="max-width: 100%; height: auto; border-radius: 6px;">
 
-Three properties fall out of this design: it is **representation-agnostic** (scored by behavior alone, so humans and AI compare on equal terms), **reward-free during learning** (interaction carries no signal to exploit), and the test happens in a **modified environment** (memorizing the training world is not enough).
+This design buys us three properties. Scoring depends on behavior alone, so an agent can keep its knowledge in a policy, a program, or plain intuition, and humans and AI still compare on equal terms. The interaction phase carries no reward, so there is no signal to exploit while learning. And the test happens in a modified environment, so memorizing the base world is not enough.
 
 ## Try it yourself
 
