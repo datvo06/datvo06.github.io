@@ -18,9 +18,9 @@ social: true          # show social icons
 ### Short bio
 I am a **Joint Postdoctoral Fellow** at [Harvard's Programming Languages and Formal Methods groups](https://pl.seas.harvard.edu/) and the [Basis Research Institute](https://www.basis.ai/about/).
 
-My research focuses on program synthesis and probabilistic programming, with a track record in graph-based learning for code and documents. I completed my PhD at the [University of Melbourne](https://cis.unimelb.edu.au/) and previously worked at **Cinnamon AI Lab** on visually rich document information extraction.
-
 At Basis, I work on modeling uncertainty in symbolic world models in [MARA](https://www.basis.ai/blog/mara/), designing a robot design language that captures both morphology and control in [R-ADA](https://www.basis.ai/our-work/r-ada/), and modeling LLM generation as an effect, as a framework for building agent harnesses, in [effectful](https://github.com/BasisResearch/effectful). At Harvard, I work on proof automation in **Lean** and causal systems for drug repurposing.
+
+I completed my PhD at the [University of Melbourne](https://cis.unimelb.edu.au/) and previously worked at **Cinnamon AI Lab** on visually rich document information extraction.
 
 ### Research interests
 - World models: learning, evaluation, and uncertainty
