@@ -33,11 +33,10 @@ I completed my PhD doing machine learning and program synthesis-based debugging 
 
 {% include news.html %}
 
-### Technical blogs
-- [WorldTest: how do we know whether an AI has learned how a world works?]({{ '/blog/2026/worldtest-talk/' | relative_url }}). My TAIC'26 talk as a story, with live environments.
-- [Grammars that generalize]({{ '/blog/2026/neurosymbolic-dg/' | relative_url }}). Combining a small DSL with a neural network for domain-invariant bird recognition.
-- [Bayesian Synthesis]({{ '/blog/2026/bayesian-synthesis/' | relative_url }}). Probabilistic programs for automatic data modeling.
-- [All posts]({{ '/blog/' | relative_url }}).
+### [Technical blogs]({{ '/blog/' | relative_url }})
+- [WorldTest: how do we know whether an AI has learned how a world works?]({{ '/blog/2026/worldtest-talk/' | relative_url }}). My TAIC'26 talk, linearized into a story, with live environments you can play.
+- [Grammars that generalize]({{ '/blog/2026/neurosymbolic-dg/' | relative_url }}). Duy and I combined a small grammar with a neural network so bird recognition survives domain shift.
+- [Bayesian Synthesis]({{ '/blog/2026/bayesian-synthesis/' | relative_url }}). Synthesizing probabilistic programs that model data automatically. I reproduced part of it.
 
 ### Project demos
 
