@@ -32,25 +32,27 @@ This flexible, predictive, and counterfactual understanding of how an environmen
 
 ## How do we currently evaluate world-model learning?
 
-We can group existing evaluations into four families. Each probes an agent's knowledge in a different and incomplete way: each captures a real capability, and each misses one.
+World modeling is still much in its early stage, so its definition can be as narrow or as broad as we choose to make it. How would you define world-model learning as generally, and at the same time as precisely, as it can be? We follow three desiderata: it should not be a static knowledge test, it should not confine world modeling to any representation, and it should not overly confine what a world model can do.
+
+With these in hand, we can group existing evaluations into four families. Each probes an agent's knowledge in a different and incomplete way: each captures a real capability, and each misses one.
 
 **Non-interactive benchmarks** ([ARC](https://arxiv.org/abs/1911.01547), RAVEN, CLEVR variants) test whether you can infer hidden rules from a few static examples.
 
 ![Non-interactive evaluation: ARC rule inference beside a CLEVR scene question](/assets/img/worldtest_talk/rw_noninteractive.gif)
 
-They capture environment-level reasoning: rule induction, concept induction, causal reasoning. But you never act in the world. The data you learn from is fixed by the benchmark designer, not gathered by your own experiments.
+They capture environment-level reasoning: rule induction, concept induction, causal reasoning. But you never act in the world. The data you learn from is fixed by the benchmark designer, not gathered by your own experiments. This is the static knowledge test, our first desideratum broken.
 
 **Representation-based approaches** (Moving MNIST, BAIR robot pushing, DiscoveryWorld, CLEVRER, CATER, CausalWorld) require a fixed output format, next frames, text descriptions, or predicate structures, scored by format-specific proxies.
 
 ![Representation-based evaluation: pixel error rewards the blurry hedge](/assets/img/worldtest_talk/rw_representation.gif)
 
-The proxy measures fit to the format, not the world model. Reconstruction error rewards a blurry average of possible futures over a crisp, physically right prediction. And an agent whose knowledge lives in a policy, a program, or a plan has no way to express it in the required format at all.
+The proxy measures fit to the format, not the world model. Reconstruction error rewards a blurry average of possible futures over a crisp, physically right prediction. And an agent whose knowledge lives in a policy, a program, or a plan has no way to express it in the required format at all. That is the second: world modeling confined to one representation.
 
 **Gym-like benchmarks** (Atari/ALE, OpenAI Gym, ProcGen, NetHack) provide decision-making with explicit rewards.
 
 ![Gym-like evaluation: a game of Pong where the reward counter is the only measurement](/assets/img/worldtest_talk/rw_gym_pong.gif)
 
-Reward measures task success, not world-model quality: high performance may come from a memorized policy rather than a generalizable grasp of the environment's structure. ProcGen was built to counter exactly this, with procedurally generated levels to defeat memorization.
+Reward measures task success, not world-model quality: high performance may come from a memorized policy rather than a generalizable grasp of the environment's structure. ProcGen was built to counter exactly this, with procedurally generated levels to defeat memorization. That is the third: the world model reduced to whatever earns reward.
 
 **Unsupervised RL benchmarks** ([URLB](https://arxiv.org/abs/2110.15191)) are the closest relative of our setup: explore without objectives first, face downstream tasks second. But both phases run in the very same environment, and evaluation only ever sees action-reward sequences, so structural and counterfactual understanding goes untested.
 
@@ -72,7 +74,7 @@ We want the same leverage for evaluating world-model learners, with the roles re
 
 ## The WorldTest protocol
 
-WorldTest is a two-phase, behavior-based protocol.
+WorldTest is an exploration-centric, query-driven protocol: two phases, scored by behavior alone.
 
 **Interaction phase.** We give the agent a reward-free environment \\( \mathcal{M} \\), a POMDP whose dynamics it does not know. It explores freely, with no external rewards; at any time it may reset to the initial state or proceed to the test. From its interaction history it constructs an internal model \\( \widehat{\mathcal{M}} \\), which can be any representation whatsoever: a program, a latent code, a neural net. The protocol never prescribes or inspects it.
 
@@ -84,7 +86,7 @@ The score depends only on the agent's behavior in \\( \mathcal{M}' \\). Solving 
 
 <img src="/assets/talks/worldtest/media/autumnbench_overview.png" alt="The WorldTest framework and its AutumnBench instantiation" style="max-width: 100%; height: auto; border-radius: 6px;">
 
-This design buys us three properties. Scoring depends on behavior alone, so an agent can keep its knowledge in a policy, a program, or plain intuition, and humans and AI still compare on equal terms. The interaction phase carries no reward, so there is no signal to exploit while learning. And the test happens in a modified environment, so memorizing the base world is not enough.
+This design buys us three properties. Scoring depends on behavior alone, so an agent can keep its knowledge in a policy, a program, or plain intuition, and humans and AI still compare on equal terms. The interaction phase carries no reward, so there is no signal to exploit while learning. And the test happens in a modified environment, so memorizing the base world is not enough. That is all three desiderata checked off.
 
 ## Try it yourself
 
