@@ -63,25 +63,12 @@ I completed my PhD doing machine learning and program synthesis-based debugging 
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
-      <div id="autumn-inline-wrapper" style="position: relative; width: 100%; aspect-ratio: 1; border-radius: 4px; overflow: hidden;">
-        <canvas id="autumn-canvas" style="width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; cursor: pointer; display: block;"></canvas>
-      </div>
-      <div class="autumn-console">
-        {% include autumn_dpad.html id="autumn-dpad" %}
-        <div class="autumn-aux">
-          <select id="autumn-program-select" class="autumn-aux-select" aria-label="Program"></select>
-          <div class="autumn-aux-row">
-            <button id="autumn-reset" class="autumn-aux-btn" type="button">Reset</button>
-            <button id="autumn-pause" class="autumn-aux-btn" type="button">Pause</button>
-          </div>
-        </div>
-      </div>
+      <img src="{{ '/assets/img/worldtest_talk/autumnbench_showcase.gif' | relative_url }}" alt="AutumnBench environments running live" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong> (ICML '26)<br>
-      <em><a href="https://autumn.basis.ai">Autumn</a> interpreter in C++. Powers MARA and AutumnBench. Try it live &larr;</em><br>
-      <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://arxiv.org/abs/2510.19788">AutumnBench paper</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">blog</a> · <a href="{{ '/playground/' | relative_url }}">playground</a><br>
-      <span style="font-size: 12px; color: var(--global-text-color-light, #666);">&darr; to spin droplet, click cloud &amp; sun to interact</span>
+      <em><a href="https://autumn.basis.ai">Autumn</a> interpreter in C++. Powers MARA and AutumnBench. Try it live in the <a href="{{ '/playground/' | relative_url }}">playground</a>.</em><br>
+      <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://arxiv.org/abs/2510.19788">AutumnBench paper</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">blog</a> · <a href="{{ '/playground/' | relative_url }}">playground</a>
     </td>
   </tr>
   <tr style="border: none;">
@@ -125,10 +112,6 @@ I completed my PhD doing machine learning and program synthesis-based debugging 
     </td>
   </tr>
 </table>
-
-<script type="module">
-{% include autumn_player.js %}
-</script>
 
 ---
 
