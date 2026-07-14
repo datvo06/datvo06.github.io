@@ -55,6 +55,15 @@ layout: default
             <!-- Selected papers -->
             {%- include selected_papers.html %}
           {%- endif %}
+          {% if page.service -%}
+          <!-- Academic service -->
+          <h3>Service</h3>
+          <ul>
+            {%- for item in page.service %}
+            <li>{{ item }}</li>
+            {%- endfor %}
+          </ul>
+          {%- endif %}
         </article>
 
 </div>

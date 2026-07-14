@@ -13,6 +13,10 @@ profile:
 news: false           # rendered inline below (above Technical blogs)
 selected_papers: true # show papers with selected={true}
 social: true          # show social icons
+service:              # rendered below Selected Publications
+  - ICML 2026 Reviewer
+  - NeurIPS 2026 Reviewer
+  - AAAI 2026 PC Member / Reviewer
 ---
 
 ### Short bio
