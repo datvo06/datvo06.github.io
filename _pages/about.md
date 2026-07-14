@@ -63,7 +63,7 @@ I completed my PhD doing machine learning and program synthesis-based debugging 
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
-      <img src="{{ '/assets/img/worldtest_talk/autumnbench_showcase.gif' | relative_url }}" alt="AutumnBench environments running live" style="width:100%; height:auto; border-radius: 4px;">
+      <img src="{{ '/assets/img/worldtest_talk/autumnbench_showcase_tall.gif' | relative_url }}" alt="AutumnBench environments running live" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
       <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong> (ICML '26)<br>
