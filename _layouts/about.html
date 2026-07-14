@@ -58,11 +58,15 @@ layout: default
           {% if page.service -%}
           <!-- Academic service -->
           <h3>Service</h3>
-          <ul>
+          <div class="service-list">
             {%- for item in page.service %}
-            <li>{{ item }}</li>
+            <div class="service-item">
+              <i class="fas fa-clipboard-check service-icon" aria-hidden="true"></i>
+              <span class="service-venue">{{ item.venue }} {{ item.year }}</span>
+              <span class="service-role">{{ item.role }}</span>
+            </div>
             {%- endfor %}
-          </ul>
+          </div>
           {%- endif %}
         </article>
 

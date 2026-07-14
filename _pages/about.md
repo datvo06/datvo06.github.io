@@ -14,9 +14,15 @@ news: false           # rendered inline below (above Technical blogs)
 selected_papers: true # show papers with selected={true}
 social: true          # show social icons
 service:              # rendered below Selected Publications
-  - ICML 2026 Reviewer
-  - NeurIPS 2026 Reviewer
-  - AAAI 2026 PC Member / Reviewer
+  - venue: ICML
+    year: 2026
+    role: Reviewer
+  - venue: NeurIPS
+    year: 2026
+    role: Reviewer
+  - venue: AAAI
+    year: 2026
+    role: PC Member / Reviewer
 ---
 
 ### Short bio
