@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Language-oriented Robot Morphology Co-Design</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/theme/white.css" id="theme">
+
+  <style>
+    /* match the rest of datvo06.github.io */
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    .reveal { font-family: "IBM Plex Sans", -apple-system, sans-serif; }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: "IBM Plex Serif", Georgia, serif;
+      text-transform: none;
+      letter-spacing: -0.015em;
+      font-weight: 600;
+      color: #1f2330;
+    }
+    .reveal a { color: #1E3A8A; }
+    .reveal a:hover { color: #3b5bbf; }
+    .reveal code, .reveal pre { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    .reveal pre code { white-space: pre-wrap; word-break: break-word; }
+    .reveal section img { box-shadow: none; border: 0; max-height: 70vh; }
+  </style>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="slide-cover">
+  <h1 style="font-size: 1.5em; line-height: 1.25;">Language-oriented<br>Robot <span style="color: #1E3A8A;">Morphology Co-Design</span></h1>
+  <p style="margin-top: 1.2em; font-size: 0.6em; color: #4a4f5a;">Dat Nguyen &middot; Harvard SEAS &amp; Basis Research Institute</p>
+  <p style="font-size: 0.45em; color: #6b7080;">Joint work with the R-ADA team at Basis</p>
+  <p style="margin-top: 2.2em; font-size: 0.5em; color: #1f2330;">How should we design a robot when neither its body nor its controller is fixed in advance?</p>
+</section>
+
+<section id="slide-rada-00" class="slide level2">
+  <div style="display: flex; align-items: center; gap: 2.5rem; padding: 0 2rem; max-height: 85vh;">
+    <div style="flex: 1; text-align: left; min-width: 0;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part II</div>
+      <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.3em 0;">R-ADA: Co-Design with LLM</h2>
+      <p style="font-size: 0.4em; color: #6b7080; margin: 0 0 0.4em 0; font-style: italic;">Research question: <em>can an LLM codesign robot morphology and control end-to-end, without bi-level optimization?</em></p>
+      <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">No substrate exists in this domain, so we engineer one: <strong>RoboTL</strong>.</p>
+    </div>
+    <img src="../basis-2026/media/codesign/robotl_logo.png" alt="RoboTL logo" style="flex: 0 0 auto; max-height: 50vh; max-width: 35%; width: auto; height: auto; object-fit: contain;">
+  </div>
+</section>
+
+<section id="slide-rada-01" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Three ways to describe a robot</h2>
+<p style="margin: 0 auto 0.05em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  RoboTL started by <strong style="color: #1E3A8A;">me with Sam</strong>, then <strong style="color: #1E3A8A;">Tim Cooijmans</strong>; the control interface (MPC + losses) is <strong style="color: #1E3A8A;">Tim and Markus</strong>.
+</p>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Both extremes pre-date the LLM era. Each has a real cost when you want to <em>codesign</em> at LLM speed. RoboTL is the missing middle.
+</p>
+
+<div style="display: flex; gap: 0.7em; justify-content: center; align-items: stretch; font-size: 0.32em; text-align: left;">
+
+  <div style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">CAD (URDF, OpenSCAD, &hellip;)</div>
+    <img src="../basis-2026/media/codesign/cad_arm.png" alt="Sample OpenSCAD-rendered arm fragment" style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;">
+    <pre style="margin: 0 0 0.3em 0; font-size: 0.9em; line-height: 1.4; padding: 0.35em 0.45em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>cube([10,10,60]);
+translate([0,0,60])
+  rotate([0,90,0])
+    cylinder(d=8, h=12);
+// ...200 more lines</code></pre>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #4a4f5a;">
+      <li>Manufacturable, pixel-precise.</li>
+      <li>No joints, sensors, control.</li>
+      <li>Vary anything &rarr; rewrite the file.</li>
+    </ul>
+  </div>
+
+  <div style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">RoboGrammar (and friends)</div>
+    <img src="../basis-2026/media/codesign/robogrammar_robot.png" alt="Stylized abstract robot from a generative grammar" style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;">
+    <pre style="margin: 0 0 0.3em 0; font-size: 0.9em; line-height: 1.4; padding: 0.35em 0.45em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>Robot -> Body Arm Arm
+Arm   -> Link Joint Arm
+Joint -> Hinge | Slide
+Link  -> short | long
+# graph + GNN eval</code></pre>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #4a4f5a;">
+      <li>Compact, search-friendly.</li>
+      <li>No grounded geometry / joint limits / ports.</li>
+      <li>Eval needs a learned model or sim sweep.</li>
+    </ul>
+  </div>
+
+  <div style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">RoboTL (this work)</div>
+    <video src="../basis-2026/media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;"></video>
+    <pre style="margin: 0 0 0.3em 0; font-size: 0.9em; line-height: 1.4; padding: 0.35em 0.45em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>@defcomponent
+def OpenParametricHand(self,
+        params: HandParams | None = None,
+        n_fingers=4, n_thumbs=1,
+        unit_scale=0.001):
+    p = params or HandParams.default()
+    self.palm    = Palm(p, n_fingers, n_thumbs, unit_scale)
+    self.fingers = [Digit(p.fingers[i], ...)
+                    for i in range(n_fingers)]
+    # ... thumbs, tendons, actuators ...</code></pre>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>Grounded geometry <em>and</em> joints/sensors/losses.</li>
+      <li>Compose by ports, parametric variation.</li>
+      <li>CAD, JAX, MuJoCo as <strong>handlers</strong>.</li>
+    </ul>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-stance">
+  <h2 style="font-size: 1.05em;">The <span style="color: #1E3A8A;">language-oriented</span> stance</h2>
+  <div style="margin: 1.6em auto 0; max-width: 26em; border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.9em 1.1em; border-radius: 0 8px 8px 0; text-align: left;">
+    <p style="margin: 0; font-size: 0.75em; line-height: 1.5;">The design becomes <strong>a program</strong>.<br>Each tool becomes <strong>an interpretation</strong> of that program.</p>
+  </div>
+  <p style="margin-top: 1.4em; font-size: 0.42em; color: #6b7080;">CAD, simulation, constraint solving, control: handlers over one description.</p>
+</section>
+
+<section id="slide-rada-01b" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Anatomy of a RoboTL component</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.38em; color: #4a4f5a; text-align: left;">
+  A two-link arm in 15 lines. The same program declares <strong style="color:#1E3A8A;">design-time geometry</strong> (cylinder shapes, link lengths, frame <code>Pose</code>) <em>and</em> <strong style="color:#1E3A8A;">runtime kinematics</strong> (hinge joints, axes, the <code>tip</code> port the simulator wires up) in one declarative pass. Most robot DSLs pick a side. <strong>RoboTL is the unification.</strong>
+</p>
+
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
+
+  <div style="flex: 1.5; min-width: 0;">
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 64vh; overflow: visible;"><code class="language-python" data-trim>import effectful.handlers.jax.numpy as jnp
+
+from robotl.examples.hinge import HingeJoint
+from robotl.examples.simple_cad import Cylinder
+from robotl.handlers.mujoco import view_model
+from robotl.ops import joints
+from robotl.ops.syntax import Port, Pose, defcomponent
+
+
+@defcomponent
+def Arm(self, link1L=0.120, link2L=0.1, linkDia=0.025):
+    """Two-link arm with revolute joints."""
+    self.link1       = Cylinder(d=linkDia, h=link1L)
+    self.link2       = Cylinder(d=linkDia, h=link2L)
+    self.shoulder    = HingeJoint(plateD=0.032)
+    self.elbow       = HingeJoint(plateD=0.032)
+    self.wristFlange = Cylinder(d=0.032, h=0.005)
+
+    # Ports + welds compose the kinematic chain:
+    self.base = self.place(Port())
+    self._weld_shoulder = joints.Weld(self.base,         self.shoulder.base)
+    self._weld_link1    = joints.Weld(self.shoulder.tip, self.link1.base)
+
+    # rotate elbow frame so its hinge axis points along Y
+    pose = Pose(rv=jnp.pi / 2 * jnp.array([0, 0, 1]))
+    self._weld_elbow    = joints.Weld(self.link1.tip,  self.elbow.base, pose=pose)
+    self._weld_link2    = joints.Weld(self.elbow.tip,  self.link2.base, pose=~pose)
+    self._weld_wrist    = joints.Weld(self.link2.tip,  self.wristFlange.base)
+
+    self.tip = self.wristFlange.tip   # downstream tasks reach with this port
+
+
+if __name__ == "__main__":
+    view_model(lambda: Based(Arm()))   # mujoco handler</code></pre>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
+    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Same program, different semantics</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+        <li><code>handlers.cad</code>: render OpenSCAD model.</li>
+        <li><code>handlers.mujoco</code>: <code>view_model</code> + sim + MPC.</li>
+        <li><code>handlers.jax</code>: constraint solving; backs <code>solve_init</code>.</li>
+      </ul>
+    </div>
+
+    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Why an LLM finds this easy</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+        <li>Pythonic, decorated, declarative.</li>
+        <li>Errors are loud (port mismatch, weld misalign).</li>
+        <li>Variation is parametric &middot; just change defaults.</li>
+        <li>Simulator answers in seconds.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-effectful-palms" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.2em 0;"><code>solve_init</code> in action: three palm shapes, same program</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">
+  Same <code>LeapHand</code> code, three palm choices. <code>solve_init</code> samples (or fixes) finger angles from each palm's prior, threads the constraints through the kinematic graph, and hands off to the MuJoCo compile.
+</p>
+
+<div style="display: flex; gap: 0.8em; align-items: stretch; justify-content: center;">
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em;">
+    <video src="../basis-2026/media/codesign/palms/circular.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 56vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">CircularPalm</div>
+    <p style="margin: 0; font-size: 0.32em; color: #4a4f5a; text-align: center; line-height: 1.4;">Dirichlet over finger gaps; NUTS samples angles in <code>[&minus;&pi;/2, &pi;/2]</code>.</p>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em;">
+    <video src="../basis-2026/media/codesign/palms/rectangular.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 56vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">RectangularPalm</div>
+    <p style="margin: 0; font-size: 0.32em; color: #4a4f5a; text-align: center; line-height: 1.4;">Fingers in a row along the palm's long axis. The original LEAP geometry.</p>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em;">
+    <video src="../basis-2026/media/codesign/palms/triangular.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 56vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">TriangularPalm</div>
+    <p style="margin: 0; font-size: 0.32em; color: #4a4f5a; text-align: center; line-height: 1.4;">Fingers fixed at three edge midpoints. Deterministic; no <code>choose</code> at all.</p>
+  </div>
+
+</div>
+
+<p style="margin: 0.55em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">
+  Each clip: 72-frame turntable rendered via the MuJoCo handler from the same <code>LeapHand</code> factory, only the palm constructor swapped.
+</p>
+</section>
+
+<section id="slide-effectful-tips" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.2em 0;">Same factory, swap one component: <span style="color: #1E3A8A;">fingertip variants</span></h2>
+
+<div style="display: flex; gap: 0.55em; align-items: stretch; justify-content: center;">
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.25em;">
+    <video src="../basis-2026/media/codesign/palms/tip_capsule.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 50vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">CapsuleTip</div>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.25em;">
+    <video src="../basis-2026/media/codesign/palms/tip_ball.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 50vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">BallTip</div>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.25em;">
+    <video src="../basis-2026/media/codesign/palms/tip_cube.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 50vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">CubeTip</div>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.25em;">
+    <video src="../basis-2026/media/codesign/palms/tip_cylinder.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 50vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">CylinderTip</div>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.25em;">
+    <video src="../basis-2026/media/codesign/palms/tip_hook.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 50vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">HookTip</div>
+  </div>
+
+</div>
+
+<p style="margin: 0.55em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">
+  No changes to the palm prior, no re-solving by hand. <code>solve_init</code> re-runs end-to-end for each tip variant.
+</p>
+</section>
+
+<section id="slide-rada-mpc" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What unlocks cheap codesign: <span style="color: #1E3A8A;">MPC + a loss interface</span></h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.9em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.44em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The key enabler.</strong>
+    RoboTL ships a <strong>sampling-based controller (MPC)</strong> and an <strong>interface to define losses</strong> as part of the program. The LLM only has to write the morphology and the loss; MPC closes the control loop inside the simulator.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What the LLM writes</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>A <strong>morphology</strong>: components, joints, ports.</li>
+      <li>A <strong>loss</strong>: per-stage <code>Equalize</code>, <code>Reach</code>, sensors.</li>
+    </ul>
+  </div>
+
+  <div style="flex: 0 0 auto; align-self: center; padding: 0 0.3em; font-size: 1.6em; color: #1E3A8A;">&rarr;</div>
+
+  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What MPC + handler does</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+      <li>Samples a population of candidate control plans.</li>
+      <li>Batched MuJoCo rollouts, scored by the loss.</li>
+      <li>Loss-weighted update (MPPI-style); best plan executes.</li>
+    </ul>
+  </div>
+
+</div>
+
+<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.38em; color: #6b7080; text-align: left;">
+  No bi-level optimization, no learned graph, no morphology-only restriction. The loss-and-MPC interface is what makes the LLM's outer loop cheap. Built by <strong style="color: #1E3A8A;">Tim and Markus</strong>.
+</p>
+</section>
+
+<section id="slide-effectful-intro" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.1em 0;">Why RoboTL works: <code style="font-size: 0.85em;">effectful</code>, the substrate underneath</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  <code>effectful</code> library &middot; <strong style="color: #1E3A8A;">Jack Feser</strong>, <strong style="color: #1E3A8A;">Eli Bingham</strong> et al. (Basis) &middot; <a href="https://github.com/BasisResearch/effectful" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
+</p>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.55em; max-width: 92%; text-align: left;">
+  <p style="margin: 0; font-size: 0.4em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">What it is.</strong>
+    <code>effectful</code> is an algebraic-effects library for Python: <em>declare</em> operations (no implementation), <em>swap</em> their meaning via handlers at the call site. Same program, different semantics, no rewrites. RoboTL uses it as the substrate underneath every component, every constraint, every stochastic choice.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.8em; justify-content: center; align-items: stretch; font-size: 0.3em; text-align: left;">
+
+  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Component author writes ops</div>
+<pre style="margin: 0; border-radius: 4px; font-size: 0.95em; line-height: 1.4;"><code class="language-python" data-line-numbers="8-9|11-12">import effectful.handlers.jax.numpy as jnp
+import effectful.handlers.numpyro as dist
+
+@defcomponent
+def CircularPalm(self, n_fingers=3, ...):
+    # Dirichlet over n_fingers+1 gaps;
+    # NUTS samples them at init time.
+    gaps = choose(dist.Dirichlet(
+        jnp.ones(n_fingers + 1)))
+    spread = math.pi
+    finger_angles = (-spread/2
+        + spread * jnp.cumsum(gaps[:-1]))
+    _build_disc_palm(
+        self, finger_angles=finger_angles,
+        thumb_angle=math.pi, ...)</code></pre>
+  </div>
+
+  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;"><code>solve_init</code> handler &middot; collect, then sample</div>
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; color: #d4d7dc; font-size: 0.95em; line-height: 1.4;"><code>def solve_init(model, **mcmc_kw):
+    choices, constraints = {}, []
+    kinematic = nx.DiGraph()
+
+    def _choose(d):
+        v = Operation.define(jax.Array)
+        choices[v] = d        # numpyro dist
+        return v()
+
+    def _constrain(loss):
+        constraints.append(loss.value)
+        return fwd()
+
+    with handler({choose: _choose,
+                  constrain: _constrain,
+                  assert_transform: _assert}):
+        m = model()           # symbolic Component
+
+    # NUTS over `choices` s.t. `constraints` &gt;= 0
+    return _run_mcmc(m, choices, constraints)</code></pre>
+  </div>
+
+  <div style="flex: 0.95; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">The same component, different handlers</div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.98em; color: #1f2330;">
+      <tbody>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>solve_init</code></td>
+          <td style="padding: 0.35em 0.3em;">NUTS over <code>choose</code>; returns concrete poses</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.cad</code></td>
+          <td style="padding: 0.35em 0.3em;">resolved component &rarr; OpenSCAD / STL</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.mujoco</code></td>
+          <td style="padding: 0.35em 0.3em;">MJCF + MuJoCo rollout for the simulator</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.jax</code></td>
+          <td style="padding: 0.35em 0.3em;">turns <code>choose</code> / <code>constrain</code> into an optimization; backs <code>solve_init</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin: 0.45em 0 0; padding: 0.3em 0.45em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330; font-size: 1em;">Write the parametric LEAP hand once. <code>solve_init</code> samples the Dirichlet, <code>cad</code> prints it, <code>mujoco</code> simulates it and MPC controls it. <em>Same program.</em></p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-effectful-llm-bridge" class="slide level2">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; gap: 1.4em; padding: 0 2rem;">
+
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #1E3A8A; letter-spacing: 0.12em; text-transform: uppercase;">Third time</div>
+
+  <h2 style="font-size: 1.45em; line-height: 1.2; margin: 0; text-align: center; max-width: 95%;">
+    Now do it once more, with <span style="color: #1E3A8A;">LLM calls</span> as the effect.
+  </h2>
+
+  <div style="display: flex; gap: 1.2em; justify-content: center; font-size: 0.4em; color: #4a4f5a; max-width: 90%;">
+    <div style="flex: 1; max-width: 280px; text-align: left;"><strong style="color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;">RoboTL</strong>: ops are <code>choose / constrain / assert_transform</code>; <code>solve_init</code> samples them.</div>
+    <div style="flex: 1; max-width: 280px; text-align: left;"><strong style="color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;">minipyro</strong>: ops are <code>sample / param</code>; <code>Tracer / Replay / SVI</code> handle them.</div>
+    <div style="flex: 1; max-width: 280px; text-align: left;"><strong style="color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;">Effectful LLM</strong>: ops are <code>Tool / Template</code>; an <code>LiteLLM</code> provider answers.</div>
+  </div>
+
+  <p style="margin: 0; font-size: 0.36em; color: #6b7080; text-align: center; max-width: 80%;">
+    Same shape, three substrates. The next two slides show what an LLM call becomes when it's an op.
+  </p>
+
+</div>
+</section>
+
+<section id="slide-eff-template" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Design goal: <em>an LLM call is just another function call</em></h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  <code>@Template.define</code> &middot; from <code>effectful/handlers/llm/template.py</code>
+</p>
+
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
+
+  <div style="flex: 1.3; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.3em; line-height: 1.45; overflow: hidden;"><code class="language-python" data-line-numbers="5-8|11-14|17-33">from effectful.handlers.llm import Template
+from effectful.ops.types import NotHandled
+
+
+@Template.define
+def limerick(theme: str) -> str:
+    """Write a limerick on the theme of {theme}. Do not use any tools."""
+    raise NotHandled
+
+
+@Template.define
+def prime(first_digit: int) -> int:
+    """Give a prime number starting with {first_digit}. No tools."""
+    raise NotHandled
+
+
+@dataclasses.dataclass
+class KnockKnockJoke:
+    whos_there: str
+    punchline: str
+
+
+@Template.define
+def write_joke(theme: str) -> KnockKnockJoke:
+    """Write a knock-knock joke on the theme of {theme}. No tools."""
+    raise NotHandled
+
+
+with handler(LiteLLMProvider()):
+    print(limerick("autumn"))
+    print(prime(7))
+    joke = write_joke("recursion")
+    print(joke.whos_there, "/", joke.punchline)</code></pre>
+  </div>
+
+  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.55em; font-size: 0.34em; text-align: left;">
+
+    <div style="padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">The design goal, in one line</div>
+      <p style="margin: 0; color: #1f2330;">An LLM call should just be <strong>another function call</strong>. Same signature, same return type, same call site. The only difference: a handler decides who answers.</p>
+    </div>
+
+    <div style="padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What <code>@Template.define</code> gives you</div>
+      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
+        <li><strong>Docstring is the prompt.</strong> Format-string slots map to the typed parameters.</li>
+        <li><strong>Return type is the schema.</strong> <code>int</code>, dataclasses, anything with a decoder works.</li>
+        <li><strong>Body is <code>raise NotHandled</code>.</strong> The handler supplies the meaning.</li>
+        <li><strong>Templates are tools.</strong> They can call each other and other <code>@Tool.define</code>s.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<section id="slide-eff-01" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">A concrete Agent, in the same effectful pattern</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  From <code>effectful/handlers/llm/template.py</code> &middot; <a href="https://github.com/BasisResearch/effectful/tree/master/effectful/handlers/llm" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
+</p>
+
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
+
+  <div style="flex: 1.6; min-width: 0;">
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 64vh; overflow: visible;"><code class="language-python" data-line-numbers="8-23|30|31">import dataclasses
+from effectful.handlers.llm import Agent, Template, Tool
+from effectful.handlers.llm.completions import LiteLLMProvider
+from effectful.ops.semantics import handler
+from effectful.ops.types import NotHandled
+
+
+@dataclasses.dataclass
+class ChatBot(Agent):
+    """Friendly bot named {self.bot_name}."""
+
+    bot_name: str = "ChatBot"
+
+    @Tool.define                                  # a plain operation
+    def remember(self, fact: str) -> str:
+        """Persist a fact about the user."""
+        return f"noted: {fact}"
+
+    @Template.define                              # an LLM-implemented op
+    def send(self, user_input: str) -> str:
+        """User writes: {user_input}.
+        You may call `remember(...)` to keep facts across turns."""
+        raise NotHandled                          # left for the handler
+
+
+provider = LiteLLMProvider()                      # one handler
+chatbot  = ChatBot(bot_name="Otter")              # one program
+
+with handler(provider):                           # bind the meaning
+    chatbot.send("Hi! I am in France.")
+    chatbot.send("Where am I, again?")            # sees prior turn</code></pre>
+  </div>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
+
+    <div style="padding: 0.55em 0.75em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Effect stack at <code>send(&hellip;)</code></div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.92em; line-height: 1.5; color: #1f2330;">
+        <div style="padding: 0.12em 0.45em; background: #eef0fb; border-left: 2px solid #1E3A8A; border-radius: 2px;">handler(provider)</div>
+        <div style="padding: 0.12em 0.45em; margin-left: 0.8em; border-left: 2px solid #9aa0ac;">send(&hellip;) <span style="color: #6b7080;">Template op</span></div>
+        <div style="padding: 0.12em 0.45em; margin-left: 1.6em; border-left: 2px solid #2d6a4f;">remember(&hellip;) <span style="color: #6b7080;">Tool op</span></div>
+      </div>
+    </div>
+
+    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Agent history</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; line-height: 1.5; color: #1f2330;">
+        <div><span style="color: #1E3A8A;">turn 1</span>&nbsp; send("Hi! I am in France.")</div>
+        <div style="margin-left: 1em; color: #2d6a4f;">&rarr; remember("user is in France")</div>
+        <div style="margin-top: 0.3em;"><span style="color: #1E3A8A;">turn 2</span>&nbsp; send("Where am I, again?")</div>
+        <div style="margin-left: 1em; color: #6b7080;">&rarr; reads turn 1 from agent state</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<section id="slide-llm-loop">
+  <h2 style="font-size: 0.95em;">The LLM in the <span style="color: #1E3A8A;">design loop</span></h2>
+  <p style="margin: 0.8em auto 0; max-width: 30em; font-size: 0.55em; line-height: 1.5;">Because designs are programs, <strong>proposing a design is writing a program</strong>. The LLM writes and revises RoboTL; the harness around it is the same handler mechanism that interprets the designs.</p>
+  <div style="display: flex; gap: 0.6em; margin-top: 1.2em; font-size: 0.42em;">
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;"><strong>Errors are loud.</strong> Port mismatches and weld misalignments fail at construction, not after a day of simulation.</div>
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;"><strong>Variation is parametric.</strong> A new candidate is a changed default, not a redrawn model.</div>
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;"><strong>The simulator answers in seconds.</strong> Fast feedback closes the propose-and-revise loop.</div>
+  </div>
+</section>
+
+<section id="slide-synth-00" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What "the right symbolic structure" means, concretely</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.95em; margin: 0 auto 0.9em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.45em;">
+    Three properties keep showing up across MARA, R-ADA, and Effectful. A structure is &ldquo;right&rdquo; when it is:
+  </p>
+</div>
+
+<div style="display: flex; gap: 1em; justify-content: center; font-size: 0.4em; text-align: left;">
+
+  <div style="flex: 1; max-width: 280px; padding: 0.75em 0.9em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.4em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; font-size: 1.05em;">01</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Composable</span>
+    </div>
+    <p style="margin: 0; color: #4a4f5a;">POMDPs combine into bigger POMDPs. Autumn programs compose. RoboTL pieces clip together. Stages chain into objectives.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.75em 0.9em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="display: flex; align-items: baseline; gap: 0.4em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; font-size: 1.05em;">02</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Queryable</span>
+    </div>
+    <p style="margin: 0; color: #4a4f5a;">You can ask the substrate questions. Trace, region, condition-triggered, counterfactual. WorldTest queries are tasks, but tasks <em>are</em> queries.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 280px; padding: 0.75em 0.9em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="display: flex; align-items: baseline; gap: 0.4em; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; font-size: 1.05em;">03</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Executable</span>
+    </div>
+    <p style="margin: 0; color: #1f2330;">Fast feedback from execution. Autumn.cpp runs in real-time in your browser. MPC closes the loop in seconds.</p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-rada-llmbg" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Background: LLM-driven robot design</h2>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Why now.</strong>
+    Coding LLMs and robotics simulators (and foundation models) are improving fast. <strong>Can we build simple, general codesign systems that exploit these trends?</strong> R-ADA is our answer.
+  </p>
+</div>
+
+<!-- Existing work: why naive codesign doesn't scale -->
+<div style="margin: 0 auto 0.55em; max-width: 96%;">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.36em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em; text-align: left;">Existing &middot; why naive co-design doesn't scale</div>
+  <div style="display: flex; gap: 0.65em; justify-content: center; font-size: 0.33em; text-align: left;">
+    <div style="flex: 1; max-width: 290px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Bi-level optimization.</strong> Optimize control inner loop, morphology outer loop. Expensive per iteration; doesn't scale.</div>
+    <div style="flex: 1; max-width: 290px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Learned graph model.</strong> Train a GNN over robot graphs to predict performance. Needs lots of data we don't have.</div>
+    <div style="flex: 1; max-width: 290px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Morphology only.</strong> Restrict to body parameters, freeze the controller. What Lang2Morph does. Cheap, but the task often needs both.</div>
+  </div>
+</div>
+
+<!-- Our method as the answer to the gap above -->
+<div style="margin: 0 auto; max-width: 96%; padding: 0.65em 0.85em; border: 1.5px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; font-size: 0.4em; text-align: left;">
+  <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Codesign (this work)</div>
+  <p style="margin: 0; color: #1f2330;">LLM writes <em>both</em>: morphology <em>and</em> objective, in <strong>one substrate (RoboTL)</strong>, simulated by one handler stack. Same recipe as MARA, with a manufactured DSL.</p>
+</div>
+
+<p style="margin: 0.55em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">
+  We reproduce Lang2Morph next to ground the comparison, then stage R-ADA on top of it.
+</p>
+</section>
+
+<section id="slide-rada-lang2morph" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Lang2Morph in one slide</h2>
+<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  Qiao, Gilday, Xie, Hughes (EPFL CREATE Lab) &middot; arXiv:2509.18937, 2025 &middot; <a href="https://arxiv.org/abs/2509.18937" style="color: #6b7080;">arxiv.org/abs/2509.18937</a>
+</p>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0 0 0.25em; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
+    Natural-language task &rarr; LLM picks semantic tags &rarr; structural grammar over the <strong>Open Parametric Hand (OPH)</strong> &rarr; LLM refines parameters across <strong>~5 iterations</strong>. Output: a 3D-printable, task-specific robotic hand.
+  </p>
+  <p style="margin: 0; font-size: 0.36em; color: #1E3A8A; font-style: italic;">
+    We only reproduced this paper. R-ADA is the separate work.
+  </p>
+</div>
+
+<div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
+  <video src="../basis-2026/media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="../basis-2026/media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+</div>
+<p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: center;">
+  Our reproduction: hand-grasping rollouts from the Lang2Morph pipeline.
+</p>
+</section>
+
+<section id="slide-rada-05" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Our LLM Co-Design Pipeline</h2>
+<img src="../basis-2026/media/codesign/image14.png" alt="codesign pipeline diagram" style="display: block; margin: 0 auto; max-width: 95%; max-height: 75vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+</section>
+
+<section id="slide-rada-06" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Our challenge task</h2>
+<div style="display: flex; gap: 1.2em; align-items: center; justify-content: center; font-size: 0.42em; text-align: left;">
+  <div style="flex: 1; max-width: 460px;">
+    <p style="margin: 0 0 0.6em 0; color: #1f2330;"><strong>Design a robot that can reach into the box and manipulate an object inside.</strong></p>
+    <ul style="margin: 0; padding-left: 1.2em; line-height: 1.5; color: #4a4f5a;">
+      <li>Requires a dexterous manipulator that can fit through the narrow entrance and then unfold.</li>
+      <li>Mounted on an arm with reach.</li>
+      <li>Target: a hexagonal knob inside the box.</li>
+      <li>Goal: turn it <strong>90&deg; counter-clockwise</strong>.</li>
+    </ul>
+  </div>
+  <div style="flex: 0 0 auto; max-width: 42%;">
+    <img src="../basis-2026/media/codesign/image20.png" alt="box with hexagonal knob" style="display: block; max-width: 100%; max-height: 65vh; border-radius: 6px; box-shadow: 0 12px 30px rgba(0,0,0,0.18);">
+  </div>
+</div>
+</section>
+
+<section id="slide-rada-07" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Baseline: control of the stock robot</h2>
+<p style="margin: 0 auto 0.55em; max-width: 88%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Without container, the stock arm + hand can solve the knob-turning task under learned control alone. This is our positive control: the controller piece works in isolation.
+</p>
+<div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
+  <video src="../basis-2026/media/codesign/stock_robot.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 1; max-width: 48%; max-height: 58vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <img src="../basis-2026/media/codesign/image24.png" alt="stock robot result" style="flex: 1; max-width: 48%; max-height: 58vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+</div>
+</section>
+
+<section id="slide-rada-08" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Co-designed robot, no container</h2>
+<p style="margin: 0 auto 0.55em; max-width: 88%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Now we let the LLM design the morphology too. Without the container, codesign works: the system finds a workable manipulator and turns the knob.
+</p>
+<video src="../basis-2026/media/codesign/no_container.mp4" autoplay loop muted playsinline controls preload="auto" style="display: block; margin: 0 auto; max-width: 80%; max-height: 60vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+</section>
+
+<section id="slide-rada-09" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.35em 0;">Co-designed robot, <span style="color: #c0392b;">with container</span> &middot; it breaks</h2>
+
+<div style="display: flex; gap: 0.8em; align-items: stretch; justify-content: center; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 0.7; min-width: 0; display: flex; flex-direction: column; gap: 0.55em; justify-content: center;">
+    <div style="padding: 0.6em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Problem 1: morphology</div>
+      <p style="margin: 0; color: #1f2330;">The hand <strong>does not fit</strong> into the box.</p>
+    </div>
+    <div style="padding: 0.6em 0.8em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.95em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Problem 2: sparse rewards</div>
+      <p style="margin: 0; color: #1f2330;">The loss stays the same. The LLM has no signal that anything is improving.</p>
+    </div>
+  </div>
+
+  <div style="flex: 2.1; min-width: 0; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">In real env (hand misses)</div>
+    <video src="../basis-2026/media/codesign/with_container_fail.mp4" autoplay loop muted playsinline controls preload="auto" controls preload="auto" style="width: 100%; height: auto; max-height: 78vh; border-radius: 6px; box-shadow: 0 10px 28px rgba(0,0,0,0.16); background: #fafbfc; object-fit: contain;"></video>
+  </div>
+
+  <div style="flex: 1.1; min-width: 0; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Loss plateaus</div>
+    <img src="../basis-2026/media/codesign/image18.png" alt="loss plateau chart" style="width: 100%; height: auto; max-height: 78vh; border-radius: 6px; box-shadow: 0 10px 28px rgba(0,0,0,0.16); background: #ffffff; object-fit: contain;">
+  </div>
+
+</div>
+</section>
+
+<section id="slide-rada-10" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">Codesigning morphology <em>and</em> control</h2>
+<p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.36em; color: #4a4f5a; text-align: left;">
+  Fix the sparse-reward problem: have the LLM write the auxiliary loss too. The objective stages the trajectory (enter, grasp, turn) and the codesign loop succeeds with container.
+</p>
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 78vh; max-height: 78vh; overflow: hidden;">
+  <div style="flex: 1.1; min-width: 0; min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 2vh;">
+    <pre style="margin: 0; font-size: 0.25em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-line-numbers="1-10|11|12|13|14|15|16">def aux_losses(env) -&gt; dict:
+    tip = env.robot.tip.pos
+    target = env.target.pos
+    entrance = jnp.array([0.0, 1.1, target[2] - 0.01])
+    pregrasp = jnp.array([0.0, target[1] - 0.03, target[2]])
+    t = sim_time()
+    s1 = jnp.clip(t / 1.0, 0.0, 1.0)
+    s2 = jnp.clip((t - 1.0) / 1.5, 0.0, 1.0)
+    guide = (1.0 - s1) * entrance + s1 * ((1.0 - s2) * pregrasp + s2 * target)
+    return {
+        "staged_centerline_insert": Equalize(tip, guide, weight=0.012),
+        "forward_progress": Maximize(tip[1], weight=0.008),
+        "depth_match": Nullify(tip[1] - target[1], weight=0.02),
+        "height_match": Nullify(tip[2] - target[2], weight=0.015),
+        "soft_center_x": Nullify(tip[0], weight=0.006),
+        "entrance_band_x": KeepBelow(jnp.abs(tip[0]), 0.05, weight=0.015),
+    }</code></pre>
+  </div>
+  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.35em; align-items: center; justify-content: flex-start;">
+    <img src="../basis-2026/media/codesign/image11.png" alt="result chart" style="display: block; max-width: 100%; max-height: 40%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+    <video src="../basis-2026/media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline controls preload="auto" style="display: block; max-width: 100%; max-height: 58%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  </div>
+</div>
+</section>
+
+<section id="slide-rada-11" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Designed objective: none can be missed</h2>
+<p style="margin: 0 auto 0.55em; max-width: 90%; font-size: 0.4em; color: #4a4f5a; text-align: left;">
+  Ablation: keep the same morphology, but remove the designed objective. The system fails. Both pieces matter together.
+</p>
+<video src="../basis-2026/media/codesign/ablation_no_objective.mp4" autoplay loop muted playsinline controls preload="auto" style="display: block; margin: 0 auto; max-width: 80%; max-height: 60vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+</section>
+
+<section id="slide-rada-13" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.35em 0;">Future work, next steps</h2>
+
+<div style="display: flex; gap: 0.7em; justify-content: center; align-items: stretch; font-size: 0.34em; text-align: left; margin-bottom: 0.55em;">
+  <div style="flex: 1; max-width: 280px; padding: 0.55em 0.7em; border: 1px solid #2d6a4f; border-radius: 6px; background: #ecf5ef;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">More effectful machinery</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+      <li><strong>Local Python tools.</strong> Let the LLM read and interact with Python locally: a REPL and a debugger.</li>
+      <li><strong>Capability control.</strong> Tools to govern the LLM's capabilities, e.g. effect typing, skills as orchestrating functions.</li>
+    </ul>
+  </div>
+  <div style="flex: 1; max-width: 280px; padding: 0.55em 0.7em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Merge Predicators + Autumn</div>
+    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.45; color: #1f2330;">
+      <li>Low-level dynamics, high-level actions as functions, predicate abstraction, all in one language.</li>
+      <li>Predicators' planner reads Autumn semantics directly; agent reasons across levels in one substrate.</li>
+    </ul>
+  </div>
+</div>
+
+<div style="margin: 0 auto; max-width: 96%;">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em; text-align: left;">Cross-embodied YCB grasping &middot; in progress</div>
+  <div style="display: flex; gap: 0.6em; justify-content: center;">
+    <video src="../basis-2026/media/codesign/ycb/cross_embodied_hammer_4.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 1; min-width: 0; max-width: 25%; height: auto; max-height: 40vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <video src="../basis-2026/media/codesign/ycb/cross_embodied_adjustable_wrench_2.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 1; min-width: 0; max-width: 25%; height: auto; max-height: 40vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <video src="../basis-2026/media/codesign/ycb/cross_embodied_phillips_screwdriver_4.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 1; min-width: 0; max-width: 25%; height: auto; max-height: 40vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+    <video src="../basis-2026/media/codesign/ycb/cross_embodied_codesign_4.mp4" autoplay loop muted playsinline controls preload="auto" style="flex: 1; min-width: 0; max-width: 25%; height: auto; max-height: 40vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
+  </div>
+  <p style="margin: 0.45em 0 0; font-size: 0.32em; color: #6b7080; text-align: left;">hammer &middot; adjustable wrench &middot; phillips screwdriver &middot; multi-hand codesign. Latest runs from the <a href="https://github.com/BasisResearch/RoboTL/pull/424"><code>dn-cross-embodied-ycb</code> PR #424</a> notebooks.</p>
+</div>
+</section>
+
+<section id="slide-rada-limits" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Limitations on the R-ADA side</h2>
+
+<div style="border-left: 3px solid #c0392b; background: #fdf5f3; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 88%; text-align: left;">
+  <p style="margin: 0; font-size: 0.42em;">
+    <strong style="color: #c0392b; letter-spacing: 0.06em;">Honest about R-ADA too.</strong>
+    The codesign loop has clear failure modes &middot; the same way the MARA agent had clear failure modes. Worth naming a few before claiming victory.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
+
+  <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
+      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">1</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">State estimation</span>
+    </div>
+    <p style="margin: 0; color: #4a4f5a;">Today the env hands over state directly; real deployment needs to estimate it from sensors.</p>
+  </div>
+
+  <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
+      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">2</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Sim params are hand-tuned</span>
+    </div>
+    <p style="margin: 0 0 0.4em; color: #4a4f5a;">Friction, timestep, and contact solver all picked by hand for stable contact. Nothing here has touched real hardware yet.</p>
+    <table style="width: 100%; border-collapse: collapse; font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; background: #ffffff; border: 1px solid #f3d0c8; border-radius: 3px; overflow: hidden;">
+      <tbody>
+        <tr style="border-bottom: 1px solid #f3d0c8;"><td style="padding: 0.2em 0.5em; color: #6b7080;">friction</td><td style="padding: 0.2em 0.5em; color: #1f2330; text-align: right;">knob 0.10 / slide 0.05 / finger 0.01</td></tr>
+        <tr style="border-bottom: 1px solid #f3d0c8;"><td style="padding: 0.2em 0.5em; color: #6b7080;">dt</td><td style="padding: 0.2em 0.5em; color: #1f2330; text-align: right;">0.005 <span style="color: #c0392b;">&xrarr;</span> 0.002</td></tr>
+        <tr><td style="padding: 0.2em 0.5em; color: #6b7080;">solref</td><td style="padding: 0.2em 0.5em; color: #1f2330; text-align: right;">0.01 <span style="color: #c0392b;">&xrarr;</span> 0.02</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top: auto; padding-top: 0.35em; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85em; color: #6b7080; text-align: center;"><em>Sim &ne; hardware. Yet.</em></div>
+  </div>
+
+  <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
+    <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.35em;">
+      <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: #c0392b; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85em;">3</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">Control efficacy</span>
+    </div>
+    <p style="margin: 0; color: #4a4f5a;">When does LLM-based reward design stop working?</p>
+  </div>
+
+</div>
+</section>
+
+<section id="slide-babyrobot">
+  <h2 style="font-size: 0.95em;">Future work: the <span style="color: #1E3A8A;">baby robot</span></h2>
+  <p style="margin: 0.5em auto 0; max-width: 30em; font-size: 0.5em; line-height: 1.5;">On real hardware nobody hands you the state. The robot must <em>describe</em> the scene before it can plan in it.</p>
+  <div style="display: flex; gap: 0.8em; align-items: center; margin-top: 0.9em;">
+    <video src="../worldtest/media/babyrobot.mp4" autoplay loop muted playsinline style="flex: 0 0 46%; min-width: 0; max-height: 46vh; border-radius: 6px;"></video>
+    <div style="flex: 1; font-size: 0.42em; text-align: left; line-height: 1.6;">
+      <p style="margin: 0 0 0.4em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">capture</span> two ZED cameras, hand-eye calibrated</p>
+      <p style="margin: 0 0 0.4em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">describe</span> pose estimation + Bayesian state over the scene</p>
+      <p style="margin: 0 0 0.4em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">recreate</span> the scene in simulation, trusted rigid-body physics</p>
+      <p style="margin: 0 0 0.4em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">plan</span> Pick / Place / Push, motion-planned</p>
+      <p style="margin: 0;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">execute</span> on a real Franka arm</p>
+    </div>
+  </div>
+  <p style="margin-top: 0.7em; font-size: 0.4em; color: #6b7080;">Scene capture is program synthesis: perception is inferring the description's parameters.</p>
+</section>
+
+<section id="slide-predicator-v3">
+  <h2 style="font-size: 0.95em;">Future work: <span style="color: #1E3A8A;">learning</span> to describe the environment</h2>
+  <p style="margin: 0.5em auto 0; max-width: 31em; font-size: 0.5em; line-height: 1.5;">Predicator v3, a case study in progress: an agent writes the environment description against demonstration data.</p>
+  <div style="display: flex; gap: 0.7em; margin-top: 0.9em; font-size: 0.42em;">
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; margin-bottom: 0.3em;">simulator.py</div>
+      Low-level continuous dynamics: per-step process rules with learnable constants, fitted by MCMC. Rigid-body physics stays trusted; only what physics does not explain is learned.
+    </div>
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; margin-bottom: 0.3em;">predicates.py</div>
+      High-level symbolic concepts: classifiers that mark when a subgoal becomes true, feeding bilevel planning and refinement.
+    </div>
+  </div>
+  <div style="margin: 0.9em auto 0; max-width: 30em; border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.6em 0.8em; border-radius: 0 8px 8px 0; text-align: left;">
+    <p style="margin: 0; font-size: 0.45em; line-height: 1.5;">The two share fitted parameters: the process's firing gate and the planner's subgoal check are the <strong>same learned threshold</strong>. Concepts and dynamics agree by construction.</p>
+  </div>
+</section>
+
+<section id="slide-close">
+  <h2 style="font-size: 1.0em;">One language for the <span style="color: #1E3A8A;">body</span></h2>
+  <p style="margin: 0.8em auto 0; max-width: 28em; font-size: 0.55em; line-height: 1.5;">The same stance, pointed at the world: agents that learn to describe not just their bodies but the environments they act in.</p>
+  <p style="margin-top: 1.6em; font-size: 0.45em; color: #4a4f5a;">
+    <a href="https://github.com/BasisResearch/effectful">github.com/BasisResearch/effectful</a><br>
+    <a href="https://datvo06.github.io/">datvo06.github.io</a> &middot; dat@basis.ai
+  </p>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^5/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/math/math.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/highlight/highlight.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/plugin/highlight/monokai.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@sgratzl/chartjs-chart-boxplot@4.4.4/build/index.umd.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom,
+          RevealMath.KaTeX,
+          RevealHighlight
+        ],
+        katex: {
+          local: 'https://cdn.jsdelivr.net/npm/katex',
+          version: '0.16.11'
+        }
+      });
+    </script>
+    </body>
+</html>
