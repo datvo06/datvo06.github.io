@@ -64,16 +64,188 @@
   <p style="margin-top: 2.2em; font-size: 0.5em; color: #1f2330;">How should we design a robot when neither its body nor its controller is fixed in advance?</p>
 </section>
 
+<section id="slide-agenda" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Roadmap</h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Where we are going, in five parts</p>
+<div style="display: flex; flex-direction: column; gap: 0.45em; max-width: 86%; margin: 0 auto; font-size: 0.4em; text-align: left;">
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">01</span>
+    <div><strong style="color: #1f2330;">The robot co-design problem</strong></div>
+  </div>
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">02</span>
+    <div><strong style="color: #1f2330;">How do we currently co-design robots?</strong></div>
+  </div>
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">03</span>
+    <div><strong style="color: #1f2330;">RoboTL: describing morphology and control</strong></div>
+  </div>
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">04</span>
+    <div><strong style="color: #1f2330;">effectful: LLM generation as an effect</strong></div>
+  </div>
+  <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">05</span>
+    <div><strong style="color: #1f2330;">Preliminary results and future work</strong></div>
+  </div>
+</div>
+</section>
+
+<section id="slide-sec-1" class="slide level2">
+<div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 58vh; width: fit-content; margin: 0 auto; gap: 0.55em; text-align: left;">
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">01</span>
+    <span style="color: #1f2330; font-weight: 600;">The robot co-design problem</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">02</span>
+    <span style="color: #c3c8d1;">How do we currently co-design robots?</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">03</span>
+    <span style="color: #c3c8d1;">RoboTL: describing morphology and control</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">04</span>
+    <span style="color: #c3c8d1;">effectful: LLM generation as an effect</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">05</span>
+    <span style="color: #c3c8d1;">Preliminary results and future work</span>
+  </div>
+</div>
+</section>
+
 <section id="slide-rada-00" class="slide level2">
   <div style="display: flex; align-items: center; gap: 2.5rem; padding: 0 2rem; max-height: 85vh;">
     <div style="flex: 1; text-align: left; min-width: 0;">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.45em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4em;">Part II</div>
-      <h2 style="font-size: 1.35em; line-height: 1.15; margin: 0 0 0.3em 0;">R-ADA: Co-Design with LLM</h2>
+      <h2 style="font-size: 1.25em; line-height: 1.15; margin: 0 0 0.3em 0;">The <span style="color: #1E3A8A;">co-design</span> problem</h2>
+      <p style="font-size: 0.42em; color: #4a4f5a; margin: 0 0 0.4em 0;">Coding LLMs, robotics simulators, and foundation models are all improving fast. Can we build simple, general codesign systems that exploit these trends?</p>
       <p style="font-size: 0.4em; color: #6b7080; margin: 0 0 0.4em 0; font-style: italic;">Research question: <em>can an LLM codesign robot morphology and control end-to-end, without bi-level optimization?</em></p>
       <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">No substrate exists in this domain, so we engineer one: <strong>RoboTL</strong>.</p>
     </div>
     <img src="../basis-2026/media/codesign/robotl_logo.png" alt="RoboTL logo" style="flex: 0 0 auto; max-height: 50vh; max-width: 35%; width: auto; height: auto; object-fit: contain;">
   </div>
+</section>
+
+<section id="slide-stance">
+  <h2 style="font-size: 1.05em;">The <span style="color: #1E3A8A;">language-oriented</span> stance</h2>
+  <div style="margin: 1.6em auto 0; max-width: 26em; border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.9em 1.1em; border-radius: 0 8px 8px 0; text-align: left;">
+    <p style="margin: 0; font-size: 0.75em; line-height: 1.5;">The design becomes <strong>a program</strong>.<br>Each tool becomes <strong>an interpretation</strong> of that program.</p>
+  </div>
+  <p style="margin-top: 1.4em; font-size: 0.42em; color: #6b7080;">CAD, simulation, constraint solving, control: handlers over one description.</p>
+</section>
+
+<section id="slide-sec-2" class="slide level2">
+<div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 58vh; width: fit-content; margin: 0 auto; gap: 0.55em; text-align: left;">
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">01</span>
+    <span style="color: #c3c8d1;">The robot co-design problem</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">02</span>
+    <span style="color: #1f2330; font-weight: 600;">How do we currently co-design robots?</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">03</span>
+    <span style="color: #c3c8d1;">RoboTL: describing morphology and control</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">04</span>
+    <span style="color: #c3c8d1;">effectful: LLM generation as an effect</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">05</span>
+    <span style="color: #c3c8d1;">Preliminary results and future work</span>
+  </div>
+</div>
+</section>
+
+<section id="slide-rw-bilevel" class="slide level2">
+<h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.1 <span style="color: #1E3A8A;">Bi-level optimization</span></h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Optimize control in the inner loop, morphology in the outer loop</p>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
+  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">The classical recipe: for every candidate body, train or optimize a controller from scratch, score the pair, and step the body. The coupling between morphology and control is respected exactly, because the inner loop re-solves it every time.</div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
+    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> the true coupling of body and controller; principled scoring of a design.</div>
+    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> cost. One outer-loop step pays for a full inner-loop training run. It is expensive per iteration and does not scale to LLM-speed iteration.</div>
+  </div>
+</div>
+</section>
+
+<section id="slide-rw-surrogate" class="slide level2">
+<h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.2 <span style="color: #1E3A8A;">Learned graph surrogates</span></h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">A grammar over robot graphs plus a GNN that predicts performance</p>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
+  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">RoboGrammar and friends make the design space compact and search-friendly: a grammar generates robot graphs, and a learned model scores them without running a full simulation each time.<img src="../basis-2026/media/codesign/robogrammar_robot.png" alt="RoboGrammar robot" style="display: block; margin: 0.5em auto 0; max-height: 18vh;"></div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
+    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> a compact, searchable design space; fast approximate evaluation.</div>
+    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> grounding. The graph has no real geometry, joint limits, or ports, and the surrogate needs training data we do not have in new domains.</div>
+  </div>
+</div>
+</section>
+
+<section id="slide-rw-morphonly" class="slide level2">
+<h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.3 <span style="color: #1E3A8A;">Morphology-only, LLM-driven</span></h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Let the LLM design the body; keep the controller fixed</p>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
+  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">Lang2Morph (Qiao, Gilday, Xie, Hughes 2025, <a href="https://arxiv.org/abs/2509.18937">arXiv:2509.18937</a>): a natural-language task, an LLM choosing semantic tags over a structural grammar of the Open Parametric Hand, and about five LLM refinement iterations to a 3D-printable, task-specific hand.</div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
+    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> cheap iteration; natural-language task input; manufacturable output.</div>
+    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> half the problem. The controller is frozen, and the task often needs morphology and control to move together.</div>
+  </div>
+</div>
+<p class="fragment" style="margin: 0.9em auto 0; max-width: 30em; font-size: 0.45em; color: #4a4f5a; text-align: center;">Each approach picks one side of the coupling, or pays full price for both. Co-design at LLM speed needs a different substrate.</p>
+</section>
+
+<section id="slide-rada-lang2morph" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Lang2Morph in one slide</h2>
+<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  Qiao, Gilday, Xie, Hughes (EPFL CREATE Lab) &middot; arXiv:2509.18937, 2025 &middot; <a href="https://arxiv.org/abs/2509.18937" style="color: #6b7080;">arxiv.org/abs/2509.18937</a>
+</p>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
+  <p style="margin: 0 0 0.25em; font-size: 0.42em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
+    Natural-language task &rarr; LLM picks semantic tags &rarr; structural grammar over the <strong>Open Parametric Hand (OPH)</strong> &rarr; LLM refines parameters across <strong>~5 iterations</strong>. Output: a 3D-printable, task-specific robotic hand.
+  </p>
+  <p style="margin: 0; font-size: 0.36em; color: #1E3A8A; font-style: italic;">
+    We only reproduced this paper. R-ADA is the separate work.
+  </p>
+</div>
+
+<div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
+  <video src="../basis-2026/media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <video src="../basis-2026/media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+</div>
+<p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: center;">
+  Our reproduction: hand-grasping rollouts from the Lang2Morph pipeline.
+</p>
+</section>
+
+<section id="slide-sec-3" class="slide level2">
+<div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 58vh; width: fit-content; margin: 0 auto; gap: 0.55em; text-align: left;">
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">01</span>
+    <span style="color: #c3c8d1;">The robot co-design problem</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">02</span>
+    <span style="color: #c3c8d1;">How do we currently co-design robots?</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">03</span>
+    <span style="color: #1f2330; font-weight: 600;">RoboTL: describing morphology and control</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">04</span>
+    <span style="color: #c3c8d1;">effectful: LLM generation as an effect</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">05</span>
+    <span style="color: #c3c8d1;">Preliminary results and future work</span>
+  </div>
+</div>
 </section>
 
 <section id="slide-rada-01" class="slide level2">
@@ -138,14 +310,6 @@ def OpenParametricHand(self,
   </div>
 
 </div>
-</section>
-
-<section id="slide-stance">
-  <h2 style="font-size: 1.05em;">The <span style="color: #1E3A8A;">language-oriented</span> stance</h2>
-  <div style="margin: 1.6em auto 0; max-width: 26em; border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.9em 1.1em; border-radius: 0 8px 8px 0; text-align: left;">
-    <p style="margin: 0; font-size: 0.75em; line-height: 1.5;">The design becomes <strong>a program</strong>.<br>Each tool becomes <strong>an interpretation</strong> of that program.</p>
-  </div>
-  <p style="margin-top: 1.4em; font-size: 0.42em; color: #6b7080;">CAD, simulation, constraint solving, control: handlers over one description.</p>
 </section>
 
 <section id="slide-rada-01b" class="slide level2">
@@ -323,6 +487,31 @@ if __name__ == "__main__":
 <p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.38em; color: #6b7080; text-align: left;">
   No bi-level optimization, no learned graph, no morphology-only restriction. The loss-and-MPC interface is what makes the LLM's outer loop cheap. Built by <strong style="color: #1E3A8A;">Tim and Markus</strong>.
 </p>
+</section>
+
+<section id="slide-sec-4" class="slide level2">
+<div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 58vh; width: fit-content; margin: 0 auto; gap: 0.55em; text-align: left;">
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">01</span>
+    <span style="color: #c3c8d1;">The robot co-design problem</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">02</span>
+    <span style="color: #c3c8d1;">How do we currently co-design robots?</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">03</span>
+    <span style="color: #c3c8d1;">RoboTL: describing morphology and control</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">04</span>
+    <span style="color: #1f2330; font-weight: 600;">effectful: LLM generation as an effect</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">05</span>
+    <span style="color: #c3c8d1;">Preliminary results and future work</span>
+  </div>
+</div>
 </section>
 
 <section id="slide-effectful-intro" class="slide level2">
@@ -615,60 +804,29 @@ with handler(provider):                           # bind the meaning
 </div>
 </section>
 
-<section id="slide-rada-llmbg" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Background: LLM-driven robot design</h2>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.42em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">Why now.</strong>
-    Coding LLMs and robotics simulators (and foundation models) are improving fast. <strong>Can we build simple, general codesign systems that exploit these trends?</strong> R-ADA is our answer.
-  </p>
-</div>
-
-<!-- Existing work: why naive codesign doesn't scale -->
-<div style="margin: 0 auto 0.55em; max-width: 96%;">
-  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.36em; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em; text-align: left;">Existing &middot; why naive co-design doesn't scale</div>
-  <div style="display: flex; gap: 0.65em; justify-content: center; font-size: 0.33em; text-align: left;">
-    <div style="flex: 1; max-width: 290px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Bi-level optimization.</strong> Optimize control inner loop, morphology outer loop. Expensive per iteration; doesn't scale.</div>
-    <div style="flex: 1; max-width: 290px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Learned graph model.</strong> Train a GNN over robot graphs to predict performance. Needs lots of data we don't have.</div>
-    <div style="flex: 1; max-width: 290px; padding: 0.5em 0.7em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;"><strong>Morphology only.</strong> Restrict to body parameters, freeze the controller. What Lang2Morph does. Cheap, but the task often needs both.</div>
+<section id="slide-sec-5" class="slide level2">
+<div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 58vh; width: fit-content; margin: 0 auto; gap: 0.55em; text-align: left;">
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">01</span>
+    <span style="color: #c3c8d1;">The robot co-design problem</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">02</span>
+    <span style="color: #c3c8d1;">How do we currently co-design robots?</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">03</span>
+    <span style="color: #c3c8d1;">RoboTL: describing morphology and control</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">04</span>
+    <span style="color: #c3c8d1;">effectful: LLM generation as an effect</span>
+  </div>
+  <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">05</span>
+    <span style="color: #1f2330; font-weight: 600;">Preliminary results and future work</span>
   </div>
 </div>
-
-<!-- Our method as the answer to the gap above -->
-<div style="margin: 0 auto; max-width: 96%; padding: 0.65em 0.85em; border: 1.5px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; font-size: 0.4em; text-align: left;">
-  <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Codesign (this work)</div>
-  <p style="margin: 0; color: #1f2330;">LLM writes <em>both</em>: morphology <em>and</em> objective, in <strong>one substrate (RoboTL)</strong>, simulated by one handler stack. Same recipe as MARA, with a manufactured DSL.</p>
-</div>
-
-<p style="margin: 0.55em auto 0; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">
-  We reproduce Lang2Morph next to ground the comparison, then stage R-ADA on top of it.
-</p>
-</section>
-
-<section id="slide-rada-lang2morph" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Lang2Morph in one slide</h2>
-<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  Qiao, Gilday, Xie, Hughes (EPFL CREATE Lab) &middot; arXiv:2509.18937, 2025 &middot; <a href="https://arxiv.org/abs/2509.18937" style="color: #6b7080;">arxiv.org/abs/2509.18937</a>
-</p>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0 0 0.25em; font-size: 0.42em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
-    Natural-language task &rarr; LLM picks semantic tags &rarr; structural grammar over the <strong>Open Parametric Hand (OPH)</strong> &rarr; LLM refines parameters across <strong>~5 iterations</strong>. Output: a 3D-printable, task-specific robotic hand.
-  </p>
-  <p style="margin: 0; font-size: 0.36em; color: #1E3A8A; font-style: italic;">
-    We only reproduced this paper. R-ADA is the separate work.
-  </p>
-</div>
-
-<div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
-  <video src="../basis-2026/media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-  <video src="../basis-2026/media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-</div>
-<p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: center;">
-  Our reproduction: hand-grasping rollouts from the Lang2Morph pipeline.
-</p>
 </section>
 
 <section id="slide-rada-05" class="slide level2" data-background-color="#fafbfc">
