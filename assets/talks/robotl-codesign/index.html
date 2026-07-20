@@ -165,7 +165,7 @@
 <h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.1 <span style="color: #1E3A8A;">Bi-level optimization</span></h2>
 <p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Optimize control in the inner loop, morphology in the outer loop</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
-  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">The classical recipe: for every candidate body, train or optimize a controller from scratch, score the pair, and step the body. The coupling between morphology and control is respected exactly, because the inner loop re-solves it every time.</div>
+  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">The classical recipe: for every candidate body, train or optimize a controller from scratch, score the pair, and step the body. The coupling between morphology and control is respected exactly, because the inner loop re-solves it every time. Its oldest form is evolutionary co-design (Sims 1994): population search over bodies and controllers, recently language-conditioned in <a href="https://arxiv.org/abs/2406.19963">Text2Robot</a>.</div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
     <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> the true coupling of body and controller; principled scoring of a design.</div>
     <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> cost. One outer-loop step pays for a full inner-loop training run. It is expensive per iteration and does not scale to LLM-speed iteration.</div>
@@ -189,13 +189,12 @@
 <h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.3 <span style="color: #1E3A8A;">Morphology-only, LLM-driven</span></h2>
 <p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Let the LLM design the body; keep the controller fixed</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
-  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">Lang2Morph (Qiao, Gilday, Xie, Hughes 2025, <a href="https://arxiv.org/abs/2509.18937">arXiv:2509.18937</a>): a natural-language task, an LLM choosing semantic tags over a structural grammar of the Open Parametric Hand, and about five LLM refinement iterations to a 3D-printable, task-specific hand.</div>
+  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">Lang2Morph (Qiao, Gilday, Xie, Hughes 2025, <a href="https://arxiv.org/abs/2509.18937">arXiv:2509.18937</a>): a natural-language task, an LLM choosing semantic tags over a structural grammar of the Open Parametric Hand, and about five LLM refinement iterations to a 3D-printable, task-specific hand.<p style="margin: 0.5em 0 0; font-size: 0.85em; color: #6b7080;">Nearby LLM-era efforts: <a href="https://arxiv.org/abs/2507.12644">VLMgineer</a> (robot tools), <a href="https://arxiv.org/abs/2509.13077">A Design Co-Pilot</a> (task-tailored manipulators), <a href="https://arxiv.org/abs/2509.07445">Text2Touch</a> (LLM-designed rewards), <a href="https://arxiv.org/abs/2512.03743">House of Dextra</a> (cross-embodied dexterous-hand co-design).</p></div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
     <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> cheap iteration; natural-language task input; manufacturable output.</div>
     <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> half the problem. The controller is frozen, and the task often needs morphology and control to move together.</div>
   </div>
 </div>
-<p class="fragment" style="margin: 0.9em auto 0; max-width: 30em; font-size: 0.45em; color: #4a4f5a; text-align: center;">Each approach picks one side of the coupling, or pays full price for both. Co-design at LLM speed needs a different substrate.</p>
 </section>
 
 <section id="slide-rada-lang2morph" class="slide level2">
@@ -221,6 +220,22 @@
 <p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: center;">
   Our reproduction: hand-grasping rollouts from the Lang2Morph pipeline.
 </p>
+</section>
+
+<section id="slide-rw-diff-foundation" class="slide level2">
+<h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.4 <span style="color: #1E3A8A;">Differentiable co-design and foundation controllers</span></h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Optimize through the physics, or amortize the controller across bodies</p>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
+  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">
+    <p style="margin: 0 0 0.5em;"><strong>Differentiable simulation</strong> makes morphology and control one gradient problem: <a href="https://arxiv.org/abs/2405.14712">Evolution and learning in differentiable robots</a>; <a href="https://arxiv.org/abs/2502.10862">morphological pretraining</a> amortizes the controller over millions of bodies.</p>
+    <p style="margin: 0;"><strong>Foundation controllers</strong> attack the control half at scale: universal policies, diffusion policies, and VLAs mean a new body no longer needs an inner loop trained from scratch.</p>
+  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
+    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> joint, fast optimization where gradients exist; control that transfers across bodies.</div>
+    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> differentiable-friendly design spaces are narrow, and contact fights the gradients. The design half still has no substrate.</div>
+  </div>
+</div>
+<p class="fragment" style="margin: 0.9em auto 0; max-width: 30em; font-size: 0.45em; color: #4a4f5a; text-align: center;">Each approach picks one side of the coupling, or pays full price for both. Co-design at LLM speed needs a different substrate.</p>
 </section>
 
 <section id="slide-sec-3" class="slide level2">
