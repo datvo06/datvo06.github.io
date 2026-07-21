@@ -391,14 +391,8 @@ if __name__ == "__main__":
       </ul>
     </div>
 
-    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Why an LLM finds this easy</div>
-      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-        <li>Pythonic, decorated, declarative.</li>
-        <li>Errors are loud (port mismatch, weld misalign).</li>
-        <li>Variation is parametric &middot; just change defaults.</li>
-        <li>Simulator answers in seconds.</li>
-      </ul>
+    <div style="flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;">
+      <img id="rada01b-arm" src="./media/arm/arm_full.png" alt="Two-link arm render with the current component highlighted" style="max-height: 34vh; max-width: 100%; object-fit: contain;">
     </div>
   </div>
 
@@ -1369,10 +1363,31 @@ with handler(provider):                           # bind the meaning
         });
         cap.innerHTML = CAPS[key] || "";
       }
-      Reveal.on("fragmentshown", updateCap);
-      Reveal.on("fragmenthidden", updateCap);
-      Reveal.on("slidechanged", updateCap);
-      Reveal.on("ready", updateCap);
+      var ARM = {
+        "1-7": "arm_full.png",
+        "10-12": "arm_full.png",
+        "13-17": "arm_parts.png",
+        "19-22": "arm_chain.png",
+        "24-28": "arm_pose.png",
+        "30": "arm_tip.png",
+        "33-34": "arm_full.png"
+      };
+      Object.values(ARM).forEach(function (f) { new Image().src = "./media/arm/" + f; });
+      var updateAll = function () {
+        updateCap();
+        var img = document.getElementById("rada01b-arm");
+        if (!img) return;
+        var sec = document.getElementById("slide-rada-01b");
+        var key = "1-7";
+        sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
+          if (c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
+        });
+        img.src = "./media/arm/" + (ARM[key] || "arm_full.png");
+      };
+      Reveal.on("fragmentshown", updateAll);
+      Reveal.on("fragmenthidden", updateAll);
+      Reveal.on("slidechanged", updateAll);
+      Reveal.on("ready", updateAll);
     })();
   </script>
 
