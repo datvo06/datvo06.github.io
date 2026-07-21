@@ -337,9 +337,6 @@ def OpenParametricHand(self,
 
 <section id="slide-rada-01b" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Anatomy of a RoboTL component</h2>
-<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.38em; color: #4a4f5a; text-align: left;">
-  A two-link arm in 15 lines. The same program declares <strong style="color:#1E3A8A;">design-time geometry</strong> (cylinder shapes, link lengths, frame <code>Pose</code>) <em>and</em> <strong style="color:#1E3A8A;">runtime kinematics</strong> (hinge joints, axes, the <code>tip</code> port the simulator wires up) in one declarative pass. Most robot DSLs pick a side. <strong>RoboTL is the unification.</strong>
-</p>
 
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
 
@@ -396,6 +393,40 @@ if __name__ == "__main__":
     </div>
   </div>
 
+</div>
+</section>
+
+<section id="slide-solve-init" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;"><code>solve_init</code>: <span style="color: #1E3A8A;">uncertainty</span> is part of the program</h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Three operations turn one design into a distribution over designs</p>
+<div style="display: flex; gap: 0.7em; max-width: 94%; margin: 0 auto; font-size: 0.4em; text-align: left;">
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
+    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.2em;">choose(dist)</div>
+      A design parameter declared as a <strong>distribution</strong>: a Dirichlet over the gaps where a palm's fingers attach. The prior is written in the program, next to the geometry it governs.
+    </div>
+    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.2em;">constrain(loss)</div>
+      A <strong>soft constraint</strong> any sampled design should satisfy: keep fingers from colliding, keep the tip reachable.
+    </div>
+    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.2em;">assert_transform(parent, child, pose)</div>
+      The <strong>hard kinematic structure</strong>: welds and frames, the edges of the kinematic graph.
+    </div>
+  </div>
+  <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
+    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 4px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">What solve_init does</div>
+      Run the program once, <strong>collecting</strong> the choices, constraints, and kinematic edges instead of executing them. With no <code>choose</code>, poses propagate deterministically through the kinematic graph. With choices, <strong>NUTS (MCMC)</strong> samples choice values that satisfy the constraints, and the highest-log-density sample is kept.
+    </div>
+    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Nothing is baked in</div>
+      The returned component keeps <strong>symbolic poses</strong>: the same design can be rebound under a different handler, MuJoCo runtime, CAD, another sample, without re-writing the program.
+    </div>
+    <div class="fragment" data-fragment-index="2" style="border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.8em; border-radius: 0 8px 8px 0;">
+      <p style="margin: 0; font-size: 1.05em;">A RoboTL program is a <strong>probabilistic program over designs</strong>. <code>solve_init</code> is one interpretation of it; sampling, fixing, and optimizing are others.</p>
+    </div>
+  </div>
 </div>
 </section>
 
