@@ -396,6 +396,92 @@ if __name__ == "__main__":
 </div>
 </section>
 
+<section id="slide-effectful-intro" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.1em 0;">Why RoboTL works: <code style="font-size: 0.85em;">effectful</code>, the substrate underneath</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
+  <code>effectful</code> library &middot; <strong style="color: #1E3A8A;">Jack Feser</strong>, <strong style="color: #1E3A8A;">Eli Bingham</strong> et al. (Basis) &middot; <a href="https://github.com/BasisResearch/effectful" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
+</p>
+
+<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.55em; max-width: 92%; text-align: left;">
+  <p style="margin: 0; font-size: 0.4em;">
+    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">What it is.</strong>
+    <code>effectful</code> is an algebraic-effects library for Python: <em>declare</em> operations (no implementation), <em>swap</em> their meaning via handlers at the call site. Same program, different semantics, no rewrites. RoboTL uses it as the substrate underneath every component, every constraint, every stochastic choice.
+  </p>
+</div>
+
+<div style="display: flex; gap: 0.8em; justify-content: center; align-items: stretch; font-size: 0.3em; text-align: left;">
+
+  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Component author writes ops</div>
+<pre style="margin: 0; border-radius: 4px; font-size: 0.95em; line-height: 1.4;"><code class="language-python" data-line-numbers="8-9|11-12">import effectful.handlers.jax.numpy as jnp
+import effectful.handlers.numpyro as dist
+
+@defcomponent
+def CircularPalm(self, n_fingers=3, ...):
+    # Dirichlet over n_fingers+1 gaps;
+    # NUTS samples them at init time.
+    gaps = choose(dist.Dirichlet(
+        jnp.ones(n_fingers + 1)))
+    spread = math.pi
+    finger_angles = (-spread/2
+        + spread * jnp.cumsum(gaps[:-1]))
+    _build_disc_palm(
+        self, finger_angles=finger_angles,
+        thumb_angle=math.pi, ...)</code></pre>
+  </div>
+
+  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;"><code>solve_init</code> handler &middot; collect, then sample</div>
+<pre style="margin: 0; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; color: #d4d7dc; font-size: 0.95em; line-height: 1.4;"><code>def solve_init(model, **mcmc_kw):
+    choices, constraints = {}, []
+    kinematic = nx.DiGraph()
+
+    def _choose(d):
+        v = Operation.define(jax.Array)
+        choices[v] = d        # numpyro dist
+        return v()
+
+    def _constrain(loss):
+        constraints.append(loss.value)
+        return fwd()
+
+    with handler({choose: _choose,
+                  constrain: _constrain,
+                  assert_transform: _assert}):
+        m = model()           # symbolic Component
+
+    # NUTS over `choices` s.t. `constraints` &gt;= 0
+    return _run_mcmc(m, choices, constraints)</code></pre>
+  </div>
+
+  <div style="flex: 0.95; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">The same component, different handlers</div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.98em; color: #1f2330;">
+      <tbody>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>solve_init</code></td>
+          <td style="padding: 0.35em 0.3em;">NUTS over <code>choose</code>; returns concrete poses</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.cad</code></td>
+          <td style="padding: 0.35em 0.3em;">resolved component &rarr; OpenSCAD / STL</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ececf2;">
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.mujoco</code></td>
+          <td style="padding: 0.35em 0.3em;">MJCF + MuJoCo rollout for the simulator</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.jax</code></td>
+          <td style="padding: 0.35em 0.3em;">turns <code>choose</code> / <code>constrain</code> into an optimization; backs <code>solve_init</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin: 0.45em 0 0; padding: 0.3em 0.45em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330; font-size: 1em;">Write the parametric LEAP hand once. <code>solve_init</code> samples the Dirichlet, <code>cad</code> prints it, <code>mujoco</code> simulates it and MPC controls it. <em>Same program.</em></p>
+  </div>
+
+</div>
+</section>
+
 <section id="slide-solve-init" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;"><code>solve_init</code>: <span style="color: #1E3A8A;">uncertainty</span> is part of the program</h2>
 <p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Three operations turn one design into a distribution over designs</p>
@@ -556,91 +642,7 @@ if __name__ == "__main__":
 </div>
 </section>
 
-<section id="slide-effectful-intro" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.1em 0;">Why RoboTL works: <code style="font-size: 0.85em;">effectful</code>, the substrate underneath</h2>
-<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  <code>effectful</code> library &middot; <strong style="color: #1E3A8A;">Jack Feser</strong>, <strong style="color: #1E3A8A;">Eli Bingham</strong> et al. (Basis) &middot; <a href="https://github.com/BasisResearch/effectful" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
-</p>
 
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.55em; max-width: 92%; text-align: left;">
-  <p style="margin: 0; font-size: 0.4em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">What it is.</strong>
-    <code>effectful</code> is an algebraic-effects library for Python: <em>declare</em> operations (no implementation), <em>swap</em> their meaning via handlers at the call site. Same program, different semantics, no rewrites. RoboTL uses it as the substrate underneath every component, every constraint, every stochastic choice.
-  </p>
-</div>
-
-<div style="display: flex; gap: 0.8em; justify-content: center; align-items: stretch; font-size: 0.3em; text-align: left;">
-
-  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Component author writes ops</div>
-<pre style="margin: 0; border-radius: 4px; font-size: 0.95em; line-height: 1.4;"><code class="language-python" data-line-numbers="8-9|11-12">import effectful.handlers.jax.numpy as jnp
-import effectful.handlers.numpyro as dist
-
-@defcomponent
-def CircularPalm(self, n_fingers=3, ...):
-    # Dirichlet over n_fingers+1 gaps;
-    # NUTS samples them at init time.
-    gaps = choose(dist.Dirichlet(
-        jnp.ones(n_fingers + 1)))
-    spread = math.pi
-    finger_angles = (-spread/2
-        + spread * jnp.cumsum(gaps[:-1]))
-    _build_disc_palm(
-        self, finger_angles=finger_angles,
-        thumb_angle=math.pi, ...)</code></pre>
-  </div>
-
-  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;"><code>solve_init</code> handler &middot; collect, then sample</div>
-<pre style="margin: 0; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; color: #d4d7dc; font-size: 0.95em; line-height: 1.4;"><code>def solve_init(model, **mcmc_kw):
-    choices, constraints = {}, []
-    kinematic = nx.DiGraph()
-
-    def _choose(d):
-        v = Operation.define(jax.Array)
-        choices[v] = d        # numpyro dist
-        return v()
-
-    def _constrain(loss):
-        constraints.append(loss.value)
-        return fwd()
-
-    with handler({choose: _choose,
-                  constrain: _constrain,
-                  assert_transform: _assert}):
-        m = model()           # symbolic Component
-
-    # NUTS over `choices` s.t. `constraints` &gt;= 0
-    return _run_mcmc(m, choices, constraints)</code></pre>
-  </div>
-
-  <div style="flex: 0.95; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">The same component, different handlers</div>
-    <table style="width: 100%; border-collapse: collapse; font-size: 0.98em; color: #1f2330;">
-      <tbody>
-        <tr style="border-bottom: 1px solid #ececf2;">
-          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>solve_init</code></td>
-          <td style="padding: 0.35em 0.3em;">NUTS over <code>choose</code>; returns concrete poses</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ececf2;">
-          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.cad</code></td>
-          <td style="padding: 0.35em 0.3em;">resolved component &rarr; OpenSCAD / STL</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ececf2;">
-          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.mujoco</code></td>
-          <td style="padding: 0.35em 0.3em;">MJCF + MuJoCo rollout for the simulator</td>
-        </tr>
-        <tr>
-          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.jax</code></td>
-          <td style="padding: 0.35em 0.3em;">turns <code>choose</code> / <code>constrain</code> into an optimization; backs <code>solve_init</code></td>
-        </tr>
-      </tbody>
-    </table>
-    <p style="margin: 0.45em 0 0; padding: 0.3em 0.45em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330; font-size: 1em;">Write the parametric LEAP hand once. <code>solve_init</code> samples the Dirichlet, <code>cad</code> prints it, <code>mujoco</code> simulates it and MPC controls it. <em>Same program.</em></p>
-  </div>
-
-</div>
-</section>
 
 <section id="slide-effectful-llm-bridge" class="slide level2">
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; gap: 1.4em; padding: 0 2rem;">
