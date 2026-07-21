@@ -63,16 +63,6 @@ I completed my PhD doing machine learning and program synthesis-based debugging 
   </tr>
   <tr style="border: none;">
     <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
-      <img src="https://github.com/datvo06/VRDSynth/raw/main/assets/VRDSynth_Animation.gif" alt="VRDSynth" style="width:100%; height:auto; border-radius: 4px;">
-    </td>
-    <td style="vertical-align: top; border: none; padding: 8px;">
-      <strong><a href="https://github.com/datvo06/VRDSynth">VRDSynth</a></strong> (ISSTA '24)<br>
-      <em>Program synthesis for multilingual document information extraction.</em><br>
-      <a href="https://github.com/datvo06/VRDSynth">code</a> · <a href="https://arxiv.org/abs/2407.06826">paper</a>
-    </td>
-  </tr>
-  <tr style="border: none;">
-    <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
       <img src="{{ '/assets/img/worldtest_talk/autumnbench_showcase_tall.gif' | relative_url }}" alt="AutumnBench environments running live" style="width:100%; height:auto; border-radius: 4px;">
     </td>
     <td style="vertical-align: top; border: none; padding: 8px;">
@@ -89,6 +79,16 @@ I completed my PhD doing machine learning and program synthesis-based debugging 
       <strong><a href="https://openreview.net/forum?id=a1zfcaNTkM">ExoPredicator</a></strong> (ICLR '26)<br>
       <em>Learning abstract models of dynamic worlds for robot planning.</em><br>
       <a href="https://arxiv.org/abs/2509.26255">paper</a> · <a href="https://openreview.net/forum?id=a1zfcaNTkM">openreview</a>
+    </td>
+  </tr>
+  <tr style="border: none;">
+    <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
+      <img src="https://github.com/datvo06/VRDSynth/raw/main/assets/VRDSynth_Animation.gif" alt="VRDSynth" style="width:100%; height:auto; border-radius: 4px;">
+    </td>
+    <td style="vertical-align: top; border: none; padding: 8px;">
+      <strong><a href="https://github.com/datvo06/VRDSynth">VRDSynth</a></strong> (ISSTA '24)<br>
+      <em>Program synthesis for multilingual document information extraction.</em><br>
+      <a href="https://github.com/datvo06/VRDSynth">code</a> · <a href="https://arxiv.org/abs/2407.06826">paper</a>
     </td>
   </tr>
   <tr style="border: none;">
