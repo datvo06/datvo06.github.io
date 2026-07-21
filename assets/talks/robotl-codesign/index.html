@@ -396,120 +396,34 @@ if __name__ == "__main__":
 </section>
 
 <section id="slide-effectful-intro" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.1em 0;">Why RoboTL works: <code style="font-size: 0.85em;">effectful</code>, the substrate underneath</h2>
-<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  <code>effectful</code> library &middot; <strong style="color: #1E3A8A;">Jack Feser</strong>, <strong style="color: #1E3A8A;">Eli Bingham</strong> et al. (Basis) &middot; <a href="https://github.com/BasisResearch/effectful" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
-</p>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.55em; max-width: 92%; text-align: left;">
-  <p style="margin: 0; font-size: 0.4em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">What it is.</strong>
-    <code>effectful</code> is an algebraic-effects library for Python: <em>declare</em> operations (no implementation), <em>swap</em> their meaning via handlers at the call site. Same program, different semantics, no rewrites. RoboTL uses it as the substrate underneath every component, every constraint, every stochastic choice.
-  </p>
-</div>
-
-<div style="display: flex; gap: 0.8em; justify-content: center; align-items: stretch; font-size: 0.3em; text-align: left;">
-
-  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Component author writes ops</div>
-<pre style="margin: 0; border-radius: 4px; font-size: 0.95em; line-height: 1.4;"><code class="language-python" data-line-numbers="8-9|11-12">import effectful.handlers.jax.numpy as jnp
-import effectful.handlers.numpyro as dist
-
-@defcomponent
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">Describing <span style="color: #1E3A8A;">uncertainty</span>, and solving for it</h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">robotl/examples/parameterized_leap_hand.py, the real palm</p>
+<div style="display: flex; gap: 0.9em; align-items: stretch; max-width: 96%; margin: 0 auto;">
+  <div style="flex: 1.2; min-width: 0; display: flex; flex-direction: column;">
+    <pre style="margin: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden;"><code class="language-python" data-trim>@defcomponent
 def CircularPalm(self, n_fingers=3, ...):
-    # Dirichlet over n_fingers+1 gaps;
-    # NUTS samples them at init time.
-    gaps = choose(dist.Dirichlet(
-        jnp.ones(n_fingers + 1)))
+    &quot;&quot;&quot;Fingers Dirichlet-sampled on the front
+    semicircle [-pi/2, +pi/2].&quot;&quot;&quot;
     spread = math.pi
-    finger_angles = (-spread/2
-        + spread * jnp.cumsum(gaps[:-1]))
-    _build_disc_palm(
-        self, finger_angles=finger_angles,
-        thumb_angle=math.pi, ...)</code></pre>
+
+    gaps = choose(dist.Dirichlet(jnp.ones(n_fingers + 1)))
+
+    finger_angles = -spread/2 + spread * jnp.cumsum(gaps[:-1])
+    _build_disc_palm(self, finger_angles=finger_angles, ...)</code></pre>
+    <p style="margin: 0.4em 0 0; font-size: 0.38em; text-align: left; color: #4a4f5a;">One line makes the design uncertain: <code>choose</code> marks the finger gaps as <strong>drawn from a Dirichlet</strong>. The prior lives in the program, next to the geometry it governs. Cumulative sums of the gaps become the finger angles.</p>
   </div>
-
-  <div style="flex: 1; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;"><code>solve_init</code> handler &middot; collect, then sample</div>
-<pre style="margin: 0; padding: 0.4em 0.55em; background: #1f2330; border-radius: 4px; color: #d4d7dc; font-size: 0.95em; line-height: 1.4;"><code>def solve_init(model, **mcmc_kw):
-    choices, constraints = {}, []
-    kinematic = nx.DiGraph()
-
-    def _choose(d):
-        v = Operation.define(jax.Array)
-        choices[v] = d        # numpyro dist
-        return v()
-
-    def _constrain(loss):
-        constraints.append(loss.value)
-        return fwd()
-
-    with handler({choose: _choose,
-                  constrain: _constrain,
-                  assert_transform: _assert}):
-        m = model()           # symbolic Component
-
-    # NUTS over `choices` s.t. `constraints` &gt;= 0
-    return _run_mcmc(m, choices, constraints)</code></pre>
-  </div>
-
-  <div style="flex: 0.95; min-width: 0; padding: 0.5em 0.65em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">The same component, different handlers</div>
-    <table style="width: 100%; border-collapse: collapse; font-size: 0.98em; color: #1f2330;">
-      <tbody>
-        <tr style="border-bottom: 1px solid #ececf2;">
-          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>solve_init</code></td>
-          <td style="padding: 0.35em 0.3em;">NUTS over <code>choose</code>; returns concrete poses</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ececf2;">
-          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.cad</code></td>
-          <td style="padding: 0.35em 0.3em;">resolved component &rarr; OpenSCAD / STL</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ececf2;">
-          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.mujoco</code></td>
-          <td style="padding: 0.35em 0.3em;">MJCF + MuJoCo rollout for the simulator</td>
-        </tr>
-        <tr>
-          <td style="padding: 0.35em 0.3em; vertical-align: top;"><code>handlers.jax</code></td>
-          <td style="padding: 0.35em 0.3em;">turns <code>choose</code> / <code>constrain</code> into an optimization; backs <code>solve_init</code></td>
-        </tr>
-      </tbody>
-    </table>
-    <p style="margin: 0.45em 0 0; padding: 0.3em 0.45em; background: rgba(30,58,138,0.06); border-radius: 4px; color: #1f2330; font-size: 1em;">Write the parametric LEAP hand once. <code>solve_init</code> samples the Dirichlet, <code>cad</code> prints it, <code>mujoco</code> simulates it and MPC controls it. <em>Same program.</em></p>
-  </div>
-
-</div>
-</section>
-
-<section id="slide-solve-init" class="slide level2">
-<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;"><code>solve_init</code>: <span style="color: #1E3A8A;">uncertainty</span> is part of the program</h2>
-<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Three operations turn one design into a distribution over designs</p>
-<div style="display: flex; gap: 0.7em; max-width: 94%; margin: 0 auto; font-size: 0.4em; text-align: left;">
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
-    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.2em;">choose(dist)</div>
-      A design parameter declared as a <strong>distribution</strong>: a Dirichlet over the gaps where a palm's fingers attach. The prior is written in the program, next to the geometry it governs.
-    </div>
-    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.2em;">constrain(loss)</div>
-      A <strong>soft constraint</strong> any sampled design should satisfy: keep fingers from colliding, keep the tip reachable.
-    </div>
-    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.2em;">assert_transform(parent, child, pose)</div>
-      The <strong>hard kinematic structure</strong>: welds and frames, the edges of the kinematic graph.
-    </div>
-  </div>
-  <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
-    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 4px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">What solve_init does</div>
-      Run the program once, <strong>collecting</strong> the choices, constraints, and kinematic edges instead of executing them. With no <code>choose</code>, poses propagate deterministically through the kinematic graph. With choices, <strong>NUTS (MCMC)</strong> samples choice values that satisfy the constraints, and the highest-log-density sample is kept.
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.4em; text-align: left;">
+    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 4px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">How we solve for it</div>
+      <code>solve_init</code> runs the program once, <strong>collecting</strong> every <code>choose</code> and every constraint instead of executing them. Then <strong>NUTS (MCMC)</strong> samples gap values that satisfy the constraints; a <code>non_overlap</code> penalty between adjacent motors pushes the samples toward even spacing. The highest-log-density design is kept.
     </div>
     <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Nothing is baked in</div>
-      The returned component keeps <strong>symbolic poses</strong>: the same design can be rebound under a different handler, MuJoCo runtime, CAD, another sample, without re-writing the program.
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">No choices, no sampler</div>
+      A deterministic component (TriangularPalm: fingers at exact edge midpoints) skips the machinery entirely; poses propagate through the kinematic graph.
     </div>
-    <div class="fragment" data-fragment-index="2" style="border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.8em; border-radius: 0 8px 8px 0;">
-      <p style="margin: 0; font-size: 1.05em;">A RoboTL program is a <strong>probabilistic program over designs</strong>. <code>solve_init</code> is one interpretation of it; sampling, fixing, and optimizing are others.</p>
+    <div class="fragment" data-fragment-index="2" style="border: 1px solid #d0d5dc; border-left: 4px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Where the boundary is</div>
+      We tried a soft pull toward exact edge midpoints; NUTS would not converge tightly enough at realistic weights. The lesson sits in the code: <strong>priors where you are uncertain, exact structure where you are not.</strong>
     </div>
   </div>
 </div>
