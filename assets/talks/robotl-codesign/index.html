@@ -793,6 +793,41 @@ assist you further?</pre>
 </div>
 </section>
 
+<section id="slide-eff-codesign-map" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">The correspondence: <span style="color: #1E3A8A;">effectful</span> machinery to LLM co-design</h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Every piece of part 04 has a job in part 05 (from the Lang2Morph reproduction, robotl/internals/llm_cad + docs/source/lang2morph.ipynb)</p>
+<div style="display: flex; flex-direction: column; gap: 0.55em; max-width: 94%; margin: 0 auto; font-size: 0.4em; text-align: left;">
+
+  <div class="fragment" data-fragment-index="0" style="display: flex; gap: 0.7em; align-items: stretch;">
+    <div style="flex: 0 0 30%; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.5em 0.7em; display: flex; flex-direction: column; justify-content: center;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em;">Templates, typed and multi-modal</div>
+    </div>
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <strong>Structuring the grammar.</strong> Each Lang2Morph stage is a Template with different inputs: <code>generate_semantic_schema(description, grasp_type, prop_images)</code> takes text, an enum, and rendered images. The <em>return type</em> is a Pydantic model (<code>SemanticSchema</code>, <code>StructureGrammar</code>), so the grammar's structure, parsing, and retry-on-invalid all come from the type.
+    </div>
+  </div>
+
+  <div class="fragment" data-fragment-index="1" style="display: flex; gap: 0.7em; align-items: stretch;">
+    <div style="flex: 0 0 30%; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.5em 0.7em; display: flex; flex-direction: column; justify-content: center;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em;">Synthesis: return a function, return code</div>
+    </div>
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <strong>Generating the design.</strong> The geometry stage returns a validated <code>ReducedHandConfig</code>; morphological constraints are Pydantic validators, so invalid hands bounce back to the model exactly like a failed type-check in function synthesis. The code path goes further: the LLM writes and edits <em>RoboTL components themselves</em> (<code>RoboTLCodeEnv</code>).
+    </div>
+  </div>
+
+  <div class="fragment" data-fragment-index="2" style="display: flex; gap: 0.7em; align-items: stretch;">
+    <div style="flex: 0 0 30%; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.5em 0.7em; display: flex; flex-direction: column; justify-content: center;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em;">Agent: shared history</div>
+    </div>
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <strong>Context management.</strong> Stages 2 to 7 live on one <code>Lang2MorphDesigner(Agent)</code>: grammar, geometry, evaluation, and refinement share a conversation history, so evaluation feedback is visible to later calls with no manual context threading. Multi-modal judging closes the loop: <code>judge_design(task, losses, frames)</code>.
+    </div>
+  </div>
+
+</div>
+</section>
+
 <section id="slide-sec-5" class="slide level2">
 <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 58vh; width: fit-content; margin: 0 auto; gap: 0.55em; text-align: left;">
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
