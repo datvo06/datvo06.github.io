@@ -683,21 +683,7 @@ with handler(provider):
 
   <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Output (verbatim)</div>
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.9em 1.1em; white-space: pre-wrap;">In the sea where the shimmering fish
-Dance around like a silvery wish,
-They wiggle and glide,
-With the tide, side by side,
-Turning waves into their swirlish dish.
-
-Knock knock.
-Who&#x27;s there?
-Lizard.
-Lizard who?
-Lizard who? Lizard be a joke
-if I wasn&#x27;t at your door!
-
-&gt; The crowd laughs politely.</pre>
-    <p style="margin: 0.35em 0 0; font-size: 0.3em; color: #6b7080; text-align: left;">Same signature, same return type, same call site. The handler decides who answers; the dataclass return is parsed and validated for free.</p>
+    <pre id="efftpl-out" style="margin: 0; flex: 1; min-height: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.9em 1.1em; white-space: pre-wrap;"></pre>
   </div>
 
 </div>
@@ -1324,6 +1310,26 @@ with handler(provider):                           # bind the meaning
       Reveal.on("fragmenthidden", updateCap);
       Reveal.on("slidechanged", updateCap);
       Reveal.on("ready", updateCap);
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var OUT = {"5-8": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.", "11-20": "Knock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!", "23-26": "> The crowd laughs politely.\\n\\n(rate_joke returned a typed bool: True)", "29-32": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\\n\\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\\n\\n> The crowd laughs politely."};
+      function updateOut() {
+        var pane = document.getElementById("efftpl-out");
+        if (!pane) return;
+        var sec = document.getElementById("slide-eff-template");
+        var key = "5-8";
+        sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
+          if (c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
+        });
+        pane.textContent = OUT[key] || "";
+      }
+      Reveal.on("fragmentshown", updateOut);
+      Reveal.on("fragmenthidden", updateOut);
+      Reveal.on("slidechanged", updateOut);
+      Reveal.on("ready", updateOut);
     })();
   </script>
 </body>
