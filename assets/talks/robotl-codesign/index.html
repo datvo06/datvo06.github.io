@@ -686,37 +686,39 @@ dict_keys([..., &#x27;write_joke&#x27;, &#x27;rate_joke&#x27;,
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
 
   <div style="flex: 1.6; min-width: 0;">
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 64vh; overflow: visible;"><code class="language-python" data-line-numbers="8-23|30|31">import dataclasses
+    <pre style="margin: 0; font-size: 0.25em; line-height: 1.42; max-height: 64vh; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="9-13|16-26|29-33">import dataclasses
 from effectful.handlers.llm import Agent, Template, Tool
 from effectful.handlers.llm.completions import LiteLLMProvider
 from effectful.ops.semantics import handler
 from effectful.ops.types import NotHandled
 
+memory = []
+
+@Tool.define                                # a plain operation
+def remember(fact: str) -&gt; str:
+    &quot;&quot;&quot;Persist a fact about the user.&quot;&quot;&quot;
+    memory.append(fact)
+    return f&quot;noted: {fact}&quot;
+
 
 @dataclasses.dataclass
 class ChatBot(Agent):
-    """Friendly bot named {self.bot_name}."""
+    &quot;&quot;&quot;Friendly bot named {self.bot_name}.&quot;&quot;&quot;
 
-    bot_name: str = "ChatBot"
+    bot_name: str = &quot;ChatBot&quot;
 
-    @Tool.define                                  # a plain operation
-    def remember(self, fact: str) -> str:
-        """Persist a fact about the user."""
-        return f"noted: {fact}"
-
-    @Template.define                              # an LLM-implemented op
-    def send(self, user_input: str) -> str:
-        """User writes: {user_input}.
-        You may call `remember(...)` to keep facts across turns."""
-        raise NotHandled                          # left for the handler
+    @Template.define                        # an LLM-implemented op
+    def send(self, user_input: str) -&gt; str:
+        &quot;&quot;&quot;User writes: {user_input}.
+        You may call `remember(...)` to keep facts across turns.&quot;&quot;&quot;
+        raise NotHandled                    # left for the handler
 
 
-provider = LiteLLMProvider()                      # one handler
-chatbot  = ChatBot(bot_name="Otter")              # one program
-
-with handler(provider):                           # bind the meaning
-    chatbot.send("Hi! I am in France.")
-    chatbot.send("Where am I, again?")            # sees prior turn</code></pre>
+bot = ChatBot()
+with handler(LiteLLMProvider()):            # bind the meaning
+    print(bot.send(&quot;Hi! I am in France.&quot;))
+    print(memory)
+    print(bot.send(&quot;Where am I, again?&quot;))   # sees prior turn</code></pre>
   </div>
 
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
@@ -730,14 +732,15 @@ with handler(provider):                           # bind the meaning
       </div>
     </div>
 
-    <div style="padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Agent history</div>
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9em; line-height: 1.5; color: #1f2330;">
-        <div><span style="color: #1E3A8A;">turn 1</span>&nbsp; send("Hi! I am in France.")</div>
-        <div style="margin-left: 1em; color: #2d6a4f;">&rarr; remember("user is in France")</div>
-        <div style="margin-top: 0.3em;"><span style="color: #1E3A8A;">turn 2</span>&nbsp; send("Where am I, again?")</div>
-        <div style="margin-left: 1em; color: #6b7080;">&rarr; reads turn 1 from agent state</div>
-      </div>
+    <div>
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.9em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Output (verbatim, gpt-4o)</div>
+      <pre style="margin: 0; font-size: 0.9em; line-height: 1.5; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.7em 0.9em; white-space: pre-wrap;">Hello! Enjoy your time in France! If there&#x27;s
+anything you need help with, feel free to ask.
+
+[&#x27;The user is currently in France.&#x27;]
+
+You&#x27;re currently in France! If anything changes
+or you need assistance, just let me know.</pre>
     </div>
 
   </div>
