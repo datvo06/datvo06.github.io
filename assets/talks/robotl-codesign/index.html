@@ -649,25 +649,19 @@ def CircularPalm(self, n_fingers=3, ...):
 <section id="slide-eff-template" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Design goal: <em>an LLM call is just another function call</em></h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  <code>@Template.define</code> &middot; from <code>effectful/handlers/llm/template.py</code>
+  <code>@Template.define</code> &middot; code and output from the effectful docs notebook (<code>docs/source/llm.ipynb</code>)
 </p>
 
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
 
-  <div style="flex: 1.3; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.3em; line-height: 1.45; overflow: hidden;"><code class="language-python" data-line-numbers="5-8|11-14|17-33">from effectful.handlers.llm import Template
+  <div style="flex: 1.35; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.25em; line-height: 1.38; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="5-8|11-20|23-26|29-32">from effectful.handlers.llm import Template
 from effectful.ops.types import NotHandled
 
 
 @Template.define
-def limerick(theme: str) -> str:
-    """Write a limerick on the theme of {theme}. Do not use any tools."""
-    raise NotHandled
-
-
-@Template.define
-def prime(first_digit: int) -> int:
-    """Give a prime number starting with {first_digit}. No tools."""
+def limerick(theme: str) -&gt; str:
+    &quot;&quot;&quot;Write a limerick on the theme of {theme}. Do not use any tools.&quot;&quot;&quot;
     raise NotHandled
 
 
@@ -678,35 +672,40 @@ class KnockKnockJoke:
 
 
 @Template.define
-def write_joke(theme: str) -> KnockKnockJoke:
-    """Write a knock-knock joke on the theme of {theme}. No tools."""
+def write_joke(theme: str) -&gt; KnockKnockJoke:
+    &quot;&quot;&quot;Write a knock-knock joke on the theme of {theme}. Do not use any tools.&quot;&quot;&quot;
     raise NotHandled
 
 
-with handler(LiteLLMProvider()):
-    print(limerick("autumn"))
-    print(prime(7))
-    joke = write_joke("recursion")
-    print(joke.whos_there, "/", joke.punchline)</code></pre>
+@Template.define
+def rate_joke(joke: KnockKnockJoke) -&gt; bool:
+    &quot;&quot;&quot;Decide if {joke} is funny or not. Do not use any tools.&quot;&quot;&quot;
+    raise NotHandled
+
+
+with handler(provider):
+    print(limerick(&quot;fish&quot;))
+    joke = write_joke(&quot;lizards&quot;)
+    if rate_joke(joke): print(&quot;&gt; The crowd laughs politely.&quot;)</code></pre>
   </div>
 
-  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.55em; font-size: 0.34em; text-align: left;">
+  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Output (verbatim)</div>
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.9em 1.1em; white-space: pre-wrap;">In the sea where the shimmering fish
+Dance around like a silvery wish,
+They wiggle and glide,
+With the tide, side by side,
+Turning waves into their swirlish dish.
 
-    <div style="padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">The design goal, in one line</div>
-      <p style="margin: 0; color: #1f2330;">An LLM call should just be <strong>another function call</strong>. Same signature, same return type, same call site. The only difference: a handler decides who answers.</p>
-    </div>
+Knock knock.
+Who&#x27;s there?
+Lizard.
+Lizard who?
+Lizard who? Lizard be a joke
+if I wasn&#x27;t at your door!
 
-    <div style="padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What <code>@Template.define</code> gives you</div>
-      <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-        <li><strong>Docstring is the prompt.</strong> Format-string slots map to the typed parameters.</li>
-        <li><strong>Return type is the schema.</strong> <code>int</code>, dataclasses, anything with a decoder works.</li>
-        <li><strong>Body is <code>raise NotHandled</code>.</strong> The handler supplies the meaning.</li>
-        <li><strong>Templates are tools.</strong> They can call each other and other <code>@Tool.define</code>s.</li>
-      </ul>
-    </div>
-
+&gt; The crowd laughs politely.</pre>
+    <p style="margin: 0.35em 0 0; font-size: 0.3em; color: #6b7080; text-align: left;">Same signature, same return type, same call site. The handler decides who answers; the dataclass return is parsed and validated for free.</p>
   </div>
 
 </div>
