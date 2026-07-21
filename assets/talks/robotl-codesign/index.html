@@ -377,15 +377,7 @@ def Arm(self, link1L=0.120, link2L=0.1, linkDia=0.025):
 
 if __name__ == "__main__":
     view_model(lambda: Based(Arm()))   # mujoco handler</code></pre>
-    <div style="position: relative; height: 2.2em; margin-top: 0.35em;">
-      <p class="fragment fade-out" data-fragment-index="0" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">Plain Python imports: components, ops, and handlers.</p>
-      <p class="fragment fade-in-then-out" data-fragment-index="0" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">A component is a decorated function; its arguments <em>are</em> the design parameters.</p>
-      <p class="fragment fade-in-then-out" data-fragment-index="1" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">The parts: link cylinders, hinge joints, a wrist flange. Design-time geometry.</p>
-      <p class="fragment fade-in-then-out" data-fragment-index="2" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">Ports and welds compose the kinematic chain. Runtime kinematics, same program.</p>
-      <p class="fragment fade-in-then-out" data-fragment-index="3" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">Frames are posed explicitly: one <code>Pose</code> turns the elbow hinge axis.</p>
-      <p class="fragment fade-in-then-out" data-fragment-index="4" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;"><code>tip</code> is the component's interface; downstream tasks reach with this port.</p>
-      <p class="fragment fade-in" data-fragment-index="5" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">Run it under a handler: <code>view_model</code> compiles the same program to MuJoCo.</p>
-    </div>
+    <p id="rada01b-cap" style="height: 2.2em; margin: 0.35em 0 0; font-size: 0.34em; color: #1E3A8A; text-align: left;"></p>
   </div>
 
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
@@ -1306,5 +1298,33 @@ with handler(provider):                           # bind the meaning
         }
       });
     </script>
-    </body>
+    
+  <script>
+    (function () {
+      var CAPS = {
+        "1-7": "Plain Python imports: components, ops, and handlers.",
+        "10-12": "A component is a decorated function; its arguments <em>are</em> the design parameters.",
+        "13-17": "The parts: link cylinders, hinge joints, a wrist flange. Design-time geometry.",
+        "19-22": "Ports and welds compose the kinematic chain. Runtime kinematics, same program.",
+        "24-28": "Frames are posed explicitly: one <code>Pose</code> turns the elbow hinge axis.",
+        "30": "<code>tip</code> is the component's interface; downstream tasks reach with this port.",
+        "33-34": "Run it under a handler: <code>view_model</code> compiles the same program to MuJoCo."
+      };
+      function updateCap() {
+        var cap = document.getElementById("rada01b-cap");
+        if (!cap) return;
+        var sec = document.getElementById("slide-rada-01b");
+        var key = "1-7";
+        sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
+          if (c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
+        });
+        cap.innerHTML = CAPS[key] || "";
+      }
+      Reveal.on("fragmentshown", updateCap);
+      Reveal.on("fragmenthidden", updateCap);
+      Reveal.on("slidechanged", updateCap);
+      Reveal.on("ready", updateCap);
+    })();
+  </script>
+</body>
 </html>
