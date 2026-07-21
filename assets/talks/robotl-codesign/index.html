@@ -176,8 +176,24 @@
 <h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.1 <span style="color: #1E3A8A;">Bi-level optimization</span></h2>
 <p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Optimize control in the inner loop, morphology in the outer loop</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
-  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">The classical recipe: for every candidate body, train or optimize a controller from scratch, score the pair, and step the body. The coupling between morphology and control is respected exactly, because the inner loop re-solves it every time. Its oldest form is evolutionary co-design (Sims 1994): population search over bodies and controllers, recently language-conditioned in <a href="https://arxiv.org/abs/2406.19963">Text2Robot</a>.<video src="./media/sims_evolved_creatures.mp4" autoplay loop muted playsinline style="display: block; margin: 0.5em auto 0; max-height: 21vh; border-radius: 4px;"></video><p style="margin: 0.25em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">Karl Sims, Evolved Virtual Creatures (1994)</p></div>
+  <div style="flex: 1.4; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
+    <div style="border: 2px solid #1E3A8A; border-radius: 8px; background: #f3f5fb; padding: 0.5em 0.7em; text-align: left; font-size: 0.4em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Outer loop &middot; morphology</div>
+      <div style="margin: 0 0 0.35em;">propose a body &nbsp;&darr;</div>
+      <div style="border: 2px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.4em 0.6em; margin: 0 0 0.35em;">
+        <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Inner loop &middot; control</div>
+        train a controller for this body, from scratch
+      </div>
+      <div>score the pair &nbsp;&darr;&nbsp; step the body, repeat</div>
+    </div>
+    <p style="margin: 0; font-size: 0.4em; text-align: left; line-height: 1.5; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.45em 0.7em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">cost = bodies explored &times; one full controller training each.</span> A single controller commonly takes millions of simulator steps to train, and none of it is reused for the next body.</p>
+    <p style="margin: 0; font-size: 0.36em; color: #6b7080; text-align: left;">Evolutionary co-design (Sims 1994, <a href="https://arxiv.org/abs/2406.19963">Text2Robot</a> 2024) is the population form of the same nested loop.</p>
+  </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
+    <div>
+      <video src="./media/sims_evolved_creatures.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 18vh; object-fit: contain; border-radius: 4px;"></video>
+      <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">Karl Sims, Evolved Virtual Creatures (1994)</p>
+    </div>
     <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> the true coupling of body and controller; principled scoring of a design.</div>
     <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> cost. One outer-loop step pays for a full inner-loop training run. It is expensive per iteration and does not scale to LLM-speed iteration.</div>
   </div>
