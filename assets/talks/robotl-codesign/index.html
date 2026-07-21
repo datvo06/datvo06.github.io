@@ -680,25 +680,17 @@ dict_keys([..., &#x27;write_joke&#x27;, &#x27;rate_joke&#x27;,
 <section id="slide-eff-01" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.15em 0;">A concrete Agent, in the same effectful pattern</h2>
 <p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  From <code>effectful/handlers/llm/template.py</code> &middot; <a href="https://github.com/BasisResearch/effectful/tree/master/effectful/handlers/llm" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
+  Adapted from <code>effectful/handlers/llm/template.py</code>, run live &middot; <a href="https://github.com/BasisResearch/effectful/tree/master/effectful/handlers/llm" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
 </p>
 
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
 
   <div style="flex: 1.6; min-width: 0;">
-    <pre style="margin: 0; font-size: 0.25em; line-height: 1.42; max-height: 64vh; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="9-13|16-26|29-33">import dataclasses
+    <pre style="margin: 0; font-size: 0.25em; line-height: 1.42; max-height: 64vh; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="14-18|20-24|27-30">import dataclasses
 from effectful.handlers.llm import Agent, Template, Tool
 from effectful.handlers.llm.completions import LiteLLMProvider
 from effectful.ops.semantics import handler
 from effectful.ops.types import NotHandled
-
-memory = []
-
-@Tool.define                                # a plain operation
-def remember(fact: str) -&gt; str:
-    &quot;&quot;&quot;Persist a fact about the user.&quot;&quot;&quot;
-    memory.append(fact)
-    return f&quot;noted: {fact}&quot;
 
 
 @dataclasses.dataclass
@@ -707,17 +699,22 @@ class ChatBot(Agent):
 
     bot_name: str = &quot;ChatBot&quot;
 
+    @Tool.define                            # a plain operation
+    def remember(self, fact: str) -&gt; str:
+        &quot;&quot;&quot;Persist a fact about the user.&quot;&quot;&quot;
+        print(f&quot;[tool] remember({fact!r})&quot;)
+        return f&quot;noted: {fact}&quot;
+
     @Template.define                        # an LLM-implemented op
     def send(self, user_input: str) -&gt; str:
         &quot;&quot;&quot;User writes: {user_input}.
-        You may call `remember(...)` to keep facts across turns.&quot;&quot;&quot;
-        raise NotHandled                    # left for the handler
+        Use your remember tool to keep facts across turns.&quot;&quot;&quot;
+        raise NotHandled
 
 
 bot = ChatBot()
 with handler(LiteLLMProvider()):            # bind the meaning
     print(bot.send(&quot;Hi! I am in France.&quot;))
-    print(memory)
     print(bot.send(&quot;Where am I, again?&quot;))   # sees prior turn</code></pre>
   </div>
 
@@ -734,13 +731,13 @@ with handler(LiteLLMProvider()):            # bind the meaning
 
     <div>
       <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.9em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Output (verbatim, gpt-4o)</div>
-      <pre style="margin: 0; font-size: 0.9em; line-height: 1.5; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.7em 0.9em; white-space: pre-wrap;">Hello! Enjoy your time in France! If there&#x27;s
-anything you need help with, feel free to ask.
+      <pre style="margin: 0; font-size: 0.9em; line-height: 1.5; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.7em 0.9em; white-space: pre-wrap;">[tool] remember(&#x27;The user is in France.&#x27;)
 
-[&#x27;The user is currently in France.&#x27;]
+Hi there! I remember that you&#x27;re in France.
+How&#x27;s your time there going?
 
-You&#x27;re currently in France! If anything changes
-or you need assistance, just let me know.</pre>
+You&#x27;re currently in France! How can I
+assist you further?</pre>
     </div>
 
   </div>
