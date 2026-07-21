@@ -228,7 +228,7 @@
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
     <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> fast gradient-based control per body; controllers that transfer across bodies.</div>
-    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> the design half. Morphology is still outer-loop search; the gradients never touch the body.</div>
+    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> structural change. Gradients can nudge what already exists, small, continuous, local adjustments; adding, removing, or rewiring parts is non-differentiable and still comes from outer-loop search. In ELDiR the gradients touch only the controller weights.</div>
   </div>
 </div>
 <p class="fragment" style="margin: 0.9em auto 0; max-width: 30em; font-size: 0.45em; color: #4a4f5a; text-align: center;">Each approach picks one side of the coupling, or pays full price for both. Co-design at LLM speed needs a different substrate.</p>
