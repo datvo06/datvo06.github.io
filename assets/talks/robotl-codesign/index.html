@@ -647,7 +647,7 @@ def CircularPalm(self, n_fingers=3, ...):
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
 
   <div style="flex: 1.35; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.25em; line-height: 1.38; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="5-8|11-20|23-26|29-32">from effectful.handlers.llm import Template
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.25em; line-height: 1.38; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="|29-32|5-8|11-20|23-26">from effectful.handlers.llm import Template
 from effectful.ops.types import NotHandled
 
 
@@ -686,6 +686,68 @@ with handler(provider):
     <pre id="efftpl-out" style="margin: 0; flex: 1; min-height: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.9em 1.1em; white-space: pre-wrap;"></pre>
   </div>
 
+</div>
+</section>
+
+<section id="slide-eff-synthesis" class="slide level2">
+<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Higher order: <span style="color: #1E3A8A;">synthesize functions</span>, compose templates</h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">code and output from the same docs notebook</p>
+<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+    <p style="margin: 0 0 0.25em; font-size: 0.34em; text-align: left; color: #1f2330;"><strong>A template can return a function.</strong> The LLM writes the code; an eval handler compiles it; the asserts check it.</p>
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.26em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim>from collections.abc import Callable
+from effectful.handlers.llm.evaluation import (
+    UnsafeEvalProvider,
+)
+
+
+@Template.define
+def count_char(char: str) -&gt; Callable[[str], int]:
+    &quot;&quot;&quot;Write a function which takes a string
+    and counts the occurrances of &#x27;{char}&#x27;.
+    Do not use any tools.&quot;&quot;&quot;
+    raise NotHandled
+
+
+with handler(provider), handler(UnsafeEvalProvider()):
+    count_a = count_char(&quot;a&quot;)
+    assert count_a(&quot;banana&quot;) == 3
+    assert count_a(&quot;cherry&quot;) == 0
+    print(inspect.getsource(count_a))</code></pre>
+    <pre style="margin: 0.3em 0 0; font-size: 0.28em; line-height: 1.5; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.6em 0.9em; white-space: pre-wrap;">def count_a(s: str) -&gt; int:
+    return s.count(&#x27;a&#x27;)</pre>
+  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+    <p style="margin: 0 0 0.25em; font-size: 0.34em; text-align: left; color: #1f2330;"><strong>Templates compose.</strong> Templates in lexical scope are captured like tools, so one template can call the others.</p>
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.26em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim>@Template.define
+def story_with_moral(topic: str) -&gt; str:
+    &quot;&quot;&quot;Write a short story about {topic}
+    and end with a moral lesson.&quot;&quot;&quot;
+    raise NotHandled
+
+
+@Template.define
+def story_funny(topic: str) -&gt; str:
+    &quot;&quot;&quot;Write a funny, humorous story
+    about {topic}.&quot;&quot;&quot;
+    raise NotHandled
+
+
+# orchestrator: sub-templates are captured
+# from the lexical scope, like tools
+@Template.define
+def write_story(topic: str, style: str) -&gt; str:
+    &quot;&quot;&quot;Write a story about {topic} in the
+    style: {style}. Use story_funny for humor,
+    story_with_moral for a lesson.&quot;&quot;&quot;
+    raise NotHandled
+
+
+assert story_funny in write_story.tools.values()</code></pre>
+    <pre style="margin: 0.3em 0 0; font-size: 0.28em; line-height: 1.5; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.6em 0.9em; white-space: pre-wrap;">Sub-templates available to write_story:
+dict_keys([..., &#x27;write_joke&#x27;, &#x27;rate_joke&#x27;,
+&#x27;story_with_moral&#x27;, &#x27;story_funny&#x27;])</pre>
+  </div>
 </div>
 </section>
 
@@ -1315,12 +1377,12 @@ with handler(provider):                           # bind the meaning
 
   <script>
     (function () {
-      var OUT = {"5-8": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.", "11-20": "Knock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!", "23-26": "> The crowd laughs politely.\n\n(rate_joke returned a typed bool: True)", "29-32": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely."};
+      var OUT = {"": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.", "29-32": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.", "5-8": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.", "11-20": "Knock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!", "23-26": "> The crowd laughs politely.\n\n(rate_joke returned a typed bool: True)"};
       function updateOut() {
         var pane = document.getElementById("efftpl-out");
         if (!pane) return;
         var sec = document.getElementById("slide-eff-template");
-        var key = "5-8";
+        var key = "";
         sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
           if (c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
         });
