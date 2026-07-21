@@ -61,7 +61,8 @@
   <h1 style="font-size: 1.5em; line-height: 1.25;">Language-oriented<br>Robot <span style="color: #1E3A8A;">Morphology Co-Design</span></h1>
   <p style="margin-top: 1.2em; font-size: 0.6em; color: #4a4f5a;">Dat Nguyen &middot; Harvard SEAS &amp; Basis Research Institute</p>
   <p style="font-size: 0.45em; color: #6b7080;">Joint work with the R-ADA team at Basis</p>
-  <p style="margin-top: 2.2em; font-size: 0.5em; color: #1f2330;">How should we design a robot when neither its body nor its controller is fixed in advance?</p>
+  <p style="margin-top: 1.6em; font-size: 0.5em; color: #1f2330;">How should we design a robot when neither its body nor its controller is fixed in advance?</p>
+  <video src="../basis-2026/media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline style="display: block; margin: 0.8em auto 0; max-height: 24vh; border-radius: 6px;"></video>
 </section>
 
 <section id="slide-agenda" class="slide level2">
@@ -124,7 +125,16 @@
       <p style="font-size: 0.4em; color: #6b7080; margin: 0 0 0.4em 0; font-style: italic;">Research question: <em>can an LLM codesign robot morphology and control end-to-end, without bi-level optimization?</em></p>
       <p style="font-size: 0.55em; color: #4a4f5a; margin: 0;">No substrate exists in this domain, so we engineer one: <strong>RoboTL</strong>.</p>
     </div>
-    <img src="../basis-2026/media/codesign/robotl_logo.png" alt="RoboTL logo" style="flex: 0 0 auto; max-height: 50vh; max-width: 35%; width: auto; height: auto; object-fit: contain;">
+    <div style="flex: 0 0 44%; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
+      <div>
+        <video src="../basis-2026/media/codesign/stock_robot.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 24vh; object-fit: contain; border-radius: 6px;"></video>
+        <p style="margin: 0.15em 0 0; font-size: 0.32em; color: #6b7080; text-align: center;">Fixed body: only the controller can improve</p>
+      </div>
+      <div>
+        <video src="../basis-2026/media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 24vh; object-fit: contain; border-radius: 6px;"></video>
+        <p style="margin: 0.15em 0 0; font-size: 0.32em; color: #6b7080; text-align: center;">Co-design: the body and the controller change together</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -133,7 +143,21 @@
   <div style="margin: 1.6em auto 0; max-width: 26em; border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.9em 1.1em; border-radius: 0 8px 8px 0; text-align: left;">
     <p style="margin: 0; font-size: 0.75em; line-height: 1.5;">The design becomes <strong>a program</strong>.<br>Each tool becomes <strong>an interpretation</strong> of that program.</p>
   </div>
-  <p style="margin-top: 1.4em; font-size: 0.42em; color: #6b7080;">CAD, simulation, constraint solving, control: handlers over one description.</p>
+  <div style="display: flex; gap: 0.7em; justify-content: center; margin-top: 1.1em; max-width: 84%; margin-left: auto; margin-right: auto;">
+    <div style="flex: 1; min-width: 0;">
+      <img src="../basis-2026/media/codesign/cad_arm.png" alt="CAD render" style="width: 100%; max-height: 17vh; object-fit: contain; border-radius: 4px;">
+      <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center; font-family: 'IBM Plex Mono', monospace;">render</p>
+    </div>
+    <div style="flex: 1; min-width: 0;">
+      <video src="../basis-2026/media/codesign/palms/circular.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 17vh; object-fit: contain; border-radius: 4px;"></video>
+      <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center; font-family: 'IBM Plex Mono', monospace;">sample + simulate</p>
+    </div>
+    <div style="flex: 1; min-width: 0;">
+      <video src="../basis-2026/media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 17vh; object-fit: contain; border-radius: 4px;"></video>
+      <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center; font-family: 'IBM Plex Mono', monospace;">control</p>
+    </div>
+  </div>
+  <p style="margin-top: 0.6em; font-size: 0.42em; color: #6b7080;">CAD, simulation, constraint solving, control: handlers over one description.</p>
 </section>
 
 <section id="slide-sec-2" class="slide level2">
@@ -773,6 +797,8 @@ with handler(provider):                           # bind the meaning
     <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;"><strong>Variation is parametric.</strong> A new candidate is a changed default, not a redrawn model.</div>
     <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;"><strong>The simulator answers in seconds.</strong> Fast feedback closes the propose-and-revise loop.</div>
   </div>
+  <video src="../basis-2026/media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline style="display: block; margin: 0.9em auto 0; max-height: 22vh; border-radius: 6px;"></video>
+  <p style="margin: 0.15em 0 0; font-size: 0.32em; color: #6b7080; text-align: center;">A hand the loop designed, grasping</p>
 </section>
 
 <section id="slide-synth-00" class="slide level2">
