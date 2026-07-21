@@ -471,41 +471,34 @@ if __name__ == "__main__":
 </section>
 
 <section id="slide-rada-mpc" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">What unlocks cheap codesign: <span style="color: #1E3A8A;">MPC + a loss interface</span></h2>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.9em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0; font-size: 0.44em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">The key enabler.</strong>
-    RoboTL ships a <strong>sampling-based controller (MPC)</strong> and an <strong>interface to define losses</strong> as part of the program. The LLM only has to write the morphology and the loss; MPC closes the control loop inside the simulator.
-  </p>
-</div>
-
-<div style="display: flex; gap: 0.9em; justify-content: center; align-items: stretch; font-size: 0.36em; text-align: left;">
-
-  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What the LLM writes</div>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-      <li>A <strong>morphology</strong>: components, joints, ports.</li>
-      <li>A <strong>loss</strong>: per-stage <code>Equalize</code>, <code>Reach</code>, sensors.</li>
-    </ul>
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">What unlocks cheap codesign: <span style="color: #1E3A8A;">MPC</span> + a loss interface</h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Model predictive control: plan a short horizon with the model, execute, replan</p>
+<div style="display: flex; gap: 0.7em; align-items: stretch; max-width: 94%; margin: 0 auto; font-size: 0.4em; text-align: left;">
+  <div style="flex: 1.25; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
+    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">MPC in one line</div>
+      At every control step, use the model to plan a short trajectory into the future, execute the first piece, and replan. No training: the controller is search, run online.
+    </div>
+    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">MPPI, the sampling version (Williams et al. 2017)</div>
+      Control plans are cubic-Hermite splines. Each step: <strong>sample</strong> a population of perturbed plans, <strong>roll out</strong> each in batched MuJoCo, <strong>score</strong> with the loss, and take the <strong>cost-weighted (softmax) average</strong> as the new plan. Elite (CEM) updates are one flag away.
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.8em; color: #4a4f5a; background: #f6f8fa; border-radius: 4px; padding: 0.3em 0.5em; margin-top: 0.35em;">MPCSettings(horizon=1.0s, temperature=0.01, update_rule="softmax")</div>
+    </div>
   </div>
-
-  <div style="flex: 0 0 auto; align-self: center; padding: 0 0.3em; font-size: 1.6em; color: #1E3A8A;">&rarr;</div>
-
-  <div style="flex: 1; max-width: 320px; padding: 0.6em 0.8em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">What MPC + handler does</div>
-    <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #1f2330;">
-      <li>Samples a population of candidate control plans.</li>
-      <li>Batched MuJoCo rollouts, scored by the loss.</li>
-      <li>Loss-weighted update (MPPI-style); best plan executes.</li>
-    </ul>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
+    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">What the LLM writes</div>
+      A <strong>morphology</strong>: components, joints, ports.<br>A <strong>loss</strong>: per-stage <code>Equalize</code>, <code>Reach</code>, sensors.
+    </div>
+    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">What the handler does</div>
+      Compiles the program to MuJoCo, wires the loss into MPPI, and closes the control loop inside the simulator. The LLM never writes a controller.
+    </div>
   </div>
-
 </div>
-
-<p style="margin: 0.7em auto 0; max-width: 90%; font-size: 0.38em; color: #6b7080; text-align: left;">
-  No bi-level optimization, no learned graph, no morphology-only restriction. The loss-and-MPC interface is what makes the LLM's outer loop cheap. Built by <strong style="color: #1E3A8A;">Tim and Markus</strong>.
-</p>
+<div class="fragment" style="margin: 0.7em auto 0; max-width: 30em; border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.9em; border-radius: 0 8px 8px 0; text-align: left;">
+  <p style="margin: 0; font-size: 0.5em;">You have a model, you have an objective function: <strong>the controller comes for free</strong>.</p>
+</div>
 </section>
 
 <section id="slide-sec-4" class="slide level2">
