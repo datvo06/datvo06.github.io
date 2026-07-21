@@ -83,7 +83,7 @@
   </div>
   <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">04</span>
-    <div><strong style="color: #1f2330;">effectful: LLM generation as an effect</strong></div>
+    <div><strong style="color: #1f2330;">Modeling LLM Inference as function call</strong></div>
   </div>
   <div style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.45em 0.8em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">05</span>
@@ -108,7 +108,7 @@
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">04</span>
-    <span style="color: #c3c8d1;">effectful: LLM generation as an effect</span>
+    <span style="color: #c3c8d1;">Modeling LLM Inference as function call</span>
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">05</span>
@@ -157,7 +157,7 @@
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">04</span>
-    <span style="color: #c3c8d1;">effectful: LLM generation as an effect</span>
+    <span style="color: #c3c8d1;">Modeling LLM Inference as function call</span>
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">05</span>
@@ -267,7 +267,7 @@
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">04</span>
-    <span style="color: #c3c8d1;">effectful: LLM generation as an effect</span>
+    <span style="color: #c3c8d1;">Modeling LLM Inference as function call</span>
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">05</span>
@@ -343,7 +343,7 @@ def OpenParametricHand(self,
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
 
   <div style="flex: 1.5; min-width: 0;">
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 64vh; overflow: visible;"><code class="language-python" data-trim>import effectful.handlers.jax.numpy as jnp
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 58vh; overflow: visible;"><code class="language-python" data-trim data-line-numbers="1-7|10-12|13-17|19-22|24-28|30|33-34">import effectful.handlers.jax.numpy as jnp
 
 from robotl.examples.hinge import HingeJoint
 from robotl.examples.simple_cad import Cylinder
@@ -377,6 +377,15 @@ def Arm(self, link1L=0.120, link2L=0.1, linkDia=0.025):
 
 if __name__ == "__main__":
     view_model(lambda: Based(Arm()))   # mujoco handler</code></pre>
+    <div style="position: relative; height: 2.2em; margin-top: 0.35em;">
+      <p class="fragment fade-out" data-fragment-index="0" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">Plain Python imports: components, ops, and handlers.</p>
+      <p class="fragment fade-in-then-out" data-fragment-index="0" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">A component is a decorated function; its arguments <em>are</em> the design parameters.</p>
+      <p class="fragment fade-in-then-out" data-fragment-index="1" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">The parts: link cylinders, hinge joints, a wrist flange. Design-time geometry.</p>
+      <p class="fragment fade-in-then-out" data-fragment-index="2" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">Ports and welds compose the kinematic chain. Runtime kinematics, same program.</p>
+      <p class="fragment fade-in-then-out" data-fragment-index="3" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">Frames are posed explicitly: one <code>Pose</code> turns the elbow hinge axis.</p>
+      <p class="fragment fade-in-then-out" data-fragment-index="4" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;"><code>tip</code> is the component's interface; downstream tasks reach with this port.</p>
+      <p class="fragment fade-in" data-fragment-index="5" style="position: absolute; inset: 0; margin: 0; font-size: 0.34em; color: #1E3A8A; text-align: left;">Run it under a handler: <code>view_model</code> compiles the same program to MuJoCo.</p>
+    </div>
   </div>
 
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
@@ -520,7 +529,7 @@ if __name__ == "__main__":
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">04</span>
-    <span style="color: #1f2330; font-weight: 600;">effectful: LLM generation as an effect</span>
+    <span style="color: #1f2330; font-weight: 600;">Modeling LLM Inference as function call</span>
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">05</span>
@@ -835,7 +844,7 @@ with handler(provider):                           # bind the meaning
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #c3c8d1; font-weight: 700;">04</span>
-    <span style="color: #c3c8d1;">effectful: LLM generation as an effect</span>
+    <span style="color: #c3c8d1;">Modeling LLM Inference as function call</span>
   </div>
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
     <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">05</span>
