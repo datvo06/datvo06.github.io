@@ -1,44 +1,37 @@
 ---
 layout: post
-title: "You can only use a span you found: provenance types for LLM extraction"
+title: "A refinement type for grounded LLM extraction"
 date: 2026-07-21 00:01:00
-description: A refinement type that makes an LLM prove where each value came from, so a knowledge graph is grounded in the source by construction, checked before you trust it.
+description: A small prototype that makes an LLM show where each extracted value came from, so you can check a knowledge graph is grounded in the source before trusting it.
 permalink: /blog/2026/provenance-types-grounded-extraction/
 nav: false          # not in the navbar
 sitemap: false      # not in sitemap.xml
 related_posts: false
 ---
 
-Recently I have been working on effect typing in [effectful](https://github.com/BasisResearch/effectful), and one question kept nagging me: when an LLM reads a document and extracts a knowledge graph, how do you know it did not just make a fact up?
+I have been playing with effect typing in [effectful](https://github.com/BasisResearch/effectful), and I wanted to try one small thing: when an LLM extracts a knowledge graph from a document, can it show where each value came from, so you can check the extraction is grounded before trusting it? This is an early prototype and it lives on a branch, but the basic version works. The runnable code is in [this notebook](https://github.com/datvo06/effectful/blob/effect-typing-full/docs/source/kg_extraction.ipynb).
 
-Turns out you can catch it before you ever trust the output, with no gold labels and no second model grading the first. The trick is to make the LLM's own program prove where each value came from. Turns out it works.
+## the setup
 
-## the problem, concretely
-
-Say the document is "Marie Curie was born in Warsaw." and you want triples like `(Marie Curie, born_in, Warsaw)`. You give the model two operations: `find_span(document, query)` that locates a piece of text and returns where it is, and `make_triple(subject, relation, object)` that builds an edge. A good extraction looks like this:
+Give the model two operations. `find_span(document, query)` locates a piece of text and returns where it is; `make_triple(subject, relation, object)` builds an edge. A grounded extraction of "Marie Curie was born in Warsaw." looks like:
 
 ```python
-subject = find_span(document, "Marie Curie")
-object  = find_span(document, "Warsaw")
-make_triple(subject, "born_in", object)
+make_triple(find_span(document, "Marie Curie"), "born_in", find_span(document, "Warsaw"))
 ```
 
-Both endpoints are spans the model actually located in the text. Fine. But nothing stops the model from writing this instead:
+Both endpoints are spans the model actually found. The failure I want to catch is this one:
 
 ```python
 make_triple(find_span(document, "Marie Curie"), "citizen_of", Span("Poland"))
 ```
 
-"Poland" is a real fact, and it is nowhere in the document. The model reached into its own head and built a span for it. If you are extracting a knowledge graph you want to trust as evidence, that is exactly the thing you cannot allow: an entity that reads like it came from the text but did not.
+"Poland" is a real fact, and it is not in the document. The model built that span itself. For a knowledge graph you want to trust as evidence, that is the thing to rule out.
 
-How do people usually catch this? A few ways: 1. hand-label a gold set and score against it, 2. ask a second model whether the extraction is faithful, 3. post-hoc string-match every span back into the document. The first needs labels, the second trusts one model to grade another, the third is a brittle patch bolted on after the fact.
+## a precondition on provenance
 
-## requires: a precondition on where a value came from
-
-The cleaner move is to make it a *type*. In effect typing terms, this is a refinement type ([#664](https://github.com/BasisResearch/effectful/issues/664)): a value is acceptable only if its dataflow provenance contains a given operation. You write it on the argument:
+The idea is to make that a type. `Requires(find_span)` on an argument says: you may only pass me a span that `find_span` produced.
 
 ```python
-@defop
 def make_triple(
     subject: Annotated[Span, Requires(find_span)],
     relation: str,
@@ -46,52 +39,36 @@ def make_triple(
 ) -> Triple: ...
 ```
 
-`Requires(find_span)` reads: "you may only pass me a span that `find_span` produced." It is the precondition companion to `Uses`. Where `Uses[op]` on a return type is a postcondition (the effects an operation performs), `Requires(op)` on an argument is a precondition on the value handed in. Postcondition, precondition: the two directions of the same effect row over the same value.
+It is the precondition companion to `Uses` ([#664](https://github.com/BasisResearch/effectful/issues/664)), which is a postcondition on what an operation does. And it is not extra bookkeeping: the provenance is already in the value, as long as you keep the value symbolic.
 
-The nice part is that "where a value came from" is not extra bookkeeping you have to thread through by hand. It is already in the value, if you keep the value symbolic.
+## checking it
 
-## checking it without running anything
-
-Question: can you verify this without executing the extraction and then trusting the result you get? Answer: yes, because in effectful a program is a *term* before it is a value.
-
-Every operation call routes through one universal `apply` operation. So instead of running `find_span` and `make_triple` for real, you interpret `apply` to build a term: `make_triple(find_span(...), "citizen_of", Span("Poland"))` becomes a tree, not a `Triple`. Then `check_requires` walks that tree, and at each `make_triple` node it asks: does the `subject` subterm mention `find_span` in its effect row? does the `object`? The first does. The second is a bare `Span("Poland")` the model constructed, whose row is empty, so it fails.
+In effectful a program is a term before it is a value. Every operation call goes through one `apply` operation, so you can interpret `apply` to build a tree instead of computing. `check_requires` then walks that tree and, at each `make_triple`, asks whether the subject and object subterms mention `find_span`. The `Span("Poland")` one does not, so it is flagged.
 
 ```python
-check_requires(grounded)      # {}  -- every triple is grounded
-check_requires(hallucinated)  # {make_triple: {'object': {find_span}}}  -- caught
+check_requires(grounded)      # {}
+check_requires(hallucinated)  # the object of make_triple is not from find_span
 ```
 
-This is the same machine that computes `typeof` and the free variables of a term, a fold over `apply`, with the accumulator swapped to "which operations produced this value." Fully static effect typing is basically impossible here, because handler selection and dispatch are so dynamic, so this is the dynamic version: you run the program's structure through the effect system itself, and read the answer off. Zero model calls to verify, and no ground truth.
+No labels, no second model, no calls to verify. It is the same fold that computes `typeof`, with the accumulator swapped to "where did this come from."
 
-One thing worth being honest about: an early version of this check ran the term through `evaluate`, which quietly executed any operation that had a real implementation, collapsing `find_span(...)` back to a concrete span and losing the provenance. It only looked correct because every test operation happened to be unimplemented. A provenance check must not run the effects it is guarding. The fixed version is a pure structural walk that never executes the program, and it descends into lists and dataclass fields too, since a real extractor returns a list of triples and the triples are dataclasses.
+I want to be precise about one thing, because I got it wrong at first and a careful reader would ask. An early version ran the term through the evaluator, which executed any operation that had a real implementation and collapsed `find_span(...)` back into a concrete span, losing the provenance. A check must not run the effects it is guarding. The current version does not: `check_requires` is a pure walk, and building the tree replaces `apply`, so no operation's real implementation runs, which I check directly by asserting a side-effecting operation is never called during a check. What it does still do is run the synthesized *program* to build the tree in the first place. That is fine for a straight-line extraction, but I would not call it fully static yet. The clean version reads the provenance off the model's syntax directly, since the synthesis path already parses the function, and never runs the model's code at all. That is the next thing to fix.
 
 ## making the LLM do it
 
-The last step is to hand this to the model. The model does not call tools one at a time here. It *writes the extraction program* and submits it as its answer, which is the code-synthesis path (`SynthesizeAndCall`, the same idea as the `codeadapt` example). So the natural place for the check is right there: reify the function the model wrote, `check_requires` it, and if a triple is built from a span the model invented, reject the answer and feed the reason back so the model revises.
+The model does not call tools one at a time here. It writes the extraction as a function and submits that, the code-synthesis path. So the check goes right there: take the function it wrote, check it, and if a triple uses an invented span, reject the answer and feed the reason back so it revises. That is a small handler on top of the existing retry loop.
 
-That is a small handler, `CheckProvenance`. It raises the framework's ordinary tool-execution error, so it plugs straight into the existing retry loop with no changes to the synthesis machinery. Here is a real `gpt-4o` run. Given "Marie Curie was born in Warsaw. Paris is the capital of France.", the model answers by writing:
-
-```python
-def extract(document):
-    subject1 = find_span(document, 'Marie Curie')
-    object1  = find_span(document, 'Warsaw')
-    subject2 = find_span(document, 'Paris')
-    object2  = find_span(document, 'France')
-    return [make_triple(subject1, 'was born in', object1),
-            make_triple(subject2, 'is the capital of', object2)]
-```
-
-Every span is found, so `CheckProvenance` accepts it and you get two grounded triples. When I loosened the prompt to invite world knowledge, the model built `Span("Poland")` for a country not in the text, and the check answered with the message the model then sees:
+A real gpt-4o run: given "Marie Curie was born in Warsaw. Paris is the capital of France.", the model writes a function that calls `find_span` for every span, so the check accepts it and returns two grounded triples. When I loosened the prompt to invite outside knowledge, it built `Span("Poland")`, and the check answered with the message the model then sees:
 
 ```
-Ungrounded value(s) in your answer: argument 'object' of make_triple() must be a
-value produced by find_span(), not one constructed directly.
+argument 'object' of make_triple() must be a value produced by find_span(),
+not one constructed directly.
 ```
 
-The point is not that the model is honest. The point is that it physically cannot pass off an ungrounded triple: an unfound span is not the kind of value `make_triple` accepts, and the harness will not run the answer until it is. Grounding by construction, not by asking nicely.
+So the model cannot quietly pass off an ungrounded triple: an unfound span is not a value `make_triple` accepts, and the harness will not run the answer until it is.
 
-## where this stops
+## caveats
 
-Two honest limits. First, the check reads a synthesized *program*, where provenance is structural. It does not, on its own, ground values a model returns through eager JSON tool-calling, where a value comes back with no history attached. Second, it is a path-insensitive over-approximation of the reified program, so it wants the synthesized function to be straight-line over its operations. Both are the same underlying assumption: keep the interesting work in operations, and the effect system can see it.
+A few, and they matter. As above, the check still runs the synthesized program to build the tree; making it fully static is on the list. It reads a synthesized program, where provenance is structural, so it does not help with values a model returns through ordinary JSON tool calls, which arrive with no history. And it over-approximates, so it wants the synthesized function to be roughly straight-line over its operations. `find_span` and `make_triple` are also just stand-ins: the same `Requires` would express a taint check or a capability, the knowledge-graph case is only the one where "the model made that up" has an obvious cost.
 
-The tidy thing is how little of this is about knowledge graphs. `find_span` and `make_triple` are stand-ins. The same `Requires` catches a taint-analysis violation, a capability you were not granted, an edit that did not go through the budgeted operation. It is one refinement type over the effect row, and the knowledge-graph case is just the one where "the model made that up" has an obvious cost.
+It is small and early, built on the effectful LLM handlers. The check on its own and the LLM loop are in the [notebook](https://github.com/datvo06/effectful/blob/effect-typing-full/docs/source/kg_extraction.ipynb) and the [end-to-end example](https://github.com/datvo06/effectful/blob/effect-typing-full/docs/source/kg_extraction_llm.py) on the branch.
