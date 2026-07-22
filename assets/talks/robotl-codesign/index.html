@@ -133,6 +133,50 @@
   </div>
 </section>
 
+<section id="slide-evc-how" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">A closer look: <span style="color: #1E3A8A;">Evolving Virtual Creatures</span> (Sims 1994)</h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">One directed-graph genotype encodes both the body and the brain; a genetic algorithm searches it</p>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto; font-size: 0.4em; text-align: left;">
+  <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
+    <div style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.2em;">The genotype</div>
+      A nested directed graph: the outer graph is the morphology (parts, joints), and each part carries an inner graph, its neural circuit. Body and brain are the same kind of object.
+    </div>
+    <div style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; margin-bottom: 0.2em;">The control: sensors &rarr; neurons &rarr; effectors</div>
+      <strong>Sensors:</strong> joint-angle, contact (&plusmn;1), photosensors.<br>
+      <strong>Neurons:</strong> a dataflow graph over sum, product, min, max, if, sin, cos, atan, log, ..., recurrent, so it has internal state.<br>
+      <strong>Effectors:</strong> each takes one neuron value, scales it by a <strong>weight</strong>, and applies it as a joint force.
+    </div>
+    <div class="fragment" style="border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.75em; border-radius: 0 8px 8px 0;">
+      No training. The effector <strong>weights are genes</strong>: mutated by relative-scaled Gaussian steps and crossed over as whole subgraphs. The GA tunes morphology and control weights together.
+    </div>
+  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center;">
+    <video src="./media/sims_evolved_creatures.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 40vh; object-fit: contain; border-radius: 6px;"></video>
+    <p style="margin: 0.2em 0 0; font-size: 0.32em; color: #6b7080; text-align: center;">Karl Sims, Evolving Virtual Creatures (1994)</p>
+  </div>
+</div>
+</section>
+
+<section id="slide-evc-fitness" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">The objective is a <span style="color: #1E3A8A;">hand-written fitness</span></h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">No reward model, no gradient: one scalar per behavior, computed after a ~10s simulation</p>
+<div style="display: flex; flex-direction: column; gap: 0.5em; max-width: 88%; margin: 0 auto; font-size: 0.42em; text-align: left;">
+  <div style="display: flex; gap: 0.6em;">
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;"><strong style="color: #1E3A8A;">Swimming</strong>: distance of the center of mass per unit time; max distance from start (rewards straight over circling); final-phase velocity weighted higher (rewards sustained motion).</div>
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;"><strong style="color: #1E3A8A;">Walking</strong>: same speed measure on land, vertical velocity ignored; a no-force settling pass first, so falling over does not count as locomotion.</div>
+  </div>
+  <div style="display: flex; gap: 0.6em;">
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;"><strong style="color: #1E3A8A;">Following</strong>: photosensors on; average speed toward a light source over several trials at different locations. Negate the sensors and following becomes fleeing.</div>
+    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;"><strong style="color: #1E3A8A;">Jumping</strong>: maximum (or average) height of the creature's lowest part during the simulation.</div>
+  </div>
+  <div class="fragment" style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.5em 0.8em; border-radius: 0 8px 8px 0;">
+    <p style="margin: 0; font-size: 0.95em;">The fitness <em>is</em> the objective: written by hand, one per task. This is the "hand-written losses for objectives" the co-design tools fragment into, and exactly what a declared, in-language loss will replace.</p>
+  </div>
+</div>
+</section>
+
 <section id="slide-sec-2" class="slide level2">
 <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 58vh; width: fit-content; margin: 0 auto; gap: 0.55em; text-align: left;">
   <div style="display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em;">
