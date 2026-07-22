@@ -310,7 +310,7 @@
 
 <section id="slide-rw-morphonly" class="slide level2">
 <h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.4 <span style="color: #1E3A8A;">LLM-driven morphology design</span></h2>
-<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Learning away the cost, 3 of 3: learn the <strong>designer</strong>. Design, not co-design: the controller never enters the loop</p>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">LLMs have a very good prior</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
   <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;"><a href="https://arxiv.org/abs/2509.18937">Lang2Morph</a> (Qiao et al. 2025): an LLM maps a natural-language task through a structural hand grammar to a 3D-printable, task-specific hand.<img src="./media/lang2morph_teaser.png" alt="Lang2Morph teaser: design a hand to harvest cherries" style="display: block; margin: 0.5em auto 0.15em; max-height: 22vh; border-radius: 4px;"><p style="margin: 0 0 0.3em; font-size: 0.8em; color: #6b7080; text-align: center;">Figure: Qiao et al., Lang2Morph (arXiv:2509.18937)</p><p style="margin: 0.35em 0 0; font-size: 0.85em; color: #6b7080;">Nearby LLM-era efforts: <a href="https://arxiv.org/abs/2507.12644">VLMgineer</a> (robot tools), <a href="https://arxiv.org/abs/2509.13077">A Design Co-Pilot</a> (task-tailored manipulators), <a href="https://arxiv.org/abs/2509.07445">Text2Touch</a> (LLM-designed rewards), <a href="https://arxiv.org/abs/2512.03743">House of Dextra</a> (cross-embodied dexterous-hand co-design).</p></div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
@@ -319,6 +319,24 @@
   </div>
 </div>
 <p class="fragment" data-fragment-index="2" style="margin: 0.9em auto 0; max-width: 30em; font-size: 0.45em; color: #4a4f5a; text-align: center;">Each family learns away one role; the roles stay coupled. Co-design at LLM speed needs a substrate that holds all three.</p>
+</section>
+
+<section id="slide-desiderata" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.4em 0;">What we still need: three <span style="color: #1E3A8A;">desiderata</span></h2>
+<div style="display: flex; flex-direction: column; gap: 0.7em; max-width: 82%; margin: 0 auto; font-size: 0.5em; text-align: left;">
+  <div class="fragment" data-fragment-index="0" style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.55em 0.9em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">1</span>
+    <div>A <strong>substrate</strong> that can describe both <strong>abstract</strong> and <strong>realistic, manufacturable</strong> robots.</div>
+  </div>
+  <div class="fragment" data-fragment-index="1" style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.55em 0.9em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">2</span>
+    <div>A way to put the <strong>LLM's prior</strong> to work navigating that design space.</div>
+  </div>
+  <div class="fragment" data-fragment-index="2" style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.55em 0.9em; border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-weight: 700;">3</span>
+    <div>A tool to describe <strong>transferable control</strong>, and to do it <strong>efficiently</strong>, no from-scratch training per body.</div>
+  </div>
+</div>
 </section>
 
 <section id="slide-approach" class="slide level2">
