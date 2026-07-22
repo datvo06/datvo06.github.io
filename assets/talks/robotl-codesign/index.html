@@ -475,7 +475,7 @@ if __name__ == "__main__":
 <h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">Describing <span style="color: #1E3A8A;">uncertainty</span>, and solving for it</h2>
 <div style="display: flex; gap: 0.9em; align-items: stretch; max-width: 96%; margin: 0 auto;">
   <div style="flex: 1.2; min-width: 0; display: flex; flex-direction: column;">
-    <pre style="margin: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden;"><code class="language-python" data-trim>@defcomponent
+    <pre style="margin: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="|7">@defcomponent
 def CircularPalm(self, n_fingers=3, ...):
     &quot;&quot;&quot;Fingers Dirichlet-sampled on the front
     semicircle [-pi/2, +pi/2].&quot;&quot;&quot;
@@ -485,7 +485,6 @@ def CircularPalm(self, n_fingers=3, ...):
 
     finger_angles = -spread/2 + spread * jnp.cumsum(gaps[:-1])
     _build_disc_palm(self, finger_angles=finger_angles, ...)</code></pre>
-    <p style="margin: 0.4em 0 0; font-size: 0.38em; text-align: left; color: #4a4f5a;">One line makes the design uncertain: <code>choose</code> marks the finger gaps as <strong>drawn from a Dirichlet</strong>. The prior lives in the program, next to the geometry it governs. Cumulative sums of the gaps become the finger angles.</p>
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.4em; text-align: left;">
     <div>
