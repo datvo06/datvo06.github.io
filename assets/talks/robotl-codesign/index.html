@@ -662,6 +662,71 @@ of 5 out of 5.</pre>
 </div>
 </section>
 
+<section id="slide-eff-lang2morph-full" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Templates, typed and multi-modal: <span style="color: #1E3A8A;">the full example</span></h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Verbatim from the Lang2Morph reproduction (docs/source/lang2morph.ipynb)</p>
+<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.24em; line-height: 1.38; overflow: hidden;"><code class="language-python" data-trim>@Template.define
+def _generate_semantic_schema(
+    task_description: str,
+    grasp_type: str,
+    prop_views: list[Image.Image],
+) -&gt; SemanticSchema:
+    &quot;&quot;&quot;SYSTEM: You are an expert robotic hand design
+    analyst.  Given a natural-language task description,
+    the intended grasp type, and rendered views of the
+    target object, extract a structured semantic schema
+    for the task.
+    DO NOT USE ANY TOOLS.
+
+    &lt;task_description&gt;
+    {task_description}
+    &lt;/task_description&gt;
+
+    &lt;grasp_type&gt;
+    {grasp_type}
+    &lt;/grasp_type&gt;
+
+    &lt;prop_views&gt;
+    {prop_views}
+    &lt;/prop_views&gt;
+    &quot;&quot;&quot;
+    raise NotHandled</code></pre>
+    <p style="margin: 0.3em 0 0; font-size: 0.32em; color: #4a4f5a; text-align: left;">Text, an enum, and <strong>images</strong> in one signature; the docstring is the prompt, the tags interpolate the arguments, and the Pydantic return type drives parsing and retry.</p>
+  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.24em; line-height: 1.38; overflow: hidden;"><code class="language-python" data-trim>@Template.define
+def design_grammar(
+    self,
+    semantic_schema: SemanticSchema,
+) -&gt; StructureGrammar:
+    &quot;&quot;&quot;SYSTEM: You are an expert in robotic hand
+    morphology design using graph grammars (inspired
+    by RoboGrammar).
+
+    Given the semantic analysis of a manipulation task,
+    generate a symbolic structure grammar.  After
+    drafting, call ``assess_grammar`` for a feasibility
+    check.
+
+    Do NOT call ``design_grammar`` -- that is yourself,
+    calling it as a tool would loop forever.
+
+    &lt;semantic_schema&gt;
+    {semantic_schema}
+    &lt;/semantic_schema&gt;
+
+    &lt;diversity_cue&gt;
+    {self.diversity_cue}
+    &lt;/diversity_cue&gt;
+    &quot;&quot;&quot;
+    raise NotHandled</code></pre>
+    <p style="margin: 0.3em 0 0; font-size: 0.32em; color: #4a4f5a; text-align: left;">The grammar stage: it may call <code>assess_grammar</code> as a tool (templates see templates), interpolates instance state (<code>self.diversity_cue</code>), and returns the grammar as a structured <code>StructureGrammar</code>.</p>
+  </div>
+</div>
+</section>
+
 <section id="slide-eff-synthesis" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Higher order: <span style="color: #1E3A8A;">synthesize functions</span>, compose templates</h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">code and output from the same docs notebook</p>
