@@ -295,7 +295,7 @@
 
 
 <section id="slide-rw-diff-foundation" class="slide level2">
-<h2 style="font-size: 0.85em; margin: 0 0 0.2em 0;">2.3 <span style="color: #1E3A8A;">Differentiable simulation</span> and foundation controllers</h2>
+<h2 style="font-size: 0.85em; margin: 0 0 0.2em 0;">2.3 <span style="color: #1E3A8A;">Differentiable simulation</span></h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Learning away the cost, 2 of 3: learn the <strong>controller</strong> (a neural network), by backpropagating through the physics</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 96%; margin: 0 auto;">
   <div style="flex: 1.35; min-width: 0; display: flex; flex-direction: column; gap: 0.45em;">
@@ -307,15 +307,44 @@
       <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">What the gradient trains</div>
       A <strong>neural-network policy</strong>, one per body. Not MPC (that plans online, no learning). Not model-free RL (that estimates gradients from reward samples). Here the gradient is <strong>exact, through the physics</strong>, so it needs far fewer rollouts.
     </div>
-    <div style="display: flex; gap: 0.5em; margin-top: 0.1em;">
-      <div style="flex: 1;"><video src="./media/eldir_diffrobots.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 15vh; object-fit: contain; border-radius: 4px;"></video><p style="margin: 0.15em 0 0; font-size: 0.75em; color: #6b7080; text-align: center;"><a href="https://arxiv.org/abs/2405.14712">ELDiR</a> (2024): one policy trained per body</p></div>
-      <div style="flex: 1;"><img src="./media/morphpre_fig.png" alt="One pretrained universal controller across many body plans" style="width: 100%; max-height: 15vh; object-fit: contain; border-radius: 4px;"><p style="margin: 0.15em 0 0; font-size: 0.75em; color: #6b7080; text-align: center;"><a href="https://arxiv.org/abs/2502.10862">Morphological pretraining</a>: one policy, many bodies</p></div>
+    <div>
+      <video src="./media/eldir_diffrobots.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 18vh; object-fit: contain; border-radius: 4px;"></video>
+      <p style="margin: 0.15em 0 0; font-size: 0.75em; color: #6b7080; text-align: center;"><a href="https://arxiv.org/abs/2405.14712">ELDiR</a> (2024): a fresh policy trained per body, through differentiable simulation</p>
     </div>
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; justify-content: center;">
-    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> exact gradients train a strong controller for a body cheaply; pretraining lets one policy transfer to new bodies.</div>
-    <div class="fragment" data-fragment-index="2" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> the body. Gradients flow to the policy weights, not to discrete structure. Adding, removing, or rewiring parts is non-differentiable and still comes from outer-loop search.</div>
-    <div class="fragment" data-fragment-index="3" style="border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.7em; border-radius: 0 8px 8px 0; text-align: left; font-size: 0.42em; line-height: 1.5;">Each family learns away one role; the roles stay coupled. Co-design at LLM speed needs a substrate that holds all three.</div>
+    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> exact gradients train a strong controller for a body far more cheaply than sampling.</div>
+    <div class="fragment" data-fragment-index="2" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> the body, and it still trains one policy per body. Gradients flow to the policy weights, not to discrete structure; adding or rewiring parts is non-differentiable, still outer-loop search.</div>
+  </div>
+</div>
+</section>
+
+<section id="slide-rw-foundation" class="slide level2">
+<h2 style="font-size: 0.85em; margin: 0 0 0.2em 0;">2.3b <span style="color: #1E3A8A;">Foundation controllers</span>: don't train one per body</h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Still learning away the controller, but once, so a new body reuses it instead of training from scratch</p>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 96%; margin: 0 auto;">
+  <div style="flex: 1.25; min-width: 0; display: flex; flex-direction: column; gap: 0.45em; font-size: 0.42em; text-align: left;">
+    <div style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.75em; line-height: 1.5;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; font-size: 0.82em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">The problem it solves</div>
+      Differentiable sim and RL both train a policy <strong>from scratch for every candidate body</strong>. That is the bi-level cost: thousands of bodies times one full training run each.
+    </div>
+    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.5em 0.75em; line-height: 1.5;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.82em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">The idea: pretrain once</div>
+      Train <strong>one morphology-agnostic controller</strong> across many bodies. It takes the body's description as input, so it already knows how to drive a body it has never seen. A new candidate <strong>reuses the pretrained policy</strong>, no per-body training.
+    </div>
+    <div class="fragment" data-fragment-index="1" style="border-left: 4px solid #2d6a4f; background: #f3f5fb; padding: 0.5em 0.75em; border-radius: 0 8px 8px 0; line-height: 1.5;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; font-size: 0.82em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">What it buys</div>
+      Evaluating a design becomes nearly free, so the outer search can explore <strong>non-differentiable body edits</strong> (add, remove, recombine parts) and score each one immediately.
+    </div>
+  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; justify-content: center;">
+    <div>
+      <img src="./media/morphpre_fig.png" alt="One pretrained universal controller across many body plans" style="width: 100%; max-height: 26vh; object-fit: contain; border-radius: 4px; border: 1px solid #d0d5dc;">
+      <p style="margin: 0.15em 0 0; font-size: 0.75em; color: #6b7080; text-align: center;"><a href="https://arxiv.org/abs/2502.10862">Morphological pretraining</a> (Strgar &amp; Kriegman 2025): one controller drives many different bodies</p>
+    </div>
+    <div class="fragment" data-fragment-index="2" style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.4em; line-height: 1.5;">
+      The same idea at scale: <strong>foundation controllers</strong>. Universal policies, diffusion policies, and vision-language-action models are pretrained on many robots and tasks, then reused or lightly adapted on a new one.
+    </div>
   </div>
 </div>
 </section>
