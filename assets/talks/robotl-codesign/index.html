@@ -1177,7 +1177,7 @@ iter 6   2F/0T   loss 1.61   turn  0deg   score  2/10
 </p>
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 78vh; max-height: 78vh; overflow: hidden;">
   <div style="flex: 1.1; min-width: 0; min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 2vh;">
-    <pre style="margin: 0; font-size: 0.25em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-line-numbers="1-10|11|12|13|14|15|16">def aux_losses(env) -&gt; dict:
+    <pre style="margin: 0; font-size: 0.25em; line-height: 1.4; overflow: hidden; white-space: pre-wrap; word-break: break-word;"><code class="language-python" data-line-numbers="1-10|11|12|13|14|15|16">def aux_losses(env) -&gt; dict:
     tip = env.robot.tip.pos
     target = env.target.pos
     entrance = jnp.array([0.0, 1.1, target[2] - 0.01])
