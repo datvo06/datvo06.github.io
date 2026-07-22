@@ -180,6 +180,7 @@
     </div>
     <p style="margin: 0; font-size: 0.4em; text-align: left; line-height: 1.5; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.45em 0.7em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">cost = bodies explored &times; one full controller training each.</span> Three decades after Sims, the shape is the same: massively parallel RL still needs about twenty minutes per controller for uneven-terrain locomotion on a workstation GPU (<a href="https://arxiv.org/abs/2109.11978">Rudin et al. 2021</a>), and none of it is reused for the next body.</p>
     <p style="margin: 0; font-size: 0.36em; color: #6b7080; text-align: left;">Evolutionary co-design (Sims 1994, <a href="https://arxiv.org/abs/2406.19963">Text2Robot</a> 2024) is the population form of the same nested loop.</p>
+    <p style="margin: 0; font-size: 0.36em; color: #4a4f5a; text-align: left;">The multiplication has three roles you could learn away: the <strong>evaluator</strong>, the <strong>controller</strong>, the <strong>designer</strong>. The next three slides try one each.</p>
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
     <style>
@@ -200,7 +201,7 @@
 
 <section id="slide-rw-surrogate" class="slide level2">
 <h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.2 <span style="color: #1E3A8A;">Learned graph surrogates</span></h2>
-<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">A grammar over robot graphs plus a GNN that predicts performance</p>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Learning away the cost, 1 of 3: learn the <strong>evaluator</strong>. A grammar over robot graphs plus a GNN that predicts performance</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
   <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">RoboGrammar and friends make the design space compact and search-friendly: a grammar generates robot graphs, and a learned model scores them without running a full simulation each time.<video src="./media/robogrammar.mp4" autoplay loop muted playsinline style="display: block; margin: 0.5em auto 0; max-height: 21vh; border-radius: 4px;"></video><p style="margin: 0.25em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">Zhao et al., RoboGrammar (SIGGRAPH Asia 2020)</p></div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
@@ -213,7 +214,7 @@
 
 <section id="slide-rw-diff-foundation" class="slide level2">
 <h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.3 <span style="color: #1E3A8A;">Differentiable simulation and foundation controllers</span></h2>
-<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Gradients make the control loop cheap; the body still comes from outside</p>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Learning away the cost, 2 of 3: learn the <strong>controller</strong>. Gradients or pretrained policies make the inner loop cheap; the body still comes from outside</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
   <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">
     <p style="margin: 0 0 0.5em;">In <a href="https://arxiv.org/abs/2405.14712">ELDiR</a>, differentiable simulation learns each candidate body's controller by gradient descent; the bodies themselves still evolve in a non-differentiable outer loop. <a href="https://arxiv.org/abs/2502.10862">Morphological pretraining</a> goes further: one universal controller, pretrained across millions of bodies. Foundation controllers (universal policies, diffusion policies, VLAs) push the same idea at scale.</p>
@@ -228,7 +229,7 @@
 
 <section id="slide-rw-morphonly" class="slide level2">
 <h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.4 <span style="color: #1E3A8A;">LLM-driven morphology design</span></h2>
-<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Design, not co-design: the controller never enters the loop</p>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Learning away the cost, 3 of 3: learn the <strong>designer</strong>. Design, not co-design: the controller never enters the loop</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
   <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;"><a href="https://arxiv.org/abs/2509.18937">Lang2Morph</a> (Qiao et al. 2025): an LLM maps a natural-language task through a structural hand grammar to a 3D-printable, task-specific hand.<img src="./media/lang2morph_teaser.png" alt="Lang2Morph teaser: design a hand to harvest cherries" style="display: block; margin: 0.5em auto 0.15em; max-height: 22vh; border-radius: 4px;"><p style="margin: 0 0 0.3em; font-size: 0.8em; color: #6b7080; text-align: center;">Figure: Qiao et al., Lang2Morph (arXiv:2509.18937)</p><p style="margin: 0.35em 0 0; font-size: 0.85em; color: #6b7080;">Nearby LLM-era efforts: <a href="https://arxiv.org/abs/2507.12644">VLMgineer</a> (robot tools), <a href="https://arxiv.org/abs/2509.13077">A Design Co-Pilot</a> (task-tailored manipulators), <a href="https://arxiv.org/abs/2509.07445">Text2Touch</a> (LLM-designed rewards), <a href="https://arxiv.org/abs/2512.03743">House of Dextra</a> (cross-embodied dexterous-hand co-design).</p></div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
@@ -236,7 +237,7 @@
     <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> co-design itself. The controller is frozen, and the task often needs morphology and control to move together.</div>
   </div>
 </div>
-<p class="fragment" data-fragment-index="2" style="margin: 0.9em auto 0; max-width: 30em; font-size: 0.45em; color: #4a4f5a; text-align: center;">Each approach picks one side of the coupling, or pays full price for both. Co-design at LLM speed needs a different substrate.</p>
+<p class="fragment" data-fragment-index="2" style="margin: 0.9em auto 0; max-width: 30em; font-size: 0.45em; color: #4a4f5a; text-align: center;">Each family learns away one role; the roles stay coupled. Co-design at LLM speed needs a substrate that holds all three.</p>
 </section>
 
 <section id="slide-approach" class="slide level2">
