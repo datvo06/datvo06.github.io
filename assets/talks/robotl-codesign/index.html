@@ -440,21 +440,16 @@ def OpenParametricHand(self,
 </section>
 
 <section id="slide-rada-01b" class="slide level2">
+<style>
+#slide-rada-01b #rada01b-cap::before { content: ""; position: absolute; left: -0.62em; top: 50%; transform: translateY(-50%); border-top: 0.5em solid transparent; border-bottom: 0.5em solid transparent; border-right: 0.62em solid #1E3A8A; }
+#slide-rada-01b #rada01b-cap:empty { display: none; }
+</style>
 <h2 style="font-size: 1em; margin: 0 0 0.3em 0;">Anatomy of a RoboTL component</h2>
 
-<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
+<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center;">
 
   <div style="flex: 1.5; min-width: 0;">
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.45; max-height: 58vh; overflow: visible;"><code class="language-python" data-trim data-line-numbers="1-7|10-12|13-17|19-22|24-28|30|33-34">import effectful.handlers.jax.numpy as jnp
-
-from robotl.examples.hinge import HingeJoint
-from robotl.examples.simple_cad import Cylinder
-from robotl.handlers.mujoco import view_model
-from robotl.ops import joints
-from robotl.ops.syntax import Port, Pose, defcomponent
-
-
-@defcomponent
+    <pre style="margin: 0; font-size: 0.24em; line-height: 1.5; max-height: 60vh; overflow: visible;"><code class="language-python" data-trim data-line-numbers="1-2|4-8|10-13|15-19|21">@defcomponent
 def Arm(self, link1L=0.120, link2L=0.1, linkDia=0.025):
     """Two-link arm with revolute joints."""
     self.link1       = Cylinder(d=linkDia, h=link1L)
@@ -474,16 +469,15 @@ def Arm(self, link1L=0.120, link2L=0.1, linkDia=0.025):
     self._weld_link2    = joints.Weld(self.elbow.tip,  self.link2.base, pose=~pose)
     self._weld_wrist    = joints.Weld(self.link2.tip,  self.wristFlange.base)
 
-    self.tip = self.wristFlange.tip   # downstream tasks reach with this port
-
-
-if __name__ == "__main__":
-    view_model(lambda: Based(Arm()))   # mujoco handler</code></pre>
-    <p id="rada01b-cap" style="height: 2.2em; margin: 0.35em 0 0; font-size: 0.34em; color: #1E3A8A; text-align: left;"></p>
+    self.tip = self.wristFlange.tip   # downstream tasks reach with this port</code></pre>
   </div>
 
-  <div style="flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center;">
-    <img id="rada01b-arm" src="./media/arm/arm_full.png" alt="Two-link arm render with the current component highlighted" style="max-height: 44vh; max-width: 100%; object-fit: contain;">
+  <div id="rada01b-mid" style="flex: 0.85; min-width: 0; position: relative;">
+    <div id="rada01b-cap" style="position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); border: 1px solid #1E3A8A; border-radius: 8px; background: #f3f5fb; padding: 0.6em 0.8em; font-size: 0.36em; color: #1f2330; line-height: 1.55;"></div>
+  </div>
+
+  <div style="flex: 0.8; min-width: 0; display: flex; align-items: center; justify-content: center;">
+    <img id="rada01b-arm" src="./media/arm/arm_full.png" alt="Two-link arm render with the current component highlighted" style="max-height: 42vh; max-width: 100%; object-fit: contain;">
   </div>
 
 </div>
@@ -1469,32 +1463,28 @@ def judge_design(task: str, losses: list[float],
   <script>
     (function () {
       var CAPS = {
-        "1-7": "Plain Python imports: components, ops, and handlers.",
-        "10-12": "A component is a decorated function; its arguments <em>are</em> the design parameters.",
-        "13-17": "The parts: link cylinders, hinge joints, a wrist flange. Design-time geometry.",
-        "19-22": "Ports and welds compose the kinematic chain. Runtime kinematics, same program.",
-        "24-28": "Frames are posed explicitly: one <code>Pose</code> turns the elbow hinge axis.",
-        "30": "<code>tip</code> is the component's interface; downstream tasks reach with this port.",
-        "33-34": "Run it under a handler: <code>view_model</code> compiles the same program to MuJoCo."
+        "1-2": "A component is a decorated function; its arguments <em>are</em> the design parameters.",
+        "4-8": "The parts: link cylinders, hinge joints, a wrist flange. Design-time geometry.",
+        "10-13": "Ports and welds compose the kinematic chain. Runtime kinematics, same program.",
+        "15-19": "Frames are posed explicitly: one <code>Pose</code> turns the elbow hinge axis.",
+        "21": "<code>tip</code> is the component's interface; downstream tasks reach with this port."
       };
       function updateCap() {
         var cap = document.getElementById("rada01b-cap");
         if (!cap) return;
         var sec = document.getElementById("slide-rada-01b");
-        var key = "1-7";
+        var key = "1-2";
         sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
           if (c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
         });
         cap.innerHTML = CAPS[key] || "";
       }
       var ARM = {
-        "1-7": "arm_full.png",
-        "10-12": "arm_full.png",
-        "13-17": "arm_parts.png",
-        "19-22": "arm_chain.png",
-        "24-28": "arm_pose.png",
-        "30": "arm_tip.png",
-        "33-34": "arm_full.png"
+        "1-2": "arm_full.png",
+        "4-8": "arm_parts.png",
+        "10-13": "arm_chain.png",
+        "15-19": "arm_pose.png",
+        "21": "arm_tip.png"
       };
       Object.values(ARM).forEach(function (f) { new Image().src = "./media/arm/" + f; });
       var updateAll = function () {
@@ -1502,11 +1492,28 @@ def judge_design(task: str, losses: list[float],
         var img = document.getElementById("rada01b-arm");
         if (!img) return;
         var sec = document.getElementById("slide-rada-01b");
-        var key = "1-7";
+        var key = "1-2";
         sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
           if (c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
         });
         img.src = "./media/arm/" + (ARM[key] || "arm_full.png");
+        var cap = document.getElementById("rada01b-cap");
+        var mid = document.getElementById("rada01b-mid");
+        var clone = null;
+        sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
+          if (c.classList.contains("current-fragment")) clone = c;
+        });
+        if (!clone) clone = sec.querySelector("code.has-highlights.fragment");
+        if (cap && mid && clone) {
+          var hl = clone.querySelectorAll("tr.highlight-line");
+          if (hl.length) {
+            var scale = (Reveal.getScale && Reveal.getScale()) || 1;
+            var f = hl[0].getBoundingClientRect();
+            var l = hl[hl.length - 1].getBoundingClientRect();
+            var midTop = mid.getBoundingClientRect().top;
+            cap.style.top = (((f.top + l.bottom) / 2 - midTop) / scale) + "px";
+          }
+        }
       };
       Reveal.on("fragmentshown", updateAll);
       Reveal.on("fragmenthidden", updateAll);
