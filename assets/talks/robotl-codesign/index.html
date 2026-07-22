@@ -305,7 +305,7 @@
   <div style="flex: 1.35; min-width: 0; display: flex; flex-direction: column; gap: 0.45em;">
     <div style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.5em 0.75em; text-align: left; font-size: 0.42em; line-height: 1.5;">
       <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">The loop, for one body</div>
-      Write the physics engine so it is <strong>differentiable</strong>. Then: run the body forward for a few seconds, measure a <strong>task loss</strong> (how far it walked, how much it turned the knob), and <strong>backpropagate that loss through every simulated step and contact</strong> back to the controller's weights. Gradient descent nudges the weights. Repeat.
+      A <strong>differentiable physics engine</strong> lets you backpropagate gradients through space and time, reducing controller learning from RL to <strong>supervised learning (SL)</strong>.
     </div>
     <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.75em; text-align: left; font-size: 0.42em; line-height: 1.5;">
       <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">What the gradient trains</div>
