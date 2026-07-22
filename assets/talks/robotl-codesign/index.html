@@ -319,6 +319,37 @@
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; justify-content: center;">
     <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> exact gradients train a strong controller for a body far more cheaply than sampling.</div>
     <div class="fragment" data-fragment-index="2" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> it needs a purpose-built differentiable physics engine, and only works on bodies whose dynamics differentiate cleanly. Stiff rigid contact and friction, the grasping and in-hand manipulation we care about, are non-smooth, so the gradient turns biased or exploding right where it is needed.</div>
+    <div class="fragment" data-fragment-index="3" style="display: flex; gap: 0.5em;">
+      <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.4em 0.4em 0.2em; text-align: center;">
+        <svg viewBox="0 0 130 68" style="width: 100%; height: auto;">
+          <line x1="16" y1="8" x2="16" y2="56" stroke="#c3c8d1" stroke-width="1.5"/>
+          <line x1="16" y1="56" x2="122" y2="56" stroke="#c3c8d1" stroke-width="1.5"/>
+          <path d="M20,48 L62,48" fill="none" stroke="#1E3A8A" stroke-width="2.5"/>
+          <path d="M62,16 L118,16" fill="none" stroke="#1E3A8A" stroke-width="2.5"/>
+          <line x1="62" y1="48" x2="62" y2="16" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="3 2"/>
+          <circle cx="62" cy="48" r="3.2" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+          <circle cx="62" cy="16" r="3.2" fill="#c0392b"/>
+          <text x="70" y="36" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#c0392b" font-weight="700">&#8706; ?</text>
+        </svg>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.36em; color: #c0392b; margin-top: 0.1em;">collision: a jump</div>
+      </div>
+      <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.4em 0.4em 0.2em; text-align: center;">
+        <svg viewBox="0 0 130 68" style="width: 100%; height: auto;">
+          <circle cx="20" cy="26" r="6" fill="#eef0f2" stroke="#1E3A8A" stroke-width="2"/>
+          <line x1="26" y1="26" x2="38" y2="26" stroke="#1E3A8A" stroke-width="2"/>
+          <circle cx="44" cy="26" r="6" fill="#eef0f2" stroke="#1E3A8A" stroke-width="2"/>
+          <line x1="56" y1="26" x2="76" y2="26" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2.5"/>
+          <polygon points="76,26 70,22 70,30" fill="#c0392b"/>
+          <text x="60" y="18" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#c0392b" font-weight="700">&#10007;</text>
+          <circle cx="92" cy="26" r="6" fill="#eef0f2" stroke="#1E3A8A" stroke-width="2"/>
+          <line x1="98" y1="26" x2="110" y2="26" stroke="#1E3A8A" stroke-width="2"/>
+          <circle cx="116" cy="26" r="6" fill="#eef0f2" stroke="#1E3A8A" stroke-width="2"/>
+          <line x1="116" y1="32" x2="116" y2="44" stroke="#1E3A8A" stroke-width="2"/>
+          <circle cx="116" cy="50" r="6" fill="#dff0e6" stroke="#2d6a4f" stroke-width="2"/>
+        </svg>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.36em; color: #c0392b; margin-top: 0.1em;">add a part: discrete step</div>
+      </div>
+    </div>
   </div>
 </div>
 </section>
