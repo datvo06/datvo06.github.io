@@ -570,7 +570,7 @@ def CircularPalm(self, n_fingers=3, ...):
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
 
   <div style="flex: 1.35; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.24em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="|35-39|4-7|9-17|19-22|24-33">from effectful.handlers.llm import Template
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.27em; line-height: 1.42; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="|24-27|4-7|9-17|19-22">from effectful.handlers.llm import Template
 from effectful.ops.types import NotHandled
 
 @Template.define
@@ -593,22 +593,10 @@ def rate_joke(joke: KnockKnockJoke) -&gt; bool:
     &quot;&quot;&quot;Decide if {joke} is funny or not. Do not use any tools.&quot;&quot;&quot;
     raise NotHandled
 
-@pydantic.dataclasses.dataclass
-class Rating:
-    score: int          # field_validator: 1 to 5 only
-    explanation: str    # field_validator: must mention the score
-
-@Template.define
-def give_rating_for_movie(movie_name: str) -&gt; Rating:
-    &quot;&quot;&quot;Give a rating for {movie_name}. The explanation MUST
-    include the numeric score. Do not use any tools.&quot;&quot;&quot;
-    raise NotHandled
-
-with handler(provider), handler(RetryLLMHandler()):
+with handler(provider):
     print(limerick(&quot;fish&quot;))
     joke = write_joke(&quot;lizards&quot;)
-    if rate_joke(joke): print(&quot;&gt; The crowd laughs politely.&quot;)
-    rating = give_rating_for_movie(&quot;Die Hard&quot;)</code></pre>
+    if rate_joke(joke): print(&quot;&gt; The crowd laughs politely.&quot;)</code></pre>
   </div>
 
   <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
@@ -616,6 +604,62 @@ with handler(provider), handler(RetryLLMHandler()):
     <pre id="efftpl-out" style="margin: 0; flex: 1; min-height: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.9em 1.1em; white-space: pre-wrap;"></pre>
   </div>
 
+</div>
+</section>
+
+<section id="slide-eff-feedback" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Types that <span style="color: #1E3A8A;">push back</span>: validation as feedback</h2>
+<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 74vh; max-height: 74vh; overflow: hidden;">
+  <div style="flex: 1.35; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.26em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="|6-12|14-22|25-33">@pydantic.dataclasses.dataclass
+class Rating:
+    score: int
+    explanation: str
+
+    @field_validator(&quot;score&quot;)
+    @classmethod
+    def check_score(cls, v):
+        if v &lt; 1 or v &gt; 5:
+            raise PydanticCustomError(
+                &quot;invalid_score&quot;, &quot;score must be 1-5, got {v}&quot;, {&quot;v&quot;: v})
+        return v
+
+    @field_validator(&quot;explanation&quot;)
+    @classmethod
+    def check_explanation_contains_score(cls, v, info):
+        score = info.data.get(&quot;score&quot;, None)
+        if score is not None and str(score) not in v:
+            raise PydanticCustomError(&quot;invalid_explanation&quot;,
+                &quot;explanation must mention the score {score}&quot;,
+                {&quot;score&quot;: score})
+        return v
+
+
+@Template.define
+def give_rating_for_movie(movie_name: str) -&gt; Rating:
+    &quot;&quot;&quot;Give a rating for {movie_name}. The explanation MUST
+    include the numeric score. Do not use any tools.&quot;&quot;&quot;
+    raise NotHandled
+
+
+with handler(provider), handler(RetryLLMHandler()):
+    rating = give_rating_for_movie(&quot;Die Hard&quot;)</code></pre>
+  </div>
+  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Output (verbatim)</div>
+    <pre style="margin: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.9em 1.1em; white-space: pre-wrap;">Error: Error decoding response: 1 validation
+error for Response
+value.score
+  score must be 1-5, got 9. Please provide a
+  valid response and try again.
+
+Score: 5/5
+Explanation: Die Hard is a quintessential
+action film that has deeply influenced the
+genre. [...] It rightfully earns a top score
+of 5 out of 5.</pre>
+    <p style="margin: 0.35em 0 0; font-size: 0.3em; color: #6b7080; text-align: left;">The validators are the reviewer: the model returned 9, the error message went back into context, and RetryLLMHandler asked again.</p>
+  </div>
 </div>
 </section>
 
@@ -1358,7 +1402,7 @@ def judge_design(task: str, losses: list[float],
 
   <script>
     (function () {
-      var OUT = {"": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.\n\nScore: 5/5 (Die Hard, after one\nvalidation retry)", "35-39": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.\n\nScore: 5/5 (Die Hard, after one\nvalidation retry)", "4-7": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.", "9-17": "Knock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!", "19-22": "> The crowd laughs politely.\n\n(rate_joke returned a typed bool: True)", "24-33": "Error: Error decoding response: 1 validation\nerror for Response\nvalue.score\n  score must be 1-5, got 9. Please provide a\n  valid response and try again.\n\nScore: 5/5\nExplanation: Die Hard is a quintessential\naction film that has deeply influenced the\ngenre. [...] It rightfully earns a top score\nof 5 out of 5."};
+      var OUT = {"": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.", "24-27": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.", "4-7": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.", "9-17": "Knock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!", "19-22": "> The crowd laughs politely.\n\n(rate_joke returned a typed bool: True)"};
       function updateOut() {
         var pane = document.getElementById("efftpl-out");
         if (!pane) return;
