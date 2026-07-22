@@ -1116,6 +1116,8 @@ iter 4   2F/0T   loss 1.59   turn  0deg   score  3/10
 iter 5   2F/0T   loss 1.58   turn  0deg   score  2/10
 iter 6   2F/0T   loss 1.61   turn  0deg   score  2/10
 <span class="fragment" data-fragment-index="0" style="color: #7ee0a0; font-weight: 700;">iter 7   2F/1T   loss 0.004  turn 90deg   score 10/10</span></pre>
+    <video src="./media/dl_designed.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 18vh; object-fit: contain; border-radius: 6px; background: #fafbfc; margin-top: 0.5em;"></video>
+    <p style="margin: 0.1em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">iter 7, the co-designed arm turns the knob (loss 0.004)</p>
   </div>
   <div style="flex: 0.9; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 0.55em; font-size: 0.38em; text-align: left;">
     <div style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; line-height: 1.5;">
@@ -1149,6 +1151,10 @@ iter 6   2F/0T   loss 1.61   turn  0deg   score  2/10
     <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;"><strong style="color: #2d6a4f;">Iter 7</strong> (10/10): refined terms (staged_centerline_insert, entrance_band_x, ...). Base loss collapses to 0.004.</p>
   </div>
 </div>
+<div style="max-width: 40%; margin: 0.5em auto 0;">
+  <video src="./media/dl_designed.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 16vh; object-fit: contain; border-radius: 6px; background: #fafbfc;"></video>
+  <p style="margin: 0.1em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">the refined losses, run: iter 7 turns the knob (loss 0.004)</p>
+</div>
 </section>
 
 <section id="slide-rada-designresult" class="slide level2">
@@ -1171,6 +1177,9 @@ iter 6   2F/0T   loss 1.61   turn  0deg   score  2/10
 </section>
 
 <section id="slide-rada-10" class="slide level2">
+<style>
+#slide-rada-10 td.hljs-ln-code, #slide-rada-10 .hljs-ln-code { white-space: pre-wrap !important; word-break: break-word; }
+</style>
 <h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">Codesigning morphology <em>and</em> control</h2>
 <p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.36em; color: #4a4f5a; text-align: left;">
   Fix the sparse-reward problem: have the LLM write the auxiliary loss too. The objective stages the trajectory (enter, grasp, turn) and the codesign loop succeeds with container.
