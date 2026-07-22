@@ -408,9 +408,9 @@ def CircularPalm(self, n_fingers=3, ...):
     <p style="margin: 0.4em 0 0; font-size: 0.38em; text-align: left; color: #4a4f5a;">One line makes the design uncertain: <code>choose</code> marks the finger gaps as <strong>drawn from a Dirichlet</strong>. The prior lives in the program, next to the geometry it governs. Cumulative sums of the gaps become the finger angles.</p>
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.4em; text-align: left;">
-    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 4px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">How we solve for it</div>
-      <code>solve_init</code> runs the program once, <strong>collecting</strong> every <code>choose</code> and every constraint instead of executing them. Then <strong>NUTS (MCMC)</strong> samples gap values that satisfy the constraints; a <code>non_overlap</code> penalty between adjacent motors pushes the samples toward even spacing. The highest-log-density design is kept.
+    <div>
+      <video src="../basis-2026/media/codesign/palms/circular.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 24vh; object-fit: contain; border-radius: 6px; background: #fafbfc;"></video>
+      <p style="margin: 0.15em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">A solve_init sample of CircularPalm, rendered by the MuJoCo handler</p>
     </div>
     <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
       <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">No choices, no sampler</div>
