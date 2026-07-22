@@ -554,23 +554,15 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 
 
 <section id="slide-effectful-llm-bridge" class="slide level2">
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; gap: 1.4em; padding: 0 2rem;">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; gap: 1.2em; padding: 0 2rem;">
 
-  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #1E3A8A; letter-spacing: 0.12em; text-transform: uppercase;">Third time</div>
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.42em; color: #1E3A8A; letter-spacing: 0.12em; text-transform: uppercase;">Third time, same shape</div>
 
-  <h2 style="font-size: 1.45em; line-height: 1.2; margin: 0; text-align: center; max-width: 95%;">
-    Now do it once more, with <span style="color: #1E3A8A;">LLM calls</span> as the effect.
+  <h2 style="font-size: 1.6em; line-height: 1.2; margin: 0; text-align: center;">
+    <span style="color: #1E3A8A;">Effectful LLM</span>
   </h2>
 
-  <div style="display: flex; gap: 1.2em; justify-content: center; font-size: 0.4em; color: #4a4f5a; max-width: 90%;">
-    <div style="flex: 1; max-width: 280px; text-align: left;"><strong style="color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;">RoboTL</strong>: ops are <code>choose / constrain / assert_transform</code>; <code>solve_init</code> samples them.</div>
-    <div style="flex: 1; max-width: 280px; text-align: left;"><strong style="color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;">minipyro</strong>: ops are <code>sample / param</code>; <code>Tracer / Replay / SVI</code> handle them.</div>
-    <div style="flex: 1; max-width: 280px; text-align: left;"><strong style="color: #1E3A8A; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;">Effectful LLM</strong>: ops are <code>Tool / Template</code>; an <code>LiteLLM</code> provider answers.</div>
-  </div>
-
-  <p style="margin: 0; font-size: 0.36em; color: #6b7080; text-align: center; max-width: 80%;">
-    Same shape, three substrates. The next two slides show what an LLM call becomes when it's an op.
-  </p>
+  <p style="margin: 0; font-size: 0.5em; color: #4a4f5a; text-align: center; max-width: 80%;">Ops are <code>Template</code> and <code>Tool</code>; a provider handler answers. What follows: an LLM call as just another function call.</p>
 
 </div>
 </section>
