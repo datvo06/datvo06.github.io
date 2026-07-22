@@ -573,38 +573,45 @@ def CircularPalm(self, n_fingers=3, ...):
 <div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
 
   <div style="flex: 1.35; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.25em; line-height: 1.38; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="|29-32|5-8|11-20|23-26">from effectful.handlers.llm import Template
+    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.24em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="|35-39|4-7|9-17|19-22|24-33">from effectful.handlers.llm import Template
 from effectful.ops.types import NotHandled
-
 
 @Template.define
 def limerick(theme: str) -&gt; str:
     &quot;&quot;&quot;Write a limerick on the theme of {theme}. Do not use any tools.&quot;&quot;&quot;
     raise NotHandled
 
-
 @dataclasses.dataclass
 class KnockKnockJoke:
     whos_there: str
     punchline: str
-
 
 @Template.define
 def write_joke(theme: str) -&gt; KnockKnockJoke:
     &quot;&quot;&quot;Write a knock-knock joke on the theme of {theme}. Do not use any tools.&quot;&quot;&quot;
     raise NotHandled
 
-
 @Template.define
 def rate_joke(joke: KnockKnockJoke) -&gt; bool:
     &quot;&quot;&quot;Decide if {joke} is funny or not. Do not use any tools.&quot;&quot;&quot;
     raise NotHandled
 
+@pydantic.dataclasses.dataclass
+class Rating:
+    score: int          # field_validator: 1 to 5 only
+    explanation: str    # field_validator: must mention the score
 
-with handler(provider):
+@Template.define
+def give_rating_for_movie(movie_name: str) -&gt; Rating:
+    &quot;&quot;&quot;Give a rating for {movie_name}. The explanation MUST
+    include the numeric score. Do not use any tools.&quot;&quot;&quot;
+    raise NotHandled
+
+with handler(provider), handler(RetryLLMHandler()):
     print(limerick(&quot;fish&quot;))
     joke = write_joke(&quot;lizards&quot;)
-    if rate_joke(joke): print(&quot;&gt; The crowd laughs politely.&quot;)</code></pre>
+    if rate_joke(joke): print(&quot;&gt; The crowd laughs politely.&quot;)
+    rating = give_rating_for_movie(&quot;Die Hard&quot;)</code></pre>
   </div>
 
   <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
@@ -1354,7 +1361,7 @@ def judge_design(task: str, losses: list[float],
 
   <script>
     (function () {
-      var OUT = {"": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.", "29-32": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.", "5-8": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.", "11-20": "Knock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!", "23-26": "> The crowd laughs politely.\n\n(rate_joke returned a typed bool: True)"};
+      var OUT = {"": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.\n\nScore: 5/5 (Die Hard, after one\nvalidation retry)", "35-39": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.\n\nScore: 5/5 (Die Hard, after one\nvalidation retry)", "4-7": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.", "9-17": "Knock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!", "19-22": "> The crowd laughs politely.\n\n(rate_joke returned a typed bool: True)", "24-33": "Error: Error decoding response: 1 validation\nerror for Response\nvalue.score\n  score must be 1-5, got 9. Please provide a\n  valid response and try again.\n\nScore: 5/5\nExplanation: Die Hard is a quintessential\naction film that has deeply influenced the\ngenre. [...] It rightfully earns a top score\nof 5 out of 5."};
       function updateOut() {
         var pane = document.getElementById("efftpl-out");
         if (!pane) return;
