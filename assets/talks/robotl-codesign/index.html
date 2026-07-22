@@ -563,6 +563,24 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 </div>
 </section>
 
+<section id="slide-eff-subgoals" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.5em 0;">Three <span style="color: #1E3A8A;">subgoals</span></h2>
+<div style="display: flex; flex-direction: column; gap: 0.7em; max-width: 80%; margin: 0 auto; font-size: 0.5em; text-align: left;">
+  <div class="fragment" data-fragment-index="0" style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.55em 0.9em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">1</span>
+    <div>Modeling LLM calls as <strong>normal function calls</strong>.</div>
+  </div>
+  <div class="fragment" data-fragment-index="1" style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.55em 0.9em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">2</span>
+    <div>Modeling LLM calls as <strong>higher-order functions</strong>.</div>
+  </div>
+  <div class="fragment" data-fragment-index="2" style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.55em 0.9em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
+    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">3</span>
+    <div>Modeling LLM calls as <strong>class methods</strong>.</div>
+  </div>
+</div>
+</section>
+
 <section id="slide-eff-template" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Design goal: <em>an LLM call is just another function call</em></h2>
 
