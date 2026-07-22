@@ -1134,6 +1134,45 @@ iter 6   2F/0T   loss 1.61   turn  0deg   score  2/10
 </div>
 </section>
 
+<section id="slide-rada-itercards" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Four designs the LLM tried, <span style="color: #1E3A8A;">as RoboTL</span></h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">config translated to RoboTL, with the LLM's own verdict. Watch the thumb: dropped for iters 1 to 6 (no opposing grip), restored at iter 7</p>
+<div style="display: flex; gap: 0.6em; align-items: stretch; max-width: 96%; margin: 0 auto;">
+  <div class="fragment" data-fragment-index="0" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-top: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.55em 0.7em; text-align: left; font-size: 0.36em; line-height: 1.5;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: #c08230;">Iter 1</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230;">6/10 &middot; turn 17&deg;</span>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; background: #f6f8fa; border-radius: 4px; padding: 0.35em 0.5em; margin-bottom: 0.3em; color: #1f2330;">DHChain(6) + OPH(2F, <strong style="color: #c08230;">0T</strong>, s=1.8)<br>arm_gain / hand_gain as tuned</div>
+    <div style="color: #4a4f5a;">"...the hand contacts the knob but <strong>does not establish an effective opposing grip for torque</strong>."</div>
+  </div>
+  <div class="fragment" data-fragment-index="1" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-top: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.55em 0.7em; text-align: left; font-size: 0.36em; line-height: 1.5;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: #c0392b;">Iter 3</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b;">2/10 &middot; turn 0&deg;</span>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; background: #f6f8fa; border-radius: 4px; padding: 0.35em 0.5em; margin-bottom: 0.3em; color: #1f2330;">DHChain(6) + OPH(2F, <strong style="color: #c0392b;">0T</strong>, s=1.4)<br>arm_gain / hand_gain as tuned</div>
+    <div style="color: #4a4f5a;">"The knob angle remains unchanged at 0.0 rad... the wrist/hand approach is <strong>misaligned relative to the knob centerline</strong>."</div>
+  </div>
+  <div class="fragment" data-fragment-index="2" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-top: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.55em 0.7em; text-align: left; font-size: 0.36em; line-height: 1.5;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: #c0392b;">Iter 5</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b;">2/10 &middot; turn 0&deg;</span>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; background: #f6f8fa; border-radius: 4px; padding: 0.35em 0.5em; margin-bottom: 0.3em; color: #1f2330;">DHChain(6) + OPH(2F, <strong style="color: #c0392b;">0T</strong>, s=1.3)<br>arm_gain / hand_gain as tuned</div>
+    <div style="color: #4a4f5a;">"Knob rotation is only 0.0004 rad... the hand/wrist posture is <strong>misaligned relative to the knob axis</strong>."</div>
+  </div>
+  <div class="fragment" data-fragment-index="3" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-top: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.55em 0.7em; text-align: left; font-size: 0.36em; line-height: 1.5;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3em;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: #2d6a4f;">Iter 7</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f;">10/10 &middot; turn 90&deg;</span>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; background: #f6f8fa; border-radius: 4px; padding: 0.35em 0.5em; margin-bottom: 0.3em; color: #1f2330;">DHChain(6) + OPH(2F, <strong style="color: #2d6a4f;">1T</strong>, s=1.0)<br>arm_gain / hand_gain as tuned</div>
+    <div style="color: #4a4f5a;">"Essentially perfect success: the knob reaches -1.5721 rad versus the -1.5708 goal, <strong>the full 90&deg; rotation</strong>."</div>
+  </div>
+</div>
+</section>
+
 <section id="slide-rada-auxcards" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Each round, the LLM <span style="color: #1E3A8A;">rewrites the losses</span></h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">per-iteration cards (bottleneck_hand_design): base losses plus the named auxiliary losses the LLM invents that round</p>
