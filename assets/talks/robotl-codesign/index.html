@@ -259,7 +259,7 @@
       <div style="margin: 0 0 0.35em;">propose a body &nbsp;&darr;</div>
       <div style="border: 2px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.4em 0.6em; margin: 0 0 0.35em;">
         <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2em;">Inner loop &middot; control</div>
-        train a controller for this body, from scratch
+        train a controller for this body, from scratch<div style="font-size: 0.75em; color: #6b7080; margin-top: 0.2em;">deep RL, e.g. <a href="https://arxiv.org/abs/1707.02286" style="color:#6b7080;">Heess et al. 2017</a></div>
       </div>
       <div>score the pair &nbsp;&darr;&nbsp; step the body, repeat</div>
     </div>
@@ -298,7 +298,7 @@
     <p style="margin: 0 0 0.5em;">In <a href="https://arxiv.org/abs/2405.14712">ELDiR</a>, differentiable simulation learns each candidate body's controller by gradient descent; the bodies themselves still evolve in a non-differentiable outer loop. <a href="https://arxiv.org/abs/2502.10862">Morphological pretraining</a> goes further: one universal controller, pretrained across millions of bodies. Foundation controllers (universal policies, diffusion policies, VLAs) push the same idea at scale.</p>
     <div style="display: flex; gap: 0.5em; margin: 0.5em auto 0;">
       <div style="flex: 1;"><video src="./media/eldir_diffrobots.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 18vh; object-fit: contain; border-radius: 4px;"></video><p style="margin: 0.2em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">ELDiR (2024): differentiable</p></div>
-      <div style="flex: 1;"><video src="./media/deepmind_parkour.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 18vh; object-fit: contain; border-radius: 4px;"></video><p style="margin: 0.2em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">Heess et al. (2017): deep-RL control</p></div>
+      <div style="flex: 1;"><img src="./media/morphpre_fig.png" alt="One pretrained universal controller across many different body plans" style="width: 100%; max-height: 18vh; object-fit: contain; border-radius: 4px;"><p style="margin: 0.2em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">Morphological pretraining (Strgar &amp; Kriegman 2025): one controller, many bodies</p></div>
     </div>
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
