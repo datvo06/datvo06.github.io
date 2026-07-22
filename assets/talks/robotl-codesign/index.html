@@ -1391,7 +1391,7 @@ def judge_design(task: str, losses: list[float],
         showNotes: false,
 
         // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: null,
+        autoPlayMedia: true,  // (re)start videos every time a slide is shown, so looping clips do not freeze after navigating away and back
 
         // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
