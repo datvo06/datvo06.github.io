@@ -318,7 +318,7 @@
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; justify-content: center;">
     <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> exact gradients train a strong controller for a body far more cheaply than sampling.</div>
-    <div class="fragment" data-fragment-index="2" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> it needs a purpose-built differentiable physics engine, and only works on bodies whose dynamics differentiate cleanly. Stiff rigid contact and friction, the grasping and in-hand manipulation we care about, are non-smooth, so the gradient turns biased or exploding right where it is needed.</div>
+    <div class="fragment" data-fragment-index="2" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> generality. Some processes are not differentiable, and some bodies are also not differentiable.</div>
     <div class="fragment" data-fragment-index="3" style="display: flex; gap: 0.5em;">
       <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.4em 0.4em 0.2em; text-align: center;">
         <svg viewBox="0 0 130 68" style="width: 100%; height: auto;">
