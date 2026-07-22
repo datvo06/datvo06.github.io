@@ -502,13 +502,13 @@ def CircularPalm(self, n_fingers=3, ...):
     </div>
     <div>
       <video src="./media/mpc_cube_demo.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 26vh; object-fit: contain; border-radius: 6px; background: #fafbfc;"></video>
-      <p style="margin: 0.15em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">The rollout, rendered (control_cube_spinning.ipynb)</p>
+      <p style="margin: 0.15em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">The same run, rendered</p>
     </div>
   </div>
 </div>
 <div style="margin: 0.4em auto 0; max-width: 88%;">
-  <img src="./media/mpc_demo_plots.png" alt="Loss per step and executed control channels from the control demo notebook" style="width: 100%; max-height: 16vh; object-fit: contain; background: #ffffff; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.2em;">
-  <p style="margin: 0.15em 0 0; font-size: 0.32em; color: #6b7080; text-align: center;">A real run (control_demo.ipynb): MPC spinning a cube with the LEAP hand, 5 seconds at dt = 0.05. The declared loss collapses within the first steps; on the right, the spline control channels MPC actually executed.</p>
+  <img src="./media/mpc_demo_plots.png" alt="Total and per-term losses from the re-executed cube spinning run" style="width: 100%; max-height: 16vh; object-fit: contain; background: #ffffff; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.2em;">
+  <p style="margin: 0.15em 0 0; font-size: 0.32em; color: #6b7080; text-align: center;">One run of control_cube_spinning.ipynb, re-executed for this slide (papermill): 8 seconds at dt = 0.01, batch-64 MPPI. The declared total and per-term losses (nodrop, nolinvel, offaxis, onaxis) settle to zero as the spin stabilizes.</p>
 </div>
 <div class="fragment" style="margin: 0.45em auto 0; max-width: 30em; border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.55em 0.9em; border-radius: 0 8px 8px 0; text-align: left;">
   <p style="margin: 0; font-size: 0.5em;">You have a model, you have an objective function: <strong>the controller comes for free</strong>.</p>
