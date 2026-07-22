@@ -178,12 +178,13 @@
       </div>
       <div>score the pair &nbsp;&darr;&nbsp; step the body, repeat</div>
     </div>
-    <p style="margin: 0; font-size: 0.4em; text-align: left; line-height: 1.5; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.45em 0.7em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">cost = bodies explored &times; one full controller training each.</span> In the video's own paper: population 300 for 100 generations took about three hours on a 32-processor Connection Machine CM-5 (Sims 1994). Three decades later the shape is the same: massively parallel RL still needs about twenty minutes per controller for uneven-terrain locomotion on a workstation GPU (<a href="https://arxiv.org/abs/2109.11978">Rudin et al. 2021</a>), and none of it is reused for the next body.</p>
+    <p style="margin: 0; font-size: 0.4em; text-align: left; line-height: 1.5; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.45em 0.7em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">cost = bodies explored &times; one full controller training each.</span> Three decades after Sims, the shape is the same: massively parallel RL still needs about twenty minutes per controller for uneven-terrain locomotion on a workstation GPU (<a href="https://arxiv.org/abs/2109.11978">Rudin et al. 2021</a>), and none of it is reused for the next body.</p>
     <p style="margin: 0; font-size: 0.36em; color: #6b7080; text-align: left;">Evolutionary co-design (Sims 1994, <a href="https://arxiv.org/abs/2406.19963">Text2Robot</a> 2024) is the population form of the same nested loop.</p>
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
-    <div>
+    <div style="position: relative;">
       <video src="./media/sims_evolved_creatures.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 18vh; object-fit: contain; border-radius: 4px;"></video>
+      <div style="position: absolute; left: 3%; bottom: 1.7em; max-width: 76%; border: 1px solid #1E3A8A; border-left: 3px solid #1E3A8A; border-radius: 6px; background: rgba(255,255,255,0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.14); padding: 0.35em 0.55em; font-size: 0.3em; line-height: 1.45; text-align: left; color: #1f2330;">In this paper: population 300 &times; 100 generations, about <strong>three hours</strong> on a 32-processor Connection Machine CM-5.</div>
       <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">Karl Sims, Evolved Virtual Creatures (1994)</p>
     </div>
     <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> the true coupling of body and controller; principled scoring of a design.</div>
