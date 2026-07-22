@@ -142,15 +142,26 @@
 <p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">One directed-graph genotype encodes both the body and the brain; a genetic algorithm searches it</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto; font-size: 0.4em; text-align: left;">
   <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; gap: 0.5em;">
-    <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.2em;">The genotype</div>
-      A nested directed graph: the outer graph is the morphology (parts, joints), and each part carries an inner graph, its neural circuit. Body and brain are the same kind of object.
+    <div class="fragment" data-fragment-index="0" title="A nested directed graph: the outer graph is the morphology (parts, joints), and each part carries an inner graph, its neural circuit. Body and brain are the same kind of object." style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; cursor: help;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.35em;">The genotype: a nested directed graph</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.8em; line-height: 1.6; color: #1f2330;">
+        <span style="color: #1E3A8A; font-weight: 700;">Graph</span> <span style="color: #6b7080;">// the body</span><br>
+        &nbsp;&nbsp;├─ <strong>Node</strong> = body part { shape, joint }<br>
+        &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└─ brain : <span style="color: #1E3A8A; font-weight: 700;">Graph</span> <span style="color: #6b7080;">// of neurons</span><br>
+        &nbsp;&nbsp;└─ <strong>Edge</strong> = connection { reflect, scale }
+      </div>
+      <div style="margin-top: 0.3em; font-size: 0.82em; color: #4a4f5a;">Body and brain are the <strong>same kind of object</strong>: a directed graph nested inside a directed graph.</div>
     </div>
-    <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; margin-bottom: 0.2em;">The control: sensors &rarr; neurons &rarr; effectors</div>
-      <strong>Sensors:</strong> joint-angle, contact (&plusmn;1), photosensors.<br>
-      <strong>Neurons:</strong> a dataflow graph over sum, product, min, max, if, sin, cos, atan, log, ..., recurrent, so it has internal state.<br>
-      <strong>Effectors:</strong> each takes one neuron value, scales it by a <strong>weight</strong>, and applies it as a joint force.
+    <div class="fragment" data-fragment-index="1" title="Sensors: joint-angle, contact (±1), photosensors. Neurons: a dataflow graph over sum, product, min, max, if, sin, cos, atan, log, ..., recurrent, so it has internal state. Effectors: each takes one neuron value, scales it by a weight, and applies it as a joint force." style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; cursor: help;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; margin-bottom: 0.35em;">The control: a dataflow from sensors to effectors</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.8em; line-height: 1.6; color: #1f2330;">
+        <span style="color: #c08230; font-weight: 700;">Control</span> : Sensors &rarr; Effectors<br><br>
+        <strong>Sensor</strong>&nbsp;&nbsp;&nbsp;= joint-angle | contact(&plusmn;1) | photo<br>
+        <strong>Neuron</strong>&nbsp;&nbsp;&nbsp;= f(inputs),&nbsp; f &isin; { sum, product, min, max,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if, sin, cos, atan, log, ... }<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ recurrent state<br>
+        <strong>Effector</strong> = <span style="color: #c08230; font-weight: 700;">weight</span> &middot; neuron &rarr; joint force
+      </div>
     </div>
     <div class="fragment" data-fragment-index="2" style="border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.75em; border-radius: 0 8px 8px 0;">
       No training. The effector <strong>weights are genes</strong>: mutated by relative-scaled Gaussian steps and crossed over as whole subgraphs. The GA tunes morphology and control weights together.
