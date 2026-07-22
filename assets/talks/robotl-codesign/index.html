@@ -1132,6 +1132,25 @@ iter 6   2F/0T   loss 1.61   turn  0deg   score  2/10
 </div>
 </section>
 
+<section id="slide-rada-auxcards" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Each round, the LLM <span style="color: #1E3A8A;">rewrites the losses</span></h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">per-iteration cards (bottleneck_hand_design): base losses plus the named auxiliary losses the LLM invents that round</p>
+<div style="display: flex; gap: 0.6em; align-items: flex-start; max-width: 96%; margin: 0 auto;">
+  <div style="flex: 1; min-width: 0;">
+    <img src="./media/dl_itercard_0.png" alt="Iteration 0 losses" style="width: 100%; border: 1px solid #d0d5dc; border-radius: 4px;">
+    <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;"><strong>Iter 0</strong> (2/10): no auxiliary losses. Base loss flat at 1.58.</p>
+  </div>
+  <div class="fragment" data-fragment-index="0" style="flex: 2; min-width: 0;">
+    <img src="./media/dl_itercard_1.png" alt="Iteration 1 losses" style="width: 100%; border: 1px solid #d0d5dc; border-radius: 4px;">
+    <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;"><strong>Iter 1</strong> (6/10): 7 aux terms (approach_stage, forward_progress_y, knob_depth_alignment, ...). Loss dips to 1.29.</p>
+  </div>
+  <div class="fragment" data-fragment-index="1" style="flex: 2; min-width: 0;">
+    <img src="./media/dl_itercard_7.png" alt="Iteration 7 losses" style="width: 100%; border: 2px solid #2d6a4f; border-radius: 4px;">
+    <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;"><strong style="color: #2d6a4f;">Iter 7</strong> (10/10): refined terms (staged_centerline_insert, entrance_band_x, ...). Base loss collapses to 0.004.</p>
+  </div>
+</div>
+</section>
+
 <section id="slide-rada-designresult" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Iteration 7, <span style="color: #1E3A8A;">the design that worked</span></h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">bottleneck_hand_design (RoboTL-395): baseline cannot turn the knob inside the box; the co-designed arm + hand reaches in and turns it 90 degrees</p>
