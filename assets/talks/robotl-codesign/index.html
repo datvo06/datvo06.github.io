@@ -1032,7 +1032,7 @@ with handler(LiteLLMProvider()), handler(RetryLLMHandler()):
 
 <section id="slide-eff-repro-densereward" class="slide level2">
 <style>#slide-eff-repro-densereward pre code, #slide-eff-repro-densereward pre { white-space: pre-wrap !important; word-break: break-word; }</style>
-<h2 style="font-size: 0.9em; margin: 0 0 0.12em 0;">Reproducing the <span style="color: #1E3A8A;">dense reward</span>: the LLM writes the loss</h2>
+<h2 style="font-size: 0.9em; margin: 0 0 0.12em 0;">Control is also a <span style="color: #1E3A8A;">program synthesis</span> problem</h2>
 <p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">robotl/examples/loss_designer.py: a Template returns a function. The LLM writes aux_losses; it is executed and, if invalid, retried.</p>
 <div style="display: flex; gap: 0.7em; align-items: stretch; max-width: 97%; margin: 0 auto;">
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em;">
