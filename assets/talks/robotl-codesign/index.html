@@ -737,14 +737,14 @@ def Finger(self, tip: Component | None = None):
 def CubeSpinEnv(self, robot: Component, spin_axis=...):
     ...
     world_angvel = self.cube.axes @ self.cube.angvel
-    self.losses = dict(
-        nolinvel=Nullify(self.cube.linvel, weight=1e-1),
-        nodrop=KeepAbove(self.cube.pos[2], 0.1, weight=1e1),
-        onaxis=Maximize(jnp.abs(world_angvel @ spin_axis),
-                        weight=1e-2),
-        offaxis=Nullify(jnp.cross(world_angvel, spin_axis),
-                        weight=1e-2),
-    )</code></pre>
+    self.losses = {
+        "nolinvel": Nullify(self.cube.linvel, weight=0.1),
+        "nodrop": KeepAbove(self.cube.pos[2], 0.1, weight=10.0),
+        "onaxis": Maximize(jnp.abs(world_angvel @ spin_axis),
+                           weight=0.01),
+        "offaxis": Nullify(jnp.cross(world_angvel, spin_axis),
+                           weight=0.01),
+    }</code></pre>
     </div>
     <div>
       <video src="./media/mpc_cube_spin.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 26vh; object-fit: contain; border-radius: 6px; background: #fafbfc;"></video>
@@ -1044,26 +1044,26 @@ with handler(LossEvalProvider()), handler(
     aux = agent.design_losses(env_src, robot_src, task, fb)</code></pre>
     <div style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.4em 0.6em; font-size: 0.34em; line-height: 1.5; text-align: left;"><strong style="color:#c0392b;">Invalid code bounces back.</strong> An earlier iteration returned <code>def synthesize(component): return build_design(component)</code> (undefined name); the eval handler raised, and <code>RetryLLMHandler</code> fed the error back.</div>
   </div>
-  <div style="flex: 1.1; min-width: 0; display: flex; flex-direction: column; gap: 0.35em;">
-    <pre style="margin: 0; font-size: 0.26em; line-height: 1.38; overflow: hidden; white-space: pre-wrap; word-break: break-word;"><code class="language-python" data-trim data-noescape># what the LLM wrote (iteration 7):
-def aux_losses(env) -&gt; dict:
-    tip = env.robot.tip.pos
-    target = env.target.pos
-    entrance = jnp.array([0.0, 1.1, target[2] - 0.01])
-    pregrasp = jnp.array([0.0, target[1] - 0.03, target[2]])
-    t = sim_time()
-    s1 = jnp.clip(t / 1.0, 0.0, 1.0)
-    s2 = jnp.clip((t - 1.0) / 1.5, 0.0, 1.0)
-    guide = (1.0 - s1) * entrance + s1 * ((1.0 - s2) * pregrasp + s2 * target)
-    return {
-        "staged_centerline_insert": Equalize(tip, guide, weight=0.012),
-        "forward_progress": Maximize(tip[1], weight=0.008),
-        "depth_match": Nullify(tip[1] - target[1], weight=0.02),
-        "height_match": Nullify(tip[2] - target[2], weight=0.015),
-        "soft_center_x": Nullify(tip[0], weight=0.006),
-        "entrance_band_x": KeepBelow(jnp.abs(tip[0]), 0.05, weight=0.015),
+  <div style="flex: 1.1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.4em; text-align: left;">
+    <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.55em 0.75em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">What the LLM writes: a morphology, and this loss</div>
+      <pre style="margin: 0; font-size: 0.62em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim>@defcomponent
+def CubeSpinEnv(self, robot: Component, spin_axis=...):
+    ...
+    world_angvel = self.cube.axes @ self.cube.angvel
+    self.losses = {
+        "nolinvel": Nullify(self.cube.linvel, weight=0.1),
+        "nodrop": KeepAbove(self.cube.pos[2], 0.1, weight=10.0),
+        "onaxis": Maximize(jnp.abs(world_angvel @ spin_axis),
+                           weight=0.01),
+        "offaxis": Nullify(jnp.cross(world_angvel, spin_axis),
+                           weight=0.01),
     }</code></pre>
-    <div style="border-left: 4px solid #2d6a4f; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.4em 0.65em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Result.</strong> With-container task: loss 1.6253 &rarr; <strong>0.0038</strong>, knob 0&deg; &rarr; 90.1&deg;. The rollout is in the results section.</div>
+    </div>
+    <div>
+      <video src="./media/mpc_cube_spin.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 26vh; object-fit: contain; border-radius: 6px; background: #fafbfc;"></video>
+      <p style="margin: 0.15em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">The same run, rendered: the LEAP v1 hand spinning the cube</p>
+    </div>
   </div>
 </div>
 </section>
@@ -1171,11 +1171,6 @@ def judge_design(task: str, losses: list[float],
 </div>
 </section>
 
-<section id="slide-rada-05" class="slide level2" data-background-color="#fafbfc">
-<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Our LLM Co-Design Pipeline</h2>
-<img src="../basis-2026/media/codesign/image14.png" alt="codesign pipeline diagram" style="display: block; margin: 0 auto; max-width: 95%; max-height: 75vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
-</section>
-
 <section id="slide-rada-06" class="slide level2">
 <h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Our challenge task</h2>
 <div style="display: flex; gap: 1.2em; align-items: center; justify-content: center; font-size: 0.42em; text-align: left;">
@@ -1242,6 +1237,11 @@ def judge_design(task: str, losses: list[float],
 </div>
 </section>
 
+<section id="slide-rada-05" class="slide level2" data-background-color="#fafbfc">
+<h2 style="font-size: 1em; margin: 0 0 0.4em 0;">Our LLM Co-Design Pipeline</h2>
+<img src="../basis-2026/media/codesign/image14.png" alt="codesign pipeline diagram" style="display: block; margin: 0 auto; max-width: 95%; max-height: 75vh; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+</section>
+
 <section id="slide-rada-itercards" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Four designs the LLM tried, <span style="color: #1E3A8A;">as RoboTL</span></h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">config translated to RoboTL, with the LLM's own verdict. Watch the thumb: dropped for iters 1 to 6 (no opposing grip), restored at iter 7</p>
@@ -1286,43 +1286,90 @@ def judge_design(task: str, losses: list[float],
 </section>
 
 <section id="slide-rada-auxcards" class="slide level2">
+<style>#slide-rada-auxcards pre code, #slide-rada-auxcards pre { white-space: pre-wrap !important; word-break: break-word; }</style>
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Each round, the LLM <span style="color: #1E3A8A;">rewrites the losses</span></h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">per-iteration cards (bottleneck_hand_design): base losses plus the named auxiliary losses the LLM invents that round</p>
-<div style="display: flex; gap: 0.6em; align-items: flex-start; max-width: 96%; margin: 0 auto;">
-  <div style="flex: 1; min-width: 0;">
+<div style="display: flex; gap: 0.55em; align-items: flex-start; max-width: 97%; margin: 0 auto;">
+  <div style="flex: 0.85; min-width: 0;">
     <img src="./media/dl_itercard_0.png" alt="Iteration 0 losses" style="width: 100%; border: 1px solid #d0d5dc; border-radius: 4px;">
-    <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;"><strong>Iter 0</strong> (2/10): no auxiliary losses. Base loss flat at 1.58.</p>
+    <p style="margin: 0.15em 0 0; font-size: 0.28em; color: #6b7080; text-align: center;"><strong>Iter 0</strong> (2/10): no auxiliary losses. Base loss flat at 1.58.</p>
   </div>
-  <div class="fragment" data-fragment-index="0" style="flex: 2; min-width: 0;">
+  <div class="fragment" data-fragment-index="0" style="flex: 1.7; min-width: 0;">
     <img src="./media/dl_itercard_1.png" alt="Iteration 1 losses" style="width: 100%; border: 1px solid #d0d5dc; border-radius: 4px;">
-    <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;"><strong>Iter 1</strong> (6/10): 7 aux terms (approach_stage, forward_progress_y, knob_depth_alignment, ...). Loss dips to 1.29.</p>
+    <p style="margin: 0.15em 0 0.1em; font-size: 0.28em; color: #6b7080; text-align: center;"><strong>Iter 1</strong> (6/10): 7 aux terms. Loss dips to 1.29.</p>
+    <pre style="margin:0.2em 0 0; font-size:0.2em; line-height:1.35; overflow:hidden;"><code class="language-python" data-trim data-noescape># what the LLM wrote (iteration 1):
+def aux_losses(env) -&gt; dict:
+    tip = env.robot.tip.pos
+    target = env.target.pos
+    entrance = jnp.array([0.0, 1.1, target[2]])
+    mid = 0.5 * (entrance + target)
+    t = sim_time()
+    guide = jnp.clip((t - 1.5) / 1.5, 0.0, 1.0)
+    stage_point = (1.0 - guide) * entrance + guide * mid
+    return {
+        "approach_stage": Equalize(tip, stage_point, weight=0.03),
+        "forward_progress_y": Maximize(tip[1], weight=0.02),
+        "inside_container_y": KeepAbove(tip[1], 1.22, weight=0.04),
+        "knob_depth_alignment": Nullify(tip[1] - target[1], weight=0.05),
+        "knob_height_alignment": Nullify(tip[2] - target[2], weight=0.04),
+        "tight_center_x": Nullify(tip[0], weight=0.03),
+        "wrist_room_below_ceiling": KeepBelow(tip[2], 0.42, weight=0.02),
+    }</code></pre>
   </div>
-  <div class="fragment" data-fragment-index="1" style="flex: 2; min-width: 0;">
+  <div class="fragment" data-fragment-index="1" style="flex: 1.7; min-width: 0;">
     <img src="./media/dl_itercard_7.png" alt="Iteration 7 losses" style="width: 100%; border: 2px solid #2d6a4f; border-radius: 4px;">
-    <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;"><strong style="color: #2d6a4f;">Iter 7</strong> (10/10): refined terms (staged_centerline_insert, entrance_band_x, ...). Base loss collapses to 0.004.</p>
+    <p style="margin: 0.15em 0 0.1em; font-size: 0.28em; color: #6b7080; text-align: center;"><strong style="color: #2d6a4f;">Iter 7</strong> (10/10): refined terms. Base loss collapses to 0.004.</p>
+    <pre style="margin:0.2em 0 0; font-size:0.2em; line-height:1.35; overflow:hidden;"><code class="language-python" data-trim data-noescape># what the LLM wrote (iteration 7):
+def aux_losses(env) -&gt; dict:
+    tip = env.robot.tip.pos
+    target = env.target.pos
+    entrance = jnp.array([0.0, 1.1, target[2] - 0.01])
+    pregrasp = jnp.array([0.0, target[1] - 0.03, target[2]])
+    t = sim_time()
+    s1 = jnp.clip(t / 1.0, 0.0, 1.0)
+    s2 = jnp.clip((t - 1.0) / 1.5, 0.0, 1.0)
+    guide = (1.0 - s1) * entrance + s1 * ((1.0 - s2) * pregrasp + s2 * target)
+    return {
+        "staged_centerline_insert": Equalize(tip, guide, weight=0.012),
+        "forward_progress": Maximize(tip[1], weight=0.008),
+        "depth_match": Nullify(tip[1] - target[1], weight=0.02),
+        "height_match": Nullify(tip[2] - target[2], weight=0.015),
+        "soft_center_x": Nullify(tip[0], weight=0.006),
+        "entrance_band_x": KeepBelow(jnp.abs(tip[0]), 0.05, weight=0.015),
+    }</code></pre>
   </div>
-</div>
-<div style="max-width: 40%; margin: 0.5em auto 0;">
-  <video src="./media/dl_designed.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 16vh; object-fit: contain; border-radius: 6px; background: #fafbfc;"></video>
-  <p style="margin: 0.1em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">the refined losses, run: iter 7 turns the knob (loss 0.004)</p>
 </div>
 </section>
 
 <section id="slide-rada-designresult" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Iteration 7, <span style="color: #1E3A8A;">the design that worked</span></h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">bottleneck_hand_design (RoboTL-395): baseline cannot turn the knob inside the box; the co-designed arm + hand reaches in and turns it 90 degrees</p>
-<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
-  <div style="flex: 1; min-width: 0;">
-    <video src="./media/dl_baseline.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 30vh; object-fit: contain; border-radius: 6px; background: #fafbfc;"></video>
-    <p style="margin: 0.15em 0 0; font-size: 0.32em; color: #6b7080; text-align: center;"><strong>Baseline</strong>: knob does not turn. loss 1.625</p>
+<style>#slide-rada-designresult pre code, #slide-rada-designresult pre { white-space: pre-wrap !important; word-break: break-word; }</style>
+<div style="display: flex; gap: 0.9em; align-items: stretch; max-width: 95%; margin: 0 auto;">
+  <div style="flex: 1; min-width: 0; display:flex; flex-direction:column; justify-content:center;">
+    <video src="./media/dl_designed.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 48vh; object-fit: contain; border-radius: 6px; background: #fafbfc;"></video>
+    <p style="margin: 0.2em 0 0; font-size: 0.36em; color: #6b7080; text-align: center;"><strong style="color: #2d6a4f;">Co-designed</strong>: reaches into the box and turns the knob 90 degrees. loss 1.625 &rarr; <strong>0.004</strong>.</p>
   </div>
-  <div style="flex: 1; min-width: 0;">
-    <video src="./media/dl_designed.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 30vh; object-fit: contain; border-radius: 6px; background: #fafbfc;"></video>
-    <p style="margin: 0.15em 0 0; font-size: 0.32em; color: #6b7080; text-align: center;"><strong style="color: #2d6a4f;">Co-designed</strong>: turns it 90 degrees. loss 0.004</p>
-  </div>
-  <div class="fragment" style="flex: 1.05; min-width: 0; display: flex; flex-direction: column; justify-content: center;">
-    <img src="./media/dl_gallery_bottleneck.png" alt="Design gallery: initial and final frames, baseline vs co-designed" style="width: 100%; border-radius: 4px; border: 1px solid #d0d5dc;">
-    <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">Initial and final frames (notebook design gallery)</p>
+  <div style="flex: 1.05; min-width: 0; display:flex; flex-direction:column;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#c08230; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">The loss the LLM designed (iteration 7)</div>
+    <pre style="margin:0; font-size:0.235em; line-height:1.38; overflow:hidden;"><code class="language-python" data-trim data-noescape># what the LLM wrote (iteration 7):
+def aux_losses(env) -&gt; dict:
+    tip = env.robot.tip.pos
+    target = env.target.pos
+    entrance = jnp.array([0.0, 1.1, target[2] - 0.01])
+    pregrasp = jnp.array([0.0, target[1] - 0.03, target[2]])
+    t = sim_time()
+    s1 = jnp.clip(t / 1.0, 0.0, 1.0)
+    s2 = jnp.clip((t - 1.0) / 1.5, 0.0, 1.0)
+    guide = (1.0 - s1) * entrance + s1 * ((1.0 - s2) * pregrasp + s2 * target)
+    return {
+        "staged_centerline_insert": Equalize(tip, guide, weight=0.012),
+        "forward_progress": Maximize(tip[1], weight=0.008),
+        "depth_match": Nullify(tip[1] - target[1], weight=0.02),
+        "height_match": Nullify(tip[2] - target[2], weight=0.015),
+        "soft_center_x": Nullify(tip[0], weight=0.006),
+        "entrance_band_x": KeepBelow(jnp.abs(tip[0]), 0.05, weight=0.015),
+    }</code></pre>
   </div>
 </div>
 </section>
