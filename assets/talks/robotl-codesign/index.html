@@ -1003,7 +1003,6 @@ with handler(LiteLLMProvider()), handler(RetryLLMHandler()):
 <section id="slide-eff-lang2morph-mvr" class="slide level2">
 <style>#slide-eff-lang2morph-mvr pre code, #slide-eff-lang2morph-mvr pre { white-space: pre-wrap !important; word-break: break-word; }</style>
 <h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Morphology Validity Rate: <span style="color:#1E3A8A;">the paper vs ours</span></h2>
-<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The share of generated hands that pass every morphological constraint. Same trend both ways.</p>
 <div style="display: flex; flex-direction: row-reverse; gap: 0.9em; align-items: flex-start; max-width: 94%; margin: 0 auto;">
   <div style="flex: 1; min-width: 0; display:flex; flex-direction:column; gap:0.4em;"><div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.5em 0.7em; font-size:0.4em; text-align:left;"><div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.25em;">Our reproduction (RoboTL)</div><div style="display:flex; font-family:'IBM Plex Mono',monospace; font-size:0.82em; color:#6b7080; letter-spacing:0.03em;"><div style="flex:1.5;">method</div><div style="flex:1.1;">LLM</div><div style="flex:0.6; text-align:right;">MVR</div><div style="flex:0.4; text-align:right;">N</div></div><div style="display:flex; font-family:'IBM Plex Mono',monospace; padding:0.18em 0; border-top:1px solid #e3e6ea; color:#1f2330; font-weight:400;"><div style="flex:1.5;">Random</div><div style="flex:1.1;">none</div><div style="flex:0.6; text-align:right;">0.11</div><div style="flex:0.4; text-align:right; color:#6b7080;">27</div></div><div style="display:flex; font-family:'IBM Plex Mono',monospace; padding:0.18em 0; border-top:1px solid #e3e6ea; color:#1f2330; font-weight:400;"><div style="flex:1.5;">Zero-Shot</div><div style="flex:1.1;">gpt-4o</div><div style="flex:0.6; text-align:right;">0.89</div><div style="flex:0.4; text-align:right; color:#6b7080;">27</div></div><div class="fragment" style="display:flex; font-family:'IBM Plex Mono',monospace; padding:0.2em 0.3em; margin-top:0.12em; border-radius:4px; background:#e4f3ea; color:#2d6a4f; font-weight:700;"><div style="flex:1.5;">Lang2Morph</div><div style="flex:1.1;">gpt-4o</div><div style="flex:0.6; text-align:right;">1.00</div><div style="flex:0.4; text-align:right; color:#2d6a4f;">41</div></div></div><div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fff; padding:0.45em 0.6em; font-size:0.36em; line-height:1.45; text-align:left;"><div style="margin-bottom:0.2em;"><strong>1.00, across 41 attempts, 0 failures.</strong> The <strong style="color:#c08230;">RetryLLMHandler</strong> catches an invalid geometry and re-asks:</div><pre style="margin:0; font-size:0.72em; line-height:1.4;"><code class="language-python" data-trim data-noescape>with handler(LiteLLMProvider()), handler(RetryLLMHandler()):
     hand = designer.design_geometry(...)</code></pre></div></div>
@@ -1177,7 +1176,6 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 
 <section id="slide-rada-itercards" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Watching the LLM <span style="color: #1E3A8A;">Progress</span></h2>
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">each round's RoboTL config (finger scale, thumb) and the LLM's own verdict. For iters 1 to 5 the arm never lines up with the knob inside the box; iter 7 finally reaches it and turns it</p>
 <div style="display: flex; gap: 0.6em; align-items: stretch; max-width: 96%; margin: 0 auto;">
   <div class="fragment" data-fragment-index="0" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-top: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.55em 0.7em; text-align: left; font-size: 0.36em; line-height: 1.5;">
     <video src="./media/itercard_vid_1.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 12vh; object-fit: contain; border-radius: 4px; background: #fafbfc; margin-bottom: 0.35em;"></video>
@@ -1221,7 +1219,6 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 <section id="slide-rada-auxcards" class="slide level2">
 <style>#slide-rada-auxcards pre code, #slide-rada-auxcards pre { white-space: pre-wrap !important; word-break: break-word; }</style>
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Each round, the LLM <span style="color: #1E3A8A;">rewrites the losses</span></h2>
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">per-iteration cards (bottleneck_hand_design): base losses plus the named auxiliary losses the LLM invents that round</p>
 <div style="display: flex; gap: 0.55em; align-items: flex-start; max-width: 97%; margin: 0 auto;">
   <div style="flex: 0.85; min-width: 0;">
     <img src="./media/dl_itercard_0.png" alt="Iteration 0 losses" style="width: 100%; border: 1px solid #d0d5dc; border-radius: 4px;">
@@ -1276,7 +1273,6 @@ def aux_losses(env) -&gt; dict:
 
 <section id="slide-rada-designresult" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Iteration 7, <span style="color: #1E3A8A;">the design that worked</span></h2>
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">bottleneck_hand_design (RoboTL-395): baseline cannot turn the knob inside the box; the co-designed arm + hand reaches in and turns it 90 degrees</p>
 <style>#slide-rada-designresult pre code, #slide-rada-designresult pre { white-space: pre-wrap !important; word-break: break-word; }</style>
 <div style="display: flex; gap: 0.9em; align-items: stretch; max-width: 95%; margin: 0 auto;">
   <div style="flex: 1; min-width: 0; display:flex; flex-direction:column; justify-content:center;">
@@ -1376,7 +1372,7 @@ def aux_losses(env) -&gt; dict:
       <span style="font-family: 'IBM Plex Mono', monospace; color: #c0392b; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;">State estimation</span>
     </div>
     <p style="margin: 0 0 0.4em; color: #4a4f5a;">Today the env hands over state directly; real deployment needs to estimate it from sensors.</p>
-    <video src="./media/enkf_state.mp4" autoplay loop muted playsinline style="width: 100%; margin-top: auto; border-radius: 5px; border: 1px solid #f3d0c8; background: #fff;"></video>
+    <video src="./media/enkf_state.mp4" autoplay loop muted playsinline style="width: 100%; margin-top: 0.4em; border-radius: 5px; border: 1px solid #f3d0c8; background: #fff;"></video>
   </div>
 
   <div style="flex: 1; max-width: 310px; display: flex; flex-direction: column; padding: 0.6em 0.75em; border: 1px solid #f3d0c8; border-left: 3px solid #c0392b; border-radius: 5px; background: #fdf5f3;">
