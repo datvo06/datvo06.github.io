@@ -938,9 +938,6 @@ with handler(provider), handler(UnsafeEvalProvider()):
 <section id="slide-eff-lang2morph-context" class="slide level2">
 <h2 style="font-size: 0.9em; margin: 0 0 0.12em 0;">Reproducing <span style="color: #1E3A8A;">Lang2Morph</span> in RoboTL</h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Qiao, Gilday, Xie, Hughes (EPFL CREATE Lab) &middot; arXiv:2509.18937, 2025. Natural language in, a 3D-printable task-specific hand out.</p>
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.8em; border-radius: 0 8px 8px 0; max-width: 95%; margin: 0 auto 0.3em; text-align: left;">
-  <p style="margin: 0; font-size: 0.38em; line-height: 1.5;"><strong style="color:#1E3A8A;">The method.</strong> The LLM analyzes the task at two levels (semantic and structure), drafts a hand over the <strong>Open Parametric Hand (OPH)</strong>, and a selection-and-refinement loop revises it against CAD renders across <strong>~5 iterations</strong>. <em style="color:#1E3A8A;">We only reproduced this paper; R-ADA is the separate work.</em></p>
-</div>
 <img src="./media/lang2morph_pipeline.png" alt="Lang2Morph pipeline: user intent to LLM-powered morphology design to OPH parameters to CAD rendering, with an LLM-guided selection and refinement feedback loop" style="display:block; margin: 0.35em auto 0; max-width: 94%; max-height: 47vh; border-radius: 6px;">
 <p style="margin: 0.2em auto 0; max-width: 92%; font-size: 0.3em; color: #6b7080; text-align: center;">The Lang2Morph pipeline (Qiao et al. 2025). We reproduced it in RoboTL: the OPH parameters compile to a MuJoCo hand.</p>
 </section>
