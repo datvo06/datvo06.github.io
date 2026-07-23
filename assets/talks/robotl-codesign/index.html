@@ -948,7 +948,7 @@ with handler(provider), handler(UnsafeEvalProvider()):
 <p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">docs/source/lang2morph.ipynb: a staged pipeline of typed Templates. The return type is the contract, and validators push back.</p>
 <div style="display: flex; gap: 0.7em; align-items: stretch; max-width: 96%; margin: 0 auto;">
   <div style="flex: 1.25; min-width: 0;">
-    <pre style="margin: 0; font-size: 0.27em; line-height: 1.42; overflow: hidden;"><code class="language-python" data-trim data-noescape>class Lang2MorphDesigner(Agent):          # one shared history
+    <pre style="margin: 0; font-size: 0.235em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim data-noescape>class Lang2MorphDesigner(Agent):          # one shared history
     @Template.define
     def design_grammar(self, schema: SemanticSchema
                        ) -&gt; StructureGrammar:
@@ -956,14 +956,25 @@ with handler(provider), handler(UnsafeEvalProvider()):
         raise NotHandled
 
     @Template.define
+    def assess_grammar(self, grammar: StructureGrammar,
+                       schema: SemanticSchema
+                       ) -&gt; LLMValidationAssessment:
+        raise NotHandled
+
+    @Template.define
     def design_geometry(self, schema, grammar, prior
                         ) -&gt; ReducedHandConfig:
         raise NotHandled
 
+@Template.define
+def _evaluate(design_context, views) -&gt; SelectionResult:  # assess the design
+    raise NotHandled
+
 with handler(LiteLLMProvider()), handler(RetryLLMHandler()):
     schema  = designer.generate_semantic_schema(task, grasp, views)
-    grammar = designer.design_grammar(schema)
-    hand    = designer.design_geometry(schema, grammar, prior)</code></pre>
+    grammar = designer.design_grammar(schema)     # calls assess_grammar
+    hand    = designer.design_geometry(schema, grammar, prior)
+    best    = _evaluate(design_context, views)</code></pre>
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em;">
     <div style="font-size:0.4em; text-align:left; line-height:1.4;"><div style="border:1px solid #d0d5dc; border-left:3px solid #1f2330; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1f2330; font-size:0.9em;">task</span> <span style="color:#4a4f5a;">"lift and hold a large bottle" (force_based)</span></div><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.1em 0;">&darr; SemanticSchema</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">schema</span> <span style="color:#4a4f5a;">30 cm, 800 g, smooth, force-based</span></div><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.1em 0;">&darr; StructureGrammar</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">grammar</span> <span style="color:#4a4f5a;">4 fingers (3 DOF) + thumb (4 DOF)</span></div><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.1em 0;">&darr; ReducedHandConfig</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">geometry</span> <span style="color:#4a4f5a;">palm 50 mm, splay 15 / 0 / -15 / -30</span></div></div>
@@ -974,7 +985,7 @@ with handler(LiteLLMProvider()), handler(RetryLLMHandler()):
 </section>
 
 <section id="slide-eff-lang2morph-gallery" class="slide level2">
-<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">One pipeline, a hand for <span style="color: #1E3A8A;">every task</span></h2>
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;"><span style="color: #1E3A8A;">Result visualization</span></h2>
 <p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The same RoboTL + LLM pipeline, one natural-language task each: the morphology adapts to force, fine-manipulation, and tool grasps</p>
 <div style="display: flex; gap: 1em; align-items: center; justify-content: center; max-width: 96%; margin: 0 auto;">
   <img src="./media/lang2morph_gallery.png" alt="Generated hand designs across tasks: force-based, fine manipulation, tool-based" style="max-width: 56%; max-height: 66vh; height: auto; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12);">
