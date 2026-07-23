@@ -1068,16 +1068,6 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 </div>
 </section>
 
-<section id="slide-llm-loop">
-  <h2 style="font-size: 0.95em;">The LLM in the <span style="color: #1E3A8A;">design loop</span></h2>
-  <p style="margin: 0.8em auto 0; max-width: 30em; font-size: 0.55em; line-height: 1.5;">Because designs are programs, <strong>proposing a design is writing a program</strong>. The LLM writes and revises RoboTL; the harness around it is the same handler mechanism that interprets the designs.</p>
-  <div style="display: flex; gap: 0.6em; margin-top: 1.2em; font-size: 0.42em;">
-    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;"><strong>Errors are loud.</strong> Port mismatches and weld misalignments fail at construction, not after a day of simulation.</div>
-    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;"><strong>Variation is parametric.</strong> A new candidate is a changed default, not a redrawn model.</div>
-    <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.6em 0.7em; background: #ffffff; text-align: left;"><strong>The simulator answers in seconds.</strong> Fast feedback closes the propose-and-revise loop.</div>
-  </div>
-</section>
-
 <section id="slide-eff-codesign-map" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">How <span style="color: #1E3A8A;">effectful</span> helps: one machinery, both reproductions</h2>
 <p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The same three moves carried the morphology reproduction and the dense-reward one (lang2morph.ipynb, loss_designer.py)</p>
@@ -1244,7 +1234,7 @@ def judge_design(task: str, losses: list[float],
 
 <section id="slide-rada-itercards" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Four designs the LLM tried, <span style="color: #1E3A8A;">as RoboTL</span></h2>
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">config translated to RoboTL, with the LLM's own verdict. Watch the thumb: dropped for iters 1 to 6 (no opposing grip), restored at iter 7</p>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">each round's RoboTL config (finger scale, thumb) and the LLM's own verdict. For iters 1 to 5 the arm never lines up with the knob inside the box; iter 7 finally reaches it and turns it</p>
 <div style="display: flex; gap: 0.6em; align-items: stretch; max-width: 96%; margin: 0 auto;">
   <div class="fragment" data-fragment-index="0" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-top: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.55em 0.7em; text-align: left; font-size: 0.36em; line-height: 1.5;">
     <video src="./media/itercard_vid_1.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 12vh; object-fit: contain; border-radius: 4px; background: #fafbfc; margin-bottom: 0.35em;"></video>
@@ -1253,7 +1243,7 @@ def judge_design(task: str, losses: list[float],
       <span style="font-family: 'IBM Plex Mono', monospace; color: #c08230;">turn 17&deg;</span>
     </div>
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; background: #f6f8fa; border-radius: 4px; padding: 0.35em 0.5em; margin-bottom: 0.3em; color: #1f2330;">DHChain(6) + OPH(2F, <strong style="color: #c08230;">0T</strong>, s=1.8)<br>arm_gain / hand_gain as tuned</div>
-    <div style="color: #4a4f5a;">"...the hand contacts the knob but <strong>does not establish an effective opposing grip for torque</strong>."</div>
+    <div style="color: #4a4f5a;">Only 17 degrees, then it stalls: <strong>no stable purchase on the knob</strong>.</div>
   </div>
   <div class="fragment" data-fragment-index="1" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-top: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.55em 0.7em; text-align: left; font-size: 0.36em; line-height: 1.5;">
     <video src="./media/itercard_vid_3.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 12vh; object-fit: contain; border-radius: 4px; background: #fafbfc; margin-bottom: 0.35em;"></video>
