@@ -867,189 +867,80 @@ with handler(provider):
 </div>
 </section>
 
-<section id="slide-eff-feedback" class="slide level2">
-<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Types that <span style="color: #1E3A8A;">push back</span>: validation as feedback</h2>
-<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 74vh; max-height: 74vh; overflow: hidden;">
-  <div style="flex: 1.35; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.26em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="|6-12|14-22|25-33">@pydantic.dataclasses.dataclass
-class Rating:
-    score: int
-    explanation: str
-
-    @field_validator(&quot;score&quot;)
-    @classmethod
-    def check_score(cls, v):
-        if v &lt; 1 or v &gt; 5:
-            raise PydanticCustomError(
-                &quot;invalid_score&quot;, &quot;score must be 1-5, got {v}&quot;, {&quot;v&quot;: v})
-        return v
-
-    @field_validator(&quot;explanation&quot;)
-    @classmethod
-    def check_explanation_contains_score(cls, v, info):
-        score = info.data.get(&quot;score&quot;, None)
-        if score is not None and str(score) not in v:
-            raise PydanticCustomError(&quot;invalid_explanation&quot;,
-                &quot;explanation must mention the score {score}&quot;,
-                {&quot;score&quot;: score})
-        return v
-
-
-@Template.define
-def give_rating_for_movie(movie_name: str) -&gt; Rating:
-    &quot;&quot;&quot;Give a rating for {movie_name}. The explanation MUST
-    include the numeric score. Do not use any tools.&quot;&quot;&quot;
-    raise NotHandled
-
-
-with handler(provider), handler(RetryLLMHandler()):
-    rating = give_rating_for_movie(&quot;Die Hard&quot;)</code></pre>
-  </div>
-  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Output (verbatim)</div>
-    <pre style="margin: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.9em 1.1em; white-space: pre-wrap;">Error: Error decoding response: 1 validation
-error for Response
-value.score
-  score must be 1-5, got 9. Please provide a
-  valid response and try again.
-
-<span class="fragment" data-fragment-index="3">Score: 5/5
-Explanation: Die Hard is a quintessential
-action film that has deeply influenced the
-genre. [...] It rightfully earns a top score
-of 5 out of 5.</span></pre>
-    <p style="margin: 0.35em 0 0; font-size: 0.3em; color: #6b7080; text-align: left;">The validators are the reviewer: the model returned 9, the error message went back into context, and RetryLLMHandler asked again.</p>
-  </div>
-</div>
-</section>
-
-<section id="slide-eff-synthesis" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Higher order: <span style="color: #1E3A8A;">synthesize functions</span>, compose templates</h2>
-<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">code and output from the same docs notebook</p>
-<div style="display: flex; gap: 0.9em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
-    <p style="margin: 0 0 0.25em; font-size: 0.34em; text-align: left; color: #1f2330;"><strong>A template can return a function.</strong> The LLM writes the code; an eval handler compiles it; the asserts check it.</p>
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.26em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim>from collections.abc import Callable
-from effectful.handlers.llm.evaluation import (
-    UnsafeEvalProvider,
-)
-
-
-@Template.define
-def count_char(char: str) -&gt; Callable[[str], int]:
-    &quot;&quot;&quot;Write a function which takes a string
-    and counts the occurrances of &#x27;{char}&#x27;.
-    Do not use any tools.&quot;&quot;&quot;
-    raise NotHandled
-
-
-with handler(provider), handler(UnsafeEvalProvider()):
-    count_a = count_char(&quot;a&quot;)
-    assert count_a(&quot;banana&quot;) == 3
-    assert count_a(&quot;cherry&quot;) == 0
-    print(inspect.getsource(count_a))</code></pre>
-    <pre style="margin: 0.3em 0 0; font-size: 0.28em; line-height: 1.5; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.6em 0.9em; white-space: pre-wrap;">def count_a(s: str) -&gt; int:
-    return s.count(&#x27;a&#x27;)</pre>
-  </div>
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
-    <p style="margin: 0 0 0.25em; font-size: 0.34em; text-align: left; color: #1f2330;"><strong>Templates compose.</strong> Templates in lexical scope are captured like tools, so one template can call the others.</p>
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.26em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim>@Template.define
-def story_with_moral(topic: str) -&gt; str:
-    &quot;&quot;&quot;Write a short story about {topic}
-    and end with a moral lesson.&quot;&quot;&quot;
-    raise NotHandled
-
-
-@Template.define
-def story_funny(topic: str) -&gt; str:
-    &quot;&quot;&quot;Write a funny, humorous story
-    about {topic}.&quot;&quot;&quot;
-    raise NotHandled
-
-
-# orchestrator: sub-templates are captured
-# from the lexical scope, like tools
-@Template.define
-def write_story(topic: str, style: str) -&gt; str:
-    &quot;&quot;&quot;Write a story about {topic} in the
-    style: {style}. Use story_funny for humor,
-    story_with_moral for a lesson.&quot;&quot;&quot;
-    raise NotHandled
-
-
-assert story_funny in write_story.tools.values()</code></pre>
-    <pre style="margin: 0.3em 0 0; font-size: 0.28em; line-height: 1.5; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.6em 0.9em; white-space: pre-wrap;">Sub-templates available to write_story:
-dict_keys([..., &#x27;write_joke&#x27;, &#x27;rate_joke&#x27;,
-&#x27;story_with_moral&#x27;, &#x27;story_funny&#x27;])</pre>
-  </div>
-</div>
-</section>
-
-<section id="slide-eff-01" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">A concrete Agent, in the same effectful pattern</h2>
-<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  Adapted from <code>effectful/handlers/llm/template.py</code>, run live &middot; <a href="https://github.com/BasisResearch/effectful/tree/master/effectful/handlers/llm" style="color: #6b7080;">github.com/BasisResearch/effectful</a>
-</p>
-
-<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center;">
-
-  <div style="flex: 1.6; min-width: 0;">
-    <pre style="margin: 0; font-size: 0.25em; line-height: 1.42; max-height: 64vh; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="14-18|20-24|27-30">import dataclasses
-from effectful.handlers.llm import Agent, Template, Tool
-from effectful.handlers.llm.completions import LiteLLMProvider
-from effectful.ops.semantics import handler
-from effectful.ops.types import NotHandled
-
-
-@dataclasses.dataclass
-class ChatBot(Agent):
-    &quot;&quot;&quot;Friendly bot named {self.bot_name}.&quot;&quot;&quot;
-
-    bot_name: str = &quot;ChatBot&quot;
-
-    @Tool.define                            # a plain operation
-    def remember(self, fact: str) -&gt; str:
-        &quot;&quot;&quot;Persist a fact about the user.&quot;&quot;&quot;
-        print(f&quot;[tool] remember({fact!r})&quot;)
-        return f&quot;noted: {fact}&quot;
-
-    @Template.define                        # an LLM-implemented op
-    def send(self, user_input: str) -&gt; str:
-        &quot;&quot;&quot;User writes: {user_input}.
-        Use your remember tool to keep facts across turns.&quot;&quot;&quot;
+<section id="slide-eff-repro-lang2morph" class="slide level2">
+<style>#slide-eff-repro-lang2morph pre code, #slide-eff-repro-lang2morph pre { white-space: pre-wrap !important; word-break: break-word; }</style>
+<h2 style="font-size: 0.9em; margin: 0 0 0.12em 0;">Reproducing <span style="color: #1E3A8A;">Lang2Morph</span>: the LLM proposes a hand</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">docs/source/lang2morph.ipynb: a staged pipeline of typed Templates. The return type is the contract, and validators push back.</p>
+<div style="display: flex; gap: 0.7em; align-items: stretch; max-width: 96%; margin: 0 auto;">
+  <div style="flex: 1.25; min-width: 0;">
+    <pre style="margin: 0; font-size: 0.27em; line-height: 1.42; overflow: hidden;"><code class="language-python" data-trim data-noescape>class Lang2MorphDesigner(Agent):          # one shared history
+    @Template.define
+    def design_grammar(self, schema: SemanticSchema
+                       ) -&gt; StructureGrammar:
+        """...then call assess_grammar for a feasibility check."""
         raise NotHandled
 
+    @Template.define
+    def design_geometry(self, schema, grammar, prior
+                        ) -&gt; ReducedHandConfig:
+        raise NotHandled
 
-bot = ChatBot()
-with handler(LiteLLMProvider()):            # bind the meaning
-    print(bot.send(&quot;Hi! I am in France.&quot;))
-    print(bot.send(&quot;Where am I, again?&quot;))   # sees prior turn</code></pre>
+with handler(LiteLLMProvider()), handler(RetryLLMHandler()):
+    schema  = designer.generate_semantic_schema(task, grasp, views)
+    grammar = designer.design_grammar(schema)
+    hand    = designer.design_geometry(schema, grammar, prior)</code></pre>
   </div>
-
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.34em; text-align: left;">
-
-    <div style="padding: 0.55em 0.75em; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">Effect stack at <code>send(&hellip;)</code></div>
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.92em; line-height: 1.5; color: #1f2330;">
-        <div style="padding: 0.12em 0.45em; background: #eef0fb; border-left: 2px solid #1E3A8A; border-radius: 2px;">handler(provider)</div>
-        <div style="padding: 0.12em 0.45em; margin-left: 0.8em; border-left: 2px solid #9aa0ac;">send(&hellip;) <span style="color: #6b7080;">Template op</span></div>
-        <div style="padding: 0.12em 0.45em; margin-left: 1.6em; border-left: 2px solid #2d6a4f;">remember(&hellip;) <span style="color: #6b7080;">Tool op</span></div>
-      </div>
-    </div>
-
-    <div>
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.9em; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Output (verbatim, gpt-4o)</div>
-      <pre style="margin: 0; font-size: 0.9em; line-height: 1.5; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.7em 0.9em; white-space: pre-wrap;">[tool] remember(&#x27;The user is in France.&#x27;)
-
-Hi there! I remember that you&#x27;re in France.
-How&#x27;s your time there going?
-
-You&#x27;re currently in France! How can I
-assist you further?</pre>
-    </div>
-
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em;">
+    <div style="font-size:0.4em; text-align:left; line-height:1.4;"><div style="border:1px solid #d0d5dc; border-left:3px solid #1f2330; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1f2330; font-size:0.9em;">task</span> <span style="color:#4a4f5a;">"lift and hold a large bottle" (force_based)</span></div><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.1em 0;">&darr; SemanticSchema</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">schema</span> <span style="color:#4a4f5a;">30 cm, 800 g, smooth, force-based</span></div><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.1em 0;">&darr; StructureGrammar</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">grammar</span> <span style="color:#4a4f5a;">4 fingers (3 DOF) + thumb (4 DOF)</span></div><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.1em 0;">&darr; ReducedHandConfig</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">geometry</span> <span style="color:#4a4f5a;">palm 50 mm, splay 15 / 0 / -15 / -30</span></div></div>
+    <div style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.4em 0.6em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#c08230;">Validators push back.</strong> <code>ReducedFingerConfig</code> checks slenderness = length / joint_diameter in [1, 8]; a bad geometry raises, and <code>RetryLLMHandler</code> feeds the error back and re-asks.</div>
+    <div style="border-left: 4px solid #2d6a4f; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.4em 0.65em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Result (our run).</strong> Morphology Validity Rate: zero-shot gpt-4o 0.89 &rarr; staged pipeline <strong>1.00</strong> (41 / 41 valid).</div>
   </div>
+</div>
+</section>
 
+<section id="slide-eff-repro-densereward" class="slide level2">
+<style>#slide-eff-repro-densereward pre code, #slide-eff-repro-densereward pre { white-space: pre-wrap !important; word-break: break-word; }</style>
+<h2 style="font-size: 0.9em; margin: 0 0 0.12em 0;">Reproducing the <span style="color: #1E3A8A;">dense reward</span>: the LLM writes the loss</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">robotl/examples/loss_designer.py: a Template returns a function. The LLM writes aux_losses; it is executed and, if invalid, retried.</p>
+<div style="display: flex; gap: 0.7em; align-items: stretch; max-width: 97%; margin: 0 auto;">
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em;">
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; overflow: hidden; white-space: pre-wrap; word-break: break-word;"><code class="language-python" data-trim data-noescape>class LossDesigner(Agent):
+    @Template.define
+    def design_losses(self, env_source, robot_source,
+                      task, sim_feedback
+                      ) -&gt; Callable[[Component], dict]:
+        """Write ONE function:  def aux_losses(env) -&gt; dict
+        In scope, nothing else: Nullify, Maximize, Minimize,
+        Equalize, KeepAbove, KeepBelow, sim_time, jnp.
+        No imports, no annotations; runs JAX-traced."""
+        raise NotHandled
+
+with handler(LossEvalProvider()), handler(
+        RetryLLMHandler(stop=stop_after_attempt(4))):
+    aux = agent.design_losses(env_src, robot_src, task, fb)</code></pre>
+    <div style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.4em 0.6em; font-size: 0.34em; line-height: 1.5; text-align: left;"><strong style="color:#c0392b;">Invalid code bounces back.</strong> An earlier iteration returned <code>def synthesize(component): return build_design(component)</code> (undefined name); the eval handler raised, and <code>RetryLLMHandler</code> fed the error back.</div>
+  </div>
+  <div style="flex: 1.1; min-width: 0; display: flex; flex-direction: column; gap: 0.35em;">
+    <pre style="margin: 0; font-size: 0.26em; line-height: 1.38; overflow: hidden; white-space: pre-wrap; word-break: break-word;"><code class="language-python" data-trim data-noescape># what the LLM wrote (iteration 7):
+def aux_losses(env) -&gt; dict:
+    tip = env.robot.tip.pos
+    target = env.target.pos
+    entrance = jnp.array([0.0, 1.1, target[2] - 0.01])
+    pregrasp = jnp.array([0.0, target[1] - 0.03, target[2]])
+    t = sim_time()
+    s1 = jnp.clip(t / 1.0, 0.0, 1.0)
+    s2 = jnp.clip((t - 1.0) / 1.5, 0.0, 1.0)
+    guide = (1.0 - s1) * entrance + s1 * ((1.0 - s2) * pregrasp + s2 * target)
+    return {
+        "staged_centerline_insert": Equalize(tip, guide, weight=0.012),
+        "forward_progress": Maximize(tip[1], weight=0.008),
+        "depth_match": Nullify(tip[1] - target[1], weight=0.02),
+        "height_match": Nullify(tip[2] - target[2], weight=0.015),
+        "soft_center_x": Nullify(tip[0], weight=0.006),
+        "entrance_band_x": KeepBelow(jnp.abs(tip[0]), 0.05, weight=0.015),
+    }</code></pre>
+    <div style="border-left: 4px solid #2d6a4f; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.4em 0.65em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Result.</strong> With-container task: loss 1.6253 &rarr; <strong>0.0038</strong>, knob 0&deg; &rarr; 90.1&deg;. The rollout is in the results section.</div>
+  </div>
 </div>
 </section>
 
@@ -1064,8 +955,8 @@ assist you further?</pre>
 </section>
 
 <section id="slide-eff-codesign-map" class="slide level2">
-<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">The correspondence: <span style="color: #1E3A8A;">effectful</span> machinery to LLM co-design</h2>
-<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Actual code from the Lang2Morph reproduction (docs/source/lang2morph.ipynb, robotl/internals/llm_cad)</p>
+<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">How <span style="color: #1E3A8A;">effectful</span> helps: one machinery, both reproductions</h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The same three moves carried the morphology reproduction and the dense-reward one (lang2morph.ipynb, loss_designer.py)</p>
 <div style="display: flex; flex-direction: column; gap: 0.5em; max-width: 96%; margin: 0 auto; font-size: 0.4em; text-align: left;">
 
   <div class="fragment" data-fragment-index="0" style="display: flex; gap: 0.7em; align-items: stretch;">
@@ -1092,7 +983,7 @@ def design_grammar(self, semantic_schema: SemanticSchema,
   <div class="fragment" data-fragment-index="1" style="display: flex; gap: 0.7em; align-items: stretch;">
     <div style="flex: 0 0 26%; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.5em 0.7em; display: flex; flex-direction: column; justify-content: center;">
       <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.25em;">Synthesis</div>
-      <div style="font-size: 0.8em; color: #4a4f5a; line-height: 1.4;">Generating the design: an invalid config bounces back to the model like a failed type-check. RoboTLCodeEnv goes further: the LLM edits RoboTL code itself.</div>
+      <div style="font-size: 0.8em; color: #4a4f5a; line-height: 1.4;">Generating the design: an invalid config bounces back like a failed type-check. The dense-reward run goes further: <code>design_losses</code> returns a <code>Callable</code>, so the LLM writes the <code>aux_losses</code> function itself.</div>
     </div>
     <div style="flex: 1; min-width: 0;">
       <pre style="margin: 0; font-size: 0.55em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim>@Template.define
@@ -1338,37 +1229,13 @@ def judge_design(task: str, losses: list[float],
 </section>
 
 <section id="slide-rada-10" class="slide level2">
-<style>
-#slide-rada-10 td.hljs-ln-code, #slide-rada-10 .hljs-ln-code { white-space: pre-wrap !important; word-break: break-word; }
-</style>
 <h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">Codesigning morphology <em>and</em> control</h2>
-<p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.36em; color: #4a4f5a; text-align: left;">
-  Fix the sparse-reward problem: have the LLM write the auxiliary loss too. The objective stages the trajectory (enter, grasp, turn) and the codesign loop succeeds with container.
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.36em; color: #4a4f5a; text-align: left;">
+  Fix the sparse-reward problem: have the LLM write the auxiliary loss too, through the <code>design_losses</code> template (section 4). The objective stages the trajectory (enter, grasp, turn), and the codesign loop succeeds with the container.
 </p>
-<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 78vh; max-height: 78vh; overflow: hidden;">
-  <div style="flex: 1.1; min-width: 0; min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 2vh;">
-    <pre style="margin: 0; font-size: 0.25em; line-height: 1.4; overflow: hidden; white-space: pre-wrap; word-break: break-word;"><code class="language-python" data-line-numbers="1-10|11|12|13|14|15|16">def aux_losses(env) -&gt; dict:
-    tip = env.robot.tip.pos
-    target = env.target.pos
-    entrance = jnp.array([0.0, 1.1, target[2] - 0.01])
-    pregrasp = jnp.array([0.0, target[1] - 0.03, target[2]])
-    t = sim_time()
-    s1 = jnp.clip(t / 1.0, 0.0, 1.0)
-    s2 = jnp.clip((t - 1.0) / 1.5, 0.0, 1.0)
-    guide = (1.0 - s1) * entrance + s1 * ((1.0 - s2) * pregrasp + s2 * target)
-    return {
-        "staged_centerline_insert": Equalize(tip, guide, weight=0.012),
-        "forward_progress": Maximize(tip[1], weight=0.008),
-        "depth_match": Nullify(tip[1] - target[1], weight=0.02),
-        "height_match": Nullify(tip[2] - target[2], weight=0.015),
-        "soft_center_x": Nullify(tip[0], weight=0.006),
-        "entrance_band_x": KeepBelow(jnp.abs(tip[0]), 0.05, weight=0.015),
-    }</code></pre>
-  </div>
-  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.35em; align-items: center; justify-content: flex-start;">
-    <img src="../basis-2026/media/codesign/image11.png" alt="result chart" style="display: block; max-width: 100%; max-height: 40%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
-    <video src="../basis-2026/media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline controls preload="auto" style="display: block; max-width: 100%; max-height: 58%; width: auto; height: auto; border-radius: 5px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-  </div>
+<div style="display: flex; gap: 1em; align-items: center; justify-content: center; max-width: 95%; margin: 0 auto;">
+  <img src="../basis-2026/media/codesign/image11.png" alt="loss and knob-rotation result chart" style="max-width: 42%; max-height: 60vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+  <video src="../basis-2026/media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 52%; max-height: 60vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
 </div>
 </section>
 
