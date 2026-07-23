@@ -945,7 +945,6 @@ with handler(provider), handler(UnsafeEvalProvider()):
 <section id="slide-eff-repro-lang2morph" class="slide level2">
 <style>#slide-eff-repro-lang2morph pre code, #slide-eff-repro-lang2morph pre { white-space: pre-wrap !important; word-break: break-word; }</style>
 <h2 style="font-size: 0.9em; margin: 0 0 0.12em 0;">Reproducing <span style="color: #1E3A8A;">Lang2Morph</span>: the LLM proposes a hand</h2>
-<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">docs/source/lang2morph.ipynb: a staged pipeline of typed Templates. The return type is the contract, and validators push back.</p>
 <div style="display: flex; gap: 0.7em; align-items: stretch; max-width: 96%; margin: 0 auto;">
   <div style="flex: 1.25; min-width: 0;">
     <pre style="margin: 0; font-size: 0.235em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim data-noescape>class Lang2MorphDesigner(Agent):          # one shared history
@@ -972,14 +971,18 @@ def _evaluate(design_context, views) -&gt; SelectionResult:  # assess the design
 
 with handler(LiteLLMProvider()), handler(RetryLLMHandler()):
     schema  = designer.generate_semantic_schema(task, grasp, views)
-    grammar = designer.design_grammar(schema)     # calls assess_grammar
-    hand    = designer.design_geometry(schema, grammar, prior)
-    best    = _evaluate(design_context, views)</code></pre>
+    for _ in range(n_iters):                       # refine ~5x
+        grammar = designer.design_grammar(schema)  # calls assess_grammar
+        hand    = designer.design_geometry(schema, grammar, prior)
+        best    = _evaluate(design_context, views) # feedback, next round</code></pre>
   </div>
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em;">
-    <div style="font-size:0.4em; text-align:left; line-height:1.4;"><div style="border:1px solid #d0d5dc; border-left:3px solid #1f2330; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1f2330; font-size:0.9em;">task</span> <span style="color:#4a4f5a;">"lift and hold a large bottle" (force_based)</span></div><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.1em 0;">&darr; SemanticSchema</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">schema</span> <span style="color:#4a4f5a;">30 cm, 800 g, smooth, force-based</span></div><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.1em 0;">&darr; StructureGrammar</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">grammar</span> <span style="color:#4a4f5a;">4 fingers (3 DOF) + thumb (4 DOF)</span></div><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.1em 0;">&darr; ReducedHandConfig</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">geometry</span> <span style="color:#4a4f5a;">palm 50 mm, splay 15 / 0 / -15 / -30</span></div></div>
-    <div style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.4em 0.6em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#c08230;">Validators push back.</strong> <code>ReducedFingerConfig</code> checks slenderness = length / joint_diameter in [1, 8]; a bad geometry raises, and <code>RetryLLMHandler</code> feeds the error back and re-asks.</div>
-    <div style="border-left: 4px solid #2d6a4f; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.4em 0.65em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Result (our run).</strong> Morphology Validity Rate: zero-shot gpt-4o 0.89 &rarr; staged pipeline <strong>1.00</strong> (41 / 41 valid).</div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em;">
+    <div class="fragment" style="font-size:0.4em; text-align:left;"><div style="border:1px solid #d0d5dc; border-left:3px solid #1f2330; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1f2330; font-size:0.9em;">task</span> <span style="color:#4a4f5a;">"lift and hold a large bottle" (force_based)</span></div></div>
+    <div class="fragment" style="font-size:0.4em; text-align:left;"><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.05em 0;">&darr; SemanticSchema</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">schema</span> <span style="color:#4a4f5a;">30 cm, 800 g, smooth, force-based</span></div></div>
+    <div class="fragment" style="font-size:0.4em; text-align:left;"><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.05em 0;">&darr; StructureGrammar</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">grammar</span> <span style="color:#4a4f5a;">4 fingers (3 DOF) + thumb (4 DOF)</span></div></div>
+    <div class="fragment" style="font-size:0.4em; text-align:left;"><div style="text-align:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace; font-size:0.8em; margin:0.05em 0;">&darr; ReducedHandConfig</div><div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:5px; background:#fff; padding:0.35em 0.6em;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.9em;">geometry</span> <span style="color:#4a4f5a;">palm 50 mm, splay 15 / 0 / -15 / -30</span></div></div>
+    <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.4em 0.6em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#c08230;">Validators push back.</strong> <code>ReducedFingerConfig</code> checks slenderness = length / joint_diameter in [1, 8]; a bad geometry raises, and <code>RetryLLMHandler</code> feeds the error back.</div>
+    <div class="fragment" style="border-left: 4px solid #2d6a4f; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.4em 0.65em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Result (our run).</strong> Morphology Validity Rate: zero-shot gpt-4o 0.89 &rarr; staged pipeline <strong>1.00</strong> (41 / 41 valid).</div>
   </div>
 </div>
 </section>
@@ -1325,8 +1328,10 @@ def aux_losses(env) -&gt; dict:
         var d=v.duration;
         if(d && !isNaN(d)){
           var f=v.currentTime/d; if(f>1)f=1; if(f<0)f=0;
-          pl.style.left=((L0+f*(L1-L0))*100).toFixed(2)+'%';
-          pr.style.left=((R0+f*(R1-R0))*100).toFixed(2)+'%';
+          var lx=L0+f*(L1-L0); if(lx>L1)lx=L1; if(lx<L0)lx=L0;
+          var rx=R0+f*(R1-R0); if(rx>R1)rx=R1; if(rx<R0)rx=R0;
+          pl.style.left=(lx*100).toFixed(2)+'%';
+          pr.style.left=(rx*100).toFixed(2)+'%';
         }
         requestAnimationFrame(tick);
       }
