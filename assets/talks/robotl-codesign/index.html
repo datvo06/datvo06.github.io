@@ -407,7 +407,7 @@
   <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 4px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.65em 0.9em; text-align: left;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">01 &middot; The representation</div>
     <p style="margin: 0; font-size: 0.5em; line-height: 1.5;">A programming language expressive enough to describe <strong>abstract components</strong> and <strong>realistic, manufacturable robots</strong>, <strong>uncertainty</strong> over the designs, and the <strong>control objective</strong>, all in one program.</p>
-    <p style="margin: 0.3em 0 0; font-size: 0.38em; color: #4a4f5a;">One program can be rendered to CAD, compiled to MuJoCo, constraint-solved in JAX, and controlled by MPC. A palm can declare a prior over where its fingers attach; declare a loss and the controller comes for free.</p>
+    
   </div>
   <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 4px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.65em 0.9em; text-align: left;">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #c08230; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">02 &middot; The LLM framework</div>
@@ -1307,8 +1307,34 @@ def aux_losses(env) -&gt; dict:
 <section id="slide-rada-10" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.2em 0;">Codesigning morphology <em>and</em> control</h2>
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5em; max-width: 95%; margin: 0 auto;">
-  <video src="../basis-2026/media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 62%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-  <img src="../basis-2026/media/codesign/image11.png" alt="loss and knob-rotation result chart" style="max-width: 72%; max-height: 32vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+  <video id="rada10-vid" src="../basis-2026/media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 62%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
+  <div style="position: relative; width: 72%; max-width: 72%;">
+    <img src="../basis-2026/media/codesign/image11.png" alt="loss and knob-rotation result chart, with a playhead synced to the video" style="display:block; width:100%; height:auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+    <div id="rada10-ph-left" style="position:absolute; top:19%; height:65%; width:2px; background:#c0392b; opacity:0.8; left:4.7%; pointer-events:none;"></div>
+    <div id="rada10-ph-right" style="position:absolute; top:19%; height:65%; width:2px; background:#c0392b; opacity:0.8; left:55.6%; pointer-events:none;"></div>
+  </div>
+  <script>
+  (function(){
+    function init(){
+      var v=document.getElementById('rada10-vid'),
+          pl=document.getElementById('rada10-ph-left'),
+          pr=document.getElementById('rada10-ph-right');
+      if(!v||!pl||!pr) return;
+      var L0=0.047,L1=0.479,R0=0.556,R1=0.989;
+      function tick(){
+        var d=v.duration;
+        if(d && !isNaN(d)){
+          var f=v.currentTime/d; if(f>1)f=1; if(f<0)f=0;
+          pl.style.left=((L0+f*(L1-L0))*100).toFixed(2)+'%';
+          pr.style.left=((R0+f*(R1-R0))*100).toFixed(2)+'%';
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded', init);
+  })();
+  </script>
 </div>
 </section>
 
