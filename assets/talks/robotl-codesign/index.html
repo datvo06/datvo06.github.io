@@ -289,7 +289,26 @@
 <h2 style="font-size: 0.85em; margin: 0 0 0.25em 0;">2.2 <span style="color: #1E3A8A;">Learned graph surrogates</span></h2>
 <p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Learning away the cost, 1 of 3: learn the <strong>evaluator</strong>. A grammar over robot graphs plus a GNN that predicts performance</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 94%; margin: 0 auto;">
-  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;">RoboGrammar and friends make the design space compact and search-friendly: a grammar generates robot graphs, and a learned model scores them without running a full simulation each time.<video src="./media/robogrammar.mp4" autoplay loop muted playsinline style="display: block; margin: 0.5em auto 0; max-height: 21vh; border-radius: 4px;"></video><p style="margin: 0.25em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">Zhao et al., RoboGrammar (SIGGRAPH Asia 2020)</p></div>
+  <div style="flex: 1.4; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.8em; text-align: left; font-size: 0.45em; line-height: 1.5;"><svg viewBox="0 0 400 120" style="width: 100%; height: auto; display: block;">
+    <rect x="8" y="16" width="104" height="46" rx="6" fill="#f3f5fb" stroke="#1E3A8A" stroke-width="1.6"/>
+    <text x="60" y="36" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" font-weight="700" fill="#1E3A8A">Grammar</text>
+    <text x="60" y="50" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#6b7080">rules</text>
+    <line x1="112" y1="39" x2="140" y2="39" stroke="#8b93a0" stroke-width="1.6"/>
+    <polygon points="140,39 133,35.5 133,42.5" fill="#8b93a0"/>
+    <text x="126" y="31" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b7080">generate</text>
+    <rect x="144" y="16" width="110" height="46" rx="6" fill="#ffffff" stroke="#1E3A8A" stroke-width="1.6"/>
+    <text x="199" y="36" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" font-weight="700" fill="#1f2330">Robot graphs</text>
+    <text x="199" y="50" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#6b7080">design space</text>
+    <line x1="254" y1="39" x2="282" y2="39" stroke="#8b93a0" stroke-width="1.6"/>
+    <polygon points="282,39 275,35.5 275,42.5" fill="#8b93a0"/>
+    <text x="268" y="31" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b7080">score</text>
+    <rect x="286" y="16" width="106" height="46" rx="6" fill="#fdf6ec" stroke="#c08230" stroke-width="1.8"/>
+    <text x="339" y="34" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11.5" font-weight="700" fill="#c08230">GNN heuristic</text>
+    <text x="339" y="48" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b7080">predicts performance</text>
+    <path d="M339,62 L339,88 L199,88 L199,62" fill="none" stroke="#2d6a4f" stroke-width="1.6"/>
+    <polygon points="199,62 195.5,69 202.5,69" fill="#2d6a4f"/>
+    <text x="269" y="104" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#2d6a4f">MPC evaluates the best; reward trains the GNN</text>
+  </svg><video src="./media/robogrammar.mp4" autoplay loop muted playsinline style="display: block; margin: 0.45em auto 0; max-height: 17vh; border-radius: 4px;"></video><p style="margin: 0.25em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">Zhao et al., RoboGrammar (SIGGRAPH Asia 2020)</p></div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.6em;">
     <div class="fragment" data-fragment-index="0" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #2d6a4f;">Captures:</strong> a compact, searchable design space; fast approximate evaluation.</div>
     <div class="fragment" data-fragment-index="1" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em; text-align: left; font-size: 0.42em; line-height: 1.5;"><strong style="color: #c0392b;">Misses:</strong> grounding. The graph has no real geometry, joint limits, or ports, and the surrogate needs training data we do not have in new domains.</div>
