@@ -1409,8 +1409,17 @@ def aux_losses(env) -&gt; dict:
 <section id="slide-babyrobot">
   <h2 style="font-size: 0.95em;">Future work: the <span style="color: #1E3A8A;">baby robot</span></h2>
   <p style="margin: 0.5em auto 0; max-width: 30em; font-size: 0.5em; line-height: 1.5;">On real hardware nobody hands you the state. The robot must <em>describe</em> the scene before it can plan in it.</p>
-  <div style="display: flex; gap: 0.8em; align-items: center; margin-top: 0.9em;">
-    <video src="../worldtest/media/babyrobot.mp4" autoplay loop muted playsinline style="flex: 0 0 46%; min-width: 0; max-height: 46vh; border-radius: 6px;"></video>
+  <div style="display: flex; gap: 0.8em; align-items: stretch; margin-top: 0.7em;">
+    <div style="flex: 0 0 44%; min-width: 0; display: flex; flex-direction: column; gap: 0.4em;">
+      <div>
+        <img src="../worldtest/media/chain_final_right.gif" alt="ExoPredicator domino causal-process learning, in simulation" style="width: 100%; max-height: 19vh; object-fit: cover; border-radius: 6px; border: 1px solid #d0d5dc;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #6b7080; letter-spacing: 0.04em; text-align: center; margin-top: 0.15em;">ExoPredicator, in simulation</div>
+      </div>
+      <div>
+        <video src="../worldtest/media/babyrobot.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 24vh; object-fit: contain; border-radius: 6px;"></video>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #2d6a4f; letter-spacing: 0.04em; text-align: center; margin-top: 0.15em;">the baby robot, real Franka</div>
+      </div>
+    </div>
     <div style="flex: 1; font-size: 0.42em; text-align: left; line-height: 1.6;">
       <p style="margin: 0 0 0.4em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">capture</span> two ZED cameras, hand-eye calibrated</p>
       <p style="margin: 0 0 0.4em;"><span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A;">describe</span> pose estimation + Bayesian state over the scene</p>
@@ -1427,8 +1436,8 @@ def aux_losses(env) -&gt; dict:
   <p style="margin: 0.35em auto 0.5em; max-width: 44em; font-size: 0.42em; line-height: 1.5;">The stance, pointed outward. <strong>RoboTL</strong> describes the low-level dynamics; <strong>Predicator</strong> adds a symbolic abstraction over state, and bilevel planning ties them together.</p>
   <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 95%; margin: 0 auto;">
     <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
-      <img src="../worldtest/media/chain_final_right.gif" alt="ExoPredicator robot arm bilevel planning" style="width: 100%; max-height: 34vh; object-fit: cover; border-radius: 6px; border: 1px solid #d0d5dc;">
-      <p style="margin: 0.25em 0 0; font-size: 0.32em; color: #6b7080; text-align: left; line-height: 1.5;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A;">ExoPredicator</span> (ICLR'26): symbolic state and causal processes, learned by variational Bayes with LLM proposals.</p>
+      <img src="./media/boil_example.gif" alt="pybullet_boil kitchen task: jug, faucet, burner" style="width: 100%; max-height: 34vh; object-fit: cover; border-radius: 6px; border: 1px solid #d0d5dc;">
+      <p style="margin: 0.25em 0 0; font-size: 0.32em; color: #6b7080; text-align: left; line-height: 1.5;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A;">pybullet_boil</span>: fill the jug at the faucet, heat it on the burner, boil the water, the task these operators plan for.</p>
       <div style="margin-top: 0.5em; border-left: 3px solid #2d6a4f; background: #f3f5fb; border-radius: 0 6px 6px 0; padding: 0.45em 0.65em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Bilevel planning.</strong> Predicates abstract the state; motion planning acts at the low level. Transferred to a basic real-world pick and place on the Franka.</div>
     </div>
     <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.4em; text-align: left;">
@@ -1457,7 +1466,7 @@ def aux_losses(env) -&gt; dict:
   <div class="pc"><div class="ph">TC</div><div class="nm">Tim Cooijmans</div></div>
   <div class="pc me"><img src="./media/team/dat.jpg" alt="Dat Nguyen"><div class="nm">Dat Nguyen</div></div>
   <div class="pc"><img src="./media/team/jfeser.png" alt="Jack Feser"><div class="nm">Jack Feser</div></div>
-  <div class="pc"><div class="ph">EB</div><div class="nm">Eli Bingham</div></div>
+  <div class="pc"><img src="./media/team/elibingham.jpg" alt="Eli Bingham"><div class="nm">Eli Bingham</div></div>
   <div class="pc"><img src="./media/team/tianyang-li.png" alt="Tianyang Li"><div class="nm">Tianyang Li</div></div>
   <div class="pc"><img src="./media/team/markusheinonen.png" alt="Markus Heinonen"><div class="nm">Markus Heinonen</div></div>
   <div class="pc"><img src="./media/team/abingeorge07.png" alt="Abin George"><div class="nm">Abin George</div></div>
