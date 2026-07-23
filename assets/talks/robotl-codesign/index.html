@@ -1431,18 +1431,17 @@ def aux_losses(env) -&gt; dict:
       <p style="margin: 0.25em 0 0; font-size: 0.32em; color: #6b7080; text-align: left; line-height: 1.5;"><span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A;">ExoPredicator</span> (ICLR'26): symbolic state and causal processes, learned by variational Bayes with LLM proposals.</p>
       <div style="margin-top: 0.5em; border-left: 3px solid #2d6a4f; background: #f3f5fb; border-radius: 0 6px 6px 0; padding: 0.45em 0.65em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Bilevel planning.</strong> Predicates abstract the state; motion planning acts at the low level. Transferred to a basic real-world pick and place on the Franka.</div>
     </div>
-    <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.4em;">
-      <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.5em 0.65em; background: #ffffff; text-align: left;">
-        <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; margin-bottom: 0.25em;">simulator.py</div>
-        Low-level continuous dynamics: per-step process rules with learnable constants, fitted by MCMC. Rigid-body physics stays trusted; only what physics does not explain is learned.
+    <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.4em; text-align: left;">
+      <div style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; padding: 0.5em 0.65em; background: #ffffff;">
+        <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; margin-bottom: 0.25em;">predicates <span style="color:#6b7080; font-size:0.85em;">// symbolic state</span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.6; color: #1f2330;">HandEmpty &middot; Holding(jug) &middot; JugAtFaucet &middot; JugAtBurner &middot; JugFilled &middot; FaucetOn &middot; BurnerOn &middot; WaterBoiled &middot; NoWaterSpilled &middot; TaskCompleted</div>
       </div>
-      <div style="flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; padding: 0.5em 0.65em; background: #ffffff; text-align: left;">
-        <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; margin-bottom: 0.25em;">predicates.py</div>
-        High-level symbolic concepts: classifiers that mark when a subgoal becomes true, feeding bilevel planning and refinement.
+      <div style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; padding: 0.5em 0.65em; background: #ffffff;">
+        <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; margin-bottom: 0.25em;">skills <span style="color:#6b7080; font-size:0.85em;">// parameterized options</span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.82em; line-height: 1.6; color: #1f2330;">PickJug &middot; Place &middot; SwitchFaucetOn &middot; SwitchFaucetOff &middot; SwitchBurnerOn &middot; SwitchBurnerOff</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.78em; line-height: 1.5; color: #6b7080; margin-top: 0.2em;">low level: MoveEndEffectorToGrasp / BackUp / Air, motion-planned</div>
       </div>
-      <div style="border-left: 4px solid #c08230; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 0.45em 0.65em; border-radius: 0 8px 8px 0; text-align: left;">
-        <p style="margin: 0; font-size: 0.9em; line-height: 1.5;">Both share fitted parameters: the process's firing gate and the planner's subgoal check are the <strong>same learned threshold</strong>. Concepts and dynamics agree by construction.</p>
-      </div>
+      <div style="font-size: 0.82em; color: #4a4f5a; line-height: 1.5;">Task <span style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A;">pybullet_boil</span>: fill the jug at the faucet, place it on the burner, boil the water. Predicates abstract the state; skills are what the planner sequences over motion planning.</div>
     </div>
   </div>
 </section>
