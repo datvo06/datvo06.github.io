@@ -802,15 +802,64 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 
 <section id="slide-eff-functions" class="slide level2">
 <h2 style="font-size: 0.9em; margin: 0 0 0.15em 0;">A <span style="color:#1E3A8A;">function</span> is the versatile tool we already have</h2>
-<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Each problem is one a function already answers, so we model an LLM call as a function</p>
+<div style="max-width: 74%; margin: 0 auto 0.45em;"><pre style="margin:0; font-size:0.3em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@Template.define
+def limerick(theme: str) -&gt; str:
+    """Write a limerick on the theme of {theme}."""
+    raise NotHandled</code></pre><p style="margin:0.2em 0 0; font-size:0.3em; color:#6b7080; text-align:center; font-family:'IBM Plex Mono',monospace;">An LLM call is just a function: the signature is the contract, the docstring is the prompt. Each problem below is one a function already answers.</p></div>
 <div style="display: flex; flex-direction: column; gap: 0.4em; max-width: 95%; margin: 0 auto; font-size: 0.38em; text-align: left;">
   <div style="display:flex; gap:0.5em; font-family:'IBM Plex Mono',monospace; font-size:0.82em; color:#6b7080; letter-spacing:0.04em; text-transform:uppercase;"><div style="flex:1;">the LLM problem</div><div style="width:1.1em;"></div><div style="flex:1.3;">the function move</div><div style="flex:1.15;">in effectful</div></div>
-  <div class="fragment" data-fragment-index="0" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Follow a format</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">annotate the signature, type-check the return</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.88em;">typed Template return</div></div>
+  <div class="fragment" data-fragment-index="0" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Follow a format</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">annotate the signature, type-check the return</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.85em; white-space:normal;">write_joke(t)<br>&nbsp;&rarr; KnockKnockJoke<br><span style="color:#6b7080;">(a @dataclass)</span></div></div>
   <div class="fragment" data-fragment-index="1" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Handle failures</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">catch and throw: an effect or an exception</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.88em;">RetryLLMHandler re-asks</div></div>
-  <div class="fragment" data-fragment-index="2" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Manage context</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">a function sees its lexical scope; calls have a frame stack</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.88em;">tools from scope; Agent shares history</div></div>
-  <div class="fragment" data-fragment-index="3" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Generate good code</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">write a function, then run it</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.88em;">higher-order: Template returns a Callable</div></div>
+  <div class="fragment" data-fragment-index="2" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Manage context</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">a function sees its lexical scope; calls have a frame stack</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.85em; white-space:normal;">Agent, @Tool in scope<br><span style="color:#6b7080;">example next &rarr;</span></div></div>
+  <div class="fragment" data-fragment-index="3" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Generate good code</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">write a function, then run it</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.85em; white-space:normal;">Template &rarr; Callable<br><span style="color:#6b7080;">example next &rarr;</span></div></div>
   <div class="fragment" data-fragment-index="4" style="margin-top:0.15em; border-left:4px solid #1E3A8A; background:#f3f5fb; border-radius:0 8px 8px 0; padding:0.45em 0.7em; font-size:0.92em;">An LLM call becomes a function three ways: a <strong>plain call</strong>, a <strong>higher-order function</strong>, a <strong>class method</strong>.</div>
 </div>
+</section>
+
+<section id="slide-eff-in-code" class="slide level2">
+<style>#slide-eff-in-code pre code, #slide-eff-in-code pre { white-space: pre-wrap !important; word-break: break-word; }</style>
+<h2 style="font-size: 0.9em; margin: 0 0 0.12em 0;">The same moves, <span style="color:#1E3A8A;">in real code</span></h2>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 97%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">Context: scope + shared history</div>
+    <pre style="margin:0; font-size:0.26em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@dataclasses.dataclass
+class ChatBot(Agent):
+    """Friendly bot named {self.bot_name}."""
+    bot_name: str = "ChatBot"
+
+    @Tool.define                 # a plain op, in scope
+    def remember(self, fact: str) -&gt; str:
+        """Persist a fact about the user."""
+        return f"noted: {fact}"
+
+    @Template.define             # an LLM-implemented op
+    def send(self, user_input: str) -&gt; str:
+        """User writes: {user_input}.
+        Use remember to keep facts across turns."""
+        raise NotHandled
+
+bot = ChatBot()
+with handler(LiteLLMProvider()):
+    bot.send("Hi! I am in France.")
+    bot.send("Where am I, again?")   # sees the prior turn</code></pre>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#c08230; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">Good code: the LLM writes a function</div>
+    <pre style="margin:0; font-size:0.26em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@Template.define
+def count_char(char: str) -&gt; Callable[[str], int]:
+    """Write a function which takes a string
+    and counts the occurrences of '{char}'."""
+    raise NotHandled
+
+with handler(provider), handler(UnsafeEvalProvider()):
+    count_a = count_char("a")
+    assert count_a("banana") == 3
+
+# the LLM wrote, and effectful ran:
+# def count_a(s): return s.count("a")</code></pre>
+  </div>
+</div>
+<p style="margin: 0.35em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: center;">Left: <code>send</code> captures the <code>remember</code> tool from its scope, and the Agent shares history so turn 2 sees turn 1. Right: the return type is a <code>Callable</code>, so the model writes code that effectful compiles and runs.</p>
 </section>
 
 <section id="slide-eff-lang2morph-context" class="slide level2">
@@ -892,6 +941,12 @@ with handler(LiteLLMProvider()), handler(RetryLLMHandler()):
   </div>
 </div>
 <div style="max-width: 90%; margin: 0.5em auto 0; border-left: 4px solid #2d6a4f; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.4em 0.75em; font-size: 0.36em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Same trend:</strong> force-based highest, fine-manipulation lowest, tool-based in between, the morphology matches the grasp the task needs.</div>
+</section>
+
+<section id="slide-eff-morph-to-control" class="slide level2">
+<div style="display:flex; align-items:center; justify-content:center; min-height:70vh;">
+  <h2 style="font-size:1.15em; line-height:1.3; margin:0; text-align:center; max-width:22em;">Lang2Morph is just <span style="color:#1E3A8A;">morphology</span>. What about <span style="color:#1E3A8A;">control</span>?</h2>
+</div>
 </section>
 
 <section id="slide-eff-repro-densereward" class="slide level2">
