@@ -824,46 +824,23 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 </div>
 </section>
 
-<section id="slide-eff-template" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Design goal: <em>an LLM call is just another function call</em></h2>
-
-<div style="display: flex; gap: 1em; align-items: stretch; justify-content: center; height: 72vh; max-height: 72vh; overflow: hidden;">
-
-  <div style="flex: 1.35; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
-    <pre style="margin: 0; flex: 1; min-height: 0; font-size: 0.27em; line-height: 1.42; overflow: hidden;"><code class="language-python" data-trim data-line-numbers="|24-27|4-7|9-17|19-22">from effectful.handlers.llm import Template
-from effectful.ops.types import NotHandled
-
-@Template.define
-def limerick(theme: str) -&gt; str:
-    &quot;&quot;&quot;Write a limerick on the theme of {theme}. Do not use any tools.&quot;&quot;&quot;
-    raise NotHandled
-
-@dataclasses.dataclass
-class KnockKnockJoke:
-    whos_there: str
-    punchline: str
-
-@Template.define
-def write_joke(theme: str) -&gt; KnockKnockJoke:
-    &quot;&quot;&quot;Write a knock-knock joke on the theme of {theme}. Do not use any tools.&quot;&quot;&quot;
-    raise NotHandled
-
-@Template.define
-def rate_joke(joke: KnockKnockJoke) -&gt; bool:
-    &quot;&quot;&quot;Decide if {joke} is funny or not. Do not use any tools.&quot;&quot;&quot;
-    raise NotHandled
-
-with handler(provider):
-    print(limerick(&quot;fish&quot;))
-    joke = write_joke(&quot;lizards&quot;)
-    if rate_joke(joke): print(&quot;&gt; The crowd laughs politely.&quot;)</code></pre>
+<section id="slide-eff-lang2morph-context" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.12em 0;">Reproducing <span style="color: #1E3A8A;">Lang2Morph</span> in RoboTL</h2>
+<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Qiao, Gilday, Xie, Hughes (EPFL CREATE Lab) &middot; arXiv:2509.18937, 2025 &middot; <a href="https://arxiv.org/abs/2509.18937" style="color: #6b7080;">arxiv.org/abs/2509.18937</a></p>
+<div style="display: flex; gap: 0.9em; align-items: stretch; max-width: 96%; margin: 0 auto;">
+  <div style="flex: 1.05; min-width: 0; display: flex; flex-direction: column; gap: 0.5em; text-align: left;">
+    <div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.8em; border-radius: 0 8px 8px 0;">
+      <p style="margin: 0 0 0.25em; font-size: 0.4em; line-height: 1.5;"><strong style="color: #1E3A8A; letter-spacing: 0.06em;">What it is.</strong> A natural-language task becomes a hand: the LLM picks <strong>semantic tags</strong>, builds a <strong>structural grammar</strong> over the <strong>Open Parametric Hand (OPH)</strong>, then refines parameters across <strong>~5 iterations</strong>. Output: a 3D-printable, task-specific hand.</p>
+      <p style="margin: 0; font-size: 0.34em; color: #1E3A8A; font-style: italic;">We only reproduced this paper. R-ADA is the separate work.</p>
+    </div>
+    <div style="display:flex; gap:0.35em; align-items:stretch; font-size:0.32em; flex-wrap:wrap;"><div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.35em 0.55em; text-align:center; font-family:'IBM Plex Mono',monospace;">NL task</div><div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div><div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.35em 0.55em; text-align:center; font-family:'IBM Plex Mono',monospace;">semantic tags</div><div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div><div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.35em 0.55em; text-align:center; font-family:'IBM Plex Mono',monospace;">grammar / OPH</div><div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div><div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.35em 0.55em; text-align:center; font-family:'IBM Plex Mono',monospace;">refine ~5 iters</div><div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div><div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.35em 0.55em; text-align:center; font-family:'IBM Plex Mono',monospace;">3D-printable hand</div></div>
+    <div style="font-size: 0.34em; color: #4a4f5a; line-height: 1.5;">The next slide shows the reproduction in RoboTL: <strong>effectful</strong> makes each stage a typed function call.</div>
   </div>
-
-  <div style="flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column;">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.3em; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25em;">Output (verbatim)</div>
-    <pre id="efftpl-out" style="margin: 0; flex: 1; min-height: 0; font-size: 0.3em; line-height: 1.5; overflow: hidden; background: #1f2330; color: #e8eaf0; border-radius: 6px; padding: 0.9em 1.1em; white-space: pre-wrap;"></pre>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em; justify-content: center;">
+    <video src="../basis-2026/media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 27vh; object-fit: contain; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12);"></video>
+    <video src="../basis-2026/media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 27vh; object-fit: contain; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12);"></video>
+    <p style="margin: 0.1em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">Our reproduction: hand-grasping rollouts from the Lang2Morph pipeline.</p>
   </div>
-
 </div>
 </section>
 
@@ -1045,31 +1022,6 @@ def judge_design(task: str, losses: list[float],
     <span style="color: #1f2330; font-weight: 600;">Preliminary results and future work</span>
   </div>
 </div>
-</section>
-
-<section id="slide-rada-lang2morph" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.15em 0;">Lang2Morph in one slide</h2>
-<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">
-  Qiao, Gilday, Xie, Hughes (EPFL CREATE Lab) &middot; arXiv:2509.18937, 2025 &middot; <a href="https://arxiv.org/abs/2509.18937" style="color: #6b7080;">arxiv.org/abs/2509.18937</a>
-</p>
-
-<div style="border-left: 3px solid #1E3A8A; background: #f3f5fb; padding: 0.45em 0.85em; margin: 0 auto 0.7em; max-width: 90%; text-align: left;">
-  <p style="margin: 0 0 0.25em; font-size: 0.42em;">
-    <strong style="color: #1E3A8A; letter-spacing: 0.06em;">TL;DR.</strong>
-    Natural-language task &rarr; LLM picks semantic tags &rarr; structural grammar over the <strong>Open Parametric Hand (OPH)</strong> &rarr; LLM refines parameters across <strong>~5 iterations</strong>. Output: a 3D-printable, task-specific robotic hand.
-  </p>
-  <p style="margin: 0; font-size: 0.36em; color: #1E3A8A; font-style: italic;">
-    We only reproduced this paper. R-ADA is the separate work.
-  </p>
-</div>
-
-<div style="display: flex; gap: 1em; justify-content: center; align-items: center; max-width: 95%; margin: 0 auto;">
-  <video src="../basis-2026/media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-  <video src="../basis-2026/media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 47%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
-</div>
-<p style="margin: 0.5em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: center;">
-  Our reproduction: hand-grasping rollouts from the Lang2Morph pipeline.
-</p>
 </section>
 
 <section id="slide-rada-05" class="slide level2" data-background-color="#fafbfc">
@@ -1628,24 +1580,6 @@ def judge_design(task: str, losses: list[float],
     })();
   </script>
 
-  <script>
-    (function () {
-      var OUT = {"": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.", "24-27": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.\n\nKnock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!\n\n> The crowd laughs politely.", "4-7": "In the sea where the shimmering fish\nDance around like a silvery wish,\nThey wiggle and glide,\nWith the tide, side by side,\nTurning waves into their swirlish dish.", "9-17": "Knock knock.\nWho's there?\nLizard.\nLizard who?\nLizard who? Lizard be a joke\nif I wasn't at your door!", "19-22": "> The crowd laughs politely.\n\n(rate_joke returned a typed bool: True)"};
-      function updateOut() {
-        var pane = document.getElementById("efftpl-out");
-        if (!pane) return;
-        var sec = document.getElementById("slide-eff-template");
-        var key = "";
-        sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
-          if (c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
-        });
-        pane.textContent = OUT[key] || "";
-      }
-      Reveal.on("fragmentshown", updateOut);
-      Reveal.on("fragmenthidden", updateOut);
-      Reveal.on("slidechanged", updateOut);
-      Reveal.on("ready", updateOut);
-    })();
-  </script>
+  
 </body>
 </html>
