@@ -806,60 +806,133 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 def limerick(theme: str) -&gt; str:
     """Write a limerick on the theme of {theme}."""
     raise NotHandled</code></pre></div>
-<div style="display: flex; flex-direction: column; gap: 0.4em; max-width: 95%; margin: 0 auto; font-size: 0.38em; text-align: left;">
-  <div style="display:flex; gap:0.5em; font-family:'IBM Plex Mono',monospace; font-size:0.82em; color:#6b7080; letter-spacing:0.04em; text-transform:uppercase;"><div style="flex:1;">the LLM problem</div><div style="width:1.1em;"></div><div style="flex:1.3;">the function move</div><div style="flex:1.15;">in effectful</div></div>
-  <div class="fragment" data-fragment-index="0" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Follow a format</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">annotate the signature, type-check the return</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.85em; white-space:normal;">write_joke(t)<br>&nbsp;&rarr; KnockKnockJoke<br><span style="color:#6b7080;">(a @dataclass)</span></div></div>
-  <div class="fragment" data-fragment-index="1" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Handle failures</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">catch and throw: an effect or an exception</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.88em;">RetryLLMHandler re-asks</div></div>
-  <div class="fragment" data-fragment-index="2" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Manage context</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">a function sees its lexical scope; calls have a frame stack</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.85em; white-space:normal;">Agent, @Tool in scope<br><span style="color:#6b7080;">example next &rarr;</span></div></div>
-  <div class="fragment" data-fragment-index="3" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Generate good code</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">write a function, then run it</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.85em; white-space:normal;">Template &rarr; Callable<br><span style="color:#6b7080;">example next &rarr;</span></div></div>
-  <div class="fragment" data-fragment-index="4" style="margin-top:0.15em; border-left:4px solid #1E3A8A; background:#f3f5fb; border-radius:0 8px 8px 0; padding:0.45em 0.7em; font-size:0.92em;">An LLM call becomes a function three ways: a <strong>plain call</strong>, a <strong>higher-order function</strong>, a <strong>class method</strong>.</div>
-</div>
+<p style="margin: 0.3em auto 0.4em; max-width: 80%; font-size: 0.4em; color:#4a4f5a; text-align:center; line-height:1.5;">Four things you hit building on an LLM. A plain function already answers each; <strong>effectful</strong> lifts each to an LLM call. One per slide.</p>
+<div style="max-width:82%; margin:0 auto; border-left:4px solid #1E3A8A; background:#f3f5fb; border-radius:0 8px 8px 0; padding:0.5em 0.8em; font-size:0.4em; text-align:left;">An LLM call becomes a function three ways: a <strong>plain call</strong>, a <strong>higher-order function</strong>, a <strong>class method</strong>.</div>
 </section>
 
-<section id="slide-eff-in-code" class="slide level2">
-<style>#slide-eff-in-code pre code, #slide-eff-in-code pre { white-space: pre-wrap !important; word-break: break-word; }</style>
-<h2 style="font-size: 0.9em; margin: 0 0 0.12em 0;">The same moves, <span style="color:#1E3A8A;">in real code</span></h2>
+<section id="slide-eff-fn-format" class="slide level2">
+<style>#slide-eff-fn-format pre code, #slide-eff-fn-format pre { white-space: pre-wrap !important; word-break: break-word; }</style>
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Follow a format</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">the function move: annotate the signature, type-check the return</p>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 97%; margin: 0.2em auto 0;">
   <div style="flex: 1; min-width: 0;">
-    <div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">Context: scope + shared history</div>
-    <pre style="margin:0; font-size:0.26em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@dataclasses.dataclass
-class ChatBot(Agent):
-    """Friendly bot named {self.bot_name}."""
-    bot_name: str = "ChatBot"
+    <div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">A plain function</div>
+    <pre style="margin:0; font-size:0.27em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@dataclass
+class Rect:
+    w: int
+    h: int
 
-    @Tool.define                 # a plain op, in scope
-    def remember(self, fact: str) -&gt; str:
-        """Persist a fact about the user."""
-        return f"noted: {fact}"
-
-    @Template.define             # an LLM-implemented op
-    def send(self, user_input: str) -&gt; str:
-        """User writes: {user_input}.
-        Use remember to keep facts across turns."""
-        raise NotHandled
-
-bot = ChatBot()
-with handler(LiteLLMProvider()):
-    bot.send("Hi! I am in France.")
-    bot.send("Where am I, again?")   # sees the prior turn</code></pre>
+def parse_rect(s: str) -&gt; Rect:
+    w, h = s.split("x")
+    return Rect(int(w), int(h))
+# the -&gt; Rect annotation is the contract</code></pre>
   </div>
   <div style="flex: 1; min-width: 0;">
-    <div style="font-family:'IBM Plex Mono',monospace; color:#c08230; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">Good code: the LLM writes a function</div>
-    <pre style="margin:0; font-size:0.26em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@Template.define
+    <div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">The effectful lift</div>
+    <pre style="margin:0; font-size:0.27em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@Template.define
+def write_joke(theme: str) -&gt; KnockKnockJoke:
+    """Write a knock-knock joke on {theme}."""
+    raise NotHandled
+
+# same contract: the model's output is parsed
+# into KnockKnockJoke, or rejected</code></pre>
+  </div>
+</div>
+<p style="margin: 0.4em auto 0; max-width: 93%; font-size: 0.33em; color: #4a4f5a; text-align: center; line-height:1.5;">The return type is the contract. For a plain function a type checker enforces it; for a Template, effectful parses and validates the model output against it.</p>
+</section>
+
+<section id="slide-eff-fn-failures" class="slide level2">
+<style>#slide-eff-fn-failures pre code, #slide-eff-fn-failures pre { white-space: pre-wrap !important; word-break: break-word; }</style>
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Handle failures</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">the function move: catch and throw, an effect or an exception</p>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 97%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">A plain function</div>
+    <pre style="margin:0; font-size:0.27em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>try:
+    cfg = parse(user_input)
+except ValueError as e:
+    log(e)
+    cfg = ask_again()   # recover, retry</code></pre>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#c0392b; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">The effectful lift</div>
+    <pre style="margin:0; font-size:0.27em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@Template.define
+def give_rating(movie: str) -&gt; Rating:  # score in 1..5
+    """Rate {movie}; cite the score."""
+    raise NotHandled
+
+with handler(provider), handler(RetryLLMHandler()):
+    r = give_rating("Die Hard")
+# score 9 -&gt; validation error -&gt; fed back -&gt; re-ask</code></pre>
+  </div>
+</div>
+<p style="margin: 0.4em auto 0; max-width: 93%; font-size: 0.33em; color: #4a4f5a; text-align: center; line-height:1.5;">An exception is a value the caller can catch. RetryLLMHandler catches a validation error the same way and feeds it back, so the model retries.</p>
+</section>
+
+<section id="slide-eff-fn-context" class="slide level2">
+<style>#slide-eff-fn-context pre code, #slide-eff-fn-context pre { white-space: pre-wrap !important; word-break: break-word; }</style>
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Manage context</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">the function move: a function sees its lexical scope; calls have a frame stack</p>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 97%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">A plain function</div>
+    <pre style="margin:0; font-size:0.27em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>def make_counter():
+    count = 0            # captured in scope
+    def inc() -&gt; int:
+        nonlocal count
+        count += 1
+        return count
+    return inc
+
+c = make_counter()
+c(); c()                # 1, then 2: state persists</code></pre>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">The effectful lift</div>
+    <pre style="margin:0; font-size:0.27em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>class ChatBot(Agent):
+    @Tool.define        # captured from scope
+    def remember(self, fact: str) -&gt; str: ...
+    @Template.define
+    def send(self, msg: str) -&gt; str:
+        """User: {msg}. Use remember across turns."""
+        raise NotHandled
+
+with handler(LiteLLMProvider()):
+    bot.send("I am in France.")
+    bot.send("Where am I?")   # sees turn 1</code></pre>
+  </div>
+</div>
+<p style="margin: 0.4em auto 0; max-width: 93%; font-size: 0.33em; color: #4a4f5a; text-align: center; line-height:1.5;">A closure captures its scope; the call stack threads state between calls. An Agent captures its tools the same way and shares history across calls, no manual prompt-stitching.</p>
+</section>
+
+<section id="slide-eff-fn-code" class="slide level2">
+<style>#slide-eff-fn-code pre code, #slide-eff-fn-code pre { white-space: pre-wrap !important; word-break: break-word; }</style>
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Generate good code</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">the function move: write a function, then run it</p>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 97%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">A plain function</div>
+    <pre style="margin:0; font-size:0.27em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>def adder(n: int) -&gt; Callable[[int], int]:
+    return lambda x: x + n
+
+add5 = adder(5)
+add5(3)          # 8
+# a function can return a function</code></pre>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#c08230; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">The effectful lift</div>
+    <pre style="margin:0; font-size:0.27em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@Template.define
 def count_char(char: str) -&gt; Callable[[str], int]:
-    """Write a function which takes a string
-    and counts the occurrences of '{char}'."""
+    """Write a function counting '{char}' in a string."""
     raise NotHandled
 
 with handler(provider), handler(UnsafeEvalProvider()):
     count_a = count_char("a")
     assert count_a("banana") == 3
-
-# the LLM wrote, and effectful ran:
-# def count_a(s): return s.count("a")</code></pre>
+# the LLM wrote: def count_a(s): return s.count("a")</code></pre>
   </div>
 </div>
-<p style="margin: 0.35em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: center;">Left: <code>send</code> captures the <code>remember</code> tool from its scope, and the Agent shares history so turn 2 sees turn 1. Right: the return type is a <code>Callable</code>, so the model writes code that effectful compiles and runs.</p>
+<p style="margin: 0.4em auto 0; max-width: 93%; font-size: 0.33em; color: #4a4f5a; text-align: center; line-height:1.5;">A function can return a function. A Template whose return type is a Callable makes the model write the code, which effectful compiles and runs.</p>
 </section>
 
 <section id="slide-eff-lang2morph-context" class="slide level2">
