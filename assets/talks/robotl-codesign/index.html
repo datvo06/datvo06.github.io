@@ -785,42 +785,32 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 
 
 <section id="slide-effectful-llm-bridge" class="slide level2">
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; gap: 0.9em; padding: 0 2rem;">
-
-  <h2 style="font-size: 1.6em; line-height: 1.2; margin: 0; text-align: center;">
-    <span style="color: #1E3A8A;">Effectful LLM</span>
-  </h2>
-
-  <p style="margin: 0; font-size: 0.44em; color: #4a4f5a; max-width: 30em; text-align: center; line-height: 1.5;">Because designs are programs, proposing a design is writing a program. RoboTL turns each program into a body and a controller <strong>for free, fast, on CPU</strong>, so an LLM can propose and score many designs in a tight loop.</p>
-
-  <div style="display: flex; gap: 0.45em; align-items: stretch; font-size: 0.36em; font-family: 'IBM Plex Mono', monospace;">
-    <div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.5em 0.7em; text-align:center;">LLM writes a<br>RoboTL program</div>
-    <div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div>
-    <div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.5em 0.7em; text-align:center;">body + controller<br>for free (fast, CPU)</div>
-    <div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div>
-    <div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.5em 0.7em; text-align:center;">every design is<br>cheap to score</div>
-    <div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div>
-    <div style="border:1px solid #d0d5dc; border-top:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.5em 0.7em; text-align:center;">the loop closes<br>at LLM speed</div>
+<h2 style="font-size: 0.9em; margin: 0 0 0.15em 0;">An LLM call is easy. <span style="color:#1E3A8A;">Building on it</span> is the hard part</h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The model is one call. A pipeline around it raises the same questions every time, and we hit them writing RoboTL programs too.</p>
+<div style="display: flex; flex-direction: column; gap: 0.6em; max-width: 90%; margin: 0 auto; font-size: 0.42em; text-align: left;">
+  <div style="display:flex; gap:0.6em; align-items:stretch;">
+  <div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.5em 0.75em;"><div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.85em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.2em;">Follow a format</div><div style="color:#4a4f5a;">Does the output have the shape you need: a JSON, a dataclass, a valid program?</div></div>
+  <div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fff; padding:0.5em 0.75em;"><div style="font-family:'IBM Plex Mono',monospace; color:#c08230; font-size:0.85em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.2em;">Handle failures</div><div style="color:#4a4f5a;">A call errors or returns garbage. What catches it, and what re-asks?</div></div>
   </div>
-
+  <div style="display:flex; gap:0.6em; align-items:stretch;">
+  <div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.5em 0.75em;"><div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.85em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.2em;">Manage context</div><div style="color:#4a4f5a;">How do earlier answers reach later calls without hand-threading them?</div></div>
+  <div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.5em 0.75em;"><div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; font-size:0.85em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.2em;">Generate good code</div><div style="color:#4a4f5a;">And for us: how do we get the LLM to write good RoboTL programs?</div></div>
+  </div>
+  <p style="margin: 0.2em 0 0; font-size: 0.82em; color: #1f2330; text-align: center;">We hit every one of these building the co-design loop.</p>
 </div>
 </section>
 
-<section id="slide-eff-subgoals" class="slide level2">
-<h2 style="font-size: 0.95em; margin: 0 0 0.5em 0;">Three <span style="color: #1E3A8A;">subgoals</span></h2>
-<div style="display: flex; flex-direction: column; gap: 0.7em; max-width: 80%; margin: 0 auto; font-size: 0.5em; text-align: left;">
-  <div class="fragment" data-fragment-index="0" style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.55em 0.9em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
-    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">1</span>
-    <div>Modeling LLM calls as <strong>normal function calls</strong>.</div>
-  </div>
-  <div class="fragment" data-fragment-index="1" style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.55em 0.9em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
-    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">2</span>
-    <div>Modeling LLM calls as <strong>higher-order functions</strong>.</div>
-  </div>
-  <div class="fragment" data-fragment-index="2" style="display: flex; gap: 0.85em; align-items: baseline; padding: 0.55em 0.9em; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 5px; background: #ffffff;">
-    <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 700;">3</span>
-    <div>Modeling LLM calls as <strong>class methods</strong>.</div>
-  </div>
+<section id="slide-eff-functions" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.15em 0;">A <span style="color:#1E3A8A;">function</span> is the versatile tool we already have</h2>
+<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Each problem is one a function already answers, so we model an LLM call as a function</p>
+<div style="display: flex; flex-direction: column; gap: 0.4em; max-width: 95%; margin: 0 auto; font-size: 0.38em; text-align: left;">
+  <div style="display:flex; gap:0.5em; font-family:'IBM Plex Mono',monospace; font-size:0.82em; color:#6b7080; letter-spacing:0.04em; text-transform:uppercase;"><div style="flex:1;">the LLM problem</div><div style="width:1.1em;"></div><div style="flex:1.3;">the function move</div><div style="flex:1.15;">in effectful</div></div>
+  <div class="fragment" data-fragment-index="0" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Follow a format</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">annotate the signature, type-check the return</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.88em;">typed Template return</div></div>
+  <div class="fragment" data-fragment-index="1" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Handle failures</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">catch and throw: an effect or an exception</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.88em;">RetryLLMHandler re-asks</div></div>
+  <div class="fragment" data-fragment-index="2" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Manage context</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">a function sees its lexical scope; calls have a frame stack</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.88em;">tools from scope; Agent shares history</div></div>
+  <div class="fragment" data-fragment-index="3" style="display:flex; gap:0.5em; align-items:stretch;"><div style="flex:1; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.4em 0.6em;"><strong>Generate good code</strong></div><div style="display:flex; align-items:center; color:#8b93a0; font-family:'IBM Plex Mono',monospace;">&rarr;</div><div style="flex:1.3; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.4em 0.6em;">write a function, then run it</div><div style="flex:1.15; min-width:0; border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.4em 0.6em; font-family:'IBM Plex Mono',monospace; font-size:0.88em;">higher-order: Template returns a Callable</div></div>
+  <div class="fragment" data-fragment-index="4" style="margin-top:0.15em; border-left:4px solid #1E3A8A; background:#f3f5fb; border-radius:0 8px 8px 0; padding:0.45em 0.7em; font-size:0.92em;">An LLM call becomes a function three ways: a <strong>plain call</strong>, a <strong>higher-order function</strong>, a <strong>class method</strong>.</div>
+  <p class="fragment" data-fragment-index="5" style="margin:0.15em 0 0; text-align:center; font-size:1.0em; color:#1f2330;">Model an LLM call as a function, an <strong style="color:#1E3A8A;">effect</strong>. That is <strong style="color:#1E3A8A;">effectful</strong>.</p>
 </div>
 </section>
 
