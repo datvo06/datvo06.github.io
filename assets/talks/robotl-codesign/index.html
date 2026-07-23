@@ -989,7 +989,7 @@ with handler(LiteLLMProvider()), handler(RetryLLMHandler()):
 <p style="margin: 0 auto 0.3em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The same RoboTL + LLM pipeline, one natural-language task each: the morphology adapts to force, fine-manipulation, and tool grasps</p>
 <div style="display: flex; gap: 1em; align-items: center; justify-content: center; max-width: 96%; margin: 0 auto;">
   <img src="./media/lang2morph_gallery.png" alt="Generated hand designs across tasks: force-based, fine manipulation, tool-based" style="max-width: 56%; max-height: 66vh; height: auto; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12);">
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em;">
+  <div class="fragment" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em;">
     <video src="../basis-2026/media/codesign/handgrasp_a.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 28vh; object-fit: contain; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12);"></video>
     <video src="../basis-2026/media/codesign/handgrasp_b.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 28vh; object-fit: contain; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12);"></video>
     <p style="margin: 0.1em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">Reproduction rollouts: the designed hands grasping.</p>
@@ -1073,74 +1073,6 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
       <p style="margin: 0.15em 0 0; font-size: 0.8em; color: #6b7080; text-align: center;">The same run, rendered: the LEAP v1 hand spinning the cube</p>
     </div>
   </div>
-</div>
-</section>
-
-<section id="slide-eff-codesign-map" class="slide level2">
-<h2 style="font-size: 0.95em; margin: 0 0 0.25em 0;">How <span style="color: #1E3A8A;">effectful</span> helps: one machinery, both reproductions</h2>
-<p style="margin: 0 auto 0.6em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The same three moves carried the morphology reproduction and the dense-reward one (lang2morph.ipynb, loss_designer.py)</p>
-<div style="display: flex; flex-direction: column; gap: 0.5em; max-width: 96%; margin: 0 auto; font-size: 0.4em; text-align: left;">
-
-  <div class="fragment" data-fragment-index="0" style="display: flex; gap: 0.7em; align-items: stretch;">
-    <div style="flex: 0 0 26%; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.5em 0.7em; display: flex; flex-direction: column; justify-content: center;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.25em;">Templates, typed and multi-modal</div>
-      <div style="font-size: 0.8em; color: #4a4f5a; line-height: 1.4;">Structuring the grammar: the Pydantic return type <em>is</em> the structure; parsing and retry come from it.</div>
-    </div>
-    <div style="flex: 1; min-width: 0;">
-      <pre style="margin: 0; font-size: 0.55em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim>@Template.define
-def _generate_semantic_schema(
-    task_description: str,
-    grasp_type: str,
-    prop_views: list[Image.Image],   # text + enum + images in
-) -&gt; SemanticSchema: ...
-
-@Template.define
-def design_grammar(self, semantic_schema: SemanticSchema,
-) -&gt; StructureGrammar:
-    &quot;&quot;&quot;... After drafting, call `assess_grammar` for a
-    feasibility check.&quot;&quot;&quot;</code></pre>
-    </div>
-  </div>
-
-  <div class="fragment" data-fragment-index="1" style="display: flex; gap: 0.7em; align-items: stretch;">
-    <div style="flex: 0 0 26%; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.5em 0.7em; display: flex; flex-direction: column; justify-content: center;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.25em;">Synthesis</div>
-      <div style="font-size: 0.8em; color: #4a4f5a; line-height: 1.4;">Generating the design: an invalid config bounces back like a failed type-check. The dense-reward run goes further: <code>design_losses</code> returns a <code>Callable</code>, so the LLM writes the <code>aux_losses</code> function itself.</div>
-    </div>
-    <div style="flex: 1; min-width: 0;">
-      <pre style="margin: 0; font-size: 0.55em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim>@Template.define
-def design_geometry(
-    self,
-    semantic_schema: SemanticSchema,
-    structure_grammar: StructureGrammar,
-    grasp_prior: str,
-) -&gt; ReducedHandConfig:            # Pydantic validators = the type-check
-    &quot;&quot;&quot;On the first call, produce a geometry from scratch.
-    On subsequent calls (when conversation history contains a
-    previous config and evaluation feedback), refine the
-    geometry accordingly.&quot;&quot;&quot;</code></pre>
-    </div>
-  </div>
-
-  <div class="fragment" data-fragment-index="2" style="display: flex; gap: 0.7em; align-items: stretch;">
-    <div style="flex: 0 0 26%; border: 1px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.5em 0.7em; display: flex; flex-direction: column; justify-content: center;">
-      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; margin-bottom: 0.25em;">Agent: shared history</div>
-      <div style="font-size: 0.8em; color: #4a4f5a; line-height: 1.4;">Context management: evaluation feedback reaches later grammar and geometry calls with no manual threading.</div>
-    </div>
-    <div style="flex: 1; min-width: 0;">
-      <pre style="margin: 0; font-size: 0.55em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim>class Lang2MorphDesigner(Agent):  # stages 2-7, one shared history
-    ...
-
-@Template.define
-def _evaluate(design_context: DesignContext,
-              views: list[Image.Image]) -&gt; SelectionResult: ...
-
-@Template.define
-def judge_design(task: str, losses: list[float],
-                 frames: list[Image.Image]) -&gt; str: ...</code></pre>
-    </div>
-  </div>
-
 </div>
 </section>
 
