@@ -782,11 +782,23 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 
 
 <section id="slide-effectful-llm-bridge" class="slide level2">
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; gap: 1.2em; padding: 0 2rem;">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; gap: 0.9em; padding: 0 2rem;">
 
   <h2 style="font-size: 1.6em; line-height: 1.2; margin: 0; text-align: center;">
     <span style="color: #1E3A8A;">Effectful LLM</span>
   </h2>
+
+  <p style="margin: 0; font-size: 0.44em; color: #4a4f5a; max-width: 30em; text-align: center; line-height: 1.5;">Because designs are programs, proposing a design is writing a program. RoboTL turns each program into a body and a controller <strong>for free, fast, on CPU</strong>, so an LLM can propose and score many designs in a tight loop.</p>
+
+  <div style="display: flex; gap: 0.45em; align-items: stretch; font-size: 0.36em; font-family: 'IBM Plex Mono', monospace;">
+    <div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.5em 0.7em; text-align:center;">LLM writes a<br>RoboTL program</div>
+    <div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div>
+    <div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.5em 0.7em; text-align:center;">body + controller<br>for free (fast, CPU)</div>
+    <div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div>
+    <div style="border:1px solid #d0d5dc; border-top:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.5em 0.7em; text-align:center;">every design is<br>cheap to score</div>
+    <div style="display:flex; align-items:center; color:#8b93a0;">&rarr;</div>
+    <div style="border:1px solid #d0d5dc; border-top:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.5em 0.7em; text-align:center;">the loop closes<br>at LLM speed</div>
+  </div>
 
 </div>
 </section>
