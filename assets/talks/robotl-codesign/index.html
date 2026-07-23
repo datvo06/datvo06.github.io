@@ -1310,8 +1310,8 @@ def aux_losses(env) -&gt; dict:
   <video id="rada10-vid" src="../basis-2026/media/codesign/morph_plus_control.mp4" autoplay loop muted playsinline controls preload="auto" style="max-width: 62%; max-height: 46vh; height: auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);"></video>
   <div style="position: relative; width: 72%; max-width: 72%;">
     <img src="../basis-2026/media/codesign/image11.png" alt="loss and knob-rotation result chart, with a playhead synced to the video" style="display:block; width:100%; height:auto; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
-    <div id="rada10-ph-left" style="position:absolute; top:19%; height:65%; width:2px; background:#c0392b; opacity:0.8; left:4.7%; pointer-events:none;"></div>
-    <div id="rada10-ph-right" style="position:absolute; top:19%; height:65%; width:2px; background:#c0392b; opacity:0.8; left:55.6%; pointer-events:none;"></div>
+    <div id="rada10-ph-left" style="position:absolute; top:19%; height:65%; width:2px; background:#c0392b; opacity:0.8; left:6.67%; pointer-events:none;"></div>
+    <div id="rada10-ph-right" style="position:absolute; top:19%; height:65%; width:2px; background:#c0392b; opacity:0.8; left:57.59%; pointer-events:none;"></div>
   </div>
   <script>
   (function(){
@@ -1320,7 +1320,7 @@ def aux_losses(env) -&gt; dict:
           pl=document.getElementById('rada10-ph-left'),
           pr=document.getElementById('rada10-ph-right');
       if(!v||!pl||!pr) return;
-      var L0=0.047,L1=0.479,R0=0.556,R1=0.989;
+      var L0=0.0667,L1=0.4602,R0=0.5759,R1=0.9683;
       function tick(){
         var d=v.duration;
         if(d && !isNaN(d)){
