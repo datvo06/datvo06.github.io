@@ -714,12 +714,12 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 
 <section id="slide-eff-functions" class="slide level2">
 <h2 style="font-size: 0.9em; margin: 0 0 0.15em 0;">A <span style="color:#1E3A8A;">function</span> is the versatile tool we already have</h2>
-<div style="max-width: 74%; margin: 0 auto 0.45em;"><pre style="margin:0; font-size:0.3em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@Template.define
+<div class="fragment" style="max-width: 74%; margin: 0 auto 0.45em;"><pre style="margin:0; font-size:0.3em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>@Template.define
 def limerick(theme: str) -&gt; str:
     """Write a limerick on the theme of {theme}."""
     raise NotHandled</code></pre></div>
-<p style="margin: 0.3em auto 0.4em; max-width: 80%; font-size: 0.4em; color:#4a4f5a; text-align:center; line-height:1.5;">Four things you hit building on an LLM. A plain function already answers each; <strong>effectful</strong> lifts each to an LLM call. One per slide.</p>
-<div style="max-width:82%; margin:0 auto; border-left:4px solid #1E3A8A; background:#f3f5fb; border-radius:0 8px 8px 0; padding:0.5em 0.8em; font-size:0.4em; text-align:left;">An LLM call becomes a function three ways: a <strong>plain call</strong>, a <strong>higher-order function</strong>, a <strong>class method</strong>.</div>
+<p class="fragment" style="margin: 0.3em auto 0.4em; max-width: 80%; font-size: 0.4em; color:#4a4f5a; text-align:center; line-height:1.5;">Four things you hit building on an LLM. A plain function already answers each; <strong>effectful</strong> lifts each to an LLM call. One per slide.</p>
+<div class="fragment" style="max-width:82%; margin:0 auto; border-left:4px solid #1E3A8A; background:#f3f5fb; border-radius:0 8px 8px 0; padding:0.5em 0.8em; font-size:0.4em; text-align:left;">An LLM call becomes a function three ways: a <strong>plain call</strong>, a <strong>higher-order function</strong>, a <strong>class method</strong>.</div>
 </section>
 
 <section id="slide-eff-fn-format" class="slide level2">
