@@ -1379,6 +1379,24 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 </div>
 </section>
 
+<section id="slide-appendix-early-cad" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Where this started: <span style="color: #1E3A8A;">an LLM writing CAD</span>, early 2025</h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Before RoboTL: prompt the model to write CAD directly, render, feed the picture back, iterate.</p>
+<div style="display: flex; gap: 1.4em; align-items: flex-end; justify-content: center; max-width: 92%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 0.3em;">
+    <img src="./media/early_cad/iteration_4_result.png" alt="Early LLM-written CAD, iteration 4: disconnected parts floating above a base" style="max-height: 46vh; max-width: 100%; object-fit: contain; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.32em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase;">iteration 4</div>
+    <p style="margin: 0; font-size: 0.3em; color: #6b7080; text-align: center; line-height: 1.4;">Parts float, unconnected: no joints, no grounding.</p>
+  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 0.3em;">
+    <img src="./media/early_cad/iteration_22_result.png" alt="Early LLM-written CAD, iteration 22: a single stacked, more coherent form" style="max-height: 46vh; max-width: 100%; object-fit: contain; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.32em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase;">iteration 22</div>
+    <p style="margin: 0; font-size: 0.3em; color: #6b7080; text-align: center; line-height: 1.4;">More coherent, but still just geometry, nothing to simulate or control.</p>
+  </div>
+</div>
+<div style="max-width: 90%; margin: 0.4em auto 0; border-left: 4px solid #c08230; background: #fbf7f0; border-radius: 0 8px 8px 0; padding: 0.4em 0.8em; font-size: 0.34em; line-height: 1.5; text-align: left;"><strong style="color:#c08230;">The lesson.</strong> The LLM could write CAD, but the output was ungrounded geometry with no joints, sensors, or objective. That gap is what RoboTL was built to close.</div>
+</section>
+
     </div>
   </div>
 
