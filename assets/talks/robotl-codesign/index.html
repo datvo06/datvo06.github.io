@@ -422,7 +422,7 @@
 
 <div style="display: flex; gap: 0.7em; justify-content: center; align-items: stretch; font-size: 0.32em; text-align: left;">
 
-  <div style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; display: flex; flex-direction: column;">
+  <div class="fragment" style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; display: flex; flex-direction: column;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">CAD (URDF, OpenSCAD, &hellip;)</div>
     <img src="../basis-2026/media/codesign/cad_arm.png" alt="Sample OpenSCAD-rendered arm fragment" style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;">
     <pre style="margin: 0 0 0.3em 0; font-size: 0.9em; line-height: 1.4; padding: 0.35em 0.45em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>cube([10,10,60]);
@@ -436,14 +436,13 @@ translate([0,0,60])
     </ul>
   </div>
 
-  <div style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; display: flex; flex-direction: column;">
+  <div class="fragment" style="flex: 1; max-width: 260px; padding: 0.55em 0.75em; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; display: flex; flex-direction: column;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em;">RoboGrammar (and friends)</div>
     <img src="../basis-2026/media/codesign/robogrammar_robot.png" alt="Stylized abstract robot from a generative grammar" style="width: 100%; height: auto; max-height: 16vh; object-fit: contain; margin-bottom: 0.35em; border-radius: 4px; background: #ffffff;">
     <pre style="margin: 0 0 0.3em 0; font-size: 0.9em; line-height: 1.4; padding: 0.35em 0.45em; background: #1f2330; border-radius: 4px; color: #d4d7dc;"><code>Robot -> Body Arm Arm
 Arm   -> Link Joint Arm
 Joint -> Hinge | Slide
-Link  -> short | long
-# graph + GNN eval</code></pre>
+Link  -> short | long</code></pre>
     <ul style="margin: 0; padding-left: 1.1em; line-height: 1.5; color: #4a4f5a;">
       <li>Compact, search-friendly.</li>
       <li>No grounded geometry / joint limits / ports.</li>
