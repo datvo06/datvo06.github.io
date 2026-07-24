@@ -1631,7 +1631,7 @@ def aux_losses(env) -&gt; dict:
         "18-21": "Ports and welds compose the kinematic chain. Runtime kinematics, same program.",
         "23-27": "Frames are posed explicitly: one <code>Pose</code> turns the elbow hinge axis.",
         "29": "<code>tip</code> is the component's interface; downstream tasks reach with this port.",
-        "1-7": "<strong>Same program, different semantics.</strong><ul style='margin: 0.35em 0 0; padding-left: 1.1em; text-align: left; line-height: 1.5;'><li><code>handlers.cad</code>: render OpenSCAD model.</li><li><code>handlers.mujoco</code>: <code>view_model</code> + sim + MPC.</li><li><code>handlers.jax</code>: constraint solving; backs <code>solve_init</code>.</li></ul>"
+        "1-7": "<strong>Same program, different semantics.</strong><ul style='margin: 0.35em 0 0; padding-left: 1.1em; text-align: left; line-height: 1.5;'><li><code>handlers.cad</code>: defer and reuse OpenSCAD semantics.</li><li><code>handlers.mujoco</code>: <code>view_model</code> + sim + MPC.</li><li><code>handlers.jax</code>: constraint solving; backs <code>solve_init</code>.</li></ul>"
       };
       function updateCap() {
         var cap = document.getElementById("rada01b-cap");
