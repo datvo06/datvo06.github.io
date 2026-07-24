@@ -524,6 +524,15 @@ def Arm(self, link1L=0.120, link2L=0.1, linkDia=0.025):
   </div>
 
 </div>
+<div class="fragment" style="margin: 0.5em auto 0; max-width: 60em; border-left: 4px solid #c08230; background: #fbf7f0; border-radius: 0 8px 8px 0; padding: 0.5em 0.85em; text-align: left;">
+  <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.34em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em;">Why an LLM finds this easy</div>
+  <ul style="margin: 0; padding-left: 1.1em; font-size: 0.34em; line-height: 1.55; color: #1f2330;">
+    <li>Pythonic, decorated, declarative.</li>
+    <li>Errors are loud (port mismatch, weld misalign).</li>
+    <li>Variation is parametric: just change defaults.</li>
+    <li>Simulator answers in seconds.</li>
+  </ul>
+</div>
 </section>
 
 <section id="slide-effectful-intro" class="slide level2">
@@ -1639,7 +1648,7 @@ def aux_losses(env) -&gt; dict:
         var sec = document.getElementById("slide-rada-01b");
         var key = "9-10";
         sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
-          if (c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
+          if (c.classList.contains("visible") || c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
         });
         cap.innerHTML = CAPS[key] || "";
       }
@@ -1659,14 +1668,14 @@ def aux_losses(env) -&gt; dict:
         var sec = document.getElementById("slide-rada-01b");
         var key = "9-10";
         sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
-          if (c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
+          if (c.classList.contains("visible") || c.classList.contains("current-fragment")) key = c.getAttribute("data-line-numbers");
         });
         img.src = "./media/arm/" + (ARM[key] || "arm_full.png");
         var cap = document.getElementById("rada01b-cap");
         var mid = document.getElementById("rada01b-mid");
         var clone = null;
         sec.querySelectorAll("code.has-highlights.fragment").forEach(function (c) {
-          if (c.classList.contains("current-fragment")) clone = c;
+          if (c.classList.contains("visible") || c.classList.contains("current-fragment")) clone = c;
         });
         if (!clone) clone = sec.querySelector("code.has-highlights.fragment");
         if (cap && mid && clone) {
