@@ -887,6 +887,20 @@ with handler(provider), handler(UnsafeEvalProvider()):
 <p style="margin: 0.4em auto 0; max-width: 93%; font-size: 0.33em; color: #4a4f5a; text-align: center; line-height:1.5;">A function can return a function. A Template whose return type is a Callable makes the model write the code, which effectful compiles and runs.</p>
 </section>
 
+<section id="slide-eff-summary" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.15em 0;"><span style="color: #1E3A8A;">effectful</span>: an LLM call is just a function</h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The same machinery a program already gives us, lifted to the model. One handler stack, four moves.</p>
+<div style="display: flex; flex-direction: column; gap: 0.45em; max-width: 90%; margin: 0 auto;">
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.5em 0.75em; font-size: 0.4em; line-height: 1.5; text-align: left;"><strong style="color:#1E3A8A;">Follow a format.</strong> The return type is the contract; effectful parses and validates the model output against it, or rejects it.</div>
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.5em 0.75em; font-size: 0.4em; line-height: 1.5; text-align: left;"><strong style="color:#c0392b;">Handle failures.</strong> A validation error is a value: <code>RetryLLMHandler</code> catches it, feeds it back, and the model re-asks.</div>
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.75em; font-size: 0.4em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Manage context.</strong> An <code>Agent</code> captures its tools from scope and shares history across calls, no manual prompt-stitching.</div>
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.75em; font-size: 0.4em; line-height: 1.5; text-align: left;"><strong style="color:#c08230;">Generate code.</strong> A <code>Template</code> can return a <code>Callable</code>, so the LLM writes a function that effectful compiles and runs. Proposing a design is writing a program.</div>
+</div>
+<div class="fragment" style="margin: 0.55em auto 0; max-width: 40em; border-left: 4px solid #1E3A8A; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.55em 0.9em; text-align: left;">
+  <p style="margin: 0; font-size: 0.5em;"><strong>How do we test if this works?</strong></p>
+</div>
+</section>
+
 <section id="slide-eff-lang2morph-context" class="slide level2">
 <h2 style="font-size: 0.9em; margin: 0 0 0.12em 0;">Reproducing <span style="color: #1E3A8A;">Lang2Morph</span> in RoboTL</h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Qiao, Gilday, Xie, Hughes (EPFL CREATE Lab) &middot; arXiv:2509.18937, 2025. Natural language in, a 3D-printable task-specific hand out.</p>
