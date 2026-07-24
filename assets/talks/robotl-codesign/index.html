@@ -596,6 +596,10 @@ def CircularPalm(self, n_fingers=3, ...):
 </section>
 
 <section id="slide-effectful-tips" class="slide level2">
+<style>
+#slide-effectful-tips .tips-callout { position: relative; }
+#slide-effectful-tips .tips-callout::before { content: ""; position: absolute; left: -0.6em; top: 50%; transform: translateY(-50%); border-top: 0.5em solid transparent; border-bottom: 0.5em solid transparent; border-right: 0.6em solid #c08230; }
+</style>
 <h2 style="font-size: 1em; margin: 0 0 0.2em 0;">Same factory, swap one component: <span style="color: #1E3A8A;">fingertip variants</span></h2>
 
 <div style="display: flex; gap: 0.4em; align-items: stretch; justify-content: center; max-width: 96%; margin: 0 auto;">
@@ -620,8 +624,8 @@ def CircularPalm(self, n_fingers=3, ...):
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.28em; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; text-align: center;">HookTip</div>
   </div>
 </div>
-<div style="max-width: 96%; margin: 0.45em auto 0; text-align: left;">
-  <div title="The vocabulary this uses:&#10;union / difference: CSG&#10;scale / translate: place geometry&#10;Port · Pose · face: attach points&#10;material: inertia + CAD&#10;joints.Weld: fix tip to finger&#10;self.place: position a port&#10;&#10;Full language surface on the next slide." style="cursor: help; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.35em 0.5em;">
+<div style="display: flex; gap: 0.9em; align-items: center; max-width: 96%; margin: 0.45em auto 0; text-align: left;">
+  <div style="flex: 1.9; min-width: 0; border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.35em 0.5em;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.32em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.15em;">A whole new tip: a shape, a material, a base port</div>
     <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim data-noescape>@defcomponent
 def BallTip(self, radius_ratio: float = 1.0):
@@ -639,6 +643,18 @@ def BallTip(self, radius_ratio: float = 1.0):
 def Finger(self, tip: Component | None = None):
     self.tip = CapsuleTip() if tip is None else tip
     joints.Weld(self.tip.base, self.distal_motor.hinge.tip)</code></pre>
+  </div>
+  <div class="tips-callout" style="flex: 1; min-width: 0; border: 1px solid #c08230; border-radius: 8px; background: #fbf7f0; padding: 0.5em 0.7em; font-size: 0.32em; line-height: 1.5; color: #1f2330;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em;">the vocabulary this uses</div>
+    <ul style="margin: 0; padding-left: 1.1em; font-family: 'IBM Plex Mono', monospace;">
+      <li><strong>union / difference</strong> <span style="color:#6b7080;">CSG</span></li>
+      <li><strong>scale / translate</strong> <span style="color:#6b7080;">place geometry</span></li>
+      <li><strong>Port &middot; Pose &middot; face</strong> <span style="color:#6b7080;">attach points</span></li>
+      <li><strong>material</strong> <span style="color:#6b7080;">inertia + CAD</span></li>
+      <li><strong>joints.Weld</strong> <span style="color:#6b7080;">fix tip to finger</span></li>
+      <li><strong>self.place</strong> <span style="color:#6b7080;">position a port</span></li>
+    </ul>
+    <div style="margin-top: 0.3em; color: #4a4f5a;">Full language surface on the next slide.</div>
   </div>
 </div>
 <p style="margin: 0.4em auto 0; max-width: 92%; font-size: 0.3em; color: #6b7080; text-align: left;">No changes to the palm prior, no re-solving by hand. <code>solve_init</code> re-runs end-to-end for each tip variant.</p>
