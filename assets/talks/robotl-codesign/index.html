@@ -622,10 +622,7 @@ def CircularPalm(self, n_fingers=3, ...):
 </div>
 <div style="max-width: 96%; margin: 0.45em auto 0; text-align: left;">
   <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.35em 0.5em;">
-    <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.6em; margin-bottom: 0.15em;">
-      <span style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.32em; letter-spacing: 0.05em; text-transform: uppercase;">A whole new tip: a shape, a material, a base port</span>
-      <span title="union / difference: CSG&#10;scale / translate: place geometry&#10;Port · Pose · face: attach points&#10;material: inertia + CAD&#10;joints.Weld: fix tip to finger&#10;self.place: position a port&#10;&#10;Full language surface on the next slide." style="cursor: help; white-space: nowrap; font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.3em; letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid #e6d8bd; border-radius: 4px; padding: 0.12em 0.5em;">the vocabulary this uses &#9432;</span>
-    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.32em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.15em;">A whole new tip: a shape, a material, a base port</div>
     <pre style="margin: 0; font-size: 0.26em; line-height: 1.4; overflow: hidden;"><code class="language-python" data-trim data-noescape>@defcomponent
 def BallTip(self, radius_ratio: float = 1.0):
     radius = radius_ratio * 10
@@ -642,7 +639,6 @@ def BallTip(self, radius_ratio: float = 1.0):
 def Finger(self, tip: Component | None = None):
     self.tip = CapsuleTip() if tip is None else tip
     joints.Weld(self.tip.base, self.distal_motor.hinge.tip)</code></pre>
-    <p style="margin: 0.2em 0 0; font-size: 0.26em; color: #6b7080;">Condensed from robotl/examples/leap_hand.py (scale and units elided).</p>
   </div>
 </div>
 <p style="margin: 0.4em auto 0; max-width: 92%; font-size: 0.3em; color: #6b7080; text-align: left;">No changes to the palm prior, no re-solving by hand. <code>solve_init</code> re-runs end-to-end for each tip variant.</p>
