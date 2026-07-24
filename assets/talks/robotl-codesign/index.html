@@ -701,47 +701,13 @@ def CubeSpinEnv(self, robot: Component, spin_axis=...):
 <section id="slide-robotl-semantics" class="slide level2">
 <h2 style="font-size: 0.9em; margin: 0 0 0.15em 0;">The <span style="color: #1E3A8A;">RoboTL</span> language surface</h2>
 <p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">One program describes body, kinematics, a design distribution, and an objective; handlers interpret it</p>
-<div style="display: flex; flex-direction: column; gap: 0.5em; max-width: 94%; margin: 0 auto;">
-  <div style="display: flex; gap: 0.5em; align-items: stretch;">
-  <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.45em 0.65em; font-size: 0.36em; line-height: 1.5; font-family: 'IBM Plex Mono', monospace; text-align: left;">
-    <div style="color:#1E3A8A; font-size: 0.95em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em;">Geometry / CAD</div>
-      <div><strong style="color:#1f2330;">shapes</strong> <span style="color:#6b7080;">cube · sphere · cylinder · capsule</span></div>
-      <div><strong style="color:#1f2330;">union / difference</strong> <span style="color:#6b7080;">intersection (CSG)</span></div>
-      <div><strong style="color:#1f2330;">scale / translate</strong> <span style="color:#6b7080;">transform · face</span></div>
-      <div><strong style="color:#1f2330;">Port · Pose · material</strong> <span style="color:#6b7080;">frames + inertia</span></div>
-  </div>
-  <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.45em 0.65em; font-size: 0.36em; line-height: 1.5; font-family: 'IBM Plex Mono', monospace; text-align: left;">
-    <div style="color:#1E3A8A; font-size: 0.95em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em;">Kinematics & composition</div>
-      <div><strong style="color:#1f2330;">@defcomponent</strong> <span style="color:#6b7080;">define a part</span></div>
-      <div><strong style="color:#1f2330;">self.place(Port())</strong> <span style="color:#6b7080;">position an attach point</span></div>
-      <div><strong style="color:#1f2330;">joints.Weld</strong> <span style="color:#6b7080;">0-DOF fix</span></div>
-      <div><strong style="color:#1f2330;">joints.Hinge</strong> <span style="color:#6b7080;">1-DOF: axis, range, damping</span></div>
-  </div>
-  </div>
-  <div style="display: flex; gap: 0.5em; align-items: stretch;">
-  <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.45em 0.65em; font-size: 0.36em; line-height: 1.5; font-family: 'IBM Plex Mono', monospace; text-align: left;">
-    <div style="color:#c08230; font-size: 0.95em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em;">Probabilistic designs</div>
-      <div><strong style="color:#1f2330;">choose(dist.Dirichlet)</strong> <span style="color:#6b7080;">sample a design param</span></div>
-      <div><strong style="color:#1f2330;">constrain(loss)</strong> <span style="color:#6b7080;">soft constraint</span></div>
-      <div><strong style="color:#1f2330;">solve_init</strong> <span style="color:#6b7080;">NUTS / MCMC picks the values</span></div>
-  </div>
-  <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.45em 0.65em; font-size: 0.36em; line-height: 1.5; font-family: 'IBM Plex Mono', monospace; text-align: left;">
-    <div style="color:#c08230; font-size: 0.95em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em;">Objectives (the loss interface)</div>
-      <div><strong style="color:#1f2330;">Maximize · Minimize</strong> <span style="color:#6b7080;">Nullify</span></div>
-      <div><strong style="color:#1f2330;">Equalize</strong> <span style="color:#6b7080;">make two exprs equal</span></div>
-      <div><strong style="color:#1f2330;">KeepAbove · KeepBelow</strong> <span style="color:#6b7080;">one-sided bounds</span></div>
-      <div><strong style="color:#1f2330;"></strong> <span style="color:#6b7080;">these feed MPC directly</span></div>
-  </div>
-  </div>
-  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 4px solid #2d6a4f; border-radius: 0 8px 8px 0; background: #f3f5fb; padding: 0.5em 0.8em; font-size: 0.36em; line-height: 1.5; font-family: 'IBM Plex Mono', monospace; text-align: left;">
-    <div style="color:#2d6a4f; font-size: 0.95em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.3em;">Handlers: one program, many interpretations</div>
-    <div style="display: flex; gap: 1.2em; flex-wrap: wrap;">
-      <div><strong style="color:#1f2330;">handlers.cad</strong> <span style="color:#6b7080;">geometry, inertia, mesh</span></div>
-      <div><strong style="color:#1f2330;">handlers.mujoco</strong> <span style="color:#6b7080;">compile + simulate</span></div>
-      <div><strong style="color:#1f2330;">handlers.jax</strong> <span style="color:#6b7080;">solve constraints</span></div>
-      <div><strong style="color:#1f2330;">MPCController</strong> <span style="color:#6b7080;">control (MPPI / CEM, CPU)</span></div>
-    </div>
-  </div>
+<div style="max-width: 82%; margin: 0.4em auto 0; text-align: left;">
+  <ul style="margin: 0; padding-left: 1.2em; font-size: 0.5em; line-height: 1.8; color: #1f2330;">
+    <li class="fragment">Define shapes, their composition with CAD-level expressivity, and uncertainty over the design.</li>
+    <li class="fragment">Define controllable joints and constructs to support control.</li>
+    <li class="fragment">Support computations that are python native.</li>
+    <li class="fragment">Can be compiled down to MuJoCo for simulation.</li>
+  </ul>
 </div>
 </section>
 
