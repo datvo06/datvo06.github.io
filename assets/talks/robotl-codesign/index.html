@@ -556,42 +556,6 @@ def CircularPalm(self, n_fingers=3, ...):
 </div>
 </section>
 
-<section id="slide-effectful-palms" class="slide level2">
-<h2 style="font-size: 1em; margin: 0 0 0.2em 0;"><code>solve_init</code> in action: three palm shapes, same program</h2>
-<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.34em; color: #6b7080; text-align: left;">
-  Same <code>LeapHand</code> code, three palm choices. <code>solve_init</code> samples (or fixes) finger angles from each palm's prior, threads the constraints through the kinematic graph, and hands off to the MuJoCo compile.
-</p>
-
-<div style="display: flex; gap: 0.8em; align-items: stretch; justify-content: center;">
-
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em;">
-    <video src="../basis-2026/media/codesign/palms/circular.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 56vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">CircularPalm</div>
-    <p style="margin: 0; font-size: 0.32em; color: #4a4f5a; text-align: center; line-height: 1.4;">Dirichlet over finger gaps; NUTS samples angles in <code>[&minus;&pi;/2, &pi;/2]</code>.</p>
-  </div>
-
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em;">
-    <video src="../basis-2026/media/codesign/palms/rectangular.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 56vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">RectangularPalm</div>
-    <p style="margin: 0; font-size: 0.32em; color: #4a4f5a; text-align: center; line-height: 1.4;">Fingers in a row along the palm's long axis. The original LEAP geometry.</p>
-  </div>
-
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em;">
-    <video src="../basis-2026/media/codesign/palms/triangular.mp4" autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: auto; max-height: 56vh; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); object-fit: contain; background: #fafbfc;"></video>
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.34em; color: #1E3A8A; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;">TriangularPalm</div>
-    <p style="margin: 0; font-size: 0.32em; color: #4a4f5a; text-align: center; line-height: 1.4;">Fingers fixed at three edge midpoints. Deterministic; no <code>choose</code> at all.</p>
-  </div>
-
-</div>
-
-<p style="margin: 0.55em auto 0; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left;">
-  Each clip: 72-frame turntable rendered via the MuJoCo handler from the same <code>LeapHand</code> factory, only the palm constructor swapped.
-</p>
-<div class="fragment" style="margin: 0.4em auto 0; max-width: 40em; border-left: 4px solid #1E3A8A; background: #f3f5fb; padding: 0.5em 0.85em; border-radius: 0 8px 8px 0; text-align: left;">
-  <p style="margin: 0; font-size: 0.38em; line-height: 1.5;"><code>solve_init</code> solves only the <strong>initial configuration</strong>: it picks the <code>choose</code> values and the static pose that satisfy the constraints, then compiles. It does not move the hand. <strong>Motion comes from MPC</strong> (next).</p>
-</div>
-</section>
-
 <section id="slide-effectful-tips" class="slide level2">
 <style>
 #slide-effectful-tips .tips-callout { position: relative; }
