@@ -328,6 +328,20 @@ overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only
     <div class="fragment" data-fragment-index="4" style="border:1px solid #1E3A8A; border-radius:6px; background:#eef2fb; color:#1E3A8A; padding:0.45em 0.65em;">the full simulator; the base-sim residual is the learning target</div>
   </div>
 </div>
+<div style="display: flex; gap: 0.5em; align-items: stretch; max-width: 95%; margin: 0.45em auto 0; font-size: 0.34em; text-align: left;">
+  <div class="fragment" data-fragment-index="5" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #8b93a0; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Unchanged from act 2</div>
+    Bilevel planning, the process worldview, the skills, the envs, training tasks with goals.
+  </div>
+  <div class="fragment" data-fragment-index="6" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Newly given</div>
+    The trusted <strong>rigid-body base sim</strong>, and data from an explorer: oracle demos plus interaction trajectories, failures kept as counterexamples.
+  </div>
+  <div class="fragment" data-fragment-index="7" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">To synthesize</div>
+    <strong>Which features need rules</strong>: not known first, flagged by base-sim residuals as a hint. Then the rules (<code>simulator.py</code>), the predicates (<code>predicates.py</code>), and posteriors over the constants.
+  </div>
+</div>
 </section>
 
 <!-- 12. ACT 3 two files, one params (F6 right) -->
