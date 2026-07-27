@@ -374,6 +374,12 @@ overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only
   <p style="margin:0.2em auto 0; max-width: 92%; font-size:0.32em; color:#4a4f5a; text-align:center; line-height:1.5;">A sum-of-squared-errors likelihood over the residual, a boxed prior on each named constant. Fit with <strong>emcee MCMC</strong> or a <strong>Levenberg-Marquardt MAP</strong> with Laplace covariance.</p>
 </div>
 <div class="fragment" style="max-width: 88%; margin: 0.4em auto 0; border-left: 4px solid #2d6a4f; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.45em 0.8em; font-size: 0.33em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Identifiability.</strong> Sloppy directions surface honestly: where the data is silent, the posterior stays wide and says so.</div>
+<div class="fragment" style="max-width: 88%; margin: 0.35em auto 0; text-align: left;">
+  <div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; font-size: 0.3em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em;">a real fit report (dominoes run, true friction 0.5)</div>
+  <pre style="margin:0; font-size:0.26em; line-height:1.5; background:#1f2330; color:#d4d7dc; border-radius:6px; padding:0.5em 0.7em;"><code>lateral_friction  [physical]  0.1000 -&gt; 0.5315   (+431.5%)
+  posterior_std=0.124   prior_std=0.75   contraction=0.17  -&gt; identified</code></pre>
+  <p style="margin:0.15em 0 0; font-size:0.28em; color:#6b7080;">Only identified or weakly identified values (contraction &lt; 0.7) are deployed; the rest keep the baseline.</p>
+</div>
 </section>
 
 <!-- 14. ACT 3 agentic loop (F7) -->
@@ -419,6 +425,21 @@ overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only
     </div>
     <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.5em 0.7em; font-size:1.06em; line-height:1.5;"><strong style="color:#2d6a4f;">How it steers exploration.</strong> Refinement flips from feasibility-seeking to <strong>information-seeking</strong>: the explorer biases its continuous parameter samples toward states that straddle a learned boundary, because those are the experiments that shrink the posterior.</div>
   </div>
+</div>
+</section>
+
+<!-- 15b. ACT 3 one real run -->
+<section id="slide-a3-run" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">One real run: <span style="color: #2d6a4f;">dominoes, end to end</span></h2>
+<div style="max-width: 92%; margin: 0.25em auto 0; display: flex; flex-direction: column; gap: 0.35em; font-size: 0.36em; text-align: left;">
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.45em 0.7em; line-height: 1.5;"><strong>The task.</strong> Arrange blue dominoes so that pushing the <span style="color:#2d6a4f;">green</span> one topples the <span style="color:#7b2d8b;">purple</span> one, as few blues as possible (reward +1, then -0.1 per blue). The env runs friction <strong>0.5</strong>; the base sim believes <strong>0.1</strong>.</div>
+  <div style="display: flex; flex-direction: column; gap: 0.25em; font-family: 'IBM Plex Mono', monospace; font-size: 0.9em;">
+    <div class="fragment" style="display: flex; gap: 0.6em; border: 1px solid #d0d5dc; border-left: 3px solid #c0392b; border-radius: 6px; background: #ffffff; padding: 0.35em 0.6em;"><span style="color:#c0392b; flex: 0 0 9em;">Explore &times;2 &middot; cycle 0</span><span style="color:#4a4f5a;">plans tuned on friction-0.1 physics; real env: reward -0.10, not solved, twice</span></div>
+    <div class="fragment" style="display: flex; gap: 0.6em; border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.35em 0.6em;"><span style="color:#2d6a4f; flex: 0 0 9em;">Learn</span><span style="color:#4a4f5a;">residuals point at rigid-body motion itself: no process rules, pure sysID; lateral_friction 0.1 &rarr; 0.53; 3 predicates invented (Toppled, UprightAtRest, AtBridgePoint)</span></div>
+    <div class="fragment" style="display: flex; gap: 0.6em; border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.35em 0.6em;"><span style="color:#2d6a4f; flex: 0 0 9em;">Test &middot; cycle 0</span><span style="color:#4a4f5a;">planned on the calibrated model, a 3-blue bridge chain; real env: solved, reward 0.70</span></div>
+    <div class="fragment" style="display: flex; gap: 0.6em; border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.35em 0.6em;"><span style="color:#2d6a4f; flex: 0 0 9em;">Explore &middot; cycle 1</span><span style="color:#4a4f5a;">2/2 train attempts solved with the fixed model &rarr; early stop; 62 min wall clock</span></div>
+  </div>
+  <div class="fragment" style="border-left: 4px solid #2d6a4f; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.45em 0.8em; line-height: 1.5;"><strong style="color:#2d6a4f;">The failures are the learning signal.</strong> One learning session repaired the physics; every attempt after it solved. And capture demands robustness across the posterior's width, so a wide posterior makes plans harder to capture, which rewards the informative exploration of the previous slide.</div>
 </div>
 </section>
 
