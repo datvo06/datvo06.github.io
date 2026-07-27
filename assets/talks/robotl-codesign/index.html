@@ -1164,6 +1164,27 @@ def aux_losses(env) -&gt; dict:
   <p style="margin-top: 0.7em; font-size: 0.4em; color: #6b7080;">Scene capture is program synthesis: perception is inferring the description's parameters.</p>
 </section>
 
+<section id="slide-predicator-tutorial" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;"><span style="color: #1E3A8A;">Predicators</span>: learning a robot's own abstract world model</h2>
+<p style="margin: 0 auto 0.4em; max-width: 94%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">Three iterations, each only a delta on the last: static predicates, then time and exogeny, then the continuous level.</p>
+<div style="display: flex; flex-direction: column; gap: 0.4em; max-width: 94%; margin: 0 auto; text-align: left;">
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.45em 0.7em; font-size: 0.34em; line-height: 1.45;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.95em; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.15em;"><a href="https://arxiv.org/abs/2410.23156" style="color:#1E3A8A;">VisualPredicator</a> &middot; ICLR 2025 &middot; the base</div>
+    <div>The world is <strong>static</strong>: it changes only when the robot acts. A VLM proposes predicate <em>code</em> from visual demos, planning utility keeps the useful ones, and operators are learned on top. Bilevel planning: a symbolic skeleton, refined continuously against a simulator.</div>
+    <div style="margin-top: 0.15em; color: #c0392b;"><strong>Limit:</strong> effects are instantaneous. A kettle that boils on its own is not representable.</div>
+  </div>
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.45em 0.7em; font-size: 0.34em; line-height: 1.45;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.95em; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.15em;"><a href="https://arxiv.org/abs/2509.26255" style="color:#c08230;">ExoPredicator</a> &middot; ICLR 2026 &middot; + time and exogeny</div>
+    <div>One new object, the <strong>causal process</strong>: durative, delayed, and exogenous effects on top of the same predicates. Planning becomes temporal: schedule effects at sampled delays, cancel them if the condition breaks, and <code>Wait</code> becomes a real skill.</div>
+    <div style="margin-top: 0.15em; color: #c0392b;"><strong>Limit:</strong> still symbolic only. It says <code>JugFilled</code> flips a few steps after the faucet turns on, not the law <code>volume += rate</code>, so refinement still leans on a ground-truth simulator.</div>
+  </div>
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #f3f5fb; padding: 0.45em 0.7em; font-size: 0.34em; line-height: 1.45;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; font-size: 0.95em; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.15em;">Predicator v3 &middot; in progress &middot; + the continuous level, synthesized</div>
+    <div>A Claude agent writes two files against the trajectories, <code>simulator.py</code> (per-step process dynamics) and <code>predicates.py</code> (threshold classifiers), sharing one set of Bayesian-fitted constants. <strong>Consistency by construction:</strong> the predicate threshold and the dynamical rule read the same numbers, so the symbolic event and the continuous event coincide.</div>
+  </div>
+</div>
+</section>
+
 <section id="slide-predicator-v3">
   <h2 style="font-size: 0.95em;">Bi-level Planning through <span style="color: #1E3A8A;">Predicators</span></h2>
     <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 95%; margin: 0 auto;">
