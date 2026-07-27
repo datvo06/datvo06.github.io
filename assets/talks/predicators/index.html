@@ -312,16 +312,20 @@ overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only
 <section id="slide-a3-motiv" class="slide level2">
 <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.4em; color: #2d6a4f; letter-spacing: 0.08em; text-transform: uppercase; text-align:center; margin-bottom: 0.3em;">Act 3 &middot; Predicator v3 (in progress) &middot; unchanged: bilevel planning, processes, skills, envs</div>
 <h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Who writes the <span style="color: #2d6a4f;">simulator</span>?</h2>
-<div style="display: flex; gap: 0.8em; align-items: center; max-width: 94%; margin: 0.2em auto 0; font-size: 0.38em; text-align: left;">
-  <div class="fragment" style="flex: 1; min-width: 0; border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.55em 0.8em; line-height:1.5;">We know the rigid-body part, physics gives it to us. The <strong>process part</strong>, fill rates and heat thresholds, is exactly what we do not know. So <strong>factor</strong> the dynamics.</div>
-  <div style="flex: 1; min-width: 0;">
-    <div class="fragment" style="display:flex; flex-direction:column; gap:0.3em; font-size:0.34em; font-family:'IBM Plex Mono',monospace; text-align:center;">
-      <div style="border:1px solid #8b93a0; border-radius:6px; background:#f6f7f9; color:#4a4f5a; padding:0.4em 0.6em;">trusted rigid-body base sim</div>
-      <div style="color:#8b93a0;">+</div>
-      <div style="border:1px solid #2d6a4f; border-radius:6px; background:#eef6f0; color:#2d6a4f; padding:0.4em 0.6em;">learned rules (overwrite only declared process features)</div>
-      <div style="color:#8b93a0;">=</div>
-      <div style="border:1px solid #1E3A8A; border-radius:6px; background:#eef2fb; color:#1E3A8A; padding:0.4em 0.6em;">full simulator; the base-sim residual is the learning target</div>
+<div style="display: flex; gap: 0.9em; align-items: center; max-width: 94%; margin: 0.25em auto 0;">
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.45em; font-size: 0.4em; text-align: left;">
+    <div class="fragment" data-fragment-index="0" style="border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.5em 0.75em; line-height:1.5;">Act 2 left refinement leaning on a <strong>ground-truth simulator</strong> the model did not learn.</div>
+    <div class="fragment" data-fragment-index="1" style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.5em 0.75em; line-height:1.5;">
+      <div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; font-size:0.85em; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:0.2em;">Learning fine-grained parameters: fill rates, heat thresholds, etc.</div>
+      We know the rigid-body part, physics gives it to us. The <strong>process part</strong> is exactly what we do not know. So <strong>factor</strong> the dynamics.
     </div>
+  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3em; font-size: 0.42em; font-family: 'IBM Plex Mono', monospace; text-align: center;">
+    <div class="fragment" data-fragment-index="2" style="border:1px solid #8b93a0; border-radius:6px; background:#f6f7f9; color:#4a4f5a; padding:0.45em 0.65em;">trusted rigid-body base sim</div>
+    <div class="fragment" data-fragment-index="3" style="color:#8b93a0;">+</div>
+    <div class="fragment" data-fragment-index="3" style="border:1px solid #2d6a4f; border-radius:6px; background:#eef6f0; color:#2d6a4f; padding:0.45em 0.65em;">learned rules: overwrite only the declared process features</div>
+    <div class="fragment" data-fragment-index="4" style="color:#8b93a0;">=</div>
+    <div class="fragment" data-fragment-index="4" style="border:1px solid #1E3A8A; border-radius:6px; background:#eef2fb; color:#1E3A8A; padding:0.45em 0.65em;">the full simulator; the base-sim residual is the learning target</div>
   </div>
 </div>
 </section>
