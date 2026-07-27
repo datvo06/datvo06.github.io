@@ -59,6 +59,37 @@
   <p style="margin-top: 1.1em; font-size: 0.6em; color: #4a4f5a;">Dat &amp; Yichao</p>
 </section>
 
+<!-- 1b. VOCABULARY PRIMER: predicates and operators -->
+<section id="slide-vocab" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.2em 0;">What are <span style="color: #1E3A8A;">predicates</span> and <span style="color: #c08230;">operators</span>?</h2>
+<div style="display: flex; gap: 0.9em; align-items: center; max-width: 96%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0;">
+    <video src="./media/boil_example.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 46vh; object-fit: cover; border-radius: 6px; border: 1px solid #d0d5dc; background:#fff;"></video>
+    <p style="margin: 0.2em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">The running example: a kitchen with a jug, a faucet, a burner.</p>
+  </div>
+  <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; gap: 0.45em; font-size: 0.36em; text-align: left;">
+    <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.95em; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">Predicate: a named true/false fact about the state</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.35em; font-family: 'IBM Plex Mono', monospace; font-size: 0.9em;">
+        <span style="border: 1px solid #2d6a4f; border-radius: 4px; background: #eef6f0; color: #2d6a4f; padding: 0.12em 0.45em;">HandEmpty &#10003;</span>
+        <span style="border: 1px solid #2d6a4f; border-radius: 4px; background: #eef6f0; color: #2d6a4f; padding: 0.12em 0.45em;">JugAtFaucet(jug) &#10003;</span>
+        <span style="border: 1px solid #c0392b; border-radius: 4px; background: #fdf1ef; color: #c0392b; padding: 0.12em 0.45em;">FaucetOn &#10007;</span>
+        <span style="border: 1px solid #c0392b; border-radius: 4px; background: #fdf1ef; color: #c0392b; padding: 0.12em 0.45em;">WaterBoiled &#10007;</span>
+      </div>
+      <div style="margin-top: 0.3em; color: #4a4f5a;">Read off the raw state, they abstract <em>where things are</em> into a handful of symbols.</div>
+    </div>
+    <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.95em; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">Operator: an action as preconditions and effects</div>
+      <pre style="margin: 0; font-size: 0.85em; line-height: 1.5; font-family: 'IBM Plex Mono', monospace; background: none; color: #1f2330;">PickJugFromFaucet(robot, jug)
+  pre: HandEmpty &middot; JugAtFaucet(jug)
+  add: Holding(jug)
+  del: HandEmpty &middot; JugAtFaucet(jug)</pre>
+      <div style="margin-top: 0.3em; color: #4a4f5a;">When its preconditions hold, it can fire; its effects rewrite the predicates. They abstract <em>what actions do</em>.</div>
+    </div>
+  </div>
+</div>
+</section>
+
 <!-- 2. THE QUESTION + bilevel primer (F1) -->
 <section id="slide-question" class="slide level2">
 <h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">The question: <span style="color: #1E3A8A;">how should a robot build its own abstract world model?</span></h2>
