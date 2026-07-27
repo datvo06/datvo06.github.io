@@ -396,19 +396,28 @@ overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only
 <!-- 15. ACT 3 active experiments (F8) -->
 <section id="slide-a3-active" class="slide level2">
 <h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Active experiments</h2>
-<div style="display: flex; gap: 0.8em; align-items: center; max-width: 95%; margin: 0.2em auto 0;">
-  <div style="flex: 1; min-width: 0; font-size: 0.36em; text-align: left;">
-    <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.55em 0.75em; line-height:1.5;">The posterior turns each atom into a <strong>Bernoulli</strong>. Ensemble disagreement, the mean binary entropy across posterior draws, steers exploration toward the states where the model is least sure.</div>
+<div style="display: flex; gap: 0.8em; align-items: flex-start; max-width: 96%; margin: 0.25em auto 0;">
+  <div style="flex: 1.15; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.36em; text-align: left;">
+    <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.5em 0.7em; line-height:1.5;"><strong style="color:#2d6a4f;">The atom is deterministic; \(\theta\) is not.</strong> A predicate is a hard threshold, \(\mathrm{atom}(s) = [\,\mathrm{feature}(s) \ge \mathrm{threshold}(\theta)\,]\), no fuzzy logic. The uncertainty is epistemic, over the constants \(\theta\) the sysID posterior just fit, the same \(\theta\) the rules use.</div>
+    <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.5em 0.7em; line-height:1.5;"><strong style="color:#2d6a4f;">So each atom becomes a Bernoulli.</strong>
+      <p style="text-align:center; font-size:1.05em; margin:0.25em 0;">\(P(\text{atom} \mid \mathcal{D}, s) = \mathbb{E}_{\theta \sim p(\theta \mid \mathcal{D})}[\mathrm{atom}(s)]\)</p>
+      in practice: the fraction of a posterior ensemble whose classifier fires at \(s\).</div>
+    <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fbf7f0; padding:0.5em 0.7em; line-height:1.5;"><strong style="color:#c08230;">"Least sure", exactly.</strong> Score a candidate state by the mean binary entropy over atoms,
+      <p style="text-align:center; font-size:1.05em; margin:0.25em 0;">\(\mathrm{score}(s) = \tfrac{1}{|\mathcal{A}|} \textstyle\sum_{a \in \mathcal{A}} H\big(\hat{p}_a(s)\big)\)</p>
+      where \(\hat{p}_a(s)\) is atom \(a\)'s across-ensemble truth fraction. Zero when the ensemble agrees (visiting teaches nothing); about one bit at a 50/50 split (maximally informative).</div>
   </div>
-  <div class="fragment" style="flex: 1; min-width: 0; font-size:0.34em; text-align:left;">
-    <div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.2em;">one jug, three threshold draws</div>
-    <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.5em 0.7em; font-family:'IBM Plex Mono',monospace; line-height:1.7;">
-      water = 0.61<br>
-      &theta;&#8321; = 0.55 &rarr; <span style="color:#2d6a4f;">Filled</span><br>
-      &theta;&#8322; = 0.68 &rarr; <span style="color:#c0392b;">not Filled</span><br>
-      &theta;&#8323; = 0.60 &rarr; <span style="color:#2d6a4f;">Filled</span><br>
-      <span style="color:#c08230;">&rarr; on the boundary: go measure here</span>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.34em; text-align: left;">
+    <div class="fragment">
+      <div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.2em;">one jug, three posterior draws of \(\theta\)</div>
+      <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.5em 0.7em; font-family:'IBM Plex Mono',monospace; line-height:1.7;">
+        water = 0.61<br>
+        &theta;&#8321; = 0.55 &rarr; <span style="color:#2d6a4f;">Filled</span><br>
+        &theta;&#8322; = 0.68 &rarr; <span style="color:#c0392b;">not Filled</span><br>
+        &theta;&#8323; = 0.60 &rarr; <span style="color:#2d6a4f;">Filled</span><br>
+        \(\hat{p} = 2/3\), \(H(\hat{p}) \approx 0.92\) bits <span style="color:#c08230;">&rarr; go measure here</span>
+      </div>
     </div>
+    <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.5em 0.7em; font-size:1.06em; line-height:1.5;"><strong style="color:#2d6a4f;">How it steers exploration.</strong> Refinement flips from feasibility-seeking to <strong>information-seeking</strong>: the explorer biases its continuous parameter samples toward states that straddle a learned boundary, because those are the experiments that shrink the posterior.</div>
   </div>
 </div>
 </section>
