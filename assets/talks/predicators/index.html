@@ -168,9 +168,16 @@
             f"Is {objs[0]} inside {objs[1]}?")
 # proposed as Python code, not read from features</code></pre>
   </div>
-  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.34em; text-align: left;">
-    <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.45em 0.65em; line-height:1.45;"><strong style="color:#1E3A8A;">The invention loop.</strong> From the agent's exploration data, a VLM proposes candidate predicates as code, three prompts: when does a skill apply, what changed after it ran, and logical extensions of existing predicates. A greedy search from the <strong>goal predicates</strong> keeps the best-scoring set; operators are learned over the survivors.</div>
-    <div class="fragment" style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.45em 0.65em; line-height:1.45; color:#4a4f5a;"><strong>kept</strong> vs <strong>discarded</strong>: VLM proposals have low precision, so the search prunes them, by classification accuracy of the learned operators early on, by planning utility once satisficing plans exist.</div>
+  <div style="flex: 1.05; min-width: 0; display: flex; flex-direction: column; gap: 0.22em; font-size: 0.32em; font-family: 'IBM Plex Mono', monospace; text-align: center;">
+    <div style="color:#1E3A8A; letter-spacing:0.05em; text-transform:uppercase; text-align:left; margin-bottom:0.1em;">the invention loop (Alg. 1)</div>
+    <div class="fragment" data-fragment-index="0" style="border: 1px solid #1E3A8A; border-radius: 6px; background: #eef2fb; padding: 0.35em 0.55em;"><strong style="color:#1E3A8A;">Explore</strong><br><span style="color:#4a4f5a;">plan with the current \(\Psi, \Omega\), execute, collect data \(\mathcal{D}\)</span></div>
+    <div class="fragment" data-fragment-index="1" style="color: #8b93a0;">&darr; solve rate did not improve</div>
+    <div class="fragment" data-fragment-index="1" style="border: 1px solid #c08230; border-radius: 6px; background: #fbf7f0; padding: 0.35em 0.55em;"><strong style="color:#c08230;">Propose (VLM)</strong><br><span style="color:#4a4f5a;">candidate NSPs as Python code: skill success vs failure &middot; before vs after a skill &middot; logical extensions</span></div>
+    <div class="fragment" data-fragment-index="2" style="color: #8b93a0;">&darr;</div>
+    <div class="fragment" data-fragment-index="2" style="border: 1px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.35em 0.55em;"><strong style="color:#1E3A8A;">Select</strong><br><span style="color:#4a4f5a;">greedy search from \(\Psi_G\): classification accuracy early, planning utility once plans succeed</span></div>
+    <div class="fragment" data-fragment-index="3" style="color: #8b93a0;">&darr;</div>
+    <div class="fragment" data-fragment-index="3" style="border: 1px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.35em 0.55em;"><strong style="color:#1E3A8A;">Learn operators</strong><br><span style="color:#4a4f5a;">preconditions and effects \(\Omega\) over the kept predicates</span></div>
+    <div class="fragment" data-fragment-index="4" style="color: #4a4f5a;">&#8635; back to Explore &middot; stop when no plan fails &middot; return the best \(\Psi, \Omega\)</div>
   </div>
 </div>
 </section>
