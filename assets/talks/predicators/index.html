@@ -310,7 +310,7 @@ overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only
 
 <!-- 11. ACT 3 delta motivation: who writes the simulator (F6 left) -->
 <section id="slide-a3-motiv" class="slide level2">
-<div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.4em; color: #2d6a4f; letter-spacing: 0.08em; text-transform: uppercase; text-align:center; margin-bottom: 0.3em;">Act 3 &middot; Predicator v3 (in progress) &middot; unchanged: bilevel planning, processes, skills, envs</div>
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.4em; color: #2d6a4f; letter-spacing: 0.08em; text-transform: uppercase; text-align:center; margin-bottom: 0.3em;">Act 3 &middot; Predicator v3 (in progress) &middot; unchanged: bilevel planning, processes, envs</div>
 <h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Who writes the <span style="color: #2d6a4f;">simulator</span>?</h2>
 <div style="display: flex; gap: 0.9em; align-items: center; max-width: 94%; margin: 0.25em auto 0;">
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.45em; font-size: 0.4em; text-align: left;">
@@ -331,11 +331,11 @@ overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only
 <div style="display: flex; gap: 0.5em; align-items: stretch; max-width: 95%; margin: 0.45em auto 0; font-size: 0.34em; text-align: left;">
   <div class="fragment" data-fragment-index="5" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #8b93a0; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Unchanged from act 2</div>
-    Bilevel planning, the process worldview, the skills, the envs, training tasks with goals.
+    Bilevel planning, the process worldview, the envs, training tasks with goals, and the skills' <strong>symbolic interface</strong>.
   </div>
   <div class="fragment" data-fragment-index="6" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Newly given</div>
-    The trusted <strong>rigid-body base sim</strong>, and data from an explorer: oracle demos plus interaction trajectories, failures kept as counterexamples.
+    The trusted <strong>rigid-body base sim</strong>, and data from an explorer: oracle demos plus interaction trajectories, failures kept as counterexamples. The skills' low level also upgrades here: from fixed waypoint controllers to optional <strong>motion planning</strong> (BiRRT), emitting joint targets, the bridge to the real arm.
   </div>
   <div class="fragment" data-fragment-index="7" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
     <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">To synthesize</div>
