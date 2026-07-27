@@ -127,7 +127,7 @@
 <!-- 4. ACT 1 setting -->
 <section id="slide-a1-setting" class="slide level2">
 <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.4em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; text-align:center; margin-bottom: 0.3em;">Act 1 &middot; <a href="https://arxiv.org/abs/2410.23156" style="color:#1E3A8A;">VisualPredicator</a> (ICLR 2025)</div>
-<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Static tabletop, a handful of demos, <span style="color: #1E3A8A;">raw images</span></h2>
+<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Static tabletop, <span style="color: #1E3A8A;">raw images</span>, no demonstrations</h2>
 <div style="display: flex; gap: 0.6em; justify-content: center; max-width: 76%; margin: 0.3em auto 0;">
   <img src="./media/vp/blocks_trn.png" alt="Blocks stacking environment, raw image observation" style="flex: 1; min-width: 0; max-height: 26vh; object-fit: contain; border-radius: 6px; border: 1px solid #d0d5dc;">
   <img src="./media/vp/coffee_trn.png" alt="Coffee environment, raw image observation" style="flex: 1; min-width: 0; max-height: 26vh; object-fit: contain; border-radius: 6px; border: 1px solid #d0d5dc;">
@@ -135,14 +135,14 @@
 </div>
 <p style="margin: 0.2em auto 0; max-width: 76%; font-size: 0.3em; color: #6b7080; text-align: center;">Blocks, coffee, balance: the environments as the robot sees them (VisualPredicator, arXiv:2410.23156).</p>
 <div style="display: flex; flex-direction: column; gap: 0.5em; max-width: 84%; margin: 0.4em auto 0; font-size: 0.42em; text-align: left;">
-  <div class="fragment" style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.85em;">The world is <strong>static</strong>: it changes only when the robot acts. A handful of demonstrations, each just these images.</div>
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.85em;">The world is <strong>static</strong>: it changes only when the robot acts. Given: the <strong>skills</strong>, and an initial predicate set that is usually just the <strong>goal predicates</strong> (Blocks: <code>On</code>, <code>OnTable</code>). No demonstrations: the agent explores, planning with what it has and executing.</div>
   <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.6em 0.85em;"><strong style="color:#1E3A8A;">The missing piece.</strong> The predicates a planner reasons over must come from <strong>perception</strong>, not from hand-fed features. Who writes <code>On(a, b)</code> or <code>Clear(x)</code> from pixels?</div>
 </div>
 </section>
 
 <!-- 5. ACT 1 NSP + invention loop (F3) -->
 <section id="slide-a1-nsp" class="slide level2">
-<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Neuro-symbolic predicates, invented from demos</h2>
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Neuro-symbolic predicates, invented from the agent's own data</h2>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 96%; margin: 0.2em auto 0;">
   <div style="flex: 1; min-width: 0;">
     <div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">A predicate is classifier code over perception</div>
@@ -155,8 +155,8 @@
 # proposed as Python code, not read from features</code></pre>
   </div>
   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.34em; text-align: left;">
-    <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.45em 0.65em; line-height:1.45;"><strong style="color:#1E3A8A;">The invention loop.</strong> A VLM proposes candidate predicates as code from the demos; candidates are kept by <strong>planning utility</strong> (do they make plans shorter and more solvable); operators are learned over the survivors.</div>
-    <div class="fragment" style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.45em 0.65em; line-height:1.45; color:#4a4f5a;"><strong>kept</strong> vs <strong>discarded</strong> is decided by whether the predicate earns its place in a plan, not by looking pretty on one image.</div>
+    <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.45em 0.65em; line-height:1.45;"><strong style="color:#1E3A8A;">The invention loop.</strong> From the agent's exploration data, a VLM proposes candidate predicates as code, three prompts: when does a skill apply, what changed after it ran, and logical extensions of existing predicates. A greedy search from the <strong>goal predicates</strong> keeps the best-scoring set; operators are learned over the survivors.</div>
+    <div class="fragment" style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.45em 0.65em; line-height:1.45; color:#4a4f5a;"><strong>kept</strong> vs <strong>discarded</strong>: VLM proposals have low precision, so the search prunes them, by classification accuracy of the learned operators early on, by planning utility once satisficing plans exist.</div>
   </div>
 </div>
 </section>
