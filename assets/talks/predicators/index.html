@@ -61,7 +61,7 @@
 
 <!-- 1b. VOCABULARY PRIMER: predicates and operators -->
 <section id="slide-vocab" class="slide level2">
-<h2 style="font-size: 0.95em; margin: 0 0 0.2em 0;">What are <span style="color: #1E3A8A;">predicates</span> and <span style="color: #c08230;">operators</span>?</h2>
+<h2 style="font-size: 0.95em; margin: 0 0 0.2em 0;">What are <span style="color: #1E3A8A;">predicates</span>, <span style="color: #c08230;">operators</span>, and <span style="color: #2d6a4f;">skills</span>?</h2>
 <div style="display: flex; gap: 0.9em; align-items: center; max-width: 96%; margin: 0.2em auto 0;">
   <div style="flex: 1; min-width: 0;">
     <video src="./media/boil_example.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 46vh; object-fit: cover; border-radius: 6px; border: 1px solid #d0d5dc; background:#fff;"></video>
@@ -85,6 +85,10 @@
   add: Holding(jug)
   del: HandEmpty &middot; JugAtFaucet(jug)</pre>
       <div style="margin-top: 0.3em; color: #4a4f5a;">When its preconditions hold, it can fire; its effects rewrite the predicates. They abstract <em>what actions do</em>.</div>
+    </div>
+    <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; font-size: 0.95em; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.25em;">Skill: the controller that executes an operator</div>
+      <div style="color: #4a4f5a;">The same <code>PickJugFromFaucet</code>, one level down: a motion controller with <strong>continuous parameters</strong> (the grasp pose, the approach path). The operator names it; the skill runs it.</div>
     </div>
   </div>
 </div>
