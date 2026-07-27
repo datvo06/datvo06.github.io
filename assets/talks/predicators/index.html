@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Predicators: three iterations of a robot's world model</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reveal.css">
+  <style>
+    .reveal .sourceCode { overflow: visible; }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/theme/white.css" id="theme">
+
+  <style>
+    /* match the rest of datvo06.github.io */
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    .reveal { font-family: "IBM Plex Sans", -apple-system, sans-serif; }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: "IBM Plex Serif", Georgia, serif;
+      text-transform: none;
+      letter-spacing: -0.015em;
+      font-weight: 600;
+      color: #1f2330;
+    }
+    .reveal a { color: #1E3A8A; }
+    .reveal a:hover { color: #3b5bbf; }
+    .reveal code, .reveal pre { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    .reveal pre code { white-space: pre-wrap; word-break: break-word; }
+    .reveal section img { box-shadow: none; border: 0; max-height: 70vh; }
+
+    /* the running architecture diagram: boxes that gain color per act */
+    .arch { display: flex; flex-direction: column; gap: 0.3em; align-items: stretch; }
+    .arch .lane { display: flex; gap: 0.5em; align-items: stretch; }
+    .arch .box { flex: 1; border: 1px solid #d0d5dc; border-radius: 6px; background: #f6f7f9; color: #b9bfc9; padding: 0.4em 0.6em; font-family: 'IBM Plex Mono', monospace; text-align: center; line-height: 1.35; }
+    .arch .box .t { font-weight: 700; display: block; }
+    .arch .box .s { font-size: 0.85em; }
+    .arch .box.a1 { border-color: #1E3A8A; background: #eef2fb; color: #1f2330; }
+    .arch .box.a1 .t { color: #1E3A8A; }
+    .arch .box.a2 { border-color: #c08230; background: #fbf7f0; color: #1f2330; }
+    .arch .box.a2 .t { color: #c08230; }
+    .arch .box.a3 { border-color: #2d6a4f; background: #eef6f0; color: #1f2330; }
+    .arch .box.a3 .t { color: #2d6a4f; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<!-- 1. TITLE -->
+<section id="slide-cover">
+  <h1 style="font-size: 1.4em; line-height: 1.25;">Predicators<br><span style="color: #1E3A8A;">how a robot builds its own world model</span></h1>
+  <p style="margin-top: 1.1em; font-size: 0.6em; color: #4a4f5a;">Dat Nguyen</p>
+  <p style="font-size: 0.42em; color: #6b7080; margin-top: 0.6em;">Three iterations, delta by delta: <a href="https://arxiv.org/abs/2410.23156">VisualPredicator</a> &middot; <a href="https://arxiv.org/abs/2509.26255">ExoPredicator</a> &middot; Predicator v3</p>
+</section>
+
+<!-- 2. THE QUESTION + bilevel primer (F1) -->
+<section id="slide-question" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">The question: <span style="color: #1E3A8A;">how should a robot build its own abstract world model?</span></h2>
+<p style="margin: 0 auto 0.5em; max-width: 92%; font-size: 0.36em; color: #4a4f5a; text-align: left;">A planner needs an abstraction to reason over. Where does that abstraction come from, and how do you plan and act with it once you have it?</p>
+<div style="display: flex; flex-direction: column; gap: 0.4em; max-width: 60%; margin: 0.3em auto 0;">
+  <div style="border: 1px solid #1E3A8A; border-radius: 8px; background: #eef2fb; padding: 0.6em 0.9em; text-align: center; font-size: 0.42em;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.85em;">Symbolic skeleton</div>
+    <div style="margin-top: 0.15em;">a plan over <strong>predicates</strong> and <strong>operators</strong>: HandEmpty &rarr; Holding &rarr; JugAtBurner &rarr; &hellip;</div>
+  </div>
+  <div style="text-align: center; color: #8b93a0; font-size: 0.5em;">&darr; refine</div>
+  <div style="border: 1px solid #c08230; border-radius: 8px; background: #fbf7f0; padding: 0.6em 0.9em; text-align: center; font-size: 0.42em;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.85em;">Continuous refinement</div>
+    <div style="margin-top: 0.15em;">sample <strong>skill parameters</strong> against a simulator until the skeleton is executable</div>
+  </div>
+</div>
+<p style="margin: 0.5em auto 0; max-width: 88%; font-size: 0.34em; color: #6b7080; text-align: center;"><strong>Bilevel planning</strong> is the frame the whole talk sits in. Every iteration keeps it and changes what the abstraction can express.</p>
+</section>
+
+<!-- 3. THE ARC (F2a) + delta rule -->
+<section id="slide-arc" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Three iterations, one <span style="color: #1E3A8A;">growing</span> diagram</h2>
+<p style="margin: 0 auto 0.45em; max-width: 92%; font-size: 0.32em; color: #6b7080; text-align: left; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;">The delta rule: every act adds boxes, never redraws. Grey is not built yet.</p>
+<div class="arch" style="font-size: 0.34em; max-width: 78%; margin: 0 auto;">
+  <div class="lane"><div class="box a1"><span class="t">predicates (NSP)</span><span class="s">classifiers over perception</span></div><div class="box a1"><span class="t">operators</span><span class="s">learned skills</span></div></div>
+  <div class="lane"><div class="box"><span class="t">causal processes</span><span class="s">durative, delayed, exogenous</span></div><div class="box"><span class="t">temporal planner</span><span class="s">schedule / cancel / Wait</span></div></div>
+  <div class="lane"><div class="box"><span class="t">continuous dynamics</span><span class="s">simulator.py</span></div><div class="box"><span class="t">fitted constants</span><span class="s">Bayesian system ID</span></div></div>
+</div>
+<div style="display:flex; gap:0.5em; justify-content:center; margin-top:0.5em; font-size:0.3em; font-family:'IBM Plex Mono',monospace;">
+  <span style="color:#1E3A8A;">&#9632; VisualPredicator</span><span style="color:#c08230;">&#9632; ExoPredicator</span><span style="color:#2d6a4f;">&#9632; Predicator v3</span>
+</div>
+</section>
+
+<!-- 4. ACT 1 setting -->
+<section id="slide-a1-setting" class="slide level2">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.4em; color: #1E3A8A; letter-spacing: 0.08em; text-transform: uppercase; text-align:center; margin-bottom: 0.3em;">Act 1 &middot; <a href="https://arxiv.org/abs/2410.23156" style="color:#1E3A8A;">VisualPredicator</a> (ICLR 2025)</div>
+<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">Static tabletop, a handful of demos, <span style="color: #1E3A8A;">raw images</span></h2>
+<div style="display: flex; flex-direction: column; gap: 0.5em; max-width: 84%; margin: 0.3em auto 0; font-size: 0.42em; text-align: left;">
+  <div style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.85em;">The world is <strong>static</strong>: it changes only when the robot acts. Pick, place, stack. The demonstrations are images, not ground-truth object features.</div>
+  <div style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.6em 0.85em;"><strong style="color:#1E3A8A;">The missing piece.</strong> The predicates a planner reasons over must come from <strong>perception</strong>, not from hand-fed features. Who writes <code>On(a, b)</code> or <code>Clear(x)</code> from pixels?</div>
+</div>
+</section>
+
+<!-- 5. ACT 1 NSP + invention loop (F3) -->
+<section id="slide-a1-nsp" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Neuro-symbolic predicates, invented from demos</h2>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 96%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#1E3A8A; font-size:0.34em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">A predicate is classifier code over perception</div>
+    <pre style="margin:0; font-size:0.28em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>class NSPredicate:
+    # a VLM answers the classifier over raw visual state
+    def holds(self, state, objs) -&gt; bool:
+        return vlm_query(
+            state.image,
+            f"Is {objs[0]} inside {objs[1]}?")
+# proposed as Python code, not read from features</code></pre>
+  </div>
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.34em; text-align: left;">
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.45em 0.65em; line-height:1.45;"><strong style="color:#1E3A8A;">The invention loop.</strong> A VLM proposes candidate predicates as code from the demos; candidates are kept by <strong>planning utility</strong> (do they make plans shorter and more solvable); operators are learned over the survivors.</div>
+    <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.45em 0.65em; line-height:1.45; color:#4a4f5a;"><strong>kept</strong> vs <strong>discarded</strong> is decided by whether the predicate earns its place in a plan, not by looking pretty on one image.</div>
+  </div>
+</div>
+<p style="margin: 0.4em auto 0; max-width: 92%; font-size: 0.3em; color: #6b7080; text-align: center;">Summary from the repo; the exact invention objective should be quoted from the paper before finalizing.</p>
+</section>
+
+<!-- 6. ACT 1 result + limit + F2a complete -->
+<section id="slide-a1-limit" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">What we get, and the limit</h2>
+<div style="display: flex; gap: 0.8em; align-items: center; max-width: 96%; margin: 0.2em auto 0;">
+  <div style="flex: 1.1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.36em; text-align: left;">
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.5em 0.7em;"><strong style="color:#2d6a4f;">Captures.</strong> Solves static manipulation from images: predicates and operators, learned, no hand-fed features.</div>
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.5em 0.7em;"><strong style="color:#c0392b;">Limit.</strong> Effects are instantaneous, and nothing happens unless the robot acts. A kettle that boils on its own is not representable.</div>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <div class="arch" style="font-size: 0.3em;">
+      <div class="lane"><div class="box a1"><span class="t">predicates (NSP)</span></div><div class="box a1"><span class="t">operators</span></div></div>
+      <div class="lane"><div class="box"><span class="t">causal processes</span></div><div class="box"><span class="t">temporal planner</span></div></div>
+      <div class="lane"><div class="box"><span class="t">continuous dynamics</span></div><div class="box"><span class="t">fitted constants</span></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 7. ACT 2 delta motivation: boil filmstrip (F5) -->
+<section id="slide-a2-motiv" class="slide level2">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.4em; color: #c08230; letter-spacing: 0.08em; text-transform: uppercase; text-align:center; margin-bottom: 0.3em;">Act 2 &middot; <a href="https://arxiv.org/abs/2509.26255" style="color:#c08230;">ExoPredicator</a> (ICLR 2026) &middot; unchanged: bilevel planning, invention, skills</div>
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">The world changes <span style="color: #c08230;">on its own</span></h2>
+<div style="display: flex; gap: 0.8em; align-items: center; max-width: 95%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0;">
+    <video src="./media/boil_example.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 42vh; object-fit: cover; border-radius: 6px; border: 1px solid #d0d5dc; background:#fff;"></video>
+    <p style="margin: 0.2em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">Boil water with jugs: the water fills and heats while the robot is busy elsewhere.</p>
+  </div>
+  <div style="flex: 1; min-width: 0; font-size: 0.4em; text-align: left;">
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fbf7f0; padding:0.55em 0.8em; line-height:1.5;">Turn the faucet on, and the jug keeps filling for several steps. Turn the burner on, and the water boils later. <strong>Instantaneous-effect operators cannot say that.</strong></div>
+  </div>
+</div>
+</section>
+
+<!-- 8. ACT 2 causal process + fuse timeline (F4) -->
+<section id="slide-a2-process" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">One new object: the <span style="color: #c08230;">causal process</span></h2>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 96%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0; font-size: 0.34em; text-align: left;">
+    <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.5em 0.7em; line-height:1.5; font-family:'IBM Plex Mono',monospace;">
+      <div style="color:#c08230; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25em;">process = </div>
+      <div><strong>conditions</strong> at-start &middot; overall &middot; at-end</div>
+      <div><strong>effects</strong> add / delete atoms</div>
+      <div><strong>delay</strong> a sampled distribution</div>
+      <div><strong>strength</strong> a learnable weight</div>
+    </div>
+    <div style="margin-top:0.4em; border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.5em 0.7em; line-height:1.5;"><strong style="color:#c08230;">Endogenous</strong>: initiated by a skill. <strong style="color:#c08230;">Exogenous</strong>: fires on its own once its conditions hold.</div>
+  </div>
+  <div style="flex: 1.15; min-width: 0; font-size: 0.34em; text-align: left;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#c08230; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.2em;">the fuse timeline</div>
+    <pre style="margin:0; font-size:0.8em; line-height:1.5; background:#1f2330; color:#d4d7dc; border-radius:6px; padding:0.6em 0.7em;"><code>FaucetOn  ___/‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (rising edge: trigger)
+delay          |&lt;-- sampled -->|
+JugFilled ________________/‾‾‾  (effect lands...)
+overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only if it survived)</code></pre>
+    <p style="margin:0.3em 0 0; font-size:0.9em; color:#4a4f5a; line-height:1.45;">Trigger on a rising edge, wait a sampled delay, and the effect lands only if the overall condition held through the window. Break it early (turn the faucet off) and the effect is cancelled.</p>
+  </div>
+</div>
+</section>
+
+<!-- 9. ACT 2 planning + learning -->
+<section id="slide-a2-plan" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Planning and learning <span style="color: #c08230;">with processes</span></h2>
+<div style="display: flex; gap: 0.6em; align-items: stretch; max-width: 96%; margin: 0.2em auto 0; font-size: 0.36em; text-align: left;">
+  <div style="flex: 1; min-width: 0; border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fff; padding:0.55em 0.75em; line-height:1.5;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#c08230; text-transform:uppercase; letter-spacing:0.04em; font-size:0.9em; margin-bottom:0.2em;">planning becomes temporal</div>
+    The world model <strong>schedules</strong> effects at sampled delays and <strong>cancels</strong> them if the overall condition breaks. <code>Wait</code> becomes a first-class skill, so an exogenous fuse can burn down while the robot does nothing.
+  </div>
+  <div style="flex: 1; min-width: 0; border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fff; padding:0.55em 0.75em; line-height:1.5;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#c08230; text-transform:uppercase; letter-spacing:0.04em; font-size:0.9em; margin-bottom:0.2em;">learning the processes</div>
+    Structure from <strong>clustering</strong> plus <strong>LLM selection</strong>; the <strong>delay</strong> and <strong>strength</strong> parameters by MAP fitting on the trajectories.
+  </div>
+</div>
+</section>
+
+<!-- 10. ACT 2 result + limit + F2b -->
+<section id="slide-a2-limit" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">What we get, and the limit</h2>
+<div style="display: flex; gap: 0.8em; align-items: center; max-width: 96%; margin: 0.2em auto 0;">
+  <div style="flex: 1.1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.36em; text-align: left;">
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.5em 0.7em;"><strong style="color:#2d6a4f;">Captures.</strong> Durative, delayed, exogenous change. Benchmark wins on boil / fan / domino envs over ViLa zero and few-shot, and a no-invent oracle.</div>
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #c0392b; border-radius:6px; background:#fff; padding:0.5em 0.7em;"><strong style="color:#c0392b;">Limit.</strong> The model is <strong>symbolic only</strong>. It says <code>JugFilled</code> flips a few steps after the faucet turns on, but not the law <code>volume += rate</code>, so refinement still leans on a ground-truth simulator it did not learn.</div>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <div class="arch" style="font-size: 0.3em;">
+      <div class="lane"><div class="box a1"><span class="t">predicates (NSP)</span></div><div class="box a1"><span class="t">operators</span></div></div>
+      <div class="lane"><div class="box a2"><span class="t">causal processes</span></div><div class="box a2"><span class="t">temporal planner</span></div></div>
+      <div class="lane"><div class="box"><span class="t">continuous dynamics</span></div><div class="box"><span class="t">fitted constants</span></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 11. ACT 3 delta motivation: who writes the simulator (F6 left) -->
+<section id="slide-a3-motiv" class="slide level2">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.4em; color: #2d6a4f; letter-spacing: 0.08em; text-transform: uppercase; text-align:center; margin-bottom: 0.3em;">Act 3 &middot; Predicator v3 (in progress) &middot; unchanged: bilevel planning, processes, skills, envs</div>
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Who writes the <span style="color: #2d6a4f;">simulator</span>?</h2>
+<div style="display: flex; gap: 0.8em; align-items: center; max-width: 94%; margin: 0.2em auto 0; font-size: 0.38em; text-align: left;">
+  <div style="flex: 1; min-width: 0; border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.55em 0.8em; line-height:1.5;">We know the rigid-body part, physics gives it to us. The <strong>process part</strong>, fill rates and heat thresholds, is exactly what we do not know. So <strong>factor</strong> the dynamics.</div>
+  <div style="flex: 1; min-width: 0;">
+    <div style="display:flex; flex-direction:column; gap:0.3em; font-size:0.34em; font-family:'IBM Plex Mono',monospace; text-align:center;">
+      <div style="border:1px solid #8b93a0; border-radius:6px; background:#f6f7f9; color:#4a4f5a; padding:0.4em 0.6em;">trusted rigid-body base sim</div>
+      <div style="color:#8b93a0;">+</div>
+      <div style="border:1px solid #2d6a4f; border-radius:6px; background:#eef6f0; color:#2d6a4f; padding:0.4em 0.6em;">learned rules (overwrite only declared process features)</div>
+      <div style="color:#8b93a0;">=</div>
+      <div style="border:1px solid #1E3A8A; border-radius:6px; background:#eef2fb; color:#1E3A8A; padding:0.4em 0.6em;">full simulator; the base-sim residual is the learning target</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 12. ACT 3 two files, one params (F6 right) -->
+<section id="slide-a3-twofiles" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Two files, <span style="color: #2d6a4f;">one set of constants</span></h2>
+<div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 97%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; font-size:0.32em; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.15em; text-align:left;">simulator.py &middot; process dynamics</div>
+    <pre style="margin:0; font-size:0.26em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>def fill_rule(s, p):
+    if s.faucet_on:
+        s.water = min(s.water + p.fill_rate,
+                      p.jug_full_level)
+    return s</code></pre>
+    <div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; font-size:0.32em; letter-spacing:0.05em; text-transform:uppercase; margin:0.35em 0 0.15em; text-align:left;">predicates.py &middot; threshold classifiers</div>
+    <pre style="margin:0; font-size:0.26em; line-height:1.4; overflow:hidden;"><code class="language-python" data-trim data-noescape>def JugFilled(s, p):
+    return s.water &gt;= p.jug_full_level</code></pre>
+  </div>
+  <div style="flex: 1; min-width: 0; display:flex; flex-direction:column; justify-content:center; gap:0.4em; font-size:0.36em; text-align:left;">
+    <div style="border:1px solid #2d6a4f; border-radius:8px; background:#eef6f0; padding:0.5em 0.75em; font-family:'IBM Plex Mono',monospace; text-align:center;"><strong style="color:#2d6a4f;">params</strong><br><span style="font-size:0.85em; color:#4a4f5a;">fill_rate &middot; jug_full_level &middot; heat_rate &middot; boil_temp</span></div>
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.5em 0.7em; line-height:1.5;"><strong style="color:#2d6a4f;">Consistency by construction.</strong> <code>JugFilled</code> thresholds on the very <code>jug_full_level</code> that <code>fill_rule</code> saturates toward. The question "will the predicate and the dynamics disagree" cannot arise: they are the same numbers.</div>
+  </div>
+</div>
+</section>
+
+<!-- 13. ACT 3 Bayesian system ID -->
+<section id="slide-a3-sysid" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Fitting is <span style="color: #2d6a4f;">Bayesian system identification</span></h2>
+<p style="margin: 0 auto 0.4em; max-width: 92%; font-size: 0.36em; color: #4a4f5a; text-align: left;">The agent writes the rules; the constants get a posterior from the trajectories, not a hand-tuned guess.</p>
+<div style="max-width: 78%; margin: 0.2em auto 0;">
+  <p style="text-align:center; font-size:0.5em; margin:0.2em 0;">$$ p(\theta \mid \mathcal{D}) \;\propto\; \exp\!\left(-\tfrac{1}{2\sigma^2}\textstyle\sum_t \lVert x_{t+1} - f_\theta(x_t) \rVert^2\right)\, p(\theta) $$</p>
+  <p style="margin:0.2em auto 0; max-width: 92%; font-size:0.32em; color:#4a4f5a; text-align:center; line-height:1.5;">A sum-of-squared-errors likelihood over the residual, a boxed prior on each named constant. Fit with <strong>emcee MCMC</strong> or a <strong>Levenberg-Marquardt MAP</strong> with Laplace covariance.</p>
+</div>
+<div style="max-width: 88%; margin: 0.4em auto 0; border-left: 4px solid #2d6a4f; background: #f3f5fb; border-radius: 0 8px 8px 0; padding: 0.45em 0.8em; font-size: 0.33em; line-height: 1.5; text-align: left;"><strong style="color:#2d6a4f;">Identifiability.</strong> Sloppy directions surface honestly: where the data is silent, the posterior stays wide and says so.</div>
+</section>
+
+<!-- 14. ACT 3 agentic loop (F7) -->
+<section id="slide-a3-agent" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">The agentic loop, with <span style="color: #2d6a4f;">planning as the gate</span></h2>
+<div style="display: flex; gap: 0.8em; align-items: center; max-width: 96%; margin: 0.2em auto 0;">
+  <div style="flex: 1.1; min-width: 0; display:flex; flex-direction:column; gap:0.35em; font-size:0.32em; font-family:'IBM Plex Mono',monospace; text-align:center;">
+    <div style="border:1px solid #2d6a4f; border-radius:6px; background:#eef6f0; color:#2d6a4f; padding:0.35em 0.5em;">Claude agent (sandboxed session)</div>
+    <div style="color:#8b93a0;">&darr; writes / edits</div>
+    <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.35em 0.5em;">simulator.py + predicates.py</div>
+    <div style="color:#8b93a0;">&darr; feedback tools</div>
+    <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.35em 0.5em; color:#4a4f5a;">evaluate_step_fit &middot; report_residuals &middot; evaluate_plan_refinement</div>
+  </div>
+  <div style="flex: 1; min-width: 0; font-size: 0.36em; text-align: left;">
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.55em 0.75em; line-height:1.5;"><strong style="color:#2d6a4f;">Planning as validation.</strong> The slow gate is not one-step error. It is: can the planner <strong>refine a full sketch</strong> under your model, then forward-validate it? Snapshots are versioned so a regression can roll back.</div>
+  </div>
+</div>
+</section>
+
+<!-- 15. ACT 3 active experiments (F8) -->
+<section id="slide-a3-active" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Active experiments: <span style="color: #2d6a4f;">let the model ask</span></h2>
+<div style="display: flex; gap: 0.8em; align-items: center; max-width: 95%; margin: 0.2em auto 0;">
+  <div style="flex: 1; min-width: 0; font-size: 0.36em; text-align: left;">
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.55em 0.75em; line-height:1.5;">The posterior turns each atom into a <strong>Bernoulli</strong>. Ensemble disagreement, the mean binary entropy across posterior draws, steers exploration toward the states where the model is least sure.</div>
+  </div>
+  <div style="flex: 1; min-width: 0; font-size:0.34em; text-align:left;">
+    <div style="font-family:'IBM Plex Mono',monospace; color:#2d6a4f; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.2em;">one jug, three threshold draws</div>
+    <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.5em 0.7em; font-family:'IBM Plex Mono',monospace; line-height:1.7;">
+      water = 0.61<br>
+      &theta;&#8321; = 0.55 &rarr; <span style="color:#2d6a4f;">Filled</span><br>
+      &theta;&#8322; = 0.68 &rarr; <span style="color:#c0392b;">not Filled</span><br>
+      &theta;&#8323; = 0.60 &rarr; <span style="color:#2d6a4f;">Filled</span><br>
+      <span style="color:#c08230;">&rarr; on the boundary: go measure here</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 16. ACT 3 partial observability + status + F2c -->
+<section id="slide-a3-po" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Partial observability, and status</h2>
+<div style="display: flex; gap: 0.8em; align-items: center; max-width: 96%; margin: 0.2em auto 0;">
+  <div style="flex: 1.1; min-width: 0; display:flex; flex-direction:column; gap:0.4em; font-size:0.36em; text-align:left;">
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.5em 0.7em; line-height:1.5;"><strong style="color:#2d6a4f;">Latent recurrent rules.</strong> Heat is hidden, bubbling is observed: a rule with a latent block, i.e. state-space system identification.</div>
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#f3f5fb; padding:0.5em 0.7em; line-height:1.5;"><strong style="color:#2d6a4f;">Status.</strong> The partially-observed boil task solves <strong>5/5 across 5 seeds</strong>.</div>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <div class="arch" style="font-size: 0.3em;">
+      <div class="lane"><div class="box a1"><span class="t">predicates (NSP)</span></div><div class="box a1"><span class="t">operators</span></div></div>
+      <div class="lane"><div class="box a2"><span class="t">causal processes</span></div><div class="box a2"><span class="t">temporal planner</span></div></div>
+      <div class="lane"><div class="box a3"><span class="t">continuous dynamics</span></div><div class="box a3"><span class="t">fitted constants</span></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 17. CLOSE recap -->
+<section id="slide-recap" class="slide level2">
+<h2 style="font-size: 0.9em; margin: 0 0 0.15em 0;">Three deltas, <span style="color: #1E3A8A;">one line each</span></h2>
+<div style="display: flex; flex-direction: column; gap: 0.45em; max-width: 86%; margin: 0.3em auto 0; font-size: 0.4em; text-align: left;">
+  <div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#fff; padding:0.5em 0.75em;"><strong style="color:#1E3A8A;">VisualPredicator.</strong> Static world: neuro-symbolic predicates and operators, invented from visual demos.</div>
+  <div style="border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fff; padding:0.5em 0.75em;"><strong style="color:#c08230;">ExoPredicator.</strong> Time and exogeny: the causal process, durative, delayed, firing on its own.</div>
+  <div style="border:1px solid #d0d5dc; border-left:3px solid #2d6a4f; border-radius:6px; background:#fff; padding:0.5em 0.75em;"><strong style="color:#2d6a4f;">Predicator v3.</strong> The continuous level, synthesized and identified, sharing one set of fitted constants with the predicates.</div>
+</div>
+</section>
+
+<!-- 18. CLOSE what's next -->
+<section id="slide-next" class="slide level2">
+<h2 style="font-size: 0.95em; margin: 0 0 0.15em 0;">What is <span style="color: #1E3A8A;">next</span></h2>
+<div style="display: flex; gap: 0.8em; align-items: center; max-width: 95%; margin: 0.3em auto 0;">
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.4em; font-size: 0.4em; text-align: left;">
+    <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.5em 0.7em;">Tighter active experiments: pick the next state to measure, not just the next action.</div>
+    <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.5em 0.7em;">More environments beyond the kitchen.</div>
+    <div style="border:1px solid #d0d5dc; border-left:3px solid #1E3A8A; border-radius:6px; background:#f3f5fb; padding:0.5em 0.7em;"><strong style="color:#1E3A8A;">The real robot.</strong> The skills already emit joint targets; perception is the gap.</div>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <video src="./media/babyrobot.mp4" autoplay loop muted playsinline style="width: 100%; max-height: 44vh; object-fit: contain; border-radius: 6px; background:#fff;"></video>
+    <p style="margin: 0.15em 0 0; font-size: 0.3em; color: #6b7080; text-align: center;">A basic pick and place transferred to a real Franka.</p>
+  </div>
+</div>
+</section>
+
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/math/math.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/highlight/highlight.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/plugin/highlight/monokai.css">
+
+  <script>
+      Reveal.initialize({
+        controls: true,
+        controlsLayout: 'bottom-right',
+        controlsBackArrows: 'faded',
+        progress: true,
+        slideNumber: false,
+        hash: true,
+        keyboard: true,
+        overview: true,
+        center: true,
+        touch: true,
+        fragments: true,
+        fragmentInURL: true,
+        autoPlayMedia: true,
+        transition: 'slide',
+        backgroundTransition: 'fade',
+        viewDistance: 3,
+        plugins: [ RevealNotes, RevealSearch, RevealZoom, RevealMath.KaTeX, RevealHighlight ],
+        katex: { local: 'https://cdn.jsdelivr.net/npm/katex', version: '0.16.11' }
+      });
+  </script>
+</body>
+</html>
