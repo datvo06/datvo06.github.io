@@ -134,9 +134,23 @@
   <img src="./media/vp/balance_trn.png" alt="Balance environment, raw image observation" style="flex: 1; min-width: 0; max-height: 26vh; object-fit: contain; border-radius: 6px; border: 1px solid #d0d5dc;">
 </div>
 <p style="margin: 0.2em auto 0; max-width: 76%; font-size: 0.3em; color: #6b7080; text-align: center;">Blocks, coffee, balance: the environments as the robot sees them (VisualPredicator, arXiv:2410.23156).</p>
-<div style="display: flex; flex-direction: column; gap: 0.5em; max-width: 84%; margin: 0.4em auto 0; font-size: 0.42em; text-align: left;">
-  <div class="fragment" style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.6em 0.85em;">The world is <strong>static</strong>: it changes only when the robot acts. Given: the <strong>skills</strong>, and an initial predicate set that is usually just the <strong>goal predicates</strong> (Blocks: <code>On</code>, <code>OnTable</code>). No demonstrations: the agent explores, planning with what it has and executing.</div>
-  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.6em 0.85em;"><strong style="color:#1E3A8A;">The missing piece.</strong> The predicates a planner reasons over must come from <strong>perception</strong>, not from hand-fed features. Who writes <code>On(a, b)</code> or <code>Clear(x)</code> from pixels?</div>
+<div style="display: flex; flex-direction: column; gap: 0.45em; max-width: 88%; margin: 0.4em auto 0; font-size: 0.4em; text-align: left;">
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-radius: 6px; background: #ffffff; padding: 0.5em 0.8em;">The world is <strong>static</strong>: it changes only when the robot acts. No demonstrations: the agent explores, planning with what it has and executing.</div>
+  <div style="display: flex; gap: 0.5em; align-items: stretch;">
+    <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Given</div>
+      The <strong>skills</strong>, the raw image observations, and an initial predicate set: usually just the <strong>goal predicates</strong> (Blocks: <code>On</code>, <code>OnTable</code>).
+    </div>
+    <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Invented</div>
+      Every other <strong>predicate</strong>: proposed as Python code by a VLM from the agent's own data.
+    </div>
+    <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+      <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Learned</div>
+      The <strong>operators</strong>: preconditions and effects over those predicates.
+    </div>
+  </div>
+  <div class="fragment" style="border: 1px solid #d0d5dc; border-left: 3px solid #1E3A8A; border-radius: 6px; background: #f3f5fb; padding: 0.5em 0.8em;"><strong style="color:#1E3A8A;">The missing piece.</strong> The predicates a planner reasons over must come from <strong>perception</strong>, not from hand-fed features. Who writes <code>On(a, b)</code> or <code>Clear(x)</code> from pixels?</div>
 </div>
 </section>
 
