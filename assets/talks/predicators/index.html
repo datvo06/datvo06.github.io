@@ -47,6 +47,16 @@
     .arch .box.a2 .t { color: #c08230; }
     .arch .box.a3 { border-color: #2d6a4f; background: #eef6f0; color: #1f2330; }
     .arch .box.a3 .t { color: #2d6a4f; }
+
+    /* animated hover tooltips */
+    .reveal .tip { position: relative; cursor: help; border-bottom: 1px dotted #8b93a0; }
+    .reveal .tip .tipbox { position: absolute; left: 50%; top: 100%; transform: translate(-50%, 0.5em); z-index: 30; width: 26em; background: #ffffff; border: 1px solid #1E3A8A; border-radius: 8px; box-shadow: 0 10px 28px rgba(0,0,0,0.2); padding: 0.55em 0.75em; opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s; text-align: left; font-family: 'IBM Plex Sans', -apple-system, sans-serif; line-height: 1.5; color: #1f2330; pointer-events: none; font-weight: 400; }
+    .reveal .tip:hover .tipbox { opacity: 1; visibility: visible; transform: translate(-50%, 0.2em); }
+    .reveal .tipbox .th { display: block; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.3em; }
+    .reveal .tipbox .tb { display: block; border: 1px solid #d0d5dc; border-radius: 5px; background: #f6f7f9; padding: 0.25em 0.5em; text-align: center; font-family: 'IBM Plex Mono', monospace; }
+    .reveal .tipbox .ta { display: block; text-align: center; color: #8b93a0; font-family: 'IBM Plex Mono', monospace; }
+    .reveal .fragment { position: relative; }
+    .reveal .fragment:hover { z-index: 40; }
   </style>
 </head>
 <body>
@@ -156,17 +166,6 @@
 
 <!-- 5. ACT 1 NSP + invention loop (F3) -->
 <section id="slide-a1-nsp" class="slide level2">
-<style>
-#slide-a1-nsp .tip { position: relative; cursor: help; border-bottom: 1px dotted #8b93a0; }
-#slide-a1-nsp .tip .tipbox { position: absolute; left: 50%; top: 100%; transform: translate(-50%, 0.5em); z-index: 30; width: 26em; background: #ffffff; border: 1px solid #1E3A8A; border-radius: 8px; box-shadow: 0 10px 28px rgba(0,0,0,0.2); padding: 0.55em 0.75em; opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s; text-align: left; font-family: 'IBM Plex Sans', -apple-system, sans-serif; line-height: 1.5; color: #1f2330; pointer-events: none; }
-#slide-a1-nsp .tip:hover .tipbox { opacity: 1; visibility: visible; transform: translate(-50%, 0.2em); }
-#slide-a1-nsp .fragment { position: relative; }
-#slide-a1-nsp .fragment:hover { z-index: 40; }
-
-#slide-a1-nsp .tipbox .th { display: block; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.3em; }
-#slide-a1-nsp .tipbox .tb { display: block; border: 1px solid #d0d5dc; border-radius: 5px; background: #f6f7f9; padding: 0.25em 0.5em; text-align: center; font-family: 'IBM Plex Mono', monospace; }
-#slide-a1-nsp .tipbox .ta { display: block; text-align: center; color: #8b93a0; font-family: 'IBM Plex Mono', monospace; }
-</style>
 <h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Neuro-symbolic predicates, invented from the agent's own data</h2>
 <div style="display: flex; gap: 0.8em; align-items: stretch; max-width: 96%; margin: 0.2em auto 0;">
   <div style="flex: 1; min-width: 0;">
@@ -224,6 +223,20 @@
     <div class="fragment" style="border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fbf7f0; padding:0.55em 0.8em; line-height:1.5;">Turn the faucet on, and the jug keeps filling for several steps. Turn the burner on, and the water boils later. <strong>Instantaneous-effect operators cannot say that.</strong></div>
   </div>
 </div>
+<div style="display: flex; gap: 0.5em; align-items: stretch; max-width: 95%; margin: 0.45em auto 0; font-size: 0.34em; text-align: left;">
+  <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #8b93a0; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #6b7080; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Unchanged from act 1</div>
+    Training tasks \(\mathcal{T}\) with goals, the goal predicates, the skills, online interaction.
+  </div>
+  <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #2d6a4f; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #2d6a4f; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">Newly given</div>
+    An unfamiliar world, but a <strong>familiar body</strong>: basic body predicates (<code>Holding</code>) and the agent's own actions as <strong>endogenous processes</strong>. Plus <strong>1-2 demonstrations</strong> (act 1 had none).
+  </div>
+  <div class="fragment" style="flex: 1; min-width: 0; border: 1px solid #d0d5dc; border-left: 3px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.5em 0.7em;">
+    <div style="font-family: 'IBM Plex Mono', monospace; color: #c08230; font-size: 0.85em; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.2em;">More to learn</div>
+    The world's <strong>exogenous processes</strong>, their delays and strengths, and the remaining predicates.
+  </div>
+</div>
 </section>
 
 <!-- 8. ACT 2 causal process + fuse timeline (F4) -->
@@ -254,14 +267,24 @@ overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only
 <!-- 9. ACT 2 planning + learning -->
 <section id="slide-a2-plan" class="slide level2">
 <h2 style="font-size: 0.9em; margin: 0 0 0.1em 0;">Planning and learning <span style="color: #c08230;">with processes</span></h2>
-<div style="display: flex; gap: 0.6em; align-items: stretch; max-width: 96%; margin: 0.2em auto 0; font-size: 0.36em; text-align: left;">
-  <div class="fragment" style="flex: 1; min-width: 0; border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fff; padding:0.55em 0.75em; line-height:1.5;">
-    <div style="font-family:'IBM Plex Mono',monospace; color:#c08230; text-transform:uppercase; letter-spacing:0.04em; font-size:0.9em; margin-bottom:0.2em;">planning becomes temporal</div>
-    The world model <strong>schedules</strong> effects at sampled delays and <strong>cancels</strong> them if the overall condition breaks. <code>Wait</code> becomes a first-class skill, so an exogenous fuse can burn down while the robot does nothing.
+<div style="display: flex; gap: 0.9em; align-items: flex-start; max-width: 96%; margin: 0.25em auto 0;">
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.22em; font-size: 0.32em; font-family: 'IBM Plex Mono', monospace; text-align: center;">
+    <div style="color:#c08230; letter-spacing:0.05em; text-transform:uppercase; text-align:left; margin-bottom:0.1em;">planning: forward search, with time</div>
+    <div class="fragment" style="border: 1px solid #c08230; border-radius: 6px; background: #fbf7f0; padding: 0.35em 0.55em;"><strong style="color:#c08230;">A* search</strong><br><span style="color:#4a4f5a;">over sequences of the agent's own endogenous processes, toward the task goal</span></div>
+    <div class="fragment" style="color: #8b93a0;">&darr; successors via</div>
+    <div class="fragment" style="border: 1px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.35em 0.55em;"><strong style="color:#c08230;"><span class="tip">\(\mathcal{T}_\text{big}\), the big-step model<span class="tipbox" style="border-color:#c08230;"><span class="th" style="color:#c08230;">big-step semantics</span>Run the world model forward until the abstract state next changes, clumping the stretches where nothing changes. Along the way it schedules each triggered effect at a sampled delay and cancels it if the overall condition breaks. One search step thus simulates concurrent, delayed, exogenous change.</span></span></strong><br><span style="color:#4a4f5a;">run the model until the abstract state changes</span></div>
+    <div class="fragment" style="border: 1px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.35em 0.55em;"><strong style="color:#c08230;"><span class="tip">NoOp = wait<span class="tipbox" style="border-color:#c08230;"><span class="th" style="color:#c08230;">waiting as an action</span>A special action that does nothing and terminates as soon as the abstract state changes. It is how the planner chooses to let an exogenous fuse burn down (wait for the water to boil) instead of acting.</span></span></strong><br><span style="color:#4a4f5a;">doing nothing is a plannable choice</span></div>
+    <div class="fragment" style="color: #4a4f5a;">guided by a fast-forward heuristic adapted to processes</div>
   </div>
-  <div class="fragment" style="flex: 1; min-width: 0; border:1px solid #d0d5dc; border-left:3px solid #c08230; border-radius:6px; background:#fff; padding:0.55em 0.75em; line-height:1.5;">
-    <div style="font-family:'IBM Plex Mono',monospace; color:#c08230; text-transform:uppercase; letter-spacing:0.04em; font-size:0.9em; margin-bottom:0.2em;">learning the processes</div>
-    Structure from <strong>clustering</strong> plus <strong>LLM selection</strong>; the <strong>delay</strong> and <strong>strength</strong> parameters by MAP fitting on the trajectories.
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.22em; font-size: 0.32em; font-family: 'IBM Plex Mono', monospace; text-align: center;">
+    <div style="color:#c08230; letter-spacing:0.05em; text-transform:uppercase; text-align:left; margin-bottom:0.1em;">learning the exogenous processes</div>
+    <div class="fragment" style="border: 1px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.35em 0.55em;"><strong style="color:#c08230;">Segment</strong><br><span style="color:#4a4f5a;">cut the trajectories into clips that end where atoms change value</span></div>
+    <div class="fragment" style="color: #8b93a0;">&darr;</div>
+    <div class="fragment" style="border: 1px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.35em 0.55em;"><strong style="color:#c08230;">Cluster</strong><br><span style="color:#4a4f5a;">group clips by which atoms changed</span></div>
+    <div class="fragment" style="color: #8b93a0;">&darr; one process per cluster</div>
+    <div class="fragment" style="border: 1px solid #c08230; border-radius: 6px; background: #fbf7f0; padding: 0.35em 0.55em;"><strong style="color:#c08230;"><span class="tip">LLM proposes, Bayes selects<span class="tipbox" style="border-color:#c08230;"><span class="th" style="color:#c08230;">tractable structure search</span>The space of symbolic forms is combinatorial, so an LLM prompted with the cluster proposes a few candidates, and the winner is \(L_\mathcal{C} = \arg\max_{L \in \text{Prompt}(\mathcal{C})} p(\mathcal{C} \mid L)\, p(L)\), with a minimum-description-length prior \(p(L)\). At most one exogenous process per effect.</span></span></strong><br><span style="color:#4a4f5a;">a few candidate forms per cluster, scored by a Bayesian criterion</span></div>
+    <div class="fragment" style="color: #8b93a0;">&darr;</div>
+    <div class="fragment" style="border: 1px solid #c08230; border-radius: 6px; background: #ffffff; padding: 0.35em 0.55em;"><strong style="color:#c08230;"><span class="tip">fit parameters by variational inference<span class="tipbox" style="border-color:#c08230;"><span class="th" style="color:#c08230;">not a point fit</span>Fixing the discrete structure, maximize a lower bound (ELBO) on \(\log p(s_{1:t})\): a categorical belief over each effect's <strong>arrival time</strong> \(A = \Delta + t\) gives three terms, delay model + abstract dynamics + entropy, optimized with Adam. The timing of every cause-effect is marginalized, not guessed once.</span></span></strong><br><span style="color:#4a4f5a;">each process's delay distribution and weight \(W_L\), plus a frame weight \(W_F\)</span></div>
   </div>
 </div>
 </section>
