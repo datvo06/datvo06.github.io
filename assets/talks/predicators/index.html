@@ -390,9 +390,9 @@ overall   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  (...only
     <div style="border:1px solid #2d6a4f; border-radius:6px; background:#eef6f0; color:#2d6a4f; padding:0.35em 0.5em;">Claude agent (sandboxed session)</div>
     <div style="color:#8b93a0;">&darr; writes / edits, each save versioned</div>
     <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.35em 0.5em;">simulator.py + predicates.py</div>
-    <div style="color:#8b93a0;">&darr; fast inner loop, per edit</div>
+    <div style="color:#8b93a0;">&darr; fast inner loop, <span class="tip">per edit<span class="tipbox" style="border-color:#2d6a4f;"><span class="th" style="color:#2d6a4f;">runs on every save, many times</span>After every save of <code>simulator.py</code>, the probe auto-refits the candidate and replays the <strong>already-logged transitions</strong>: predict \(x_{t+1}\) from the logged \(x_t\), compare. No new physics is simulated, so it costs seconds, and the agent loops it dozens of times in a session.</span></span></div>
     <div style="border:1px solid #d0d5dc; border-radius:6px; background:#fff; padding:0.35em 0.5em; color:#4a4f5a;"><strong style="color:#2d6a4f;">fast:</strong> sim.fit() &middot; sim.residuals() <span style="color:#8b93a0;">(step-level checks)</span></div>
-    <div style="color:#8b93a0;">&darr; slow gate, full rollouts</div>
+    <div style="color:#8b93a0;">&darr; slow gate, <span class="tip">full rollouts<span class="tipbox" style="border-color:#c08230;"><span class="th" style="color:#c08230;">runs sparingly, not per edit</span>Here the belief sim (base physics + your rules) simulates <strong>new</strong> trajectories: refinement samples continuous parameters per step, hundreds of rollouts (this run's budget footer: 354), then one continuous forward run. Priced accordingly: invoked when the fast loop looks converged, and again only after further edits if it fails.</span></span></div>
     <div style="border:1px solid #2d6a4f; border-radius:6px; background:#fbf7f0; padding:0.35em 0.5em; color:#4a4f5a;"><strong style="color:#c08230;">slow:</strong> sim.refine a sketch, then one continuous sim.run</div>
     <div style="color:#4a4f5a;">pass &rarr; model admitted &middot; fail &rarr; edit again &#8635;</div>
   </div>
