@@ -13,16 +13,22 @@
 - title: Summary
   type: list
   contents:
-    - Joint Postdoctoral Fellow at Harvard University and the Basis Research Institute, focusing on LLM-based program synthesis.
+    - Research Scientist II at the Basis Research Institute and Research Associate at Harvard University, previously a joint postdoctoral fellow at both, focusing on LLM-based program synthesis and world models.
     - PhD research on mining patterns in images, graphs, and code to analyze and improve graph neural networks and transformer-based language models.
     - Engineering experience in C++, Java, Python and libraries for CV, graphics, code analysis, and graph mining.
 
 - title: Work Experience
   type: time_table
   contents:
+    - title: Research Scientist II
+      institution: Basis Research Institute
+      year: Oct 2026 to Present
+    - title: Research Associate
+      institution: Harvard University
+      year: Oct 2026 to Present
     - title: Joint Postdoc in LLM and Program Synthesis
       institution: Harvard University & Basis Research Institute
-      year: Jan 2025 to Present
+      year: Jan 2025 to Sep 2026
       description:
         - "Truth‑Maintaining Agent: LLM exploration with knowledge‑graph and causal rules."
         - "CASP: causal abstractions for proof search in Lean."

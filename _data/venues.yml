@@ -29,3 +29,7 @@
 "MAPR":
   url: https://www.ieee.org/
   color: "#00695c"
+
+"SEFM":
+  url: https://sefm-conference.github.io/
+  color: "#6a1b9a"

@@ -3,8 +3,8 @@ layout: about
 title: About
 permalink: /
 subtitle: >-
-  Post‑doctoral Fellow in Computer Science, <a href="https://www.seas.harvard.edu/">Harvard SEAS</a> &nbsp;·&nbsp;
-  <a href="https://www.basis.ai/">Basis Research Institute</a>
+  Research Scientist II, <a href="https://www.basis.ai/">Basis Research Institute</a> &nbsp;·&nbsp;
+  Research Associate, <a href="https://www.seas.harvard.edu/">Harvard SEAS</a>
 profile:
   align: right
   image: profile.jpg
@@ -26,7 +26,7 @@ service:              # rendered below Selected Publications
 ---
 
 ### Short bio
-I am a **Joint Postdoctoral Fellow** at [Harvard's Programming Languages and Formal Methods groups](https://pl.seas.harvard.edu/) and the [Basis Research Institute](https://www.basis.ai/about/).
+I am a **Research Scientist II** at the [Basis Research Institute](https://www.basis.ai/about/) and a **Research Associate** at [Harvard's Programming Languages and Formal Methods groups](https://pl.seas.harvard.edu/).
 
 I am boardly interested in the the modeling of how we perceive the world, and the modeling of reasoning processes. To support this goal, I work in the emerging area between programming language, machine learning, and probabilistic programming language.
 
@@ -69,6 +69,16 @@ I completed my PhD doing machine learning and program synthesis-based debugging,
       <strong><a href="https://autumn.basis.ai">Autumn.cpp</a></strong> (ICML '26)<br>
       <em><a href="https://autumn.basis.ai">Autumn</a> interpreter in C++. Powers MARA and AutumnBench. Try it live in the <a href="{{ '/playground/' | relative_url }}">playground</a>.</em><br>
       <a href="https://github.com/BasisResearch/Autumn.cpp">code</a> · <a href="https://arxiv.org/abs/2510.19788">AutumnBench paper</a> · <a href="https://www.basis.ai/blog/autumn-platform-2025/">blog</a> · <a href="{{ '/playground/' | relative_url }}">playground</a>
+    </td>
+  </tr>
+  <tr style="border: none;">
+    <td style="width: 35%; vertical-align: top; border: none; padding: 8px;">
+      <img src="{{ '/assets/img/empiric_teaser.webp' | relative_url }}" alt="EMPIRIC" style="width:100%; height:auto; border-radius: 4px;">
+    </td>
+    <td style="vertical-align: top; border: none; padding: 8px;">
+      <strong><a href="https://basisresearch.github.io/empiric/">EMPIRIC</a></strong> (arXiv '26)<br>
+      <em>Robots that extend a physics engine with code for the physics it is missing, fit it from a few noisy experiments, and plan with it.</em><br>
+      <a href="https://github.com/BasisResearch/predicators">code</a> · <a href="https://arxiv.org/abs/2609.35047">paper</a> · <a href="https://basisresearch.github.io/empiric/">project</a>
     </td>
   </tr>
   <tr style="border: none;">
@@ -129,7 +139,21 @@ I completed my PhD doing machine learning and program synthesis-based debugging,
 
 <div class="timeline">
   <div class="timeline-item">
-    <div class="timeline-when">2025 to present</div>
+    <div class="timeline-when">2026 to present</div>
+    <div class="timeline-what">
+      <div class="timeline-role">Research Scientist II</div>
+      <div class="timeline-where"><a href="https://basis.ai/">Basis Research Institute</a></div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-when">2026 to present</div>
+    <div class="timeline-what">
+      <div class="timeline-role">Research Associate</div>
+      <div class="timeline-where"><a href="https://namin.seas.harvard.edu/">Harvard SEAS</a></div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-when">2025 to 2026</div>
     <div class="timeline-what">
       <div class="timeline-role">Joint Post-doctoral Fellow</div>
       <div class="timeline-where"><a href="https://namin.seas.harvard.edu/">Harvard SEAS</a> &amp; <a href="https://basis.ai/">Basis Research Institute</a></div>

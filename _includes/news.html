@@ -17,6 +17,7 @@
             {% when 'preprint' %}{% assign news_icon = 'fa-file-alt' %}
             {% when 'feature' %}{% assign news_icon = 'fa-newspaper' %}
             {% when 'talk' %}{% assign news_icon = 'fa-chalkboard-teacher' %}
+            {% when 'role' %}{% assign news_icon = 'fa-briefcase' %}
             {% else %}{% assign news_icon = 'fa-circle' %}
           {% endcase %}
           <li class="news-item news-item--{{ item.type | default: 'note' }}">
