@@ -65,6 +65,13 @@
     #pr-tag a { color: #4a5a7a; margin-right: 0.9em; text-decoration: none; }
     .setup { max-width: 90%; margin: 0 auto 0.45em; font-size: 0.5em; color: #4a4f5a; text-align: center; }
     .setup strong { color: #1f2330; }
+    .code { min-width: 0; text-align: left; }
+    .codehead { font-family: "IBM Plex Mono", monospace; font-size: 0.32em; color: #6b7080; margin-bottom: 0.2em; }
+    .reveal .code pre { margin: 0; width: 100%; box-shadow: none; font-size: 0.27em; line-height: 1.4; }
+    #slide-grasp-plan .code pre { font-size: 0.33em; }
+    #slide-pickup-controller .code pre { font-size: 0.31em; }
+    #slide-staged-code .code pre { font-size: 0.29em; }
+    .reveal .code pre code { background: #1f2330; color: #d4d7dc; border-radius: 6px; padding: 0.7em 0.9em; max-height: none; white-space: pre-wrap; word-break: break-word; overflow: hidden; }
   </style>
 </head>
 <body>
@@ -87,7 +94,7 @@
   <h2 class="t">Hand-only YCB <span>pickup</span></h2>
   <p class="setup">Stock LEAP hand on a two-axis wrist, base welded palm down, no arm. Sampling MPC: 2 s horizon, 256 samples x 4 rounds, 6 s episode</p>
   <div class="full" style="max-width: 78%;">
-    <video src="./media/hand_apple_pickup.mp4" autoplay loop muted playsinline style="max-height: 48vh;"></video>
+    <video src="./media/hand_apple_pickup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 48vh;"></video>
   </div>
   <ul class="pts">
     <li class="fragment">Best apple run, handwritten staged loss: apple centre above 12 cm (rests at 7.4 cm) from <span class="num">2.17 s</span> to the 6 s end</li>
@@ -135,7 +142,7 @@
   <h2 class="t">Teleop, record, <span>replay</span></h2>
   <p class="setup">Scripted keyboard input, 9 s at a 5 ms step: reach, descend, curl, lift</p>
   <div class="full" style="max-width: 68%;">
-    <video src="./media/teleop_replay.mp4" autoplay loop muted playsinline style="max-height: 50vh;"></video>
+    <video src="./media/teleop_replay.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video>
   </div>
   <ul class="pts">
     <li class="fragment">Replaying the saved controls: all <span class="num">1800</span> steps, maximum joint position error 0</li>
@@ -171,6 +178,67 @@
   </ul>
 </section>
 
+<section id="slide-pickup-controller" data-prs="604">
+  <h2 class="t">Apple pickup control: <span>open-loop waypoints</span></h2>
+  <div class="row" style="gap: 0.8em; align-items: flex-start;">
+    <div class="code" style="flex: 1.15;">
+      <div class="codehead">experiments/panda_leap_pickup.py, <code>Pickup.trajectory</code></div>
+<pre><code class="language-python" data-trim>waypoints = [data.ctrl.copy()]
+for position, hand in (
+    (goal + [0, 0, LIFT_TARGET_M], opened),
+    (goal, opened),
+    (goal, closed),
+    (goal + [0, 0, LIFT_TARGET_M], closed),
+):
+    for _ in range(IK_MAX_ITERATIONS):
+        delta = site_pose_ik_step(
+            model, scratch, flange, self.arm_dofs, position, goal_rotation
+        )
+        ...
+    if (
+        position_error > IK_POSITION_TOLERANCE_M
+        or angle_error > IK_ANGLE_TOLERANCE_RAD
+    ):
+        return None
+    ...
+    target[self.hand_actuators] = hand
+    waypoints.append(target)
+...
+controls = np.stack(
+    [np.interp(sample_times, times, values[:, i]) for i in range(model.nu)],
+    axis=-1,
+)</code></pre>
+    </div>
+    <div style="flex: 0.85;">
+      <ul class="pts" style="max-width: 100%; margin-top: 0; font-size: 0.46em;">
+        <li class="fragment">Open loop: the whole 8 s command sequence is fixed before the episode starts; nothing reacts to contact</li>
+        <li class="fragment"><code>goal</code>: the object's grasp point plus the grasp's x, y, z offset, at the grasp's yaw, pitch and roll</li>
+        <li class="fragment"><code>closed</code>: the grasp's finger and thumb angles. <code>opened</code>: base joints scaled by the opening fraction, middle and distal joints by 0.3</li>
+        <li class="fragment">Commands interpolated linearly between waypoints at every 5 ms step; the last waypoint is held for the final 2 s</li>
+        <li class="fragment warm">IK fails at any waypoint: the grasp is rejected as unreachable</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="slide-pickup-how" data-prs="604">
+  <h2 class="t">How the hand <span>picks up the apple</span></h2>
+  <p class="setup">Stock hand, searched grasp; one 8 s episode, frames at the waypoint times</p>
+  <div class="row" style="gap: 0.3em; max-width: 98%;">
+    <figure><img src="./media/stock_pickup_t0_0.png"><p class="cap"><strong>0 s</strong> start</p></figure>
+    <figure><img src="./media/stock_pickup_t1_5.png"><p class="cap"><strong>1.5 s</strong> above, open</p></figure>
+    <figure><img src="./media/stock_pickup_t3_0.png"><p class="cap"><strong>3 s</strong> descended, open</p></figure>
+    <figure><img src="./media/stock_pickup_t4_5.png"><p class="cap"><strong>4.5 s</strong> closed</p></figure>
+    <figure><img src="./media/stock_pickup_t6_0.png"><p class="cap"><strong>6 s</strong> lifted 15 cm</p></figure>
+    <figure><img src="./media/stock_pickup_t7_9.png"><p class="cap"><strong>8 s</strong> end of hold</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.5em;">
+    <li class="fragment">Every LEAP joint is a position servo: kp 3 N m/rad, torque capped at 0.28 N m, as on the real hand</li>
+    <li class="fragment">The fingers close toward the grasp's closed angles, the apple stops them first, and the leftover angle error becomes a squeeze (peak 12.36 N in training)</li>
+    <li class="fragment">That squeeze, times friction 0.7, carries the 180 g apple when the arm lifts</li>
+  </ul>
+</section>
+
 <section id="slide-pickup-gate" data-prs="604">
   <h2 class="t">What counts as a <span>pickup</span></h2>
   <ul class="pts" style="font-size: 0.56em; max-width: 84%;">
@@ -185,7 +253,7 @@
 <section id="slide-searched-pickup" data-prs="604">
   <h2 class="t">Stock vs <span>co-designed pickup</span></h2>
   <div class="pair">
-    <video src="./media/stock_vs_final.mp4" autoplay loop muted playsinline style="max-height: 40vh;"></video>
+    <video src="./media/stock_vs_final.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video>
     <div class="caps"><p class="cap"><strong>Stock</strong>: stock hand, default designed loss</p><p class="cap"><strong>Co-designed</strong>: spacer hand, refined loss and grasp</p></div>
   </div>
   <ul class="pts">
@@ -199,7 +267,7 @@
   <h2 class="t">Sparse vs <span>designed loss</span></h2>
   <p class="setup">Same spacer hand, starting grasp and seed; 8 generations of 32 candidates each</p>
   <div class="pair">
-    <video src="./media/sparse_vs_designed.mp4" autoplay loop muted playsinline style="max-height: 40vh;"></video>
+    <video src="./media/sparse_vs_designed.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video>
     <div class="caps"><p class="cap"><strong>Sparse</strong>: passes 0/4 training, 0/8 held out</p><p class="cap"><strong>Designed</strong>: passes 4/4 training, 7/8 held out</p></div>
   </div>
   <ul class="pts">
@@ -209,14 +277,108 @@
   </ul>
 </section>
 
-<section id="slide-staged" data-prs="605,613,615,618">
+<section id="slide-staged-code" data-prs="605,633">
+  <h2 class="t">StagedController: <span>library and pickup</span></h2>
+  <div class="row" style="gap: 0.8em; align-items: stretch;">
+    <div class="code" style="flex: 0.85;">
+      <div class="codehead">robotl/handlers/mujoco/control/stages.py</div>
+<pre><code class="language-python" data-trim>@dataclass(frozen=True)
+class Stage[T]:
+    """Controller and observed goal with continuous dwell and a deadline."""
+
+    controller: Controller[T]
+    achieved: Callable[[EnvProcess], bool]
+    invariant: Callable[[EnvProcess], bool]
+    dwell_s: float
+    timeout_s: float
+
+
+@dataclass(eq=False)
+class StagedController[T]:
+    """Advance after a sustained observed goal; fail on timeout or invariant loss.
+
+    Each call can advance at most one stage.
+    ...
+    """
+
+    stages: tuple[Stage[T], ...]</code></pre>
+    </div>
+    <div class="code fragment" style="flex: 1.15;">
+      <div class="codehead">experiments/panda_leap_pickup.py</div>
+<pre><code class="language-python" data-trim>stages: tuple[Stage[SamplingState], ...] = (
+    Stage(controller(targets[0], 1.9), alignment(targets[0]), physical, 0.1, 2.0),
+    Stage(controller(targets[1], 1.5), alignment(targets[1]), physical, 0.1, 1.6),
+    Stage(grasp_controller, supported, physical, 0.15, 2.4),
+)
+if self.scene.assembly.obj.upright_axis is None:
+    stages += (
+        Stage(controller(targets[3], 3.75), lifted, retained, 0.25, 4.0),
+        Stage(controller(targets[4], 0.1), lifted, retained, HOLD_DURATION_S, 2.0),
+    )
+...
+return Session(env, stages, data=data, pool=pool, motion_invariant=motion)</code></pre>
+    </div>
+  </div>
+  <ul class="pts" style="font-size: 0.48em;">
+    <li class="fragment">A stage is a controller, an observed goal, a safety invariant, a dwell and a deadline</li>
+    <li class="fragment">Apple: approach, descent, grasp, lift, hold. The hammer replaces lift with clearance, lift, hold</li>
+    <li class="fragment"><code>Session</code> runs the stages as a <code>StagedController</code> and keeps every native tick</li>
+  </ul>
+</section>
+
+<section id="slide-staged" data-prs="605,613,615,618,633">
   <h2 class="t">Staged native <span>control</span></h2>
   <ul class="pts" style="font-size: 0.5em; max-width: 88%;">
     <li class="fragment">A stage advances once its goal has held for its dwell (0.1 to 0.25 s; the hold stage needs 2 s) in the live simulation, counted from stage entry; it fails on its deadline or a safety check</li>
-    <li class="fragment">Approach 1.8 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.6 s, lift to 10 cm 4 s, hold 2 s</li>
+    <li class="fragment">Deadlines: approach 2.0 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.4 s, lift to 10 cm 4.0 s, hold 2 s</li>
     <li class="fragment">Safety checks every tick: no floor contact, Panda joint speed 2.175 to 2.61 rad/s, acceleration 7.5 to 20 rad/s&sup2;; commands projected against actuator range and Panda velocity limits</li>
     <li class="fragment">Same apple controls, 12 s replay: wrist peak acceleration <span class="num">117</span> rad/s&sup2; at a 5 ms step, <span class="num">13</span> at 2.5 ms</li>
     <li class="fragment warm">Hammer pilot, a handwritten height term on top of waypoint tracking, 2 samples per replan: descent times out at <span class="num">3.315 s</span></li>
+  </ul>
+</section>
+
+<section id="slide-grasp-plan" data-prs="636">
+  <h2 class="t">GraspPlan: <span>search the hand, keep the arm</span></h2>
+  <div class="row" style="gap: 0.8em; align-items: flex-start;">
+    <div class="code" style="flex: 1.1;">
+      <div class="codehead">experiments/panda_leap_pickup.py</div>
+<pre><code class="language-python" data-trim>class GraspPlan(BoundedDensePlan):
+    """Preserve the arm seed while sampling independent hand commands."""
+
+    arm_actuators: tuple[int, ...] = struct.field(pytree_node=False)
+
+    def with_params(self, params: jax.Array, spec: EnvSpec) -> Self:
+        indices = jnp.asarray(self.arm_actuators)
+        params = params.at[..., indices].set(self.x[..., indices])
+        return super().with_params(params, spec)
+
+...
+grasp_controller = controller(targets[2], grasp_transition_s)
+grasp_controller = replace(
+    grasp_controller,
+    planner=replace(grasp_controller.planner, plan_init=grasp_plan_init),
+)</code></pre>
+    </div>
+    <div style="flex: 0.9;">
+      <ul class="pts" style="max-width: 100%; margin-top: 0; font-size: 0.48em;">
+        <li class="fragment">The grasp stage's MPC samples plans over all 23 commands: 7 Panda joints, 16 LEAP joints</li>
+        <li class="fragment"><code>GraspPlan</code> writes the arm seed back into the 7 arm columns of every sample, so only the 16 hand commands vary</li>
+        <li class="fragment">Arm seed: a quintic blend from the issued command to the close waypoint over 1.5 s</li>
+        <li class="fragment">Then the <code>BoundedDensePlan</code> bounds: clip to actuator range; arm commands also limited per step by the Panda velocity limits</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="slide-contact" data-prs="616,619,628,631,632">
+  <h2 class="t">Contact sensors and <span>contact-directed objectives</span></h2>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">Contact sensor: per body pair, a fixed number of contact slots (32 in pickup), each with force, distance, position and normal</li>
+    <li class="fragment">Virtual sensor: a value computed from other sensor readings</li>
+    <li class="fragment">Grasp check: thumb and fingers each hold half the object's weight by friction, with normals at least 120 degrees apart</li>
+    <li class="fragment">Agent losses that read only the fixed base are refused; one such loss read zero all episode</li>
+    <li class="fragment">More than 32 contacts in a pair: refused, not scored</li>
+    <li class="fragment warm">No successful hammer pickup yet</li>
   </ul>
 </section>
 
@@ -251,22 +413,10 @@
   </ul>
 </section>
 
-<section id="slide-contact" data-prs="616,619,628,631,632">
-  <h2 class="t">Contact sensors and <span>contact-directed objectives</span></h2>
-  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
-    <li class="fragment">Contact sensor: per body pair, a fixed number of contact slots (32 in pickup), each with force, distance, position and normal</li>
-    <li class="fragment">Virtual sensor: a value computed from other sensor readings</li>
-    <li class="fragment">Grasp check: thumb and fingers each hold half the object's weight by friction, with normals at least 120 degrees apart</li>
-    <li class="fragment">Agent losses that read only the fixed base are refused; one such loss read zero all episode</li>
-    <li class="fragment">More than 32 contacts in a pair: refused, not scored</li>
-    <li class="fragment warm">No successful hammer pickup yet</li>
-  </ul>
-</section>
-
 <section id="slide-hammer" data-prs="612,633,639,638">
   <h2 class="t">Upright hammer <span>pickup</span></h2>
   <div class="row">
-    <figure style="flex: 1;"><img src="./media/panda_hammer.png" style="max-height: 52vh;"><p class="cap">Starting scene</p></figure>
+    <figure style="flex: 1;"><video src="./media/hammer_grasp_timeout.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video><p class="cap">Train-center placement: the grasp stage times out at 70% hand contact and 23 N peak grip; the hammer never lifts</p></figure>
     <div style="flex: 1.15;">
       <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
         <li class="fragment">Pass: head bottom above 10 cm, whole hammer above 2 mm, handle-to-head axis within 15 degrees of vertical, for the final 2 s</li>
@@ -313,7 +463,7 @@
   <h2 class="t">Driving OPH with <span>two XL430 motors</span></h2>
   <div class="row">
     <figure><img src="./media/oph_xl430.png" style="max-height: 46vh;"></figure>
-    <figure><video src="./media/oph_mixer.mp4" autoplay loop muted playsinline style="max-height: 46vh;"></video><p class="cap">Scripted motor ramps, gravity off</p></figure>
+    <figure><video src="./media/oph_mixer.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 46vh;"></video><p class="cap">Scripted motor ramps, gravity off</p></figure>
   </div>
   <ul class="pts">
     <li class="fragment">Two XL430-W250 at 11.1 V: 1.4 N m stall, 57 rpm</li>
@@ -390,7 +540,30 @@
     <li class="fragment">Keep a design only if both orientation errors (episode mean and final) drop, drops do not rise, and at least one training run keeps the cube</li>
     <li class="fragment">New loss: chase orientation only once both mixers pass 0.45 rad, thumb and fingers carry load, and the cube is within 4 cm of its hold position</li>
     <li class="fragment">A closure term pulls both mixers toward 0.8 rad, 20x stronger until the cube is supported</li>
-    <li class="fragment warm">Retention run in progress; no capture-first results yet</li>
+    <li class="fragment warm">Retention run in progress; capture-first has two single-seed comparisons so far</li>
+  </ul>
+</section>
+
+<section id="slide-sparse-vs-staged" data-prs="640">
+  <h2 class="t">Sparse vs <span>capture-first loss</span></h2>
+  <p class="setup">Palm-up OPH on the Stretch Dex wrist: turn the cube to target 0, a random orientation, in 6 s at a 1 ms step. MPC: 1 s horizon, 16 samples x 2 rounds, replan every 40 ms; both runs start with the mixers seeded at 0.8 rad</p>
+  <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em;">
+    <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 11</strong></p>
+    <div class="pair" style="margin: 0;">
+      <video src="./media/oph_sparse_vs_staged_seed11.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 19vh;"></video>
+      <div class="caps"><p class="cap">Sparse: <strong>drops</strong></p><p class="cap">Capture-first: <strong>retains</strong></p></div>
+    </div>
+  </div>
+  <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em; margin-top: 0.2em;">
+    <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 29</strong></p>
+    <div class="pair" style="margin: 0;">
+      <video src="./media/oph_sparse_vs_staged_seed29.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 19vh;"></video>
+      <div class="caps"><p class="cap">Sparse: <strong>retains</strong></p><p class="cap">Capture-first: <strong>drops</strong></p></div>
+    </div>
+  </div>
+  <ul class="pts" style="font-size: 0.46em; margin-top: 0.3em;">
+    <li class="fragment">Sparse: orientation error plus a drop penalty. Capture-first: orientation counts only once the cube is held (previous slide)</li>
+    <li class="fragment warm">One target, two seeds, one win each: no evidence yet that capture-first retains the cube more often</li>
   </ul>
 </section>
 
@@ -459,6 +632,8 @@
 
   <div id="pr-tag"></div>
   <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/highlight/highlight.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/plugin/highlight/monokai.css">
   <script>
     Reveal.initialize({
       controls: true,
@@ -467,7 +642,8 @@
       center: true,
       transition: 'none',
       width: 1280,
-      height: 760
+      height: 760,
+      plugins: [RevealHighlight]
     });
     function showPrs(event) {
       var prs = (event.currentSlide.dataset.prs || "").split(",").filter(Boolean);
