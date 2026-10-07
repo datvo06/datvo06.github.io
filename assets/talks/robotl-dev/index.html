@@ -65,6 +65,12 @@
     #pr-tag a { color: #4a5a7a; margin-right: 0.9em; text-decoration: none; }
     .setup { max-width: 90%; margin: 0 auto 0.45em; font-size: 0.5em; color: #4a4f5a; text-align: center; }
     .setup strong { color: #1f2330; }
+    .code { min-width: 0; text-align: left; }
+    .codehead { font-family: "IBM Plex Mono", monospace; font-size: 0.32em; color: #6b7080; margin-bottom: 0.2em; }
+    .reveal .code pre { margin: 0; width: 100%; box-shadow: none; font-size: 0.27em; line-height: 1.4; }
+    #slide-grasp-plan .code pre { font-size: 0.33em; }
+    #slide-staged-code .code pre { font-size: 0.29em; }
+    .reveal .code pre code { background: #1f2330; color: #d4d7dc; border-radius: 6px; padding: 0.7em 0.9em; max-height: none; white-space: pre-wrap; word-break: break-word; overflow: hidden; }
   </style>
 </head>
 <body>
@@ -209,15 +215,97 @@
   </ul>
 </section>
 
-<section id="slide-staged" data-prs="605,613,615,618">
+<section id="slide-staged" data-prs="605,613,615,618,633">
   <h2 class="t">Staged native <span>control</span></h2>
   <ul class="pts" style="font-size: 0.5em; max-width: 88%;">
     <li class="fragment">A stage advances once its goal has held for its dwell (0.1 to 0.25 s; the hold stage needs 2 s) in the live simulation, counted from stage entry; it fails on its deadline or a safety check</li>
-    <li class="fragment">Approach 1.8 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.6 s, lift to 10 cm 4 s, hold 2 s</li>
+    <li class="fragment">Deadlines: approach 2.0 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.4 s, lift to 10 cm 4.0 s, hold 2 s</li>
     <li class="fragment">Safety checks every tick: no floor contact, Panda joint speed 2.175 to 2.61 rad/s, acceleration 7.5 to 20 rad/s&sup2;; commands projected against actuator range and Panda velocity limits</li>
     <li class="fragment">Same apple controls, 12 s replay: wrist peak acceleration <span class="num">117</span> rad/s&sup2; at a 5 ms step, <span class="num">13</span> at 2.5 ms</li>
     <li class="fragment warm">Hammer pilot, a handwritten height term on top of waypoint tracking, 2 samples per replan: descent times out at <span class="num">3.315 s</span></li>
   </ul>
+</section>
+
+<section id="slide-staged-code" data-prs="605,633">
+  <h2 class="t">StagedController: <span>library and pickup</span></h2>
+  <div class="row" style="gap: 0.8em; align-items: stretch;">
+    <div class="code" style="flex: 0.85;">
+      <div class="codehead">robotl/handlers/mujoco/control/stages.py</div>
+<pre><code>@dataclass(frozen=True)
+class Stage[T]:
+    """Controller and observed goal with continuous dwell and a deadline."""
+
+    controller: Controller[T]
+    achieved: Callable[[EnvProcess], bool]
+    invariant: Callable[[EnvProcess], bool]
+    dwell_s: float
+    timeout_s: float
+
+
+@dataclass(eq=False)
+class StagedController[T]:
+    """Advance after a sustained observed goal; fail on timeout or invariant loss.
+
+    Each call can advance at most one stage.
+    ...
+    """
+
+    stages: tuple[Stage[T], ...]</code></pre>
+    </div>
+    <div class="code fragment" style="flex: 1.15;">
+      <div class="codehead">experiments/panda_leap_pickup.py</div>
+<pre><code>stages: tuple[Stage[SamplingState], ...] = (
+    Stage(controller(targets[0], 1.9), alignment(targets[0]), physical, 0.1, 2.0),
+    Stage(controller(targets[1], 1.5), alignment(targets[1]), physical, 0.1, 1.6),
+    Stage(grasp_controller, supported, physical, 0.15, 2.4),
+)
+if self.scene.assembly.obj.upright_axis is None:
+    stages += (
+        Stage(controller(targets[3], 3.75), lifted, retained, 0.25, 4.0),
+        Stage(controller(targets[4], 0.1), lifted, retained, HOLD_DURATION_S, 2.0),
+    )
+...
+return Session(env, stages, data=data, pool=pool, motion_invariant=motion)</code></pre>
+    </div>
+  </div>
+  <ul class="pts" style="font-size: 0.48em;">
+    <li class="fragment">A stage is a controller, an observed goal, a safety invariant, a dwell and a deadline</li>
+    <li class="fragment">Apple: approach, descent, grasp, lift, hold. The hammer replaces lift with clearance, lift, hold</li>
+    <li class="fragment"><code>Session</code> runs the stages as a <code>StagedController</code> and keeps every native tick</li>
+  </ul>
+</section>
+
+<section id="slide-grasp-plan" data-prs="636">
+  <h2 class="t">GraspPlan: <span>search the hand, keep the arm</span></h2>
+  <div class="row" style="gap: 0.8em; align-items: flex-start;">
+    <div class="code" style="flex: 1.1;">
+      <div class="codehead">experiments/panda_leap_pickup.py</div>
+<pre><code>class GraspPlan(BoundedDensePlan):
+    """Preserve the arm seed while sampling independent hand commands."""
+
+    arm_actuators: tuple[int, ...] = struct.field(pytree_node=False)
+
+    def with_params(self, params: jax.Array, spec: EnvSpec) -> Self:
+        indices = jnp.asarray(self.arm_actuators)
+        params = params.at[..., indices].set(self.x[..., indices])
+        return super().with_params(params, spec)
+
+...
+grasp_controller = controller(targets[2], grasp_transition_s)
+grasp_controller = replace(
+    grasp_controller,
+    planner=replace(grasp_controller.planner, plan_init=grasp_plan_init),
+)</code></pre>
+    </div>
+    <div style="flex: 0.9;">
+      <ul class="pts" style="max-width: 100%; margin-top: 0; font-size: 0.48em;">
+        <li class="fragment">The grasp stage's MPC samples plans over all 23 commands: 7 Panda joints, 16 LEAP joints</li>
+        <li class="fragment"><code>GraspPlan</code> writes the arm seed back into the 7 arm columns of every sample, so only the 16 hand commands vary</li>
+        <li class="fragment">Arm seed: a quintic blend from the issued command to the close waypoint over 1.5 s</li>
+        <li class="fragment">Then the <code>BoundedDensePlan</code> bounds: clip to actuator range; arm commands also limited per step by the Panda velocity limits</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section id="slide-mpc-compile" data-prs="608">
