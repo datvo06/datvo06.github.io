@@ -221,6 +221,24 @@ controls = np.stack(
   </div>
 </section>
 
+<section id="slide-pickup-how" data-prs="604">
+  <h2 class="t">How the hand <span>picks up the apple</span></h2>
+  <p class="setup">Stock hand, searched grasp; one 8 s episode, frames at the waypoint times</p>
+  <div class="row" style="gap: 0.3em; max-width: 98%;">
+    <figure><img src="./media/stock_pickup_t0_0.png"><p class="cap"><strong>0 s</strong> start</p></figure>
+    <figure><img src="./media/stock_pickup_t1_5.png"><p class="cap"><strong>1.5 s</strong> above, open</p></figure>
+    <figure><img src="./media/stock_pickup_t3_0.png"><p class="cap"><strong>3 s</strong> descended, open</p></figure>
+    <figure><img src="./media/stock_pickup_t4_5.png"><p class="cap"><strong>4.5 s</strong> closed</p></figure>
+    <figure><img src="./media/stock_pickup_t6_0.png"><p class="cap"><strong>6 s</strong> lifted 15 cm</p></figure>
+    <figure><img src="./media/stock_pickup_t7_9.png"><p class="cap"><strong>8 s</strong> end of hold</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.5em;">
+    <li class="fragment">Every LEAP joint is a position servo: kp 3 N m/rad, torque capped at 0.28 N m, as on the real hand</li>
+    <li class="fragment">The fingers close toward the grasp's closed angles, the apple stops them first, and the leftover angle error becomes a squeeze (peak 12.36 N in training)</li>
+    <li class="fragment">That squeeze, times friction 0.7, carries the 180 g apple when the arm lifts</li>
+  </ul>
+</section>
+
 <section id="slide-pickup-gate" data-prs="604">
   <h2 class="t">What counts as a <span>pickup</span></h2>
   <ul class="pts" style="font-size: 0.56em; max-width: 84%;">
@@ -528,22 +546,23 @@ grasp_controller = replace(
 
 <section id="slide-sparse-vs-staged" data-prs="640">
   <h2 class="t">Sparse vs <span>capture-first loss</span></h2>
-  <p class="setup">Same hand, target 0, 6 s episode, one controller seed per row</p>
+  <p class="setup">Palm-up OPH on the Stretch Dex wrist: turn the cube to target 0, a random orientation, in 6 s at a 1 ms step. MPC: 1 s horizon, 16 samples x 2 rounds, replan every 40 ms; both runs start with the mixers seeded at 0.8 rad</p>
   <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em;">
     <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 11</strong></p>
     <div class="pair" style="margin: 0;">
-      <video src="./media/oph_sparse_vs_staged_seed11.mp4" autoplay loop muted playsinline style="max-height: 27vh;"></video>
+      <video src="./media/oph_sparse_vs_staged_seed11.mp4" autoplay loop muted playsinline style="max-height: 19vh;"></video>
       <div class="caps"><p class="cap">Sparse: <strong>drops</strong></p><p class="cap">Capture-first: <strong>retains</strong></p></div>
     </div>
   </div>
   <div class="fragment" style="display: flex; align-items: center; justify-content: center; gap: 0.5em; margin-top: 0.2em;">
     <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 29</strong></p>
     <div class="pair" style="margin: 0;">
-      <video src="./media/oph_sparse_vs_staged_seed29.mp4" autoplay loop muted playsinline style="max-height: 27vh;"></video>
+      <video src="./media/oph_sparse_vs_staged_seed29.mp4" autoplay loop muted playsinline style="max-height: 19vh;"></video>
       <div class="caps"><p class="cap">Sparse: <strong>retains</strong></p><p class="cap">Capture-first: <strong>drops</strong></p></div>
     </div>
   </div>
-  <ul class="pts">
+  <ul class="pts" style="font-size: 0.46em; margin-top: 0.3em;">
+    <li class="fragment">Sparse: orientation error plus a drop penalty. Capture-first: orientation counts only once the cube is held (previous slide)</li>
     <li class="fragment warm">One target, two seeds, one win each: no evidence yet that capture-first retains the cube more often</li>
   </ul>
 </section>
