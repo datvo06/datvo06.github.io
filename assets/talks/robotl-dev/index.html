@@ -522,7 +522,29 @@ grasp_controller = replace(
     <li class="fragment">Keep a design only if both orientation errors (episode mean and final) drop, drops do not rise, and at least one training run keeps the cube</li>
     <li class="fragment">New loss: chase orientation only once both mixers pass 0.45 rad, thumb and fingers carry load, and the cube is within 4 cm of its hold position</li>
     <li class="fragment">A closure term pulls both mixers toward 0.8 rad, 20x stronger until the cube is supported</li>
-    <li class="fragment warm">Retention run in progress; no capture-first results yet</li>
+    <li class="fragment warm">Retention run in progress; capture-first has two single-seed comparisons so far</li>
+  </ul>
+</section>
+
+<section id="slide-sparse-vs-staged" data-prs="640">
+  <h2 class="t">Sparse vs <span>capture-first loss</span></h2>
+  <p class="setup">Same hand, target 0, 6 s episode, one controller seed per row</p>
+  <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em;">
+    <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 11</strong></p>
+    <div class="pair" style="margin: 0;">
+      <video src="./media/oph_sparse_vs_staged_seed11.mp4" autoplay loop muted playsinline style="max-height: 27vh;"></video>
+      <div class="caps"><p class="cap">Sparse: <strong>drops</strong></p><p class="cap">Capture-first: <strong>retains</strong></p></div>
+    </div>
+  </div>
+  <div class="fragment" style="display: flex; align-items: center; justify-content: center; gap: 0.5em; margin-top: 0.2em;">
+    <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 29</strong></p>
+    <div class="pair" style="margin: 0;">
+      <video src="./media/oph_sparse_vs_staged_seed29.mp4" autoplay loop muted playsinline style="max-height: 27vh;"></video>
+      <div class="caps"><p class="cap">Sparse: <strong>retains</strong></p><p class="cap">Capture-first: <strong>drops</strong></p></div>
+    </div>
+  </div>
+  <ul class="pts">
+    <li class="fragment warm">One target, two seeds, one win each: no evidence yet that capture-first retains the cube more often</li>
   </ul>
 </section>
 
