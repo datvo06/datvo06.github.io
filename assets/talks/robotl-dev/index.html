@@ -215,23 +215,12 @@
   </ul>
 </section>
 
-<section id="slide-staged" data-prs="605,613,615,618,633">
-  <h2 class="t">Staged native <span>control</span></h2>
-  <ul class="pts" style="font-size: 0.5em; max-width: 88%;">
-    <li class="fragment">A stage advances once its goal has held for its dwell (0.1 to 0.25 s; the hold stage needs 2 s) in the live simulation, counted from stage entry; it fails on its deadline or a safety check</li>
-    <li class="fragment">Deadlines: approach 2.0 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.4 s, lift to 10 cm 4.0 s, hold 2 s</li>
-    <li class="fragment">Safety checks every tick: no floor contact, Panda joint speed 2.175 to 2.61 rad/s, acceleration 7.5 to 20 rad/s&sup2;; commands projected against actuator range and Panda velocity limits</li>
-    <li class="fragment">Same apple controls, 12 s replay: wrist peak acceleration <span class="num">117</span> rad/s&sup2; at a 5 ms step, <span class="num">13</span> at 2.5 ms</li>
-    <li class="fragment warm">Hammer pilot, a handwritten height term on top of waypoint tracking, 2 samples per replan: descent times out at <span class="num">3.315 s</span></li>
-  </ul>
-</section>
-
 <section id="slide-staged-code" data-prs="605,633">
   <h2 class="t">StagedController: <span>library and pickup</span></h2>
   <div class="row" style="gap: 0.8em; align-items: stretch;">
     <div class="code" style="flex: 0.85;">
       <div class="codehead">robotl/handlers/mujoco/control/stages.py</div>
-<pre><code>@dataclass(frozen=True)
+<pre><code class="language-python" data-trim>@dataclass(frozen=True)
 class Stage[T]:
     """Controller and observed goal with continuous dwell and a deadline."""
 
@@ -254,7 +243,7 @@ class StagedController[T]:
     </div>
     <div class="code fragment" style="flex: 1.15;">
       <div class="codehead">experiments/panda_leap_pickup.py</div>
-<pre><code>stages: tuple[Stage[SamplingState], ...] = (
+<pre><code class="language-python" data-trim>stages: tuple[Stage[SamplingState], ...] = (
     Stage(controller(targets[0], 1.9), alignment(targets[0]), physical, 0.1, 2.0),
     Stage(controller(targets[1], 1.5), alignment(targets[1]), physical, 0.1, 1.6),
     Stage(grasp_controller, supported, physical, 0.15, 2.4),
@@ -275,12 +264,23 @@ return Session(env, stages, data=data, pool=pool, motion_invariant=motion)</code
   </ul>
 </section>
 
+<section id="slide-staged" data-prs="605,613,615,618,633">
+  <h2 class="t">Staged native <span>control</span></h2>
+  <ul class="pts" style="font-size: 0.5em; max-width: 88%;">
+    <li class="fragment">A stage advances once its goal has held for its dwell (0.1 to 0.25 s; the hold stage needs 2 s) in the live simulation, counted from stage entry; it fails on its deadline or a safety check</li>
+    <li class="fragment">Deadlines: approach 2.0 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.4 s, lift to 10 cm 4.0 s, hold 2 s</li>
+    <li class="fragment">Safety checks every tick: no floor contact, Panda joint speed 2.175 to 2.61 rad/s, acceleration 7.5 to 20 rad/s&sup2;; commands projected against actuator range and Panda velocity limits</li>
+    <li class="fragment">Same apple controls, 12 s replay: wrist peak acceleration <span class="num">117</span> rad/s&sup2; at a 5 ms step, <span class="num">13</span> at 2.5 ms</li>
+    <li class="fragment warm">Hammer pilot, a handwritten height term on top of waypoint tracking, 2 samples per replan: descent times out at <span class="num">3.315 s</span></li>
+  </ul>
+</section>
+
 <section id="slide-grasp-plan" data-prs="636">
   <h2 class="t">GraspPlan: <span>search the hand, keep the arm</span></h2>
   <div class="row" style="gap: 0.8em; align-items: flex-start;">
     <div class="code" style="flex: 1.1;">
       <div class="codehead">experiments/panda_leap_pickup.py</div>
-<pre><code>class GraspPlan(BoundedDensePlan):
+<pre><code class="language-python" data-trim>class GraspPlan(BoundedDensePlan):
     """Preserve the arm seed while sampling independent hand commands."""
 
     arm_actuators: tuple[int, ...] = struct.field(pytree_node=False)
@@ -306,6 +306,18 @@ grasp_controller = replace(
       </ul>
     </div>
   </div>
+</section>
+
+<section id="slide-contact" data-prs="616,619,628,631,632">
+  <h2 class="t">Contact sensors and <span>contact-directed objectives</span></h2>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">Contact sensor: per body pair, a fixed number of contact slots (32 in pickup), each with force, distance, position and normal</li>
+    <li class="fragment">Virtual sensor: a value computed from other sensor readings</li>
+    <li class="fragment">Grasp check: thumb and fingers each hold half the object's weight by friction, with normals at least 120 degrees apart</li>
+    <li class="fragment">Agent losses that read only the fixed base are refused; one such loss read zero all episode</li>
+    <li class="fragment">More than 32 contacts in a pair: refused, not scored</li>
+    <li class="fragment warm">No successful hammer pickup yet</li>
+  </ul>
 </section>
 
 <section id="slide-mpc-compile" data-prs="608">
@@ -336,18 +348,6 @@ grasp_controller = replace(
     <li class="fragment">Both runners return identical states</li>
     <li class="fragment">Agent recordings: 2,231 frames stacked once per batch instead of per frame, same float64 values</li>
     <li class="fragment warm">600 steps is slower in all 3 timed runs; rollout only, not a whole episode</li>
-  </ul>
-</section>
-
-<section id="slide-contact" data-prs="616,619,628,631,632">
-  <h2 class="t">Contact sensors and <span>contact-directed objectives</span></h2>
-  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
-    <li class="fragment">Contact sensor: per body pair, a fixed number of contact slots (32 in pickup), each with force, distance, position and normal</li>
-    <li class="fragment">Virtual sensor: a value computed from other sensor readings</li>
-    <li class="fragment">Grasp check: thumb and fingers each hold half the object's weight by friction, with normals at least 120 degrees apart</li>
-    <li class="fragment">Agent losses that read only the fixed base are refused; one such loss read zero all episode</li>
-    <li class="fragment">More than 32 contacts in a pair: refused, not scored</li>
-    <li class="fragment warm">No successful hammer pickup yet</li>
   </ul>
 </section>
 
@@ -547,6 +547,8 @@ grasp_controller = replace(
 
   <div id="pr-tag"></div>
   <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/highlight/highlight.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/plugin/highlight/monokai.css">
   <script>
     Reveal.initialize({
       controls: true,
@@ -555,7 +557,8 @@ grasp_controller = replace(
       center: true,
       transition: 'none',
       width: 1280,
-      height: 760
+      height: 760,
+      plugins: [RevealHighlight]
     });
     function showPrs(event) {
       var prs = (event.currentSlide.dataset.prs || "").split(",").filter(Boolean);
