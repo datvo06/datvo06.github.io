@@ -426,20 +426,33 @@ grasp_controller = replace(
   </ul>
 </section>
 
-<section id="slide-runner" data-prs="634,629">
+<section id="slide-runner" data-prs="634">
   <h2 class="t">Batched native <span>runner</span></h2>
-  <p class="setup">Panda + LEAP apple scene, 5 ms step. 16 rollouts in one batch, 16 threads. Median of 3 timed runs</p>
-  <div class="bars">
+  <ul class="pts" style="font-size: 0.48em; margin: 0 auto 0.5em;">
+    <li>A runner simulates a batch of control sequences from one starting state and returns their trajectories; the MPC calls it to score its sampled plans</li>
+    <li class="fragment">#634 moves Panda pickup onto the shared runner from #561: one per compiled environment, for planning rollouts, single steps and forwards, callable inside <code>jit</code> and <code>vmap</code></li>
+  </ul>
+  <p class="setup fragment">Timing probe: Panda + LEAP apple scene, 5 ms step, 16 rollouts in one batch, 16 threads; median of 3 timed runs</p>
+  <div class="bars fragment">
     <div class="b"><span class="lbl">Old runner, 80 steps (0.4 s)</span><div class="bar old" style="width: 16.6%;"></div><span class="v">28.8 ms</span></div>
     <div class="b"><span class="lbl">New runner, 80 steps</span><div class="bar" style="width: 12.1%;"></div><span class="v">21.0 ms</span></div>
-    <div class="b fragment"><span class="lbl">Old runner, 600 steps (3 s)</span><div class="bar old" style="width: 46%;"></div><span class="v">79.6 ms</span></div>
-    <div class="b fragment"><span class="lbl">New runner, 600 steps</span><div class="bar warmb" style="width: 60%;"></div><span class="v">103.8 ms</span></div>
+    <div class="b"><span class="lbl">Old runner, 600 steps (3 s)</span><div class="bar old" style="width: 46%;"></div><span class="v">79.6 ms</span></div>
+    <div class="b"><span class="lbl">New runner, 600 steps</span><div class="bar warmb" style="width: 60%;"></div><span class="v">103.8 ms</span></div>
   </div>
-  <ul class="pts">
-    <li class="fragment">Old: eager JAX state packing, then <code>mujoco.rollout</code>. New: the shared runner, jitted packing around the same native call</li>
-    <li class="fragment">Both runners return identical states</li>
-    <li class="fragment">Agent recordings: 2,231 frames stacked once per batch instead of per frame, same float64 values</li>
-    <li class="fragment warm">600 steps is slower in all 3 timed runs; rollout only, not a whole episode</li>
+  <ul class="pts" style="font-size: 0.48em;">
+    <li class="fragment">Old: eager JAX state packing, then <code>mujoco.rollout</code>. New: jitted packing around the same native call. Both return identical states</li>
+    <li class="fragment">80 steps: 27% less time</li>
+    <li class="fragment warm">600 steps: slower in every run (new 282.7, 103.8, 95.6 ms; old 93.8, 78.6, 79.6 ms). The cause is not yet diagnosed</li>
+  </ul>
+</section>
+
+<section id="slide-recordings" data-prs="629">
+  <h2 class="t">Reading recorded <span>trajectories</span></h2>
+  <ul class="pts" style="font-size: 0.58em; max-width: 84%;">
+    <li class="fragment">The design agent reads recorded pickup trajectories from its REPL</li>
+    <li class="fragment">Before: each of 2,231 observations was stacked into JAX one frame at a time; the live agent trace spent minutes there</li>
+    <li class="fragment">Now: NumPy packs a batch, which is converted to JAX once; all 2,231 joint-position, velocity and control rows keep exact float64 values</li>
+    <li class="fragment warm">No timing after the change was recorded, and no controller speedup is claimed</li>
   </ul>
 </section>
 
