@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RoboTL Development Update</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/theme/white.css" id="theme">
+  <style>
+    /* match the rest of datvo06.github.io */
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    .reveal { font-family: "IBM Plex Sans", -apple-system, sans-serif; }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: "IBM Plex Serif", Georgia, serif;
+      text-transform: none;
+      letter-spacing: -0.015em;
+      font-weight: 600;
+      color: #1f2330;
+    }
+    .reveal a { color: #1E3A8A; }
+    .reveal code { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    .reveal section img { box-shadow: none; border: 0; }
+    .reveal h2.t { font-size: 0.95em; margin: 0 0 0.35em 0; }
+    .reveal h2.t span { color: #1E3A8A; }
+    .row { display: flex; gap: 0.7em; align-items: flex-start; justify-content: center; max-width: 96%; margin: 0 auto; }
+    .row > figure { flex: 1; min-width: 0; margin: 0; }
+    .row img, .row video, .full img, .full video { width: 100%; object-fit: contain; border-radius: 6px; display: block; }
+    .full { max-width: 96%; margin: 0 auto; }
+    .pair { width: fit-content; max-width: 96%; margin: 0 auto; }
+    .pair video { display: block; max-width: 100%; border-radius: 6px; }
+    .pair .caps { display: flex; }
+    .pair .caps p { flex: 1; }
+    .cap { margin: 0.2em 0 0; font-size: 0.46em; color: #4a4f5a; text-align: center; }
+    .cap strong { color: #1E3A8A; }
+    .reveal ul.pts { list-style: none; margin: 0.45em auto 0; padding: 0; max-width: 90%; font-size: 0.54em; text-align: left; }
+    .reveal ul.pts li { list-style: none; padding: 0.3em 0.8em; margin: 0 0 0.35em 0; border-left: 3px solid #1E3A8A; background: #f6f7f9; border-radius: 4px; }
+    .reveal ul.pts li.warm { border-left-color: #c08230; }
+    .reveal ul.pts ol { list-style: decimal; }
+    .reveal ul.pts ol li { list-style: decimal; border: 0; background: none; padding: 0.1em 0; margin: 0 0 0.1em 0; }
+    .num { font-weight: 700; color: #1E3A8A; }
+    .bars { max-width: 82%; margin: 0.4em auto 0; font-size: 0.5em; text-align: left; }
+    .bars .b { display: flex; align-items: center; gap: 0.6em; margin: 0 0 0.45em 0; }
+    .bars .lbl { width: 14em; flex: none; color: #4a4f5a; }
+    .bars .bar { height: 1.3em; border-radius: 3px; background: #1E3A8A; }
+    .bars .bar.old { background: #c3c8d1; }
+    .bars .bar.warmb { background: #c08230; }
+    .bars .v { flex: none; font-weight: 600; }
+    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.45em; max-width: 96%; margin: 0 auto; }
+    .grid4 figure { margin: 0; }
+    .grid4 img { width: 100%; border-radius: 5px; display: block; }
+    .stack { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2em 1.6em; max-width: 94%; margin: 0 auto; font-size: 0.44em; text-align: left; }
+    .stack div { display: flex; gap: 0.6em; align-items: baseline; padding: 0.22em 0; border-bottom: 1px solid #eceef2; }
+    .stack .pr { font-family: 'IBM Plex Mono', monospace; color: #1E3A8A; font-weight: 600; flex: none; width: 3.2em; }
+    .stack .s { flex: none; font-size: 0.8em; padding: 0 0.45em; border-radius: 3px; background: #eef2f7; color: #2b4a6f; }
+    .stack .s.d { background: #f3f3f1; color: #6b6b66; }
+    .stack .s.f { background: #fbeee0; color: #8a5a1f; }
+    .agenda { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 52vh; width: fit-content; margin: 0 auto; gap: 0.55em; text-align: left; }
+    .agenda div { display: flex; gap: 0.8em; align-items: baseline; font-size: 0.62em; }
+    .agenda .n { font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: #c3c8d1; }
+    .agenda .l { color: #c3c8d1; }
+    .agenda .on .n { color: #1E3A8A; }
+    .agenda .on .l { color: #1f2330; font-weight: 600; }
+    #pr-tag { position: fixed; left: 18px; bottom: 14px; z-index: 30; font-family: 'IBM Plex Mono', monospace; font-size: 15px; }
+    #pr-tag a { color: #4a5a7a; margin-right: 0.9em; text-decoration: none; }
+    .setup { max-width: 90%; margin: 0 auto 0.45em; font-size: 0.5em; color: #4a4f5a; text-align: center; }
+    .setup strong { color: #1f2330; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="slide-cover">
+  <h1 style="font-size: 1.4em; line-height: 1.25;">RoboTL development:<br><span style="color: #1E3A8A;">Panda pickup and the OPH wrist</span></h1>
+  <p style="margin-top: 1em; font-size: 0.6em; color: #4a4f5a;">Dat Nguyen</p>
+</section>
+
+<section id="slide-sec-1">
+  <div class="agenda">
+    <div class="on"><span class="n">01</span><span class="l">Panda arm YCB pickup</span></div>
+    <div><span class="n">02</span><span class="l">OPH on a motor-driven wrist</span></div>
+  </div>
+</section>
+
+<section id="slide-hand-pickup" data-prs="589">
+  <h2 class="t">Hand-only YCB <span>pickup</span></h2>
+  <p class="setup">Stock LEAP hand on a two-axis wrist, base welded palm down, no arm. Sampling MPC: 2 s horizon, 256 samples x 4 rounds, 6 s episode</p>
+  <div class="full" style="max-width: 78%;">
+    <video src="./media/hand_apple_pickup.mp4" autoplay loop muted playsinline style="max-height: 48vh;"></video>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Best apple run, handwritten staged loss: apple centre above 12 cm (rests at 7.4 cm) from <span class="num">2.17 s</span> to the 6 s end</li>
+    <li class="fragment warm">Hammer: all 6 held-out runs failed</li>
+  </ul>
+</section>
+
+<section id="slide-assembly" data-prs="599">
+  <h2 class="t">Panda and LEAP <span>assembly</span></h2>
+  <div class="row">
+    <figure><img src="./media/panda_leap_assembly.png" style="max-height: 48vh;"></figure>
+    <figure><img src="./media/panda_leap_mount.png" style="max-height: 48vh;"></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">LEAP palm centered on the Panda flange, facing down, 5 mm gap</li>
+    <li class="fragment">Panda meshes from MuJoCo Menagerie, pinned revision, SHA256 checked</li>
+    <li class="fragment">Per-joint torque limits: 87 Nm for joints 1 to 4, 12 Nm for 5 to 7</li>
+    <li class="fragment warm">No adapter part: its geometry and inertia are not modeled</li>
+  </ul>
+</section>
+
+<section id="slide-visual-collision" data-prs="600">
+  <h2 class="t">Visual and <span>collision meshes</span></h2>
+  <div class="row">
+    <figure><img src="./media/hammer_visual.png" style="max-height: 52vh;"><p class="cap"><strong>Visual</strong>: YCB scan</p></figure>
+    <figure><img src="./media/hammer_collision.png" style="max-height: 52vh;"><p class="cap"><strong>Collision</strong>: convex hulls, up to 6 per part</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Physics uses only the hulls; the scan is drawn on top through <code>vshape</code></li>
+  </ul>
+</section>
+
+<section id="slide-hidden-collision" data-prs="607">
+  <h2 class="t">Hiding collision meshes <span>under visual overlays</span></h2>
+  <div class="row">
+    <figure><img src="./media/hammer_before_fix.png" style="max-height: 56vh;"><p class="cap"><strong>Before</strong>: hulls drawn over the scan, filled claw</p></figure>
+    <figure class="fragment"><img src="./media/hammer_after_fix.png" style="max-height: 56vh;"><p class="cap"><strong>After</strong>: hulls hidden</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Only the render group changes; collision and inertia are the same</li>
+  </ul>
+</section>
+
+<section id="slide-teleop" data-prs="600">
+  <h2 class="t">Teleop, record, <span>replay</span></h2>
+  <p class="setup">Scripted keyboard input, 9 s at a 5 ms step: reach, descend, curl, lift</p>
+  <div class="full" style="max-width: 68%;">
+    <video src="./media/teleop_replay.mp4" autoplay loop muted playsinline style="max-height: 50vh;"></video>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Replaying the saved controls: all <span class="num">1800</span> steps, maximum joint position error 0</li>
+    <li class="fragment warm">The fingers touch the apple but do not pick it up</li>
+  </ul>
+</section>
+
+<section id="slide-profiles" data-prs="602,604">
+  <h2 class="t">Physical <span>profiles</span></h2>
+  <div class="row">
+    <figure><img src="./media/stock_hand.png" style="max-height: 48vh;"><p class="cap"><strong>Stock</strong></p></figure>
+    <figure><img src="./media/spacer_hand.png" style="max-height: 48vh;"><p class="cap"><strong>Spacers</strong>: last finger segment 0.85x, last thumb segment 1.15x</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Scene profiles: object mass, tilt, object and hand friction, distal segment lengths</li>
+    <li class="fragment warm">Spacer hands render as primitives: the stock meshes do not scale</li>
+  </ul>
+</section>
+
+<section id="slide-pickup-search" data-prs="604">
+  <h2 class="t">Pickup <span>search</span></h2>
+  <ul class="pts" style="font-size: 0.6em; max-width: 84%;">
+    <li class="fragment">A grasp is 15 parameters: the wrist offset and orientation relative to the object's grasp point (x, y, z, yaw, pitch, roll), 4 finger angles shared by all three fingers, 4 thumb angles, and an opening fraction</li>
+    <li class="fragment">The controller executes it through 4 IK wrist waypoints, 1.5 s apart: 15 cm above the grasp point with the hand open, at it open, at it closed, then 15 cm above it closed</li>
+    <li class="fragment">One grasp serves every placement: the search does not tune per placement</li>
+    <li class="fragment">Search is the cross-entropy method, repeated for 8 to 12 generations:
+      <ol style="margin: 0.25em 0 0 1.2em; padding: 0;">
+        <li>Draw 32 grasps from a Gaussian over the 15 parameters, centred on the current estimate (initially a given seed grasp)</li>
+        <li>Simulate each grasp on the 4 training placements and sum the loss being searched (next slides); a grasp whose arm cannot reach a waypoint is discarded</li>
+        <li>Move the Gaussian's mean and spread to the 6 lowest-loss grasps; keep the best grasp seen so far</li>
+      </ol>
+    </li>
+  </ul>
+</section>
+
+<section id="slide-pickup-gate" data-prs="604">
+  <h2 class="t">What counts as a <span>pickup</span></h2>
+  <ul class="pts" style="font-size: 0.56em; max-width: 84%;">
+    <li class="fragment">Each placement runs one 8 s native MuJoCo episode at a 5 ms step; the last 2 s are the hold</li>
+    <li class="fragment">4 training and 8 held-out placements, shared by apple and hammer: x 0.37 to 0.43 m, y within 3.5 cm, yaw up to &plusmn;2.8 rad, tilt up to 0.2 rad</li>
+    <li class="fragment">Pass: object at least 10 cm above its start for the whole hold, hand contact in 99% of hold samples</li>
+    <li class="fragment">No robot-floor contact all episode, no object-floor contact during the hold</li>
+    <li class="fragment">At most 3 mm object-hand penetration, at most 0.02 rad joint-limit violation</li>
+  </ul>
+</section>
+
+<section id="slide-searched-pickup" data-prs="604">
+  <h2 class="t">Stock vs <span>co-designed pickup</span></h2>
+  <div class="pair">
+    <video src="./media/stock_vs_final.mp4" autoplay loop muted playsinline style="max-height: 40vh;"></video>
+    <div class="caps"><p class="cap"><strong>Stock</strong>: stock hand, default designed loss</p><p class="cap"><strong>Co-designed</strong>: spacer hand, refined loss and grasp</p></div>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Passing placements, both: <span class="num">4/4</span> training, <span class="num">7/8</span> held out; held-out pose 6: its wrist waypoint is unreachable</li>
+    <li class="fragment">Co-designed: lowest training hold <span class="num">14.36 cm</span>, peak training grip <span class="num">11.79 N</span> (stock: 14.28 cm, 12.36 N)</li>
+    <li class="fragment warm">Hand, loss and grasp all change, so morphology alone is not isolated. One seed, 180 g apple, friction 0.7</li>
+  </ul>
+</section>
+
+<section id="slide-loss" data-prs="604">
+  <h2 class="t">Sparse vs <span>designed loss</span></h2>
+  <p class="setup">Same spacer hand, starting grasp and seed; 8 generations of 32 candidates each</p>
+  <div class="pair">
+    <video src="./media/sparse_vs_designed.mp4" autoplay loop muted playsinline style="max-height: 40vh;"></video>
+    <div class="caps"><p class="cap"><strong>Sparse</strong>: passes 0/4 training, 0/8 held out</p><p class="cap"><strong>Designed</strong>: passes 4/4 training, 7/8 held out</p></div>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Sparse: reach the apple, apple above 10 cm, no drop</li>
+    <li class="fragment">Designed: hold height, steadiness, drift, hand at least 2 mm off the floor</li>
+    <li class="fragment warm">Sparse holds the apple at 13.73 cm, but the robot touches the floor</li>
+  </ul>
+</section>
+
+<section id="slide-staged" data-prs="605,613,615,618">
+  <h2 class="t">Staged native <span>control</span></h2>
+  <ul class="pts" style="font-size: 0.5em; max-width: 88%;">
+    <li class="fragment">A stage advances once its goal has held for its dwell (0.1 to 0.25 s; the hold stage needs 2 s) in the live simulation, counted from stage entry; it fails on its deadline or a safety check</li>
+    <li class="fragment">Approach 1.8 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.6 s, lift to 10 cm 4 s, hold 2 s</li>
+    <li class="fragment">Safety checks every tick: no floor contact, Panda joint speed 2.175 to 2.61 rad/s, acceleration 7.5 to 20 rad/s&sup2;; commands projected against actuator range and Panda velocity limits</li>
+    <li class="fragment">Same apple controls, 12 s replay: wrist peak acceleration <span class="num">117</span> rad/s&sup2; at a 5 ms step, <span class="num">13</span> at 2.5 ms</li>
+    <li class="fragment warm">Hammer pilot, a handwritten height term on top of waypoint tracking, 2 samples per replan: descent times out at <span class="num">3.315 s</span></li>
+  </ul>
+</section>
+
+<section id="slide-mpc-compile" data-prs="608">
+  <h2 class="t">Compiled MPC <span>plan following</span></h2>
+  <p class="setup">Two-link test arm, one generated director proposal, 0.902 s simulated</p>
+  <div class="bars">
+    <div class="b"><span class="lbl">Per-tick JAX ops</span><div class="bar old" style="width: 62%;"></div><span class="v">16.676 s</span></div>
+    <div class="b fragment"><span class="lbl">One jitted plan-following call</span><div class="bar" style="width: 7.2%;"></div><span class="v">1.934 s</span></div>
+  </div>
+  <ul class="pts">
+    <li class="fragment">1.934 s = 1.206 s preparation + 0.728 s simulation</li>
+    <li class="fragment">Same actions and plans after each shift, to 1e-12</li>
+    <li class="fragment warm">Small-arm measurement; Panda throughput not yet measured</li>
+  </ul>
+</section>
+
+<section id="slide-runner" data-prs="634,629">
+  <h2 class="t">Batched native <span>runner</span></h2>
+  <p class="setup">Panda + LEAP apple scene, 5 ms step. 16 rollouts in one batch, 16 threads. Median of 3 timed runs</p>
+  <div class="bars">
+    <div class="b"><span class="lbl">Old runner, 80 steps (0.4 s)</span><div class="bar old" style="width: 16.6%;"></div><span class="v">28.8 ms</span></div>
+    <div class="b"><span class="lbl">New runner, 80 steps</span><div class="bar" style="width: 12.1%;"></div><span class="v">21.0 ms</span></div>
+    <div class="b fragment"><span class="lbl">Old runner, 600 steps (3 s)</span><div class="bar old" style="width: 46%;"></div><span class="v">79.6 ms</span></div>
+    <div class="b fragment"><span class="lbl">New runner, 600 steps</span><div class="bar warmb" style="width: 60%;"></div><span class="v">103.8 ms</span></div>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Old: eager JAX state packing, then <code>mujoco.rollout</code>. New: the shared runner, jitted packing around the same native call</li>
+    <li class="fragment">Both runners return identical states</li>
+    <li class="fragment">Agent recordings: 2,231 frames stacked once per batch instead of per frame, same float64 values</li>
+    <li class="fragment warm">600 steps is slower in all 3 timed runs; rollout only, not a whole episode</li>
+  </ul>
+</section>
+
+<section id="slide-contact" data-prs="616,619,628,631,632">
+  <h2 class="t">Contact sensors and <span>contact-directed objectives</span></h2>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">Contact sensor: per body pair, a fixed number of contact slots (32 in pickup), each with force, distance, position and normal</li>
+    <li class="fragment">Virtual sensor: a value computed from other sensor readings</li>
+    <li class="fragment">Grasp check: thumb and fingers each hold half the object's weight by friction, with normals at least 120 degrees apart</li>
+    <li class="fragment">Agent losses that read only the fixed base are refused; one such loss read zero all episode</li>
+    <li class="fragment">More than 32 contacts in a pair: refused, not scored</li>
+    <li class="fragment warm">No successful hammer pickup yet</li>
+  </ul>
+</section>
+
+<section id="slide-hammer" data-prs="612,633,639,638">
+  <h2 class="t">Upright hammer <span>pickup</span></h2>
+  <div class="row">
+    <figure style="flex: 1;"><img src="./media/panda_hammer.png" style="max-height: 52vh;"><p class="cap">Starting scene</p></figure>
+    <div style="flex: 1.15;">
+      <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
+        <li class="fragment">Pass: head bottom above 10 cm, whole hammer above 2 mm, handle-to-head axis within 15 degrees of vertical, for the final 2 s</li>
+        <li class="fragment">Fingertip pads centred on the grasp point, opened 40 mm above it first</li>
+        <li class="fragment">Turn upright only once the hammer can swing clear of the floor</li>
+        <li class="fragment">Time limits per stage: grasp 8 s, clearance 3 s, upright 4 s, inside a 20 s cap</li>
+        <li class="fragment warm">In the diagnostic runs, thumb and fingers never carry the 665 g hammer for the 0.15 s grasp dwell</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="slide-panda-status">
+  <h2 class="t">Panda branches: <span>status</span></h2>
+  <div class="stack" style="grid-auto-flow: column; grid-template-rows: repeat(9, auto);">
+    <div><span class="pr">#589</span><span class="s d">draft</span>Hand-only YCB pickup</div>
+    <div><span class="pr">#599</span><span class="s f">CI failing</span>Panda and LEAP assembly example</div>
+    <div><span class="pr">#603</span><span class="s d">draft</span>Hinge parameters on Panda link specs</div>
+    <div><span class="pr">#604</span><span class="s d">draft</span>Pickup and co-design experiments</div>
+    <div><span class="pr">#605</span><span class="s d">draft</span>Stages gated on observed goals</div>
+    <div><span class="pr">#608</span><span class="s">open</span>Compiled MPC plan following</div>
+    <div><span class="pr">#610</span><span class="s d">draft</span>Stage-gated visual loss director</div>
+    <div><span class="pr">#612</span><span class="s d">draft</span>Upright hammer pickup with clearance</div>
+    <div><span class="pr">#613</span><span class="s d">draft</span>Dwell counted from stage entry</div>
+    <div><span class="pr">#615</span><span class="s d">draft</span>Configurable physics timestep</div>
+    <div><span class="pr">#616</span><span class="s d">draft</span>Native Contact and Virtual sensors</div>
+    <div><span class="pr">#618</span><span class="s d">draft</span>Stages on bounded native motion</div>
+    <div><span class="pr">#619</span><span class="s d">draft</span>Contact positions and normals</div>
+    <div><span class="pr">#624</span><span class="s d">draft</span>Typed recorded pickup scene</div>
+    <div><span class="pr">#625</span><span class="s d">draft</span>Bound numerical auxiliary losses</div>
+    <div><span class="pr">#633</span><span class="s d">draft</span>Rotation gated on hammer clearance</div>
+    <div><span class="pr">#638</span><span class="s d">draft</span>Hold duration and all-contact penetration</div>
+  </div>
+</section>
+
+<section id="slide-sec-2">
+  <div class="agenda">
+    <div><span class="n">01</span><span class="l">Panda arm YCB pickup</span></div>
+    <div class="on"><span class="n">02</span><span class="l">OPH on a motor-driven wrist</span></div>
+  </div>
+</section>
+
+<section id="slide-xl430" data-prs="590">
+  <h2 class="t">Driving OPH with <span>two XL430 motors</span></h2>
+  <div class="row">
+    <figure><img src="./media/oph_xl430.png" style="max-height: 46vh;"></figure>
+    <figure><video src="./media/oph_mixer.mp4" autoplay loop muted playsinline style="max-height: 46vh;"></video><p class="cap">Scripted motor ramps, gravity off</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Two XL430-W250 at 11.1 V: 1.4 N m stall, 57 rpm</li>
+    <li class="fragment">Each motor pulls one tendon mixer: motor 1 all distal flexors; motor 0 the thumb and index middle joints and thumb opposition</li>
+    <li class="fragment warm">Tendons pull only, with fixed moment arms; gains are assumed, not calibrated</li>
+  </ul>
+</section>
+
+<section id="slide-palm-up" data-prs="591">
+  <h2 class="t">Palm-up <span>OPH</span></h2>
+  <p class="setup">5 cm cube on the palm, two-axis wrist, motors behind the palm. Task: turn the cube to a target orientation in 6 s</p>
+  <div class="full" style="max-width: 76%;">
+    <img src="./media/oph_palm_up.png" style="max-height: 60vh;">
+  </div>
+</section>
+
+<section id="slide-oph-variants" data-prs="591">
+  <h2 class="t">OPH morphology <span>variants</span></h2>
+  <p class="setup">gpt-6-astra proposed 6 hands; selection prefers fewer drops, then lower orientation error</p>
+  <div class="row">
+    <figure><img src="./media/oph_variant_0.png" style="max-height: 40vh;"><p class="cap"><strong>Base</strong></p></figure>
+    <figure><img src="./media/oph_variant_5.png" style="max-height: 40vh;"><p class="cap"><strong>wide_core_oph</strong>: selected</p></figure>
+    <figure><img src="./media/oph_variant_6.png" style="max-height: 40vh;"><p class="cap"><strong>forward_thumb_oph</strong></p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Held-out random target, controller seeds 11 and 22, 6 s, MPC with a 1 s horizon, orientation loss with an angular-velocity damping term</li>
+    <li class="fragment">Selected: <span class="num">95.05</span> degrees final error, dropped 1 of 2. Base: <span class="num">28.03</span> degrees, dropped 2 of 2 (same base in the loss study: 12.00 degrees, dropped 0 of 2)</li>
+    <li class="fragment warm">No clear improvement over the base</li>
+  </ul>
+</section>
+
+<section id="slide-stretch-wrist" data-prs="609">
+  <h2 class="t">The Stretch Dex <span>wrist</span></h2>
+  <div class="row" style="max-width: 64%;">
+    <figure><img src="./media/stretch_wrist_cad_crop.png" style="max-height: 46vh;"><p class="cap"><strong>Visual CAD</strong></p></figure>
+    <figure><img src="./media/stretch_wrist_collision_crop.png" style="max-height: 46vh;"><p class="cap"><strong>Collision</strong></p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Hello Robot Stretch RE1 Dex wrist: geometry, inertias and joint frames from the published URDF</li>
+    <li class="fragment">Yaw XL430 with a 2.4 reduction, pitch XM540, roll XM430</li>
+    <li class="fragment warm">Drives are documented approximations; the pitch current limit is not modeled</li>
+  </ul>
+</section>
+
+<section id="slide-oph-on-wrist" data-prs="611">
+  <h2 class="t">OPH on the <span>Stretch wrist</span></h2>
+  <div class="row">
+    <figure><img src="./media/oph_stretch_wrist.png" style="max-height: 48vh;"></figure>
+    <figure><img src="./media/oph_bracket.png" style="max-height: 48vh;"></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Bracket: a plate on the wrist flange, a column to the palm, shelves under both motors</li>
+    <li class="fragment">Motors set 12 mm back so the spools clear</li>
+    <li class="fragment warm">The printed bracket is an unvalidated prototype</li>
+  </ul>
+</section>
+
+<section id="slide-mount" data-prs="614">
+  <h2 class="t">Co-designing <span>the mount</span></h2>
+  <div class="row">
+    <figure><img src="./media/mount_stock.png" style="max-height: 44vh;"><p class="cap"><strong>Stock</strong>: palm 75.5 mm above the flange</p></figure>
+    <figure class="fragment"><img src="./media/mount_raised.png" style="max-height: 44vh;"><p class="cap"><strong>Raised</strong>: 90 mm, admitted</p></figure>
+    <figure class="fragment"><img src="./media/mount_floating.png" style="max-height: 44vh;"><p class="cap"><strong>Floating</strong>: column ends 25 mm short, refused</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Admitted only if the mount meets the flange, palm and motors seat on it, mount and palm are one piece, and the hand clears the wrist by 1 mm on a sampled joint grid</li>
+  </ul>
+</section>
+
+<section id="slide-selection" data-prs="614,621,640">
+  <h2 class="t">Selection and <span>capture-first loss</span></h2>
+  <p class="setup">4 training and 4 held-out random targets, controller seeds 11 and 29, 1 ms step, 6 s episodes</p>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">Keep a design only if both orientation errors (episode mean and final) drop, drops do not rise, and at least one training run keeps the cube</li>
+    <li class="fragment">New loss: chase orientation only once both mixers pass 0.45 rad, thumb and fingers carry load, and the cube is within 4 cm of its hold position</li>
+    <li class="fragment">A closure term pulls both mixers toward 0.8 rad, 20x stronger until the cube is supported</li>
+    <li class="fragment warm">Retention run in progress; no capture-first results yet</li>
+  </ul>
+</section>
+
+<section id="slide-envelope" data-prs="626">
+  <h2 class="t">Wrist command <span>envelope</span></h2>
+  <p class="setup">Command limits in rad. Stock: yaw and roll &plusmn;0.35, pitch -0.25 to 0.15. Shown: the stock 75.5 mm mount posed at the widened yaw and roll &plusmn;0.5</p>
+  <div class="grid4" style="max-width: 60%;">
+    <figure><img src="./media/envelope_neutral.png"><p class="cap">Neutral</p></figure>
+    <figure><img src="./media/envelope_yaw_neg.png"><p class="cap">Yaw -0.5</p></figure>
+    <figure><img src="./media/envelope_yaw_pos.png"><p class="cap">Yaw +0.5</p></figure>
+    <figure><img src="./media/envelope_pitch_neg.png"><p class="cap">Pitch -0.25</p></figure>
+    <figure><img src="./media/envelope_pitch_pos.png"><p class="cap">Pitch +0.15</p></figure>
+    <figure><img src="./media/envelope_roll_neg.png"><p class="cap">Roll -0.5</p></figure>
+    <figure><img src="./media/envelope_roll_pos.png"><p class="cap">Roll +0.5</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">&plusmn;0.5 is admitted on the 90 mm raised mount; on the stock mount, pitch +0.25 is refused: the hand comes within 1 mm of the wrist</li>
+    <li class="fragment warm">Joint angles set directly, no simulation</li>
+  </ul>
+</section>
+
+<section id="slide-motors" data-prs="641">
+  <h2 class="t">Stronger <span>same-envelope motors</span></h2>
+  <p class="setup">Same 28.5 x 46.5 x 34 mm housing; at 11.1 V</p>
+  <div class="bars" style="max-width: 70%;">
+    <div class="b"><span class="lbl">XL430-W250, 57 g</span><div class="bar old" style="width: 22%;"></div><span class="v">1.4 N m, 57 rpm</span></div>
+    <div class="b fragment"><span class="lbl">XM430-W210, 82 g</span><div class="bar" style="width: 42.5%;"></div><span class="v">2.7 N m, 70 rpm</span></div>
+    <div class="b fragment"><span class="lbl">XM430-W350, 82 g</span><div class="bar" style="width: 60%;"></div><span class="v">3.8 N m, 43 rpm</span></div>
+  </div>
+  <ul class="pts">
+    <li class="fragment">One motor model for both mixers; the search cannot change it</li>
+    <li class="fragment warm">Stall torque is not a continuous rating; current and thermal limits not identified</li>
+  </ul>
+</section>
+
+<section id="slide-oph-status">
+  <h2 class="t">OPH branches: <span>status</span></h2>
+  <div class="stack" style="grid-template-columns: 1fr; max-width: 70%; font-size: 0.5em;">
+    <div><span class="pr">#571</span><span class="s">open</span>Loss Design Agent</div>
+    <div><span class="pr">#588</span><span class="s d">draft</span>OPH search under the designed losses</div>
+    <div><span class="pr">#590</span><span class="s">open</span>Drive OPH through XL430 tendon mixers</div>
+    <div><span class="pr">#591</span><span class="s">open</span>Palm-up OPH co-design above the motor model</div>
+    <div><span class="pr">#597</span><span class="s">open</span>OPH morphology and loss co-design</div>
+    <div><span class="pr">#609</span><span class="s">open</span>Stretch Dex wrist with source inertias and drives</div>
+    <div><span class="pr">#611</span><span class="s">open</span>Tendon-driven OPH on the Stretch Dex wrist</div>
+    <div><span class="pr">#614</span><span class="s">open</span>OPH anatomy and connected wrist mounts</div>
+    <div><span class="pr">#621</span><span class="s">open</span>Retention for co-design improvements</div>
+    <div><span class="pr">#626</span><span class="s">open</span>Command-envelope co-design</div>
+    <div><span class="pr">#640</span><span class="s">open</span>Capture-first OPH MPC co-design</div>
+    <div><span class="pr">#641</span><span class="s">open</span>Stronger same-envelope OPH motors</div>
+  </div>
+</section>
+
+<section id="slide-open">
+  <h2 class="t">Open <span>items</span></h2>
+  <ul class="pts" style="font-size: 0.6em; max-width: 72%;">
+    <li class="fragment">Hammer pickup on the Panda</li>
+    <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
+    <li class="fragment">Panda throughput with compiled MPC</li>
+    <li class="fragment">Full OPH search on the Stretch wrist</li>
+  </ul>
+</section>
+
+    </div>
+  </div>
+
+  <div id="pr-tag"></div>
+  <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      hash: true,
+      center: true,
+      transition: 'none',
+      width: 1280,
+      height: 760
+    });
+    function showPrs(event) {
+      var prs = (event.currentSlide.dataset.prs || "").split(",").filter(Boolean);
+      document.getElementById("pr-tag").innerHTML = prs.map(function (n) {
+        return '<a href="https://github.com/BasisResearch/RoboTL/pull/' + n + '">#' + n + "</a>";
+      }).join("");
+    }
+    Reveal.on("ready", showPrs);
+    Reveal.on("slidechanged", showPrs);
+  </script>
+</body>
+</html>
