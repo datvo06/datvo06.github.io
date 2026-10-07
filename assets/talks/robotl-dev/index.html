@@ -330,10 +330,9 @@ return Session(env, stages, data=data, pool=pool, motion_invariant=motion)</code
   <h2 class="t">Staged native <span>control</span></h2>
   <ul class="pts" style="font-size: 0.5em; max-width: 88%;">
     <li class="fragment">A stage advances once its goal has held for its dwell (0.1 to 0.25 s; the hold stage needs 2 s) in the live simulation, counted from stage entry; it fails on its deadline or a safety check</li>
-    <li class="fragment">Deadlines: approach 2.0 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.4 s, lift to 10 cm 4.0 s, hold 2 s</li>
+    <li class="fragment">Apple deadlines: approach 2.0 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.4 s, lift to 10 cm 4.0 s, hold 2 s</li>
     <li class="fragment">Safety checks every tick: no floor contact, Panda joint speed 2.175 to 2.61 rad/s, acceleration 7.5 to 20 rad/s&sup2;; commands projected against actuator range and Panda velocity limits</li>
     <li class="fragment">Same apple controls, 12 s replay: wrist peak acceleration <span class="num">117</span> rad/s&sup2; at a 5 ms step, <span class="num">13</span> at 2.5 ms</li>
-    <li class="fragment warm">Hammer pilot, a handwritten height term on top of waypoint tracking, 2 samples per replan: descent times out at <span class="num">3.315 s</span></li>
   </ul>
 </section>
 
@@ -382,6 +381,37 @@ grasp_controller = replace(
   </ul>
 </section>
 
+<section id="slide-hammer-task" data-prs="612,633,638,639">
+  <h2 class="t">Upright hammer pickup: <span>the task</span></h2>
+  <p class="setup">Same Panda + LEAP and staged controller; pick up the 665 g YCB hammer and hold it head-up</p>
+  <div class="row">
+    <figure style="flex: 1;"><img src="./media/panda_hammer.png" style="max-height: 50vh;"><p class="cap">Starting scene</p></figure>
+    <div style="flex: 1.15;">
+      <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
+        <li class="fragment">Pass: head bottom above 10 cm, whole hammer above 2 mm, handle-to-head axis within 15 degrees of vertical, through the final 2 s hold including both endpoint samples</li>
+        <li class="fragment">Grasp target: fingertip pads centred on the grasp point, opened 40 mm above it first</li>
+        <li class="fragment">Stages after the grasp: swing clear of the floor, lift, hold; turning upright waits until the hammer can clear the floor</li>
+        <li class="fragment">Time limits per stage: grasp 8 s, clearance 3 s, upright 4 s, inside a 20 s cap</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="slide-hammer-failures" data-prs="618,633">
+  <h2 class="t">Upright hammer pickup: <span>where it fails</span></h2>
+  <div class="row">
+    <figure style="flex: 1;"><video src="./media/hammer_grasp_timeout.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video><p class="cap">Center training placement, collision-pad grasp target</p></figure>
+    <div style="flex: 1.05;">
+      <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
+        <li class="fragment">First pilot, stock-hand grasp, waypoint tracking plus a height term, 2 samples per replan: descent times out at <span class="num">3.315 s</span></li>
+        <li class="fragment">With the collision-pad target (video): the arm reaches the hammer, but the grasp stage times out at 70% hand contact and 23 N peak grip</li>
+        <li class="fragment">Thumb and fingers never carry the hammer's weight for the 0.15 s grasp dwell, so lift never starts</li>
+        <li class="fragment warm">No successful hammer pickup yet</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section id="slide-mpc-compile" data-prs="608">
   <h2 class="t">Compiled MPC <span>plan following</span></h2>
   <p class="setup">Two-link test arm, one generated director proposal, 0.902 s simulated</p>
@@ -411,22 +441,6 @@ grasp_controller = replace(
     <li class="fragment">Agent recordings: 2,231 frames stacked once per batch instead of per frame, same float64 values</li>
     <li class="fragment warm">600 steps is slower in all 3 timed runs; rollout only, not a whole episode</li>
   </ul>
-</section>
-
-<section id="slide-hammer" data-prs="612,633,639,638">
-  <h2 class="t">Upright hammer <span>pickup</span></h2>
-  <div class="row">
-    <figure style="flex: 1;"><video src="./media/hammer_grasp_timeout.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video><p class="cap">Train-center placement: the grasp stage times out at 70% hand contact and 23 N peak grip; the hammer never lifts</p></figure>
-    <div style="flex: 1.15;">
-      <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
-        <li class="fragment">Pass: head bottom above 10 cm, whole hammer above 2 mm, handle-to-head axis within 15 degrees of vertical, for the final 2 s</li>
-        <li class="fragment">Fingertip pads centred on the grasp point, opened 40 mm above it first</li>
-        <li class="fragment">Turn upright only once the hammer can swing clear of the floor</li>
-        <li class="fragment">Time limits per stage: grasp 8 s, clearance 3 s, upright 4 s, inside a 20 s cap</li>
-        <li class="fragment warm">In the diagnostic runs, thumb and fingers never carry the 665 g hammer for the 0.15 s grasp dwell</li>
-      </ul>
-    </div>
-  </div>
 </section>
 
 <section id="slide-panda-status">
@@ -533,6 +547,38 @@ grasp_controller = replace(
   </ul>
 </section>
 
+<section id="slide-envelope" data-prs="626">
+  <h2 class="t">Wrist command <span>envelope</span></h2>
+  <p class="setup">Command limits in rad. Stock: yaw and roll &plusmn;0.35, pitch -0.25 to 0.15. Shown: the stock 75.5 mm mount posed at the widened yaw and roll &plusmn;0.5</p>
+  <div class="grid4" style="max-width: 60%;">
+    <figure><img src="./media/envelope_neutral.png"><p class="cap">Neutral</p></figure>
+    <figure><img src="./media/envelope_yaw_neg.png"><p class="cap">Yaw -0.5</p></figure>
+    <figure><img src="./media/envelope_yaw_pos.png"><p class="cap">Yaw +0.5</p></figure>
+    <figure><img src="./media/envelope_pitch_neg.png"><p class="cap">Pitch -0.25</p></figure>
+    <figure><img src="./media/envelope_pitch_pos.png"><p class="cap">Pitch +0.15</p></figure>
+    <figure><img src="./media/envelope_roll_neg.png"><p class="cap">Roll -0.5</p></figure>
+    <figure><img src="./media/envelope_roll_pos.png"><p class="cap">Roll +0.5</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">&plusmn;0.5 is admitted on the 90 mm raised mount; on the stock mount, pitch +0.25 is refused: the hand comes within 1 mm of the wrist</li>
+    <li class="fragment warm">Joint angles set directly, no simulation</li>
+  </ul>
+</section>
+
+<section id="slide-motors" data-prs="641">
+  <h2 class="t">Stronger <span>same-envelope motors</span></h2>
+  <p class="setup">Same 28.5 x 46.5 x 34 mm housing; at 11.1 V</p>
+  <div class="bars" style="max-width: 70%;">
+    <div class="b"><span class="lbl">XL430-W250, 57 g</span><div class="bar old" style="width: 22%;"></div><span class="v">1.4 N m, 57 rpm</span></div>
+    <div class="b fragment"><span class="lbl">XM430-W210, 82 g</span><div class="bar" style="width: 42.5%;"></div><span class="v">2.7 N m, 70 rpm</span></div>
+    <div class="b fragment"><span class="lbl">XM430-W350, 82 g</span><div class="bar" style="width: 60%;"></div><span class="v">3.8 N m, 43 rpm</span></div>
+  </div>
+  <ul class="pts">
+    <li class="fragment">One motor model for both mixers; the search cannot change it</li>
+    <li class="fragment warm">Stall torque is not a continuous rating; current and thermal limits not identified</li>
+  </ul>
+</section>
+
 <section id="slide-selection" data-prs="614,621,640">
   <h2 class="t">Selection and <span>capture-first loss</span></h2>
   <p class="setup">4 training and 4 held-out random targets, controller seeds 11 and 29, 1 ms step, 6 s episodes</p>
@@ -564,38 +610,6 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.46em; margin-top: 0.3em;">
     <li class="fragment">Sparse: orientation error plus a drop penalty. Capture-first: orientation counts only once the cube is held (previous slide)</li>
     <li class="fragment warm">One target, two seeds, one win each: no evidence yet that capture-first retains the cube more often</li>
-  </ul>
-</section>
-
-<section id="slide-envelope" data-prs="626">
-  <h2 class="t">Wrist command <span>envelope</span></h2>
-  <p class="setup">Command limits in rad. Stock: yaw and roll &plusmn;0.35, pitch -0.25 to 0.15. Shown: the stock 75.5 mm mount posed at the widened yaw and roll &plusmn;0.5</p>
-  <div class="grid4" style="max-width: 60%;">
-    <figure><img src="./media/envelope_neutral.png"><p class="cap">Neutral</p></figure>
-    <figure><img src="./media/envelope_yaw_neg.png"><p class="cap">Yaw -0.5</p></figure>
-    <figure><img src="./media/envelope_yaw_pos.png"><p class="cap">Yaw +0.5</p></figure>
-    <figure><img src="./media/envelope_pitch_neg.png"><p class="cap">Pitch -0.25</p></figure>
-    <figure><img src="./media/envelope_pitch_pos.png"><p class="cap">Pitch +0.15</p></figure>
-    <figure><img src="./media/envelope_roll_neg.png"><p class="cap">Roll -0.5</p></figure>
-    <figure><img src="./media/envelope_roll_pos.png"><p class="cap">Roll +0.5</p></figure>
-  </div>
-  <ul class="pts">
-    <li class="fragment">&plusmn;0.5 is admitted on the 90 mm raised mount; on the stock mount, pitch +0.25 is refused: the hand comes within 1 mm of the wrist</li>
-    <li class="fragment warm">Joint angles set directly, no simulation</li>
-  </ul>
-</section>
-
-<section id="slide-motors" data-prs="641">
-  <h2 class="t">Stronger <span>same-envelope motors</span></h2>
-  <p class="setup">Same 28.5 x 46.5 x 34 mm housing; at 11.1 V</p>
-  <div class="bars" style="max-width: 70%;">
-    <div class="b"><span class="lbl">XL430-W250, 57 g</span><div class="bar old" style="width: 22%;"></div><span class="v">1.4 N m, 57 rpm</span></div>
-    <div class="b fragment"><span class="lbl">XM430-W210, 82 g</span><div class="bar" style="width: 42.5%;"></div><span class="v">2.7 N m, 70 rpm</span></div>
-    <div class="b fragment"><span class="lbl">XM430-W350, 82 g</span><div class="bar" style="width: 60%;"></div><span class="v">3.8 N m, 43 rpm</span></div>
-  </div>
-  <ul class="pts">
-    <li class="fragment">One motor model for both mixers; the search cannot change it</li>
-    <li class="fragment warm">Stall torque is not a continuous rating; current and thermal limits not identified</li>
   </ul>
 </section>
 
