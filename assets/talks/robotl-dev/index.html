@@ -94,7 +94,7 @@
   <h2 class="t">Hand-only YCB <span>pickup</span></h2>
   <p class="setup">Stock LEAP hand on a two-axis wrist, base welded palm down, no arm. Sampling MPC: 2 s horizon, 256 samples x 4 rounds, 6 s episode</p>
   <div class="full" style="max-width: 78%;">
-    <video src="./media/hand_apple_pickup.mp4" autoplay loop muted playsinline style="max-height: 48vh;"></video>
+    <video src="./media/hand_apple_pickup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 48vh;"></video>
   </div>
   <ul class="pts">
     <li class="fragment">Best apple run, handwritten staged loss: apple centre above 12 cm (rests at 7.4 cm) from <span class="num">2.17 s</span> to the 6 s end</li>
@@ -142,7 +142,7 @@
   <h2 class="t">Teleop, record, <span>replay</span></h2>
   <p class="setup">Scripted keyboard input, 9 s at a 5 ms step: reach, descend, curl, lift</p>
   <div class="full" style="max-width: 68%;">
-    <video src="./media/teleop_replay.mp4" autoplay loop muted playsinline style="max-height: 50vh;"></video>
+    <video src="./media/teleop_replay.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video>
   </div>
   <ul class="pts">
     <li class="fragment">Replaying the saved controls: all <span class="num">1800</span> steps, maximum joint position error 0</li>
@@ -253,7 +253,7 @@ controls = np.stack(
 <section id="slide-searched-pickup" data-prs="604">
   <h2 class="t">Stock vs <span>co-designed pickup</span></h2>
   <div class="pair">
-    <video src="./media/stock_vs_final.mp4" autoplay loop muted playsinline style="max-height: 40vh;"></video>
+    <video src="./media/stock_vs_final.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video>
     <div class="caps"><p class="cap"><strong>Stock</strong>: stock hand, default designed loss</p><p class="cap"><strong>Co-designed</strong>: spacer hand, refined loss and grasp</p></div>
   </div>
   <ul class="pts">
@@ -267,7 +267,7 @@ controls = np.stack(
   <h2 class="t">Sparse vs <span>designed loss</span></h2>
   <p class="setup">Same spacer hand, starting grasp and seed; 8 generations of 32 candidates each</p>
   <div class="pair">
-    <video src="./media/sparse_vs_designed.mp4" autoplay loop muted playsinline style="max-height: 40vh;"></video>
+    <video src="./media/sparse_vs_designed.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video>
     <div class="caps"><p class="cap"><strong>Sparse</strong>: passes 0/4 training, 0/8 held out</p><p class="cap"><strong>Designed</strong>: passes 4/4 training, 7/8 held out</p></div>
   </div>
   <ul class="pts">
@@ -416,7 +416,7 @@ grasp_controller = replace(
 <section id="slide-hammer" data-prs="612,633,639,638">
   <h2 class="t">Upright hammer <span>pickup</span></h2>
   <div class="row">
-    <figure style="flex: 1;"><img src="./media/panda_hammer.png" style="max-height: 52vh;"><p class="cap">Starting scene</p></figure>
+    <figure style="flex: 1;"><video src="./media/hammer_grasp_timeout.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video><p class="cap">Train-center placement: the grasp stage times out at 70% hand contact and 23 N peak grip; the hammer never lifts</p></figure>
     <div style="flex: 1.15;">
       <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
         <li class="fragment">Pass: head bottom above 10 cm, whole hammer above 2 mm, handle-to-head axis within 15 degrees of vertical, for the final 2 s</li>
@@ -463,7 +463,7 @@ grasp_controller = replace(
   <h2 class="t">Driving OPH with <span>two XL430 motors</span></h2>
   <div class="row">
     <figure><img src="./media/oph_xl430.png" style="max-height: 46vh;"></figure>
-    <figure><video src="./media/oph_mixer.mp4" autoplay loop muted playsinline style="max-height: 46vh;"></video><p class="cap">Scripted motor ramps, gravity off</p></figure>
+    <figure><video src="./media/oph_mixer.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 46vh;"></video><p class="cap">Scripted motor ramps, gravity off</p></figure>
   </div>
   <ul class="pts">
     <li class="fragment">Two XL430-W250 at 11.1 V: 1.4 N m stall, 57 rpm</li>
@@ -550,14 +550,14 @@ grasp_controller = replace(
   <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em;">
     <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 11</strong></p>
     <div class="pair" style="margin: 0;">
-      <video src="./media/oph_sparse_vs_staged_seed11.mp4" autoplay loop muted playsinline style="max-height: 19vh;"></video>
+      <video src="./media/oph_sparse_vs_staged_seed11.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 19vh;"></video>
       <div class="caps"><p class="cap">Sparse: <strong>drops</strong></p><p class="cap">Capture-first: <strong>retains</strong></p></div>
     </div>
   </div>
-  <div class="fragment" style="display: flex; align-items: center; justify-content: center; gap: 0.5em; margin-top: 0.2em;">
+  <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em; margin-top: 0.2em;">
     <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 29</strong></p>
     <div class="pair" style="margin: 0;">
-      <video src="./media/oph_sparse_vs_staged_seed29.mp4" autoplay loop muted playsinline style="max-height: 19vh;"></video>
+      <video src="./media/oph_sparse_vs_staged_seed29.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 19vh;"></video>
       <div class="caps"><p class="cap">Sparse: <strong>retains</strong></p><p class="cap">Capture-first: <strong>drops</strong></p></div>
     </div>
   </div>
