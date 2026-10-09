@@ -757,10 +757,11 @@ def jit_for(instance, fn, **jit_kwargs):
     <tr class="base"><td>both</td><td>stock</td><td>capture-first</td><td class="n">161.9</td><td class="n">174.5</td><td class="n">168.2</td><td class="n">161.5</td><td class="n">2/2</td></tr>
     <tr><td>polly</td><td>opposed power grasp</td><td>capture-first</td><td class="n">154.0</td><td class="n">172.8</td><td class="n">163.4</td><td class="n">160.4</td><td class="n">2/2</td></tr>
     <tr><td>polly</td><td>opposed power grasp</td><td><strong>hand-relative supported</strong></td><td class="n">131.9</td><td class="n">175.8</td><td class="n">153.9</td><td class="n">152.1</td><td class="n">2/2</td></tr>
+    <tr><td>polly, control</td><td>stock</td><td>hand-relative supported</td><td class="n">158.3</td><td class="n">157.2</td><td class="n">157.8</td><td class="n">159.1</td><td class="n">2/2</td></tr>
     <tr><td>rolly</td><td>stock</td><td>contact capture</td><td class="n">159.0</td><td class="n">158.3</td><td class="n">158.7</td><td class="n">156.7</td><td class="n">2/2</td></tr>
   </table>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment">Selection: lower mean error at 6 s and over the episode, with no more drops than the stock pair. polly selects the opposed power grasp with the hand-relative supported loss, rolly the stock hand with contact capture; every proposal not in the table dropped the cube on at least one target</li>
+    <li class="fragment">Selection: lower mean error at 6 s and over the episode, with no more drops than the stock pair. polly selects the opposed power grasp with the hand-relative supported loss, rolly the stock hand with contact capture; every proposal not in the table dropped the cube on at least one target. The control row was run after the search</li>
     <li class="fragment warm">From two episodes each: polly's gain is almost all on target 0, rolly's mostly on target 5; the cube still ends far from its target</li>
   </ul>
 </section>
@@ -812,8 +813,39 @@ OpenParametricHand.make(
     <li class="fragment">Step 29: three intermediate flexors on a stronger mixer 0. The first design to keep the cube on both targets; support 42-58% of each episode</li>
     <li class="fragment">Steps 30-31: the grip pulls the cube more than 4 cm from its start, keeping the gate shut. The agent writes the hand-relative loss: the selected pair</li>
   </ul>
+</section>
+
+<section id="slide-cable-loss" data-prs="656">
+  <h2 class="t">Cable co-design: <span>the loss alone</span></h2>
+  <p class="setup">Control after the search: the stock hand with each loss on the two training targets. Top: capture-first; bottom: hand-relative supported. Wide view left, close view right</p>
+  <div class="row" style="max-width: 76%;">
+    <figure><video src="./media/cable_loss_stock_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 44vh;"></video><p class="cap"><strong>Target 0</strong>: 162 to 158</p></figure>
+    <figure><video src="./media/cable_loss_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 44vh;"></video><p class="cap"><strong>Target 5</strong>: 175 to 157</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">On the stock hand the new loss lowers the error at 6 s on both targets, but the new hand with the new loss reaches 132 on target 0</li>
+  </ul>
+</section>
+
+<section id="slide-cable-heldout" data-prs="656">
+  <h2 class="t">Cable co-design: <span>held-out target 1</span></h2>
+  <p class="setup">polly, all four hand and loss pairs, one episode each, run after the search. Video: top row stock hand, bottom row new hand; left original loss, right new loss</p>
+  <div class="row" style="max-width: 96%; align-items: center;">
+    <figure style="flex: 1.3;"><video src="./media/cable_heldout_target1.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 34vh;"></video></figure>
+    <div style="flex: 1;">
+      <table class="res" style="font-size: 0.42em;">
+        <tr><th>Hand</th><th>Loss</th><th>At 6 s</th><th>Episode</th></tr>
+        <tr class="base"><td>stock</td><td>capture-first</td><td class="n">161.3</td><td class="n">156.9</td></tr>
+        <tr><td>stock</td><td>hand-relative</td><td class="n">160.4</td><td class="n">155.3</td></tr>
+        <tr><td>new</td><td>capture-first</td><td class="n">160.6</td><td class="n"><strong>143.0</strong></td></tr>
+        <tr><td>new</td><td>hand-relative</td><td class="n">165.9</td><td class="n">146.4</td></tr>
+      </table>
+    </div>
+  </div>
   <ul class="pts" style="font-size: 0.44em;">
-    <li class="fragment warm">Held-out target 1 (rolly): its loss-only change ends 1 degree better (159.0 vs 160.1) but 5 degrees worse over the episode (161.7 vs 156.9). polly's held-out check was still running</li>
+    <li class="fragment">None of the four drops the cube. Against the baseline, the new hand lowers episode error by 14 (original loss) and 10 degrees (new loss); the new loss on the stock hand by under 2</li>
+    <li class="fragment">Both new-loss runs roll the cube onto a new face, but only the new hand keeps the error low all episode</li>
+    <li class="fragment warm">The selected pair is 10 degrees better over the episode but 5 worse at 6 s, so it fails the selection rule here. Both other pairs beat the baseline on both metrics, the stock hand with the new loss by under 2 degrees, which one episode cannot resolve. rolly (its own baseline 160.1 at 6 s, 156.9 episode): its loss-only pick 159.0 and 161.7</li>
   </ul>
 </section>
 
@@ -837,7 +869,7 @@ OpenParametricHand.make(
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
-    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. polly's gain is on target 0 only and its held-out check is pending; rolly's held-out result is mixed. The palm-bar union needs review</li>
+    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. The palm-bar union needs review</li>
   </ul>
 </section>
 
