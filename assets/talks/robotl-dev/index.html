@@ -393,7 +393,7 @@ grasp_controller = replace(
 
 <section id="slide-apple-carried" data-prs="651,653">
   <h2 class="t">Apple pickup: <span>lifting on a carried grasp</span></h2>
-  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through the v12b slide are recording time, which starts 0.5 s before the trial clock</p>
+  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through apple v13 are recording time, which starts 0.5 s before the trial clock</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
@@ -572,7 +572,7 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">CAPTURE from 3.72 s; the first capture is admitted at wrench margins 0.33 held, 1.27 under servo limits</li>
     <li class="fragment">GRASP from 4.94 s; the second capture proposal, planned as GRASP starts, is refused (0.46 held, 0.51 under servo limits, dynamic cost 4181) and GRASP times out; 21.7 N grip, 1.4 mm penetration</li>
-    <li class="fragment warm">No lift. The new ranking checked penetration at every rollout tick, so this run took 75 min of wall time. v12b checks it every 0.2 s instead: the same proposals and the same failure in 19 min. Uncommitted work built on #653</li>
+    <li class="fragment warm">No lift. The new ranking checked penetration at every rollout tick, so this run took 75 min of wall time. v12b checks it every 0.2 s instead and v13 also speeds up the capture plan: both reproduce the same proposals and failure, in 19 and 4 min. Uncommitted work built on #653</li>
   </ul>
 </section>
 
@@ -589,7 +589,7 @@ grasp_controller = replace(
   </ul>
 </section>
 
-<section id="slide-v12b-polly" data-prs="647,653">
+<section id="slide-v12b" data-prs="647,653">
   <h2 class="t">v12b: <span>another apple near miss</span></h2>
   <p class="setup">v12b: the v12 planner with its penetration check every 0.2 s. The screwdriver run here is back on the plan yawed -0.98 rad (the v7 to v9 plan), not the default-plan rerun on the screwdriver v12 slide, so its different admissions come from the plan. Close-ups at 1/5 speed, end of each episode; times in recording time</p>
   <div class="row" style="max-width: 86%;">
@@ -600,6 +600,20 @@ grasp_controller = replace(
     <li class="fragment">Apple, stage starts: CAPTURE 3.71 s, GRASP 4.96 s, LIFT 6.82 s, HOLD 9.20 s; both captures admitted (0.68 and 0.97 held, 5.9 and 6.9 under servo limits). The apple leaves a thumb-and-one-finger hold; 11.5 N grip. The same shape as the ALIGN-dwell near miss</li>
     <li class="fragment">Screwdriver: both captures admitted (0.04 and 2.02 held, 1.17 and 1.61 under servo limits), yet GRASP from 5.12 s times out; 24.4 N grip, 2.5 mm penetration</li>
     <li class="fragment warm">The complete pickup is still the only one. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-apple-v13" data-prs="653">
+  <h2 class="t">Apple, v13: <span>GRASP releases, the thumb slips in LIFT</span></h2>
+  <p class="setup">The apple v12 run again, with v13: GRASP tolerates a failing stretch of up to 3.5 ticks in its dwell instead of restarting it, and the capture plan is faster. Times in recording time</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_v13_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_v13_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">Same captures as v12 (4.54 held, 4.31 under servo limits for the second). GRASP now releases at 7.42 s, matching the 7.43 s the gate replay predicted</li>
+    <li class="fragment">LIFT raises the apple about 8 cm; the thumb loses contact at 9.46 s and the apple falls; 22 N grip</li>
+    <li class="fragment warm">Still the thumb-and-finger-0 pinch from v12, so the dwell fix moves the failure into LIFT rather than removing it. Wall time 5 min, against 102 min for v12 on the same machine. Uncommitted work built on #653</li>
   </ul>
 </section>
 
