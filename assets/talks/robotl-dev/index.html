@@ -483,7 +483,7 @@ grasp_controller = replace(
     <figure style="flex: 1;"><video src="./media/apple_hold_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment">Stage ends: CAPTURE 5.11 s, GRASP 5.45 s, LIFT 7.76 s. Admitted captures: wrench margins 1.33 and 1.93 held, 10.0 and 9.9 under servo limits</li>
+    <li class="fragment">Stage ends in recording time: CAPTURE 5.11 s, GRASP 5.45 s, LIFT 7.76 s. Admitted captures: wrench margins 1.33 and 1.93 held, 10.0 and 9.9 under servo limits</li>
     <li class="fragment">The apple rises <span class="num">11.9 cm</span> at a peak grip of 19.6 N</li>
     <li class="fragment warm">HOLD fails 42 ms in on the arm motion invariant: blending the arm to its hold pose over 0.1 s drives joint 2's acceleration from 0.03 to 1.01 of its limit, with the apple still rising. Not yet a counted pickup; the runs on the next slide settle HOLD over 1 s instead. Uncommitted work built on #653</li>
   </ul>
@@ -506,7 +506,7 @@ grasp_controller = replace(
 
 <section id="slide-v5-round" data-prs="647,653">
   <h2 class="t">Capture planner v4 and v5: <span>capture passes, GRASP does not</span></h2>
-  <p class="setup">Close-ups at 1/5 speed, end of each episode; right: a static IK pose, not a run</p>
+  <p class="setup">Close-ups at 1/5 speed, end of each episode; times in recording time. Right: a static IK pose, not a run</p>
   <div class="row" style="max-width: 96%;">
     <figure><video src="./media/screwdriver_v4_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, v4 default plan</strong>: CAPTURE passes at 5.08 s; GRASP times out at 30 N, margin 0</p></figure>
     <figure><video src="./media/screwdriver_v5_yawed_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, v5 plan yawed -0.98 rad</strong>: CAPTURE passes at 4.78 s; GRASP times out at 28 N, margin 0</p></figure>
