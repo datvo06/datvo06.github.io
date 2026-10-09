@@ -485,7 +485,22 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Stage ends: CAPTURE 5.11 s, GRASP 5.45 s, LIFT 7.76 s. Admitted captures: wrench margins 1.33 and 1.93 held, 10.0 and 9.9 under servo limits</li>
     <li class="fragment">The apple rises <span class="num">11.9 cm</span> at a peak grip of 19.6 N</li>
-    <li class="fragment warm">HOLD fails 42 ms in on the arm motion invariant: blending the arm to its hold pose over 0.1 s drives joint 2's acceleration from 0.03 to 1.01 of its limit, with the apple still rising. Not yet a counted pickup. Next run: HOLD settles over 1 s instead of 0.1 s. Uncommitted work built on #653</li>
+    <li class="fragment warm">HOLD fails 42 ms in on the arm motion invariant: blending the arm to its hold pose over 0.1 s drives joint 2's acceleration from 0.03 to 1.01 of its limit, with the apple still rising. Not yet a counted pickup; the runs on the next slide settle HOLD over 1 s instead. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-v3-round" data-prs="647,653">
+  <h2 class="t">Capture IK over all hand joints: <span>a 31 mm screwdriver lift</span></h2>
+  <p class="setup">The capture IK now solves all 16 hand joints with the finger targets bunched within 20 mm; pregrasp raised to 6 cm and a 1 s HOLD settle. Close-ups at 1/5 speed, end of each episode. Times are the runs' recorded stage transitions</p>
+  <div class="row" style="max-width: 96%;">
+    <figure><video src="./media/screwdriver_v3_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, run A</strong>: GRASP passes; LIFT from 6.68 s raises it about 31 mm</p></figure>
+    <figure><video src="./media/screwdriver_v3_squeeze_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, run B</strong>: 41 N grip squeezes the handle into the table; margin 0, GRASP times out</p></figure>
+    <figure><video src="./media/apple_v2_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Apple</strong>: LIFT from 5.63 s, then a stage invariant fails; 9 N grip</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">Run A: during LIFT the margin under servo limits decays from 1.19 to 0 as the pads rotate with the rising hand (grip stays 10-12 N), then a stage invariant fails</li>
+    <li class="fragment">Apple: the first capture is refused (margin 0.07 under servo limits); the re-planned one is admitted at margins 1.86 held, 14.8 under servo limits. A regression from the 11.9 cm lift on the previous slide: the raised pregrasp changed the capture</li>
+    <li class="fragment warm">Run A ends on a failed stage invariant, so it is not a counted pickup yet. Next: LIFT and HOLD seed the hand 0.15 rad past the contact pose for a servo-saturated squeeze. Uncommitted work built on #653</li>
   </ul>
 </section>
 
