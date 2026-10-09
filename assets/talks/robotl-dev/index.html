@@ -760,7 +760,7 @@ def jit_for(instance, fn, **jit_kwargs):
     <tr><td>rolly</td><td>stock</td><td>contact capture</td><td class="n">159.0</td><td class="n">158.3</td><td class="n">158.7</td><td class="n">156.7</td><td class="n">2/2</td></tr>
   </table>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment">Selection: lower mean error at 6 s and over the episode, with no more drops than the stock pair. polly selects its third row; every other proposal in both sessions dropped the cube on at least one target</li>
+    <li class="fragment">Selection: lower mean error at 6 s and over the episode, with no more drops than the stock pair. polly selects its third row and rolly its fourth; every proposal not in the table dropped the cube on at least one target</li>
     <li class="fragment warm">The gain is almost all on target 0, from two episodes; the cube still ends far from its target</li>
   </ul>
 </section>
@@ -837,7 +837,7 @@ OpenParametricHand.make(
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
-    <li class="fragment">OPH solid-bone search: none of 8 proposals beats the base</li>
+    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, polly's pair beats stock on the two-episode mean, with the gain on target 0 only. Its held-out check is pending and the palm-bar union needs review</li>
   </ul>
 </section>
 
