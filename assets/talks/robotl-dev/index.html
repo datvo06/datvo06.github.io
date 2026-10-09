@@ -393,7 +393,7 @@ grasp_controller = replace(
 
 <section id="slide-apple-carried" data-prs="651,653">
   <h2 class="t">Apple pickup: <span>lifting on a carried grasp</span></h2>
-  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through apple v12 are recording time, which starts 0.5 s before the trial clock</p>
+  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through v12b on polly are recording time, which starts 0.5 s before the trial clock</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
@@ -586,6 +586,20 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">CAPTURE from 3.71 s, GRASP from 5.27 s; both capture proposals admitted, at wrench margins 0.59 and 4.54 held, 1.52 and 4.31 under servo limits</li>
     <li class="fragment warm">GRASP times out at 7.67 s with a 22 N peak grip, so LIFT never starts. Replaying the run, the margin under servo limits reads exactly 0 at many sampled times during GRASP (5.80-6.30 s, 6.45-6.50 s, 6.95-7.05 s) while the grip stays at 4-20 N. Per tick (2.5 ms), finger 0's contact drops out for 2.5-7.5 ms at 7.44 and 7.47 s and the servo margin falls to 0.15, so the clean stretches are 0.14 s and 0.10 s, both under the 0.15 s GRASP dwell, which restarts on any failing tick. Without finger 0 the margin is 0.03-0.17 from 6.5 s: the grasp is a thumb and finger 0 pinch. The complete pickup was a thumb and finger 2 pinch until fingers 0 and 1 engaged, and its replayed margin jumped to 5.5 at the tick GRASP released. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-v12b-polly" data-prs="647,653">
+  <h2 class="t">v12b on polly: <span>another apple near miss</span></h2>
+  <p class="setup">v12b: the v12 planner with its penetration check every 0.2 s. The screwdriver run here is back on the plan yawed -0.98 rad (the v7 to v9 plan), not the default-plan rerun on the screwdriver v12 slide, so its different admissions come from the plan. Close-ups at 1/5 speed, end of each episode; times in recording time</p>
+  <div class="row" style="max-width: 86%;">
+    <figure><video src="./media/apple_v12b_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 32vh;"></video><p class="cap"><strong>Apple</strong>, co-designed grasp: lifts 12.2 cm, drops 1.3 s into the 2.0 s HOLD</p></figure>
+    <figure><video src="./media/screwdriver_v12b_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 32vh;"></video><p class="cap"><strong>Screwdriver</strong>, plan yawed -0.98 rad: GRASP times out</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">Apple: CAPTURE 3.71 s, GRASP 4.96 s, LIFT 6.82 s, HOLD 9.20 s; both captures admitted (0.68 and 0.97 held, 5.9 and 6.9 under servo limits). The apple leaves a thumb-and-one-finger hold; 11.5 N grip. The same shape as the ALIGN-dwell near miss</li>
+    <li class="fragment">Screwdriver: both captures admitted (0.04 and 2.02 held, 1.17 and 1.61 under servo limits), yet GRASP from 5.12 s times out; 24.4 N grip, 2.5 mm penetration</li>
+    <li class="fragment warm">The complete pickup is still the only one. Uncommitted work built on #653</li>
   </ul>
 </section>
 
