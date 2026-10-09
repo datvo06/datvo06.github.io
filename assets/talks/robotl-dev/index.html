@@ -572,7 +572,7 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">CAPTURE from 3.72 s; the first capture is admitted at wrench margins 0.33 held, 1.27 under servo limits</li>
     <li class="fragment">GRASP from 4.94 s; the second capture proposal, planned as GRASP starts, is refused (0.46 held, 0.51 under servo limits, dynamic cost 4181) and GRASP times out; 21.7 N grip, 1.4 mm penetration</li>
-    <li class="fragment warm">No lift. The new ranking checked penetration at every rollout tick, so this run took 75 min of wall time. Next, v12b, without the per-tick penetration check. Uncommitted work built on #653</li>
+    <li class="fragment warm">No lift. The new ranking checked penetration at every rollout tick, so this run took 75 min of wall time. v12b checks it every 0.2 s instead: the same proposals and the same failure in 19 min. Uncommitted work built on #653</li>
   </ul>
 </section>
 
