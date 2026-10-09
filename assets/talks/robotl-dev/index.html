@@ -72,6 +72,14 @@
     #slide-pickup-controller .code pre { font-size: 0.31em; }
     #slide-staged-code .code pre { font-size: 0.29em; }
     .reveal .code pre code { background: #1f2330; color: #d4d7dc; border-radius: 6px; padding: 0.7em 0.9em; max-height: none; white-space: pre-wrap; word-break: break-word; overflow: hidden; }
+    .res { border-collapse: collapse; margin: 0 auto; font-size: 0.4em; }
+    .res th, .res td { padding: 0.22em 0.7em; border-bottom: 1px solid #eceef2; text-align: left; }
+    .res th { color: #4a4f5a; font-weight: 600; }
+    .res td.n { text-align: right; font-family: 'IBM Plex Mono', monospace; }
+    .res tr.base td { background: #f6f7f9; }
+    .vgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3em 0.6em; max-width: 72%; margin: 0 auto; }
+    .vgrid figure { margin: 0; }
+    .vgrid video { width: 100%; display: block; border-radius: 5px; }
   </style>
 </head>
 <body>
@@ -381,6 +389,21 @@ grasp_controller = replace(
   </ul>
 </section>
 
+<section id="slide-apple-carried" data-prs="651,653">
+  <h2 class="t">Apple pickup: <span>lifting on a carried grasp</span></h2>
+  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin covers the lift (needs 1.006)</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Before: LIFT needed every finger to carry 10% of the apple's weight by friction, with a 20 ms recovery window. Fingers 0 and 2 flickered off 70 ms into LIFT, before the arm moved, and the run failed</li>
+    <li class="fragment">Now LIFT and HOLD check a carried grasp: thumb support, the fingers' total and thumb-finger opposition. GRASP still needs every finger loaded, and the MPC loss still loads all of them</li>
+    <li class="fragment">Two capture proposals admitted, wrench margins <span class="num">1.08</span> and <span class="num">1.43</span>. HOLD starts at 8.89 s with the apple at least <span class="num">12.3 cm</span> up</li>
+    <li class="fragment warm">The run still ends with a failed invariant 35 ms into HOLD, so it does not count as a pickup yet. The carried check is uncommitted work built on #653</li>
+  </ul>
+</section>
+
 <section id="slide-hammer-task" data-prs="612,633,638,639">
   <h2 class="t">Upright hammer pickup: <span>the task</span></h2>
   <p class="setup">Same Panda + LEAP and staged controller; pick up the 665 g YCB hammer and hold it head-up</p>
@@ -426,43 +449,43 @@ grasp_controller = replace(
   </ul>
 </section>
 
-<section id="slide-runner" data-prs="634,629">
+<section id="slide-runner" data-prs="634">
   <h2 class="t">Batched native <span>runner</span></h2>
-  <p class="setup">Panda + LEAP apple scene, 5 ms step. 16 rollouts in one batch, 16 threads. Median of 3 timed runs</p>
-  <div class="bars">
+  <ul class="pts" style="font-size: 0.48em; margin: 0 auto 0.5em;">
+    <li>A runner simulates a batch of control sequences from one starting state and returns their trajectories; the MPC calls it to score its sampled plans</li>
+    <li class="fragment">#634 moves Panda pickup onto the shared runner from #561: one per compiled environment, for planning rollouts, single steps and forwards, callable inside <code>jit</code> and <code>vmap</code></li>
+  </ul>
+  <p class="setup fragment">Timing probe: Panda + LEAP apple scene, 5 ms step, 16 rollouts in one batch, 16 threads; median of 3 timed runs</p>
+  <div class="bars fragment">
     <div class="b"><span class="lbl">Old runner, 80 steps (0.4 s)</span><div class="bar old" style="width: 16.6%;"></div><span class="v">28.8 ms</span></div>
     <div class="b"><span class="lbl">New runner, 80 steps</span><div class="bar" style="width: 12.1%;"></div><span class="v">21.0 ms</span></div>
-    <div class="b fragment"><span class="lbl">Old runner, 600 steps (3 s)</span><div class="bar old" style="width: 46%;"></div><span class="v">79.6 ms</span></div>
-    <div class="b fragment"><span class="lbl">New runner, 600 steps</span><div class="bar warmb" style="width: 60%;"></div><span class="v">103.8 ms</span></div>
+    <div class="b"><span class="lbl">Old runner, 600 steps (3 s)</span><div class="bar old" style="width: 46%;"></div><span class="v">79.6 ms</span></div>
+    <div class="b"><span class="lbl">New runner, 600 steps</span><div class="bar warmb" style="width: 60%;"></div><span class="v">103.8 ms</span></div>
   </div>
-  <ul class="pts">
-    <li class="fragment">Old: eager JAX state packing, then <code>mujoco.rollout</code>. New: the shared runner, jitted packing around the same native call</li>
-    <li class="fragment">Both runners return identical states</li>
-    <li class="fragment">Agent recordings: 2,231 frames stacked once per batch instead of per frame, same float64 values</li>
-    <li class="fragment warm">600 steps is slower in all 3 timed runs; rollout only, not a whole episode</li>
+  <ul class="pts" style="font-size: 0.48em;">
+    <li class="fragment">Old: eager JAX state packing, then <code>mujoco.rollout</code>. New: jitted packing around the same native call. Both return identical states</li>
+    <li class="fragment">80 steps: 27% less time</li>
+    <li class="fragment warm">600 steps: slower in every run (new 282.7, 103.8, 95.6 ms; old 93.8, 78.6, 79.6 ms). The cause is not yet diagnosed</li>
+  </ul>
+</section>
+
+<section id="slide-recordings" data-prs="629">
+  <h2 class="t">Reading recorded <span>trajectories</span></h2>
+  <ul class="pts" style="font-size: 0.58em; max-width: 84%;">
+    <li class="fragment">The design agent reads recorded pickup trajectories from its REPL</li>
+    <li class="fragment">Before: each of 2,231 observations was stacked into JAX one frame at a time; the live agent trace spent minutes there</li>
+    <li class="fragment">Now: NumPy packs a batch, which is converted to JAX once; all 2,231 joint-position, velocity and control rows keep exact float64 values</li>
+    <li class="fragment warm">No timing after the change was recorded, and no controller speedup is claimed</li>
   </ul>
 </section>
 
 <section id="slide-panda-status">
   <h2 class="t">Panda branches: <span>status</span></h2>
-  <div class="stack" style="grid-auto-flow: column; grid-template-rows: repeat(9, auto);">
-    <div><span class="pr">#589</span><span class="s d">draft</span>Hand-only YCB pickup</div>
-    <div><span class="pr">#599</span><span class="s f">CI failing</span>Panda and LEAP assembly example</div>
-    <div><span class="pr">#603</span><span class="s d">draft</span>Hinge parameters on Panda link specs</div>
-    <div><span class="pr">#604</span><span class="s d">draft</span>Pickup and co-design experiments</div>
-    <div><span class="pr">#605</span><span class="s d">draft</span>Stages gated on observed goals</div>
-    <div><span class="pr">#608</span><span class="s">open</span>Compiled MPC plan following</div>
-    <div><span class="pr">#610</span><span class="s d">draft</span>Stage-gated visual loss director</div>
-    <div><span class="pr">#612</span><span class="s d">draft</span>Upright hammer pickup with clearance</div>
-    <div><span class="pr">#613</span><span class="s d">draft</span>Dwell counted from stage entry</div>
-    <div><span class="pr">#615</span><span class="s d">draft</span>Configurable physics timestep</div>
-    <div><span class="pr">#616</span><span class="s d">draft</span>Native Contact and Virtual sensors</div>
-    <div><span class="pr">#618</span><span class="s d">draft</span>Stages on bounded native motion</div>
-    <div><span class="pr">#619</span><span class="s d">draft</span>Contact positions and normals</div>
-    <div><span class="pr">#624</span><span class="s d">draft</span>Typed recorded pickup scene</div>
-    <div><span class="pr">#625</span><span class="s d">draft</span>Bound numerical auxiliary losses</div>
-    <div><span class="pr">#633</span><span class="s d">draft</span>Rotation gated on hammer clearance</div>
-    <div><span class="pr">#638</span><span class="s d">draft</span>Hold duration and all-contact penetration</div>
+  <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
+    <div><span class="pr">#599</span><span class="s">open</span>Panda and LEAP assembly; the pickup stack from #603 to #638 folded in</div>
+    <div><span class="pr">#647</span><span class="s">open</span>Phillips screwdriver as a metal shaft and a CAB handle</div>
+    <div><span class="pr">#651</span><span class="s d">draft</span>Tolerate one-tick support flicker during lift and hold</div>
+    <div><span class="pr">#653</span><span class="s d">draft</span>Gate pickup on the wrench margin its contacts can carry, on #651</div>
   </div>
 </section>
 
@@ -613,21 +636,85 @@ grasp_controller = replace(
   </ul>
 </section>
 
+<section id="slide-mcp" data-prs="652">
+  <h2 class="t">Finger abduction <span>at the MCP</span></h2>
+  <p class="setup">Middle finger abducted 0.5 rad, joint angles set directly. Green: metacarpal; orange: proximal phalanx</p>
+  <div class="full" style="max-width: 80%;"><img src="./media/oph_mcp_abduction.png" style="max-height: 46vh;"></div>
+  <ul class="pts">
+    <li class="fragment">OPH source (<code>dof4_config</code> in <code>digits.scad</code>): the metacarpal sits flat on the palm and the MCP is a 2-DOF ball</li>
+    <li class="fragment">Before, the whole digit swung at the palm port and the MCP moved 40.6 mm; now the metacarpal is welded and the MCP stays put</li>
+    <li class="fragment">Abductor and adductor cables act on the MCP hinge at half the joint width, where the source mounts their pulleys</li>
+  </ul>
+</section>
+
+<section id="slide-printed" data-prs="655,656">
+  <h2 class="t">Drawn cables and <span>joint-to-joint bones</span></h2>
+  <div class="row" style="max-width: 80%;">
+    <figure><img src="./media/oph_printed_tendons.png" style="max-height: 40vh;"><p class="cap"><strong>Printed OPH bones</strong>; cables coloured by digit</p></figure>
+    <figure><video src="./media/oph_printed_motion.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video><p class="cap">Fingers curl and release</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Fixed tendons were never drawn; each cable is now drawn through every joint it crosses, offset from the axis by its moment arm</li>
+    <li class="fragment">Each bone shaft spanned -0.3L to 0.7L, leaving a gap at every knuckle; it now runs joint to joint. Contact shapes change, so earlier study results don't carry over</li>
+    <li class="fragment warm">The printed bones are visual only; contact still runs on the parametric shapes</li>
+  </ul>
+</section>
+
+<section id="slide-solid-study" data-prs="650,654,656">
+  <h2 class="t">Co-design on the <span>solid-bone hand</span></h2>
+  <p class="setup">Same task and MPC as the Sparse vs capture-first slide. gpt-6-astra proposes a hand and a loss; each pair runs 4 training targets x controller seeds 11 and 29 = <strong>8 episodes</strong>. Error: degrees from the target at 6 s, lower is better, 180 at most</p>
+  <table class="res">
+    <tr><th>Hand</th><th>What changed from the base</th><th>Loss</th><th>Held</th><th>Mean error, all 8 (drop = 180)</th></tr>
+    <tr class="base"><td>Base</td><td>OPH on the Stretch wrist, two XL430</td><td>capture-first</td><td class="n">8/8</td><td class="n">128.4</td></tr>
+    <tr><td>lateral thumb</td><td>thumb metacarpal 25 to 60 mm, root 30 mm further out, re-angled</td><td>capture-first</td><td class="n">0/8</td><td class="n">180.0</td></tr>
+    <tr><td>forward thumb</td><td>thumb root moved 63 mm forward</td><td>capture-first</td><td class="n">4/8</td><td class="n">150.7</td></tr>
+    <tr><td>seated compact</td><td>finger metacarpals 74-82 to 29-37 mm; thumb metacarpal 25 to 10 mm, re-angled</td><td>capture-first</td><td class="n">0/8</td><td class="n">180.0</td></tr>
+    <tr><td>inward compact</td><td>seated compact with a different thumb angle</td><td>capture-first</td><td class="n">0/8</td><td class="n">180.0</td></tr>
+    <tr><td>inward compact</td><td>same hand</td><td>supported rotation</td><td class="n">2/8</td><td class="n">158.4</td></tr>
+    <tr><td>inward compact</td><td>same hand</td><td>persistent grasp</td><td class="n">2/8</td><td class="n">164.5</td></tr>
+    <tr><td>enclosing compact</td><td>inward compact; ring and little splay 16, 30 to 8, 16 degrees; thumb tip 25 to 40 mm</td><td>persistent grasp</td><td class="n">8/8</td><td class="n">134.3</td></tr>
+    <tr><td>enclosing compact</td><td>same hand</td><td>gentle opposed grasp</td><td class="n">8/8</td><td class="n">138.9</td></tr>
+  </table>
+  <ul class="pts" style="font-size: 0.48em;">
+    <li class="fragment">The three new losses add a thumb-reach term and loosen the hold radius from 4 to 12 cm; gentle opposed grasp also closes the mixers to 0.5 rad instead of 0.8</li>
+    <li class="fragment warm">No proposal beats the base, so the search keeps it. The base turns the cube on target 3 (48 and 46 degrees for seeds 11 and 29) and barely on the other three (142-163); on held-out targets 4 to 7 it holds 8/8 at 134.6</li>
+  </ul>
+</section>
+
+<section id="slide-solid-holds" data-prs="656">
+  <h2 class="t">Solid-bone hand: <span>training target 3</span></h2>
+  <p class="setup">Each clip: wide view left, close view right; 6 s. Error at 6 s in degrees</p>
+  <div class="vgrid">
+    <figure><video src="./media/solid_baseline_t3.mp4" data-autoplay autoplay loop muted playsinline></video><p class="cap"><strong>Base</strong>, capture-first, seed 11: holds, <strong>48</strong></p></figure>
+    <figure><video src="./media/solid_inward_staged_drop.mp4" data-autoplay autoplay loop muted playsinline></video><p class="cap"><strong>Inward compact</strong>, capture-first, seed 11: <strong>drops</strong> at about 4 s</p></figure>
+    <figure class="fragment"><video src="./media/solid_inward_t3_s11.mp4" data-autoplay autoplay loop muted playsinline></video><p class="cap"><strong>Inward compact</strong>, supported rotation, seed 11: holds, <strong>76</strong></p></figure>
+    <figure class="fragment"><video src="./media/solid_inward_t3_s29.mp4" data-autoplay autoplay loop muted playsinline></video><p class="cap"><strong>Inward compact</strong>, supported rotation, seed 29: holds, <strong>111</strong></p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment warm">Under capture-first the compact hand never keeps the cube; under supported rotation it holds only on target 3, and still ends further from the target than the base</li>
+  </ul>
+</section>
+
+<section id="slide-solid-drop" data-prs="656">
+  <h2 class="t">Inward compact hand: <span>another target</span></h2>
+  <p class="setup">Training target 1, supported rotation loss, controller seed 11</p>
+  <div class="full" style="max-width: 70%;"><video src="./media/solid_inward_t1_drop.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video></div>
+  <ul class="pts">
+    <li class="fragment">The cube leaves the palm within about 2 s</li>
+    <li class="fragment warm">The same hand and loss drop on targets 0 to 2 for both seeds; both of its holds are on target 3</li>
+  </ul>
+</section>
+
 <section id="slide-oph-status">
   <h2 class="t">OPH branches: <span>status</span></h2>
-  <div class="stack" style="grid-template-columns: 1fr; max-width: 70%; font-size: 0.5em;">
-    <div><span class="pr">#571</span><span class="s">open</span>Loss Design Agent</div>
-    <div><span class="pr">#588</span><span class="s d">draft</span>OPH search under the designed losses</div>
-    <div><span class="pr">#590</span><span class="s">open</span>Drive OPH through XL430 tendon mixers</div>
-    <div><span class="pr">#591</span><span class="s">open</span>Palm-up OPH co-design above the motor model</div>
-    <div><span class="pr">#597</span><span class="s">open</span>OPH morphology and loss co-design</div>
-    <div><span class="pr">#609</span><span class="s">open</span>Stretch Dex wrist with source inertias and drives</div>
-    <div><span class="pr">#611</span><span class="s">open</span>Tendon-driven OPH on the Stretch Dex wrist</div>
-    <div><span class="pr">#614</span><span class="s">open</span>OPH anatomy and connected wrist mounts</div>
-    <div><span class="pr">#621</span><span class="s">open</span>Retention for co-design improvements</div>
-    <div><span class="pr">#626</span><span class="s">open</span>Command-envelope co-design</div>
-    <div><span class="pr">#640</span><span class="s">open</span>Capture-first OPH MPC co-design</div>
-    <div><span class="pr">#641</span><span class="s">open</span>Stronger same-envelope OPH motors</div>
+  <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
+    <div><span class="pr">#642</span><span class="s f">merged</span>X430 motor model on main</div>
+    <div><span class="pr">#591</span><span class="s">open</span>Palm-up OPH co-design; #597 and #609 to #646 folded in</div>
+    <div><span class="pr">#650</span><span class="s d">draft</span>Co-design OPH motors and independent fingers, on #591</div>
+    <div><span class="pr">#652</span><span class="s">open</span>Abduct OPH fingers at the MCP, against main</div>
+    <div><span class="pr">#654</span><span class="s d">draft</span>Co-design with MCP abduction, on #650</div>
+    <div><span class="pr">#655</span><span class="s">open</span>Draw tendons; joint-to-joint and printed bones, against main</div>
+    <div><span class="pr">#656</span><span class="s">open</span>Solid-bone co-design run, on #654; finished, base kept</div>
   </div>
 </section>
 
@@ -637,7 +724,7 @@ grasp_controller = replace(
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
-    <li class="fragment">Full OPH search on the Stretch wrist</li>
+    <li class="fragment">OPH solid-bone search: none of 8 proposals beats the base</li>
   </ul>
 </section>
 
