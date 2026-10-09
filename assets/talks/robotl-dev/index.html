@@ -883,14 +883,14 @@ return (
   <ul class="pts" style="font-size: 0.51em; max-width: 88%;">
     <li class="fragment">The runner reported failure because its hold window included grasping and lifting. Independent replay of 7.94 to 9.94 s confirms the final two-second hold; joint positions reproduce within 6.6e-13 rad</li>
     <li class="fragment">Removing the penetration cutoff produces the identical recorded trajectory: both recordings have the same SHA256 hash</li>
-    <li class="fragment warm">The cutoff does not explain the outcome difference in this matched v18 pair. This does not establish that removing it is harmless for other trials</li>
+    <li class="fragment warm">Disabling the cutoff does not change this v18 run. Other trials may still depend on that limit</li>
   </ul>
   <p class="cap"><a href="./sources/apple-v18-provenance.json">Original outcome, corrected outcome, replay and producer source</a></p>
 </section>
 
 <section id="slide-apple-v19-arm-probe">
   <h2 class="t">v19 arm proposals: <span>smoother corrections</span></h2>
-  <p class="setup">Control change, not stronger motors: sample arm corrections at 0.25 s intervals and smoothly interpolate them. Anchor the first correction to the issued command; keep dense hand corrections and command-range/speed limits</p>
+  <p class="setup">Sample arm corrections at 0.25 s intervals and smoothly interpolate them. Anchor the first correction to the issued command; keep dense hand corrections and command-range/speed limits</p>
   <table class="res" style="font-size: 0.55em; min-width: 72%;">
     <tr><th>Probe window</th><th>Arm sampling scale</th><th>Candidates passing limits</th></tr>
     <tr><td>Reported first 0.1 s</td><td class="n">0.15</td><td class="n">24 / 32</td></tr>
