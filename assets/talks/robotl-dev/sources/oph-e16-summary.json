@@ -1,0 +1,1390 @@
+{
+  "search": {
+    "config": {
+      "output": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009",
+      "model": "openai/responses/gpt-6-astra",
+      "reasoning_effort": "high",
+      "type_checker": "ty",
+      "training_targets": [
+        0,
+        5
+      ],
+      "evaluation_targets": [
+        1
+      ],
+      "controller_seeds": [
+        11
+      ],
+      "proposals": 8,
+      "trial_workers": 2,
+      "max_wall_s": 43200.0,
+      "max_rollout_steps": 500000000,
+      "max_completion_tokens": 32768,
+      "model_timeout_s": 300.0,
+      "render_agent": false,
+      "budget": {
+        "dt": 0.001,
+        "horizon": 1.0,
+        "duration": 6.0,
+        "batch_size": 16,
+        "rounds": 2,
+        "replan_interval": 0.04,
+        "knot_interval": 0.125,
+        "nthread": 8,
+        "sampling": {
+          "decay": 0.8,
+          "sigma0": 0.1,
+          "sigma_slope": 0.1
+        },
+        "temperature": 0.05,
+        "smoothing": 0.1,
+        "carry_n": 1,
+        "noise_color": 2.5,
+        "grasp_seed": 0.8
+      },
+      "render": true,
+      "base": {
+        "code": "def realistic_baseline(*, motor_model: X430Model = \"XL430-W250\") -> Component:\n    # local-import: saved factories execute in isolated trial workers\n    from experiments.cube_orienting.environment import oph_stretch_robot\n\n    return oph_stretch_robot(use_meshes=True, motor_model=motor_model)\n"
+      },
+      "allow_independent_fingers": true,
+      "allow_motor_models": true,
+      "kind": "co-design",
+      "initial_loss": {
+        "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+      },
+      "verification_wall_s": 36000.0,
+      "verification_rollout_steps": 400000000
+    },
+    "evaluations": [
+      {
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def realistic_baseline(*, motor_model: X430Model = \"XL430-W250\") -> Component:\n    # local-import: saved factories execute in isolated trial workers\n    from experiments.cube_orienting.environment import oph_stretch_robot\n\n    return oph_stretch_robot(use_meshes=True, motor_model=motor_model)\n"
+        },
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        }
+      },
+      {
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def clear_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[25.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        }
+      },
+      {
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def advanced_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[50.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        }
+      },
+      {
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def ulnar_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[40.0, -23.0, -70.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        }
+      },
+      {
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def forward_capturing_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[60.0, -23.0, -65.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -100.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        }
+      },
+      {
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def distal_capturing_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[90.0, -23.0, -65.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -100.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        }
+      },
+      {
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def angled_capturing_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[90.0, -23.0, -65.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -75.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        }
+      },
+      {
+        "loss": {
+          "code": "def proximity_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    # local-import: loss factory replay in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(jnp.stack([f.bones[0].tip.pos for f in env.robot.hand.fingers]), axis=0)\n    thumb_points = jnp.stack([b.tip.pos for t in env.robot.hand.thumbs for b in t.bones[1:]])\n    thumb_distance2 = jnp.min(jnp.sum((thumb_points - env.cube.pos) ** 2, axis=1))\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.5) ** 2)),\n        \"digit_support\": Minimize(100.0 * jnp.sum(jnp.maximum(0.3 - loads, 0.0) ** 2)),\n        \"thumb_reach\": Minimize(600.0 * jnp.maximum(thumb_distance2 - 0.04 ** 2, 0.0)),\n        \"hold\": Minimize(1500.0 * jnp.maximum(distance2 - 0.06 ** 2, 0.0)),\n        \"wrist_capture\": Minimize(jnp.where(supported, 0.0, 4.0) * jnp.sum(env.wrist_angles.get().x ** 2)),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def clear_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[25.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        }
+      },
+      {
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def laterally_aligned_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[40.0, -23.0, -5.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        }
+      }
+    ],
+    "trials": [
+      {
+        "stage": "evaluation-25df36e186b2",
+        "seed": 0,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 156.73365783691406,
+          "orientation_mean_deg": 162.75039672851562,
+          "dropped": false
+        },
+        "timing": {
+          "total_s": 66.95694965300208,
+          "compile_s": 3.8047148260084214,
+          "build_s": 8.07694295499823,
+          "per_step_ms": 11.159491608833681,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def realistic_baseline(*, motor_model: X430Model = \"XL430-W250\") -> Component:\n    # local-import: saved factories execute in isolated trial workers\n    from experiments.cube_orienting.environment import oph_stretch_robot\n\n    return oph_stretch_robot(use_meshes=True, motor_model=motor_model)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-25df36e186b2-seed-0-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-25df36e186b2",
+        "seed": 5,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 152.66958618164062,
+          "orientation_mean_deg": 156.10751342773438,
+          "dropped": false
+        },
+        "timing": {
+          "total_s": 66.78322144500271,
+          "compile_s": 4.1333397069975035,
+          "build_s": 8.141133911005454,
+          "per_step_ms": 11.130536907500451,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def realistic_baseline(*, motor_model: X430Model = \"XL430-W250\") -> Component:\n    # local-import: saved factories execute in isolated trial workers\n    from experiments.cube_orienting.environment import oph_stretch_robot\n\n    return oph_stretch_robot(use_meshes=True, motor_model=motor_model)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-25df36e186b2-seed-5-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-8400ce808025",
+        "seed": 0,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 111.27238464355469,
+          "orientation_mean_deg": 151.23512268066406,
+          "dropped": false
+        },
+        "timing": {
+          "total_s": 69.07539269600238,
+          "compile_s": 4.1136127290083095,
+          "build_s": 8.56853226099338,
+          "per_step_ms": 11.51256544933373,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def clear_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[25.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-8400ce808025-seed-0-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-8400ce808025",
+        "seed": 5,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 157.44493103027344,
+          "orientation_mean_deg": 159.18783569335938,
+          "dropped": false
+        },
+        "timing": {
+          "total_s": 68.97612875400227,
+          "compile_s": 4.17401372299355,
+          "build_s": 8.646422033998533,
+          "per_step_ms": 11.49602145900038,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def clear_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[25.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-8400ce808025-seed-5-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-0dbfad25e3bd",
+        "seed": 0,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 103.79991149902344,
+          "orientation_mean_deg": 137.43568420410156,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 91.2872568150051,
+          "compile_s": 4.270309579005698,
+          "build_s": 8.943882634994225,
+          "per_step_ms": 15.21454280250085,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def advanced_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[50.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-0dbfad25e3bd-seed-0-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-0dbfad25e3bd",
+        "seed": 5,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 174.6064453125,
+          "orientation_mean_deg": 135.88340759277344,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 91.58005096499983,
+          "compile_s": 4.205318708001869,
+          "build_s": 8.936627792994841,
+          "per_step_ms": 15.263341827499971,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def advanced_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[50.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-0dbfad25e3bd-seed-5-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-cd9555d12c32",
+        "seed": 5,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 178.71998596191406,
+          "orientation_mean_deg": 173.36221313476562,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 77.51502088599955,
+          "compile_s": 4.188151253998512,
+          "build_s": 8.563416445002076,
+          "per_step_ms": 12.919170147666591,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def ulnar_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[40.0, -23.0, -70.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-cd9555d12c32-seed-5-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-cd9555d12c32",
+        "seed": 0,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 103.7812728881836,
+          "orientation_mean_deg": 110.23672485351562,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 77.60227581500658,
+          "compile_s": 4.193310682996525,
+          "build_s": 8.560286965992418,
+          "per_step_ms": 12.93371263583443,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def ulnar_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[40.0, -23.0, -70.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-cd9555d12c32-seed-0-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-637e66066921",
+        "seed": 0,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 106.34081268310547,
+          "orientation_mean_deg": 123.33097076416016,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 67.02392806900025,
+          "compile_s": 4.164383612005622,
+          "build_s": 8.257937750997371,
+          "per_step_ms": 11.170654678166708,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def forward_capturing_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[60.0, -23.0, -65.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -100.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-637e66066921-seed-0-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-637e66066921",
+        "seed": 5,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 151.14842224121094,
+          "orientation_mean_deg": 149.21112060546875,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 67.1993851599982,
+          "compile_s": 4.031583774994942,
+          "build_s": 8.257944343000418,
+          "per_step_ms": 11.199897526666367,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def forward_capturing_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[60.0, -23.0, -65.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -100.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-637e66066921-seed-5-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-3322f6445829",
+        "seed": 5,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 122.42668914794922,
+          "orientation_mean_deg": 124.68000030517578,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 67.34697581599175,
+          "compile_s": 4.08849270499195,
+          "build_s": 8.223524048007675,
+          "per_step_ms": 11.22449596933196,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def distal_capturing_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[90.0, -23.0, -65.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -100.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-3322f6445829-seed-5-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-3322f6445829",
+        "seed": 0,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 164.2671661376953,
+          "orientation_mean_deg": 156.94332885742188,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 67.65174622398627,
+          "compile_s": 3.990722189992084,
+          "build_s": 8.189291485992726,
+          "per_step_ms": 11.275291037331044,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def distal_capturing_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[90.0, -23.0, -65.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -100.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-3322f6445829-seed-0-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-59fda44c5d24",
+        "seed": 0,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 103.82611846923828,
+          "orientation_mean_deg": 110.65140533447266,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 68.69199714501156,
+          "compile_s": 3.9686297010048293,
+          "build_s": 8.221955405999324,
+          "per_step_ms": 11.44866619083526,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def angled_capturing_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[90.0, -23.0, -65.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -75.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-59fda44c5d24-seed-0-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-59fda44c5d24",
+        "seed": 5,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 178.83372497558594,
+          "orientation_mean_deg": 174.69078063964844,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 68.74471650199848,
+          "compile_s": 4.067698439001106,
+          "build_s": 8.229000261999317,
+          "per_step_ms": 11.457452750333081,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def angled_capturing_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[90.0, -23.0, -65.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, -75.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-59fda44c5d24-seed-5-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-bb7fdd0bd444",
+        "seed": 5,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 178.95252990722656,
+          "orientation_mean_deg": 164.38092041015625,
+          "dropped": false
+        },
+        "timing": {
+          "total_s": 67.79072622999956,
+          "compile_s": 3.896547691008891,
+          "build_s": 8.248242208006559,
+          "per_step_ms": 11.298454371666594,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def proximity_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    # local-import: loss factory replay in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(jnp.stack([f.bones[0].tip.pos for f in env.robot.hand.fingers]), axis=0)\n    thumb_points = jnp.stack([b.tip.pos for t in env.robot.hand.thumbs for b in t.bones[1:]])\n    thumb_distance2 = jnp.min(jnp.sum((thumb_points - env.cube.pos) ** 2, axis=1))\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.5) ** 2)),\n        \"digit_support\": Minimize(100.0 * jnp.sum(jnp.maximum(0.3 - loads, 0.0) ** 2)),\n        \"thumb_reach\": Minimize(600.0 * jnp.maximum(thumb_distance2 - 0.04 ** 2, 0.0)),\n        \"hold\": Minimize(1500.0 * jnp.maximum(distance2 - 0.06 ** 2, 0.0)),\n        \"wrist_capture\": Minimize(jnp.where(supported, 0.0, 4.0) * jnp.sum(env.wrist_angles.get().x ** 2)),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def clear_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[25.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-bb7fdd0bd444-seed-5-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-bb7fdd0bd444",
+        "seed": 0,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 148.8279266357422,
+          "orientation_mean_deg": 169.81309509277344,
+          "dropped": false
+        },
+        "timing": {
+          "total_s": 67.65772886200284,
+          "compile_s": 4.226982337990194,
+          "build_s": 8.283706217000145,
+          "per_step_ms": 11.27628814366714,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def proximity_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    # local-import: loss factory replay in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(jnp.stack([f.bones[0].tip.pos for f in env.robot.hand.fingers]), axis=0)\n    thumb_points = jnp.stack([b.tip.pos for t in env.robot.hand.thumbs for b in t.bones[1:]])\n    thumb_distance2 = jnp.min(jnp.sum((thumb_points - env.cube.pos) ** 2, axis=1))\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.5) ** 2)),\n        \"digit_support\": Minimize(100.0 * jnp.sum(jnp.maximum(0.3 - loads, 0.0) ** 2)),\n        \"thumb_reach\": Minimize(600.0 * jnp.maximum(thumb_distance2 - 0.04 ** 2, 0.0)),\n        \"hold\": Minimize(1500.0 * jnp.maximum(distance2 - 0.06 ** 2, 0.0)),\n        \"wrist_capture\": Minimize(jnp.where(supported, 0.0, 4.0) * jnp.sum(env.wrist_angles.get().x ** 2)),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def clear_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[25.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-bb7fdd0bd444-seed-0-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-7109121a44f2",
+        "seed": 5,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 137.14935302734375,
+          "orientation_mean_deg": 135.89553833007812,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 66.19392250600504,
+          "compile_s": 4.0641881540068425,
+          "build_s": 8.256807644007495,
+          "per_step_ms": 11.032320417667506,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def laterally_aligned_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[40.0, -23.0, -5.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-7109121a44f2-seed-5-controller-11.npz",
+        "trial_workers": 2
+      },
+      {
+        "stage": "evaluation-7109121a44f2",
+        "seed": 0,
+        "controller_seed": 11,
+        "budget": {
+          "dt": 0.001,
+          "horizon": 1.0,
+          "duration": 6.0,
+          "batch_size": 16,
+          "rounds": 2,
+          "replan_interval": 0.04,
+          "knot_interval": 0.125,
+          "nthread": 8,
+          "sampling": {
+            "decay": 0.8,
+            "sigma0": 0.1,
+            "sigma_slope": 0.1
+          },
+          "temperature": 0.05,
+          "smoothing": 0.1,
+          "carry_n": 1,
+          "noise_color": 2.5,
+          "grasp_seed": 0.8
+        },
+        "measurements": {
+          "orientation_final_deg": 165.52398681640625,
+          "orientation_mean_deg": 162.54885864257812,
+          "dropped": true
+        },
+        "timing": {
+          "total_s": 66.2372123410023,
+          "compile_s": 4.092055489003542,
+          "build_s": 8.24467201999505,
+          "per_step_ms": 11.039535390167051,
+          "rollout_batches": 296,
+          "candidate_rollouts": 4736,
+          "simulated_steps": 4736000,
+          "warmup_simulated_steps": 0,
+          "episode_steps": 6000,
+          "replans": 148
+        },
+        "loss": {
+          "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+        },
+        "robot": {
+          "code": "def laterally_aligned_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[40.0, -23.0, -5.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+        },
+        "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-7109121a44f2-seed-0-controller-11.npz",
+        "trial_workers": 2
+      }
+    ],
+    "cost": {
+      "started_at": 1791555397.1714573,
+      "wall_s": 1668.1381258964539,
+      "rollout_steps": 85248000,
+      "model_calls": 50,
+      "tokens": 3188236
+    }
+  },
+  "held_out": [
+    {
+      "loss": {
+        "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+      },
+      "robot": {
+        "code": "def realistic_baseline(*, motor_model: X430Model = \"XL430-W250\") -> Component:\n    # local-import: saved factories execute in isolated trial workers\n    from experiments.cube_orienting.environment import oph_stretch_robot\n\n    return oph_stretch_robot(use_meshes=True, motor_model=motor_model)\n"
+      },
+      "budget": {
+        "dt": 0.001,
+        "horizon": 1.0,
+        "duration": 6.0,
+        "batch_size": 16,
+        "rounds": 2,
+        "replan_interval": 0.04,
+        "knot_interval": 0.125,
+        "nthread": 8,
+        "sampling": {
+          "decay": 0.8,
+          "sigma0": 0.1,
+          "sigma_slope": 0.1
+        },
+        "temperature": 0.05,
+        "smoothing": 0.1,
+        "carry_n": 1,
+        "noise_color": 2.5,
+        "grasp_seed": 0.8
+      }
+    },
+    {
+      "loss": {
+        "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+      },
+      "robot": {
+        "code": "def clear_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[25.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+      },
+      "budget": {
+        "dt": 0.001,
+        "horizon": 1.0,
+        "duration": 6.0,
+        "batch_size": 16,
+        "rounds": 2,
+        "replan_interval": 0.04,
+        "knot_interval": 0.125,
+        "nthread": 8,
+        "sampling": {
+          "decay": 0.8,
+          "sigma0": 0.1,
+          "sigma_slope": 0.1
+        },
+        "temperature": 0.05,
+        "smoothing": 0.1,
+        "carry_n": 1,
+        "noise_color": 2.5,
+        "grasp_seed": 0.8
+      }
+    }
+  ],
+  "trials": [
+    {
+      "stage": "evaluation-25df36e186b2",
+      "seed": 1,
+      "controller_seed": 11,
+      "budget": {
+        "dt": 0.001,
+        "horizon": 1.0,
+        "duration": 6.0,
+        "batch_size": 16,
+        "rounds": 2,
+        "replan_interval": 0.04,
+        "knot_interval": 0.125,
+        "nthread": 8,
+        "sampling": {
+          "decay": 0.8,
+          "sigma0": 0.1,
+          "sigma_slope": 0.1
+        },
+        "temperature": 0.05,
+        "smoothing": 0.1,
+        "carry_n": 1,
+        "noise_color": 2.5,
+        "grasp_seed": 0.8
+      },
+      "measurements": {
+        "orientation_final_deg": 161.88868713378906,
+        "orientation_mean_deg": 155.34503173828125,
+        "dropped": false
+      },
+      "timing": {
+        "total_s": 48.48063809500309,
+        "compile_s": 3.691566868001246,
+        "build_s": 7.912928639998427,
+        "per_step_ms": 8.080106349167181,
+        "rollout_batches": 296,
+        "candidate_rollouts": 4736,
+        "simulated_steps": 4736000,
+        "warmup_simulated_steps": 0,
+        "episode_steps": 6000,
+        "replans": 148
+      },
+      "loss": {
+        "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+      },
+      "robot": {
+        "code": "def realistic_baseline(*, motor_model: X430Model = \"XL430-W250\") -> Component:\n    # local-import: saved factories execute in isolated trial workers\n    from experiments.cube_orienting.environment import oph_stretch_robot\n\n    return oph_stretch_robot(use_meshes=True, motor_model=motor_model)\n"
+      },
+      "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-25df36e186b2-seed-1-controller-11.npz",
+      "trial_workers": 2
+    },
+    {
+      "stage": "evaluation-8400ce808025",
+      "seed": 1,
+      "controller_seed": 11,
+      "budget": {
+        "dt": 0.001,
+        "horizon": 1.0,
+        "duration": 6.0,
+        "batch_size": 16,
+        "rounds": 2,
+        "replan_interval": 0.04,
+        "knot_interval": 0.125,
+        "nthread": 8,
+        "sampling": {
+          "decay": 0.8,
+          "sigma0": 0.1,
+          "sigma_slope": 0.1
+        },
+        "temperature": 0.05,
+        "smoothing": 0.1,
+        "carry_n": 1,
+        "noise_color": 2.5,
+        "grasp_seed": 0.8
+      },
+      "measurements": {
+        "orientation_final_deg": 154.6278076171875,
+        "orientation_mean_deg": 166.05416870117188,
+        "dropped": false
+      },
+      "timing": {
+        "total_s": 49.859835625000414,
+        "compile_s": 3.8338823199883336,
+        "build_s": 8.421879154004273,
+        "per_step_ms": 8.309972604166736,
+        "rollout_batches": 296,
+        "candidate_rollouts": 4736,
+        "simulated_steps": 4736000,
+        "warmup_simulated_steps": 0,
+        "episode_steps": 6000,
+        "replans": 148
+      },
+      "loss": {
+        "code": "def hand_relative_supported_loss(env: LegacyComponent) -> dict[str, Loss]:\n    \"\"\"Gate orientation on digit support, holding the cube near the knuckles.\n\n    ``staged_grasp_loss`` measures the hold from the cube's starting\n    position, so a closing grip that pulls the cube more than 4 cm keeps\n    orientation off; this measures it from the mean finger metacarpal tip\n    instead and lets the captured cube travel with the hand.\n    \"\"\"\n    # local-import: the loss factory replays in isolated trial workers.\n    import effectful.handlers.jax.numpy as jnp\n\n    from robotl.ops.losses import Minimize\n\n    angles = env.mixer_angles.get().x\n    loads = env.digit_loads.get().x\n    knuckles = jnp.mean(\n        jnp.stack([finger.bones[0].tip.pos for finger in env.robot.hand.fingers]),\n        axis=0,\n    )\n    distance2 = jnp.sum((env.cube.pos - knuckles) ** 2)\n    supported = jnp.all(loads >= 0.1) & (env.cube_floor_contact.get().x[0] == 0)\n    return {\n        \"orientation\": Minimize(\n            jnp.where(supported, 8.0 * env.orientation_error.get().theta, 8.0 * jnp.pi)\n        ),\n        \"closure\": Minimize(4.0 * jnp.sum((angles - 0.7) ** 2)),\n        \"digit_support\": Minimize(50.0 * jnp.sum(jnp.maximum(0.2 - loads, 0.0) ** 2)),\n        \"hold\": Minimize(1000.0 * jnp.maximum(distance2 - 0.06**2, 0.0)),\n        \"wrist_capture\": Minimize(\n            jnp.where(supported, 0.0, 1.0) * jnp.sum(env.wrist_angles.get().x ** 2)\n        ),\n        \"drop\": Minimize(100.0 * env.cube_floor_contact.get().x[0]),\n    }\n"
+      },
+      "robot": {
+        "code": "def clear_opposed_thumb_robot() -> Component:\n    # local-import: replay this complete factory in trial workers.\n    from robotl.examples.open_parametric_hand import HandParams, OpenParametricHand\n    from robotl.examples.hand_with_wrist import StretchHandWithWrist\n    from robotl.examples.stretch_wrist import STRETCH_RE1_URDF\n    from robotl.ops.units import mm, deg, volt\n    import jax.numpy as jnp\n\n    params = HandParams(\n        origins_thumb=mm(jnp.array([[25.0, -23.0, 40.0], [-3.0, 5.5, -45.0]])),\n        angles_thumb=deg(jnp.array([[0.0, 60.0, 0.0], [0.0, 100.0, 0.0]])),\n    )\n    hand = OpenParametricHand.make(params, motor_supply=volt(11.1), motor_backset=mm(12))\n    return StretchHandWithWrist.make(hand, STRETCH_RE1_URDF, use_meshes=True, palm_height=0.0755)\n"
+      },
+      "series": "/home/datnguyen/Marc/oph-codesign-rolly-h13-20261009/robotl/experiments/cube_orienting/output/oph-stretch-codesign-rolly-h13-20261009/evaluation-8400ce808025-seed-1-controller-11.npz",
+      "trial_workers": 2
+    }
+  ],
+  "training_controls": [],
+  "verification_cost": {
+    "started_at": 1791557065.3836014,
+    "wall_s": 132.91376900672913,
+    "rollout_steps": 9472000,
+    "model_calls": 0,
+    "tokens": 0
+  }
+}
