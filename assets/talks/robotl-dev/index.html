@@ -584,7 +584,7 @@ grasp_controller = replace(
     <figure style="flex: 1;"><video src="./media/apple_v12_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed: the apple is gripped but still on the table</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
-    <li class="fragment">CAPTURE from 3.71 s, GRASP from 5.27 s; both capture proposals admitted, the second at wrench margins 4.5 held and 4.3 under servo limits (from robotl-13's report; this run kept no proposal log)</li>
+    <li class="fragment">CAPTURE from 3.71 s, GRASP from 5.27 s; both capture proposals reported admitted, the second at wrench margins 4.5 held and 4.3 under servo limits; this run kept no proposal log to check them against</li>
     <li class="fragment warm">GRASP times out with a 22 N grip despite the margin, so LIFT never starts. The new two-loaded-fingers gate is the suspected blocker; the per-finger support terms are being traced. Uncommitted work built on #653</li>
   </ul>
 </section>
