@@ -393,7 +393,7 @@ grasp_controller = replace(
 
 <section id="slide-apple-carried" data-prs="651,653">
   <h2 class="t">Apple pickup: <span>lifting on a carried grasp</span></h2>
-  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through the screwdriver v7-v9 runs are recording time, which starts 0.5 s before the trial clock</p>
+  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through screwdriver v12 are recording time, which starts 0.5 s before the trial clock</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
@@ -559,6 +559,20 @@ grasp_controller = replace(
     <li class="fragment">v7: CAPTURE from 4.48 s; the second capture is admitted (wrench margins 1.66 held, 2.25 under servo limits); GRASP from 5.73 s, LIFT from 7.13 s. The fingers press the handle from above with the thumb on the pommel end; the thumb loses contact 0.35 s into LIFT; 34 N grip</li>
     <li class="fragment">v8 and v9: neither capture is admitted (margin 0); penetration reaches 3.0 mm and fails the invariant</li>
     <li class="fragment warm">v8 onward is reverted to build on the planner that lifted the apple; next is v12: v6 plus the two-finger gate, ranking capture proposals by whether they would pass admission. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-screwdriver-v12" data-prs="647,653">
+  <h2 class="t">Screwdriver, v12: <span>second capture proposal refused</span></h2>
+  <p class="setup">Phillips screwdriver, back on the default co-designed plan (v7 to v9 used the plan yawed -0.98 rad), so both planner and plan change. v12 is the planner that picked up the apple plus a gate needing two loaded fingers and ranking capture proposals by whether they would pass admission. Times in recording time</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/screwdriver_v12_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/screwdriver_v12_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed: the hand clamps the handle from above, thumb pad on the near side</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">CAPTURE from 3.72 s; the first capture is admitted at wrench margins 0.33 held, 1.27 under servo limits</li>
+    <li class="fragment">GRASP from 4.94 s; the second capture proposal, planned as GRASP starts, is refused (0.46 held, 0.51 under servo limits, dynamic cost 4181) and GRASP times out; 21.7 N grip, 1.4 mm penetration</li>
+    <li class="fragment warm">No lift. The new ranking checked penetration at every rollout tick, so this run took 75 min of wall time. Next, v12b, without the per-tick penetration check. Uncommitted work built on #653</li>
   </ul>
 </section>
 
