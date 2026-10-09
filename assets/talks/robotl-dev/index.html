@@ -1027,7 +1027,7 @@ OpenParametricHand.make(
     <figure style="flex: 1;"><video src="./media/thumb_motor_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 20vh;"></video><p class="cap"><strong>Stock hand</strong>, target 5</p></figure>
     <figure style="flex: 1;"><video src="./media/thumb_motor_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 20vh;"></video><p class="cap"><strong>Two thumbs, third motor</strong>, target 5</p></figure>
     <div style="flex: 1.1;">
-      <table class="res" style="font-size: 0.4em;">
+      <table class="res">
         <tr><th>Target</th><th>Stock</th><th>Selected</th></tr>
         <tr><td>0</td><td class="n">157.2 / 152.7</td><td class="n">149.2 / 152.3</td></tr>
         <tr><td>5</td><td class="n">122.9 / 128.2</td><td class="n">107.8 / 111.8</td></tr>
@@ -1038,7 +1038,7 @@ OpenParametricHand.make(
   </div>
   <div class="full" style="max-width: 80%; margin-top: 0.3em;"><img src="./media/thumb_motor_frames.png"><p class="cap">Selected hand on target 5 at 0, 1.0, 1.9, 3.0 and 6.0 s: face D stays on top</p></div>
   <ul class="pts" style="font-size: 0.44em;">
-    <li class="fragment">The first selected pair that beats the stock hand on both metrics on every training target and holds the cube on the held-out one; under this touch-gated loss the stock hand drops it there</li>
+    <li class="fragment">The first selected pair that beats the stock hand at 6 s on both training targets (a 0.4 degree tie over the episode on target 0) and holds the cube on the held-out one; under this touch-gated loss the stock hand drops it there</li>
     <li class="fragment warm">It wins mainly by not dropping: an enclosing grasp that holds the cube rather than turning it. On target 1 the cube starts about 102 degrees off and ends at 121</li>
   </ul>
 </section>
