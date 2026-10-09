@@ -451,15 +451,15 @@ grasp_controller = replace(
 
 <section id="slide-screwdriver-bunched" data-prs="647,653">
   <h2 class="t">Screwdriver capture: <span>bunching the fingers</span></h2>
-  <p class="setup">Pregrasp raised to 6 cm, arm IK for the wrist twist, 1 s HOLD settle. The run is bit-identical on Dat's Mac and the MacBook</p>
+  <p class="setup">Pregrasp raised to 6 cm, arm IK for the wrist twist, 1 s HOLD settle. The run reproduces bit-identically on two machines</p>
   <div class="row" style="max-width: 86%;">
     <figure><video src="./media/screwdriver_spread_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Run</strong>, end of GRASP, 1/5 speed: fingers spread 100 mm along the shaft</p></figure>
     <figure><video src="./media/screwdriver_bunched_proposal.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>New capture plan</strong>, open-loop prediction from the same state: abduction in the IK, finger targets within 20 mm</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Run: CAPTURE passes at 5.75 s; GRASP times out at 7.65 s with wrench margin 0.02 held, 0.12 under servo limits; finger 2 sits on the thin shaft; 19 N grip</li>
-    <li class="fragment">New plan: the screwdriver stays put (4 mm high throughout, where it tipped before); dynamic cost 58 to 11; thumb on the side at 22 mm</li>
-    <li class="fragment warm">The fingers still land on the upper flank, 37-43 mm away; this is a prediction, not a run. Uncommitted work built on #653</li>
+    <li class="fragment">New plan: the screwdriver stays put, 4 mm up throughout, where the previous plan's prediction tipped it; the predicted rollout's dynamic cost (beside the geometry cost on the capture slide) falls from 58 to 11; the thumb lands on the side</li>
+    <li class="fragment warm">The fingers still land on the upper flank of the handle; this is a prediction, not a run. Uncommitted work built on #653</li>
   </ul>
 </section>
 
