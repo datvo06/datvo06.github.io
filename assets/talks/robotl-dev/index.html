@@ -992,6 +992,20 @@ OpenParametricHand.make(
   </ul>
 </section>
 
+<section id="slide-cube-turn" data-prs="656">
+  <h2 class="t">OPH co-design: <span>an 80 degree turn that stays in hand</span></h2>
+  <p class="setup">Another cable co-design session, on rolly. Training target 0, controller seed 11, 6 s at a 1 ms step under MPC; hand-relative supported loss. Two camera views per clip</p>
+  <div class="row" style="max-width: 92%;">
+    <figure><video src="./media/cube_turn_power_hand.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Starting pair, power-grasp hand</strong>: 178 at 6 s, 154 over the episode</p></figure>
+    <figure><video src="./media/cube_turn_proximal_thumb.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Agent's hand, thumb moved toward the palm</strong>: 89 at 6 s, 115 over the episode</p></figure>
+  </div>
+  <div class="full" style="max-width: 86%; margin-top: 0.3em;"><img src="./media/cube_turn_frames.png"><p class="cap">Agent's hand at 0, 1.2, 1.6, 2.0, 4.0 and 6.0 s: faces G, then A, then F come up</p></div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">The cube turns about 80 degrees and stays in the hand; rerun at half the step (0.5 ms), it ends at 89.9 and 124.2 over the episode, so the turn is not a timestep artifact</li>
+    <li class="fragment warm">It does not reach the target face, and it does not carry over: training target 5 ends at 148.0 (146.9 for the starting pair) and held-out target 1 at 140.6, worse than the starting pair's 129.2</li>
+  </ul>
+</section>
+
 <section id="slide-oph-status">
   <h2 class="t">OPH branches: <span>status</span></h2>
   <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
@@ -1012,7 +1026,7 @@ OpenParametricHand.make(
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
-    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. A second run agrees (9-10 degrees), and its selected pair's best training error is the cube rolling off at episode end. The palm-bar union needs review</li>
+    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. A second run agrees (9-10 degrees), and its selected pair's best training error is the cube rolling off at episode end. A third run turns the cube about 80 degrees on target 0, but is slightly worse on target 5 and worse on held-out target 1. The palm-bar union needs review</li>
     <li class="fragment">OPH scoring: count a release at episode end as a drop</li>
   </ul>
 </section>
