@@ -393,7 +393,7 @@ grasp_controller = replace(
 
 <section id="slide-apple-carried" data-prs="651,653">
   <h2 class="t">Apple pickup: <span>lifting on a carried grasp</span></h2>
-  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through screwdriver v12 are recording time, which starts 0.5 s before the trial clock</p>
+  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through apple v12 are recording time, which starts 0.5 s before the trial clock</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
@@ -573,6 +573,19 @@ grasp_controller = replace(
     <li class="fragment">CAPTURE from 3.72 s; the first capture is admitted at wrench margins 0.33 held, 1.27 under servo limits</li>
     <li class="fragment">GRASP from 4.94 s; the second capture proposal, planned as GRASP starts, is refused (0.46 held, 0.51 under servo limits, dynamic cost 4181) and GRASP times out; 21.7 N grip, 1.4 mm penetration</li>
     <li class="fragment warm">No lift. The new ranking checked penetration at every rollout tick, so this run took 75 min of wall time. v12b checks it every 0.2 s instead: the same proposals and the same failure in 19 min. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-apple-v12" data-prs="653">
+  <h2 class="t">Apple, v12: <span>the GRASP gate does not release</span></h2>
+  <p class="setup">YCB apple, co-designed grasp, the same v12 planner as the previous slide. Times in recording time</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_v12_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_v12_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed: the apple is gripped but still on the table</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">CAPTURE from 3.71 s, GRASP from 5.27 s; both capture proposals admitted, the second at wrench margins 4.5 held and 4.3 under servo limits (from robotl-13's report; this run kept no proposal log)</li>
+    <li class="fragment warm">GRASP times out with a 22 N grip despite the margin, so LIFT never starts. The new two-loaded-fingers gate is the suspected blocker; the per-finger support terms are being traced. Uncommitted work built on #653</li>
   </ul>
 </section>
 
