@@ -393,7 +393,7 @@ grasp_controller = replace(
 
 <section id="slide-apple-carried" data-prs="651,653">
   <h2 class="t">Apple pickup: <span>lifting on a carried grasp</span></h2>
-  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin covers the lift (needs 1.006)</p>
+  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006)</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
@@ -431,7 +431,21 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Without wrist yaw, the hand's closing axis sat 34 degrees off the shaft</li>
     <li class="fragment">With it, the admitted capture's wrench margin is <span class="num">1.46</span> held and <span class="num">1.29</span> under servo limits, against 1.006 needed</li>
-    <li class="fragment warm">No screwdriver lift yet; the LIFT failure is being diagnosed. The schedules and capture-IK yaw are uncommitted work built on #653</li>
+    <li class="fragment warm">No screwdriver lift yet; a second wrist-yaw run, on the next slide, gets further into LIFT. The schedules and capture-IK yaw are uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-screwdriver-lift" data-prs="647,653">
+  <h2 class="t">Screwdriver pickup: <span>the lift slips</span></h2>
+  <p class="setup">A second run of the wrist-yaw setup, with the default grasp plan: wrist yaw in the capture IK, preshape schedule and the wrench-margin GRASP gate</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/screwdriver_lift_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/screwdriver_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">CAPTURE 3.78 to 4.73 s; GRASP 4.73 to 6.41 s; LIFT starts at 6.41 s</li>
+    <li class="fragment">The first capture proposal is refused at margin 0. Admission compares the margin under servo limits, and the second proposal passes: <span class="num">2.05</span> against 1.006 needed. At the grip actually held the margin is only <span class="num">0.40</span></li>
+    <li class="fragment warm">The handle rises about 10 mm, then slips out of the fingers; LIFT fails 0.8 s in, consistent with the held margin below 1.</li>
   </ul>
 </section>
 
