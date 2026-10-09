@@ -491,7 +491,7 @@ grasp_controller = replace(
 
 <section id="slide-v3-round" data-prs="647,653">
   <h2 class="t">Capture IK over all hand joints: <span>a 31 mm screwdriver lift</span></h2>
-  <p class="setup">The capture IK now solves all 16 hand joints with the finger targets bunched within 20 mm; pregrasp raised to 6 cm and a 1 s HOLD settle. Close-ups at 1/5 speed, end of each episode. Times are the runs' recorded stage transitions</p>
+  <p class="setup">The capture IK now solves all 16 hand joints with the finger targets bunched within 20 mm; pregrasp raised to 6 cm and a 1 s HOLD settle. Close-ups at 1/5 speed, end of each episode. Times are recording time, which starts 0.5 s before the trial clock</p>
   <div class="row" style="max-width: 96%;">
     <figure><video src="./media/screwdriver_v3_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, run A</strong>: GRASP passes; LIFT from 6.68 s raises it about 31 mm</p></figure>
     <figure><video src="./media/screwdriver_v3_squeeze_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, run B</strong>: 41 N grip squeezes the handle into the table; margin 0, GRASP times out</p></figure>
@@ -513,7 +513,7 @@ grasp_controller = replace(
     <figure><img src="./media/screwdriver_across_ik.png" style="max-height: 28vh;"><p class="cap"><strong>Best across-handle IK pose</strong> at the yawed state: thumb and finger 0 on opposite sides</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
-    <li class="fragment">That pose has a static cost of 8.6 and a 45 mm pinch span, but on the same distance measure as the thumb (16.6 mm) and finger 0 (27.5 mm), fingers 1 and 2 sit at 37 and 51 mm, so its closing rollout scores about 190: the planner's score requires every finger loaded</li>
+    <li class="fragment">That pose has a static cost of 8.6 and a 45 mm pinch span. The thumb and finger 0 oppose each other across the handle, at pad heights of 16.6 and 27.5 mm near the grasp point 16 mm above the table; fingers 1 and 2 sit on the upper flank at 37 and 51 mm. Its closing rollout scores about 190 because the planner's score requires every finger loaded</li>
     <li class="fragment">Apple on v4: the planner picked a preshape schedule that compressed an 8 cm wrist descent into 0.4 s; the arm motion invariant failed 0.3 s into CAPTURE. v5 stretches the schedule and scores arm limits</li>
     <li class="fragment warm">Next: score the rollout on the carried terms that gate GRASP (thumb, finger total, opposition) instead of per finger. Uncommitted work built on #653</li>
   </ul>
