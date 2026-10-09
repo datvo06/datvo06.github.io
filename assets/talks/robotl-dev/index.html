@@ -72,6 +72,7 @@
     #slide-pickup-controller .code pre { font-size: 0.31em; }
     #slide-staged-code .code pre { font-size: 0.29em; }
     #slide-jit-lifetime .code pre { font-size: 0.34em; }
+    #slide-cable-design .code pre { font-size: 0.36em; }
     .reveal .code pre code { background: #1f2330; color: #d4d7dc; border-radius: 6px; padding: 0.7em 0.9em; max-height: none; white-space: pre-wrap; word-break: break-word; overflow: hidden; }
     .res { border-collapse: collapse; margin: 0 auto; font-size: 0.4em; }
     .res th, .res td { padding: 0.22em 0.7em; border-bottom: 1px solid #eceef2; text-align: left; }
@@ -748,6 +749,74 @@ def jit_for(instance, fn, **jit_kwargs):
   </ul>
 </section>
 
+<section id="slide-cable-study" data-prs="656">
+  <h2 class="t">Co-design with <span>cable assignment</span></h2>
+  <p class="setup">Solid-bone OPH. The agent may also choose each mixer's X430 motor and put any digit cable (distal or intermediate flexor, MCP splay) on any motor. Shorter protocol: training targets 0 and 5, controller seed 11, held-out target 1; 8 proposals, 6 s episodes. Two sessions, on polly and rolly. Error in degrees, lower is better</p>
+  <table class="res">
+    <tr><th>Session</th><th>Hand</th><th>Loss</th><th>Target 0</th><th>Target 5</th><th>Mean at 6 s</th><th>Episode mean</th><th>Held</th></tr>
+    <tr class="base"><td>both</td><td>stock</td><td>capture-first</td><td class="n">161.9</td><td class="n">174.5</td><td class="n">168.2</td><td class="n">161.5</td><td class="n">2/2</td></tr>
+    <tr><td>polly</td><td>opposed power grasp</td><td>capture-first</td><td class="n">154.0</td><td class="n">172.8</td><td class="n">163.4</td><td class="n">160.4</td><td class="n">2/2</td></tr>
+    <tr><td>polly</td><td>opposed power grasp</td><td><strong>hand-relative supported</strong></td><td class="n">131.9</td><td class="n">175.8</td><td class="n">153.9</td><td class="n">152.1</td><td class="n">2/2</td></tr>
+    <tr><td>rolly</td><td>stock</td><td>contact capture</td><td class="n">159.0</td><td class="n">158.3</td><td class="n">158.7</td><td class="n">156.7</td><td class="n">2/2</td></tr>
+  </table>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Selection: lower mean error at 6 s and over the episode, with no more drops than the stock pair. polly selects its third row; every other proposal in both sessions dropped the cube on at least one target</li>
+    <li class="fragment warm">The gain is almost all on target 0, from two episodes; the cube still ends far from its target</li>
+  </ul>
+</section>
+
+<section id="slide-cable-videos" data-prs="656">
+  <h2 class="t">Cable co-design: <span>the three polly pairs</span></h2>
+  <p class="setup">Rows, top to bottom: stock hand with capture-first, new hand with capture-first, new hand with the new loss. Wide view left, close view right with cables in each digit's colour; the small floor cube shows the target</p>
+  <div class="row" style="max-width: 62%;">
+    <figure><video src="./media/cable_compare_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video><p class="cap"><strong>Target 0</strong>: 162, 154, <strong>132</strong></p></figure>
+    <figure><video src="./media/cable_compare_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video><p class="cap"><strong>Target 5</strong>: 175, 173, 176</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">On target 0 only the bottom row turns the cube: faces G and B come up while the other two still show A</li>
+  </ul>
+</section>
+
+<section id="slide-cable-design" data-prs="656">
+  <h2 class="t">The selected <span>cable design</span></h2>
+  <ul class="pts" style="font-size: 0.46em; margin-top: 0;">
+    <li class="fragment">Anatomy: the thumb opposes the fingers, mounted 140 mm out on a bar the agent added to the palm</li>
+    <li class="fragment">Motors: mixer 0 becomes an XM430-W350 (3.8 N m stall); mixer 1 stays the stock XL430-W250 (1.4 N m)</li>
+    <li class="fragment">Cables: the middle, ring and little intermediate flexors move onto mixer 0, so their passive springs become motor-driven cables</li>
+  </ul>
+  <div class="code fragment" style="max-width: 64%; margin: 0.3em auto 0;">
+    <div class="codehead">agent's robot factory, polly session</div>
+<pre><code class="language-python" data-trim>
+OpenParametricHand.make(
+    params=params, motor_backset=mm(12), motor_supply=volt(11.1),
+    motor_model=("XM430-W350", "XL430-W250"),
+    drives=(CableDrive(1, "intermediate", 0),
+            CableDrive(2, "intermediate", 0),
+            CableDrive(3, "intermediate", 0)),
+)
+</code></pre>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">New loss: the same support gate on thumb and finger contact, but the hold is measured relative to the knuckles instead of the cube's starting position, so a closing grip no longer switches the orientation term off</li>
+    <li class="fragment warm">Needs review: the factory replaces the built palm with a union adding a 152 x 12 mm bar. Admission accepted it, but it bypasses the palm builder and nothing checks the bar is printable or strong enough</li>
+  </ul>
+</section>
+
+<section id="slide-cable-trace" data-prs="656">
+  <h2 class="t">How the agent <span>got there</span></h2>
+  <p class="setup">Read from polly's Langfuse trace: code it ran and status notes it wrote (reasoning summaries came back empty)</p>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">Step 9: thumb load is zero all episode. The starting loss enables orientation only once every digit group carries 0.1 N and the cube stays within 4 cm of its start</li>
+    <li class="fragment">Steps 11-27: six thumb relocations and one loss tweak, all dropped the cube; three layouts refused for collisions or a disconnected mount</li>
+    <li class="fragment">Step 28: an opposed thumb on the added palm bar gets thumb and finger contact 26% of the time; middle and ring knuckles bend backward</li>
+    <li class="fragment">Step 29: three intermediate flexors on a stronger mixer 0. The first design to keep the cube on both targets; support 42-58% of each episode</li>
+    <li class="fragment">Steps 30-31: the grip pulls the cube more than 4 cm from its start, keeping the gate shut. The agent writes the hand-relative loss: the selected pair</li>
+  </ul>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment warm">Held-out target 1 (rolly): its loss-only change ends 1 degree better (159.0 vs 160.1) but 5 degrees worse over the episode (161.7 vs 156.9). polly's held-out check was still running</li>
+  </ul>
+</section>
+
 <section id="slide-oph-status">
   <h2 class="t">OPH branches: <span>status</span></h2>
   <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
@@ -758,7 +827,7 @@ def jit_for(instance, fn, **jit_kwargs):
     <div><span class="pr">#652</span><span class="s">open</span>Abduct OPH fingers at the MCP, against main</div>
     <div><span class="pr">#654</span><span class="s d">draft</span>Co-design with MCP abduction, on #650</div>
     <div><span class="pr">#655</span><span class="s">open</span>Draw tendons; joint-to-joint and printed bones, against main</div>
-    <div><span class="pr">#656</span><span class="s">open</span>Solid-bone co-design run, on #654; finished, base kept</div>
+    <div><span class="pr">#656</span><span class="s">open</span>Solid-bone co-design runs on #654; any cable on any motor (baebab1f)</div>
   </div>
 </section>
 
