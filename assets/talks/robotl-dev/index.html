@@ -420,6 +420,33 @@ grasp_controller = replace(
   </ul>
 </section>
 
+<section id="slide-screwdriver-fixes" data-prs="649,653">
+  <h2 class="t">Screwdriver pickup: <span>reaching an admitted capture</span></h2>
+  <p class="setup">Same screwdriver scene and staged controller; each run changes the capture plan. Close-ups at 1/5 speed, end of each episode. Stages: CAPTURE, then GRASP (all fingers loaded), then LIFT</p>
+  <div class="row" style="max-width: 96%;">
+    <figure><video src="./media/sd_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Closing schedule</strong>, wrist first: first CAPTURE pass, 5.5 s; GRASP times out, thumb and finger 2 pinch only, 3.9 N</p></figure>
+    <figure><video src="./media/sd_preshape_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Preshape schedule</strong> + wrench-margin GRASP gate: CAPTURE 4.9 s, 24 N, but margin 0: the fingers press the handle into the table</p></figure>
+    <figure><video src="./media/sd_yaw_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Wrist yaw in the capture IK</strong>: first admitted capture; GRASP passes at 6.16 s; LIFT invariant fails at 6.9 s</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Without wrist yaw, the hand's closing axis sat 34 degrees off the shaft</li>
+    <li class="fragment">With it, the admitted capture's wrench margin is <span class="num">1.46</span> held and <span class="num">1.29</span> under servo limits, against 1.006 needed</li>
+    <li class="fragment warm">No screwdriver lift yet; the LIFT failure is being diagnosed</li>
+  </ul>
+</section>
+
+<section id="slide-apple-bottle" data-prs="649,653">
+  <h2 class="t">Apple and mustard bottle: <span>this round</span></h2>
+  <div class="row" style="max-width: 80%;">
+    <figure><video src="./media/apple_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Apple</strong>, co-designed grasp with closing schedules and a relaxed floor check; 1/5 speed</p></figure>
+    <figure><video src="./media/bottle_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Mustard bottle</strong>, default grasp at the bounding-box centre; real time</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Apple: CAPTURE passes at 5.05 s (wrench margin 1.36 held, 7.9 under servo limits; 22 N grip), then GRASP times out on the all-fingers-loaded rule. The carried check from the earlier apple slide is not in this run</li>
+    <li class="fragment warm">Bottle: 37 N grip but the capture terms flicker and the wrench margin is 0; CAPTURE times out</li>
+  </ul>
+</section>
+
 <section id="slide-hammer-task" data-prs="612,633,638,639">
   <h2 class="t">Upright hammer pickup: <span>the task</span></h2>
   <p class="setup">Same Panda + LEAP and staged controller; pick up the 665 g YCB hammer and hold it head-up</p>
@@ -700,6 +727,7 @@ def jit_for(instance, fn, **jit_kwargs):
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">The rollout packers and <code>SamplingPlanner</code> compile per instance, so the code goes with its layout or planner; concrete rollout inputs call the host directly</li>
+    <li class="fragment">Panda MPC on polly, 40 replans: memory plateaus at 15 GB with #649; without it the run is killed at 30 GB after 17 replans</li>
     <li class="fragment warm">Both are JAX caching bugs, reported as jax#41388; this works around them. Tests check that building, using and dropping environments and planners leaves no mappings</li>
   </ul>
 </section>
