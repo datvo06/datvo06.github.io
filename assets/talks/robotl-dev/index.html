@@ -405,6 +405,20 @@ grasp_controller = replace(
   </ul>
 </section>
 
+<section id="slide-screwdriver-capture" data-prs="647,653">
+  <h2 class="t">Screwdriver pickup: <span>where capture fails</span></h2>
+  <p class="setup">YCB Phillips screwdriver lying flat (metal shaft and CAB handle) at the centre training placement; same controller, IK capture planner and admission rule as the apple</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/screwdriver_capture_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/screwdriver_capture_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Best IK capture proposal: geometry cost <span class="num">71,366</span> (the apple's admitted ones: 4.1 and 19.8); the predicted rollout dips 0.18 mm below the table, and the wrench margin is 0 against 1.006 needed. Not admitted</li>
+    <li class="fragment">Predicted support penalties: fingers 0 and 2 at the maximum 1.0 (no load), thumb 0.45</li>
+    <li class="fragment warm">CAPTURE fails its floor-clearance invariant 0.78 s in, at 4.53 s. No screwdriver pickup yet</li>
+  </ul>
+</section>
+
 <section id="slide-hammer-task" data-prs="612,633,638,639">
   <h2 class="t">Upright hammer pickup: <span>the task</span></h2>
   <p class="setup">Same Panda + LEAP and staged controller; pick up the 665 g YCB hammer and hold it head-up</p>
@@ -663,7 +677,7 @@ grasp_controller = replace(
 
 <section id="slide-jit-lifetime" data-prs="649">
   <h2 class="t">Releasing compiled code <span>with its owner</span></h2>
-  <p class="setup">polly, effectful master: memory mappings added by 4 OPH spatial-cable builds in one process</p>
+  <p class="setup">polly, effectful at master: memory mappings added by 4 OPH spatial-cable builds in one process</p>
   <div class="bars" style="max-width: 70%;">
     <div class="b"><span class="lbl">main</span><div class="bar old" style="width: 60%;"></div><span class="v">+9,986</span></div>
     <div class="b fragment"><span class="lbl">#649</span><div class="bar" style="width: 0.5%;"></div><span class="v">+0</span></div>
@@ -673,6 +687,7 @@ grasp_controller = replace(
     <li class="fragment">An eager <code>pure_callback</code> outside <code>jit</code> is cached by its closure, which held the rollout pool</li>
   </ul>
   <div class="code fragment" style="max-width: 70%; margin: 0.3em auto 0;">
+    <div class="codehead">robotl/internals/utils.py, <code>jit_for</code></div>
 <pre><code class="language-python" data-trim>
 def jit_for(instance, fn, **jit_kwargs):
     jitted = vars(instance).setdefault("_jit_methods", {})
