@@ -563,16 +563,16 @@ grasp_controller = replace(
 </section>
 
 <section id="slide-screwdriver-v12" data-prs="647,653">
-  <h2 class="t">Screwdriver, v12: <span>GRASP re-plan refused</span></h2>
-  <p class="setup">Phillips screwdriver, default co-designed plan. v12 is the planner that picked up the apple plus a gate needing two loaded fingers and ranking capture proposals by whether they would pass admission. Times in recording time</p>
+  <h2 class="t">Screwdriver, v12: <span>second capture proposal refused</span></h2>
+  <p class="setup">Phillips screwdriver, back on the default co-designed plan (v7 to v9 used the plan yawed -0.98 rad), so both planner and plan change. v12 is the planner that picked up the apple plus a gate needing two loaded fingers and ranking capture proposals by whether they would pass admission. Times in recording time</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/screwdriver_v12_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/screwdriver_v12_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed: the hand clamps the handle from above, thumb pad on the near side</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">CAPTURE from 3.72 s; the first capture is admitted at wrench margins 0.33 held, 1.27 under servo limits</li>
-    <li class="fragment">GRASP from 4.94 s; its re-plan is refused (0.46 held, 0.51 under servo limits, dynamic cost 4181) and GRASP times out; 21.7 N grip, 1.4 mm penetration</li>
-    <li class="fragment warm">No lift. The new ranking checked penetration at every rollout tick, so this run took 75 min of wall time; v12b drops that check. Uncommitted work built on #653</li>
+    <li class="fragment">GRASP from 4.94 s; the second capture proposal, planned as GRASP starts, is refused (0.46 held, 0.51 under servo limits, dynamic cost 4181) and GRASP times out; 21.7 N grip, 1.4 mm penetration</li>
+    <li class="fragment warm">No lift. The new ranking checked penetration at every rollout tick, so this run took 75 min of wall time. Next, v12b, without the per-tick penetration check. Uncommitted work built on #653</li>
   </ul>
 </section>
 
