@@ -499,8 +499,23 @@ grasp_controller = replace(
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">Run A: during LIFT the margin under servo limits decays from 1.19 to 0 as the pads rotate with the rising hand (grip stays 10-12 N), then a stage invariant fails</li>
-    <li class="fragment">Apple: the first capture is refused (margin 0.07 under servo limits); the re-planned one is admitted at margins 1.86 held, 14.8 under servo limits. A regression from the 11.9 cm lift on the previous slide: the raised pregrasp changed the capture</li>
+    <li class="fragment">Apple: the first capture is refused (margin 0.07 under servo limits); the re-planned one is admitted at margins 1.86 held, 14.8 under servo limits. It fails before HOLD, a regression from the 11.9 cm lift on the previous slide, likely because the raised pregrasp changed the capture</li>
     <li class="fragment warm">Run A ends on a failed stage invariant, so it is not a counted pickup yet. Next: LIFT and HOLD seed the hand 0.15 rad past the contact pose for a servo-saturated squeeze. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-v5-round" data-prs="647,653">
+  <h2 class="t">Screwdriver: <span>capture passes, GRASP does not</span></h2>
+  <p class="setup">Capture planner v4 and v5. Close-ups at 1/5 speed, end of each episode; right: a static IK pose, not a run</p>
+  <div class="row" style="max-width: 96%;">
+    <figure><video src="./media/screwdriver_v4_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v4, default plan</strong>: CAPTURE passes at 5.08 s; GRASP times out at 30 N, margin 0</p></figure>
+    <figure><video src="./media/screwdriver_v5_yawed_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v5, plan yawed -0.98 rad</strong>: CAPTURE passes at 4.78 s; GRASP times out at 28 N, margin 0</p></figure>
+    <figure><img src="./media/screwdriver_across_ik.png" style="max-height: 28vh;"><p class="cap"><strong>Best across-handle IK pose</strong> at the yawed state: thumb and finger 0 on opposite sides</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">That pose has a static cost of 8.6 and a 45 mm pinch span, but on the same distance measure as the thumb (16.6 mm) and finger 0 (27.5 mm), fingers 1 and 2 sit at 37 and 51 mm, so its closing rollout scores about 190: the planner's score requires every finger loaded</li>
+    <li class="fragment">Apple on v4: the planner picked a preshape schedule that compressed an 8 cm wrist descent into 0.4 s; the arm motion invariant failed 0.3 s into CAPTURE. v5 stretches the schedule and scores arm limits</li>
+    <li class="fragment warm">Next: score the rollout on the carried terms that gate GRASP (thumb, finger total, opposition) instead of per finger. Uncommitted work built on #653</li>
   </ul>
 </section>
 
