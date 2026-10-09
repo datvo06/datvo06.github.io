@@ -949,6 +949,35 @@ OpenParametricHand.make(
   </ul>
 </section>
 
+<section id="slide-cable2-heldout" data-prs="656">
+  <h2 class="t">Second cable co-design run: <span>held-out target 1</span></h2>
+  <p class="setup">Same protocol (training targets 0 and 5, controller seed 11, held-out target 1), but the search starts from the stock hand with the hand-relative supported loss. Selected: an opposed-thumb power hand with the agent's rotation-priority supported loss. One episode per cell; error in degrees at 6 s / over the episode</p>
+  <table class="res" style="font-size: 0.46em;">
+    <tr><th>Hand</th><th>Loss</th><th>Target 0</th><th>Target 5</th><th>Held-out target 1</th></tr>
+    <tr class="base"><td>stock</td><td>hand-relative (start)</td><td class="n">164.1 / 164.6</td><td class="n">149.5 / 152.0</td><td class="n">160.8 / 156.5</td></tr>
+    <tr><td>opposed power</td><td>hand-relative</td><td class="n">161.7 / 148.0</td><td class="n">148.4 / 150.8</td><td class="n">149.9 / 147.6</td></tr>
+    <tr><td>stock</td><td>rotation-priority</td><td class="n">dropped</td><td class="n">dropped</td><td class="n">dropped</td></tr>
+    <tr><td>opposed power</td><td>rotation-priority (selected)</td><td class="n">167.4 / 152.7</td><td class="n">84.5 / 155.0</td><td class="n">154.7 / 146.5</td></tr>
+  </table>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">As in the first run, the new hand carries over: about 9-10 degrees lower episode error on target 1 with either loss. The agent's loss alone drops the cube on the stock hand</li>
+    <li class="fragment warm">The error curves stay flat near 150 degrees: the cube never really turns. The selected pair's 84.5 on target 5 is the next slide</li>
+  </ul>
+</section>
+
+<section id="slide-cable2-release" data-prs="656">
+  <h2 class="t">Second cable run: <span>a low error that is a release</span></h2>
+  <p class="setup">Training target 5, two camera views per clip; 6 s</p>
+  <div class="row" style="max-width: 92%;">
+    <figure><video src="./media/cable2_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Stock hand, start loss</strong>: 149.5 at 6 s</p></figure>
+    <figure><video src="./media/cable2_selected_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Selected pair</strong>: 84.5 at 6 s</p></figure>
+  </div>
+  <div class="full" style="max-width: 80%; margin-top: 0.3em;"><img src="./media/cable2_release_frames.png"><p class="cap">Selected pair at 3.0, 5.3, 5.7 and 5.9 s</p></div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment warm">The 84.5 comes from the cube rolling off the hand in the last 0.1 s, which is not scored as a drop. The pair passes the selection metrics nominally without a real turn; next change: a release at episode end counts as a drop</li>
+  </ul>
+</section>
+
 <section id="slide-oph-status">
   <h2 class="t">OPH branches: <span>status</span></h2>
   <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
