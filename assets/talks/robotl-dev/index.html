@@ -77,7 +77,7 @@
     .res { border-collapse: collapse; margin: 0 auto; font-size: 0.4em; }
     .res th, .res td { padding: 0.22em 0.7em; border-bottom: 1px solid #eceef2; text-align: left; }
     .res th { color: #4a4f5a; font-weight: 600; }
-    .res td.n { text-align: right; font-family: 'IBM Plex Mono', monospace; }
+    .res td.n { text-align: right; font-family: 'IBM Plex Mono', monospace; white-space: nowrap; }
     .res tr.base td { background: #f6f7f9; }
     .vgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3em 0.6em; max-width: 72%; margin: 0 auto; }
     .vgrid figure { margin: 0; }
@@ -393,7 +393,7 @@ grasp_controller = replace(
 
 <section id="slide-apple-carried" data-prs="651,653">
   <h2 class="t">Apple pickup: <span>lifting on a carried grasp</span></h2>
-  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin covers the lift (needs 1.006)</p>
+  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through the screwdriver v7-v9 runs are recording time, which starts 0.5 s before the trial clock</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
@@ -401,7 +401,7 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Before: LIFT needed every finger to carry 10% of the apple's weight by friction, with a 20 ms recovery window. Fingers 0 and 2 flickered off 70 ms into LIFT, before the arm moved, and the run failed</li>
     <li class="fragment">Now LIFT and HOLD check a carried grasp: thumb support, the fingers' total and thumb-finger opposition. GRASP still needs every finger loaded, and the MPC loss still loads all of them</li>
-    <li class="fragment">Two capture proposals admitted, wrench margins <span class="num">1.08</span> and <span class="num">1.43</span>. HOLD starts at 8.89 s with the apple at least <span class="num">12.3 cm</span> up</li>
+    <li class="fragment">Two capture proposals admitted: wrench margins <span class="num">1.08</span> and <span class="num">1.43</span> held, 12.6 and 12.4 under servo limits. HOLD starts at 8.89 s with the apple at least <span class="num">12.3 cm</span> up</li>
     <li class="fragment warm">The run still ends with a failed invariant 35 ms into HOLD, so it does not count as a pickup yet. The carried check is uncommitted work built on #653</li>
   </ul>
 </section>
@@ -417,6 +417,148 @@ grasp_controller = replace(
     <li class="fragment">Best IK capture proposal: geometry cost <span class="num">71,366</span> (the apple's admitted ones: 4.1 and 19.8); the predicted rollout dips 0.18 mm below the table, and the wrench margin is 0 against 1.006 needed. Not admitted</li>
     <li class="fragment">Predicted support penalties: fingers 0 and 2 at the maximum 1.0 (no load), thumb 0.45</li>
     <li class="fragment warm">CAPTURE fails its floor-clearance invariant 0.78 s in, at 4.53 s. No screwdriver pickup yet</li>
+  </ul>
+</section>
+
+<section id="slide-screwdriver-fixes" data-prs="647,653">
+  <h2 class="t">Screwdriver pickup: <span>reaching an admitted capture</span></h2>
+  <p class="setup">Same screwdriver scene and staged controller; each run changes the capture plan. Close-ups at 1/5 speed, end of each episode. Stages: CAPTURE, then GRASP (all fingers loaded), then LIFT</p>
+  <div class="row" style="max-width: 96%;">
+    <figure><video src="./media/screwdriver_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Closing schedule</strong>, wrist first: first CAPTURE pass, 5.5 s; GRASP times out, thumb and finger 2 pinch only, 3.9 N</p></figure>
+    <figure><video src="./media/screwdriver_preshape_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Preshape schedule</strong> + wrench-margin GRASP gate: CAPTURE 4.9 s, 24 N, but margin 0: the fingers press the handle into the table</p></figure>
+    <figure><video src="./media/screwdriver_yaw_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Wrist yaw in the capture IK</strong>: first admitted capture; GRASP passes at 6.16 s; LIFT invariant fails at 6.9 s</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Without wrist yaw, the hand's closing axis sat 34 degrees off the shaft</li>
+    <li class="fragment">With it, the admitted capture's wrench margin is <span class="num">1.46</span> held and <span class="num">1.29</span> under servo limits, against 1.006 needed</li>
+    <li class="fragment warm">No screwdriver lift yet; a second wrist-yaw run, on the next slide, gets further into LIFT. The schedules and capture-IK yaw are uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-screwdriver-lift" data-prs="647,653">
+  <h2 class="t">Screwdriver pickup: <span>the lift slips</span></h2>
+  <p class="setup">A second run of the wrist-yaw setup: wrist yaw in the capture IK, preshape schedule and the wrench-margin GRASP gate</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/screwdriver_lift_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/screwdriver_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">CAPTURE 3.78 to 4.73 s; GRASP 4.73 to 6.41 s; LIFT starts at 6.41 s</li>
+    <li class="fragment">The first capture proposal is refused at margin 0. Admission compares the margin under servo limits, and the second proposal passes: <span class="num">2.05</span> against 1.006 needed. At the grip actually held the margin is only <span class="num">0.40</span></li>
+    <li class="fragment warm">The handle rises about 10 mm, then slips out of the fingers; LIFT fails 0.8 s in</li>
+  </ul>
+</section>
+
+<section id="slide-screwdriver-bunched" data-prs="647,653">
+  <h2 class="t">Screwdriver capture: <span>bunching the fingers</span></h2>
+  <p class="setup">Pregrasp raised to 6 cm, arm IK for the wrist twist, 1 s HOLD settle. The run reproduces bit-identically on two machines</p>
+  <div class="row" style="max-width: 86%;">
+    <figure><video src="./media/screwdriver_spread_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Run</strong>, end of GRASP, 1/5 speed: fingers spread 100 mm along the shaft</p></figure>
+    <figure><video src="./media/screwdriver_bunched_proposal.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>New capture plan</strong>, open-loop prediction from the same state: abduction in the IK, finger targets within 20 mm</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Run: CAPTURE passes at 5.75 s; GRASP times out at 7.65 s with wrench margin 0.02 held, 0.12 under servo limits; finger 2 sits on the thin shaft; 19 N grip</li>
+    <li class="fragment">New plan: the screwdriver stays put at 4 mm height throughout, where the previous plan's prediction tipped it; the rollout's dynamic cost falls from 58 to 11; the thumb lands on the side</li>
+    <li class="fragment warm">The fingers still land on the upper flank of the handle; this is a prediction, not a run. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-apple-bottle" data-prs="653">
+  <h2 class="t">Apple and mustard bottle: <span>this round</span></h2>
+  <div class="row" style="max-width: 80%;">
+    <figure><video src="./media/apple_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Apple</strong>, co-designed grasp with closing schedules and a relaxed floor check; 1/5 speed</p></figure>
+    <figure><video src="./media/bottle_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Mustard bottle</strong>, default grasp at the bounding-box centre; real time</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Apple: CAPTURE passes at 5.05 s (wrench margin 1.36 held, 7.9 under servo limits; 22 N grip), then GRASP times out on the all-fingers-loaded rule. The carried check from the earlier apple slide is not in this run</li>
+    <li class="fragment warm">Bottle: 37 N grip but the capture terms flicker and the wrench margin is 0; CAPTURE times out. Both runs use uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-apple-hold" data-prs="653">
+  <h2 class="t">Apple pickup: <span>a grip-hold term</span></h2>
+  <p class="setup">YCB apple, co-designed grasp, IK capture with wrist twist and closing schedules. GRASP ends on the carried terms (not every finger loaded) plus the margin under servo limits. In LIFT and HOLD the MPC loss adds a grip-hold term: a penalty on hand-control drift over the horizon, so the hand keeps the grip it formed while the arm lifts</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_hold_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_hold_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Stage ends in recording time: CAPTURE 5.11 s, GRASP 5.45 s, LIFT 7.76 s. Admitted captures: wrench margins 1.33 and 1.93 held, 10.0 and 9.9 under servo limits</li>
+    <li class="fragment">The apple rises <span class="num">11.9 cm</span> at a peak grip of 19.6 N</li>
+    <li class="fragment warm">HOLD fails 42 ms in on the arm motion invariant: blending the arm to its hold pose over 0.1 s drives joint 2's acceleration from 0.03 to 1.01 of its limit, with the apple still rising. Not yet a counted pickup; the runs on the next slide settle HOLD over 1 s instead. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-v3-round" data-prs="647,653">
+  <h2 class="t">Capture IK over all hand joints: <span>a 31 mm screwdriver lift</span></h2>
+  <p class="setup">The capture IK now solves all 16 hand joints with the finger targets bunched within 20 mm; pregrasp raised to 6 cm and a 1 s HOLD settle. Close-ups at 1/5 speed, end of each episode. Times in recording time</p>
+  <div class="row" style="max-width: 96%;">
+    <figure><video src="./media/screwdriver_v3_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, run A</strong>: GRASP passes; LIFT from 6.68 s raises it about 31 mm</p></figure>
+    <figure><video src="./media/screwdriver_v3_squeeze_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, run B</strong>: 41 N grip squeezes the handle into the table; margin 0, GRASP times out</p></figure>
+    <figure><video src="./media/apple_v2_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Apple</strong>: LIFT from 5.63 s, then a stage invariant fails; 9 N grip</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">Run A: during LIFT the margin under servo limits decays from 1.19 to 0 as the pads rotate with the rising hand (grip stays 10-12 N), then a stage invariant fails</li>
+    <li class="fragment">Apple: the first capture is refused (margin 0.07 under servo limits); the re-planned one is admitted at margins 1.86 held, 14.8 under servo limits. It fails before HOLD, a regression from the 11.9 cm lift on the previous slide, likely because the raised pregrasp changed the capture</li>
+    <li class="fragment warm">Run A ends on a failed stage invariant, so it is not a counted pickup yet. Next: LIFT and HOLD seed the hand 0.15 rad past the contact pose for a servo-saturated squeeze. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-v5-round" data-prs="647,653">
+  <h2 class="t">Capture planner v4 and v5: <span>capture passes, GRASP does not</span></h2>
+  <p class="setup">Close-ups at 1/5 speed, end of each episode; times in recording time. Right: a static IK pose, not a run</p>
+  <div class="row" style="max-width: 96%;">
+    <figure><video src="./media/screwdriver_v4_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, v4 default plan</strong>: CAPTURE passes at 5.08 s; GRASP times out at 30 N, margin 0</p></figure>
+    <figure><video src="./media/screwdriver_v5_yawed_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, v5 plan yawed -0.98 rad</strong>: CAPTURE passes at 4.78 s; GRASP times out at 28 N, margin 0</p></figure>
+    <figure><img src="./media/screwdriver_across_ik.png" style="max-height: 28vh;"><p class="cap"><strong>Best across-handle IK pose</strong> at the yawed state: thumb and finger 0 on opposite sides</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">That pose has a static cost of 8.6 and a 45 mm pinch span. The thumb and finger 0 oppose each other across the handle, at pad heights of 16.6 and 27.5 mm near the grasp point 16 mm above the table; fingers 1 and 2 sit on the upper flank at 37 and 51 mm. Its closing rollout scores about 190 because the planner's score requires every finger loaded</li>
+    <li class="fragment">Apple on v4: the planner picked a preshape schedule that compressed an 8 cm wrist descent into 0.4 s; the arm motion invariant failed 0.3 s into CAPTURE. v5 stretches the schedule and scores arm limits</li>
+    <li class="fragment warm">Next: score the rollout on the carried terms that gate GRASP (thumb, finger total, opposition) instead of per finger. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-apple-complete" data-prs="653">
+  <h2 class="t">Apple pickup: <span>first complete pickup</span></h2>
+  <p class="setup">YCB apple, co-designed grasp, capture planner v6: capture IK over all 16 hand joints with the wrist twist from an arm IK; closing schedules ranked on the carried terms and arm limits; the wrench-margin GRASP gate; grip hold and a 0.15 rad squeeze in LIFT and HOLD; a 1 s HOLD settle</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_complete_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_complete_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of HOLD</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">Stage starts in recording time: CAPTURE 3.71 s, GRASP 4.94 s, LIFT 6.13 s, HOLD 8.37 s. Admitted captures: wrench margins 0.52 and 1.37 held, 4.4 and 5.2 under servo limits</li>
+    <li class="fragment">The apple stays at least <span class="num">12.9 cm</span> up through the whole <span class="num">2.0 s</span> HOLD, with no table contact; peak grip 28 N, penetration 1.0 mm</li>
+    <li class="fragment warm">One run, one placement (the centre training pose). Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-apple-v7" data-prs="653">
+  <h2 class="t">Apple pickup: <span>a near miss with an ALIGN dwell</span></h2>
+  <p class="setup">Same co-designed grasp and v6 planner as the complete pickup, plus a 0.5 s dwell in ALIGN, the stage that lines the hand up over the apple before CAPTURE</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_v7_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_v7_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">Stage starts in recording time: CAPTURE 4.52 s, GRASP 6.12 s, LIFT 7.97 s, HOLD 10.40 s. Admitted captures: wrench margins 0.93 and 1.91 held, 3.1 and 3.1 under servo limits</li>
+    <li class="fragment">The apple stays at least <span class="num">12.2 cm</span> up for <span class="num">1.4 s</span> of the 2.0 s HOLD, then squeezes upward out of a two-pad pinch (thumb and one finger) and drops; peak grip 22 N</li>
+    <li class="fragment warm">Nothing in the run ties the drop to the dwell; it may be a second sample of the v6 planner failing in HOLD. Not a pickup: the complete run on the previous slide is still the only one. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-screwdriver-v7-v9" data-prs="647,653">
+  <h2 class="t">Screwdriver after the apple pickup: <span>no lift yet</span></h2>
+  <p class="setup">Phillips screwdriver, grasp plan yawed -0.98 rad. Close-ups at 1/5 speed, end of each episode; times in recording time</p>
+  <div class="row" style="max-width: 96%;">
+    <figure><video src="./media/screwdriver_v7_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v7 (v6 + ALIGN dwell)</strong>: capture admitted and LIFT reached, but the handle never rises</p></figure>
+    <figure><video src="./media/screwdriver_v8_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v8</strong>, capture search posed from the closed hand: penetration failure 0.3 s into CAPTURE</p></figure>
+    <figure><video src="./media/screwdriver_v9_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v9</strong>, v8 + two-finger gate + downward pad penalty: the same failure at the same tick</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">v7: CAPTURE from 4.48 s; the second capture is admitted (wrench margins 1.66 held, 2.25 under servo limits); GRASP from 5.73 s, LIFT from 7.13 s. The fingers press the handle from above with the thumb on the pommel end; the thumb loses contact 0.35 s into LIFT; 34 N grip</li>
+    <li class="fragment">v8 and v9: neither capture is admitted (margin 0); penetration reaches 3.0 mm and fails the invariant</li>
+    <li class="fragment warm">v8 onward is reverted to build on the planner that lifted the apple; next is v12: v6 plus the two-finger gate, ranking capture proposals by whether they would pass admission. Uncommitted work built on #653</li>
   </ul>
 </section>
 
@@ -700,6 +842,7 @@ def jit_for(instance, fn, **jit_kwargs):
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">The rollout packers and <code>SamplingPlanner</code> compile per instance, so the code goes with its layout or planner; concrete rollout inputs call the host directly</li>
+    <li class="fragment">Panda MPC on polly, 40 replans: memory plateaus at 15 GB with #649; without it the run is killed at 30 GB after 17 replans</li>
     <li class="fragment warm">Both are JAX caching bugs, reported as jax#41388; this works around them. Tests check that building, using and dropping environments and planners leaves no mappings</li>
   </ul>
 </section>
@@ -849,6 +992,72 @@ OpenParametricHand.make(
   </ul>
 </section>
 
+<section id="slide-cable2-heldout" data-prs="656">
+  <h2 class="t">Second cable co-design run: <span>held-out target 1</span></h2>
+  <p class="setup">A third session, on Dat's Mac. Same protocol (training targets 0 and 5, controller seed 11, held-out target 1), but the search starts from the stock hand with the hand-relative supported loss. Selected: an opposed-thumb power hand with the agent's rotation-priority supported loss. One episode per cell; error in degrees at 6 s / over the episode</p>
+  <table class="res" style="font-size: 0.46em;">
+    <tr><th>Hand</th><th>Loss</th><th>Target 0</th><th>Target 5</th><th>Held-out target 1</th></tr>
+    <tr class="base"><td>stock</td><td>hand-relative (start)</td><td class="n">164.1 / 164.6</td><td class="n">149.5 / 152.0</td><td class="n">160.8 / 156.5</td></tr>
+    <tr><td>opposed power</td><td>hand-relative</td><td class="n">161.7 / 148.0</td><td class="n">148.4 / 150.8</td><td class="n">149.9 / 147.6</td></tr>
+    <tr><td>stock</td><td>rotation-priority</td><td class="n">dropped</td><td class="n">dropped</td><td class="n">dropped</td></tr>
+    <tr><td>opposed power</td><td>rotation-priority (selected)</td><td class="n">167.4 / 152.7</td><td class="n">84.5 / 155.0</td><td class="n">154.7 / 146.5</td></tr>
+  </table>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">As in the first run, the new hand carries over: about 9-10 degrees lower episode error on target 1 with either loss. The agent's loss alone drops the cube on the stock hand</li>
+    <li class="fragment warm">The error curves stay flat near 150 degrees: the cube never really turns. The selected pair's 84.5 on target 5 is the next slide</li>
+  </ul>
+</section>
+
+<section id="slide-cable2-release" data-prs="656">
+  <h2 class="t">Second cable run: <span>a low error that is a release</span></h2>
+  <p class="setup">Training target 5, two camera views per clip; 6 s</p>
+  <div class="row" style="max-width: 92%;">
+    <figure><video src="./media/cable2_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Stock hand, start loss</strong>: 149.5 at 6 s</p></figure>
+    <figure><video src="./media/cable2_selected_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Selected pair</strong>: 84.5 at 6 s</p></figure>
+  </div>
+  <div class="full" style="max-width: 80%; margin-top: 0.3em;"><img src="./media/cable2_release_frames.png"><p class="cap">Selected pair at 3.0, 5.3, 5.7 and 5.9 s</p></div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment warm">By 5.9 s the cube is tipping off the hand, and it rolls off in the last 0.1 s: that gives the 84.5, and it is not scored as a drop. The pair passes the selection metrics nominally without a real turn; next change: a release at episode end counts as a drop</li>
+  </ul>
+</section>
+
+<section id="slide-cube-turn" data-prs="656">
+  <h2 class="t">OPH co-design: <span>an 80 degree turn that stays in hand</span></h2>
+  <p class="setup">Another cable co-design session, on rolly. Training target 0, controller seed 11, 6 s at a 1 ms step under MPC; hand-relative supported loss. Two camera views per clip</p>
+  <div class="row" style="max-width: 92%;">
+    <figure><video src="./media/cube_turn_power_hand.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Starting pair, power-grasp hand</strong>: 178 at 6 s, 154 over the episode</p></figure>
+    <figure><video src="./media/cube_turn_proximal_thumb.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Agent's hand, thumb moved toward the palm</strong>: 89 at 6 s, 115 over the episode</p></figure>
+  </div>
+  <div class="full" style="max-width: 86%; margin-top: 0.3em;"><img src="./media/cube_turn_frames.png"><p class="cap">Agent's hand at 0, 1.2, 1.6, 2.0, 4.0 and 6.0 s: faces G, then A, then F come up</p></div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">The error falls from 167 to 89, a turn of about 80 degrees, and the cube stays in the hand; rerun at half the step (0.5 ms), it ends at 89.9 and 124.2 over the episode, so the turn is not a timestep artifact</li>
+    <li class="fragment warm">It does not reach the target face, and it does not carry over (at 6 s / over the episode): training target 5, 148.0 / 151.9 against the starting pair's 146.9 / 148.9; held-out target 1, 140.6 / 146.7 against 129.2 / 149.1. Worse at 6 s on both; the 2.4 degree episode gain on target 1 is smaller than the 9 degree swing the half-step rerun shows</li>
+  </ul>
+</section>
+
+<section id="slide-thumb-motor" data-prs="656">
+  <h2 class="t">OPH co-design: <span>two thumbs on a third motor</span></h2>
+  <p class="setup">A fourth session, on Dat's Mac. Starts from the stock hand with a loss that scores orientation once any part of the hand touches the cube; same targets. Selected hand: a thumb on each side of the finger row, with both thumbs' flexor and intermediate cables on a third motor (XM430-W350); loss unchanged</p>
+  <div class="row" style="max-width: 96%; align-items: center;">
+    <figure style="flex: 1;"><video src="./media/thumb_motor_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 20vh;"></video><p class="cap"><strong>Stock hand</strong>, target 5</p></figure>
+    <figure style="flex: 1;"><video src="./media/thumb_motor_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 20vh;"></video><p class="cap"><strong>Two thumbs, third motor</strong>, target 5</p></figure>
+    <div style="flex: 1.1;">
+      <table class="res">
+        <tr><th>Target</th><th>Stock</th><th>Selected</th></tr>
+        <tr><td>0</td><td class="n">157.2 / 152.7</td><td class="n">149.2 / 152.3</td></tr>
+        <tr><td>5</td><td class="n">122.9 / 128.2</td><td class="n">107.8 / 111.8</td></tr>
+        <tr><td>held-out 1</td><td class="n">dropped</td><td class="n">121.4 / 117.6</td></tr>
+      </table>
+      <p class="cap">Degrees at 6 s / over the episode; controller seed 11</p>
+    </div>
+  </div>
+  <div class="full" style="max-width: 80%; margin-top: 0.3em;"><img src="./media/thumb_motor_frames.png"><p class="cap">Selected hand on target 5 at 0, 1.0, 1.9, 3.0 and 6.0 s: face D stays on top</p></div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">The first selected pair that beats the stock hand at 6 s on both training targets (a 0.4 degree tie over the episode on target 0) and holds the cube on the held-out one; under this touch-gated loss the stock hand drops it there</li>
+    <li class="fragment warm">It wins mainly by not dropping: an enclosing grasp that holds the cube rather than turning it. On target 1 the cube starts about 102 degrees off and ends at 121</li>
+  </ul>
+</section>
+
 <section id="slide-oph-status">
   <h2 class="t">OPH branches: <span>status</span></h2>
   <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
@@ -869,7 +1078,8 @@ OpenParametricHand.make(
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
-    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. The palm-bar union needs review</li>
+    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. A second run agrees (9-10 degrees), and its selected pair's best training error is the cube rolling off at episode end. A third run turns the cube about 80 degrees on target 0, but is slightly worse on target 5 and worse on held-out target 1. A fourth keeps the cube on every target with two thumbs on a third motor, but holds rather than turns it. The palm-bar union needs review</li>
+    <li class="fragment">OPH scoring: count a release at episode end as a drop</li>
   </ul>
 </section>
 
