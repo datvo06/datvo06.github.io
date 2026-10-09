@@ -951,7 +951,7 @@ OpenParametricHand.make(
 
 <section id="slide-cable2-heldout" data-prs="656">
   <h2 class="t">Second cable co-design run: <span>held-out target 1</span></h2>
-  <p class="setup">Same protocol (training targets 0 and 5, controller seed 11, held-out target 1), but the search starts from the stock hand with the hand-relative supported loss. Selected: an opposed-thumb power hand with the agent's rotation-priority supported loss. One episode per cell; error in degrees at 6 s / over the episode</p>
+  <p class="setup">A third session, on Dat's Mac. Same protocol (training targets 0 and 5, controller seed 11, held-out target 1), but the search starts from the stock hand with the hand-relative supported loss. Selected: an opposed-thumb power hand with the agent's rotation-priority supported loss. One episode per cell; error in degrees at 6 s / over the episode</p>
   <table class="res" style="font-size: 0.46em;">
     <tr><th>Hand</th><th>Loss</th><th>Target 0</th><th>Target 5</th><th>Held-out target 1</th></tr>
     <tr class="base"><td>stock</td><td>hand-relative (start)</td><td class="n">164.1 / 164.6</td><td class="n">149.5 / 152.0</td><td class="n">160.8 / 156.5</td></tr>
@@ -974,7 +974,7 @@ OpenParametricHand.make(
   </div>
   <div class="full" style="max-width: 80%; margin-top: 0.3em;"><img src="./media/cable2_release_frames.png"><p class="cap">Selected pair at 3.0, 5.3, 5.7 and 5.9 s</p></div>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment warm">The 84.5 comes from the cube rolling off the hand in the last 0.1 s, which is not scored as a drop. The pair passes the selection metrics nominally without a real turn; next change: a release at episode end counts as a drop</li>
+    <li class="fragment warm">By 5.9 s the cube is tipping off the hand, and it rolls off in the last 0.1 s: that gives the 84.5, and it is not scored as a drop. The pair passes the selection metrics nominally without a real turn; next change: a release at episode end counts as a drop</li>
   </ul>
 </section>
 
@@ -998,7 +998,8 @@ OpenParametricHand.make(
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
-    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. The palm-bar union needs review</li>
+    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. A second run agrees, and its selected pair's best training error is the cube rolling off at episode end. The palm-bar union needs review</li>
+    <li class="fragment">OPH scoring: count a release at episode end as a drop</li>
   </ul>
 </section>
 
