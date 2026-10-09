@@ -30,3 +30,11 @@ overlay apple-v14-producer.tar.gz. The source manifest records the exact hashes
 of the run's changed implementation files. Its renderer also requires the
 original native/scene.mjb and native/recording.npz from that run. The site holds
 the loss, renderer, grasp parameters and outcome, not those large replay inputs.
+Apple v18 and v19 use uncommitted controller variants based on 23e9290c.
+Prepare a complete RoboTL checkout at that baseline, then overlay the matching
+apple-v18-producer.tar.gz or apple-v19-producer.tar.gz. The archives contain
+the run-time producer source, rather than the agent's later working files.
+The existing apple-v14-render.py also produced these wide and slow-close videos.
+Replay requires the original native/scene.mjb and native/recording.npz in each
+run directory; these large inputs are retained locally, not in the site download.
+The per-run provenance files identify outcomes, configuration and source hashes.

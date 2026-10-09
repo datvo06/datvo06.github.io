@@ -1,0 +1,33 @@
+from types import SimpleNamespace
+import json
+import jax
+jax.config.update('jax_enable_x64',True)
+import jax.numpy as jnp
+import mujoco,numpy as np
+from experiments.panda_leap_pickup import SmoothArmLiftPlan, colored_noise
+p='/private/tmp/pickup-constraints-results/apple-v17/native/'
+m=mujoco.MjModel.from_binary_path(p+'scene.mjb');tr=np.load(p+'recording.npz');d=mujoco.MjData(m)
+d.qpos[:]=tr['qpos'][0];d.qvel[:]=tr['qvel'][0];d.ctrl[:]=tr['ctrl'][0];d.time=tr['time_s'][0];mujoco.mj_forward(m,d);d.qacc_warmstart[:]=tr['initial_warmstart']
+entry=np.argmin(abs(tr['time_s']-4.8925))
+for i in range(1,entry+1):
+ d.ctrl[:]=tr['ctrl'][i];mujoco.mj_step(m,d)
+arm=np.array([i for i in range(m.nu) if '_arm_' in m.actuator(i).name]);dofs=m.jnt_dofadr[m.actuator_trnid[arm,0]];hinges=np.flatnonzero(m.jnt_type==mujoco.mjtJoint.mjJNT_HINGE)
+flange=m.site('root_assembly_robot_arm_links_7_tip').id
+reference=np.broadcast_to(d.ctrl,(1500,m.nu)).copy();reference[:40]=tr['ctrl'][entry+1:entry+41];reference[40:]=reference[39]
+vel=np.full(m.nu,np.inf);vel[arm]=[2.175]*4+[2.61]*3
+plan=SmoothArmLiftPlan(x=jnp.array(reference),dt=.0025,previous_control=jnp.array(d.ctrl),velocity_limits=tuple(vel),arm_actuators=tuple(arm),feedback_scale=1.)
+span=np.ptp(m.jnt_range[m.actuator_trnid[:,0]],axis=1)
+results=[]
+for k in range(32):
+ noise=np.asarray(colored_noise(jax.random.key(k),(1500,m.nu),2.5));params=reference.copy();params[:,arm]+=noise[:,arm]*span[arm]/6*.1
+ proposed=np.asarray(plan.with_params(jnp.array(params),SimpleNamespace(mj_model=m)).x)
+ check=mujoco.MjData(m);mujoco.mj_copyData(check,m,d);z0=check.site_xpos[flange,2];ok=True;amax=0
+ dz=0.0
+ for step,control in enumerate(proposed):
+  prev=check.qvel[dofs].copy();check.ctrl[:]=control;mujoco.mj_step(m,check)
+  amax=max(amax,float((abs(check.qvel[dofs]-prev)/.0025/np.array([15,7.5,10,12.5,15,20,20])).max()))
+  ok &= bool((abs(check.qvel[dofs])<=vel[arm]).all() and (check.qpos[m.jnt_qposadr[hinges]]>=m.jnt_range[hinges,0]-.02).all() and (check.qpos[m.jnt_qposadr[hinges]]<=m.jnt_range[hinges,1]+.02).all())
+  if step==39:dz=float(check.site_xpos[flange,2]-z0)
+ ok &= amax<=1
+ results.append(dict(k=k,dz=dz,feasible=ok,accel_ratio=amax))
+print(json.dumps(results,indent=2))
