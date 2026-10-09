@@ -1,0 +1,32 @@
+{
+  "base_revision": "23e9290c (uncommitted variant)",
+  "checkout_instructions": "producer-checkouts.txt",
+  "renderer": "apple-v14-render.py",
+  "rendering_command": "MUJOCO_GL=cgl python apple-v14-render.py NATIVE_DIRECTORY VIDEO_DIRECTORY",
+  "inputs": "Original native/scene.mjb and native/recording.npz retained under /private/tmp/pickup-constraints-results/apple-VERSION; not included in site download.",
+  "loss": "Same reward factory as apple-v14-loss.py",
+  "placement": "train-center",
+  "producer": "apple-v19-producer.tar.gz",
+  "pickup_source_sha256": "40edb01652647a7af0dea35c98831288ecea4d8c5f772f8aecc7b41431d8980a",
+  "configuration": "apple-v19-trial-manifest.json",
+  "outcome": "apple-v19-outcome.json",
+  "result": "apple-v19-result.json",
+  "replay_maximum_qpos_error_rad": 9.388601007742636e-13,
+  "stages": "Approach, descend, capture, joint grasp/lift, hold; variant from v17, not the v18 single-stage branch.",
+  "probe": "Recorded v17 stage-boundary diagnostic; prefix results use scale 0.15 while full-horizon results use scale 0.10; not the actual online candidate population.",
+  "probe_results": "apple-v19-probe.json",
+  "probe_source": "apple-v19-probe-source.txt",
+  "prefix_evidence": "24/32 passing in the first 0.1 seconds and wrist displacement -7.8 to +2.9 mm were reported in the producing agent's status summary. The original prefix output was subsequently overwritten; it is not archived here.",
+  "clips": [
+    {
+      "file": "../media/apple_v19_wide.mp4",
+      "sha256": "cac176b9d16d71452571603669626095f212dede1211f9865b1b49f925f11673",
+      "playback": "real time"
+    },
+    {
+      "file": "../media/apple_v19_closeup.mp4",
+      "sha256": "dc08244e3ae6a6d14045564927db30f0aaa6e06f3adfaa3c54e1fb5722c0c3f1",
+      "playback": "last 0.6 simulated seconds at one-fifth speed"
+    }
+  ]
+}

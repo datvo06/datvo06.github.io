@@ -1,0 +1,25 @@
+{
+  "pose": {
+    "name": "train-center",
+    "xy_m": [
+      0.4,
+      0.0
+    ],
+    "yaw_rad": 0.0,
+    "tilt_rad": [
+      0.0,
+      0.0
+    ]
+  },
+  "hold": {
+    "kind": "object",
+    "minimum_hold_lift_m": 0.15793707191443568
+  },
+  "hold_duration_s": 2.005,
+  "hand_contact_fraction": 1.0,
+  "maximum_grip_force_n": 14.870165261469449,
+  "maximum_penetration_m": 0.0015976715532311737,
+  "object_ground_contact_during_hold": false,
+  "joint_limit_violation_rad": 6.4253006644143795e-6,
+  "lifted": true
+}
