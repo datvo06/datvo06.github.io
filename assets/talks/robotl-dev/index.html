@@ -1001,8 +1001,8 @@ OpenParametricHand.make(
   </div>
   <div class="full" style="max-width: 86%; margin-top: 0.3em;"><img src="./media/cube_turn_frames.png"><p class="cap">Agent's hand at 0, 1.2, 1.6, 2.0, 4.0 and 6.0 s: faces G, then A, then F come up</p></div>
   <ul class="pts" style="font-size: 0.44em;">
-    <li class="fragment">The cube turns about 80 degrees and stays in the hand; rerun at half the step (0.5 ms), it ends at 89.9 and 124.2 over the episode, so the turn is not a timestep artifact</li>
-    <li class="fragment warm">It does not reach the target face, and it does not carry over: training target 5 ends at 148.0 (146.9 for the starting pair) and held-out target 1 at 140.6, worse than the starting pair's 129.2</li>
+    <li class="fragment">The error falls from 167 to 89, a turn of about 80 degrees, and the cube stays in the hand; rerun at half the step (0.5 ms), it ends at 89.9 and 124.2 over the episode, so the turn is not a timestep artifact</li>
+    <li class="fragment warm">It does not reach the target face, and it does not carry over (at 6 s / over the episode): training target 5, 148.0 / 151.9 against the starting pair's 146.9 / 148.9; held-out target 1, 140.6 / 146.7 against 129.2 / 149.1</li>
   </ul>
 </section>
 
