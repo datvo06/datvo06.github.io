@@ -72,6 +72,14 @@
     #slide-pickup-controller .code pre { font-size: 0.31em; }
     #slide-staged-code .code pre { font-size: 0.29em; }
     .reveal .code pre code { background: #1f2330; color: #d4d7dc; border-radius: 6px; padding: 0.7em 0.9em; max-height: none; white-space: pre-wrap; word-break: break-word; overflow: hidden; }
+    .res { border-collapse: collapse; margin: 0 auto; font-size: 0.44em; }
+    .res th, .res td { padding: 0.22em 0.7em; border-bottom: 1px solid #eceef2; text-align: left; }
+    .res th { color: #4a4f5a; font-weight: 600; }
+    .res td.n { text-align: right; font-family: 'IBM Plex Mono', monospace; }
+    .res tr.base td { background: #f6f7f9; }
+    .vgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3em 0.6em; max-width: 92%; margin: 0 auto; }
+    .vgrid figure { margin: 0; }
+    .vgrid video { width: 100%; display: block; border-radius: 5px; }
   </style>
 </head>
 <body>
@@ -626,21 +634,85 @@ grasp_controller = replace(
   </ul>
 </section>
 
+<section id="slide-mcp" data-prs="652">
+  <h2 class="t">Finger abduction <span>at the MCP</span></h2>
+  <p class="setup">Middle finger abducted 0.5 rad, joint angles set directly. Green: metacarpal; orange: proximal phalanx</p>
+  <div class="full" style="max-width: 80%;"><img src="./media/oph_mcp_abduction.png" style="max-height: 46vh;"></div>
+  <ul class="pts">
+    <li class="fragment">OPH source (<code>dof4_config</code> in <code>digits.scad</code>): the metacarpal sits flat on the palm and the MCP is a 2-DOF ball</li>
+    <li class="fragment">Before, the whole digit swung at the palm port and the MCP moved 40.6 mm; now the metacarpal is welded and the MCP stays put</li>
+    <li class="fragment">Abductor and adductor cables act on the MCP hinge at half the joint width, where the source mounts their pulleys</li>
+  </ul>
+</section>
+
+<section id="slide-printed" data-prs="655,656">
+  <h2 class="t">Drawn cables and <span>joint-to-joint bones</span></h2>
+  <div class="row" style="max-width: 80%;">
+    <figure><img src="./media/oph_printed_tendons.png" style="max-height: 40vh;"><p class="cap"><strong>Printed OPH bones</strong>; cables coloured by digit</p></figure>
+    <figure><video src="./media/oph_printed_motion.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video><p class="cap">Fingers curl and release</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Fixed tendons were never drawn; each cable is now drawn through every joint it crosses, offset from the axis by its moment arm</li>
+    <li class="fragment">Each bone shaft spanned -0.3L to 0.7L, leaving a gap at every knuckle; it now runs joint to joint. Contact shapes change, so earlier study results don't carry over</li>
+    <li class="fragment warm">The printed bones are visual only; contact still runs on the parametric shapes</li>
+  </ul>
+</section>
+
+<section id="slide-solid-study" data-prs="650,654,656">
+  <h2 class="t">Co-design on the <span>solid-bone hand</span></h2>
+  <p class="setup">Same task and MPC as the capture-first slide. gpt-6-astra proposes a hand and a loss; each pair runs 4 training targets x controller seeds 11 and 29 = <strong>8 episodes</strong>. Error: degrees from the target at 6 s, lower is better, 180 at most</p>
+  <table class="res" style="font-size: 0.4em;">
+    <tr><th>Hand</th><th>What changed from the base</th><th>Loss</th><th>Held</th><th>Mean error, all 8 (drop = 180)</th></tr>
+    <tr class="base"><td>Base</td><td>OPH on the Stretch wrist, two XL430</td><td>capture-first</td><td class="n">8/8</td><td class="n">128.4</td></tr>
+    <tr><td>lateral thumb</td><td>thumb metacarpal 25 to 60 mm, root 30 mm further out, re-angled</td><td>capture-first</td><td class="n">0/8</td><td class="n">180.0</td></tr>
+    <tr><td>forward thumb</td><td>thumb root moved 63 mm forward</td><td>capture-first</td><td class="n">4/8</td><td class="n">150.7</td></tr>
+    <tr><td>seated compact</td><td>finger metacarpals 74-82 to 29-37 mm; thumb metacarpal 25 to 10 mm, re-angled</td><td>capture-first</td><td class="n">0/8</td><td class="n">180.0</td></tr>
+    <tr><td>inward compact</td><td>seated compact with a different thumb angle</td><td>capture-first</td><td class="n">0/8</td><td class="n">180.0</td></tr>
+    <tr><td>inward compact</td><td>same hand</td><td>supported rotation</td><td class="n">2/8</td><td class="n">158.4</td></tr>
+    <tr><td>inward compact</td><td>same hand</td><td>persistent grasp</td><td class="n">2/8</td><td class="n">164.5</td></tr>
+    <tr><td>enclosing compact</td><td>inward compact; ring and little splay 16, 30 to 8, 16 degrees; thumb tip 25 to 40 mm</td><td>persistent grasp</td><td class="n">8/8</td><td class="n">134.3</td></tr>
+    <tr><td>enclosing compact</td><td>same hand</td><td>gentle opposed grasp</td><td class="n">8/8</td><td class="n">138.9</td></tr>
+  </table>
+  <ul class="pts" style="font-size: 0.48em;">
+    <li class="fragment">The three new losses add a thumb-reach term and loosen the hold radius from 4 to 12 cm; gentle opposed grasp also closes the mixers to 0.5 rad instead of 0.8</li>
+    <li class="fragment warm">No proposal beats the base, so the search keeps it. The base turns the cube on target 3 (47 degrees) and barely on the other three (142-163); on held-out targets 4 to 7 it holds 8/8 at 134.6</li>
+  </ul>
+</section>
+
+<section id="slide-solid-holds" data-prs="656">
+  <h2 class="t">Solid-bone hand: <span>training target 3</span></h2>
+  <p class="setup">Each clip: wide view left, close view right; 6 s. Error at 6 s in degrees</p>
+  <div class="vgrid" style="max-width: 72%;">
+    <figure><video src="./media/solid_baseline_t3.mp4" data-autoplay autoplay loop muted playsinline></video><p class="cap"><strong>Base</strong>, capture-first, seed 11: holds, <strong>48</strong></p></figure>
+    <figure><video src="./media/solid_inward_staged_drop.mp4" data-autoplay autoplay loop muted playsinline></video><p class="cap"><strong>Inward compact</strong>, capture-first, seed 11: <strong>drops</strong> at about 4 s</p></figure>
+    <figure class="fragment"><video src="./media/solid_inward_t3_s11.mp4" data-autoplay autoplay loop muted playsinline></video><p class="cap"><strong>Inward compact</strong>, supported rotation, seed 11: holds, <strong>76</strong></p></figure>
+    <figure class="fragment"><video src="./media/solid_inward_t3_s29.mp4" data-autoplay autoplay loop muted playsinline></video><p class="cap"><strong>Inward compact</strong>, supported rotation, seed 29: holds, <strong>111</strong></p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment warm">Under capture-first the compact hand never keeps the cube; under supported rotation it holds only on target 3, and still ends further from the target than the base</li>
+  </ul>
+</section>
+
+<section id="slide-solid-drop" data-prs="656">
+  <h2 class="t">Inward compact hand: <span>another target</span></h2>
+  <p class="setup">Training target 1, supported rotation loss, controller seed 11</p>
+  <div class="full" style="max-width: 70%;"><video src="./media/solid_inward_t1_drop.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video></div>
+  <ul class="pts">
+    <li class="fragment">The cube leaves the palm within about 2 s</li>
+    <li class="fragment warm">The same hand and loss drop on targets 0 to 2 for both seeds; both of its holds are on target 3</li>
+  </ul>
+</section>
+
 <section id="slide-oph-status">
   <h2 class="t">OPH branches: <span>status</span></h2>
-  <div class="stack" style="grid-template-columns: 1fr; max-width: 70%; font-size: 0.5em;">
-    <div><span class="pr">#571</span><span class="s">open</span>Loss Design Agent</div>
-    <div><span class="pr">#588</span><span class="s d">draft</span>OPH search under the designed losses</div>
-    <div><span class="pr">#590</span><span class="s">open</span>Drive OPH through XL430 tendon mixers</div>
-    <div><span class="pr">#591</span><span class="s">open</span>Palm-up OPH co-design above the motor model</div>
-    <div><span class="pr">#597</span><span class="s">open</span>OPH morphology and loss co-design</div>
-    <div><span class="pr">#609</span><span class="s">open</span>Stretch Dex wrist with source inertias and drives</div>
-    <div><span class="pr">#611</span><span class="s">open</span>Tendon-driven OPH on the Stretch Dex wrist</div>
-    <div><span class="pr">#614</span><span class="s">open</span>OPH anatomy and connected wrist mounts</div>
-    <div><span class="pr">#621</span><span class="s">open</span>Retention for co-design improvements</div>
-    <div><span class="pr">#626</span><span class="s">open</span>Command-envelope co-design</div>
-    <div><span class="pr">#640</span><span class="s">open</span>Capture-first OPH MPC co-design</div>
-    <div><span class="pr">#641</span><span class="s">open</span>Stronger same-envelope OPH motors</div>
+  <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
+    <div><span class="pr">#642</span><span class="s f">merged</span>X430 motor model on main</div>
+    <div><span class="pr">#591</span><span class="s">open</span>Palm-up OPH co-design; #597 and #609 to #646 folded in</div>
+    <div><span class="pr">#650</span><span class="s d">draft</span>Co-design OPH motors and independent fingers, on #591</div>
+    <div><span class="pr">#652</span><span class="s">open</span>Abduct OPH fingers at the MCP, against main</div>
+    <div><span class="pr">#654</span><span class="s d">draft</span>Co-design with MCP abduction, on #650</div>
+    <div><span class="pr">#655</span><span class="s">open</span>Draw tendons; joint-to-joint and printed bones, against main</div>
+    <div><span class="pr">#656</span><span class="s">open</span>Solid-bone co-design run, on #654; finished, base kept</div>
   </div>
 </section>
 
@@ -650,7 +722,7 @@ grasp_controller = replace(
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
-    <li class="fragment">Full OPH search on the Stretch wrist</li>
+    <li class="fragment">OPH solid-bone search: none of 8 proposals beats the base</li>
   </ul>
 </section>
 
