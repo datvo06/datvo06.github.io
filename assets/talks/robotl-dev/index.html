@@ -551,14 +551,14 @@ grasp_controller = replace(
   <h2 class="t">Screwdriver after the apple pickup: <span>no lift yet</span></h2>
   <p class="setup">Phillips screwdriver, grasp plan yawed -0.98 rad. Close-ups at 1/5 speed, end of each episode; times in recording time</p>
   <div class="row" style="max-width: 96%;">
-    <figure><video src="./media/screwdriver_v7_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v6 planner + ALIGN dwell</strong>: capture admitted and LIFT reached, but the handle never rises</p></figure>
+    <figure><video src="./media/screwdriver_v7_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v7 (v6 + ALIGN dwell)</strong>: capture admitted and LIFT reached, but the handle never rises</p></figure>
     <figure><video src="./media/screwdriver_v8_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v8</strong>, capture search posed from the closed hand: penetration failure 0.3 s into CAPTURE</p></figure>
     <figure><video src="./media/screwdriver_v9_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v9</strong>, v8 + two-finger gate + downward pad penalty: the same failure at the same tick</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
-    <li class="fragment">v6 + dwell: CAPTURE from 4.48 s; the second capture is admitted (wrench margins 1.66 held, 2.25 under servo limits); GRASP from 5.73 s, LIFT from 7.13 s. The fingers press the handle from above with the thumb on the pommel end; the thumb loses contact 0.35 s into LIFT; 34 N grip</li>
+    <li class="fragment">v7: CAPTURE from 4.48 s; the second capture is admitted (wrench margins 1.66 held, 2.25 under servo limits); GRASP from 5.73 s, LIFT from 7.13 s. The fingers press the handle from above with the thumb on the pommel end; the thumb loses contact 0.35 s into LIFT; 34 N grip</li>
     <li class="fragment">v8 and v9: neither capture is admitted (margin 0); penetration reaches 3.0 mm and fails the invariant</li>
-    <li class="fragment warm">v8 to v11 are reverted to build on the planner that lifted the apple; next is v12: v6 plus the two-finger gate and admission-aware ranking. Uncommitted work built on #653</li>
+    <li class="fragment warm">v8 onward is reverted to build on the planner that lifted the apple; next is v12: v6 plus the two-finger gate, ranking capture proposals by whether they would pass admission. Uncommitted work built on #653</li>
   </ul>
 </section>
 
