@@ -463,7 +463,7 @@ grasp_controller = replace(
 
 <section id="slide-apple-hold" data-prs="653">
   <h2 class="t">Apple pickup: <span>a grip-hold term</span></h2>
-  <p class="setup">YCB apple, co-designed grasp, IK capture with wrist twist and closing schedules. GRASP ends only when the carried terms hold and the margin under servo limits covers the lift; LIFT and HOLD add a grip-hold term to the MPC loss</p>
+  <p class="setup">YCB apple, co-designed grasp, IK capture with wrist twist and closing schedules. GRASP ends on the carried terms (not every finger loaded) plus the margin under servo limits. In LIFT and HOLD the MPC loss adds a grip-hold term: a penalty on hand-control drift over the horizon, so the hand keeps the grip it formed while the arm lifts</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/apple_hold_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/apple_hold_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
@@ -471,7 +471,7 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Stage ends: CAPTURE 5.11 s, GRASP 5.45 s, LIFT 7.76 s. Admitted captures: wrench margins 1.33 and 1.93 held, 10.0 and 9.9 under servo limits</li>
     <li class="fragment">The apple rises <span class="num">11.9 cm</span> at a peak grip of 19.6 N</li>
-    <li class="fragment warm">A stage invariant fails 42 ms into HOLD, so it is not yet a counted pickup. Uncommitted work built on #653</li>
+    <li class="fragment warm">A stage invariant fails 42 ms into HOLD; the run log does not say which. Not yet a counted pickup. Uncommitted work built on #653</li>
   </ul>
 </section>
 
