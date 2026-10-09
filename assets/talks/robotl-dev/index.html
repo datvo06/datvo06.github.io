@@ -823,7 +823,7 @@ OpenParametricHand.make(
     <figure><video src="./media/cable_loss_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 44vh;"></video><p class="cap"><strong>Target 5</strong>: 175 to 157</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment">On the stock hand the new loss lowers the error at 6 s on both targets, but the new hand with the new loss reaches 132 on target 0</li>
+    <li class="fragment">On the stock hand the new loss lowers the error at 6 s on both targets. Against the selected pair it is worse on target 0 (158 vs 132) but better on target 5 (157 vs 176); the pair wins on the two-target mean, 154 to 158, and over the episode, 152 to 159</li>
   </ul>
 </section>
 
@@ -845,7 +845,7 @@ OpenParametricHand.make(
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">None of the four drops the cube. Against the baseline, the new hand lowers episode error by 14 (original loss) and 10 degrees (new loss); the new loss on the stock hand by under 2</li>
     <li class="fragment">Both new-loss runs roll the cube onto a new face, but only the new hand keeps the error low all episode</li>
-    <li class="fragment warm">The selected pair is 10 degrees better over the episode but 5 worse at 6 s, so it fails the selection rule here. Both other pairs beat the baseline on both metrics, the stock hand with the new loss by under 2 degrees, which one episode cannot resolve. rolly (its own baseline 160.1 at 6 s, 156.9 episode): its loss-only pick 159.0 and 161.7</li>
+    <li class="fragment warm">The selected pair is 10 degrees better over the episode but 5 worse at 6 s, so it fails the selection rule here. Both other pairs beat the baseline on both metrics, the stock hand with the new loss by under 2 degrees, which one episode cannot resolve. rolly, against its own run of the baseline (160.1 at 6 s, 156.9 episode): its loss-only pick 159.0 and 161.7</li>
   </ul>
 </section>
 
