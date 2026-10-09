@@ -401,7 +401,7 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Before: LIFT needed every finger to carry 10% of the apple's weight by friction, with a 20 ms recovery window. Fingers 0 and 2 flickered off 70 ms into LIFT, before the arm moved, and the run failed</li>
     <li class="fragment">Now LIFT and HOLD check a carried grasp: thumb support, the fingers' total and thumb-finger opposition. GRASP still needs every finger loaded, and the MPC loss still loads all of them</li>
-    <li class="fragment">Two capture proposals admitted, wrench margins <span class="num">1.08</span> and <span class="num">1.43</span>. HOLD starts at 8.89 s with the apple at least <span class="num">12.3 cm</span> up</li>
+    <li class="fragment">Two capture proposals admitted: wrench margins under servo limits 12.6 and 12.4, at the held grip <span class="num">1.08</span> and <span class="num">1.43</span>. HOLD starts at 8.89 s with the apple at least <span class="num">12.3 cm</span> up</li>
     <li class="fragment warm">The run still ends with a failed invariant 35 ms into HOLD, so it does not count as a pickup yet. The carried check is uncommitted work built on #653</li>
   </ul>
 </section>
@@ -437,7 +437,7 @@ grasp_controller = replace(
 
 <section id="slide-screwdriver-lift" data-prs="647,653">
   <h2 class="t">Screwdriver pickup: <span>the lift slips</span></h2>
-  <p class="setup">A second run of the wrist-yaw setup, with the default grasp plan: wrist yaw in the capture IK, preshape schedule and the wrench-margin GRASP gate</p>
+  <p class="setup">A second run of the wrist-yaw setup: wrist yaw in the capture IK, preshape schedule and the wrench-margin GRASP gate</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/screwdriver_lift_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/screwdriver_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
@@ -445,7 +445,7 @@ grasp_controller = replace(
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">CAPTURE 3.78 to 4.73 s; GRASP 4.73 to 6.41 s; LIFT starts at 6.41 s</li>
     <li class="fragment">The first capture proposal is refused at margin 0. Admission compares the margin under servo limits, and the second proposal passes: <span class="num">2.05</span> against 1.006 needed. At the grip actually held the margin is only <span class="num">0.40</span></li>
-    <li class="fragment warm">The handle rises about 10 mm, then slips out of the fingers; LIFT fails 0.8 s in, consistent with the held margin below 1.</li>
+    <li class="fragment warm">The handle rises about 10 mm, then slips out of the fingers; LIFT fails 0.8 s in with the held margin at 0.40</li>
   </ul>
 </section>
 
