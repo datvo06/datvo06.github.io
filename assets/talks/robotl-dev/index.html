@@ -393,7 +393,7 @@ grasp_controller = replace(
 
 <section id="slide-apple-carried" data-prs="651,653">
   <h2 class="t">Apple pickup: <span>lifting on a carried grasp</span></h2>
-  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through the first complete pickup are recording time, which starts 0.5 s before the trial clock</p>
+  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through the apple ALIGN-dwell run are recording time, which starts 0.5 s before the trial clock</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
@@ -530,6 +530,20 @@ grasp_controller = replace(
     <li class="fragment">Stage starts in recording time: CAPTURE 3.71 s, GRASP 4.94 s, LIFT 6.13 s, HOLD 8.37 s. Admitted captures: wrench margins 0.52 and 1.37 held, 4.4 and 5.2 under servo limits</li>
     <li class="fragment">The apple stays at least <span class="num">12.9 cm</span> up through the whole <span class="num">2.0 s</span> HOLD, with no table contact; peak grip 28 N, penetration 1.0 mm</li>
     <li class="fragment warm">One run, one placement (the centre training pose). Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-apple-v7" data-prs="653">
+  <h2 class="t">Apple pickup: <span>a near miss with an ALIGN dwell</span></h2>
+  <p class="setup">Same co-designed grasp and v6 planner as the complete pickup, plus a 0.5 s ALIGN dwell before CAPTURE</p>
+  <div class="row" style="max-width: 86%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_v7_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_v7_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">Stage starts in recording time: CAPTURE 4.52 s, GRASP 6.12 s, LIFT 7.97 s, HOLD 10.40 s. Admitted captures: wrench margins 0.93 and 1.91 held, 3.1 and 3.1 under servo limits</li>
+    <li class="fragment">The apple stays at least <span class="num">12.2 cm</span> up for <span class="num">1.4 s</span> of the 2.0 s HOLD, then squeezes upward out of a two-pad pinch (thumb and one finger) and drops; peak grip 22 N</li>
+    <li class="fragment warm">Nothing in the run ties the drop to the dwell; it may be a second sample of the v6 planner failing in HOLD. Not a pickup: the complete run on the previous slide is still the only one. Uncommitted work built on #653</li>
   </ul>
 </section>
 
