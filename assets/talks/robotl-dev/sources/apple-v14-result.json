@@ -1,0 +1,25 @@
+{
+  "stage": 4,
+  "status": "invariant_failed",
+  "native_ticks": 3353,
+  "simulated_s": 8.882500000000375,
+  "wall_s": 732.46225579991,
+  "transitions": [
+    {
+      "time_s": 2.439999999999959,
+      "stage": 1
+    },
+    {
+      "time_s": 3.712499999999932,
+      "stage": 2
+    },
+    {
+      "time_s": 4.9600000000000755,
+      "stage": 3
+    },
+    {
+      "time_s": 6.815000000000365,
+      "stage": 4
+    }
+  ]
+}

@@ -102,12 +102,12 @@
 
 <section id="slide-hand-pickup" data-prs="589">
   <h2 class="t">Hand-only YCB <span>pickup</span></h2>
-  <p class="setup">Stock LEAP hand on a two-axis wrist, base welded palm down, no arm. Sampling MPC: 2 s horizon, 256 samples x 4 rounds, 6 s episode</p>
+  <p class="setup">YCB: a standard set of household objects. Stock LEAP robot hand on a two-axis wrist, fixed palm down, no arm. MPC (model predictive control) simulates candidate commands, executes a short part, then plans again: 2 s look-ahead, 256 samples x 4 rounds, 6 s episode</p>
   <div class="full" style="max-width: 78%;">
-    <video src="./media/hand_apple_pickup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 48vh;"></video>
+    <video src="./media/hand_apple_pickup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 365px;"></video>
   </div>
   <ul class="pts">
-    <li class="fragment">Best apple run, handwritten staged loss: apple centre above 12 cm (rests at 7.4 cm) from <span class="num">2.17 s</span> to the 6 s end</li>
+    <li class="fragment">Best apple run, handwritten staged loss (penalties that first encourage grasping, then lifting): apple centre above 12 cm (rests at 7.4 cm) from <span class="num">2.17 s</span> to the 6 s end</li>
     <li class="fragment warm">Hammer: all 6 held-out runs failed</li>
   </ul>
 </section>
@@ -115,8 +115,8 @@
 <section id="slide-assembly" data-prs="599">
   <h2 class="t">Panda and LEAP <span>assembly</span></h2>
   <div class="row">
-    <figure><img src="./media/panda_leap_assembly.png" style="max-height: 48vh;"></figure>
-    <figure><img src="./media/panda_leap_mount.png" style="max-height: 48vh;"></figure>
+    <figure><img src="./media/panda_leap_assembly.png" style="max-height: 365px;"></figure>
+    <figure><img src="./media/panda_leap_mount.png" style="max-height: 365px;"></figure>
   </div>
   <ul class="pts">
     <li class="fragment">LEAP palm centered on the Panda flange, facing down, 5 mm gap</li>
@@ -129,22 +129,11 @@
 <section id="slide-visual-collision" data-prs="600">
   <h2 class="t">Visual and <span>collision meshes</span></h2>
   <div class="row">
-    <figure><img src="./media/hammer_visual.png" style="max-height: 52vh;"><p class="cap"><strong>Visual</strong>: YCB scan</p></figure>
-    <figure><img src="./media/hammer_collision.png" style="max-height: 52vh;"><p class="cap"><strong>Collision</strong>: convex hulls, up to 6 per part</p></figure>
+    <figure><img src="./media/hammer_visual.png" style="max-height: 395px;"><p class="cap"><strong>Visual</strong>: YCB scan</p></figure>
+    <figure><img src="./media/hammer_collision.png" style="max-height: 395px;"><p class="cap"><strong>Collision</strong>: convex hulls, up to 6 per part</p></figure>
   </div>
   <ul class="pts">
     <li class="fragment">Physics uses only the hulls; the scan is drawn on top through <code>vshape</code></li>
-  </ul>
-</section>
-
-<section id="slide-hidden-collision" data-prs="607">
-  <h2 class="t">Hiding collision meshes <span>under visual overlays</span></h2>
-  <div class="row">
-    <figure><img src="./media/hammer_before_fix.png" style="max-height: 56vh;"><p class="cap"><strong>Before</strong>: hulls drawn over the scan, filled claw</p></figure>
-    <figure class="fragment"><img src="./media/hammer_after_fix.png" style="max-height: 56vh;"><p class="cap"><strong>After</strong>: hulls hidden</p></figure>
-  </div>
-  <ul class="pts">
-    <li class="fragment">Only the render group changes; collision and inertia are the same</li>
   </ul>
 </section>
 
@@ -152,7 +141,7 @@
   <h2 class="t">Teleop, record, <span>replay</span></h2>
   <p class="setup">Scripted keyboard input, 9 s at a 5 ms step: reach, descend, curl, lift</p>
   <div class="full" style="max-width: 68%;">
-    <video src="./media/teleop_replay.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video>
+    <video src="./media/teleop_replay.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 380px;"></video>
   </div>
   <ul class="pts">
     <li class="fragment">Replaying the saved controls: all <span class="num">1800</span> steps, maximum joint position error 0</li>
@@ -163,8 +152,8 @@
 <section id="slide-profiles" data-prs="602,604">
   <h2 class="t">Physical <span>profiles</span></h2>
   <div class="row">
-    <figure><img src="./media/stock_hand.png" style="max-height: 48vh;"><p class="cap"><strong>Stock</strong></p></figure>
-    <figure><img src="./media/spacer_hand.png" style="max-height: 48vh;"><p class="cap"><strong>Spacers</strong>: last finger segment 0.85x, last thumb segment 1.15x</p></figure>
+    <figure><img src="./media/stock_hand.png" style="max-height: 365px;"><p class="cap"><strong>Stock</strong></p></figure>
+    <figure><img src="./media/spacer_hand.png" style="max-height: 365px;"><p class="cap"><strong>Spacers</strong>: last finger segment 0.85x, last thumb segment 1.15x</p></figure>
   </div>
   <ul class="pts">
     <li class="fragment">Scene profiles: object mass, tilt, object and hand friction, distal segment lengths</li>
@@ -176,7 +165,7 @@
   <h2 class="t">Pickup <span>search</span></h2>
   <ul class="pts" style="font-size: 0.6em; max-width: 84%;">
     <li class="fragment">A grasp is 15 parameters: the wrist offset and orientation relative to the object's grasp point (x, y, z, yaw, pitch, roll), 4 finger angles shared by all three fingers, 4 thumb angles, and an opening fraction</li>
-    <li class="fragment">The controller executes it through 4 IK wrist waypoints, 1.5 s apart: 15 cm above the grasp point with the hand open, at it open, at it closed, then 15 cm above it closed</li>
+    <li class="fragment">Inverse kinematics (IK) finds joint angles for a desired wrist pose. The controller follows 4 such waypoints, 1.5 s apart: 15 cm above the grasp point open, at it open, at it closed, then 15 cm above it closed</li>
     <li class="fragment">One grasp serves every placement: the search does not tune per placement</li>
     <li class="fragment">Search is the cross-entropy method, repeated for 8 to 12 generations:
       <ol style="margin: 0.25em 0 0 1.2em; padding: 0;">
@@ -252,7 +241,7 @@ controls = np.stack(
 <section id="slide-pickup-gate" data-prs="604">
   <h2 class="t">What counts as a <span>pickup</span></h2>
   <ul class="pts" style="font-size: 0.56em; max-width: 84%;">
-    <li class="fragment">Each placement runs one 8 s native MuJoCo episode at a 5 ms step; the last 2 s are the hold</li>
+    <li class="fragment">Each placement runs one 8 s MuJoCo simulation at a 5 ms step; the last 2 s are the hold</li>
     <li class="fragment">4 training and 8 held-out placements, shared by apple and hammer: x 0.37 to 0.43 m, y within 3.5 cm, yaw up to &plusmn;2.8 rad, tilt up to 0.2 rad</li>
     <li class="fragment">Pass: object at least 10 cm above its start for the whole hold, hand contact in 99% of hold samples</li>
     <li class="fragment">No robot-floor contact all episode, no object-floor contact during the hold</li>
@@ -262,9 +251,10 @@ controls = np.stack(
 
 <section id="slide-searched-pickup" data-prs="604">
   <h2 class="t">Stock vs <span>co-designed pickup</span></h2>
+  <p class="setup">The design comparison changes finger segment lengths and controller loss, then searches the 15 grasp parameters again. Both are judged by the same physical pickup checks on training and held-out placements</p>
   <div class="pair">
-    <video src="./media/stock_vs_final.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video>
-    <div class="caps"><p class="cap"><strong>Stock</strong>: stock hand, default designed loss</p><p class="cap"><strong>Co-designed</strong>: spacer hand, refined loss and grasp</p></div>
+    <video src="./media/stock_vs_final.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 304px;"></video>
+    <div class="caps"><p class="cap"><strong>Stock</strong>: stock hand, starting loss and searched grasp</p><p class="cap"><strong>Co-designed</strong>: changed segment lengths, refined loss and grasp</p></div>
   </div>
   <ul class="pts">
     <li class="fragment">Passing placements, both: <span class="num">4/4</span> training, <span class="num">7/8</span> held out; held-out pose 6: its wrist waypoint is unreachable</li>
@@ -277,7 +267,7 @@ controls = np.stack(
   <h2 class="t">Sparse vs <span>designed loss</span></h2>
   <p class="setup">Same spacer hand, starting grasp and seed; 8 generations of 32 candidates each</p>
   <div class="pair">
-    <video src="./media/sparse_vs_designed.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video>
+    <video src="./media/sparse_vs_designed.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 304px;"></video>
     <div class="caps"><p class="cap"><strong>Sparse</strong>: passes 0/4 training, 0/8 held out</p><p class="cap"><strong>Designed</strong>: passes 4/4 training, 7/8 held out</p></div>
   </div>
   <ul class="pts">
@@ -330,10 +320,51 @@ return Session(env, stages, data=data, pool=pool, motion_invariant=motion)</code
     </div>
   </div>
   <ul class="pts" style="font-size: 0.48em;">
-    <li class="fragment">A stage is a controller, an observed goal, a safety invariant, a dwell and a deadline</li>
+    <li class="fragment">A stage pairs a controller with a goal and safety checks. Dwell: how long the goal must stay true. Invariant: a check that must keep passing. Deadline: when to stop trying</li>
     <li class="fragment">Apple: approach, descent, grasp, lift, hold. The hammer replaces lift with clearance, lift, hold</li>
     <li class="fragment"><code>Session</code> runs the stages as a <code>StagedController</code> and keeps every native tick</li>
   </ul>
+</section>
+
+<section id="slide-hidden-collision" data-prs="607">
+  <h2 class="t">Hiding collision meshes <span>under visual overlays</span></h2>
+  <div class="row">
+    <figure><img src="./media/hammer_before_fix.png" style="max-height: 426px;"><p class="cap"><strong>Before</strong>: hulls drawn over the scan, filled claw</p></figure>
+    <figure class="fragment"><img src="./media/hammer_after_fix.png" style="max-height: 426px;"><p class="cap"><strong>After</strong>: hulls hidden</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Only the render group changes; collision and inertia are the same</li>
+  </ul>
+</section>
+
+<section id="slide-mpc-compile" data-prs="608">
+  <h2 class="t">Compiled MPC <span>plan following</span></h2>
+  <p class="setup">JAX compiles array computations into executable code (JIT, just-in-time compilation). Here it compiles a whole plan-following call rather than separate operations at every tick. Two-link test arm, 0.902 s simulated</p>
+  <div class="bars">
+    <div class="b"><span class="lbl">Per-tick JAX ops</span><div class="bar old" style="width: 62%;"></div><span class="v">16.676 s</span></div>
+    <div class="b fragment"><span class="lbl">One jitted plan-following call</span><div class="bar" style="width: 7.2%;"></div><span class="v">1.934 s</span></div>
+  </div>
+  <ul class="pts">
+    <li class="fragment">1.934 s = 1.206 s preparation + 0.728 s simulation</li>
+    <li class="fragment">Same actions and plans after each shift, to 1e-12</li>
+    <li class="fragment warm">Small-arm measurement; Panda throughput not yet measured</li>
+  </ul>
+</section>
+
+<section id="slide-hammer-task" data-prs="612,633,638,639">
+  <h2 class="t">Upright hammer pickup: <span>the task</span></h2>
+  <p class="setup">Same Panda + LEAP and staged controller; pick up the 665 g YCB hammer and hold it head-up</p>
+  <div class="row">
+    <figure style="flex: 1;"><img src="./media/panda_hammer.png" style="max-height: 380px;"><p class="cap">Starting scene</p></figure>
+    <div style="flex: 1.15;">
+      <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
+        <li class="fragment">Pass: head bottom above 10 cm, whole hammer above 2 mm, handle-to-head axis within 15 degrees of vertical, through the final 2 s hold including both endpoint samples</li>
+        <li class="fragment">Grasp target: fingertip pads centred on the grasp point, opened 40 mm above it first</li>
+        <li class="fragment">Stages after the grasp: swing clear of the floor, lift, hold; turning upright waits until the hammer can clear the floor</li>
+        <li class="fragment">Time limits per stage: grasp 8 s, clearance 3 s, upright 4 s, inside a 20 s cap</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section id="slide-staged" data-prs="605,613,615,618,633">
@@ -343,6 +374,63 @@ return Session(env, stages, data=data, pool=pool, motion_invariant=motion)</code
     <li class="fragment">Apple deadlines: approach 2.0 s, descent 1.6 s, grasp (thumb and a finger both loaded) 2.4 s, lift to 10 cm 4.0 s, hold 2 s</li>
     <li class="fragment">Safety checks every tick: no floor contact, Panda joint speed 2.175 to 2.61 rad/s, acceleration 7.5 to 20 rad/s&sup2;; commands projected against actuator range and Panda velocity limits</li>
     <li class="fragment">Same apple controls, 12 s replay: wrist peak acceleration <span class="num">117</span> rad/s&sup2; at a 5 ms step, <span class="num">13</span> at 2.5 ms</li>
+  </ul>
+</section>
+
+<section id="slide-contact" data-prs="616,619,628,631,632">
+  <h2 class="t">Contact sensors and <span>contact-directed objectives</span></h2>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">Contact sensor: per body pair, a fixed number of contact slots (32 in pickup), each with force, distance, position and normal</li>
+    <li class="fragment">Virtual sensor: a value computed from other sensor readings</li>
+    <li class="fragment">Grasp check: thumb and fingers each hold half the object's weight by friction, with normals at least 120 degrees apart</li>
+    <li class="fragment">Agent losses that read only the fixed base are refused; one such loss read zero all episode</li>
+    <li class="fragment">More than 32 contacts in a pair: refused, not scored</li>
+    <li class="fragment warm">No successful hammer pickup yet</li>
+  </ul>
+</section>
+
+<section id="slide-hammer-failures" data-prs="618,633">
+  <h2 class="t">Upright hammer pickup: <span>where it fails</span></h2>
+  <div class="row">
+    <figure style="flex: 1;"><video src="./media/hammer_grasp_timeout.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 380px;"></video><p class="cap">Center training placement, collision-pad grasp target</p></figure>
+    <div style="flex: 1.05;">
+      <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
+        <li class="fragment">First pilot, stock-hand grasp, waypoint tracking plus a height term, 2 samples per replan: descent times out at <span class="num">3.315 s</span></li>
+        <li class="fragment">With the collision-pad target (video): the arm reaches the hammer, but the grasp stage times out at 70% hand contact and 23 N peak grip</li>
+        <li class="fragment">Thumb and fingers never carry the hammer's weight for the 0.15 s grasp dwell, so lift never starts</li>
+        <li class="fragment warm">No successful hammer pickup yet</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="slide-recordings" data-prs="629">
+  <h2 class="t">Reading recorded <span>trajectories</span></h2>
+  <ul class="pts" style="font-size: 0.58em; max-width: 84%;">
+    <li class="fragment">The design agent reads recorded pickup trajectories in its REPL, an interactive Python session</li>
+    <li class="fragment">Before: each of 2,231 observations was stacked into JAX one frame at a time; the live agent trace spent minutes there</li>
+    <li class="fragment">Now: NumPy packs a batch, which is converted to JAX once; all 2,231 joint-position, velocity and control rows keep exact float64 values</li>
+    <li class="fragment warm">No timing after the change was recorded, and no controller speedup is claimed</li>
+  </ul>
+</section>
+
+<section id="slide-runner" data-prs="634">
+  <h2 class="t">Batched native <span>runner</span></h2>
+  <ul class="pts" style="font-size: 0.48em; margin: 0 auto 0.5em;">
+    <li>A runner simulates a batch of control sequences from one starting state and returns their trajectories; the MPC calls it to score its sampled plans</li>
+    <li class="fragment">Native means MuJoCo's physics engine executes the motion. #634 shares one runner per compiled environment for predicted rollouts and actual steps; <code>jit</code> compiles calls and <code>vmap</code> applies them to batches</li>
+  </ul>
+  <p class="setup fragment">Timing probe: Panda + LEAP apple scene, 5 ms step, 16 rollouts in one batch, 16 threads; median of 3 timed runs</p>
+  <div class="bars fragment">
+    <div class="b"><span class="lbl">Old runner, 80 steps (0.4 s)</span><div class="bar old" style="width: 16.6%;"></div><span class="v">28.8 ms</span></div>
+    <div class="b"><span class="lbl">New runner, 80 steps</span><div class="bar" style="width: 12.1%;"></div><span class="v">21.0 ms</span></div>
+    <div class="b"><span class="lbl">Old runner, 600 steps (3 s)</span><div class="bar old" style="width: 46%;"></div><span class="v">79.6 ms</span></div>
+    <div class="b"><span class="lbl">New runner, 600 steps</span><div class="bar warmb" style="width: 60%;"></div><span class="v">103.8 ms</span></div>
+  </div>
+  <ul class="pts" style="font-size: 0.48em;">
+    <li class="fragment">Old: eager JAX state packing, then <code>mujoco.rollout</code>. New: jitted packing around the same native call. Both return identical states</li>
+    <li class="fragment">80 steps: 27% less time</li>
+    <li class="fragment warm">600 steps: slower in every run (new 282.7, 103.8, 95.6 ms; old 93.8, 78.6, 79.6 ms). The cause is not yet diagnosed</li>
   </ul>
 </section>
 
@@ -372,35 +460,45 @@ grasp_controller = replace(
       <ul class="pts" style="max-width: 100%; margin-top: 0; font-size: 0.48em;">
         <li class="fragment">The grasp stage's MPC samples plans over all 23 commands: 7 Panda joints, 16 LEAP joints</li>
         <li class="fragment"><code>GraspPlan</code> writes the arm seed back into the 7 arm columns of every sample, so only the 16 hand commands vary</li>
-        <li class="fragment">Arm seed: a quintic blend from the issued command to the close waypoint over 1.5 s</li>
+        <li class="fragment">Arm seed: a smooth trajectory with gradual start and stop (quintic blend), from the issued command to the close waypoint over 1.5 s</li>
         <li class="fragment">Then the <code>BoundedDensePlan</code> bounds: clip to actuator range; arm commands also limited per step by the Panda velocity limits</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section id="slide-contact" data-prs="616,619,628,631,632">
-  <h2 class="t">Contact sensors and <span>contact-directed objectives</span></h2>
+<section id="slide-pickup-iterations" data-prs="651,653">
+  <h2 class="t">Reading the pickup runs: <span>what is being changed?</span></h2>
   <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
-    <li class="fragment">Contact sensor: per body pair, a fixed number of contact slots (32 in pickup), each with force, distance, position and normal</li>
-    <li class="fragment">Virtual sensor: a value computed from other sensor readings</li>
-    <li class="fragment">Grasp check: thumb and fingers each hold half the object's weight by friction, with normals at least 120 degrees apart</li>
-    <li class="fragment">Agent losses that read only the fixed base are refused; one such loss read zero all episode</li>
-    <li class="fragment">More than 32 contacts in a pair: refused, not scored</li>
-    <li class="fragment warm">No successful hammer pickup yet</li>
+    <li class="fragment">The earlier co-design chose a grasp pose and loss. The next runs repair how the controller executes that grasp on the stock Panda arm and LEAP hand; v3 to v13 name controller variants</li>
+    <li class="fragment">Capture planner: IK puts the finger pads near the object, then simulated closing motions rank the candidates. A rollout is one such predicted motion; it is separate from the executed episode</li>
+    <li class="fragment">Proposal admission: reject a predicted grasp that cannot carry the object without the table. A live stage gate separately decides whether the actual hand may advance from CAPTURE to GRASP to LIFT to HOLD</li>
+    <li class="fragment">Carried grasp: the thumb and the fingers together support the object from opposing sides. Individual fingers may unload; this differs from requiring every finger to carry load</li>
+    <li class="fragment warm">Changing a gate, a loss, or a closing schedule changes control. A new version or an admitted proposal alone does not establish a successful pickup</li>
+  </ul>
+</section>
+
+<section id="slide-lift-margin" data-prs="653">
+  <h2 class="t">Grip force vs <span>ability to lift</span></h2>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">A strong grip can press an object into the table. The wrench check instead asks whether hand contacts can balance its weight and torque without table support; a wrench is a force plus a torque</li>
+    <li class="fragment">Lift margin is the supported load as a multiple of the object's weight: 1.0 covers gravity, 0.5 covers half. These runs need 1.006 to include the planned lift acceleration</li>
+    <li class="fragment">Held margin caps contact forces at the loads measured in that state. Servo margin allows forces up to the motor limits while balancing the robot. They answer different questions</li>
+    <li class="fragment">The planner admits proposals using the servo margin. During execution, contact can change, so an admitted grasp can still slip or fail a stage check</li>
+    <li class="fragment">Static cost scores a proposed pose; dynamic cost scores its simulated closing motion. Lower is better within the same scoring setup; neither is the pickup pass criterion</li>
   </ul>
 </section>
 
 <section id="slide-apple-carried" data-prs="651,653">
   <h2 class="t">Apple pickup: <span>lifting on a carried grasp</span></h2>
-  <p class="setup">YCB apple at the centre training placement, staged controller with the IK capture planner and the reduced contact sensors; capture admitted only if its wrench margin under servo limits covers the lift (needs 1.006). Stage times on this slide and the run slides through apple v13 are recording time, which starts 0.5 s before the trial clock</p>
+  <p class="setup">First controller change: LIFT and HOLD use total finger support instead of requiring every finger loaded. Same apple grasp at the centre training placement. Times here through apple v13 use the recording clock, 0.5 s ahead of the trial clock</p>
   <div class="row" style="max-width: 86%;">
-    <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
-    <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
+    <figure style="flex: 1.25;"><video src="./media/apple_carried_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 243px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_carried_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 243px;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment">Before: LIFT needed every finger to carry 10% of the apple's weight by friction, with a 20 ms recovery window. Fingers 0 and 2 flickered off 70 ms into LIFT, before the arm moved, and the run failed</li>
-    <li class="fragment">Now LIFT and HOLD check a carried grasp: thumb support, the fingers' total and thumb-finger opposition. GRASP still needs every finger loaded, and the MPC loss still loads all of them</li>
+    <li class="fragment">Before: each finger had to carry 10% of the apple's weight, with 20 ms to recover lost contact. Fingers 0 and 2 unloaded 70 ms into LIFT and the run stopped before the arm moved</li>
+    <li class="fragment">Now LIFT and HOLD check thumb support, total finger support and opposition. GRASP and the MPC loss still ask for every finger loaded</li>
     <li class="fragment">Two capture proposals admitted: wrench margins <span class="num">1.08</span> and <span class="num">1.43</span> held, 12.6 and 12.4 under servo limits. HOLD starts at 8.89 s with the apple at least <span class="num">12.3 cm</span> up</li>
     <li class="fragment warm">The run still ends with a failed invariant 35 ms into HOLD, so it does not count as a pickup yet. The carried check is uncommitted work built on #653</li>
   </ul>
@@ -408,10 +506,10 @@ grasp_controller = replace(
 
 <section id="slide-screwdriver-capture" data-prs="647,653">
   <h2 class="t">Screwdriver pickup: <span>where capture fails</span></h2>
-  <p class="setup">YCB Phillips screwdriver lying flat (metal shaft and CAB handle) at the centre training placement; same controller, IK capture planner and admission rule as the apple</p>
+  <p class="setup">YCB Phillips screwdriver lying flat, metal shaft and plastic handle, at the centre training placement; same controller, IK capture planner and admission rule as the apple. This tests transfer to a thinner object</p>
   <div class="row" style="max-width: 86%;">
-    <figure style="flex: 1.25;"><video src="./media/screwdriver_capture_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
-    <figure style="flex: 1;"><video src="./media/screwdriver_capture_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+    <figure style="flex: 1.25;"><video src="./media/screwdriver_capture_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 289px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/screwdriver_capture_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 289px;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Best IK capture proposal: geometry cost <span class="num">71,366</span> (the apple's admitted ones: 4.1 and 19.8); the predicted rollout dips 0.18 mm below the table, and the wrench margin is 0 against 1.006 needed. Not admitted</li>
@@ -422,11 +520,11 @@ grasp_controller = replace(
 
 <section id="slide-screwdriver-fixes" data-prs="647,653">
   <h2 class="t">Screwdriver pickup: <span>reaching an admitted capture</span></h2>
-  <p class="setup">Same screwdriver scene and staged controller; each run changes the capture plan. Close-ups at 1/5 speed, end of each episode. Stages: CAPTURE, then GRASP (all fingers loaded), then LIFT</p>
+  <p class="setup">Same screwdriver scene. Change 1: move the wrist before closing. Change 2: partly close the fingers before arrival (preshape). Change 3: let IK rotate the wrist about the approach axis (yaw), to align the pinch across the handle. Close-ups at 1/5 speed</p>
   <div class="row" style="max-width: 96%;">
-    <figure><video src="./media/screwdriver_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Closing schedule</strong>, wrist first: first CAPTURE pass, 5.5 s; GRASP times out, thumb and finger 2 pinch only, 3.9 N</p></figure>
-    <figure><video src="./media/screwdriver_preshape_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Preshape schedule</strong> + wrench-margin GRASP gate: CAPTURE 4.9 s, 24 N, but margin 0: the fingers press the handle into the table</p></figure>
-    <figure><video src="./media/screwdriver_yaw_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Wrist yaw in the capture IK</strong>: first admitted capture; GRASP passes at 6.16 s; LIFT invariant fails at 6.9 s</p></figure>
+    <figure><video src="./media/screwdriver_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>Closing schedule</strong>, wrist first: first CAPTURE pass, 5.5 s; GRASP times out, thumb and finger 2 pinch only, 3.9 N</p></figure>
+    <figure><video src="./media/screwdriver_preshape_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>Preshape schedule</strong> + wrench-margin GRASP gate: CAPTURE 4.9 s, 24 N, but margin 0: the fingers press the handle into the table</p></figure>
+    <figure><video src="./media/screwdriver_yaw_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>Wrist yaw in the capture IK</strong>: first admitted capture; GRASP passes at 6.16 s; LIFT invariant fails at 6.9 s</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Without wrist yaw, the hand's closing axis sat 34 degrees off the shaft</li>
@@ -439,8 +537,8 @@ grasp_controller = replace(
   <h2 class="t">Screwdriver pickup: <span>the lift slips</span></h2>
   <p class="setup">A second run of the wrist-yaw setup: wrist yaw in the capture IK, preshape schedule and the wrench-margin GRASP gate</p>
   <div class="row" style="max-width: 86%;">
-    <figure style="flex: 1.25;"><video src="./media/screwdriver_lift_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
-    <figure style="flex: 1;"><video src="./media/screwdriver_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 38vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+    <figure style="flex: 1.25;"><video src="./media/screwdriver_lift_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 289px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/screwdriver_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 289px;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">CAPTURE 3.78 to 4.73 s; GRASP 4.73 to 6.41 s; LIFT starts at 6.41 s</li>
@@ -451,10 +549,10 @@ grasp_controller = replace(
 
 <section id="slide-screwdriver-bunched" data-prs="647,653">
   <h2 class="t">Screwdriver capture: <span>bunching the fingers</span></h2>
-  <p class="setup">Pregrasp raised to 6 cm, arm IK for the wrist twist, 1 s HOLD settle. The run reproduces bit-identically on two machines</p>
+  <p class="setup">The fingers landed too far apart along the shaft. Change tested in the prediction: let IK move fingers sideways (abduction) to bunch their contact targets within 20 mm. Starting run: hand 6 cm above the object, wrist twist from arm IK, 1 s to settle into HOLD</p>
   <div class="row" style="max-width: 86%;">
-    <figure><video src="./media/screwdriver_spread_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Run</strong>, end of GRASP, 1/5 speed: fingers spread 100 mm along the shaft</p></figure>
-    <figure><video src="./media/screwdriver_bunched_proposal.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>New capture plan</strong>, open-loop prediction from the same state: abduction in the IK, finger targets within 20 mm</p></figure>
+    <figure><video src="./media/screwdriver_spread_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>Run</strong>, end of GRASP, 1/5 speed: fingers spread 100 mm along the shaft</p></figure>
+    <figure><video src="./media/screwdriver_bunched_proposal.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>New capture plan</strong>, open-loop prediction from the same state: abduction in the IK, finger targets within 20 mm</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Run: CAPTURE passes at 5.75 s; GRASP times out at 7.65 s with wrench margin 0.02 held, 0.12 under servo limits; finger 2 sits on the thin shaft; 19 N grip</li>
@@ -465,9 +563,10 @@ grasp_controller = replace(
 
 <section id="slide-apple-bottle" data-prs="653">
   <h2 class="t">Apple and mustard bottle: <span>this round</span></h2>
+  <p class="setup">Transfer check with the revised closing schedules. Apple reuses its co-designed grasp; bottle uses a default grasp at its centre. The all-fingers-loaded GRASP rule is still active</p>
   <div class="row" style="max-width: 80%;">
-    <figure><video src="./media/apple_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Apple</strong>, co-designed grasp with closing schedules and a relaxed floor check; 1/5 speed</p></figure>
-    <figure><video src="./media/bottle_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Mustard bottle</strong>, default grasp at the bounding-box centre; real time</p></figure>
+    <figure><video src="./media/apple_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>Apple</strong>, co-designed grasp with closing schedules and a relaxed floor check; 1/5 speed</p></figure>
+    <figure><video src="./media/bottle_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>Mustard bottle</strong>, default grasp at the bounding-box centre; real time</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Apple: CAPTURE passes at 5.05 s (wrench margin 1.36 held, 7.9 under servo limits; 22 N grip), then GRASP times out on the all-fingers-loaded rule. The carried check from the earlier apple slide is not in this run</li>
@@ -479,8 +578,8 @@ grasp_controller = replace(
   <h2 class="t">Apple pickup: <span>a grip-hold term</span></h2>
   <p class="setup">YCB apple, co-designed grasp, IK capture with wrist twist and closing schedules. GRASP ends on the carried terms (not every finger loaded) plus the margin under servo limits. In LIFT and HOLD the MPC loss adds a grip-hold term: a penalty on hand-control drift over the horizon, so the hand keeps the grip it formed while the arm lifts</p>
   <div class="row" style="max-width: 86%;">
-    <figure style="flex: 1.25;"><video src="./media/apple_hold_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
-    <figure style="flex: 1;"><video src="./media/apple_hold_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
+    <figure style="flex: 1.25;"><video src="./media/apple_hold_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_hold_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>End of the lift</strong>, 1/5 speed</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Stage ends in recording time: CAPTURE 5.11 s, GRASP 5.45 s, LIFT 7.76 s. Admitted captures: wrench margins 1.33 and 1.93 held, 10.0 and 9.9 under servo limits</li>
@@ -493,9 +592,9 @@ grasp_controller = replace(
   <h2 class="t">Capture IK over all hand joints: <span>a 31 mm screwdriver lift</span></h2>
   <p class="setup">The capture IK now solves all 16 hand joints with the finger targets bunched within 20 mm; pregrasp raised to 6 cm and a 1 s HOLD settle. Close-ups at 1/5 speed, end of each episode. Times in recording time</p>
   <div class="row" style="max-width: 96%;">
-    <figure><video src="./media/screwdriver_v3_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, run A</strong>: GRASP passes; LIFT from 6.68 s raises it about 31 mm</p></figure>
-    <figure><video src="./media/screwdriver_v3_squeeze_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, run B</strong>: 41 N grip squeezes the handle into the table; margin 0, GRASP times out</p></figure>
-    <figure><video src="./media/apple_v2_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Apple</strong>: LIFT from 5.63 s, then a stage invariant fails; 9 N grip</p></figure>
+    <figure><video src="./media/screwdriver_v3_lift_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>Screwdriver, run A</strong>: GRASP passes; LIFT from 6.68 s raises it about 31 mm</p></figure>
+    <figure><video src="./media/screwdriver_v3_squeeze_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>Screwdriver, run B</strong>: 41 N grip squeezes the handle into the table; margin 0, GRASP times out</p></figure>
+    <figure><video src="./media/apple_v2_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>Apple</strong>: LIFT from 5.63 s, then a stage invariant fails; 9 N grip</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">Run A: during LIFT the margin under servo limits decays from 1.19 to 0 as the pads rotate with the rising hand (grip stays 10-12 N), then a stage invariant fails</li>
@@ -506,11 +605,11 @@ grasp_controller = replace(
 
 <section id="slide-v5-round" data-prs="647,653">
   <h2 class="t">Capture planner v4 and v5: <span>capture passes, GRASP does not</span></h2>
-  <p class="setup">Close-ups at 1/5 speed, end of each episode; times in recording time. Right: a static IK pose, not a run</p>
+  <p class="setup">v4 adds a 0.15 rad squeeze beyond the contact pose during LIFT and HOLD. v5 also slows the closing schedule and scores arm limits after an apple descent was too fast. The two screwdriver clips also differ in grasp yaw; close-ups at 1/5 speed</p>
   <div class="row" style="max-width: 96%;">
-    <figure><video src="./media/screwdriver_v4_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, v4 default plan</strong>: CAPTURE passes at 5.08 s; GRASP times out at 30 N, margin 0</p></figure>
-    <figure><video src="./media/screwdriver_v5_yawed_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Screwdriver, v5 plan yawed -0.98 rad</strong>: CAPTURE passes at 4.78 s; GRASP times out at 28 N, margin 0</p></figure>
-    <figure><img src="./media/screwdriver_across_ik.png" style="max-height: 28vh;"><p class="cap"><strong>Best across-handle IK pose</strong> at the yawed state: thumb and finger 0 on opposite sides</p></figure>
+    <figure><video src="./media/screwdriver_v4_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>Screwdriver, v4 default plan</strong>: CAPTURE passes at 5.08 s; GRASP times out at 30 N, margin 0</p></figure>
+    <figure><video src="./media/screwdriver_v5_yawed_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>Screwdriver, v5 plan yawed -0.98 rad</strong>: CAPTURE passes at 4.78 s; GRASP times out at 28 N, margin 0</p></figure>
+    <figure><img src="./media/screwdriver_across_ik.png" style="max-height: 213px;"><p class="cap"><strong>Best across-handle IK pose</strong> at the yawed state: thumb and finger 0 on opposite sides</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">That pose has a static cost of 8.6 and a 45 mm pinch span. The thumb and finger 0 oppose each other across the handle, at pad heights of 16.6 and 27.5 mm near the grasp point 16 mm above the table; fingers 1 and 2 sit on the upper flank at 37 and 51 mm. Its closing rollout scores about 190 because the planner's score requires every finger loaded</li>
@@ -521,10 +620,10 @@ grasp_controller = replace(
 
 <section id="slide-apple-complete" data-prs="653">
   <h2 class="t">Apple pickup: <span>first complete pickup</span></h2>
-  <p class="setup">YCB apple, co-designed grasp, capture planner v6: capture IK over all 16 hand joints with the wrist twist from an arm IK; closing schedules ranked on the carried terms and arm limits; the wrench-margin GRASP gate; grip hold and a 0.15 rad squeeze in LIFT and HOLD; a 1 s HOLD settle</p>
+  <p class="setup">v6 changes the planner score: require thumb support, total finger support and opposition, matching the live GRASP check, instead of loading every finger. Keeps full-hand IK, arm-limit checks, grip preservation and the extra 0.15 rad squeeze; settles into HOLD over 1 s</p>
   <div class="row" style="max-width: 86%;">
-    <figure style="flex: 1.25;"><video src="./media/apple_complete_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
-    <figure style="flex: 1;"><video src="./media/apple_complete_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of HOLD</strong>, 1/5 speed</p></figure>
+    <figure style="flex: 1.25;"><video src="./media/apple_complete_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_complete_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>End of HOLD</strong>, 1/5 speed</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">Stage starts in recording time: CAPTURE 3.71 s, GRASP 4.94 s, LIFT 6.13 s, HOLD 8.37 s. Admitted captures: wrench margins 0.52 and 1.37 held, 4.4 and 5.2 under servo limits</li>
@@ -537,8 +636,8 @@ grasp_controller = replace(
   <h2 class="t">Apple pickup: <span>a near miss with an ALIGN dwell</span></h2>
   <p class="setup">Same co-designed grasp and v6 planner as the complete pickup, plus a 0.5 s dwell in ALIGN, the stage that lines the hand up over the apple before CAPTURE</p>
   <div class="row" style="max-width: 86%;">
-    <figure style="flex: 1.25;"><video src="./media/apple_v7_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
-    <figure style="flex: 1;"><video src="./media/apple_v7_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+    <figure style="flex: 1.25;"><video src="./media/apple_v7_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_v7_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">Stage starts in recording time: CAPTURE 4.52 s, GRASP 6.12 s, LIFT 7.97 s, HOLD 10.40 s. Admitted captures: wrench margins 0.93 and 1.91 held, 3.1 and 3.1 under servo limits</li>
@@ -551,28 +650,28 @@ grasp_controller = replace(
   <h2 class="t">Screwdriver after the apple pickup: <span>no lift yet</span></h2>
   <p class="setup">Phillips screwdriver, grasp plan yawed -0.98 rad. Close-ups at 1/5 speed, end of each episode; times in recording time</p>
   <div class="row" style="max-width: 96%;">
-    <figure><video src="./media/screwdriver_v7_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v7 (v6 + ALIGN dwell)</strong>: capture admitted and LIFT reached, but the handle never rises</p></figure>
-    <figure><video src="./media/screwdriver_v8_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v8</strong>, capture search posed from the closed hand: penetration failure 0.3 s into CAPTURE</p></figure>
-    <figure><video src="./media/screwdriver_v9_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>v9</strong>, v8 + two-finger gate + downward pad penalty: the same failure at the same tick</p></figure>
+    <figure><video src="./media/screwdriver_v7_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>v7 (v6 + ALIGN dwell)</strong>: capture admitted and LIFT reached, but the handle never rises</p></figure>
+    <figure><video src="./media/screwdriver_v8_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>v8</strong>, capture search posed from the closed hand: penetration failure 0.3 s into CAPTURE</p></figure>
+    <figure><video src="./media/screwdriver_v9_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 213px;"></video><p class="cap"><strong>v9</strong>: v8 + require two loaded fingers + penalize pads pressing down onto the handle. Same failure at the same tick</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">v7: CAPTURE from 4.48 s; the second capture is admitted (wrench margins 1.66 held, 2.25 under servo limits); GRASP from 5.73 s, LIFT from 7.13 s. The fingers press the handle from above with the thumb on the pommel end; the thumb loses contact 0.35 s into LIFT; 34 N grip</li>
     <li class="fragment">v8 and v9: neither capture is admitted (margin 0); penetration reaches 3.0 mm and fails the invariant</li>
-    <li class="fragment warm">v8 onward is reverted to build on the planner that lifted the apple; next is v12: v6 plus the two-finger gate, ranking capture proposals by whether they would pass admission. Uncommitted work built on #653</li>
+    <li class="fragment warm">The closed-hand search from v8 is reverted. v12 starts from v6, adds the two-loaded-fingers check and ranks proposals by whether they pass admission. The version numbers skip experiments not shown here. Uncommitted work built on #653</li>
   </ul>
 </section>
 
 <section id="slide-screwdriver-v12" data-prs="647,653">
   <h2 class="t">Screwdriver, v12: <span>second capture proposal refused</span></h2>
-  <p class="setup">Phillips screwdriver, back on the default co-designed plan (v7 to v9 used the plan yawed -0.98 rad), so both planner and plan change. v12 is the planner that picked up the apple plus a gate needing two loaded fingers and ranking capture proposals by whether they would pass admission. Times in recording time</p>
+  <p class="setup">v12 adds two loaded fingers to the GRASP check and ranks capture proposals by admission. Also returns to the default grasp yaw from the rotated v7-v9 plan: two changes at once. Times in recording time</p>
   <div class="row" style="max-width: 86%;">
-    <figure style="flex: 1.25;"><video src="./media/screwdriver_v12_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
-    <figure style="flex: 1;"><video src="./media/screwdriver_v12_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed: the hand clamps the handle from above, thumb pad on the near side</p></figure>
+    <figure style="flex: 1.25;"><video src="./media/screwdriver_v12_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/screwdriver_v12_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed: the hand clamps the handle from above, thumb pad on the near side</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">CAPTURE from 3.72 s; the first capture is admitted at wrench margins 0.33 held, 1.27 under servo limits</li>
     <li class="fragment">GRASP from 4.94 s; the second capture proposal, planned as GRASP starts, is refused (0.46 held, 0.51 under servo limits, dynamic cost 4181) and GRASP times out; 21.7 N grip, 1.4 mm penetration</li>
-    <li class="fragment warm">No lift. The new ranking checked penetration at every rollout tick, so this run took 75 min of wall time. v12b checks it every 0.2 s instead and v13 also speeds up the capture plan: both reproduce the same proposals and failure, in 19 and 4 min. Uncommitted work built on #653</li>
+    <li class="fragment warm">No lift. Checking penetration at every predicted tick costs 75 min. v12b samples that check every 0.2 s; v13 also reduces planner overhead. Default-yaw reruns reproduce the proposals and failure in 19 and 4 min. Uncommitted work built on #653</li>
   </ul>
 </section>
 
@@ -580,12 +679,23 @@ grasp_controller = replace(
   <h2 class="t">Apple, v12: <span>the GRASP gate does not release</span></h2>
   <p class="setup">YCB apple, co-designed grasp, the same v12 planner as the previous slide. Times in recording time</p>
   <div class="row" style="max-width: 86%;">
-    <figure style="flex: 1.25;"><video src="./media/apple_v12_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
-    <figure style="flex: 1;"><video src="./media/apple_v12_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed: the apple is gripped but still on the table</p></figure>
+    <figure style="flex: 1.25;"><video src="./media/apple_v12_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_v12_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed: the apple is gripped but still on the table</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">CAPTURE from 3.71 s, GRASP from 5.27 s; both capture proposals admitted, at wrench margins 0.59 and 4.54 held, 1.52 and 4.31 under servo limits</li>
-    <li class="fragment warm">GRASP times out at 7.67 s with a 22 N peak grip, so LIFT never starts. Replaying the run, the margin under servo limits reads exactly 0 at many sampled times during GRASP (5.80-6.30 s, 6.45-6.50 s, 6.95-7.05 s) while the grip stays at 4-20 N. Per tick (2.5 ms), finger 0's contact drops out for 2.5-7.5 ms at 7.44 and 7.47 s and the servo margin falls to 0.15, so the clean stretches are 0.14 s and 0.10 s, both under the 0.15 s GRASP dwell, which restarts on any failing tick. Without finger 0 the margin is 0.03-0.17 from 6.5 s: the grasp is a thumb and finger 0 pinch. The complete pickup was a thumb and finger 2 pinch until fingers 0 and 1 engaged, and its replayed margin jumped to 5.5 at the tick GRASP released. Uncommitted work built on #653</li>
+    <li class="fragment warm">GRASP times out at 7.67 s despite a 22 N peak grip, so LIFT never starts. Brief losses of finger 0 contact keep resetting the 0.15 s dwell; the next slide explains the replay. Uncommitted work built on #653</li>
+  </ul>
+</section>
+
+<section id="slide-apple-v12-dwell" data-prs="653">
+  <h2 class="t">Apple v12: <span>why the dwell keeps restarting</span></h2>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">Replay at every 2.5 ms simulation tick: finger 0 loses contact for 2.5-7.5 ms at 7.44 and 7.47 s. The servo margin falls to 0.15, below the 1.006 requirement</li>
+    <li class="fragment">The checks pass for only 0.14 s and then 0.10 s. GRASP needs 0.15 s continuously; one false tick resets its timer</li>
+    <li class="fragment">Grip force alone hides this: earlier stretches have 4-20 N grip but zero lift margin. Removing finger 0 from the replay gives margin 0.03-0.17, showing a thumb-and-finger-0 pinch</li>
+    <li class="fragment">The complete v6 pickup also starts with a two-pad pinch, but fingers 0 and 1 later join finger 2. Its margin jumps to 5.5 when GRASP advances</li>
+    <li class="fragment warm">Next change: tolerate a few milliseconds of contact loss during dwell. This may let GRASP advance; it does not itself improve the physical grasp</li>
   </ul>
 </section>
 
@@ -593,8 +703,8 @@ grasp_controller = replace(
   <h2 class="t">v12b: <span>another apple near miss</span></h2>
   <p class="setup">v12b: the v12 planner with its penetration check every 0.2 s. The screwdriver run here is back on the plan yawed -0.98 rad (the v7 to v9 plan), not the default-plan rerun on the screwdriver v12 slide, so its different admissions come from the plan. Close-ups at 1/5 speed, end of each episode; times in recording time</p>
   <div class="row" style="max-width: 86%;">
-    <figure><video src="./media/apple_v12b_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 32vh;"></video><p class="cap"><strong>Apple</strong>, co-designed grasp: lifts 12.2 cm, drops 1.3 s into the 2.0 s HOLD</p></figure>
-    <figure><video src="./media/screwdriver_v12b_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 32vh;"></video><p class="cap"><strong>Screwdriver</strong>, plan yawed -0.98 rad: GRASP times out</p></figure>
+    <figure><video src="./media/apple_v12b_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 243px;"></video><p class="cap"><strong>Apple</strong>, co-designed grasp: lifts 12.2 cm, drops 1.3 s into the 2.0 s HOLD</p></figure>
+    <figure><video src="./media/screwdriver_v12b_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 243px;"></video><p class="cap"><strong>Screwdriver</strong>, plan yawed -0.98 rad: GRASP times out</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">Apple, stage starts: CAPTURE 3.71 s, GRASP 4.96 s, LIFT 6.82 s, HOLD 9.20 s; both captures admitted (0.68 and 0.97 held, 5.9 and 6.9 under servo limits). The apple leaves a thumb-and-one-finger hold; 11.5 N grip. The same shape as the ALIGN-dwell near miss</li>
@@ -605,10 +715,10 @@ grasp_controller = replace(
 
 <section id="slide-apple-v13" data-prs="653">
   <h2 class="t">Apple, v13: <span>GRASP releases, the thumb slips in LIFT</span></h2>
-  <p class="setup">The apple v12 run again, with v13: GRASP tolerates failing stretches of under 9 ms (3.5 ticks of 2.5 ms) in its dwell instead of restarting it, and the capture plan is faster. Times in recording time</p>
+  <p class="setup">v13 tolerates contact losses under 9 ms during the 0.15 s GRASP dwell and removes v12's added two-loaded-fingers condition. A separate JAX fix reduces planner overhead. Same apple grasp; times in recording time</p>
   <div class="row" style="max-width: 86%;">
-    <figure style="flex: 1.25;"><video src="./media/apple_v13_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
-    <figure style="flex: 1;"><video src="./media/apple_v13_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
+    <figure style="flex: 1.25;"><video src="./media/apple_v13_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure style="flex: 1;"><video src="./media/apple_v13_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">Same captures as v12 (4.54 held, 4.31 under servo limits for the second). GRASP now releases at 7.42 s</li>
@@ -617,78 +727,113 @@ grasp_controller = replace(
   </ul>
 </section>
 
-<section id="slide-hammer-task" data-prs="612,633,638,639">
-  <h2 class="t">Upright hammer pickup: <span>the task</span></h2>
-  <p class="setup">Same Panda + LEAP and staged controller; pick up the 665 g YCB hammer and hold it head-up</p>
-  <div class="row">
-    <figure style="flex: 1;"><img src="./media/panda_hammer.png" style="max-height: 50vh;"><p class="cap">Starting scene</p></figure>
-    <div style="flex: 1.15;">
-      <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
-        <li class="fragment">Pass: head bottom above 10 cm, whole hammer above 2 mm, handle-to-head axis within 15 degrees of vertical, through the final 2 s hold including both endpoint samples</li>
-        <li class="fragment">Grasp target: fingertip pads centred on the grasp point, opened 40 mm above it first</li>
-        <li class="fragment">Stages after the grasp: swing clear of the floor, lift, hold; turning upright waits until the hammer can clear the floor</li>
-        <li class="fragment">Time limits per stage: grasp 8 s, clearance 3 s, upright 4 s, inside a 20 s cap</li>
-      </ul>
-    </div>
+<section id="slide-apple-v14">
+  <h2 class="t">Apple, v14: <span>grip degrades during lift</span></h2>
+  <p class="setup">Adds rejection of predicted trajectories exceeding 3 mm penetration. The grasp loss encourages all three fingers and the thumb to engage</p>
+  <div class="row" style="max-width: 90%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_v14_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 300px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure><video src="./media/apple_v14_slip_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 300px;"></video><p class="cap"><strong>Slip close-up</strong>, 1/5 speed</p></figure>
   </div>
-</section>
-
-<section id="slide-hammer-failures" data-prs="618,633">
-  <h2 class="t">Upright hammer pickup: <span>where it fails</span></h2>
-  <div class="row">
-    <figure style="flex: 1;"><video src="./media/hammer_grasp_timeout.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video><p class="cap">Center training placement, collision-pad grasp target</p></figure>
-    <div style="flex: 1.05;">
-      <ul class="pts" style="max-width: 100%; margin-top: 0.4em; font-size: 0.48em;">
-        <li class="fragment">First pilot, stock-hand grasp, waypoint tracking plus a height term, 2 samples per replan: descent times out at <span class="num">3.315 s</span></li>
-        <li class="fragment">With the collision-pad target (video): the arm reaches the hammer, but the grasp stage times out at 70% hand contact and 23 N peak grip</li>
-        <li class="fragment">Thumb and fingers never carry the hammer's weight for the 0.15 s grasp dwell, so lift never starts</li>
-        <li class="fragment warm">No successful hammer pickup yet</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="slide-mpc-compile" data-prs="608">
-  <h2 class="t">Compiled MPC <span>plan following</span></h2>
-  <p class="setup">Two-link test arm, one generated director proposal, 0.902 s simulated</p>
-  <div class="bars">
-    <div class="b"><span class="lbl">Per-tick JAX ops</span><div class="bar old" style="width: 62%;"></div><span class="v">16.676 s</span></div>
-    <div class="b fragment"><span class="lbl">One jitted plan-following call</span><div class="bar" style="width: 7.2%;"></div><span class="v">1.934 s</span></div>
-  </div>
-  <ul class="pts">
-    <li class="fragment">1.934 s = 1.206 s preparation + 0.728 s simulation</li>
-    <li class="fragment">Same actions and plans after each shift, to 1e-12</li>
-    <li class="fragment warm">Small-arm measurement; Panda throughput not yet measured</li>
+  <ul class="pts" style="font-size: 0.47em;">
+    <li class="fragment">Fingers unload one by one, leaving one finger and the thumb before both lose contact. LIFT begins at 6.82 s; the run stops at 8.88 s without reaching HOLD</li>
+    <li class="fragment warm">The replay shows grip loss. It does not establish whether the missing retention constraint, the hand-command penalty, or insufficient candidate exploration caused it</li>
   </ul>
 </section>
 
-<section id="slide-runner" data-prs="634">
-  <h2 class="t">Batched native <span>runner</span></h2>
-  <ul class="pts" style="font-size: 0.48em; margin: 0 auto 0.5em;">
-    <li>A runner simulates a batch of control sequences from one starting state and returns their trajectories; the MPC calls it to score its sampled plans</li>
-    <li class="fragment">#634 moves Panda pickup onto the shared runner from #561: one per compiled environment, for planning rollouts, single steps and forwards, callable inside <code>jit</code> and <code>vmap</code></li>
-  </ul>
-  <p class="setup fragment">Timing probe: Panda + LEAP apple scene, 5 ms step, 16 rollouts in one batch, 16 threads; median of 3 timed runs</p>
-  <div class="bars fragment">
-    <div class="b"><span class="lbl">Old runner, 80 steps (0.4 s)</span><div class="bar old" style="width: 16.6%;"></div><span class="v">28.8 ms</span></div>
-    <div class="b"><span class="lbl">New runner, 80 steps</span><div class="bar" style="width: 12.1%;"></div><span class="v">21.0 ms</span></div>
-    <div class="b"><span class="lbl">Old runner, 600 steps (3 s)</span><div class="bar old" style="width: 46%;"></div><span class="v">79.6 ms</span></div>
-    <div class="b"><span class="lbl">New runner, 600 steps</span><div class="bar warmb" style="width: 60%;"></div><span class="v">103.8 ms</span></div>
+<section id="slide-apple-v14-grasp-loss">
+  <h2 class="t">v14 grasp loss: <span>capacity and opposition</span></h2>
+  <div class="row" style="max-width: 96%; align-items: center;">
+    <div class="code" style="flex: 1.4;"><pre style="font-size: 0.29em;"><code class="language-python" data-trim data-line-numbers="1-7|8-10|11-13" data-fragment-index="0">terms: dict[str, Loss] = {**scene.support, **scene.capture}
+finger_ratios = jnp.stack(
+    tuple(cast(KeepAbove, scene.support[f"finger{i}"]).expr1 for i in range(3))
+)
+terms["finger_capacity_margin"] = KeepAbove(
+    jnp.min(finger_ratios), 2.0, weight=20.0
+)
+terms["capture_opposition_margin"] = KeepBelow(
+    scene.capture["capture_opposition"].expr1, -0.5, weight=20.0
+)
+terms["loaded_opposition_margin"] = KeepBelow(
+    cast(KeepBelow, scene.support["opposition"]).expr1, -0.8, weight=20.0
+)</code></pre></div>
+    <ul class="pts" style="flex: 1; font-size: 0.43em; margin: 0;">
+      <li>Each finger's friction capacity is divided by its required share of the object's weight. The weakest ratio should reach 2, with weight 20</li>
+      <li class="fragment" data-fragment-index="0">Capture opposition: thumb and fingers should surround the object from opposing sides. Smaller values mean better opposition; target at most -0.5, weight 20</li>
+      <li class="fragment" data-fragment-index="1">Loaded opposition: contact normals carrying force should oppose each other. Target at most -0.8, weight 20</li>
+    </ul>
   </div>
-  <ul class="pts" style="font-size: 0.48em;">
-    <li class="fragment">Old: eager JAX state packing, then <code>mujoco.rollout</code>. New: jitted packing around the same native call. Both return identical states</li>
-    <li class="fragment">80 steps: 27% less time</li>
-    <li class="fragment warm">600 steps: slower in every run (new 282.7, 103.8, 95.6 ms; old 93.8, 78.6, 79.6 ms). The cause is not yet diagnosed</li>
+  <p class="cap"><code>KeepAbove</code> and <code>KeepBelow</code> add penalties outside their targets. <a href="./sources/apple-v14-loss.py">Full grasp-loss source</a> · <a href="./sources/video-provenance.json">Video source and configuration</a></p>
+</section>
+
+<section id="slide-apple-v14-pad-loss">
+  <h2 class="t">v14 grasp loss: <span>pad reach and contact loading</span></h2>
+  <div class="code" style="max-width: 94%; margin: 0 auto;"><pre style="font-size: 0.29em;"><code class="language-python" data-trim data-line-numbers="1-7|8-19" data-fragment-index="0">gaps = jnp.stack(
+    tuple(
+        scene.capture[f"capture_{name}"].expr1
+        for name in ("thumb", "finger0", "finger1", "finger2")
+    )
+)
+terms["reach_worst_pad"] = Minimize(jnp.max(jnp.square(gaps)))
+normal_z, load = jnp.asarray(0.0), jnp.asarray(0.0)
+for group in scene.grip_contacts:
+    for contact in group:
+        found = contact.field(sensors.ContactField.FOUND)[:, 0]
+        force = contact.field(sensors.ContactField.FORCE)[:, 0]
+        active = jnp.where((found &gt; 0) &amp; (force &gt; SUPPORT_ACTIVE_FORCE_N), force, 0)
+        normal_z += jnp.sum(
+            active * contact.field(sensors.ContactField.NORMAL)[:, 2]
+        )
+        load += jnp.sum(active)
+downward = jnp.maximum(0, normal_z / jnp.maximum(load, 0.01))
+terms["side_contacts"] = Minimize(jnp.square(downward), weight=2.0)</code></pre></div>
+  <ul class="pts" style="font-size: 0.43em;">
+    <li>Minimize the largest squared pad gap, so the worst-positioned thumb or finger pad moves toward its grasp surface</li>
+    <li class="fragment" data-fragment-index="0">Sum contact normals weighted by active force, then penalize the downward-loading component with weight 2. <a href="./sources/apple-v14-loss.py">Full source</a></li>
   </ul>
 </section>
 
-<section id="slide-recordings" data-prs="629">
-  <h2 class="t">Reading recorded <span>trajectories</span></h2>
-  <ul class="pts" style="font-size: 0.58em; max-width: 84%;">
-    <li class="fragment">The design agent reads recorded pickup trajectories from its REPL</li>
-    <li class="fragment">Before: each of 2,231 observations was stacked into JAX one frame at a time; the live agent trace spent minutes there</li>
-    <li class="fragment">Now: NumPy packs a batch, which is converted to JAX once; all 2,231 joint-position, velocity and control rows keep exact float64 values</li>
-    <li class="fragment warm">No timing after the change was recorded, and no controller speedup is claimed</li>
+<section id="slide-apple-v14-stage-loss">
+  <h2 class="t">The grasp loss <span>stays active during lift</span></h2>
+  <div class="code" style="max-width: 88%; margin: 0 auto;"><pre style="font-size: 0.39em;"><code class="language-python" data-trim data-line-numbers="1-2|3-7" data-fragment-index="0">values = jax.vmap(jax.vmap(extra))(states)
+fixed = jax.vmap(jax.vmap(spec.get_loss))(states)
+return (
+    tracking
+    + fixed.mean(axis=1)
+    + sum(values.values(), jnp.zeros_like(states.t)).mean(axis=1)
+)</code></pre></div>
+  <ul class="pts" style="font-size: 0.47em;">
+    <li>The reward factory is bound once. Every stage evaluates the same support, finger-capacity, opposition and capture terms with unchanged weights</li>
+    <li class="fragment" data-fragment-index="0">The scene loss and grasp terms are averaged across predicted time. Poor contact can therefore be traded against improvements elsewhere in the trajectory</li>
+    <li class="fragment" data-fragment-index="1">Lift adds arm-target tracking and a penalty against changing hand commands. That penalty could discourage corrective squeezing; its causal role has not been established</li>
+  </ul>
+</section>
+
+<section id="slide-apple-v14-horizons">
+  <h2 class="t">v14: <span>MPC lookahead by stage</span></h2>
+  <p class="setup">The lookahead is how far into simulated time MPC predicts each candidate motion</p>
+  <table class="res" style="font-size: 0.58em; min-width: 50%;">
+    <tr><th>Stage</th><th>MPC lookahead</th></tr>
+    <tr class="fragment"><td>Approach</td><td class="n">1.9 s</td></tr>
+    <tr class="fragment"><td>Descend</td><td class="n">1.5 s</td></tr>
+    <tr class="fragment"><td>Capture</td><td class="n">3.0 s</td></tr>
+    <tr class="fragment"><td>Establish grasp</td><td class="n">3.0 s</td></tr>
+    <tr class="fragment"><td>Apple lift</td><td class="n">3.75 s</td></tr>
+    <tr class="fragment"><td>Hold</td><td class="n">1.0 s</td></tr>
+  </table>
+  <ul class="pts" style="font-size: 0.48em; max-width: 84%;">
+    <li class="fragment">All stages replan every 0.1 simulated seconds. The displayed run and revised trial use the same horizons</li>
+    <li class="fragment warm">These are configured horizons. Loss-versus-time curves have not yet been recorded</li>
+  </ul>
+</section>
+
+<section id="slide-apple-v14-retention">
+  <h2 class="t">The grasp admission condition <span>does not persist</span></h2>
+  <ul class="pts" style="font-size: 0.51em; max-width: 88%;">
+    <li class="fragment">GRASP advances only with contact support and enough estimated lifting capacity under servo limits</li>
+    <li class="fragment">LIFT observes thumb support, total finger support and opposition. It allows individual fingers to unload and does not maintain the full lifting-capacity check as a predicted constraint</li>
+    <li class="fragment">Predicted trajectories over 3 mm penetration are rejected. This run reaches only 0.98 mm, so the evidence points to grip loss. Testing whether rejection indirectly worsened control requires diagnostics for individual candidates</li>
+    <li class="fragment warm">Remaining integration: use the generic MPC constraint mechanism for stage-specific grip retention during lift, alongside penetration and motion limits. A hard constraint rejects violating candidates instead of only adding cost</li>
+    <li class="fragment">The current <code>invariant_failed</code> label obscures which condition failed</li>
   </ul>
 </section>
 
@@ -696,7 +841,7 @@ grasp_controller = replace(
   <h2 class="t">Panda branches: <span>status</span></h2>
   <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
     <div><span class="pr">#599</span><span class="s">open</span>Panda and LEAP assembly; the pickup stack from #603 to #638 folded in</div>
-    <div><span class="pr">#647</span><span class="s">open</span>Phillips screwdriver as a metal shaft and a CAB handle</div>
+    <div><span class="pr">#647</span><span class="s">open</span>Phillips screwdriver as a metal shaft and a plastic handle</div>
     <div><span class="pr">#651</span><span class="s d">draft</span>Tolerate one-tick support flicker during lift and hold</div>
     <div><span class="pr">#653</span><span class="s d">draft</span>Gate pickup on the wrench margin its contacts can carry, on #651</div>
   </div>
@@ -712,13 +857,14 @@ grasp_controller = replace(
 <section id="slide-xl430" data-prs="590">
   <h2 class="t">Driving OPH with <span>two XL430 motors</span></h2>
   <div class="row">
-    <figure><img src="./media/oph_xl430.png" style="max-height: 46vh;"></figure>
-    <figure><video src="./media/oph_mixer.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 46vh;"></video><p class="cap">Scripted motor ramps, gravity off</p></figure>
+    <figure><img src="./media/oph_xl430.png" style="max-height: 274px;"></figure>
+    <figure><video src="./media/oph_mixer.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 274px;"></video><p class="cap">Scripted motor ramps, gravity off</p></figure>
   </div>
   <ul class="pts">
     <li class="fragment">Two XL430-W250 at 11.1 V: 1.4 N m stall, 57 rpm</li>
-    <li class="fragment">Each motor pulls one tendon mixer: motor 1 all distal flexors; motor 0 the thumb and index middle joints and thumb opposition</li>
-    <li class="fragment warm">Tendons pull only, with fixed moment arms; gains are assumed, not calibrated</li>
+    <li class="fragment">OPH is the Open Parametric Hand: its geometry can be generated from parameters. A tendon mixer is a motor pulling several cables together, so those joints share one command</li>
+    <li class="fragment">Motor 1 pulls the cables curling the fingertips (distal flexors). Motor 0 pulls the thumb and index middle-joint cables and turns the thumb toward the fingers (opposition)</li>
+    <li class="fragment warm">Cables pull only; leverage at each joint is fixed. Servo gains are assumed, not calibrated</li>
   </ul>
 </section>
 
@@ -726,17 +872,28 @@ grasp_controller = replace(
   <h2 class="t">Palm-up <span>OPH</span></h2>
   <p class="setup">5 cm cube on the palm, two-axis wrist, motors behind the palm. Task: turn the cube to a target orientation in 6 s</p>
   <div class="full" style="max-width: 76%;">
-    <img src="./media/oph_palm_up.png" style="max-height: 60vh;">
+    <img src="./media/oph_palm_up.png" style="max-height: 456px;">
   </div>
+</section>
+
+<section id="slide-codesign-reading">
+  <h2 class="t">Reading the <span>cube results</span></h2>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">Target 0, 1 or 5 names a fixed desired cube orientation, not a score. Lettered faces help show turning; the small reference cube shows the desired orientation</li>
+    <li class="fragment">Orientation error is the angular distance to that target: 0 degrees is correct, 180 is furthest away. Final error is measured at 6 s; episode mean averages error through the whole motion</li>
+    <li class="fragment">Entries written as 65.0 / 108.7 mean final / episode-mean error in degrees. Low final error alone can hide a late release or an otherwise poor trajectory</li>
+    <li class="fragment">A controller seed fixes the random MPC samples. Training targets guide proposals and selection; held-out targets are tested after selection and are not shown to that run's agent</li>
+    <li class="fragment warm">Each table uses its own starting pair as the baseline. Later runs change starting hands, losses or scoring, so their scores are not successive measurements of one unchanged experiment</li>
+  </ul>
 </section>
 
 <section id="slide-oph-variants" data-prs="591">
   <h2 class="t">OPH morphology <span>variants</span></h2>
-  <p class="setup">gpt-6-astra proposed 6 hands; selection prefers fewer drops, then lower orientation error</p>
+  <p class="setup">Early morphology-only search: gpt-6-astra proposes 6 hand shapes while the controller loss stays fixed. Morphology means anatomy: finger lengths, attachment points and palm geometry. Selection here prefers fewer drops, then lower orientation error</p>
   <div class="row">
-    <figure><img src="./media/oph_variant_0.png" style="max-height: 40vh;"><p class="cap"><strong>Base</strong></p></figure>
-    <figure><img src="./media/oph_variant_5.png" style="max-height: 40vh;"><p class="cap"><strong>wide_core_oph</strong>: selected</p></figure>
-    <figure><img src="./media/oph_variant_6.png" style="max-height: 40vh;"><p class="cap"><strong>forward_thumb_oph</strong></p></figure>
+    <figure><img src="./media/oph_variant_0.png" style="max-height: 304px;"><p class="cap"><strong>Base</strong></p></figure>
+    <figure><img src="./media/oph_variant_5.png" style="max-height: 304px;"><p class="cap"><strong>wide_core_oph</strong>: selected</p></figure>
+    <figure><img src="./media/oph_variant_6.png" style="max-height: 304px;"><p class="cap"><strong>forward_thumb_oph</strong></p></figure>
   </div>
   <ul class="pts">
     <li class="fragment">Held-out random target, controller seeds 11 and 22, 6 s, MPC with a 1 s horizon, orientation loss with an angular-velocity damping term</li>
@@ -748,11 +905,11 @@ grasp_controller = replace(
 <section id="slide-stretch-wrist" data-prs="609">
   <h2 class="t">The Stretch Dex <span>wrist</span></h2>
   <div class="row" style="max-width: 64%;">
-    <figure><img src="./media/stretch_wrist_cad_crop.png" style="max-height: 46vh;"><p class="cap"><strong>Visual CAD</strong></p></figure>
-    <figure><img src="./media/stretch_wrist_collision_crop.png" style="max-height: 46vh;"><p class="cap"><strong>Collision</strong></p></figure>
+    <figure><img src="./media/stretch_wrist_cad_crop.png" style="max-height: 350px;"><p class="cap"><strong>Visual CAD</strong></p></figure>
+    <figure><img src="./media/stretch_wrist_collision_crop.png" style="max-height: 350px;"><p class="cap"><strong>Collision</strong></p></figure>
   </div>
   <ul class="pts">
-    <li class="fragment">Hello Robot Stretch RE1 Dex wrist: geometry, inertias and joint frames from the published URDF</li>
+    <li class="fragment">Hello Robot Stretch RE1 Dex wrist: geometry, inertias and joint frames from its URDF, the published robot description file</li>
     <li class="fragment">Yaw XL430 with a 2.4 reduction, pitch XM540, roll XM430</li>
     <li class="fragment warm">Drives are documented approximations; the pitch current limit is not modeled</li>
   </ul>
@@ -761,8 +918,8 @@ grasp_controller = replace(
 <section id="slide-oph-on-wrist" data-prs="611">
   <h2 class="t">OPH on the <span>Stretch wrist</span></h2>
   <div class="row">
-    <figure><img src="./media/oph_stretch_wrist.png" style="max-height: 48vh;"></figure>
-    <figure><img src="./media/oph_bracket.png" style="max-height: 48vh;"></figure>
+    <figure><img src="./media/oph_stretch_wrist.png" style="max-height: 365px;"></figure>
+    <figure><img src="./media/oph_bracket.png" style="max-height: 365px;"></figure>
   </div>
   <ul class="pts">
     <li class="fragment">Bracket: a plate on the wrist flange, a column to the palm, shelves under both motors</li>
@@ -774,9 +931,9 @@ grasp_controller = replace(
 <section id="slide-mount" data-prs="614">
   <h2 class="t">Co-designing <span>the mount</span></h2>
   <div class="row">
-    <figure><img src="./media/mount_stock.png" style="max-height: 44vh;"><p class="cap"><strong>Stock</strong>: palm 75.5 mm above the flange</p></figure>
-    <figure class="fragment"><img src="./media/mount_raised.png" style="max-height: 44vh;"><p class="cap"><strong>Raised</strong>: 90 mm, admitted</p></figure>
-    <figure class="fragment"><img src="./media/mount_floating.png" style="max-height: 44vh;"><p class="cap"><strong>Floating</strong>: column ends 25 mm short, refused</p></figure>
+    <figure><img src="./media/mount_stock.png" style="max-height: 334px;"><p class="cap"><strong>Stock</strong>: palm 75.5 mm above the flange</p></figure>
+    <figure class="fragment"><img src="./media/mount_raised.png" style="max-height: 334px;"><p class="cap"><strong>Raised</strong>: 90 mm, admitted</p></figure>
+    <figure class="fragment"><img src="./media/mount_floating.png" style="max-height: 334px;"><p class="cap"><strong>Floating</strong>: column ends 25 mm short, refused</p></figure>
   </div>
   <ul class="pts">
     <li class="fragment">Admitted only if the mount meets the flange, palm and motors seat on it, mount and palm are one piece, and the hand clears the wrist by 1 mm on a sampled joint grid</li>
@@ -784,7 +941,7 @@ grasp_controller = replace(
 </section>
 
 <section id="slide-envelope" data-prs="626">
-  <h2 class="t">Wrist command <span>envelope</span></h2>
+  <h2 class="t">Wrist commands: <span>allowed angle ranges</span></h2>
   <p class="setup">Command limits in rad. Stock: yaw and roll &plusmn;0.35, pitch -0.25 to 0.15. Shown: the stock 75.5 mm mount posed at the widened yaw and roll &plusmn;0.5</p>
   <div class="grid4" style="max-width: 60%;">
     <figure><img src="./media/envelope_neutral.png"><p class="cap">Neutral</p></figure>
@@ -801,28 +958,14 @@ grasp_controller = replace(
   </ul>
 </section>
 
-<section id="slide-motors" data-prs="641">
-  <h2 class="t">Stronger <span>same-envelope motors</span></h2>
-  <p class="setup">Same 28.5 x 46.5 x 34 mm housing; at 11.1 V</p>
-  <div class="bars" style="max-width: 70%;">
-    <div class="b"><span class="lbl">XL430-W250, 57 g</span><div class="bar old" style="width: 22%;"></div><span class="v">1.4 N m, 57 rpm</span></div>
-    <div class="b fragment"><span class="lbl">XM430-W210, 82 g</span><div class="bar" style="width: 42.5%;"></div><span class="v">2.7 N m, 70 rpm</span></div>
-    <div class="b fragment"><span class="lbl">XM430-W350, 82 g</span><div class="bar" style="width: 60%;"></div><span class="v">3.8 N m, 43 rpm</span></div>
-  </div>
-  <ul class="pts">
-    <li class="fragment">One motor model for both mixers; the search cannot change it</li>
-    <li class="fragment warm">Stall torque is not a continuous rating; current and thermal limits not identified</li>
-  </ul>
-</section>
-
 <section id="slide-selection" data-prs="614,621,640">
   <h2 class="t">Selection and <span>capture-first loss</span></h2>
   <p class="setup">4 training and 4 held-out random targets, controller seeds 11 and 29, 1 ms step, 6 s episodes</p>
   <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
     <li class="fragment">Keep a design only if both orientation errors (episode mean and final) drop, drops do not rise, and at least one training run keeps the cube</li>
-    <li class="fragment">New loss: chase orientation only once both mixers pass 0.45 rad, thumb and fingers carry load, and the cube is within 4 cm of its hold position</li>
-    <li class="fragment">A closure term pulls both mixers toward 0.8 rad, 20x stronger until the cube is supported</li>
-    <li class="fragment warm">Retention run in progress; capture-first has two single-seed comparisons so far</li>
+    <li class="fragment">Capture-first loss: first secure the cube, then turn it. Its support gate enables orientation optimization only when both mixer angles exceed 0.45 rad, thumb and finger totals each exceed 0.1 N, and the cube is off the floor within 4 cm of its starting hold position</li>
+    <li class="fragment">A closure penalty asks the motors to curl the hand toward 0.8 rad, with 20x weight until support passes. A gate is an on/off condition; a penalty is a preference the optimizer can trade against others</li>
+    <li class="fragment warm">This loss does not use the Panda's live stage controller. If support disappears, the orientation term stops guiding MPC and closure becomes the priority again</li>
   </ul>
 </section>
 
@@ -832,14 +975,14 @@ grasp_controller = replace(
   <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em;">
     <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 11</strong></p>
     <div class="pair" style="margin: 0;">
-      <video src="./media/oph_sparse_vs_staged_seed11.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 19vh;"></video>
+      <video src="./media/oph_sparse_vs_staged_seed11.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 144px;"></video>
       <div class="caps"><p class="cap">Sparse: <strong>drops</strong></p><p class="cap">Capture-first: <strong>retains</strong></p></div>
     </div>
   </div>
   <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em; margin-top: 0.2em;">
     <p class="cap" style="width: 4em; text-align: right;"><strong>Seed 29</strong></p>
     <div class="pair" style="margin: 0;">
-      <video src="./media/oph_sparse_vs_staged_seed29.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 19vh;"></video>
+      <video src="./media/oph_sparse_vs_staged_seed29.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 144px;"></video>
       <div class="caps"><p class="cap">Sparse: <strong>retains</strong></p><p class="cap">Capture-first: <strong>drops</strong></p></div>
     </div>
   </div>
@@ -849,33 +992,23 @@ grasp_controller = replace(
   </ul>
 </section>
 
-<section id="slide-mcp" data-prs="652">
-  <h2 class="t">Finger abduction <span>at the MCP</span></h2>
-  <p class="setup">Middle finger abducted 0.5 rad, joint angles set directly. Green: metacarpal; orange: proximal phalanx</p>
-  <div class="full" style="max-width: 80%;"><img src="./media/oph_mcp_abduction.png" style="max-height: 46vh;"></div>
-  <ul class="pts">
-    <li class="fragment">OPH source (<code>dof4_config</code> in <code>digits.scad</code>): the metacarpal sits flat on the palm and the MCP is a 2-DOF ball</li>
-    <li class="fragment">Before, the whole digit swung at the palm port and the MCP moved 40.6 mm; now the metacarpal is welded and the MCP stays put</li>
-    <li class="fragment">Abductor and adductor cables act on the MCP hinge at half the joint width, where the source mounts their pulleys</li>
-  </ul>
-</section>
-
-<section id="slide-printed" data-prs="655,656">
-  <h2 class="t">Drawn cables and <span>joint-to-joint bones</span></h2>
-  <div class="row" style="max-width: 80%;">
-    <figure><img src="./media/oph_printed_tendons.png" style="max-height: 40vh;"><p class="cap"><strong>Printed OPH bones</strong>; cables coloured by digit</p></figure>
-    <figure><video src="./media/oph_printed_motion.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video><p class="cap">Fingers curl and release</p></figure>
+<section id="slide-motors" data-prs="641">
+  <h2 class="t">Stronger motors: <span>same housing size</span></h2>
+  <p class="setup">The X430 motor family fits the same 28.5 x 46.5 x 34 mm housing; torque, speed and mass differ. Values at 11.1 V</p>
+  <div class="bars" style="max-width: 70%;">
+    <div class="b"><span class="lbl">XL430-W250, 57 g</span><div class="bar old" style="width: 22%;"></div><span class="v">1.4 N m, 57 rpm</span></div>
+    <div class="b fragment"><span class="lbl">XM430-W210, 82 g</span><div class="bar" style="width: 42.5%;"></div><span class="v">2.7 N m, 70 rpm</span></div>
+    <div class="b fragment"><span class="lbl">XM430-W350, 82 g</span><div class="bar" style="width: 60%;"></div><span class="v">3.8 N m, 43 rpm</span></div>
   </div>
   <ul class="pts">
-    <li class="fragment">Fixed tendons were never drawn; each cable is now drawn through every joint it crosses, offset from the axis by its moment arm</li>
-    <li class="fragment">Each bone shaft spanned -0.3L to 0.7L, leaving a gap at every knuckle; it now runs joint to joint. Contact shapes change, so earlier study results don't carry over</li>
-    <li class="fragment warm">The printed bones are visual only; contact still runs on the parametric shapes</li>
+    <li class="fragment">At this stage one chosen motor model serves both mixers; the agent cannot change it yet. Cable co-design later makes motor choice part of the search</li>
+    <li class="fragment warm">Stall torque is not a continuous rating; current and thermal limits not identified</li>
   </ul>
 </section>
 
 <section id="slide-jit-lifetime" data-prs="649">
   <h2 class="t">Releasing compiled code <span>with its owner</span></h2>
-  <p class="setup">polly, effectful at master: memory mappings added by 4 OPH spatial-cable builds in one process</p>
+  <p class="setup">Repeated candidate builds need to release their compiled code. Memory mappings are operating-system memory regions; this count measures what remains after 4 OPH builds in one process on polly</p>
   <div class="bars" style="max-width: 70%;">
     <div class="b"><span class="lbl">main</span><div class="bar old" style="width: 60%;"></div><span class="v">+9,986</span></div>
     <div class="b fragment"><span class="lbl">#649</span><div class="bar" style="width: 0.5%;"></div><span class="v">+0</span></div>
@@ -902,9 +1035,44 @@ def jit_for(instance, fn, **jit_kwargs):
   </ul>
 </section>
 
+<section id="slide-codesign-process" data-prs="650,654,656">
+  <h2 class="t">Co-design: <span>what the agent searches</span></h2>
+  <ul class="pts" style="font-size: 0.5em; max-width: 88%;">
+    <li class="fragment">Start with a hand and a controller loss: the starting pair. The agent reads their code and completed simulation records, then proposes a new hand or a new loss, keeping the other from a previously evaluated pair</li>
+    <li class="fragment">A loss assigns penalties to predicted motion, such as weak support or orientation error. MPC minimizes that loss to choose commands. The search evaluates the resulting episode using fixed orientation and drop measurements</li>
+    <li class="fragment">Admission checks whether a proposed robot is physically representable: connected mount, supported motors and clearance. Passing admission permits evaluation; it does not mean the cube manipulation succeeds</li>
+    <li class="fragment">The agent can inspect training results and revise its proposal. The MPC horizon, sampling budget and evaluation targets stay fixed within a run</li>
+    <li class="fragment">Selected pair: the winner on training measurements. After selection, test the starting and selected hands with both losses to separate hardware gains from loss gains, then compare on unseen targets</li>
+  </ul>
+</section>
+
+<section id="slide-mcp" data-prs="652">
+  <h2 class="t">Finger spreading <span>at the base knuckle</span></h2>
+  <p class="setup">Abduction: moving a finger sideways; MCP: the metacarpophalangeal joint, its base knuckle. Middle finger spread 0.5 rad, angles set directly. Green: palm bone (metacarpal); orange: first moving finger bone (proximal phalanx)</p>
+  <div class="full" style="max-width: 80%;"><img src="./media/oph_mcp_abduction.png" style="max-height: 258px;"></div>
+  <ul class="pts">
+    <li class="fragment">OPH source (<code>dof4_config</code> in <code>digits.scad</code>): the metacarpal sits flat on the palm and the MCP is a 2-DOF ball</li>
+    <li class="fragment">Before, the whole digit swung at the palm port and the MCP moved 40.6 mm; now the metacarpal is welded and the MCP stays put</li>
+    <li class="fragment">Two cables pull the finger sideways in opposite directions at that knuckle, using the pulleys' half-joint-width leverage</li>
+  </ul>
+</section>
+
+<section id="slide-printed" data-prs="655,656">
+  <h2 class="t">Drawn cables and <span>joint-to-joint bones</span></h2>
+  <div class="row" style="max-width: 80%;">
+    <figure><img src="./media/oph_printed_tendons.png" style="max-height: 304px;"><p class="cap"><strong>Printed OPH bones</strong>; cables coloured by digit</p></figure>
+    <figure><video src="./media/oph_printed_motion.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 304px;"></video><p class="cap">Fingers curl and release</p></figure>
+  </div>
+  <ul class="pts">
+    <li class="fragment">Fixed tendons were never drawn; each cable is now drawn through every joint it crosses, offset from the axis by its moment arm</li>
+    <li class="fragment">Each bone shaft spanned -0.3L to 0.7L, leaving a gap at every knuckle; it now runs joint to joint. Contact shapes change, so earlier study results don't carry over</li>
+    <li class="fragment warm">The printed bones are visual only; contact still runs on the parametric shapes</li>
+  </ul>
+</section>
+
 <section id="slide-solid-study" data-prs="650,654,656">
   <h2 class="t">Co-design on the <span>solid-bone hand</span></h2>
-  <p class="setup">Same task and MPC as the Sparse vs capture-first slide. gpt-6-astra proposes a hand and a loss; each pair runs 4 training targets x controller seeds 11 and 29 = <strong>8 episodes</strong>. Error: degrees from the target at 6 s, lower is better, 180 at most</p>
+  <p class="setup">After fixing bone contact shapes, rerun co-design from the stock hand and capture-first loss. Hand and loss proposals share a budget; each pair runs 4 training targets x seeds 11 and 29 = 8 episodes. MPC settings stay fixed. Drops score 180 in this table</p>
   <table class="res">
     <tr><th>Hand</th><th>What changed from the base</th><th>Loss</th><th>Held</th><th>Mean error, all 8 (drop = 180)</th></tr>
     <tr class="base"><td>Base</td><td>OPH on the Stretch wrist, two XL430</td><td>capture-first</td><td class="n">8/8</td><td class="n">128.4</td></tr>
@@ -918,7 +1086,7 @@ def jit_for(instance, fn, **jit_kwargs):
     <tr><td>enclosing compact</td><td>same hand</td><td>gentle opposed grasp</td><td class="n">8/8</td><td class="n">138.9</td></tr>
   </table>
   <ul class="pts" style="font-size: 0.48em;">
-    <li class="fragment">The three new losses add a thumb-reach term and loosen the hold radius from 4 to 12 cm; gentle opposed grasp also closes the mixers to 0.5 rad instead of 0.8</li>
+    <li class="fragment">Supported rotation, persistent grasp and gentle opposed grasp are agent-written loss variants. They add a penalty for a distant thumb and allow the cube 12 cm from its hold point instead of 4; gentle opposed grasp asks for less closure, 0.5 rad instead of 0.8</li>
     <li class="fragment warm">No proposal beats the base, so the search keeps it. The base turns the cube on target 3 (48 and 46 degrees for seeds 11 and 29) and barely on the other three (142-163); on held-out targets 4 to 7 it holds 8/8 at 134.6</li>
   </ul>
 </section>
@@ -940,16 +1108,31 @@ def jit_for(instance, fn, **jit_kwargs):
 <section id="slide-solid-drop" data-prs="656">
   <h2 class="t">Inward compact hand: <span>another target</span></h2>
   <p class="setup">Training target 1, supported rotation loss, controller seed 11</p>
-  <div class="full" style="max-width: 70%;"><video src="./media/solid_inward_t1_drop.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 40vh;"></video></div>
+  <div class="full" style="max-width: 70%;"><video src="./media/solid_inward_t1_drop.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 304px;"></video></div>
   <ul class="pts">
     <li class="fragment">The cube leaves the palm within about 2 s</li>
     <li class="fragment warm">The same hand and loss drop on targets 0 to 2 for both seeds; both of its holds are on target 3</li>
   </ul>
 </section>
 
+<section id="slide-cable-search-change" data-prs="650,654,656">
+  <h2 class="t">Changing the search: <span>geometry to actuation</span></h2>
+  <table class="res" style="font-size: 0.48em; max-width: 90%;">
+    <tr><th>Change</th><th>Before</th><th>Now</th></tr>
+    <tr><td>Motor choice</td><td>Fixed motor model</td><td>Agent chooses each motor's torque, speed and mass from the X430 catalog</td></tr>
+    <tr><td>Cable assignment</td><td>Stock groups move together</td><td>Agent can reassign each cable or add a motor for separate control</td></tr>
+    <tr><td>Cost per proposal</td><td>4 targets x 2 seeds: 8 episodes</td><td>Targets 0 and 5 x seed 11: 2 episodes; 8 proposals per search</td></tr>
+    <tr><td>Validation</td><td>Targets 4 to 7 after search</td><td>Target 1 after search, plus hand-only and loss-only comparisons</td></tr>
+  </table>
+  <ul class="pts" style="font-size: 0.48em;">
+    <li class="fragment">A flexor cable curls a joint. Distal cables act at the fingertip joints; intermediate cables at the earlier joints; splay cables move fingers sideways at their base knuckles</li>
+    <li class="fragment warm">The shorter protocol speeds iteration but has less evidence per proposal. Target 1 was training in the earlier four-target protocol; it is withheld within these later two-target searches</li>
+  </ul>
+</section>
+
 <section id="slide-cable-study" data-prs="656">
   <h2 class="t">Co-design with <span>cable assignment</span></h2>
-  <p class="setup">Solid-bone OPH. The agent may also choose each mixer's X430 motor and put any digit cable (distal or intermediate flexor, MCP splay) on any motor. Shorter protocol: training targets 0 and 5, controller seed 11, held-out target 1; 8 proposals, 6 s episodes. Two sessions, on polly and rolly. Error in degrees, lower is better</p>
+  <p class="setup">First searches with motor and cable choice enabled, from stock hand + capture-first loss. Two independent searches on polly and rolly, the simulation machines; 8 proposals each, targets 0 and 5, seed 11. Same MPC, 6 s episodes</p>
   <table class="res">
     <tr><th>Session</th><th>Hand</th><th>Loss</th><th>Target 0</th><th>Target 5</th><th>Mean at 6 s</th><th>Episode mean</th><th>Held</th></tr>
     <tr class="base"><td>both</td><td>stock</td><td>capture-first</td><td class="n">161.9</td><td class="n">174.5</td><td class="n">168.2</td><td class="n">161.5</td><td class="n">2/2</td></tr>
@@ -959,7 +1142,7 @@ def jit_for(instance, fn, **jit_kwargs):
     <tr><td>rolly</td><td>stock</td><td>contact capture</td><td class="n">159.0</td><td class="n">158.3</td><td class="n">158.7</td><td class="n">156.7</td><td class="n">2/2</td></tr>
   </table>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment">Selection: lower mean error at 6 s and over the episode, with no more drops than the stock pair. polly selects the opposed power grasp with the hand-relative supported loss, rolly the stock hand with contact capture; every proposal not in the table dropped the cube on at least one target. The control row was run after the search</li>
+    <li class="fragment">Polly selects an opposed thumb with stronger cable drive + hand-relative loss, which keeps the hold point near the moving knuckles. Rolly selects the stock hand + a contact-based capture loss. Both improve the two training averages with no extra drops; the control row is measured after selection</li>
     <li class="fragment warm">From two episodes each: polly's gain is almost all on target 0, rolly's mostly on target 5; the cube still ends far from its target</li>
   </ul>
 </section>
@@ -968,8 +1151,8 @@ def jit_for(instance, fn, **jit_kwargs):
   <h2 class="t">Cable co-design: <span>the three polly pairs</span></h2>
   <p class="setup">Rows, top to bottom: stock hand with capture-first, new hand with capture-first, new hand with the new loss. Wide view left, close view right with cables in each digit's colour; the small floor cube shows the target</p>
   <div class="row" style="max-width: 62%;">
-    <figure><video src="./media/cable_compare_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video><p class="cap"><strong>Target 0</strong>: 162, 154, <strong>132</strong></p></figure>
-    <figure><video src="./media/cable_compare_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 50vh;"></video><p class="cap"><strong>Target 5</strong>: 175, 173, 176</p></figure>
+    <figure><video src="./media/cable_compare_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 380px;"></video><p class="cap"><strong>Target 0</strong>: 162, 154, <strong>132</strong></p></figure>
+    <figure><video src="./media/cable_compare_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 380px;"></video><p class="cap"><strong>Target 5</strong>: 175, 173, 176</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">On target 0 only the bottom row turns the cube: faces G and B come up while the other two still show A</li>
@@ -996,20 +1179,20 @@ OpenParametricHand.make(
 </code></pre>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment">New loss: the same support gate on thumb and finger contact, but the hold is measured relative to the knuckles instead of the cube's starting position, so a closing grip no longer switches the orientation term off</li>
+    <li class="fragment">Hand-relative supported loss: score rotation while thumb and finger totals each reach 0.1 N and the cube is off the floor. Its hold penalty measures distance from the moving knuckles, replacing the earlier gate on mixer angles and distance from the cube's starting position</li>
     <li class="fragment warm">Needs review: the factory replaces the built palm with a union adding a 152 x 12 mm bar. Admission accepted it, but it bypasses the palm builder and nothing checks the bar is printable or strong enough</li>
   </ul>
 </section>
 
 <section id="slide-cable-trace" data-prs="656">
   <h2 class="t">How the agent <span>got there</span></h2>
-  <p class="setup">Read from polly's Langfuse trace: code it ran and status notes it wrote (reasoning summaries came back empty)</p>
+  <p class="setup">Polly's recorded agent execution log (Langfuse): inspected measurements, code and status notes. These are steps inside one co-design search, not separate experiment versions</p>
   <ul class="pts" style="font-size: 0.44em;">
-    <li class="fragment">Step 9: thumb load is zero all episode. The starting loss enables orientation only once every digit group carries 0.1 N and the cube stays within 4 cm of its start</li>
+    <li class="fragment">Step 9: thumb load is zero all episode. The starting loss enables orientation only when the thumb total and finger total each reach 0.1 N and the cube stays within 4 cm of its start</li>
     <li class="fragment">Steps 11-27: six thumb relocations and one loss tweak, all dropped the cube; three layouts refused for collisions or a disconnected mount</li>
     <li class="fragment">Step 28: an opposed thumb on the added palm bar gets thumb and finger contact 26% of the time; middle and ring knuckles bend backward</li>
     <li class="fragment">Step 29: three intermediate flexors on a stronger mixer 0. The first design to keep the cube on both targets; support 42-58% of each episode</li>
-    <li class="fragment">Steps 30-31: the grip pulls the cube more than 4 cm from its start, keeping the gate shut. The agent writes the hand-relative loss: the selected pair</li>
+    <li class="fragment">Steps 30-31: the grip pulls the cube more than 4 cm from its start, so the starting loss stops rewarding rotation. The agent changes the hold reference to the knuckles: hand-relative supported loss. This hand/loss pair wins training selection</li>
   </ul>
 </section>
 
@@ -1017,8 +1200,8 @@ OpenParametricHand.make(
   <h2 class="t">Cable co-design: <span>the loss alone</span></h2>
   <p class="setup">Control after the search: the stock hand with each loss on the two training targets. Top: capture-first; bottom: hand-relative supported. Wide view left, close view right</p>
   <div class="row" style="max-width: 76%;">
-    <figure><video src="./media/cable_loss_stock_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 44vh;"></video><p class="cap"><strong>Target 0</strong>: 162 to 158</p></figure>
-    <figure><video src="./media/cable_loss_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 44vh;"></video><p class="cap"><strong>Target 5</strong>: 175 to 157</p></figure>
+    <figure><video src="./media/cable_loss_stock_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 334px;"></video><p class="cap"><strong>Target 0</strong>: 162 to 158</p></figure>
+    <figure><video src="./media/cable_loss_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 334px;"></video><p class="cap"><strong>Target 5</strong>: 175 to 157</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">On the stock hand the new loss lowers the error at 6 s on both targets. Against the selected pair it is worse on target 0 (158 vs 132) but better on target 5 (157 vs 176); the pair wins on the two-target mean, 154 to 158, and over the episode, 152 to 159</li>
@@ -1029,7 +1212,7 @@ OpenParametricHand.make(
   <h2 class="t">Cable co-design: <span>held-out target 1</span></h2>
   <p class="setup">polly, all four hand and loss pairs, one episode each, run after the search. Video: top row stock hand, bottom row new hand; left original loss, right new loss</p>
   <div class="row" style="max-width: 96%; align-items: center;">
-    <figure style="flex: 1.3;"><video src="./media/cable_heldout_target1.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 34vh;"></video></figure>
+    <figure style="flex: 1.3;"><video src="./media/cable_heldout_target1.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 258px;"></video></figure>
     <div style="flex: 1;">
       <table class="res" style="font-size: 0.42em;">
         <tr><th>Hand</th><th>Loss</th><th>At 6 s</th><th>Episode</th></tr>
@@ -1047,9 +1230,55 @@ OpenParametricHand.make(
   </ul>
 </section>
 
+<section id="slide-codesign-restarts" data-prs="656">
+  <h2 class="t">Later searches: <span>change the starting point</span></h2>
+  <p class="setup">The next searches keep the two-target MPC protocol, but test different hypotheses. Each agent still proposes hardware or loss changes, then selects on training</p>
+  <table class="res" style="font-size: 0.46em; max-width: 90%;">
+    <tr><th>Search shown next</th><th>Starting change</th><th>Question</th></tr>
+    <tr><td>Turning hand (E7)</td><td>Earlier opposed-thumb hand + hand-relative loss</td><td>Can the agent improve the hand already found?</td></tr>
+    <tr><td>Stock restart (E8)</td><td>Stock hand + hand-relative loss</td><td>Does the better loss help a search from stock?</td></tr>
+    <tr><td>Two thumbs (E11)</td><td>Stock hand + loss enabled by any hand contact</td><td>Was the thumb-load gate preventing turning?</td></tr>
+    <tr><td>Index motor (E15)</td><td>Turning hand + a separately driven index finger</td><td>Can one finger turn the cube while the others hold?</td></tr>
+    <tr><td>Wiring prompt (E16)</td><td>Stock hand + explicit explanation of coupled cables</td><td>Will the agent use the existing wiring choices?</td></tr>
+    <tr><td>Firm-grip restart (E17)</td><td>Index-motor hand + firm loss</td><td>Can the agent trade grip support for rotation?</td></tr>
+    <tr><td>Individual loads (E18)</td><td>E17 selected pair + load readings for each finger</td><td>Does more detailed feedback improve the search?</td></tr>
+  </table>
+  <p class="cap">Experiment IDs identify the recorded searches in launch order. Videos and follow-up comparisons stay beside the search they explain</p>
+</section>
+
+<section id="slide-cube-turn" data-prs="656">
+  <h2 class="t">OPH co-design: <span>an 80 degree turn that stays in hand</span></h2>
+  <p class="setup">E7 on rolly restarts from the earlier opposed-thumb hand + hand-relative loss. The selected change moves the thumb 20 mm toward the palm and 10 mm sideways; loss stays fixed. Training target 0, seed 11, 6 s at a 1 ms step; two views per clip</p>
+  <div class="row" style="max-width: 92%;">
+    <figure><video src="./media/cube_turn_power_hand.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 182px;"></video><p class="cap"><strong>Starting pair, power-grasp hand</strong>: 178 at 6 s, 154 over the episode</p></figure>
+    <figure><video src="./media/cube_turn_proximal_thumb.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 182px;"></video><p class="cap"><strong>Agent's hand, thumb moved toward the palm</strong>: 89 at 6 s, 115 over the episode</p></figure>
+  </div>
+  <div class="full" style="max-width: 86%; margin-top: 0.3em;"><img src="./media/cube_turn_frames.png"><p class="cap">Agent's hand at 0, 1.2, 1.6, 2.0, 4.0 and 6.0 s: faces G, then A, then F come up</p></div>
+  <ul class="pts" style="font-size: 0.44em;">
+    <li class="fragment">The error falls from 167 to 89, a turn of about 80 degrees, and the cube stays in the hand; rerun at half the step (0.5 ms), it ends at 89.9 and 124.2 over the episode, so the turn is not a timestep artifact</li>
+    <li class="fragment warm">The cube turns but does not reach the target orientation. The next slide checks whether this hardware change also helps the other targets</li>
+  </ul>
+</section>
+
+<section id="slide-cube-turn-transfer" data-prs="656">
+  <h2 class="t">Moving the thumb: <span>does the turn carry over?</span></h2>
+  <p class="setup">E7, same hand-relative loss. Compare the starting opposed-thumb hand with the selected hand whose thumb moves toward the palm</p>
+  <table class="res" style="font-size: 0.5em;">
+    <tr><th>Target</th><th>Starting hand</th><th>Moved thumb</th></tr>
+    <tr><td>Training 0</td><td class="n">178.1 / 154.2</td><td class="n">88.8 / 115.2</td></tr>
+    <tr><td>Training 5</td><td class="n">146.9 / 148.9</td><td class="n">148.0 / 151.9</td></tr>
+    <tr><td>Held-out 1</td><td class="n">129.2 / 149.1</td><td class="n">140.6 / 146.7</td></tr>
+  </table>
+  <p class="cap">Final / episode-mean orientation error in degrees; 1 ms step, controller seed 11</p>
+  <ul class="pts" style="font-size: 0.5em;">
+    <li class="fragment">The training average improves because target 0 improves strongly. Target 5 gets worse, and held-out final error also gets worse</li>
+    <li class="fragment warm">Held-out episode error improves by only 2.4 degrees. The target-0 half-step rerun shifts episode error by 9 degrees, so one episode per target is weak evidence for such a small gain</li>
+  </ul>
+</section>
+
 <section id="slide-cable2-heldout" data-prs="656">
-  <h2 class="t">Second cable co-design run: <span>held-out target 1</span></h2>
-  <p class="setup">A third session, on Dat's Mac. Same protocol (training targets 0 and 5, controller seed 11, held-out target 1), but the search starts from the stock hand with the hand-relative supported loss. Selected: an opposed-thumb power hand with the agent's rotation-priority supported loss. One episode per cell; error in degrees at 6 s / over the episode</p>
+  <h2 class="t">Restart from stock: <span>held-out target 1</span></h2>
+  <p class="setup">E8 on this Mac: start with the stock hand + hand-relative loss. Agent result: an opposed-thumb hand and a rotation-priority loss that puts more weight on turning. After training selection, test all four hand/loss combinations; entries are final / episode-mean degrees</p>
   <table class="res" style="font-size: 0.46em;">
     <tr><th>Hand</th><th>Loss</th><th>Target 0</th><th>Target 5</th><th>Held-out target 1</th></tr>
     <tr class="base"><td>stock</td><td>hand-relative (start)</td><td class="n">164.1 / 164.6</td><td class="n">149.5 / 152.0</td><td class="n">160.8 / 156.5</td></tr>
@@ -1064,38 +1293,24 @@ OpenParametricHand.make(
 </section>
 
 <section id="slide-cable2-release" data-prs="656">
-  <h2 class="t">Second cable run: <span>a low error that is a release</span></h2>
-  <p class="setup">Training target 5, two camera views per clip; 6 s</p>
+  <h2 class="t">Stock restart: <span>a low error that is a release</span></h2>
+  <p class="setup">E8 training target 5, two camera views per clip; 6 s. This exposes an evaluation flaw: the final frame can look well-oriented even as the cube leaves the hand</p>
   <div class="row" style="max-width: 92%;">
-    <figure><video src="./media/cable2_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Stock hand, start loss</strong>: 149.5 at 6 s</p></figure>
-    <figure><video src="./media/cable2_selected_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Selected pair</strong>: 84.5 at 6 s</p></figure>
+    <figure><video src="./media/cable2_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 182px;"></video><p class="cap"><strong>Stock hand, start loss</strong>: 149.5 at 6 s</p></figure>
+    <figure><video src="./media/cable2_selected_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 182px;"></video><p class="cap"><strong>Selected pair</strong>: 84.5 at 6 s</p></figure>
   </div>
   <div class="full" style="max-width: 80%; margin-top: 0.3em;"><img src="./media/cable2_release_frames.png"><p class="cap">Selected pair at 3.0, 5.3, 5.7 and 5.9 s</p></div>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment warm">By 5.9 s the cube is tipping off the hand, and it rolls off in the last 0.1 s: that gives the 84.5, and it is not scored as a drop. The pair passes the selection metrics nominally without a real turn; next change: a release at episode end counts as a drop</li>
-  </ul>
-</section>
-
-<section id="slide-cube-turn" data-prs="656">
-  <h2 class="t">OPH co-design: <span>an 80 degree turn that stays in hand</span></h2>
-  <p class="setup">Another cable co-design session, on rolly. Training target 0, controller seed 11, 6 s at a 1 ms step under MPC; hand-relative supported loss. Two camera views per clip</p>
-  <div class="row" style="max-width: 92%;">
-    <figure><video src="./media/cube_turn_power_hand.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Starting pair, power-grasp hand</strong>: 178 at 6 s, 154 over the episode</p></figure>
-    <figure><video src="./media/cube_turn_proximal_thumb.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 24vh;"></video><p class="cap"><strong>Agent's hand, thumb moved toward the palm</strong>: 89 at 6 s, 115 over the episode</p></figure>
-  </div>
-  <div class="full" style="max-width: 86%; margin-top: 0.3em;"><img src="./media/cube_turn_frames.png"><p class="cap">Agent's hand at 0, 1.2, 1.6, 2.0, 4.0 and 6.0 s: faces G, then A, then F come up</p></div>
-  <ul class="pts" style="font-size: 0.44em;">
-    <li class="fragment">The error falls from 167 to 89, a turn of about 80 degrees, and the cube stays in the hand; rerun at half the step (0.5 ms), it ends at 89.9 and 124.2 over the episode, so the turn is not a timestep artifact</li>
-    <li class="fragment warm">It does not reach the target face, and it does not carry over (at 6 s / over the episode): training target 5, 148.0 / 151.9 against the starting pair's 146.9 / 148.9; held-out target 1, 140.6 / 146.7 against 129.2 / 149.1. Worse at 6 s on both; the 2.4 degree episode gain on target 1 is smaller than the 9 degree swing the half-step rerun shows</li>
+    <li class="fragment warm">By 5.9 s the cube is tipping off the hand and rolls off in the last 0.1 s, giving 84.5 degrees. This run's scorer missed the release. Later searches count release at episode end as a drop; this apparent win is not carried forward as a successful turn</li>
   </ul>
 </section>
 
 <section id="slide-thumb-motor" data-prs="656">
   <h2 class="t">OPH co-design: <span>two thumbs on a third motor</span></h2>
-  <p class="setup">A fourth session, on Dat's Mac. Starts from the stock hand with a loss that scores orientation once any part of the hand touches the cube; same targets. Selected hand: a thumb on each side of the finger row, with both thumbs' flexor and intermediate cables on a third motor (XM430-W350); loss unchanged</p>
+  <p class="setup">E11 on this Mac relaxes the orientation gate: any hand contact counts if the cube is off the floor within 6 cm of the knuckles, rather than requiring thumb and finger loads. Start: stock hand. Agent result: two opposed thumbs on a separate third motor; loss unchanged. End releases now count as drops</p>
   <div class="row" style="max-width: 96%; align-items: center;">
-    <figure style="flex: 1;"><video src="./media/thumb_motor_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 20vh;"></video><p class="cap"><strong>Stock hand</strong>, target 5</p></figure>
-    <figure style="flex: 1;"><video src="./media/thumb_motor_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 20vh;"></video><p class="cap"><strong>Two thumbs, third motor</strong>, target 5</p></figure>
+    <figure style="flex: 1;"><video src="./media/thumb_motor_stock_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 152px;"></video><p class="cap"><strong>Stock hand</strong>, target 5</p></figure>
+    <figure style="flex: 1;"><video src="./media/thumb_motor_target5.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 152px;"></video><p class="cap"><strong>Two thumbs, third motor</strong>, target 5</p></figure>
     <div style="flex: 1.1;">
       <table class="res">
         <tr><th>Target</th><th>Stock</th><th>Selected</th></tr>
@@ -1113,19 +1328,30 @@ OpenParametricHand.make(
   </ul>
 </section>
 
+<section id="slide-independent-index" data-prs="656">
+  <h2 class="t">Why seed a search with <span>an index motor?</span></h2>
+  <ul class="pts" style="font-size: 0.5em; max-width: 88%;">
+    <li class="fragment">Cable assignment allows independent fingers, but the agents mainly moved thumbs or added a thumb motor. Stock cables share motors: commanding one finger also moves other digits</li>
+    <li class="fragment">Prompt change: state that coupling explicitly. A restart from the turning hand (E14) still did not give the index its own motor; no proposal beat its starting pair</li>
+    <li class="fragment">The load sensor shows two totals, thumbs and fingers, rather than each finger's load. The agent can see missing thumb support, but not which finger needs separate control</li>
+    <li class="fragment">E15 therefore starts with the turning hand and a third motor pulling the index finger's fingertip and middle-joint cables. This is a change we seed into the search, not a wiring choice discovered by its agent</li>
+    <li class="fragment warm">The agent can still revise anatomy, motor choices, wiring and loss. The question is whether the new starting control freedom produces a turn that also performs well on training</li>
+  </ul>
+</section>
+
 <section id="slide-index-motor" data-prs="656">
   <h2 class="t">OPH co-design: <span>65 degrees on the held-out target</span></h2>
-  <p class="setup">A fifth session, on polly. Starts from the proximal-thumb hand with the index finger's distal and intermediate flexors on a third motor, under the hand-relative supported loss. The agent kept the index motor and wrote a firm supported loss: closure weight 20 instead of 4, support threshold 0.5 N instead of 0.2 N. Selected: a wider wrist range with the firm loss</p>
+  <p class="setup">E15 on polly. The agent keeps the separate index motor and writes a firmer loss: closure weight 20 instead of 4, desired thumb/finger-group load 0.5 N instead of 0.2 N. The orientation gate stays at 0.1 N per group. Training selects a wider wrist range + firm loss</p>
   <table class="res" style="font-size: 0.46em;">
     <tr><th>Hand</th><th>Loss</th><th>Target 0</th><th>Target 5</th><th>Held-out 1</th></tr>
     <tr class="base"><td>index motor</td><td>start</td><td class="n">172.1 / 152.4</td><td class="n">dropped</td><td class="n">122.9 / 135.3</td></tr>
     <tr><td>index motor</td><td>firm</td><td class="n">152.7 / 163.9</td><td class="n">169.0 / 157.1</td><td class="n"><strong>65.0 / 108.7</strong></td></tr>
-    <tr><td>wider wrist</td><td>start</td><td class="n">dropped</td><td class="n">165.2 / 156.7</td><td class="n">112.0 / 122.8</td></tr>
-    <tr><td>wider wrist</td><td>firm (selected)</td><td class="n">85.7 / 116.9</td><td class="n">168.5 / 156.2</td><td class="n">dropped</td></tr>
+    <tr><td>index + wider wrist</td><td>start</td><td class="n">dropped</td><td class="n">165.2 / 156.7</td><td class="n">112.0 / 122.8</td></tr>
+    <tr><td>index + wider wrist</td><td>firm (selected)</td><td class="n">85.7 / 116.9</td><td class="n">168.5 / 156.2</td><td class="n">dropped</td></tr>
   </table>
-  <p class="cap">Degrees at 6 s / over the episode; controller seed 11, one episode each</p>
+  <p class="cap">Final / episode-mean degrees; seed 11, one episode each. Wider wrist means larger permitted yaw, pitch and roll, with the same index-motor hand</p>
   <ul class="pts" style="font-size: 0.46em;">
-    <li class="fragment">On held-out target 1 the firm loss takes the index-motor hand from 122.9 to 65.0 at 6 s with the cube held: the lowest held-out error so far</li>
+    <li class="fragment">Post-selection comparison: the firm loss on the starting index-motor hand improves held-out final error from 122.9 to 65.0 degrees, with the cube held. The agent did not use that target to choose its pair</li>
     <li class="fragment warm">On training it averages 160.9 at 6 s against the selected pair's 127.1, so it was not selected. The selected pair turns the cube on target 0 (85.7, much of it wrist roll) but drops it on held-out 1</li>
   </ul>
 </section>
@@ -1134,10 +1360,85 @@ OpenParametricHand.make(
   <h2 class="t">Index-motor hand: <span>start loss vs firm loss</span></h2>
   <p class="setup">Held-out target 1, 6 s; two camera views per clip</p>
   <div class="row" style="max-width: 92%;">
-    <figure><video src="./media/index_motor_base_heldout1.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 26vh;"></video><p class="cap"><strong>Start loss</strong>: 122.9 at 6 s</p></figure>
-    <figure><video src="./media/index_motor_firm_heldout1.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 26vh;"></video><p class="cap"><strong>Firm loss</strong>: 65.0 at 6 s</p></figure>
+    <figure><video src="./media/index_motor_base_heldout1.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 198px;"></video><p class="cap"><strong>Start loss</strong>: 122.9 at 6 s</p></figure>
+    <figure><video src="./media/index_motor_firm_heldout1.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 198px;"></video><p class="cap"><strong>Firm loss</strong>: 65.0 at 6 s</p></figure>
   </div>
-  <div class="full" style="max-width: 92%; margin-top: 0.4em;"><img src="./media/index_motor_firm_frames.png"><p class="cap">Firm loss: the top face goes D, then A, then C</p></div>
+  <div class="full" style="max-width: 92%; margin-top: 0.4em;"><img src="./media/index_motor_firm_frames.png"><p class="cap">Firm loss: the top face goes D, then A, then C. Left to right: 0.0, 0.8, 1.6, 2.4, 3.2 and 3.96 s; each tile pairs wide and close views</p></div>
+</section>
+
+<section id="slide-stock-prompt" data-prs="656">
+  <h2 class="t">Wiring prompt: <span>better training, worse held-out mean</span></h2>
+  <p class="setup">E16 on rolly restarts E8's stock hand + hand-relative loss after the prompt explains coupled cables. This changes the agent's instructions, not MPC. It selects repositioned, opposed thumbs with the same loss; target 1 is tested after training selection</p>
+  <table class="res" style="font-size: 0.46em;">
+    <tr><th>Hand</th><th>Target 0</th><th>Target 5</th><th>Training average</th><th>Held-out 1</th></tr>
+    <tr class="base"><td>stock</td><td class="n">156.7 / 162.8</td><td class="n">152.7 / 156.1</td><td class="n">154.7 / 159.4</td><td class="n">161.9 / 155.3</td></tr>
+    <tr><td>opposed thumbs</td><td class="n">111.3 / 151.2</td><td class="n">157.4 / 159.2</td><td class="n"><strong>134.4 / 155.2</strong></td><td class="n">154.6 / 166.1</td></tr>
+  </table>
+  <p class="cap">Degrees at 6 s / over the episode; controller seed 11, one episode per target. Neither pair drops the cube on these targets</p>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">Training improves on average, mainly on target 0. Target 5 gets worse</li>
+    <li class="fragment warm">Held-out final error falls by 7.3 degrees, but episode error rises by 10.7 degrees. The goal of improving both training and held-out performance remains unmet</li>
+  </ul>
+</section>
+
+<section id="slide-stock-prompt-videos" data-prs="656">
+  <h2 class="t">E16, target 0: <span>stock vs opposed thumbs</span></h2>
+  <p class="setup">Same hand-relative supported loss, controller seed 11, 6 s episodes</p>
+  <div class="row" style="max-width: 92%;">
+    <figure><video src="./media/stock_prompt_base_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 319px;"></video><p class="cap"><strong>Stock hand</strong>: 156.7 degrees at 6 s</p></figure>
+    <figure><video src="./media/stock_prompt_selected_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 319px;"></video><p class="cap"><strong>Opposed thumbs</strong>: 111.3 degrees at 6 s</p></figure>
+  </div>
+</section>
+
+<section id="slide-index-balanced" data-prs="656">
+  <h2 class="t">E17: <span>restart with the firmer grip</span></h2>
+  <p class="setup">Rolly, starting from E15's index-motor hand + firm loss. Both hand and loss remain under search. Selected: the same hand with balanced rotation loss, which increases orientation weight from 8 to 12 and support-penalty weight from 50 to 100; closure and the 0.1 N support gate stay fixed</p>
+  <table class="res" style="font-size: 0.46em;">
+    <tr><th>Loss on the index-motor hand</th><th>Target 0</th><th>Target 5</th><th>Training average</th><th>Target 1 after selection</th></tr>
+    <tr class="base"><td>firm (start)</td><td class="n">169.6 / 163.9</td><td class="n">170.9 / 159.5</td><td class="n">170.2 / 161.7</td><td class="n">69.9 / 108.2</td></tr>
+    <tr><td>balanced (selected)</td><td class="n">105.6 / 126.0</td><td class="n">108.0 / 145.9</td><td class="n"><strong>106.8 / 135.9</strong></td><td class="n">70.7 / 113.8</td></tr>
+  </table>
+  <p class="cap">Final / episode-mean degrees; seed 11, 6 s; neither pair drops. Fresh starting measurements differ from E15: compare within this run</p>
+  <ul class="pts" style="font-size: 0.48em;">
+    <li class="fragment">Training improves strongly, but target 1 gets slightly worse on both metrics. This is a better training controller, not a gain on both training and validation</li>
+    <li class="fragment warm">Target 1 helped us choose this starting pair through E15. It remains hidden from this agent, but is now a repeated validation target for the overall research loop</li>
+  </ul>
+</section>
+
+<section id="slide-index-balanced-videos" data-prs="656">
+  <h2 class="t">E17 to E18: <span>the retained controller</span></h2>
+  <p class="setup">Training target 0, same index-motor hand, seed 11, 6 s. E17 changes the loss; E18 retains that selected pair. <a href="./sources/video-provenance.json">Video source and configuration</a></p>
+  <div class="row" style="max-width: 92%;">
+    <figure><video src="./media/index_firm_restart_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 280px;"></video><p class="cap"><strong>E17 start, firm loss</strong>: 169.6 degrees final, 163.9 over the episode</p></figure>
+    <figure><video src="./media/index_balanced_target0.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 280px;"></video><p class="cap"><strong>E17 selected / E18 retained, balanced loss</strong>: 105.6 final, 126.0 over the episode</p></figure>
+  </div>
+</section>
+
+<section id="slide-per-digit-feedback">
+  <h2 class="t">E18: <span>more feedback, same selected pair</span></h2>
+  <p class="setup">Rolly, from E17's index-motor hand + balanced loss. New feedback reports the load on each finger and thumb, alongside the existing thumb and finger totals; the prompt asks the agent to compare individual support</p>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">Hypothesis: seeing which finger is weak could help the agent change anatomy, wiring or loss to let some digits hold while another turns the cube</li>
+    <li class="fragment">The new readings add information for the search. They leave the group-load sensors and controller support gate unchanged</li>
+    <li class="fragment">Eight proposals, none better than the starting pair under training selection. The search therefore keeps the same hand and balanced loss</li>
+    <li class="fragment">Retained pair: training average 106.8 / 135.9 degrees; repeated target 1, 70.7 / 113.8. No drops on either training target or target 1; same values as E17's selected pair</li>
+    <li class="fragment warm">The individual-load readings are implemented, but this run provides no evidence of a better selected design. The next slide checks sensitivity to simulation timestep</li>
+  </ul>
+</section>
+
+<section id="slide-per-digit-timestep">
+  <h2 class="t">E18: <span>replay at a smaller timestep</span></h2>
+  <p class="setup">Repeat each recorded motor command twice at 0.5 ms, instead of once at 1 ms. This keeps the commanded motion fixed while checking whether the smaller physics timestep changes the outcome</p>
+  <table class="res" style="font-size: 0.55em;">
+    <tr><th>Training target</th><th>Search at 1 ms</th><th>Replay at 0.5 ms</th></tr>
+    <tr><td>0</td><td class="n">105.6 / 126.0</td><td class="n">106.4 / 126.7</td></tr>
+    <tr><td>5</td><td class="n">108.0 / 145.9</td><td class="n">105.2 / 146.3</td></tr>
+  </table>
+  <p class="cap">Final / episode-mean orientation error in degrees. The cube stays held on both replays</p>
+  <ul class="pts" style="font-size: 0.52em; max-width: 88%;">
+    <li class="fragment">The errors stay close to the original run on both training targets</li>
+    <li class="fragment warm">These are recorded-command replays. The planner does not recompute actions from the new state, so they do not test the full feedback controller at 0.5 ms or establish hardware performance</li>
+  </ul>
 </section>
 
 <section id="slide-oph-status">
@@ -1159,9 +1460,10 @@ OpenParametricHand.make(
   <ul class="pts" style="font-size: 0.6em; max-width: 72%;">
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
+    <li class="fragment">Panda grip retention during lift: integrate stage-specific predicted constraints and diagnose the hand-command penalty and candidate exploration</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
-    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. A second run agrees (9-10 degrees), and its selected pair's best training error is the cube rolling off at episode end. A third run turns the cube about 80 degrees on target 0, but is slightly worse on target 5 and worse on held-out target 1. A fourth keeps the cube on every target with two thumbs on a third motor, but holds rather than turns it. A fifth reaches 65 degrees on held-out target 1 with an index-finger motor and a firmer loss, but that pair is weaker on training and was not selected. The palm-bar union needs review</li>
-    <li class="fragment">OPH scoring: count a release at episode end as a drop</li>
+    <li class="fragment">OPH co-design: E17's balanced loss improves training but slightly worsens repeated target 1. E18 adds individual finger-load feedback and retains the same pair. Still need gains on both sets with visible turning, then validation on new targets</li>
+    <li class="fragment">OPH geometry: the agent-added palm bar still needs review</li>
   </ul>
 </section>
 

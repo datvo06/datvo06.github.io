@@ -1,0 +1,89 @@
+{
+  "purpose": "Producer source, configurations and recorded results for the six new slide videos. Archives contain original producer code and RoboTL dependencies, not modified implementations.",
+  "checkout_instructions": "producer-checkouts.txt",
+  "apple_v14": {
+    "revision": "Uncommitted runtime snapshot preceding 23e9290c, associated with PR 658. The snapshot is not claimed to equal that commit.",
+    "producer": "apple-v14-producer.tar.gz",
+    "source_hashes": "apple-v14-source-manifest.json",
+    "simulation": "inputs/mpc/object-agent-trial-nocheck.py uses experiments/pickup_director.py and experiments/panda_leap_pickup.py",
+    "renderer": "apple-v14-render.py",
+    "loss": "apple-v14-loss.py",
+    "grasp": "apple-v14-grasp-plan.json",
+    "results": [
+      "apple-v14-result.json",
+      "apple-v14-outcome.json"
+    ],
+    "rendering_command": "MUJOCO_GL=cgl python apple-v14-render.py /private/tmp/pickup-constraints-results/apple-v14/native /private/tmp/pickup-constraints-results/apple-v14/video",
+    "rendering_inputs": "Original native/scene.mjb and native/recording.npz retained in /private/tmp/pickup-constraints-results/apple-v14. They are not included in the site source download.",
+    "clips": [
+      {
+        "file": "../media/apple_v14_wide.mp4",
+        "original": "wide_realtime.mp4",
+        "sha256": "2a330b1dc60ca720a91e29903c2d7739d1dd198bdf2b6246db217082b05b9055",
+        "playback": "real time, 40 fps"
+      },
+      {
+        "file": "../media/apple_v14_slip_closeup.mp4",
+        "original": "end_closeup_fifth_speed.mp4",
+        "sha256": "1398b46ebf4a966738185c678207d2a14d39e69b871b55e441c6603f9cf1423c",
+        "playback": "last 0.6 simulated seconds at one-fifth speed, 40 fps"
+      }
+    ]
+  },
+  "oph": {
+    "simulation": "experiments/cube_orienting/evaluation.py: _run_cases uses jit/vmap(run_episode(record=record_cube, scan=True))",
+    "recording": "experiments/cube_orienting/diagnostics.py: save_states and recorded_states",
+    "renderer": "experiments/cube_orienting/reporting.py: render_trial, called by display_summary",
+    "renderer_sha256": "9c641445dffd7a0e450f23f0bd3537e296c98995dbe00c8a1f412c01d7d5f621",
+    "rendering": "Rebuild trial.robot with Rotation.make_random(rax.key(trial.seed)); load recorded states; concatenate close and overview cameras. Camera parameters, frame stride and fps are in render_trial.",
+    "config_location": "Each summary's search.config contains the exact trial budget; trials contain the robot and loss factories and metric records.",
+    "rendering_inputs": "Original evaluation-*.npz trajectories remain in the run output directories identified in each summary. They are not included in the site source download.",
+    "runs": [
+      {
+        "experiment": "E16",
+        "revision": "ee55e4ae51a7d3493dba9580a1521836d3d924ad",
+        "producer": "oph-e16-producer.tar.gz",
+        "summary": "oph-e16-summary.json",
+        "clips": [
+          {
+            "file": "../media/stock_prompt_base_target0.mp4",
+            "original": "evaluation-25df36e186b2-seed-0-controller-11.mp4",
+            "sha256": "3db5e8c43b887d6637a38fbb1fdf0799afbcedbcdfd9039179c2abf9012af976"
+          },
+          {
+            "file": "../media/stock_prompt_selected_target0.mp4",
+            "original": "evaluation-8400ce808025-seed-0-controller-11.mp4",
+            "sha256": "0f9363f8aa5c26710f9fb955e2e9de5150221a4baf8423a003e9daeea9a451b6"
+          }
+        ]
+      },
+      {
+        "experiment": "E17",
+        "revision": "fd995e16607a99799ec361e12d819b42ba4f1bd7",
+        "producer": "oph-e17-producer.tar.gz",
+        "summary": "oph-e17-summary.json",
+        "clips": [
+          {
+            "file": "../media/index_firm_restart_target0.mp4",
+            "original": "evaluation-f7ac64dcf7f0-seed-0-controller-11.mp4",
+            "sha256": "8b8b36c31a4374572c85a5363ed196c4e56591e7a2e4d60b4fdb60ce8a8c20d0"
+          }
+        ]
+      },
+      {
+        "experiment": "E18",
+        "revision": "edd8732754ffcae367c0841a3d284d3f786f323e",
+        "producer": "oph-e18-producer.tar.gz",
+        "summary": "oph-e18-summary.json",
+        "clips": [
+          {
+            "file": "../media/index_balanced_target0.mp4",
+            "original": "evaluation-91738c2ddc9e-seed-0-controller-11.mp4",
+            "sha256": "f24085df95c94cfc27b307671fdc4d6f869018c94bf8dce3a5f3ff272407b1a3"
+          }
+        ]
+      }
+    ],
+    "archive_command": "git archive --format=tar.gz REVISION robotl pyproject.toml experiments/search.py experiments/cli.py experiments/cube_orienting/{__init__,co_design,diagnostics,environment,evaluation,loss_design,morphology_design,reporting}.py"
+  }
+}

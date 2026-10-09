@@ -1,0 +1,32 @@
+Use the producer archives with complete RoboTL source checkouts.
+They preserve run code for inspection and are not standalone installations.
+
+Repository: https://github.com/BasisResearch/RoboTL
+E16: ee55e4ae51a7d3493dba9580a1521836d3d924ad
+E17: fd995e16607a99799ec361e12d819b42ba4f1bd7
+E18: edd8732754ffcae367c0841a3d284d3f786f323e
+
+For example, prepare the E16 checkout and overlay its archived producer code:
+
+git clone https://github.com/BasisResearch/RoboTL robotl-e16
+git -C robotl-e16 checkout ee55e4ae51a7d3493dba9580a1521836d3d924ad
+tar -xzf oph-e16-producer.tar.gz -C robotl-e16
+
+Keep the checkout's experiments/cli.py, assets, scripts and dependency setup.
+The Stretch URDF and collision assets are under assets/stretch_re1.
+From the checkout, scripts/download_stretch_wrist.py fetches optional visual
+meshes from its pinned upstream revision and verifies their checksums.
+The archive preserves RoboTL producer modules; pyproject.toml specifies the
+external Python dependencies. Follow that checkout's installation instructions.
+
+Use the corresponding revision and archive for E17 or E18. The run summaries
+preserve the exact budgets, robot/loss factory code and selected trial records.
+Replay rendering additionally requires the original evaluation-*.npz files
+in each summary's output directory; these are not included in the site download.
+
+Apple v14 is an uncommitted runtime snapshot preceding 23e9290c, not that commit.
+Use a complete checkout at 23e9290c as the source/dependency baseline, then
+overlay apple-v14-producer.tar.gz. The source manifest records the exact hashes
+of the run's changed implementation files. Its renderer also requires the
+original native/scene.mjb and native/recording.npz from that run. The site holds
+the loss, renderer, grasp parameters and outcome, not those large replay inputs.
