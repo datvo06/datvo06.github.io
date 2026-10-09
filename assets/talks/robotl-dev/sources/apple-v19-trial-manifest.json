@@ -1,0 +1,9 @@
+{
+  "parent_trial": "apple-joint-grasp-lift-v17",
+  "enforce_penetration": false,
+  "arm_sigma": 0.1,
+  "arm_correction_knot_s": 0.25,
+  "batch_size": 32,
+  "rounds": 2,
+  "source_sha256": "40edb01652647a7af0dea35c98831288ecea4d8c5f772f8aecc7b41431d8980a"
+}
