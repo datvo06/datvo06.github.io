@@ -1,14 +1,14 @@
 Use the producer archives with complete RoboTL source checkouts.
 They preserve run code for inspection and are not standalone installations.
 
-Repository: https://github.com/datvo06/RoboTL
+Repository: https://github.com/BasisResearch/RoboTL
 E16: ee55e4ae51a7d3493dba9580a1521836d3d924ad
 E17: fd995e16607a99799ec361e12d819b42ba4f1bd7
 E18: edd8732754ffcae367c0841a3d284d3f786f323e
 
 For example, prepare the E16 checkout and overlay its archived producer code:
 
-git clone https://github.com/datvo06/RoboTL robotl-e16
+git clone https://github.com/BasisResearch/RoboTL robotl-e16
 git -C robotl-e16 checkout ee55e4ae51a7d3493dba9580a1521836d3d924ad
 tar -xzf oph-e16-producer.tar.gz -C robotl-e16
 
