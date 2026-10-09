@@ -585,7 +585,7 @@ grasp_controller = replace(
   </div>
   <ul class="pts" style="font-size: 0.44em;">
     <li class="fragment">CAPTURE from 3.71 s, GRASP from 5.27 s; both capture proposals admitted, at wrench margins 0.59 and 4.54 held, 1.52 and 4.31 under servo limits</li>
-    <li class="fragment warm">GRASP times out at 7.67 s with a 22 N peak grip, so LIFT never starts. Replaying the run, the margin under servo limits reads exactly 0 at many sampled times during GRASP (5.80-6.30 s, 6.45-6.50 s, 6.95-7.05 s) while the grip stays at 4-20 N. From 7.30 to 7.55 s every gate term holds at 25 ms resolution and the margin is 1.8-2.5, longer than the 0.15 s GRASP dwell, yet GRASP does not release; finger 0's support term then flickers off at 7.58 and 7.63 s. The GRASP dwell restarts on any single failing tick. Next: a per-tick trace of every gate term and the margin over 7.30 to 7.55 s, to see what fails between the 25 ms samples. Uncommitted work built on #653</li>
+    <li class="fragment warm">GRASP times out at 7.67 s with a 22 N peak grip, so LIFT never starts. Replaying the run, the margin under servo limits reads exactly 0 at many sampled times during GRASP (5.80-6.30 s, 6.45-6.50 s, 6.95-7.05 s) while the grip stays at 4-20 N. From 7.30 to 7.55 s, a 0.25 s window longer than the 0.15 s GRASP dwell, every gate term holds at 25 ms resolution and the margin is 1.8-2.5, yet GRASP does not release; finger 0's support term then flickers off at 7.58 and 7.63 s. The GRASP dwell restarts on any single failing tick. Next: a per-tick trace of every gate term and the margin over 7.30 to 7.55 s, to see what fails between the 25 ms samples. Uncommitted work built on #653</li>
   </ul>
 </section>
 
