@@ -420,22 +420,22 @@ grasp_controller = replace(
   </ul>
 </section>
 
-<section id="slide-screwdriver-fixes" data-prs="649,653">
+<section id="slide-screwdriver-fixes" data-prs="647,653">
   <h2 class="t">Screwdriver pickup: <span>reaching an admitted capture</span></h2>
   <p class="setup">Same screwdriver scene and staged controller; each run changes the capture plan. Close-ups at 1/5 speed, end of each episode. Stages: CAPTURE, then GRASP (all fingers loaded), then LIFT</p>
   <div class="row" style="max-width: 96%;">
-    <figure><video src="./media/sd_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Closing schedule</strong>, wrist first: first CAPTURE pass, 5.5 s; GRASP times out, thumb and finger 2 pinch only, 3.9 N</p></figure>
-    <figure><video src="./media/sd_preshape_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Preshape schedule</strong> + wrench-margin GRASP gate: CAPTURE 4.9 s, 24 N, but margin 0: the fingers press the handle into the table</p></figure>
-    <figure><video src="./media/sd_yaw_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Wrist yaw in the capture IK</strong>: first admitted capture; GRASP passes at 6.16 s; LIFT invariant fails at 6.9 s</p></figure>
+    <figure><video src="./media/screwdriver_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Closing schedule</strong>, wrist first: first CAPTURE pass, 5.5 s; GRASP times out, thumb and finger 2 pinch only, 3.9 N</p></figure>
+    <figure><video src="./media/screwdriver_preshape_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Preshape schedule</strong> + wrench-margin GRASP gate: CAPTURE 4.9 s, 24 N, but margin 0: the fingers press the handle into the table</p></figure>
+    <figure><video src="./media/screwdriver_yaw_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 28vh;"></video><p class="cap"><strong>Wrist yaw in the capture IK</strong>: first admitted capture; GRASP passes at 6.16 s; LIFT invariant fails at 6.9 s</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Without wrist yaw, the hand's closing axis sat 34 degrees off the shaft</li>
     <li class="fragment">With it, the admitted capture's wrench margin is <span class="num">1.46</span> held and <span class="num">1.29</span> under servo limits, against 1.006 needed</li>
-    <li class="fragment warm">No screwdriver lift yet; the LIFT failure is being diagnosed</li>
+    <li class="fragment warm">No screwdriver lift yet; the LIFT failure is being diagnosed. The schedules and capture-IK yaw are uncommitted work built on #653</li>
   </ul>
 </section>
 
-<section id="slide-apple-bottle" data-prs="649,653">
+<section id="slide-apple-bottle" data-prs="653">
   <h2 class="t">Apple and mustard bottle: <span>this round</span></h2>
   <div class="row" style="max-width: 80%;">
     <figure><video src="./media/apple_schedule_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Apple</strong>, co-designed grasp with closing schedules and a relaxed floor check; 1/5 speed</p></figure>
@@ -443,7 +443,7 @@ grasp_controller = replace(
   </div>
   <ul class="pts" style="font-size: 0.46em;">
     <li class="fragment">Apple: CAPTURE passes at 5.05 s (wrench margin 1.36 held, 7.9 under servo limits; 22 N grip), then GRASP times out on the all-fingers-loaded rule. The carried check from the earlier apple slide is not in this run</li>
-    <li class="fragment warm">Bottle: 37 N grip but the capture terms flicker and the wrench margin is 0; CAPTURE times out</li>
+    <li class="fragment warm">Bottle: 37 N grip but the capture terms flicker and the wrench margin is 0; CAPTURE times out. Both runs use uncommitted work built on #653</li>
   </ul>
 </section>
 
