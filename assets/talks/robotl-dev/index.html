@@ -605,15 +605,15 @@ grasp_controller = replace(
 
 <section id="slide-apple-v13" data-prs="653">
   <h2 class="t">Apple, v13: <span>GRASP releases, the thumb slips in LIFT</span></h2>
-  <p class="setup">The apple v12 run again, with v13: GRASP tolerates a failing stretch of up to 3.5 ticks in its dwell instead of restarting it, and the capture plan is faster. Times in recording time</p>
+  <p class="setup">The apple v12 run again, with v13: GRASP tolerates failing stretches of under 9 ms (3.5 ticks of 2.5 ms) in its dwell instead of restarting it, and the capture plan is faster. Times in recording time</p>
   <div class="row" style="max-width: 86%;">
     <figure style="flex: 1.25;"><video src="./media/apple_v13_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
     <figure style="flex: 1;"><video src="./media/apple_v13_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 36vh;"></video><p class="cap"><strong>End of the episode</strong>, 1/5 speed</p></figure>
   </div>
   <ul class="pts" style="font-size: 0.44em;">
-    <li class="fragment">Same captures as v12 (4.54 held, 4.31 under servo limits for the second). GRASP now releases at 7.42 s, matching the 7.43 s the gate replay predicted</li>
+    <li class="fragment">Same captures as v12 (4.54 held, 4.31 under servo limits for the second). GRASP now releases at 7.42 s</li>
     <li class="fragment">LIFT raises the apple about 8 cm; the thumb loses contact at 9.46 s and the apple falls; 22 N grip</li>
-    <li class="fragment warm">Still the thumb-and-finger-0 pinch from v12, so the dwell fix moves the failure into LIFT rather than removing it. Wall time 5 min, against 102 min for v12 on the same machine. Uncommitted work built on #653</li>
+    <li class="fragment warm">Still the thumb-and-finger-0 pinch from v12, so the dwell fix moves the failure into LIFT rather than removing it. Wall time 5 min, against 102 min for the apple v12 run on the same machine. Uncommitted work built on #653</li>
   </ul>
 </section>
 
