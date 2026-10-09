@@ -1113,6 +1113,33 @@ OpenParametricHand.make(
   </ul>
 </section>
 
+<section id="slide-index-motor" data-prs="656">
+  <h2 class="t">OPH co-design: <span>65 degrees on the held-out target</span></h2>
+  <p class="setup">A fifth session, on polly. Starts from the proximal-thumb hand with the index finger's distal and intermediate flexors on a third motor, under the hand-relative supported loss. The agent kept the index motor and wrote a firm supported loss: closure weight 20 instead of 4, support threshold 0.5 N instead of 0.2 N. Selected: a wider wrist range with the firm loss</p>
+  <table class="res" style="font-size: 0.46em;">
+    <tr><th>Hand</th><th>Loss</th><th>Target 0</th><th>Target 5</th><th>Held-out 1</th></tr>
+    <tr class="base"><td>index motor</td><td>start</td><td class="n">172.1 / 152.4</td><td class="n">dropped</td><td class="n">122.9 / 135.3</td></tr>
+    <tr><td>index motor</td><td>firm</td><td class="n">152.7 / 163.9</td><td class="n">169.0 / 157.1</td><td class="n"><strong>65.0 / 108.7</strong></td></tr>
+    <tr><td>wider wrist</td><td>start</td><td class="n">dropped</td><td class="n">165.2 / 156.7</td><td class="n">112.0 / 122.8</td></tr>
+    <tr><td>wider wrist</td><td>firm (selected)</td><td class="n">85.7 / 116.9</td><td class="n">168.5 / 156.2</td><td class="n">dropped</td></tr>
+  </table>
+  <p class="cap">Degrees at 6 s / over the episode; controller seed 11, one episode each</p>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li class="fragment">On held-out target 1 the firm loss takes the index-motor hand from 122.9 to 65.0 at 6 s with the cube held: the lowest held-out error so far</li>
+    <li class="fragment warm">On training it averages 160.9 at 6 s against the selected pair's 127.1, so it was not selected. The selected pair turns the cube on target 0 (85.7, much of it wrist roll) but drops it on held-out 1</li>
+  </ul>
+</section>
+
+<section id="slide-index-motor-videos" data-prs="656">
+  <h2 class="t">Index-motor hand: <span>start loss vs firm loss</span></h2>
+  <p class="setup">Held-out target 1, 6 s; two camera views per clip</p>
+  <div class="row" style="max-width: 92%;">
+    <figure><video src="./media/index_motor_base_heldout1.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 26vh;"></video><p class="cap"><strong>Start loss</strong>: 122.9 at 6 s</p></figure>
+    <figure><video src="./media/index_motor_firm_heldout1.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 26vh;"></video><p class="cap"><strong>Firm loss</strong>: 65.0 at 6 s</p></figure>
+  </div>
+  <div class="full" style="max-width: 92%; margin-top: 0.4em;"><img src="./media/index_motor_firm_frames.png"><p class="cap">Firm loss: the top face goes D, then A, then C</p></div>
+</section>
+
 <section id="slide-oph-status">
   <h2 class="t">OPH branches: <span>status</span></h2>
   <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
@@ -1133,7 +1160,7 @@ OpenParametricHand.make(
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
-    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. A second run agrees (9-10 degrees), and its selected pair's best training error is the cube rolling off at episode end. A third run turns the cube about 80 degrees on target 0, but is slightly worse on target 5 and worse on held-out target 1. A fourth keeps the cube on every target with two thumbs on a third motor, but holds rather than turns it. The palm-bar union needs review</li>
+    <li class="fragment">OPH co-design: on the full protocol no proposal beats the base; with cable assignment, both sessions' picks beat stock on the two-episode mean. On held-out target 1 the new hand carries over (10-14 degrees lower episode error); the new losses move it by under 2 degrees or make it worse. A second run agrees (9-10 degrees), and its selected pair's best training error is the cube rolling off at episode end. A third run turns the cube about 80 degrees on target 0, but is slightly worse on target 5 and worse on held-out target 1. A fourth keeps the cube on every target with two thumbs on a third motor, but holds rather than turns it. A fifth reaches 65 degrees on held-out target 1 with an index-finger motor and a firmer loss, but that pair is weaker on training and was not selected. The palm-bar union needs review</li>
     <li class="fragment">OPH scoring: count a release at episode end as a drop</li>
   </ul>
 </section>
