@@ -837,6 +837,88 @@ return (
   </ul>
 </section>
 
+<section id="slide-apple-v18-control">
+  <h2 class="t">Apple, v18: <span>grasp and lift in one MPC stage</span></h2>
+  <p class="setup">After approach and descent, capture, grasp, lift and sustain share one stage: 5.25 s lookahead, 8 s deadline, and 2 s continuously above the lift threshold. Replan every 0.1 simulated seconds</p>
+  <div class="code" style="max-width: 90%; margin: 0 auto;"><pre style="font-size: 0.33em;"><code class="language-python" data-trim data-line-numbers="1-8|9-13" data-fragment-index="0">if lift_object:
+    shortfall = jax.vmap(jax.vmap(lift_values))(states)["lift"]
+    # Normalize height shortfall in metres to the pickup threshold.
+    tracking += (
+        20.0
+        * (shortfall.mean(axis=1) + shortfall[:, -1])
+        / LIFT_THRESHOLD_M
+    )
+return (
+    tracking
+    + fixed.mean(axis=1)
+    + sum(values.values(), jnp.zeros_like(states.t)).mean(axis=1)
+)</code></pre></div>
+  <ul class="pts" style="font-size: 0.46em;">
+    <li>Keep height active throughout grasp and lift: weight 20 on the average and terminal height penalty, normalized by the 0.1 m lift threshold</li>
+    <li class="fragment" data-fragment-index="0">The same grasp-loss terms remain active. Remove arm-target tracking and hand-command drift penalties; the arm's lift trajectory becomes an editable starting proposal</li>
+    <li class="fragment warm" data-fragment-index="1">Several controller choices change together. A successful run does not isolate which change prevented the slip</li>
+  </ul>
+</section>
+
+<section id="slide-apple-v18">
+  <h2 class="t">Apple, v18: <span>single-stage pickup succeeds</span></h2>
+  <p class="setup">Centre training placement, same grasp and grasp-loss factory as v14. Original 3 mm penetration cutoff enabled</p>
+  <div class="row" style="max-width: 90%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_v18_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 300px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure><video src="./media/apple_v18_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 300px;"></video><p class="cap"><strong>End of the hold</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.49em;">
+    <li class="fragment">Apple stays at least <span class="num">10.02 cm</span> above the table for the final <span class="num">2.00 s</span>, with hand contact throughout and no object-floor contact</li>
+    <li class="fragment">Maximum penetration <span class="num">1.34 mm</span>, below the original limit. This is one successful centre-placement trial</li>
+  </ul>
+</section>
+
+<section id="slide-apple-v18-measurement">
+  <h2 class="t">v18: <span>measure the final hold, not the whole stage</span></h2>
+  <table class="res" style="font-size: 0.50em;">
+    <tr><th>Measurement window</th><th>Duration</th><th>Minimum height</th><th>Hand contact</th></tr>
+    <tr class="base"><td>Original: combined grasp/lift stage</td><td class="n">6.22 s</td><td class="n">-0.16 cm</td><td class="n">85.9%</td></tr>
+    <tr><td>Corrected: final sustained hold</td><td class="n">2.00 s</td><td class="n"><strong>10.02 cm</strong></td><td class="n"><strong>100%</strong></td></tr>
+  </table>
+  <ul class="pts" style="font-size: 0.51em; max-width: 88%;">
+    <li class="fragment">The runner reported failure because its hold window included grasping and lifting. Independent replay of 7.94 to 9.94 s confirms the final two-second hold; joint positions reproduce within 6.6e-13 rad</li>
+    <li class="fragment">Removing the penetration cutoff produces the identical recorded trajectory: both recordings have the same SHA256 hash</li>
+    <li class="fragment warm">The cutoff does not explain the outcome difference in this matched v18 pair. This does not establish that removing it is harmless for other trials</li>
+  </ul>
+  <p class="cap"><a href="./sources/apple-v18-provenance.json">Original outcome, corrected outcome, replay and producer source</a></p>
+</section>
+
+<section id="slide-apple-v19-arm-probe">
+  <h2 class="t">v19 arm proposals: <span>smoother corrections</span></h2>
+  <p class="setup">Control change, not stronger motors: sample arm corrections at 0.25 s intervals and smoothly interpolate them. Anchor the first correction to the issued command; keep dense hand corrections and command-range/speed limits</p>
+  <table class="res" style="font-size: 0.55em; min-width: 72%;">
+    <tr><th>Probe window</th><th>Arm sampling scale</th><th>Candidates passing limits</th></tr>
+    <tr><td>Reported first 0.1 s</td><td class="n">0.15</td><td class="n">24 / 32</td></tr>
+    <tr><td>Archived full 3.75 s</td><td class="n">0.10</td><td class="n">3 / 32</td></tr>
+  </table>
+  <ul class="pts" style="font-size: 0.51em; max-width: 88%;">
+    <li class="fragment">Reported wrist displacement during the first 0.1 s spans 7.8 mm downward to 2.9 mm upward. The original prefix output was overwritten; its status summary remains</li>
+    <li class="fragment">These samples start at a replayed v17 stage boundary. They are a controller probe, not the actual candidate population chosen online in v19</li>
+    <li class="fragment warm">The probes use different sampling scales, so the counts are not a matched comparison. Passing a short prefix does not establish full-horizon feasibility</li>
+  </ul>
+  <p class="cap"><a href="./sources/apple-v19-probe.json">Archived full-horizon probe</a> · <a href="./sources/apple-v19-probe-source.txt">Probe source</a></p>
+</section>
+
+<section id="slide-apple-v19">
+  <h2 class="t">Apple, v19: <span>joint grasp and lift succeeds</span></h2>
+  <p class="setup">From v17's separate CAPTURE, joint grasp/lift, then HOLD stages. Smoother arm corrections; 32 candidates per round instead of v18's 16, two rounds. Penetration cutoff disabled in this trial</p>
+  <div class="row" style="max-width: 90%;">
+    <figure style="flex: 1.25;"><video src="./media/apple_v19_wide.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 285px;"></video><p class="cap"><strong>Whole episode</strong>, real time</p></figure>
+    <figure><video src="./media/apple_v19_closeup.mp4" data-autoplay autoplay loop muted playsinline style="max-height: 285px;"></video><p class="cap"><strong>End of the hold</strong>, 1/5 speed</p></figure>
+  </div>
+  <ul class="pts" style="font-size: 0.47em;">
+    <li class="fragment">The arm first lifts without the apple, returns to it, then grasps and lifts it. Final hold: at least <span class="num">15.79 cm</span> for <span class="num">2.005 s</span>, hand contact throughout, no object-floor contact</li>
+    <li class="fragment">Measured maximum penetration <span class="num">1.60 mm</span>, below the usual 3 mm limit. The cutoff was disabled, so this is not a cutoff-enabled success</li>
+    <li class="fragment warm">Stage structure, arm proposals and batch size differ from v18. These results do not isolate the arm-control change's contribution</li>
+  </ul>
+  <p class="cap"><a href="./sources/apple-v19-provenance.json">Recorded outcome and producer source</a></p>
+</section>
+
 <section id="slide-panda-status">
   <h2 class="t">Panda branches: <span>status</span></h2>
   <div class="stack" style="grid-template-columns: 1fr; max-width: 74%; font-size: 0.5em;">
@@ -1460,7 +1542,7 @@ OpenParametricHand.make(
   <ul class="pts" style="font-size: 0.6em; max-width: 72%;">
     <li class="fragment">Hammer pickup on the Panda</li>
     <li class="fragment">Apple pickup at friction 0.3: the controls that pass at 0.7 fail</li>
-    <li class="fragment">Panda grip retention during lift: integrate stage-specific predicted constraints and diagnose the hand-command penalty and candidate exploration</li>
+    <li class="fragment">Panda pickup: repeat v18/v19 across placements and compare control changes with matched sampling budgets. Grip retention remains a soft loss; predicted retention constraints still need integration</li>
     <li class="fragment">Panda throughput with compiled MPC</li>
     <li class="fragment">OPH co-design: E17's balanced loss improves training but slightly worsens repeated target 1. E18 adds individual finger-load feedback and retains the same pair. Still need gains on both sets with visible turning, then validation on new targets</li>
     <li class="fragment">OPH geometry: the agent-added palm bar still needs review</li>
