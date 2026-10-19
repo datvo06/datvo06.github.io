@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Keep Track research progress: source-supported extraction, typed context and coverage search, with algorithms and pilot results.">
+  <title>Keep Track: research progress</title>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.2.1/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.2.1/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    :root { --ink: #1f2330; --blue: #1e3a8a; --muted: #596170; --line: #dce1e9; }
+    .reveal { font-family: "IBM Plex Sans", sans-serif; font-size: 34px; color: var(--ink); }
+    .reveal .slides { text-align: left; }
+    .reveal .slides section { box-sizing: border-box; padding: 24px 42px; }
+    .reveal h1, .reveal h2 { font-family: "IBM Plex Serif", Georgia, serif; text-transform: none; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+    .reveal h1 { font-size: 2.35em; }
+    .reveal h2 { font-size: 1.4em; margin-bottom: 0.6em; }
+    .reveal p, .reveal li { line-height: 1.45; }
+    .reveal p { margin: 0.65em 0; }
+    .reveal a, .reveal strong { color: var(--blue); }
+    .reveal code { font-family: "IBM Plex Mono", monospace; font-size: 0.84em; }
+    .reveal ul, .reveal ol { display: block; margin: 0 0 0 1.1em; }
+    .reveal li { margin-bottom: 0.5em; }
+    .eyebrow { color: var(--blue); font-size: 0.58em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .lead { font-size: 1.05em; max-width: 29em; }
+    .muted, .reveal .note { color: var(--muted); }
+    .reveal .note { font-size: 0.63em; line-height: 1.45; margin-top: 1em; }
+    .reveal blockquote { box-shadow: none; width: auto; margin: 0.8em 0; padding: 0.25em 0 0.25em 0.7em; border-left: 4px solid var(--blue); font-size: 1.05em; font-style: normal; }
+    .reveal table { width: 100%; font-size: 0.75em; margin: 0.7em 0; border-collapse: collapse; }
+    .reveal table th, .reveal table td { padding: 0.48em 0.5em; border-bottom: 1px solid var(--line); }
+    .reveal table th { color: var(--muted); font-size: 0.9em; font-weight: 500; }
+    .reveal table.study-cases { font-size: 0.63em; line-height: 1.35; }
+    .study-cases td:first-child { width: 49%; }
+    .edit-examples { table-layout: fixed; }
+    .edit-examples th:first-child, .edit-examples td:first-child { width: 24%; }
+    .edit-examples th:last-child, .edit-examples td:last-child { width: 16%; }
+    .reveal pre { width: 100%; margin: 0.8em 0; box-shadow: none; font-size: 0.63em; line-height: 1.55; }
+    .reveal pre code { display: block; padding: 1em; background: #f4f6fa; max-height: none; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 1em; }
+    .reveal .compact { font-size: 0.85em; }
+    .reveal .definitions { font-size: 0.67em; line-height: 1.4; margin-bottom: 0.7em; }
+    .reveal .tuple { font-family: "IBM Plex Mono", monospace; font-size: 0.75em; color: var(--blue); line-height: 1.6; }
+    .reveal figure { margin: 0; }
+    .reveal figure img { width: 100%; height: 390px; object-fit: contain; margin: 0; border: 0; box-shadow: none; }
+    #october-baselines figure img { height: 330px; }
+    .reveal figcaption { font-size: 0.61em; color: var(--muted); line-height: 1.4; text-align: left; }
+    .reveal .nav { font-size: 0.64em; margin-top: 1.8em; }
+    .reveal .nav a { margin-right: 1.7em; }
+    .reveal a:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+    .proof-tree { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 22px; margin: 24px 0 0; position: relative; }
+    .proof-node { position: relative; border: 1px solid #aebcd5; border-radius: 8px; background: #f4f6fa; padding: 16px; color: var(--ink); font: inherit; font-size: 0.65em; line-height: 1.45; text-align: left; cursor: help; }
+    .proof-node strong, .proof-node small { display: block; }
+    .proof-node small { font-size: 0.88em; margin-top: 6px; }
+    .proof-source, .proof-conclusion { grid-column: 1 / -1; text-align: center; }
+    .proof-source { background: white; }
+    .proof-premise::before { content: ""; position: absolute; top: -33px; left: 50%; height: 32px; border-left: 2px solid #aebcd5; }
+    .proof-assumption::before { display: none; }
+    .proof-premise::after { content: ""; position: absolute; bottom: -33px; left: 50%; height: 32px; border-left: 2px solid #aebcd5; }
+    .proof-rule { grid-column: 1 / -1; border-top: 3px solid var(--blue); padding-top: 10px; text-align: center; font-size: 0.62em; position: relative; }
+    .proof-conclusion { margin-top: -18px; background: #eaf1fb; border-color: var(--blue); }
+    .proof-node:focus { outline: 3px solid var(--blue); outline-offset: 4px; }
+    .proof-tip { visibility: hidden; opacity: 0; position: absolute; z-index: 10; left: 0; bottom: calc(100% + 10px); box-sizing: border-box; width: 100%; padding: 16px; border-radius: 8px; background: #1f2330; color: white; box-shadow: 0 4px 18px #0003; text-align: left; font-size: 0.93em; font-weight: 400; line-height: 1.45; cursor: auto; }
+    .proof-source .proof-tip { top: calc(100% + 10px); bottom: auto; }
+    .proof-node:hover .proof-tip, .proof-node:focus .proof-tip { visibility: visible; opacity: 1; }
+    .proof-tip::after { content: ""; position: absolute; top: 100%; left: 0; width: 100%; height: 12px; }
+    .proof-source .proof-tip::after { top: -12px; }
+    .code-example { position: relative; }
+    .code-reference { position: absolute; top: -20px; right: 0; z-index: 20; font-size: 0.46em; }
+    .code-reference > button { cursor: pointer; font: inherit; color: var(--blue); background: #eaf1fb; border: 1px solid #aebcd5; border-radius: 5px; padding: 4px 10px; }
+    .code-reference > button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+    .code-reference .source-panel { display: none; position: absolute; top: 100%; right: 0; width: 850px; max-height: 460px; overflow: auto; box-sizing: border-box; padding: 16px; background: white; border: 2px solid var(--blue); border-radius: 6px; box-shadow: 0 6px 24px #0003; font-size: 17px; line-height: 1.4; text-align: left; }
+    .code-reference:hover .source-panel, .code-reference:focus-within .source-panel { display: block; }
+    .code-reference .source-panel p { margin: 0 0 12px; }
+    .code-reference .source-panel pre { margin: 10px 0 18px; font-size: 14px; line-height: 1.45; }
+    .code-reference .source-panel pre code { padding: 12px; }
+    #method > .code-example > pre { font-size: 0.58em; line-height: 1.45; }
+    .semantic-legend { position: absolute; top: 12px; left: 24px; z-index: 25; display: flex; gap: 12px; flex-wrap: wrap; font-size: 16px; line-height: 1.4; }
+    .semantic-mark { border-radius: 3px; padding: 0 0.1em; white-space: nowrap; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    .role-subject { color: #174ea6; background: #e7f0ff; }
+    .role-predicate { color: #7a2b00; background: #fff0dc; }
+    .role-object { color: #00654c; background: #e4f5ec; }
+    .role-relation { color: #6b338a; background: #f1e8f8; border-bottom: 2px solid #6b338a; }
+    .role-polarity { color: #9c2540; background: #ffe5eb; }
+    .role-context { color: #625200; background: #fff6ce; }
+    .reveal .tuple { border-left: 3px solid #6b338a; padding-left: 0.6em; }
+    .reveal pre .semantic-mark { color: inherit; }
+    .role-accepted, .reveal pre .role-accepted { color: #176b2c; background: #e4f8df; border-bottom: 2px solid #176b2c; }
+    .role-refusal, .role-failure, .reveal pre .role-refusal, .reveal pre .role-failure { color: #9e1626; background: #ffe1e0; border-bottom: 2px solid #9e1626; }
+    .research-map { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 24px 0; }
+    .research-map a { display: block; padding: 16px 22px; border: 1px solid #aebcd5; border-radius: 8px; background: #f4f6fa; font-size: 0.8em; line-height: 1.4; }
+    .research-map strong { display: block; margin-bottom: 10px; }
+    .research-map span { display: block; color: var(--ink); font-size: 0.88em; }
+    .reveal .research-position { position: absolute; right: 24px; top: 12px; z-index: 25; font-size: 16px; background: white; padding-left: 10px; }
+    .reveal .objective { margin: 24px 0; padding: 22px; background: #f4f6fa; border-left: 4px solid var(--blue); }
+    .reveal .objective math { font-size: 1.12em; }
+    .reveal .objective-terms { font-size: 0.66em; line-height: 1.5; }
+    .context-stack { margin: 18px 0; padding: 16px 22px; border: 2px solid #aebcd5; border-radius: 8px; background: #f4f6fa; }
+    .context-stack .frame-label { font-family: "IBM Plex Mono", monospace; font-size: 0.65em; }
+    .nested-scope { margin: 12px 0 0 28px; padding: 14px 20px; border: 2px solid #b5a25a; border-left-width: 6px; border-radius: 8px; background: #fff9e4; }
+    .nested-scope > .proof-node { padding: 0; border: 0; border-radius: 0; background: transparent; font-size: 1em; }
+    .nested-scope > .proof-node .proof-tip { width: 650px; }
+    .nested-extraction { margin: 12px 0 0 28px; padding: 14px 20px; border: 2px solid var(--blue); border-left-width: 6px; border-radius: 8px; background: white; }
+    .reveal .extraction-fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 12px 0; font-size: 0.65em; }
+    .extraction-fields span { display: block; }
+    .reveal .extraction-context { font-size: 0.65em; margin: 10px 0 0; }
+    .context-components { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+    .context-components .proof-node { padding: 10px 14px; }
+    .context-components .proof-node:last-child { background: #fff0f3; border-color: #b56d7d; }
+    .coverage-tree { display: grid; grid-template-columns: repeat(5, 1fr); gap: 30px 12px; margin: 18px 0; }
+    .coverage-root { grid-column: 1 / -1; padding: 14px; border: 2px solid var(--blue); border-radius: 8px; background: #eaf1fb; text-align: center; font-size: 0.7em; }
+    .coverage-tree .proof-node { padding: 12px; text-align: center; }
+    .coverage-tree .proof-node::before { content: ""; position: absolute; left: 50%; top: -31px; height: 30px; border-left: 2px solid #aebcd5; }
+    .coverage-tree .proof-tip { width: 290px; font-size: 0.9em; }
+    .coverage-tree .proof-node:last-child .proof-tip { left: auto; right: 0; }
+    .reveal .coverage-calculation { padding: 16px 20px; background: #f4f6fa; font-size: 0.85em; }
+    .reconstruction-flow { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; gap: 12px; align-items: stretch; margin: 24px 0; }
+    .reconstruction-flow > .proof-node { padding: 18px; cursor: help; }
+    .reconstruction-flow > .proof-node > strong { margin-bottom: 16px; }
+    .reconstruction-flow > .proof-node > span:not(.proof-tip) { display: block; line-height: 1.65; }
+    .reconstruction-flow .proof-tip { font-size: 0.92em; }
+    .reconstruction-arrow { align-self: center; text-align: center; color: var(--blue); }
+    @media print { .proof-tip { display: none; } }
+    @media print { .code-reference { display: none; } }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="semantic-legend" aria-label="Source words and execution outcomes color legend">
+  <span class="semantic-mark role-subject">Subject</span>
+  <span class="semantic-mark role-predicate">Predicate</span>
+  <span class="semantic-mark role-object">Object</span>
+  <span class="semantic-mark role-relation">Relation</span>
+  <span class="semantic-mark role-polarity">Negation</span>
+  <span class="semantic-mark role-context">Context</span>
+  <span class="semantic-mark role-accepted">Accepted</span>
+  <span class="semantic-mark role-refusal">Refusal</span>
+  <span class="semantic-mark role-failure">Failure</span>
+</div>
+<a class="research-position" href="#/research-map" hidden></a>
+<div class="slides">
+
+<section id="overview">
+  <p class="eyebrow">Research progress update</p>
+  <h1>Keep Track</h1>
+  <p class="lead">Checking whether extracted relations<br>follow from their sources</p>
+  <p class="muted">Dat Nguyen</p>
+  <p class="note">August to October 2026</p>
+  <p class="nav"><a href="#/claims">Overview</a><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track">Repository</a></p>
+</section>
+
+<section id="research-map">
+  <p class="eyebrow">Research roadmap</p>
+  <h2>Methods, experiment settings and results</h2>
+  <nav class="research-map" aria-label="Research sections">
+    <a href="#/claims"><strong>1. Methods</strong><span>Check claims against their source, then search for an extractor that covers more source words within an edit budget.</span></a>
+    <a href="#/study-setup"><strong>2. Experiment settings</strong><span>Ten authored sentences, expected answers and scoring criteria.</span></a>
+    <a href="#/agent-confusions"><strong>3. Results, in date order</strong><span>Recovery with search and comparisons with other extraction methods.</span></a>
+  </nav>
+</section>
+
+<section id="claims">
+  <p class="eyebrow">Task and terms</p>
+  <h2>What do we extract from a sentence?</h2>
+  <blockquote>Drug A does not inhibit Gene B in assay X.</blockquote>
+  <p class="tuple">&lt;subject, predicate, object&gt;<br>&lt;Drug A, inhibits, Gene B&gt;</p>
+  <p class="compact">This tuple is the <strong>relation</strong>. A <strong>claim</strong> adds polarity and context:</p>
+  <table>
+    <tbody>
+      <tr><th>Polarity</th><td>Positive or negative: here, <strong>NOT</strong> this relation.</td></tr>
+      <tr><th>Context / qualifier</th><td>A condition: <strong>assay = X</strong>. An assay is a laboratory test.</td></tr>
+      <tr><th>Evidence</th><td>The supporting quotation: the full sentence above.</td></tr>
+    </tbody>
+  </table>
+  <p class="tuple">Claim: NOT &lt;Drug A, inhibits, Gene B&gt;, assay = X</p>
+</section>
+
+<section id="source-types">
+  <p class="eyebrow">Source support</p>
+  <h2>A proof for one claim</h2>
+  <p class="definitions">A <strong>proof</strong> records how source evidence and declared interpretation rules justify a claim. Read this illustrative tree from top to bottom; hover or Tab to a node for details.</p>
+  <div class="proof-tree" role="group" aria-label="Illustrative proof from source sentence through evidence and interpretation rules to a negative claim">
+    <button type="button" class="proof-node proof-source" aria-describedby="proof-source-tip">
+      <strong>Document doc1</strong>Drug A does not inhibit Gene B in assay X.
+      <span class="proof-tip" id="proof-source-tip" role="tooltip">A Document is source text with an ID, here doc1. The application supplies it. The proof checks what this text supports; it does not independently establish biological truth.</span>
+    </button>
+    <button type="button" class="proof-node proof-premise" aria-describedby="proof-roles-tip">
+      <strong>Relation words</strong>“Drug A” · “inhibit” · “Gene B”
+      <small>doc1[0:6] · [16:23] · [24:30]</small>
+      <span class="proof-tip" id="proof-roles-tip" role="tooltip">These slices exactly match the source words. Positions count from zero; the end is excluded. For example, doc1[0:6] selects “Drug A”. Word matches alone do not determine who is the subject.</span>
+    </button>
+    <button type="button" class="proof-node proof-premise" aria-describedby="proof-context-tip">
+      <strong>Polarity and condition</strong>“not” · “assay X”
+      <small>doc1[12:15] · [34:41]</small>
+      <span class="proof-tip" id="proof-context-tip" role="tooltip">The source supplies both cues. “Not” negates this Drug A/Gene B relation; “assay X” restricts the result to that assay. Both must attach to this same statement.</span>
+    </button>
+    <button type="button" class="proof-node proof-premise proof-assumption" aria-describedby="proof-rules-tip">
+      <strong>Declared interpretation rules</strong>Subject / object order<br>“not” → NOT · “assay X” → assay = X
+      <span class="proof-tip" id="proof-rules-tip" role="tooltip">The application's controlled sentence pattern assigns Drug A as subject and Gene B as object, maps the verb to “inhibits”, and checks the negation and assay attachment. These rules are trusted assumptions, not facts established by matching text.</span>
+    </button>
+    <div class="proof-rule">Check the words, their roles, polarity and assay against the full sentence</div>
+    <button type="button" class="proof-node proof-conclusion" aria-describedby="proof-claim-tip">
+      <strong>Supported Claim</strong><code>NOT &lt;Drug A, inhibits, Gene B&gt;, assay = X</code>
+      <span class="proof-tip" id="proof-claim-tip" role="tooltip">The conclusion keeps the relation, negative polarity and assay condition together with their source evidence. Changing NOT, swapping the arguments or changing the assay breaks a required check. The proof retains the source locations and the rules used.</span>
+    </button>
+  </div>
+  <aside class="notes">Conceptual proof tree, not a captured runtime proof. Source word matching is necessary but does not establish the relation without the declared interpretation rules. The negative claim is checked directly; the tree does not first assert a positive claim. The rules node is an application premise, independent of the document. Source: <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/docs/context.md">typed context construction</a>.</aside>
+</section>
+
+<section id="source-support">
+  <p class="eyebrow">The problem</p>
+  <h2>A correct quotation can accompany a wrong claim</h2>
+  <blockquote>Drug A does not inhibit Gene B in assay X.</blockquote>
+  <p class="compact">Suppose an extractor quotes this sentence exactly, but returns:</p>
+  <p class="tuple">POSITIVE &lt;Drug A, inhibits, Gene B&gt;, assay = X</p>
+  <table>
+    <thead><tr><th>Question</th><th>Result for this example</th></tr></thead>
+    <tbody>
+      <tr><td>Does the quotation occur in the source?</td><td><strong>Yes.</strong> Every quoted character matches.</td></tr>
+      <tr><td>Does the source support the claim?</td><td><strong>No.</strong> “Does not inhibit” contradicts the positive claim.</td></tr>
+    </tbody>
+  </table>
+  <p class="compact"><strong>Source support</strong> means the claim follows from the cited text. Here, we must keep <strong>NOT</strong>, Drug A as subject, Gene B as object, and assay X.</p>
+  <aside class="notes">The quotation and the claim are separate outputs. Copying the evidence correctly only answers where the words came from. It does not establish that the extractor interpreted them correctly. In this example all names and the assay match, so the only error is the missing negation. Source support concerns what the supplied text says; it does not independently verify the biological statement. The checker implements this requirement for declared sentence patterns, not arbitrary natural language. Source: <a href="https://github.com/datvo06/keep-track/pull/6">claim-validation study</a>.</aside>
+</section>
+
+<section id="source-support-errors">
+  <p class="eyebrow">A worked example</p>
+  <h2>What must the claim preserve?</h2>
+  <blockquote>Drug A does not inhibit Gene B in assay X.</blockquote>
+  <p class="tuple">Supported: NOT &lt;Drug A, inhibits, Gene B&gt;, assay = X</p>
+  <table>
+    <thead><tr><th>Change one part of the claim</th><th>Why the source does not support it</th></tr></thead>
+    <tbody>
+      <tr><td>Replace NOT with POSITIVE</td><td>“Not” states the opposite polarity.</td></tr>
+      <tr><td>Swap Drug A and Gene B</td><td>Drug A is the subject; Gene B is the object.</td></tr>
+      <tr><td>Replace assay X with assay Y</td><td>The sentence only mentions assay X.</td></tr>
+      <tr><td>Remove the assay condition</td><td>A result in assay X does not establish an unrestricted claim.</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Each row changes only the indicated part; the quoted evidence stays identical. The checks must connect that evidence to every part of the claim.</p>
+  <aside class="notes">These are illustrative failures, not additional experimental measurements. In the last row, an omitted assay means an unrestricted assertion in this example, rather than an unspecified display field. This makes the qualifier loss explicit. Source: <a href="https://github.com/datvo06/keep-track/pull/6">claim-validation study</a>.</aside>
+</section>
+
+<section id="negation-scope" data-date="2026-10-05" data-prs="15">
+  <p class="eyebrow">October 5, 2026</p>
+  <h2>Assay X and NOT in the extraction context</h2>
+  <blockquote>Drug A does not inhibit Gene B in assay X.</blockquote>
+  <p class="definitions">A <strong>Context</strong> contains facts and operators. The assay X <strong>fact</strong> states a condition; the NOT <strong>operator</strong> negates the claim. <code>negate</code> returns a new Context containing both.</p>
+  <figure aria-label="The assay X scope contains extraction E1. Its context value keeps the assay X fact and adds a NOT operator from the source cue not.">
+    <div class="context-stack">
+      <strong class="frame-label">Source frame: extract(doc1)</strong>
+      <div class="nested-scope">
+        <button type="button" class="proof-node" aria-describedby="negation-frame-tip">
+          <strong class="frame-label">Context frame: assay X</strong>
+          <span class="proof-tip" id="negation-frame-tip" role="tooltip">This frame represents the active ContextScope for the source assertion. The extractor enters it with Python's with statement, then constructs E₁ inside it. Each scope supplies complete qualifiers. These boxes show scope containment, not literal CPython frames.</span>
+        </button>
+        <div class="nested-extraction">
+          <strong class="frame-label">↳ Nested extraction E₁</strong>
+          <div class="extraction-fields">
+            <div><span>subject</span><strong>Drug A</strong></div>
+            <div><span>predicate</span><strong>inhibits</strong></div>
+            <div><span>object</span><strong>Gene B</strong></div>
+          </div>
+          <p class="extraction-context"><strong>Context returned by negate and passed to E₁:</strong></p>
+          <div class="context-components">
+            <button type="button" class="proof-node" aria-describedby="assay-fact-tip">
+              <strong>Fact: assay X</strong><span>Retained from the enclosing scope</span>
+              <span class="proof-tip" id="assay-fact-tip" role="tooltip">The source words “assay X” establish the qualifier for this assertion. negate copies the enclosing context's facts into its result, so the new context still restricts E₁ to assay X.</span>
+            </button>
+            <button type="button" class="proof-node" aria-describedby="not-operator-tip">
+              <strong>Operator: NOT</strong><span>Added from the source cue “not”</span>
+              <span class="proof-tip" id="not-operator-tip" role="tooltip">Negation records the assertion and its source cue. It changes this claim's polarity. negate returns a Context with that operator and the retained assay fact; it does not enter another ContextScope or change the enclosing scope.</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <p class="tuple">E₁ returns: NOT &lt;Drug A, inhibits, Gene B&gt;, assay = X</p>
+  <aside class="notes">Conceptual call/scope diagram, not an implementation listing or a literal CPython stack dump. A with block installs an operation handler; it does not create a Python lexical scope. negate checks the enclosing context, copies its facts into a new Context with a Negation operator, and returns that value. It does not install the returned context as a new scope. The returned value is passed to make_relation. Actual code: <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/keeptrack/ops.py#L82-L139">current_context and ContextScope</a>; <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/keeptrack/ops.py#L266-L282">KeepTrackHandler._negate</a>; <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_demo.py#L218-L232">extract_negative</a>, whose source uses Drug A/block/Gene C. This diagram keeps the deck's Drug A/inhibit/Gene B example with the same scoped-negation rule. Introduced in <a href="https://github.com/datvo06/keep-track/pull/15">PR #15</a>.</aside>
+</section>
+
+<section id="synthesis-types">
+  <p class="eyebrow">Program synthesis</p>
+  <h2>An extraction program for our sentence</h2>
+  <p class="definitions">An <code>Extractor</code> is a program like <code>extract</code> below, proposed by a <strong>large language model (LLM)</strong>. A <code>Context</code> keeps the condition and polarity: here, assay X and NOT.</p>
+  <div class="code-example">
+<div class="code-reference"><button type="button">Conceptual Python · source</button><div class="source-panel" role="region" aria-label="Actual implementation for synthesis-types"><p><strong>Actual implementation at 5c43bda</strong></p><p>Illustrates extract_negative. The actual function takes a key (str), retrieves CertifiedDoc, and returns list[Relation]. Document and Claim are slide aliases. assay_scope combines assertion_ref, resolve_context_value and ContextScope; negate(doc, ...) abbreviates the assertion reference. The real example uses block/Gene C; the slide uses inhibit/Gene B with the same checks.</p><p><a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_demo.py#L218-L232" target="_blank" rel="noopener">examples/negation_demo.py · extract_negative · lines 218-232</a></p>
+<pre><code class="language-python source-excerpt" data-commit="5c43bdadb7df53b1d73213d9274ac27680be9e56" data-path="examples/negation_demo.py" data-symbol="extract_negative" data-start="218" data-end="232">def extract_negative(key: str) -&gt; list[Relation]:
+    doc = retrieve(key)
+    assertion = assertion_ref(doc)
+    assay = resolve_context_value(find_span(doc, &quot;assay X&quot;), ASSAY, ASSAY_X)
+    with ContextScope(assertion, (assay,)):
+        context = negate(assertion=assertion, cue=find_span(doc, &quot;not&quot;))
+        return [
+            make_relation(
+                find_span(doc, &quot;Drug A&quot;),
+                refine_relation(find_span(doc, &quot;block&quot;), &quot;inhibits&quot;),
+                find_span(doc, &quot;Gene C&quot;),
+                find_span(doc, &quot;Drug A does not block Gene C in assay X.&quot;),
+                context=context,
+            )
+        ]</code></pre></div></div>
+<pre><code class="language-python">def extract(doc: Document) -> list[Claim]:
+    with assay_scope(doc, "assay X"):
+        context: Context = negate(doc, cue=find_span(doc, "not"))
+        return [make_relation(
+            find_span(doc, "Drug A"),
+            refine_relation(find_span(doc, "inhibit"), "inhibits"),
+            find_span(doc, "Gene B"),
+            find_span(doc, doc.text),
+            context=context,
+        )]</code></pre>
+</div>
+  <p class="tuple">extract(doc1) → [NOT &lt;Drug A, inhibits, Gene B&gt;, assay = X]</p>
+  <p class="note">Conceptual Python: <code>find_span</code> retains each quote's location; <code>refine_relation</code> checks the declared verb form. <code>assay_scope</code> checks and attaches “assay X”; <code>negate</code> keeps it with “not.”</p>
+  <aside class="notes">Input doc1 is the preceding slide's full sentence: “Drug A does not inhibit Gene B in assay X.” This is an illustrative extractor for that sentence, not a general extractor or a recorded model output. It runs under the checker. The displayed output summarizes the checked claim, omitting its proof object. Simplified Document and Claim stand for the source document and checked relation used in this deck. assay_scope summarizes assertion_ref, exact mention grounding through resolve_context_value, and ContextScope; negate(doc, ...) uses that same assertion reference. Predicate refinement is required before make_relation. Source: <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_demo.py">extract_negative</a> and <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/keeptrack/ops.py">checked operations</a>.</aside>
+</section>
+
+<section id="execution-results">
+  <p class="eyebrow">Running the program</p>
+  <h2>Run extract(doc1), then use the result</h2>
+  <blockquote>Drug A does not inhibit Gene B in assay X.</blockquote>
+  <p class="definitions"><code>Policy</code> sets the rules and limits: preserve the source's roles, NOT and assay X; allow no text edits. <code>Budget</code> records edit use: this program has <code>spent=0, limit=0</code>.</p>
+  <table>
+    <thead><tr><th>Proposed program</th><th>Checked result</th><th>Next step</th></tr></thead>
+    <tbody>
+      <tr><td><code>extract(doc1)</code><br>Keeps NOT and assay X</td><td><code>Accepted</code>: the negative claim, its proof, context and edit use</td><td>Synthesis returns the accepted function <code>extract</code></td></tr>
+      <tr><td>A revised version<br>Drops NOT</td><td><code>Refusal</code>: the check fails because the source says “does not inhibit”</td><td>Give that reason to the model and request another program</td></tr>
+    </tbody>
+  </table>
+  <p class="compact"><code>Failure</code> means the search ends without an accepted program. For example, all 32 allowed model calls are used without a passing result.</p>
+  <p class="note">Illustrative outcomes for the same sentence. Predicate refinement and source-backed negation use no text-edit budget.</p>
+  <aside class="notes">This explains the first-accepted synthesis loop shown on the next slide. Accepted and Refusal describe one proposed program's checked execution; Failure describes the search exhausting its request allowance. The later host-search milestone evaluates multiple passing proposals. Policy and result types remain simplified conceptual names. Sources: <a href="https://github.com/datvo06/keep-track/pull/6">#6</a>, <a href="https://github.com/datvo06/keep-track/pull/10">#10</a>.</aside>
+</section>
+
+<section id="method">
+  <p class="eyebrow">The approach</p>
+  <h2>Checked extractor synthesis</h2>
+  <p class="definitions">A <strong>callable</strong> is a function: synthesis returns <code>extract</code>; calling <code>extract(doc1)</code> returns claims. <code>Callable[[Document], list[Claim]]</code> describes that input and output.</p>
+  <div class="code-example">
+<div class="code-reference"><button type="button">Conceptual Python · source</button><div class="source-panel" role="region" aria-label="Actual implementation for method"><p><strong>Actual implementation at 5c43bda</strong></p><p>The real synthesis signature returns a callable validated by accept_candidate. propose represents the Skill-generated candidate; execute_and_check summarizes record/execute. Each execution installs a fresh KeepTrackHandler with corpus and policy. requests_remain summarizes the recorded_requests cap; Failure summarizes exhausted retries or request-limit exceptions. The real callable takes a key (str) and returns list[Relation]; the slide uses Document and Claim.</p><p><a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/checked_experiment.py#L298-L300" target="_blank" rel="noopener">examples/checked_experiment.py · run_checked.accept_candidate · lines 298-300</a></p>
+<pre><code class="language-python source-excerpt" data-commit="5c43bdadb7df53b1d73213d9274ac27680be9e56" data-path="examples/checked_experiment.py" data-symbol="run_checked.accept_candidate" data-start="298" data-end="300">def accept_candidate(run: RelationExtractorCallable) -&gt; RelationExtractorCallable:
+    record(run, submitted=True)
+    return run</code></pre>
+<p><a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/checked_experiment.py#L302-L334" target="_blank" rel="noopener">examples/checked_experiment.py · run_checked.synthesize_extractor · lines 302-334</a></p>
+<pre><code class="language-python source-excerpt" data-commit="5c43bdadb7df53b1d73213d9274ac27680be9e56" data-path="examples/checked_experiment.py" data-symbol="run_checked.synthesize_extractor" data-start="302" data-end="334">@Skill.define
+def synthesize_extractor(
+    source: str, instructions: str, evaluator: CoverageEvaluator
+) -&gt; Annotated[RelationExtractorCallable, AfterValidator(accept_candidate)]:
+    &quot;&quot;&quot;
+    Extract every unconditional atomic relation from {source}.
+    Task instructions: {instructions}
+
+    Return an extract(key: str) -&gt; list[Relation] callable. Build it from the
+    operations in scope (retrieve, find_span, refine_relation, make_relation,
+    assertion_ref, resolve_context_value, ContextScope, current_context,
+    negate, add, delete, replace); read their docstrings with help() in
+    exec_code. Put all operation calls, including any ContextScope, inside
+    extract and pass its key to retrieve. Do not call the parser or read
+    corpus internals. Return [] if no unconditional relation is asserted.
+
+    Maximize the objective of this evaluator, which is in scope as
+    `evaluator`: {evaluator}
+    Score candidates with evaluator.evaluate(extract) in exec_code, and return
+    your best evaluated extractor.
+
+    This is one sentence. Specialize the extractor to the source argument;
+    no general sentence splitting or parser implementation is needed.
+
+    Retain every stated qualifier; missing context stays unknown. Negation must
+    concern the whole atomic assertion. Absence of evidence, hedges, and
+    unresolved scope cannot supply a negative claim. Evidence is the complete
+    sentence as one span. The predicate span contains only the lexical verb,
+    excluding auxiliaries and negation. Preserve argument order, polarity and
+    context. Acceptance executes the returned extractor with a fresh host
+    budget.
+    &quot;&quot;&quot;
+    raise NotHandled</code></pre>
+<p><a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/checked_experiment.py#L288-L296" target="_blank" rel="noopener">examples/checked_experiment.py · run_checked.record · lines 288-296</a></p>
+<pre><code class="language-python source-excerpt" data-commit="5c43bdadb7df53b1d73213d9274ac27680be9e56" data-path="examples/checked_experiment.py" data-symbol="run_checked.record" data-start="288" data-end="296">def record(run: RelationExtractorCallable, *, submitted: bool) -&gt; AnswerReport:
+    attempt, error = execute(
+        run, corpus=corpus, policy=policy, key=key, submitted=submitted
+    )
+    attempts.append(attempt)
+    if error is not None:
+        # The re-raised exception is how the Skill rejects the candidate.
+        raise error
+    return attempt.report</code></pre></div></div>
+<pre><code class="language-python">from collections.abc import Callable
+type Extractor = Callable[[Document], list[Claim]]
+
+def synthesize(source: Document, policy: Policy) -> Extractor | Failure:
+    feedback: Refusal | None = None
+    while requests_remain(policy):
+        program: Extractor = propose(source, policy.operations, feedback)
+        budget: Budget = fresh_budget(policy)
+        result: Accepted | Refusal = execute_and_check(program, source, policy, budget)
+        if isinstance(result, Accepted):
+            return program
+        feedback = result
+    return Failure()</code></pre>
+</div>
+  <p class="note"><strong>Soundness</strong> requires source support, so dropping “not” fails; an empty answer can pass. The check validates this execution on doc1.</p>
+  <aside class="notes">Conceptual loop. The real synthesize_extractor returns Annotated[RelationExtractorCallable, AfterValidator(accept_candidate)]; accept_candidate executes and checks the callable, then returns that same callable. The actual extractor takes a document key (str) and returns list[Relation]; these slides use Document and Claim for readability. Failure summarizes exhausted retries or the request limit rather than the implementation's exceptions. One request is one model call. Sources: <a href="https://github.com/datvo06/keep-track/pull/6">#6</a>, <a href="https://github.com/datvo06/keep-track/pull/10">#10</a>.</aside>
+</section>
+
+
+<section id="execution-validation" data-date="2026-09-28" data-prs="10,11">
+  <p class="eyebrow">September 28 to 29, 2026</p>
+  <h2>Approved normalization and paid text edits</h2>
+  <p class="definitions">An <strong>Edit</strong> records a text change. Here, <code>add</code> creates an <code>AdditionEdit</code> that appends a period after “Gene B.” A <code>Span</code> is a source slice; an <code>EditedSpan</code> retains that slice and its edit.</p>
+  <p class="compact"><strong>Example budget:</strong> 1 addition unit and 1 total edit unit per execution. Each addition costs 1.</p>
+  <div class="code-example">
+<div class="code-reference"><button type="button">Conceptual Python · source</button><div class="source-panel" role="region" aria-label="Actual implementation for execution-validation"><p><strong>Actual implementation at 5c43bda</strong></p><p>Illustrative typed use of the real add operation inside an installed KeepTrackHandler. The host policy permits (Gene B, period, after), prices add at 1, and sets edit.add=1 and edit=1. add creates an AdditionEdit and returns EditedSpan only after charging both budgets. The first value is discarded here; the second call still exceeds the budget. Based on test_refused_charge_is_atomic_and_preserves_prior_spending.</p><p><a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/keeptrack/ops.py#L367-L391" target="_blank" rel="noopener">keeptrack/ops.py · KeepTrackHandler._add · lines 367-391</a></p>
+<pre><code class="language-python source-excerpt" data-commit="5c43bdadb7df53b1d73213d9274ac27680be9e56" data-path="keeptrack/ops.py" data-symbol="KeepTrackHandler._add" data-start="367" data-end="391">@implements(add)  # type: ignore[untyped-decorator]
+def _add(
+    self,
+    span: Span,
+    anchor: str,
+    added: str,
+    *,
+    position: Literal[&quot;before&quot;, &quot;after&quot;] = &quot;after&quot;,
+    occurrence: int | None = None,
+) -&gt; EditedSpan:
+    parent = self.admitted(span)
+    edit = AdditionEdit(
+        anchor=anchor,
+        added=added,
+        position=position,
+        occurrence=occurrence,
+    )
+    step = edit._validate(self.policy)
+    result = EditedSpan(parent=span, edit=edit, context=self._scope(span))
+    proof = evolve(
+        parent, rendered_surface=result.surface, chain=(*parent.chain, step)
+    )
+    self.spend(&quot;edit.add&quot;, self.policy.edit_costs.add)
+    self.proofs[id(result)] = (result, proof)
+    return result</code></pre>
+<p><a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/keeptrack/ops.py#L222-L237" target="_blank" rel="noopener">keeptrack/ops.py · KeepTrackHandler.spend · lines 222-237</a></p>
+<pre><code class="language-python source-excerpt" data-commit="5c43bdadb7df53b1d73213d9274ac27680be9e56" data-path="keeptrack/ops.py" data-symbol="KeepTrackHandler.spend" data-start="222" data-end="237">def spend(self, key: str, cost: int) -&gt; None:
+    charges = {key: cost}
+    if &quot;edit&quot; in self.policy.budgets:
+        charges[&quot;edit&quot;] = cost
+    prospective = {
+        category: self.spent.get(category, 0) + charge
+        for category, charge in charges.items()
+    }
+    for category, used in prospective.items():
+        limit = self.policy.budgets.get(category, 0)
+        if used &gt; limit:
+            raise ValidationProblem(
+                f&quot;edit budget exceeded for {category}: {used}/{limit}&quot;,
+                stage=&quot;lexical&quot;,
+            )
+    self.spent.update(prospective)</code></pre></div></div>
+<pre><code class="language-python">def add_period_twice(evidence: Span) -> EditedSpan:
+    first: EditedSpan = add(evidence, "Gene B", ".")
+    second: EditedSpan = add(evidence, "Gene B", ".")
+    return second</code></pre>
+</div>
+  <table class="study-cases edit-examples">
+    <thead><tr><th>Operation</th><th>Example and outcome</th><th>Spent / limit</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Normalization:</strong> approved equivalent predicate.</td><td><code>blocks</code> → <code>inhibits</code> for Drug A/Gene B in assay X. The equivalence rule declares that meaning is preserved. In assay Y, keep <code>blocks</code>.</td><td>0 / 1</td></tr>
+      <tr><td>First addition</td><td>“Drug A blocks Gene B” → “Drug A blocks Gene B.” Returns an EditedSpan.</td><td>1 / 1</td></tr>
+      <tr><td>Second addition to the original source</td><td>Refusal: would spend 2 / 1; no value returned.</td><td>Still 1 / 1</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Proofs retain source words and rules. Discarded edits still cost; each execution gets a fresh budget.</p>
+  <aside class="notes">Example verified against <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/tests/test_core.py#L146-L168">the atomic budget regression test</a>. Execution checks and feedback: <a href="https://github.com/datvo06/keep-track/pull/10">#10</a>, <a href="https://github.com/datvo06/keep-track/pull/11">#11</a></aside>
+</section>
+
+<section id="empty-extractor" data-date="2026-09-30" data-prs="12">
+  <p class="eyebrow">Recorded examples: empty answers</p>
+  <h2>An empty extractor satisfies the check</h2>
+  <blockquote>Drug A inhibits Gene B in assay X.</blockquote>
+  <p class="definitions">Expected: <code>&lt;Drug A, inhibits, Gene B&gt;</code>, positive, assay X. In the actual program, <code>Relation</code> represents a claim with its context; <code>key</code> identifies the source document.</p>
+<div class="code-example">
+<div class="code-reference"><button type="button">Recorded Python · source</button><div class="source-panel" role="region" aria-label="Actual recorded empty extractor">
+<p><strong>Verbatim generated program</strong></p><p>The slide shows its nested extract function, dedented. The complete submitted program below comes from runs.direct.requests[1].response.choices[0].message.tool_calls[0].function.arguments, decoded as JSON, then implementation.code. Escaped line breaks are rendered as newlines. Relation is the actual runtime claim type.</p>
+<p><a href="https://github.com/datvo06/keep-track/blob/a3e1a968884861fba6c80dbf638b196224f7e4bb/examples/data/keeptrack_checked_v2_run.json#L8927" target="_blank" rel="noopener">Recorded submission · direct · line 8927</a></p>
+<pre><code class="language-python recorded-source" data-commit="a3e1a968884861fba6c80dbf638b196224f7e4bb" data-path="examples/data/keeptrack_checked_v2_run.json" data-record="direct" data-request="1">from collections.abc import Callable
+
+
+def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], list[Relation]]:
+    def extract(key: str) -&gt; list[Relation]:
+        return []
+
+    return extract</code></pre></div></div>
+<pre><code class="language-python recorded-example" data-commit="a3e1a968884861fba6c80dbf638b196224f7e4bb" data-path="examples/data/keeptrack_checked_v2_run.json" data-record="direct" data-request="1">def extract(key: str) -&gt; list[Relation]:
+    return []</code></pre>
+</div>
+  <table class="study-cases">
+    <thead><tr><th>Source</th><th>Submitted extractor</th></tr></thead>
+    <tbody>
+      <tr><td>The direct assertion above</td><td><strong>Returns <code>[]</code> from its first submission.</strong></td></tr>
+      <tr><td>Drug A blocks Gene B in assay Y.</td><td><strong>Proposes “Gene B in assay Y” as the object; after rejection, the next extractor returns <code>[]</code>.</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="note">Both final reports pass with <code>ok = True</code>, zero relations and no errors. Both sentences still have a positive claim to extract: the checks accept an empty answer.</p>
+  <aside class="notes">Verbatim function excerpt from the direct document's second recorded model response. One REPL call precedes submission. The acceptance check executes the callable and records the final report. The assay Y case comes from runs.other-assay: nine failed executions precede the empty final extractor. <a href="https://github.com/datvo06/keep-track/blob/a3e1a968884861fba6c80dbf638b196224f7e4bb/examples/data/keeptrack_checked_v2_run.json#L3208-L3240">Recorded refusal report</a>; <a href="https://github.com/datvo06/keep-track/blob/a3e1a968884861fba6c80dbf638b196224f7e4bb/examples/data/keeptrack_checked_v2_run.json#L5319">Submitted program</a>. This is one observed repair path, not an explanation of every empty answer.</aside>
+</section>
+
+<section id="coverage" data-date="2026-10-01" data-prs="12">
+  <p class="eyebrow">October 1, 2026</p>
+  <h2>Coverage comes from the provenance tree</h2>
+  <blockquote>Drug A does not inhibit Gene B in assay X.</blockquote>
+  <p class="definitions">A <strong>provenance tree</strong> links a checked claim to the source words supporting it. Here, its leaves identify the subject, predicate, object, qualifier and negation cue. A <strong>token</strong> is one word: “Drug A” has two.</p>
+  <figure aria-label="Provenance tree for an accepted negative claim. Drug A contributes two words, inhibit one, Gene B two, assay X two, and not one. Eight of the source's ten words receive full credit.">
+    <div class="coverage-tree">
+      <div class="coverage-root"><strong>Accepted claim</strong><br>NOT &lt;Drug A, inhibits, Gene B&gt;, assay = X</div>
+      <button type="button" class="proof-node" aria-describedby="coverage-subject-tip">
+        <strong>Subject</strong><span>“Drug A”</span><small>2 words × 1</small>
+        <span class="proof-tip" id="coverage-subject-tip" role="tooltip">The checked relation's parsed subject range covers “Drug” and “A.” Each source word receives full credit.</span>
+      </button>
+      <button type="button" class="proof-node" aria-describedby="coverage-predicate-tip">
+        <strong>Predicate</strong><span>“inhibit”</span><small>1 word × 1</small>
+        <span class="proof-tip" id="coverage-predicate-tip" role="tooltip">The proof links the normalized predicate “inhibits” to the source word “inhibit.” Credit is assigned to the source word, not to the generated spelling.</span>
+      </button>
+      <button type="button" class="proof-node" aria-describedby="coverage-object-tip">
+        <strong>Object</strong><span>“Gene B”</span><small>2 words × 1</small>
+        <span class="proof-tip" id="coverage-object-tip" role="tooltip">The parsed object range covers “Gene” and “B.” Repeating this relation would not earn additional credit for those words.</span>
+      </button>
+      <button type="button" class="proof-node" aria-describedby="coverage-context-tip">
+        <strong>Qualifier</strong><span>“assay X”</span><small>2 words × 1</small>
+        <span class="proof-tip" id="coverage-context-tip" role="tooltip">These words are part of the checked relation's source support, so they receive full credit. If they were only a checked context value, with no admitted relation covering them, each would receive half credit.</span>
+      </button>
+      <button type="button" class="proof-node" aria-describedby="coverage-negation-tip">
+        <strong>Negation</strong><span>“not”</span><small>1 word × 1</small>
+        <span class="proof-tip" id="coverage-negation-tip" role="tooltip">The source cue “not” supports negation of this assertion. It receives full credit. The auxiliary “does” is outside the scored ranges.</span>
+      </button>
+    </div>
+    <figcaption>Read from the claim down to its source words. Count each source word once; “does” and “in” receive 0. Copying the full quotation adds no credit.</figcaption>
+  </figure>
+  <p class="coverage-calculation"><strong>Coverage = (2 + 1 + 2 + 2 + 1) / 10 = 0.80</strong></p>
+  <p class="note">If only “assay X” is grounded as context, coverage is (2 × 0.5) / 10 = 0.10. With neither a relation nor grounded context, coverage is 0.</p>
+  <aside class="notes">Conceptual view of source support used for coverage, not a claim that the evaluator recursively traverses every derivation node. The implementation reads each admitted relation proof's parsed role ranges, context mentions and negation cues, then checks grounded context values. It credits each source word once: 1 for relation-supported ranges, context_credit=0.5 for context-only ranges, otherwise 0. Only the scored document counts. The complete evidence quotation is not a coverage range. <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/keeptrack/coverage.py#L15-L59">Actual coverage and token_credits implementation</a>; <a href="https://github.com/datvo06/keep-track/pull/12">PR #12</a>.</aside>
+</section>
+
+<section id="search-objective" data-date="2026-10-01" data-prs="13">
+  <p class="eyebrow">October 1, 2026</p>
+  <h2>Maximize coverage minus edit cost</h2>
+  <p class="objective-terms"><strong>P</strong> is a proposed extractor; <strong>d</strong> is one source sentence. <strong>C(P, d)</strong> is its checked word coverage, e.g., 7/8 for our positive Drug A/Gene B sentence. <strong>u(P, d)</strong> is the cost of permitted transformations of source-derived text, e.g., an addition charged 1 unit. <strong>B &gt; 0</strong> is the allowance: spending 1 unit from B = 2 uses half.</p>
+  <div class="objective">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="P star is an arg max over accepted submitted programs of coverage C of P and d minus lambda times edit cost u of P and d divided by budget B">
+      <msup><mi>P</mi><mo>⋆</mo></msup><mo>∈</mo>
+      <munder><mo movablelimits="false">arg max</mo><mrow><mi>P</mi><mo>∈</mo><msub><mi mathvariant="script">P</mi><mtext class="role-accepted">Accepted</mtext></msub></mrow></munder>
+      <mrow><mo>[</mo><mi>C</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><mi>d</mi><mo stretchy="false">)</mo><mo>−</mo><mi>λ</mi><mfrac><mrow><mi>u</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><mi>d</mi><mo stretchy="false">)</mo></mrow><mi>B</mi></mfrac><mo>]</mo></mrow>
+    </math>
+  </div>
+  <p class="objective-terms"><strong>arg max</strong> selects a program with the largest score. <strong>𝒫<sub>Accepted</sub></strong> contains submitted programs that pass source checks and all edit limits. <strong>λ</strong> sets the cost penalty; PR #13 uses λ = 0.5.</p>
+  <table class="study-cases">
+    <thead><tr><th>Illustrative accepted proposal</th><th>Coverage C</th><th>Cost u, with B = 2</th><th>C − 0.5 u / B</th></tr></thead>
+    <tbody>
+      <tr><td><strong>P₁: no paid edit</strong></td><td>0.60</td><td>0</td><td><strong>0.60 ← selected</strong></td></tr>
+      <tr><td>P₂: one approved paid edit</td><td>0.80</td><td>1</td><td>0.55</td></tr>
+    </tbody>
+  </table>
+  <p class="note">The controlling Python program asks the model for six extractor proposals, scores each with a fresh edit budget, and selects the highest-scoring passing submission. A Refusal scores −1.5. This search gives no global optimality guarantee; the table is illustrative.</p>
+  <aside class="notes">Equation summarizes final selection in <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/checked_experiment.py#L449-L556">run_search</a>, introduced in <a href="https://github.com/datvo06/keep-track/pull/13">PR #13</a>. Budget B is edit_limit(policy), capped by the aggregate edit limit and the sum of per-kind limits; each candidate must also satisfy those individual limits. u is edit_spending, summed once across edit kinds. These are evidence-operation costs, not edits to Python source or model request costs. The empty seed guides proposals but is excluded from final answers. The arg max is a set, so membership allows tied winners. The numerical example assumes a richer source with an approved paid normalization that unlocks extra supported content; the ten pilot sentences do not demonstrate this tradeoff.</aside>
+</section>
+
+<section id="budget-objective">
+  <p class="eyebrow">Alternative formulation</p>
+  <h2>Maximize coverage within an edit budget</h2>
+  <p class="compact">Keep the same checked programs and cost units. Treat <strong>B</strong> as a hard spending cap, and select the program with the greatest coverage.</p>
+  <div class="objective">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="P star is an arg max of coverage C of P and d over accepted submitted programs, subject to edit cost u of P and d being at most B">
+      <msup><mi>P</mi><mo>⋆</mo></msup><mo>∈</mo>
+      <munder><mo movablelimits="false">arg max</mo><mrow><mi>P</mi><mo>∈</mo><msub><mi mathvariant="script">P</mi><mtext class="role-accepted">Accepted</mtext></msub></mrow></munder>
+      <mi>C</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><mi>d</mi><mo stretchy="false">)</mo>
+      <mspace width="1em"/><mtext>subject to</mtext><mspace width="0.6em"/>
+      <mi>u</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><mi>d</mi><mo stretchy="false">)</mo><mo>≤</mo><mi>B</mi>
+    </math>
+  </div>
+  <table>
+    <thead><tr><th>Same illustrative proposals</th><th>Eligible programs</th><th>Selected program</th></tr></thead>
+    <tbody>
+      <tr><td>B = 0: no paid edits</td><td>P₁ only</td><td>P₁: coverage 0.60</td></tr>
+      <tr><td>B = 1: allow one cost unit</td><td>P₁ and P₂</td><td><strong>P₂: coverage 0.80</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="compact">At B = 2, this formulation still selects P₂. The weighted objective with λ = 0.5 selects P₁: the extra 0.20 coverage does not offset the 0.25 penalty.</p>
+  <p class="note">The recorded <strong>coverage-first</strong> method (PR #12) lets the model call the evaluator when it chooses; it selects the passing proposal with greatest coverage, breaking ties by lower spending. The host-search method instead forces six proposals with the weighted score. The hard-cap comparison above is illustrative and was not run.</p>
+  <aside class="notes">The Accepted set is recomputed under the chosen policy and budget. Each proposal starts with a fresh allowance. The constraint repeats the total-cap part of acceptance to make the optimization problem explicit; per-kind limits and source checks still apply. A tie in coverage may be resolved by smaller spending. Weighted and constrained formulations need not pick the same program for arbitrary choices of lambda and B, especially over a discrete candidate set. This pure-coverage comparison has not been run in the displayed study.</aside>
+</section>
+
+<section id="study-setup" data-date="2026-09-14" data-prs="6">
+  <p class="eyebrow">Experiment settings · Dataset and inclusion criteria</p>
+  <h2>Which ten sentences, and why?</h2>
+  <p class="definitions">We authored <strong>controlled contrasts</strong>: change the verb, polarity, roles or assay to test what must stay supported. The declared synonym rule equates <code>blocks</code> with <code>inhibits</code> only for a Drug subject and Gene object in assay X.</p>
+  <table class="study-cases">
+    <thead><tr><th>Source sentence</th><th>Selection criterion / expected answer</th></tr></thead>
+    <tbody>
+      <tr><td>Drug A inhibits Gene B in assay X.</td><td>Direct assertion: extract the positive claim.</td></tr>
+      <tr><td>Drug A blocks Gene B in assay X.</td><td>Synonym: either supported verb gets credit.</td></tr>
+      <tr><td>Drug A does not block Gene C in assay X.</td><td>Negation: preserve NOT and Gene C.</td></tr>
+      <tr><td>Drug A does not block Gene B in assay X.</td><td>Conflicting sources: this claim stays negative even though another source is positive.</td></tr>
+      <tr><td>Drug A never inhibits Gene B in assay X.</td><td>Another negative form: preserve NOT. The revised sentence-pattern rules added support for “never.”</td></tr>
+    </tbody>
+  </table>
+  <p class="note">The first September 14 notebook had seven sources. Later that day it added reversed roles, “may” and “never,” giving ten. These five sources each have one target meaning. <a href="#/notebook-versions">Notebook history</a></p>
+  <aside class="notes">The ten-source comparison appears on September 14; the explicit selection rationale and grammar-v2 study appear on September 15. <a href="https://github.com/datvo06/keep-track/blob/b05dd76/examples/negation_and_justification.ipynb">Notebook: why these ten synthetic examples</a>. “Our doc1” in the opening slides is illustrative; the actual negative fixture here uses block/Gene C.</aside>
+</section>
+
+<section id="study-boundaries" data-date="2026-09-14" data-prs="6">
+  <p class="eyebrow">Experiment settings · Dataset and inclusion criteria</p>
+  <h2>When should we withhold or keep the relation?</h2>
+  <p class="definitions"><strong>Abstention</strong> means returning no claim, <code>[]</code>. A failed synonym condition still permits the original <code>blocks</code> relation when the source asserts it.</p>
+  <table class="study-cases">
+    <thead><tr><th>Source sentence</th><th>Selection criterion / expected answer</th></tr></thead>
+    <tbody>
+      <tr><td>There is no evidence that Drug A blocks Gene D in assay X.</td><td>Absence of evidence supports neither polarity: return [].</td></tr>
+      <tr><td>Drug A may inhibit Gene B in assay X.</td><td>Possibility is not an unconditional claim: return [].</td></tr>
+      <tr><td>Truck T blocks Road R in assay X.</td><td>Entity types: keep blocks; the synonym rule is for Drug/Gene.</td></tr>
+      <tr><td>Gene B blocks Drug A in assay X.</td><td>Argument roles: keep Gene B as subject and blocks as predicate.</td></tr>
+      <tr><td>Drug A blocks Gene B in assay Y.</td><td>Assay context: keep blocks and assay Y; the rule requires X.</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Together: eight target meanings and two expected empty answers. The grammar (allowed sentence patterns), entity types and synonym rule are supplied premises. This is not a held-out biomedical benchmark.</p>
+  <aside class="notes"><a href="https://github.com/datvo06/keep-track/blob/b05dd76/examples/negation_and_justification.ipynb">September 15 notebook selection rationale</a>. The source strings remain unchanged through the October notebook revisions.</aside>
+</section>
+
+<section id="study-scoring" data-date="2026-09-14" data-prs="6">
+  <p class="eyebrow">Experiment settings · Scoring</p>
+  <h2>What counts as a recovered target?</h2>
+  <p class="definitions">A <strong>reference</strong> is an independently authored correct claim. Approved <code>blocks</code>/<code>inhibits</code> spellings recover the same target once. Labels are kept outside the model-facing synthesis module.</p>
+  <table>
+    <tbody>
+      <tr><th>Complete match</th><td>Our negative relation, assay X, doc1 and its full quotation all agree.</td></tr>
+      <tr><th>Precision</th><td>Correct / returned: e.g., 6 correct of 6 returned = 100%.</td></tr>
+      <tr><th>Recall</th><td>Recovered / references: e.g., 6 recovered of 8 targets = 75%.</td></tr>
+      <tr><th>Exact document</th><td>The whole answer agrees: e.g., the one complete claim for doc1, with no extras.</td></tr>
+    </tbody>
+  </table>
+  <p class="note">A <strong>baseline</strong> is a comparison method, here the LangExtract LLM extraction library. “Guided” supplies rules and examples such as our blocks/inhibits rewrite. “+ proof reconstruction” adds a Keep Track adapter that checks its proposals, for example refusing a dropped “not,” and constructs proofs for those that pass.</p>
+  <aside class="notes">September 15 changed the main score from relation meaning alone to meaning + complete quotation. Grammar v2 also admitted “never”; its target had already been in the test set. <a href="https://github.com/datvo06/keep-track/blob/9cd1fdd/examples/negation_and_justification.ipynb">Complete-extraction scoring and grammar-v2 revision</a>. Failed runs never earn empty-answer credit. Precision is undefined when no claims are returned. Historical v1 outputs remain separate.</aside>
+</section>
+
+<section id="agent-confusions" data-date="2026-10-04" data-prs="14">
+  <p class="eyebrow">October 4, 2026</p>
+  <h2>Search and clearer interfaces improve recovery</h2>
+  <figure>
+    <img src="figures/search-progress.svg" alt="Three runs per condition: coverage recovers 3,1,1 targets; host search 3,4,5; clearer instructions 7,5,4; document type fix 6,5,6; context manager 7,7,7. Search uses more completion requests than coverage.">
+    <figcaption>Each dot is one run; shaded segments show mean recovery. Cumulative fixes remove instructions for the wrong output fields, reject list-style access to a document and let <code>with</code> install the qualifier scope. All listed runs emit zero incorrect relations. These sequential runs do not isolate each change's effect.</figcaption>
+  </figure>
+  <aside class="notes"><a href="https://github.com/datvo06/keep-track/pull/12">#12</a>, <a href="https://github.com/datvo06/keep-track/pull/13">#13</a>, <a href="https://github.com/datvo06/keep-track/pull/14">#14</a>. Small sequential development comparisons, not isolated causal effects. Intermediate document-type runs are reported but not committed.</aside>
+</section>
+
+<section id="langextract-proof" data-date="2026-10-04" data-prs="14">
+  <p class="eyebrow">Baseline: LangExtract + proof reconstruction</p>
+  <h2>Reconstructing proof from LangExtract's extraction</h2>
+  <blockquote>Drug A blocks Gene B in assay X.</blockquote>
+  <p class="definitions"><strong>LangExtract</strong> is an LLM extraction library and a comparison method here. <strong>Proof reconstruction</strong> takes its proposed fields and checks their support using Keep Track’s rules, e.g., whether “blocks” permits “inhibits.”</p>
+  <figure aria-label="LangExtract's proposed fields flow through Keep Track's reconstruction adapter to an accepted claim and proof, or a refusal if checks fail.">
+    <div class="reconstruction-flow">
+      <button type="button" class="proof-node" aria-describedby="reconstruction-input-tip">
+        <strong>1. LangExtract proposes</strong>
+        <span>subject: Drug A<br>source predicate: blocks<br>predicate: inhibits<br>object: Gene B<br>polarity: positive<br>context: assay X</span>
+        <small>Evidence: the full sentence above</small>
+        <span class="proof-tip" id="reconstruction-input-tip" role="tooltip">check_langextract reads the attributes and extraction_text into a Candidate. This is an illustrative proposal matching the positive example. LangExtract supplies the fields and quote; no proof comes from LangExtract.</span>
+      </button>
+      <div class="reconstruction-arrow" aria-hidden="true">→</div>
+      <button type="button" class="proof-node" aria-describedby="reconstruction-adapter-tip">
+        <strong>2. Keep Track reconstructs</strong>
+        <span>Locate each quoted source span.<br>Ground assay X as context.<br>Check blocks → inhibits for a Drug/Gene pair in assay X.<br>Build and check the relation.</span>
+        <span class="proof-tip" id="reconstruction-adapter-tip" role="tooltip">evaluate uses find_span, resolve_context_value, ContextScope, refine_relation and make_relation inside run_extractor. For a negative candidate it also locates the parsed negation cue and calls negate. The adapter is authored code; it does not ask LangExtract to generate an extractor.</span>
+      </button>
+      <div class="reconstruction-arrow" aria-hidden="true">→</div>
+      <button type="button" class="proof-node" aria-describedby="reconstruction-result-tip">
+        <strong>3. Accepted claim + proof</strong>
+        <span>&lt;Drug A, inhibits, Gene B&gt;<br>positive; assay = X</span>
+        <small>Supported by:</small>
+        <span>↳ Exact source spans<br>↳ The scoped synonym rule<br>↳ Matching roles and context</span>
+        <span class="proof-tip" id="reconstruction-result-tip" role="tooltip">The report contains the checked source-support proof. The all-checks baseline retains proposals whose report.ok is true. A failed check gives a Refusal; filtering removes that proposal rather than repairing its text.</span>
+      </button>
+    </div>
+    <figcaption>This comparison method combines LangExtract with an authored Keep Track adapter. We also evaluate LangExtract without this adapter.</figcaption>
+  </figure>
+  <p class="note">A wrong role, unsupported synonym, missing qualifier or polarity mismatch prevents proof reconstruction. The same Keep Track checks also apply to synthesized extractors.</p>
+  <aside class="notes">The example corresponds to positive_candidate with Drug A, predicate_source blocks, normalized predicate inhibits, Gene B, positive polarity and assay X. The proposal shape is illustrative, not a claim that this exact rendering is a recorded LangExtract response. Actual conversion and checking: <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_demo.py#L281-L375">evaluate, check_langextract and positive_candidate</a>. The <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_demo.py#L668-L679">all-checks arm filters report.ok</a>. Synthesis searches for an executable extractor; this adapter reconstructs a checked relation from fixed proposed fields.</aside>
+</section>
+
+<section id="october-baselines" data-date="2026-10-04" data-prs="14">
+  <p class="eyebrow">October 4, 2026</p>
+  <h2>The fully checked baseline remains strong</h2>
+  <p class="definitions">“Direct structured LLM” asks for fixed fields, e.g., <code>{subject: "Drug A", predicate: "inhibits", ...}</code>, without generating an extractor. These October runs use gpt-5.4-mini.</p>
+  <figure>
+    <img src="figures/october-baselines.svg" alt="October pilot: recall is 0 for soundness only, 37.5 for first coverage run, 87.5 for host search, 100 for guided LangExtract and LangExtract plus Keep Track proof reconstruction, and 75 for a direct LLM. Proof reconstruction filters proposals, raising precision from 80 to 100 percent.">
+    <figcaption>Ten development sentences, eight targets, gpt-5.4-mini. “LangExtract + proof reconstruction” adds Keep Track checking to LangExtract's output. All three October 4 search runs recover 7/8. Prompts and compute differ.</figcaption>
+  </figure>
+  <p class="note">Keep Track checks LangExtract's proposed claims and produces proofs for those that pass. Synthesis additionally produces an executable extractor and supports revision from refusals; these results do not establish a quality advantage over the fully checked baseline.</p>
+  <aside class="notes">LangExtract itself proposes fields and a quotation. check_langextract converts its attributes into Candidate; evaluate grounds the candidate's source spans, builds the context and relation, and calls run_extractor. The resulting checked report carries the proof. The baseline's all-checks arm retains reports with ok=true. <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_demo.py#L281-L355">Baseline adapter and checking path</a>; <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/EXPERIMENT_REPORT.md">recorded comparison</a>; <a href="https://github.com/datvo06/keep-track/pull/14">PR #14</a>.</aside>
+</section>
+
+<section id="dataset-search">
+  <p class="eyebrow">Proposed extension: one extractor across documents</p>
+  <h2>Search for a program that covers more examples</h2>
+  <p class="objective-terms">Let <strong>D = {d₁, …, dₙ}</strong> be n source documents, e.g., a positive Drug A/Gene B sentence, a negative Drug A/Gene C sentence, and “Drug A may inhibit Gene B in assay X.” Run the <strong>same P</strong> on all three.</p>
+  <div class="objective">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="P star is an arg max over programs accepted on all documents of mean word coverage, subject to edit cost on each document being at most its budget B i">
+      <msup><mi>P</mi><mo>⋆</mo></msup><mo>∈</mo>
+      <munder><mo movablelimits="false">arg max</mo><mrow><mi>P</mi><mo>∈</mo><msub><mi mathvariant="script">P</mi><mtext class="role-accepted">Accepted on D</mtext></msub></mrow></munder>
+      <mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>C</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><msub><mi>d</mi><mi>i</mi></msub><mo stretchy="false">)</mo>
+      <mspace width="0.7em"/><mtext>subject to</mtext><mspace width="0.5em"/>
+      <mi>u</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><msub><mi>d</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>≤</mo><msub><mi>B</mi><mi>i</mi></msub><mo>,</mo><mspace width="0.3em"/><mo>∀</mo><mi>i</mi>
+    </math>
+  </div>
+  <p class="objective-terms"><strong>1/n ∑</strong> averages coverage across documents. <strong>∀i</strong> means every document has its own cap Bᵢ. <strong>Accepted on D</strong> requires all executions to pass; returning no claim on “may inhibit” remains valid.</p>
+  <p class="compact">This maximizes <strong>average word coverage</strong>. Counting correctly recovered examples is a separate evaluation using reference answers: for instance, recover both supported claims and abstain on the uncertain third sentence.</p>
+  <p class="note">Proposed aggregate objective, not an implemented result. The existing plan keeps coverage and spending separate for each document. PR #13 currently searches for a different program per source.</p>
+  <aside class="notes">Local design document: keep-track/.claude/worktrees/paper-plan/COVERAGE_OPTIMIZATION_PLAN.md, dataset-mode section. It proposes separate per-document coverage/edit objectives and retaining candidates not beaten on both, with final selection by coverage then spending. The displayed mean-coverage problem is a concrete proposed aggregation for discussion, not a claim that the plan or PRs implement it. Budgets here reset per document; there is no shared corpus-wide spending cap. The token-coverage surrogate does not certify completeness or correct abstention. Gold reference labels stay outside the search objective. No implemented dataset-mode study was found in the fetched PRs or branches as of October 19, 2026.</aside>
+</section>
+
+<section id="current-scope">
+  <p class="eyebrow">Research questions ahead</p>
+  <h2>Coverage, reliability and broader source language</h2>
+  <ul>
+    <li class="fragment"><strong>Coverage:</strong> can we recover supported relations while returning no claim for sentences expressing uncertainty or absence of evidence?</li>
+    <li class="fragment"><strong>Reliability:</strong> do the search and typing effects repeat with matched prompts, compute and a larger vocabulary?</li>
+    <li class="fragment"><strong>Generalization:</strong> what carries from ten development sentences to independently annotated real sources?</li>
+  </ul>
+  <p class="note">We have executable checks and source-support proofs for declared sentence patterns, such as “A inhibits B in assay X.” The current evidence does not yet establish a general extraction advantage.</p>
+  <p class="nav"><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track/pull/18">Latest PR</a><a href="https://github.com/datvo06/keep-track/blob/claude/typed-context-values/examples/EXPERIMENT_REPORT.md">Experiment report</a></p>
+</section>
+
+<section id="notebook-versions">
+  <p class="eyebrow">Appendix: notebook revisions</p>
+  <h2>How the pilot study changed</h2>
+  <table class="study-cases">
+    <thead><tr><th>Notebook version</th><th>What changed</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://github.com/datvo06/keep-track/blob/f1f05bd/examples/negation_and_justification.ipynb">September 14: authored examples</a></td><td>Seven sources, checker proofs, no model calls.</td></tr>
+      <tr><td><a href="https://github.com/datvo06/keep-track/blob/9b75e9b/examples/negation_and_justification.ipynb">September 14: ten-source study</a></td><td>Add reversed roles, “may” and “never,” plus a recorded structured LLM baseline. Actual LangExtract follows that day.</td></tr>
+      <tr><td><a href="https://github.com/datvo06/keep-track/blob/9cd1fdd/examples/negation_and_justification.ipynb">September 15: grammar and scoring v2</a></td><td>Accept “never”; require complete quotations from the correct document. Keep old v1 outputs separate.</td></tr>
+      <tr><td><a href="https://github.com/datvo06/keep-track/blob/a3e1a96/examples/negation_and_justification.ipynb">September 30: new recorded study</a></td><td>GPT-5.4 mini replaces GPT-4.1 mini; the synthesis prompt changes too. Soundness-only acceptance recovers 0/8.</td></tr>
+      <tr><td><a href="https://github.com/datvo06/keep-track/blob/d3506a6/examples/negation_and_justification.ipynb">October 1: coverage and host search</a></td><td>Add two experimental conditions on the same ten sources.</td></tr>
+      <tr><td><a href="https://github.com/datvo06/keep-track/blob/164cd11/examples/comparison_with_main.ipynb">October 4: comparison notebook</a></td><td>Compare the September and October studies; model, prompts, interfaces and compute differ.</td></tr>
+      <tr><td><a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_and_justification.ipynb">October 5 to 6: scoped, typed examples</a></td><td>Update program examples for scoped negation and typed context values. The source set stays unchanged.</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Dates identify committed notebook revisions, not every run's collection time. A fixed sentence set does not isolate the effect of each method change. <a href="#/study-setup">Back to the ten sentences</a></p>
+</section>
+
+</div></div>
+<script src="https://unpkg.com/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://unpkg.com/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://unpkg.com/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    hash: true,
+    slideNumber: 'c/t',
+    transition: 'none',
+    width: 1280,
+    height: 760,
+    margin: 0.06,
+    plugins: [RevealHighlight, RevealNotes]
+  }).then(() => {
+    const sections = [
+      ['claims', '1 / 3 · Methods'],
+      ['study-setup', '2 / 3 · Experiment settings'],
+      ['agent-confusions', '3 / 3 · Results']
+    ];
+    const position = document.querySelector('.research-position');
+    const slides = Array.from(document.querySelectorAll('.slides > section'));
+    function showResearchPosition() {
+      const current = slides.indexOf(Reveal.getCurrentSlide());
+      const stage = sections.findLast(([id]) => slides.findIndex(slide => slide.id === id) <= current);
+      position.hidden = !stage || Reveal.getCurrentSlide().id === 'notebook-versions';
+      position.textContent = stage ? `${stage[1]} · Map` : '';
+    }
+    Reveal.on('slidechanged', showResearchPosition);
+    showResearchPosition();
+    // These authored examples use a fixed vocabulary; roles follow each example.
+    const words = /\b(?:Drug A|Drug C|Gene [BCD]|Truck T|Road R|subjects?|predicates?|objects?|relations?|blocks?|inhibits?|Accepted|Refusals?|Failures?|NOT|assay [XY])\b|(?<=does )not\b|(?<=[“"'])not(?=[”"'])|\bnever(?= inhibits|[”"'])/gi;
+    const walker = document.createTreeWalker(document.querySelector('.slides'), NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) {
+      if (!walker.currentNode.parentElement.closest('.notes, script, style, math')) nodes.push(walker.currentNode);
+    }
+    for (const node of nodes) {
+      const block = node.parentElement.closest('tr, p, blockquote, li, pre, button, figcaption, h2') || node.parentElement;
+      const reversed = /Gene B(?:\s+blocks\s+|,\s*blocks,\s*)Drug A|Gene B as subject/.test(block.textContent);
+      const fragment = document.createDocumentFragment();
+      let end = 0;
+      for (const match of node.textContent.matchAll(words)) {
+        const word = match[0];
+        const lower = word.toLowerCase();
+        let role;
+        if (lower === 'accepted') role = 'accepted';
+        else if (/^refusal/.test(lower)) role = 'refusal';
+        else if (/^failure/.test(lower)) role = 'failure';
+        else if (/^(subject|truck|drug)/.test(lower)) role = reversed && word === 'Drug A' ? 'object' : 'subject';
+        else if (/^(object|gene|road)/.test(lower)) role = reversed && word === 'Gene B' ? 'subject' : 'object';
+        else if (/^(predicate|block|inhibit)/.test(lower)) role = 'predicate';
+        else if (/^relation/.test(lower)) role = 'relation';
+        else if (/^assay/.test(lower)) role = 'context';
+        else role = 'polarity';
+        // Lowercase "not" in ordinary prose is not an annotation of source polarity.
+        if (lower === 'not' && word !== 'NOT') {
+          const before = node.textContent.slice(0, match.index);
+          const after = node.textContent.slice(match.index + word.length);
+          const quoted = /[“"']$/.test(before) && /^[”"']/.test(after);
+          const sourceCue = /does $/.test(before) && /^\s+(?:block|inhibit)\b/.test(after);
+          if (!quoted && !sourceCue) continue;
+        }
+        fragment.append(node.textContent.slice(end, match.index));
+        const mark = document.createElement('span');
+        mark.className = `semantic-mark role-${role}`;
+        mark.title = role === 'polarity' ? 'Negation cue' : role[0].toUpperCase() + role.slice(1);
+        mark.textContent = word;
+        fragment.append(mark);
+        end = match.index + word.length;
+      }
+      if (end) {
+        fragment.append(node.textContent.slice(end));
+        node.replaceWith(fragment);
+      }
+    }
+    Reveal.layout();
+  });
+</script>
+</body>
+</html>
