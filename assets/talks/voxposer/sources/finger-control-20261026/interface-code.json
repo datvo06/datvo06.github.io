@@ -1,0 +1,10 @@
+[
+  {
+    "generator": "configure_lmps",
+    "code": "def configure_lmps(self, lmps: dict[str, LMP]) -> None:\n        super().configure_lmps(lmps)\n        (self.output / \"finger-source.txt\").write_text(Path(__file__).read_text())\n        with (self.output / \"hand-interface-prompt.txt\").open(\"a\") as stream:\n            stream.write(\"\\n\" + FINGER_CONTEXT + \"\\n\")\n        for lmp in lmps.values():\n            lmp._variable_vars[\"set_hand_joint_targets\"] = self.set_hand_joint_targets\n            lmp._base_prompt += \"\\n\\n\" + FINGER_CONTEXT"
+  },
+  {
+    "generator": "set_hand_joint_targets",
+    "code": "def set_hand_joint_targets(self, targets: dict[str, float]) -> None:\n        state = self.hand_state()\n        target = self.data.ctrl.copy()\n        for name, angle in targets.items():\n            joint = state[\"joints\"][name]\n            if (\n                not np.isfinite(angle)\n                or not joint[\"lower_rad\"] <= angle <= joint[\"upper_rad\"]\n            ):\n                raise ValueError(\n                    f\"{name}: {angle} outside [{joint['lower_rad']}, {joint['upper_rad']}]\"\n                )\n            actuator = self.joint_ids[name]\n            target[actuator] = angle * self.episode.gear[actuator]\n        self.record_hand_call(\n            {\n                \"api\": \"set_hand_joint_targets\",\n                \"targets_rad\": targets,\n                \"previous_targets_rad\": {\n                    name: state[\"joints\"][name][\"target_rad\"] for name in targets\n                },\n                \"changed_actuators\": np.flatnonzero(target != self.data.ctrl).tolist(),\n            }\n        )\n        self.closed_control[7:] = target[7:]\n        self.close_gripper()"
+  }
+]

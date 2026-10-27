@@ -1,0 +1,12 @@
+{
+  "input": "/Users/nguyendat/Marc/leap-matched-20261014/hands/stock-current/cases/006_mustard_bottle-x0.400-y0.000-yaw0.000/fixture",
+  "output": "/Users/nguyendat/Marc/leap-matched-20261014/hands/stock-current/runs/006_mustard_bottle-x0.400-y0.000-yaw0.000-s1",
+  "duration": 40.0,
+  "horizon": 4.0,
+  "replan": 0.25,
+  "batch": 32,
+  "threads": 3,
+  "seed": 1,
+  "hold_seconds": 5.0,
+  "trajectory": "{\"grasp\":{\"x\":{\"value\":-0.013956936701597153,\"unit\":\"m\"},\"y\":{\"value\":0.003953437627273684,\"unit\":\"m\"},\"z\":{\"value\":-0.01240856003458946,\"unit\":\"m\"},\"roll\":{\"value\":-0.23072094028586515,\"unit\":\"rad\"},\"pitch\":{\"value\":-1.4993282507885126,\"unit\":\"rad\"},\"yaw\":{\"value\":-1.7692492740649435,\"unit\":\"rad\"},\"base\":{\"value\":1.072508567708862,\"unit\":\"rad\"},\"spread\":{\"value\":0.13679535764187467,\"unit\":\"rad\"},\"middle\":{\"value\":1.0630485498285462,\"unit\":\"rad\"},\"distal\":{\"value\":0.13901228599493426,\"unit\":\"rad\"},\"thumb_base\":{\"value\":1.5805410943857032,\"unit\":\"rad\"},\"thumb_spread\":{\"value\":1.0900181404768698,\"unit\":\"rad\"},\"thumb_middle\":{\"value\":0.3955405666189587,\"unit\":\"rad\"},\"thumb_distal\":{\"value\":0.5006550825593226,\"unit\":\"rad\"},\"preshape\":0.8724648396828306},\"grasp_point\":{\"x\":{\"value\":-0.015,\"unit\":\"m\"},\"y\":{\"value\":-0.023,\"unit\":\"m\"},\"z\":{\"value\":0.13,\"unit\":\"m\"}},\"approach\":{\"x\":0.0,\"y\":0.0,\"z\":-1.0}}"
+}

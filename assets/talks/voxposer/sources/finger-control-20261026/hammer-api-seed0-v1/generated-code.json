@@ -1,0 +1,70 @@
+[
+  {
+    "generator": "planner",
+    "code": "composer(\"grasp the hammer\")\ncomposer(\"back to default pose\")\ncomposer(\"rotate the hammer so the head is above the handle and the handle points down\")\ncomposer(\"move to 6cm above the table, holding the hammer upright\")\n# done"
+  },
+  {
+    "generator": "composer",
+    "code": "movable = parse_query_obj('gripper')\naffordance_map = get_affordance_map('a point at the center of the hammer handle')\ngripper_map = get_gripper_map('open everywhere except 1cm around the hammer handle')\nexecute(movable, affordance_map=affordance_map, gripper_map=gripper_map)"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "gripper = detect('gripper')\nret_val = gripper"
+  },
+  {
+    "generator": "get_affordance_map",
+    "code": "affordance_map = get_empty_affordance_map()\nhammer_handle = parse_query_obj('hammer handle')\nx, y, z = hammer_handle.position\naffordance_map[x, y, z] = 1\nret_val = affordance_map"
+  },
+  {
+    "generator": "get_gripper_map",
+    "code": "gripper_map = get_empty_gripper_map()\n# open everywhere\ngripper_map[:, :, :] = 1\n# close when 1cm around the hammer handle\nhammer_handle = parse_query_obj('hammer handle')\nset_voxel_by_radius(gripper_map, hammer_handle.position, radius_cm=1, value=0)\nret_val = gripper_map"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "hammer_handle = detect('hammer handle')\nret_val = hammer_handle"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "hammer_handle = detect('hammer handle')\nret_val = hammer_handle"
+  },
+  {
+    "generator": "composer",
+    "code": "reset_to_default_pose()"
+  },
+  {
+    "generator": "composer",
+    "code": "movable = parse_query_obj('hammer')\nrotation_map = get_rotation_map('orient the hammer so the head is above the handle and the handle points down')\nexecute(movable, rotation_map=rotation_map)"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "hammer = detect('hammer')\nret_val = hammer"
+  },
+  {
+    "generator": "get_rotation_map",
+    "code": "rotation_map = get_empty_rotation_map()\nhammer = parse_query_obj('hammer')\n# Assume hammer.normal points out of the head; handle direction is -hammer.normal\nhandle_direction = -hammer.normal\n# The handle should point down (negative z), so align handle_direction with -z\ntarget_rotation = vec2quat([0, 0, -1])\nrotation_map[:, :, :] = target_rotation\nret_val = rotation_map"
+  },
+  {
+    "generator": "composer",
+    "code": "movable = parse_query_obj('gripper')\naffordance_map = get_affordance_map('a point 6cm above the table')\nrotation_map = get_rotation_map('hold the hammer upright')\nexecute(movable, affordance_map=affordance_map, rotation_map=rotation_map)"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "gripper = detect('gripper')\nret_val = gripper"
+  },
+  {
+    "generator": "get_affordance_map",
+    "code": "affordance_map = get_empty_affordance_map()\ntable = parse_query_obj('table')\n(min_x, min_y, min_z), (max_x, max_y, max_z) = table.aabb\ncenter_x, center_y, center_z = table.position\n# 6cm above so we add to z-axis\nx = center_x\ny = center_y\nz = max_z + cm2index(6, 'z')\naffordance_map[x, y, z] = 1\nret_val = affordance_map"
+  },
+  {
+    "generator": "get_rotation_map",
+    "code": "rotation_map = get_empty_rotation_map()\nhammer = parse_query_obj('hammer')\n# Upright: +z axis points up (table normal)\ntarget_rotation = vec2quat([0, 0, 1])\nrotation_map[:, :, :] = target_rotation\nret_val = rotation_map"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "table = detect('table')\nret_val = table"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "hammer = detect('hammer')\nret_val = hammer"
+  }
+]

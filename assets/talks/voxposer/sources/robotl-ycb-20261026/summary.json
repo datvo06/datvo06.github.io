@@ -1,0 +1,189 @@
+{
+  "source_revision": "ff60eaad16a044591e2a3119f6f499449869b8e7",
+  "voxposer_revision": "e3a4c9e57b6ecb45f91e19c80510091c8cbbcbce",
+  "native_module_sha256": {
+    "pickup_palm_mpc": "889761c74175b6549327beb00cfcd738a6b36e912d4b1346bee4ee835ce9ea1f",
+    "hammer_grasp_mpc": "9b9e6e86ad99dbea27af84048c0a84a7906b74d4f813644cbb1873f77c14eb83",
+    "screwdriver_grasp_mpc": "3c99ba970e10ee613004f06d4d1fdcc6b8a6545151a55b874a14d136d3d26003",
+    "pinch_lift_mpc": "b41f0b1c312bcb08eb4f0e3270a24792fe45468a43f3206d5de7d9442faca83b",
+    "upright_pinch_lift_mpc": "e342a4165bf89e6c427dc20565b949f9c1bdde41a197f18e8e1b18b18c8250b6"
+  },
+  "runtime": {
+    "host": "rolly",
+    "python": "3.12.14 (main, Aug 13 2026, 00:00:00) [GCC 14.3.1 20251022 (Red Hat 14.3.1-4)]",
+    "packages": {
+      "mujoco": "3.15.0",
+      "numpy": "2.4.6",
+      "scipy": "1.18.1",
+      "jax": "0.9.2",
+      "jaxlib": "0.9.2",
+      "openai": "0.28.1",
+      "pydantic": "2.13.5",
+      "mediapy": "1.2.7",
+      "transforms3d": "0.4.2",
+      "plotly": "5.24.1"
+    }
+  },
+  "task_prs": [
+    674,
+    713
+  ],
+  "trials": [
+    {
+      "object": "hammer",
+      "directory": "hammer-seed0-v2",
+      "result": {
+        "status": "program_error",
+        "mass_kg": 0.665,
+        "simulated_seconds": 14.592499999999239,
+        "wall_seconds": 21.363427651114762,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.000159835225062804,
+        "final_hand_weight_fraction": 0.0,
+        "final_external_weight_fraction": 0.9999999999222215,
+        "maximum_joint_limit_violation_rad": 0.03836053521567928,
+        "maximum_penetration_m": 0.006881608504214846,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.6376232194746396,
+        "maximum_arm_acceleration_ratio": 6.538102186244323,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "palm_load_n": 0.0,
+        "opposition_cosine": 0.0,
+        "elevation": -0.011887730667243461,
+        "orientation_cosine": 0.011887730667243461
+      },
+      "error": {
+        "type": "NameError",
+        "message": "name 'vec2quat' is not defined"
+      },
+      "scene_sha256": "a7b023fc580b04b6791cdbf2ad5063171289b4fa0cac4a06bcb249aaf6377c2e",
+      "generated_code_blocks": 17,
+      "maps": 1
+    },
+    {
+      "object": "screwdriver",
+      "directory": "screwdriver-seed0-v2",
+      "result": {
+        "status": "program_finished_without_hold",
+        "mass_kg": 0.097,
+        "simulated_seconds": 20.5725000000013,
+        "wall_seconds": 23.1511088819243,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.00011351196039764005,
+        "final_hand_weight_fraction": -0.037411555210581086,
+        "final_external_weight_fraction": 1.0378660120611995,
+        "maximum_joint_limit_violation_rad": 0.00397430340045668,
+        "maximum_penetration_m": 0.0015979464780205045,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.30548892498480124,
+        "maximum_arm_acceleration_ratio": 3.5025714747045456,
+        "digit_loads_n": [
+          0.05308870238646313,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "opposition_cosine": 0.0,
+        "orientation_cosine": 0.04012478152687368
+      },
+      "error": null,
+      "scene_sha256": "f6005092780a7a4229fbf1cd955ee07079e486d200a34cd39445011a4ac4445b",
+      "generated_code_blocks": 14,
+      "maps": 2
+    },
+    {
+      "object": "apple",
+      "directory": "apple-seed0-v2",
+      "result": {
+        "status": "program_finished_without_hold",
+        "mass_kg": 0.068,
+        "simulated_seconds": 18.07250000000002,
+        "wall_seconds": 18.778498936910182,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.00017513399270118607,
+        "final_hand_weight_fraction": -0.027608022399725613,
+        "final_external_weight_fraction": 1.0273185368546538,
+        "maximum_joint_limit_violation_rad": 0.00019785045062770124,
+        "maximum_penetration_m": 0.0013878893565861597,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.3936194832484793,
+        "maximum_arm_acceleration_ratio": 3.4921481859397554,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.0,
+          0.032820837752878106
+        ],
+        "opposition_cosine": 0.0
+      },
+      "error": null,
+      "scene_sha256": "9944139371de1fb0a9a8d222309410bad988b116083ce2a5df983648d45558aa",
+      "generated_code_blocks": 12,
+      "maps": 2
+    },
+    {
+      "object": "mustard",
+      "directory": "mustard-seed0-v2",
+      "result": {
+        "status": "program_error",
+        "mass_kg": 0.603,
+        "simulated_seconds": 8.40250000000047,
+        "wall_seconds": 17.851481456076726,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.00016678712737273893,
+        "final_hand_weight_fraction": 0.0,
+        "final_external_weight_fraction": 1.0001384575104093,
+        "maximum_joint_limit_violation_rad": 0.011730621482803683,
+        "maximum_penetration_m": 0.0012148539491675311,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.3826491240033378,
+        "maximum_arm_acceleration_ratio": 3.682609820293736,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "opposition_cosine": 0.0,
+        "orientation_cosine": 0.9999999447557689
+      },
+      "error": {
+        "type": "NameError",
+        "message": "name 'vec2quat' is not defined"
+      },
+      "scene_sha256": "8935ea4de149fc4ebeb947c74faa0bf71dbaf70d6587da57f2ffdf82c91922bb",
+      "generated_code_blocks": 13,
+      "maps": 1
+    }
+  ],
+  "limitations": [
+    "Initial cross-embodiment integration trials, not a matched performance comparison.",
+    "One fixture per object and one generated program per instruction.",
+    "Fixed binary LEAP closure and Cartesian IK replace the original parallel-gripper motion backend.",
+    "Privileged mesh vertices and radial approximate normals replace RLBench point clouds.",
+    "Only the native final-pose five-second acceptance is evaluated; no prescribed intermediate lift-stage hold.",
+    "No Guided MPC action proposals or losses are used.",
+    "The original generated code is left unmodified, including undefined helper calls."
+  ]
+}
