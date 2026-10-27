@@ -83,13 +83,13 @@
       <tr><th scope="row">Current failures</th><td>All outcomes retain the original acceptance checks</td><td>VoxPoser hammer/mustard hit an undefined helper; the adapter also exceeds some physical limits</td></tr>
     </tbody>
   </table>
-  <p class="compare-note">Keep these initial results. Test API repairs and individual-finger control as separately labeled additions, with saved code showing whether VoxPoser uses the new interface.</p>
+  <p class="compare-note">Recorded adapter limitations: collision-cloud exclusion requests were ignored, and failed IK solves could still execute. These affect both H0 and A/B. The saved runs establish implementation behavior, not a method ranking.</p>
   <p class="cap"><a href="sources/robotl-ycb-20261026/settings-comparison.json">Settings audit</a> · <a href="sources/robotl-ycb-20261026/comparison.json">Reference selection</a> · <a href="sources/robotl-ycb-20261026/adapter-source.txt">Executed adapter</a></p>
   <aside class="notes">Final native hold predicates also check support, contact stability, penetration and arm speed/acceleration/joint limits, with the existing short contact-lapse tolerance. The adapter calls NativeEpisode._record but not NativeEpisode.run, so sharing the checker does not mean sharing candidate rejection. Initial adapter maximum arm acceleration ratios are approximately 3.49 to 6.54; hammer maximum penetration is 6.88 mm against the normal 3 mm limit. Motion violations can prevent hold acceptance. The RolloutBudget object in the adapter supports native recording and clocks; it does not imply that VoxPoser ran one-second MPC. Time ceilings match, correcting the earlier description of different budgets: realized episode lengths differ because of termination rules and errors. No new finger-control result is claimed here.</aside>
 </section>
 <section id="slide-finger-interface-results">
   <h2 class="t">Individual finger control: <span>the programs did not use it</span></h2>
-  <p class="setup">Eight trials on rolly, no MPC. A and B share the repaired API and measured hand-state context</p>
+  <p class="setup">Eight trials on rolly, no MPC. A and B share the quaternion repair and measured hand-state context</p>
   <table class="settings">
     <thead><tr><th>Object</th><th>A: fixed closure<br>Qualifying hold</th><th>B: finger API available<br>Qualifying hold / setter calls</th></tr></thead>
     <tbody>
