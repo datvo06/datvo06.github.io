@@ -1,0 +1,14 @@
+{
+  "input": "/home/datnguyen/Marc/leap-matched-20261014/hands/stock-current/cases/043_phillips_screwdriver-x0.420-y0.050-yaw0.600/fixture",
+  "output": "/home/datnguyen/Marc/leap-matched-20261014/hands/stock-current/runs/043_phillips_screwdriver-x0.420-y0.050-yaw0.600-s1",
+  "duration": 150.0,
+  "horizon": 4.0,
+  "replan": 0.25,
+  "batch": 32,
+  "threads": 3,
+  "seed": 1,
+  "hold_seconds": 5.0,
+  "grip_set": "handle",
+  "grips": "[{\"site\":{\"value\":-22.67456836053599,\"unit\":\"mm\"}}]",
+  "task": "[{\"hold\":{\"pose\":null,\"clearance\":{\"value\":30.0,\"unit\":\"mm\"}}},{\"goal\":{\"direction\":-1,\"tolerance\":{\"value\":20.0,\"unit\":\"deg\"}},\"charge\":{\"exponent\":1.0,\"weight\":40.0}}]"
+}

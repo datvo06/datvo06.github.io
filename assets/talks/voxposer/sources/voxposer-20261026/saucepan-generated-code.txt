@@ -1,0 +1,110 @@
+# Block 1: planner
+objects = ['saucepan', 'saucepan_lid']
+# Query: take lid off the saucepan.
+composer("grasp the saucepan lid")
+composer("back to default pose")
+composer("move to 15cm above the saucepan")
+composer("open gripper")
+composer("back to default pose")
+# done
+
+# Block 2: composer
+# Query: grasp the saucepan lid.
+movable = parse_query_obj('gripper')
+affordance_map = get_affordance_map('a point at the center of the saucepan lid')
+gripper_map = get_gripper_map('open everywhere except 1cm around the saucepan lid')
+execute(movable, affordance_map=affordance_map, gripper_map=gripper_map)
+
+# Block 3: parse_query_obj
+objects = ['saucepan', 'saucepan_lid']
+# Query: gripper.
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 4: get_affordance_map
+# Query: a point at the center of the saucepan lid.
+affordance_map = get_empty_affordance_map()
+saucepan_lid = parse_query_obj('saucepan lid')
+x, y, z = saucepan_lid.position
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 5: get_gripper_map
+# Query: open everywhere except 1cm around the saucepan lid.
+gripper_map = get_empty_gripper_map()
+# open everywhere
+gripper_map[:, :, :] = 1
+# close when 1cm around the saucepan lid
+saucepan_lid = parse_query_obj('saucepan lid')
+set_voxel_by_radius(gripper_map, saucepan_lid.position, radius_cm=1, value=0)
+ret_val = gripper_map
+
+# Block 6: parse_query_obj
+objects = ['saucepan', 'saucepan_lid']
+# Query: saucepan lid.
+saucepan_lid = detect('saucepan_lid')
+ret_val = saucepan_lid
+
+# Block 7: parse_query_obj
+objects = ['saucepan', 'saucepan_lid']
+# Query: saucepan lid.
+saucepan_lid = detect('saucepan_lid')
+ret_val = saucepan_lid
+
+# Block 8: composer
+# Query: back to default pose.
+reset_to_default_pose()
+
+# Block 9: composer
+# Query: move to 15cm above the saucepan.
+movable = parse_query_obj('gripper')
+affordance_map = get_affordance_map('a point 15cm above the saucepan')
+execute(movable, affordance_map=affordance_map)
+
+# Block 10: parse_query_obj
+objects = ['saucepan', 'saucepan_lid']
+# Query: gripper.
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 11: get_affordance_map
+# Query: a point 15cm above the saucepan.
+affordance_map = get_empty_affordance_map()
+saucepan = parse_query_obj('saucepan')
+(min_x, min_y, min_z), (max_x, max_y, max_z) = saucepan.aabb
+center_x, center_y, center_z = saucepan.position
+# 15cm above so we add to z-axis
+x = center_x
+y = center_y
+z = max_z + cm2index(15, 'z')
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 12: parse_query_obj
+objects = ['saucepan', 'saucepan_lid']
+# Query: saucepan.
+saucepan = detect('saucepan')
+ret_val = saucepan
+
+# Block 13: composer
+# Query: open gripper.
+movable = parse_query_obj('gripper')
+gripper_map = get_gripper_map('open everywhere')
+execute(movable, gripper_map=gripper_map)
+
+# Block 14: parse_query_obj
+objects = ['saucepan', 'saucepan_lid']
+# Query: gripper.
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 15: get_gripper_map
+# Query: open everywhere.
+gripper_map = get_empty_gripper_map()
+# open everywhere
+gripper_map[:, :, :] = 1
+ret_val = gripper_map
+
+# Block 16: composer
+# Query: back to default pose.
+reset_to_default_pose()

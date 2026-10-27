@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>VoxPoser Trials</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@600&family=IBM+Plex+Sans:wght@400;600&display=swap');
+    .reveal { font-family: "IBM Plex Sans", sans-serif; color: #1f2330; }
+    .reveal h2.t { font-family: "IBM Plex Serif", Georgia, serif; text-transform: none; font-size: .95em; font-weight: 600; letter-spacing: -.015em; margin: 0 0 .35em; }
+    .reveal h2.t span, .reveal a, .cap strong { color: #1E3A8A; }
+    .setup { max-width: 90%; margin: 0 auto .45em; font-size: .5em; color: #4a4f5a; }
+    .row { display: flex; gap: .7em; align-items: flex-start; justify-content: center; margin: 0 auto; }
+    .row > figure { flex: 1; min-width: 0; margin: 0; }
+    .row video { display: block; width: 100%; object-fit: contain; border-radius: 6px; }
+    .cap { margin: .2em 0 0; font-size: .46em; color: #4a4f5a; text-align: center; }
+    .reveal ul.pts { list-style: none; margin: .45em auto 0; padding: 0; text-align: left; }
+    .reveal ul.pts li { padding: .3em .8em; margin: 0 0 .35em; border-left: 3px solid #1E3A8A; background: #f6f7f9; border-radius: 4px; }
+    .code-label { font-size: .52em; color: #1E3A8A; margin: .5em auto 0; }
+    .ycb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 28px; width: 92%; margin: auto; }
+    .ycb-grid figure { margin: 0; }
+    .ycb-grid video { width: 100%; height: 175px; display: block; object-fit: contain; background: #f6f7f9; }
+    .comparison { width: 96%; }
+    .comparison video { height: 360px; background: #f6f7f9; }
+    .reveal p.compare-note { max-width: 94%; font-size: .43em; margin: 14px auto; color: #4a4f5a; }
+    .reveal button { border: 1px solid #1E3A8A; border-radius: 4px; background: white; color: #1E3A8A; padding: 7px 14px; font: inherit; font-size: 18px; cursor: pointer; }
+    .reveal p.video-actions { margin: 12px auto; }
+    .program-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 96%; margin: auto; }
+    .program-grid > div { padding: 20px; background: #f6f7f9; border-radius: 8px; }
+    .reveal table.settings { width: 96%; font-size: .43em; line-height: 1.25; border-collapse: collapse; }
+    .reveal table.settings th, .reveal table.settings td { padding: 10px 12px; vertical-align: top; border-bottom: 1px solid #dce2ed; }
+    .reveal table.settings th { color: #1E3A8A; }
+    .reveal table.settings th:first-child { width: 16%; }
+    .reveal table.settings td { width: 42%; }
+    #code-panel { position: fixed; inset: auto 20px 20px auto; margin: 0; padding: 0; width: min(960px, calc(100vw - 40px)); max-height: calc(100vh - 40px); border: 1px solid #c8d1e4; border-radius: 12px; box-shadow: 0 12px 50px #15244040; background: white; color: #1f2330; font: 16px "IBM Plex Sans", sans-serif; }
+    #code-panel:popover-open { display: flex; flex-direction: column; }
+    #code-panel header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; background: #f2f5fb; }
+    #code-panel h2 { font-size: 20px; margin: 0; }
+    #code-panel .code-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 12px 18px; }
+    #code-panel select { flex: 1; min-width: 160px; font: inherit; padding: 6px; }
+    #code-panel button, #code-panel a { font: inherit; color: #1E3A8A; }
+    #code-panel button { border: 1px solid #aab8d0; border-radius: 5px; background: white; padding: 6px 10px; cursor: pointer; }
+    #code-panel pre { margin: 0; min-height: 0; max-height: 52vh; overflow: auto; background: #fafbfc; }
+    #code-panel header, #code-panel .code-toolbar, #code-panel-status { flex-shrink: 0; }
+    #code-panel code { display: block; padding: 18px; font: 15px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre; }
+    #code-panel-status { padding: 10px 18px; margin: 0; font-size: 14px; color: #526078; }
+    [data-code-source] { cursor: pointer; }
+    @media (max-width: 600px) { #code-panel { inset: auto 8px 8px auto; width: calc(100vw - 16px); } }
+  </style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+<section id="slide-comparison-settings">
+  <h2 class="t">VoxPoser and Guided MPC: <span>settings in these runs</span></h2>
+  <p class="setup">Same compiled stock-hand scenes, MuJoCo 3.15 and libccd, 2.5 ms physics steps</p>
+  <table class="settings">
+    <thead><tr><th scope="col">Setting</th><th scope="col">VoxPoser + initial LEAP adapter</th><th scope="col">Guided MPC reference</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Hand control</th><td>Hand pose + scalar open/close; fixed finger posture closes selected joints to 1.2 rad</td><td>7 arm + 16 finger targets; grasp, squeeze, lift and regrasp proposals</td></tr>
+      <tr><th scope="row">Planning</th><td>Generated spatial maps on a 100³ grid; Cartesian IK, no MuJoCo grasp rollouts</td><td>32 candidate sequences, each predicting 4 s of native MuJoCo dynamics</td></tr>
+      <tr><th scope="row">Feedback</th><td>One planning pass per move; object geometry reobserved between waypoints</td><td>Replan every 0.25 s (4 Hz) from the current state</td></tr>
+      <tr><th scope="row">Contact forces</th><td>Used by the outcome checker; not supplied to the generated planning code</td><td>Used in contact/support losses and the outcome checker</td></tr>
+      <tr><th scope="row">Physical checks</th><td>Checks executed states for hold acceptance; no rollout feasibility screening</td><td>Screens candidates for motion limits and penetration; allows recorded recovery fallbacks</td></tr>
+      <tr><th scope="row">Trial setup</th><td>GPT-4.1, temperature 0, seed 0; one generated program per object</td><td>Saved per-object controller, seed 1; no LLM during execution</td></tr>
+    </tbody>
+  </table>
+  <p class="compare-note">The fixed closure is an adapter restriction, not a demonstrated limit of VoxPoser. These differences prevent a controlled method ranking. The mustard reference is a fixed servo trajectory, not Guided MPC.</p>
+  <p class="cap"><a href="#/slide-comparison-protocol">Acceptance and stopping rules</a> · <a href="sources/robotl-ycb-20261026/settings-comparison.json">Verified settings and source evidence</a></p>
+</section>
+<section id="slide-comparison-protocol">
+  <h2 class="t">What is shared, <span>and what is not yet matched</span></h2>
+  <table class="settings">
+    <thead><tr><th scope="col">Setting</th><th scope="col">Shared</th><th scope="col">Remaining difference</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Physical scene</th><td>Identical scene hashes: geometry, masses, actuators and initial fixture</td><td>Controllers expose different actions and observations; Python/JAX versions also differ</td></tr>
+      <tr><th scope="row">Final acceptance</th><td>5 s supported hold; whole-object clearance ≥3 cm, motion/contact conditions and physical limits</td><td>VoxPoser's instruction requests 6 cm; it is scored by the same 3 cm native predicate</td></tr>
+      <tr><th scope="row">Orientation</th><td>Apple: any; screwdriver: tip-down; hammer: head-up; mustard: upright</td><td>Guided MPC also requires intermediate tool-stage holds; VoxPoser checks the final pose directly</td></tr>
+      <tr><th scope="row">Time ceilings</th><td>Apple 40 s; screwdriver 150 s; hammer 210 s; mustard 40 s</td><td>VoxPoser stops on code error or after the program plus 5.1 s of hold time. References can use the full ceiling</td></tr>
+      <tr><th scope="row">Current failures</th><td>All outcomes retain the original acceptance checks</td><td>VoxPoser hammer/mustard hit an undefined helper; the adapter also exceeds some physical limits</td></tr>
+    </tbody>
+  </table>
+  <p class="compare-note">Keep these initial results. Test API repairs and individual-finger control as separately labeled additions, with saved code showing whether VoxPoser uses the new interface.</p>
+  <p class="cap"><a href="sources/robotl-ycb-20261026/settings-comparison.json">Settings audit</a> · <a href="sources/robotl-ycb-20261026/comparison.json">Reference selection</a> · <a href="sources/robotl-ycb-20261026/adapter-source.txt">Executed adapter</a></p>
+  <aside class="notes">Final native hold predicates also check support, contact stability, penetration and arm speed/acceleration/joint limits, with the existing short contact-lapse tolerance. The adapter calls NativeEpisode._record but not NativeEpisode.run, so sharing the checker does not mean sharing candidate rejection. Initial adapter maximum arm acceleration ratios are approximately 3.49 to 6.54; hammer maximum penetration is 6.88 mm against the normal 3 mm limit. Motion violations can prevent hold acceptance. The RolloutBudget object in the adapter supports native recording and clocks; it does not imply that VoxPoser ran one-second MPC. Time ceilings match, correcting the earlier description of different budgets: realized episode lengths differ because of termination rules and errors. No new finger-control result is claimed here.</aside>
+</section>
+<section id="slide-finger-interface-results">
+  <h2 class="t">Individual finger control: <span>the programs did not use it</span></h2>
+  <p class="setup">Eight trials on rolly, no MPC. A and B share the repaired API and measured hand-state context</p>
+  <table class="settings">
+    <thead><tr><th>Object</th><th>A: fixed closure<br>Qualifying hold</th><th>B: finger API available<br>Qualifying hold / setter calls</th></tr></thead>
+    <tbody>
+<tr><th><a href="#/slide-fingers-apple">Apple</a></th><td>0 s</td><td>0 s / 0 calls</td></tr>
+<tr><th><a href="#/slide-fingers-screwdriver">Screwdriver</a></th><td>0 s</td><td>0 s / 0 calls</td></tr>
+<tr><th><a href="#/slide-fingers-hammer">Hammer</a></th><td>0 s</td><td>0 s / 0 calls</td></tr>
+<tr><th><a href="#/slide-fingers-mustard">Mustard bottle</a></th><td>Parser error before physics</td><td>Parser error before physics / 0 calls</td></tr>
+    </tbody>
+  </table>
+  <ul class="pts" style="max-width: 92%; font-size: .48em;">
+    <li><strong>Added:</strong> measured state for all 16 joints and a setter for individual joint targets. Native checks verified target persistence and open/close behavior.</li>
+    <li><strong>Observed:</strong> all four B programs kept using scalar gripper maps. We have not yet tested an executed independent-finger strategy generated by the LLM.</li>
+  </ul>
+  <p class="video-actions"><button type="button" data-code-source="sources/finger-control-20261026/interface-code.json" data-code-block="1" data-code-title="Implemented finger interface">Inspect the added finger API</button></p>
+  <p class="cap"><a href="sources/finger-control-20261026/extension.patch">Implementation diff</a> · <a href="sources/finger-control-20261026/interface-checks.json">Native checks</a> · <a href="sources/finger-control-20261026/summary.json">Outcomes and API-use counts</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__artifacts.zip" download>All A/B artifacts</a></p>
+  <aside class="notes">Initial H0 recordings remain unchanged in the following sections. A repairs the quaternion helper and exposes measured hand state. B adds independent target selection for sixteen joints, preserving unspecified targets and carrying the selected closed posture through Cartesian motion. No posture example or new retry loop was added. All four B programs contain zero setter mentions and execute zero setter calls. Both groups also make zero additional get_hand_state queries, although their initial measured state is included in the prompt. Hammer and screwdriver A/B trajectories are identical; apple differs while still using scalar closure. Both mustard parsers return None and fail before physics. These findings do not show that independent finger control cannot work. Shared backend acceleration/penetration limitations remain.</aside>
+</section>
+<section id="slide-fingers-apple">
+  <h2 class="t">Apple: <span>fixed closure vs finger interface</span></h2>
+  <p class="setup">Same scene, instruction, seed, shared observations and Cartesian backend; no MPC</p>
+  <div class="row comparison">
+<figure><video controls muted playsinline preload="metadata" aria-label="Apple, A: repaired API, fixed closure"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__apple-api-seed0-v1__grasp-view.mp4" type="video/mp4"></video>
+    <figcaption class="cap"><strong>A: repaired API, fixed closure</strong><br>0 s accepted hold<br><a href="sources/finger-control-20261026/apple-api-seed0-v1/generated-code.json" data-code-title="Apple, A: repaired API, fixed closure">Generated code</a> · <a href="sources/finger-control-20261026/apple-api-seed0-v1/hand-interface-prompt.txt">Interface prompt</a> · <a href="sources/finger-control-20261026/apple-api-seed0-v1/result.json">Outcome</a></figcaption></figure><figure><video controls muted playsinline preload="metadata" aria-label="Apple, B: individual-finger API available"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__apple-fingers-seed0-v1__grasp-view.mp4" type="video/mp4"></video>
+    <figcaption class="cap"><strong>B: individual-finger API available</strong><br>0 s accepted hold; 0 joint-target calls<br><a href="sources/finger-control-20261026/apple-fingers-seed0-v1/generated-code.json" data-code-title="Apple, B: individual-finger API available">Generated code</a> · <a href="sources/finger-control-20261026/apple-fingers-seed0-v1/hand-interface-prompt.txt">Interface prompt</a> · <a href="sources/finger-control-20261026/apple-fingers-seed0-v1/result.json">Outcome</a></figcaption></figure></div>
+<p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="compare-note">Real-time playback. Offering the finger API did not cause its use in this trial. The original H0 result remains separate.</p>
+  <p class="cap"><a href="#/slide-compare-apple">Original H0 comparison</a> · <a href="sources/finger-control-20261026/summary.json">Measured outcomes and API use</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__artifacts.zip" download>All A/B artifacts</a></p>
+</section>
+<section id="slide-fingers-screwdriver">
+  <h2 class="t">Screwdriver: <span>fixed closure vs finger interface</span></h2>
+  <p class="setup">Same scene, instruction, seed, shared observations and Cartesian backend; no MPC</p>
+  <div class="row comparison">
+<figure><video controls muted playsinline preload="metadata" aria-label="Screwdriver, A: repaired API, fixed closure"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__screwdriver-api-seed0-v1__grasp-view.mp4" type="video/mp4"></video>
+    <figcaption class="cap"><strong>A: repaired API, fixed closure</strong><br>0 s accepted hold<br><a href="sources/finger-control-20261026/screwdriver-api-seed0-v1/generated-code.json" data-code-title="Screwdriver, A: repaired API, fixed closure">Generated code</a> · <a href="sources/finger-control-20261026/screwdriver-api-seed0-v1/hand-interface-prompt.txt">Interface prompt</a> · <a href="sources/finger-control-20261026/screwdriver-api-seed0-v1/result.json">Outcome</a></figcaption></figure><figure><video controls muted playsinline preload="metadata" aria-label="Screwdriver, B: individual-finger API available"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__screwdriver-fingers-seed0-v1__grasp-view.mp4" type="video/mp4"></video>
+    <figcaption class="cap"><strong>B: individual-finger API available</strong><br>0 s accepted hold; 0 joint-target calls<br><a href="sources/finger-control-20261026/screwdriver-fingers-seed0-v1/generated-code.json" data-code-title="Screwdriver, B: individual-finger API available">Generated code</a> · <a href="sources/finger-control-20261026/screwdriver-fingers-seed0-v1/hand-interface-prompt.txt">Interface prompt</a> · <a href="sources/finger-control-20261026/screwdriver-fingers-seed0-v1/result.json">Outcome</a></figcaption></figure></div>
+<p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="compare-note">Real-time playback. Offering the finger API did not cause its use in this trial. The original H0 result remains separate.</p>
+  <p class="cap"><a href="#/slide-compare-screwdriver">Original H0 comparison</a> · <a href="sources/finger-control-20261026/summary.json">Measured outcomes and API use</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__artifacts.zip" download>All A/B artifacts</a></p>
+</section>
+<section id="slide-fingers-hammer">
+  <h2 class="t">Hammer: <span>fixed closure vs finger interface</span></h2>
+  <p class="setup">Same scene, instruction, seed, shared observations and Cartesian backend; no MPC</p>
+  <div class="row comparison">
+<figure><video controls muted playsinline preload="metadata" aria-label="Hammer, A: repaired API, fixed closure"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__hammer-api-seed0-v1__grasp-view.mp4" type="video/mp4"></video>
+    <figcaption class="cap"><strong>A: repaired API, fixed closure</strong><br>0 s accepted hold<br><a href="sources/finger-control-20261026/hammer-api-seed0-v1/generated-code.json" data-code-title="Hammer, A: repaired API, fixed closure">Generated code</a> · <a href="sources/finger-control-20261026/hammer-api-seed0-v1/hand-interface-prompt.txt">Interface prompt</a> · <a href="sources/finger-control-20261026/hammer-api-seed0-v1/result.json">Outcome</a></figcaption></figure><figure><video controls muted playsinline preload="metadata" aria-label="Hammer, B: individual-finger API available"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__hammer-fingers-seed0-v1__grasp-view.mp4" type="video/mp4"></video>
+    <figcaption class="cap"><strong>B: individual-finger API available</strong><br>0 s accepted hold; 0 joint-target calls<br><a href="sources/finger-control-20261026/hammer-fingers-seed0-v1/generated-code.json" data-code-title="Hammer, B: individual-finger API available">Generated code</a> · <a href="sources/finger-control-20261026/hammer-fingers-seed0-v1/hand-interface-prompt.txt">Interface prompt</a> · <a href="sources/finger-control-20261026/hammer-fingers-seed0-v1/result.json">Outcome</a></figcaption></figure></div>
+<p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="compare-note">Real-time playback. Offering the finger API did not cause its use in this trial. The original H0 result remains separate.</p>
+  <p class="cap"><a href="#/slide-compare-hammer">Original H0 comparison</a> · <a href="sources/finger-control-20261026/summary.json">Measured outcomes and API use</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__artifacts.zip" download>All A/B artifacts</a></p>
+</section>
+<section id="slide-fingers-mustard">
+  <h2 class="t">Mustard bottle: <span>fixed closure vs finger interface</span></h2>
+  <p class="setup">Both generated object parsers fail before any physics step</p>
+  <div class="row comparison">
+<figure><img src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__mustard-api-seed0-v1__final.png" alt="A: repaired API, fixed closure: unchanged initial mustard scene" style="height: 360px; width: 100%; object-fit: contain;">
+    <figcaption class="cap"><strong>A: repaired API, fixed closure</strong><br>0 s simulation; parser returned None<br><a href="sources/finger-control-20261026/mustard-api-seed0-v1/generated-code.json" data-code-title="Mustard bottle, A: repaired API, fixed closure">Generated code</a> · <a href="sources/finger-control-20261026/mustard-api-seed0-v1/hand-interface-prompt.txt">Interface prompt</a> · <a href="sources/finger-control-20261026/mustard-api-seed0-v1/result.json">Outcome</a></figcaption></figure><figure><img src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__mustard-fingers-seed0-v1__final.png" alt="B: individual-finger API available: unchanged initial mustard scene" style="height: 360px; width: 100%; object-fit: contain;">
+    <figcaption class="cap"><strong>B: individual-finger API available</strong><br>0 s simulation; parser returned None; 0 joint-target calls<br><a href="sources/finger-control-20261026/mustard-fingers-seed0-v1/generated-code.json" data-code-title="Mustard bottle, B: individual-finger API available">Generated code</a> · <a href="sources/finger-control-20261026/mustard-fingers-seed0-v1/hand-interface-prompt.txt">Interface prompt</a> · <a href="sources/finger-control-20261026/mustard-fingers-seed0-v1/result.json">Outcome</a></figcaption></figure></div>
+
+  <p class="compare-note">Images show the initial scene, not an executed pickup. The saved single-frame recordings are retained in the artifact bundle. The original H0 result remains separate.</p>
+  <p class="cap"><a href="#/slide-compare-mustard">Original H0 comparison</a> · <a href="sources/finger-control-20261026/summary.json">Measured outcomes and API use</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__finger-control-20261026__artifacts.zip" download>All A/B artifacts</a></p>
+</section>
+<section id="slide-robotl-ycb-results">
+  <h2 class="t">VoxPoser on <span>RoboTL pickup tasks</span></h2>
+  <p class="setup">Initial Panda + LEAP integration: no accepted five-second hold in these four trials</p>
+  <div class="ycb-grid">
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__apple-seed0-v2__initial.png" aria-label="VoxPoser Apple trial"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__apple-seed0-v2__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Apple</strong>: Program finished; no accepted lift<br><a href="#/slide-compare-apple">Side-by-side comparison</a> · <a href="sources/robotl-ycb-20261026/apple-seed0-v2/generated-code.txt">Generated code</a> · <a href="sources/robotl-ycb-20261026/apple-seed0-v2/result.json">Outcome</a></figcaption>
+    </figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__screwdriver-seed0-v2__initial.png" aria-label="VoxPoser Screwdriver trial"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__screwdriver-seed0-v2__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Screwdriver</strong>: Program finished; no accepted lift<br><a href="#/slide-compare-screwdriver">Side-by-side comparison</a> · <a href="sources/robotl-ycb-20261026/screwdriver-seed0-v2/generated-code.txt">Generated code</a> · <a href="sources/robotl-ycb-20261026/screwdriver-seed0-v2/result.json">Outcome</a></figcaption>
+    </figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__hammer-seed0-v2__initial.png" aria-label="VoxPoser Hammer trial"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__hammer-seed0-v2__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Hammer</strong>: Stopped: undefined vec2quat<br><a href="#/slide-compare-hammer">Side-by-side comparison</a> · <a href="sources/robotl-ycb-20261026/hammer-seed0-v2/generated-code.txt">Generated code</a> · <a href="sources/robotl-ycb-20261026/hammer-seed0-v2/result.json">Outcome</a></figcaption>
+    </figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__mustard-seed0-v2__initial.png" aria-label="VoxPoser Mustard bottle trial"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__mustard-seed0-v2__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Mustard bottle</strong>: Stopped: undefined vec2quat<br><a href="#/slide-compare-mustard">Side-by-side comparison</a> · <a href="sources/robotl-ycb-20261026/mustard-seed0-v2/generated-code.txt">Generated code</a> · <a href="sources/robotl-ycb-20261026/mustard-seed0-v2/result.json">Outcome</a></figcaption>
+    </figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="compare-note">All four ran in parallel on rolly. Presentation clips: 480 × 360 at 24 fps, real time; original recordings remain in the bundles. These trials test the initial adapter; they do not establish a method ranking.</p>
+  <p class="cap"><a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__artifacts.zip" download>All VoxPoser artifacts</a> · <a href="sources/robotl-ycb-20261026/summary.json">Results</a> · <a href="#/slide-robotl-programs">Generated programs</a> · <a href="#/slide-robotl-maps">Saved maps</a></p>
+  <aside class="notes">Native tasks from PR #674 through PR #713 revision ff60eaad16a044591e2a3119f6f499449869b8e7. Upstream VoxPoser GPT-4.1 planner, composer and spatial-map generators run through an external adapter using privileged object geometry, arm inverse kinematics and fixed binary LEAP closure. No Guided MPC proposals or losses are used by VoxPoser. Its final native five-second acceptance condition is evaluated directly; prescribed intermediate stage holds are omitted. Hammer runs for 14.5925 simulated seconds, screwdriver 20.5725, apple 18.0725 and mustard 8.4025. All longest_lifted_seconds values are zero. Errors are preserved as recorded. Comparison links pair these trials with existing seed-1 stock-current runs selected by identical scene.mjb hash, not by success. Videos stop at episode end and do not loop.</aside>
+</section>
+<section id="slide-compare-apple">
+  <h2 class="t">Apple: <span>VoxPoser and Guided MPC</span></h2>
+  <p class="setup">Lift and hold for five seconds. Identical compiled stock-hand scene, different controllers</p>
+  <div class="row comparison">
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__apple-seed0-v2__initial.png" aria-label="Apple with VoxPoser"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__apple-seed0-v2__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>VoxPoser + LEAP adapter</strong><br>Program finished; no accepted lift<br><a href="sources/robotl-ycb-20261026/apple-seed0-v2/generated-code.txt">Generated code</a> · <a href="sources/robotl-ycb-20261026/apple-seed0-v2/result.json">Outcome</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__apple-seed0-v2__config.json">Config</a></figcaption>
+    </figure>
+    <figure><video controls muted playsinline preload="metadata" aria-label="Apple with Guided MPC"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__apple-reference__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Guided MPC, existing stock-hand run</strong><br>4.38 s longest qualifying hold; target not completed<br><a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__apple-reference__artifacts.zip" download>Controller and recording</a> · <a href="sources/robotl-ycb-20261026/apple-reference/result.json">Outcome</a> · <a href="sources/robotl-ycb-20261026/apple-reference/settings.json">Config</a></figcaption>
+    </figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="compare-note">Real time; each video stops when its episode ends. VoxPoser seed 0; reference seed 1. Time ceilings match; stopping rules and action interfaces differ.</p>
+  <p class="cap"><a href="sources/robotl-ycb-20261026/comparison.json">Scene hashes, selection rule and comparison limits</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__apple-seed0-v2__recorded.mp4">VoxPoser wide view</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__apple-reference__recorded.mp4">Reference wide view</a></p>
+  <aside class="notes">The reference was selected from the October 14 matched morphology study by identical compiled scene hash and seed 1. It was not chosen to maximize or minimize success. This is an illustrative comparison using existing runs, not a controlled performance benchmark: Python/JAX versions, controller seeds, action spaces, episode lengths and stage handling differ. Reference controllers and full native recordings are included in the per-object archive. All four selected references failed the final task. The apple reference reaches 4.3825 seconds of qualifying hold, below five seconds, and records 4.642 mm maximum penetration with one fallback tick. </aside>
+</section>
+<section id="slide-compare-screwdriver">
+  <h2 class="t">Screwdriver: <span>VoxPoser and Guided MPC</span></h2>
+  <p class="setup">Lift and hold tip-down for five seconds. Identical compiled stock-hand scene, different controllers</p>
+  <div class="row comparison">
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__screwdriver-seed0-v2__initial.png" aria-label="Screwdriver with VoxPoser"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__screwdriver-seed0-v2__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>VoxPoser + LEAP adapter</strong><br>Program finished; no accepted lift<br><a href="sources/robotl-ycb-20261026/screwdriver-seed0-v2/generated-code.txt">Generated code</a> · <a href="sources/robotl-ycb-20261026/screwdriver-seed0-v2/result.json">Outcome</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__screwdriver-seed0-v2__config.json">Config</a></figcaption>
+    </figure>
+    <figure><video controls muted playsinline preload="metadata" aria-label="Screwdriver with Guided MPC"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__screwdriver-reference__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Guided MPC, existing stock-hand run</strong><br>Lifted, but no qualifying tip-down hold<br><a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__screwdriver-reference__artifacts.zip" download>Controller and recording</a> · <a href="sources/robotl-ycb-20261026/screwdriver-reference/result.json">Outcome</a> · <a href="sources/robotl-ycb-20261026/screwdriver-reference/settings.json">Config</a></figcaption>
+    </figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="compare-note">Real time; each video stops when its episode ends. VoxPoser seed 0; reference seed 1. Time ceilings match; stopping rules and action interfaces differ. The reference also checks intermediate stage holds.</p>
+  <p class="cap"><a href="sources/robotl-ycb-20261026/comparison.json">Scene hashes, selection rule and comparison limits</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__screwdriver-seed0-v2__recorded.mp4">VoxPoser wide view</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__screwdriver-reference__recorded.mp4">Reference wide view</a></p>
+  <aside class="notes">The reference was selected from the October 14 matched morphology study by identical compiled scene hash and seed 1. It was not chosen to maximize or minimize success. This is an illustrative comparison using existing runs, not a controlled performance benchmark: Python/JAX versions, controller seeds, action spaces, episode lengths and stage handling differ. Reference controllers and full native recordings are included in the per-object archive. All four selected references failed the final task.  The screwdriver reference records 61.51 seconds of contained hold, but zero qualifying tip-down hold; lifting alone does not complete this task.</aside>
+</section>
+<section id="slide-compare-hammer">
+  <h2 class="t">Hammer: <span>VoxPoser and Guided MPC</span></h2>
+  <p class="setup">Lift and hold head-up for five seconds. Identical compiled stock-hand scene, different controllers</p>
+  <div class="row comparison">
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__hammer-seed0-v2__initial.png" aria-label="Hammer with VoxPoser"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__hammer-seed0-v2__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>VoxPoser + LEAP adapter</strong><br>Stopped: undefined vec2quat<br><a href="sources/robotl-ycb-20261026/hammer-seed0-v2/generated-code.txt">Generated code</a> · <a href="sources/robotl-ycb-20261026/hammer-seed0-v2/result.json">Outcome</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__hammer-seed0-v2__config.json">Config</a></figcaption>
+    </figure>
+    <figure><video controls muted playsinline preload="metadata" aria-label="Hammer with Guided MPC"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__hammer-reference__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Guided MPC, existing stock-hand run</strong><br>No qualifying head-up hold<br><a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__hammer-reference__artifacts.zip" download>Controller and recording</a> · <a href="sources/robotl-ycb-20261026/hammer-reference/result.json">Outcome</a> · <a href="sources/robotl-ycb-20261026/hammer-reference/settings.json">Config</a></figcaption>
+    </figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="compare-note">Real time; each video stops when its episode ends. VoxPoser seed 0; reference seed 1. Time ceilings match; stopping rules and action interfaces differ. The reference also checks intermediate stage holds.</p>
+  <p class="cap"><a href="sources/robotl-ycb-20261026/comparison.json">Scene hashes, selection rule and comparison limits</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__hammer-seed0-v2__recorded.mp4">VoxPoser wide view</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__hammer-reference__recorded.mp4">Reference wide view</a></p>
+  <aside class="notes">The reference was selected from the October 14 matched morphology study by identical compiled scene hash and seed 1. It was not chosen to maximize or minimize success. This is an illustrative comparison using existing runs, not a controlled performance benchmark: Python/JAX versions, controller seeds, action spaces, episode lengths and stage handling differ. Reference controllers and full native recordings are included in the per-object archive. All four selected references failed the final task.  </aside>
+</section>
+<section id="slide-compare-mustard">
+  <h2 class="t">Mustard bottle: <span>VoxPoser and Fixed servo trajectory</span></h2>
+  <p class="setup">Lift and hold upright for five seconds. Identical compiled stock-hand scene, different controllers</p>
+  <div class="row comparison">
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__mustard-seed0-v2__initial.png" aria-label="Mustard bottle with VoxPoser"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__mustard-seed0-v2__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>VoxPoser + LEAP adapter</strong><br>Stopped: undefined vec2quat<br><a href="sources/robotl-ycb-20261026/mustard-seed0-v2/generated-code.txt">Generated code</a> · <a href="sources/robotl-ycb-20261026/mustard-seed0-v2/result.json">Outcome</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__mustard-seed0-v2__config.json">Config</a></figcaption>
+    </figure>
+    <figure><video controls muted playsinline preload="metadata" aria-label="Mustard bottle with Fixed servo trajectory"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__mustard-reference__grasp-view.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Fixed servo trajectory, existing stock-hand run</strong><br>No qualifying upright hold<br><a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__mustard-reference__artifacts.zip" download>Controller and recording</a> · <a href="sources/robotl-ycb-20261026/mustard-reference/result.json">Outcome</a> · <a href="sources/robotl-ycb-20261026/mustard-reference/settings.json">Config</a></figcaption>
+    </figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="compare-note">Real time; each video stops when its episode ends. VoxPoser seed 0; reference seed 1. Time ceilings match; stopping rules and action interfaces differ. The reference uses a fixed servo trajectory, not Guided MPC.</p>
+  <p class="cap"><a href="sources/robotl-ycb-20261026/comparison.json">Scene hashes, selection rule and comparison limits</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__mustard-seed0-v2__recorded.mp4">VoxPoser wide view</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__mustard-reference__recorded.mp4">Reference wide view</a></p>
+  <aside class="notes">The reference was selected from the October 14 matched morphology study by identical compiled scene hash and seed 1. It was not chosen to maximize or minimize success. This is an illustrative comparison using existing runs, not a controlled performance benchmark: Python/JAX versions, controller seeds, action spaces, episode lengths and stage handling differ. Reference controllers and full native recordings are included in the per-object archive. All four selected references failed the final task.  </aside>
+</section>
+<section id="slide-robotl-programs">
+  <h2 class="t">What VoxPoser <span>generated for pickup</span></h2>
+  <p class="setup">Exact planner outputs used by the recorded RoboTL trials</p>
+  <div class="program-grid">
+<div><p class="code-label">Apple</p><button type="button" data-code-source="sources/robotl-ycb-20261026/apple-seed0-v2/generated-code.json" data-code-block="0" data-code-title="Apple generated code">View generated plan</button></div>
+<div><p class="code-label">Screwdriver</p><button type="button" data-code-source="sources/robotl-ycb-20261026/screwdriver-seed0-v2/generated-code.json" data-code-block="0" data-code-title="Screwdriver generated code">View generated plan</button></div>
+<div><p class="code-label">Hammer</p><button type="button" data-code-source="sources/robotl-ycb-20261026/hammer-seed0-v2/generated-code.json" data-code-block="0" data-code-title="Hammer generated code">View generated plan</button></div>
+<div><p class="code-label">Mustard bottle</p><button type="button" data-code-source="sources/robotl-ycb-20261026/mustard-seed0-v2/generated-code.json" data-code-block="0" data-code-title="Mustard generated code">View generated plan</button></div>
+  </div>
+  <p class="cap">Generated code (full prompts in the bundles): <a href="sources/robotl-ycb-20261026/apple-seed0-v2/generated-code.json">Apple</a> · <a href="sources/robotl-ycb-20261026/screwdriver-seed0-v2/generated-code.json">Screwdriver</a> · <a href="sources/robotl-ycb-20261026/hammer-seed0-v2/generated-code.json">Hammer</a> · <a href="sources/robotl-ycb-20261026/mustard-seed0-v2/generated-code.json">Mustard bottle</a></p>
+  <aside class="notes">Planner outputs reproduced verbatim with visual line wrapping. The generated instructions do not establish a successful physical grasp; execution outcomes are shown separately.</aside>
+</section>
+<section id="slide-robotl-code-errors">
+  <h2 class="t">The <span>rotation code failed</span></h2>
+  <p class="setup">Hammer: the generated movement program calls this rotation-map block</p>
+  <button type="button" data-code-source="sources/robotl-ycb-20261026/hammer-seed0-v2/generated-code.json" data-code-block="14" data-code-title="Hammer generated code">Inspect failing rotation code</button>
+  <ul class="pts" style="font-size: .5em; max-width: 90%;">
+    <li><code>vec2quat</code> is not defined in the execution environment. Hammer and mustard stop with a <code>NameError</code>.</li>
+    <li>These runs expose a generated-code/API mismatch. They do not establish how a corrected integration would perform.</li>
+  </ul>
+  <p class="cap">Recorded errors: <a href="sources/robotl-ycb-20261026/hammer-seed0-v2/error.json">Hammer</a> · <a href="sources/robotl-ycb-20261026/mustard-seed0-v2/error.json">Mustard bottle</a></p>
+  <aside class="notes">Programs are reproduced verbatim, with visual line wrapping only. The hammer and mustard errors are not repaired or filtered in these results. The screwdriver also generates vec2quat, but its rotation-only execute call is skipped by upstream behavior without an affordance map, so the undefined helper is not evaluated there. These observations identify integration and generated-code limitations; they do not isolate the cause of the unsuccessful apple or screwdriver grasps.</aside>
+</section>
+<section id="slide-robotl-maps">
+  <h2 class="t">The <span>saved grasp maps and paths</span></h2>
+  <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__first-grasp-maps.png"><img src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__first-grasp-maps.png" alt="Actual first-grasp target voxels, closure regions and planned paths for hammer, screwdriver, apple and mustard" style="height: 560px; max-width: 96%; object-fit: contain; margin: 0;"></a>
+  <p class="cap">Blue: planned tool-centre path. Red: target voxel. Yellow: close-gripper region.<br>These are planned paths, not measured trajectories. <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__robotl-ycb-20261026__artifacts.zip" download>Download numeric maps, generated code and native trajectories</a></p>
+  <aside class="notes">The figure is plotted from each run's saved first-grasp numeric map set and planned path. These outputs specify where to move and close; they do not establish a successful grasp or an identified dynamics model. Full recordings, per-tick samples, action logs, source adapter and provenance are included in the VoxPoser bundle. A separate outcome file reports native acceptance.</aside>
+</section>
+<section id="slide-voxposer-results">
+  <h2 class="t">VoxPoser: <span>initial RLBench trials</span></h2>
+  <p class="setup">Language-generated value maps guide a Panda arm with a parallel gripper. GPT-4.1, seed 0, CoppeliaSim</p>
+  <div class="row" style="max-width: 80%;">
+    <figure>
+      <video controls loop muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/media__voxposer-saucepan-seed0.png" style="height: 300px;" aria-label="VoxPoser taking the lid off a saucepan">
+        <source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/media__voxposer-saucepan-seed0.mp4" type="video/mp4">
+      </video>
+      <figcaption class="cap"><strong>Take lid off saucepan: success reached</strong><br>13.9 seconds of simulation<br><a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/media__voxposer-saucepan-seed0.mp4">Video</a> · <a href="sources/voxposer-20261026/saucepan-result.json">Outcome</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__voxposer-20261026__saucepan-config.json">Config</a></figcaption>
+    </figure>
+    <figure>
+      <video controls loop muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/media__voxposer-button-seed0.png" style="height: 300px;" aria-label="VoxPoser attempting to push the teal button">
+        <source src="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/media__voxposer-button-seed0.mp4" type="video/mp4">
+      </video>
+      <figcaption class="cap"><strong>Push the teal button: not completed</strong><br>11.8 seconds of simulation<br><a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/media__voxposer-button-seed0.mp4">Video</a> · <a href="sources/voxposer-20261026/button-result.json">Outcome</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__voxposer-20261026__button-config.json">Config</a></figcaption>
+    </figure>
+  </div>
+  <ul class="pts" style="font-size: 0.46em; max-width: 88%;">
+    <li>Success means reaching RLBench's task condition during execution. The lid trial reaches it, but does not retain it at the final state.</li>
+    <li>Two setup trials. A matched comparison with Guided MPC is still pending.</li>
+  </ul>
+  <p class="cap">Original recordings: 128 × 128 pixels. <a href="#/slide-voxposer-programs">View generated programs</a><br><a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__voxposer-20261026__artifacts.zip" download>Download all artifacts</a> · <a href="sources/voxposer-20261026/manifest.json">Run details</a> · <a href="https://github.com/huangwl18/VoxPoser">VoxPoser code</a></p>
+  <aside class="notes">These are initial trials of the released VoxPoser RLBench demo on rolly, not a reproduction of the paper's aggregate results or a comparison against the LEAP YCB tasks. The demo uses RLBench object masks. Its default config performs one outer planning pass; VoxPoser's separate object-pushing path uses sampling MPC. We retained upstream prompts, planner and controller, and used GPT-4.1 because the original GPT-4 endpoint rejected requests. Success is latched when an executed TaskEnvironment.step returns positive sparse reward. The saucepan trial reaches that condition before the instruction finishes; an earlier final-state-only check missed it. Both recordings are replays using cached LLM responses. Replay wall times were 13.94 seconds for saucepan and 9.81 seconds for button; these exclude initial LLM generation and are not comparable performance measurements. The videos show 278 and 236 native simulation steps at 20 Hz, respectively, at the original 128 by 128 recording resolution. The artifact bundle includes both videos, initial and final images, exact configs, normalized outcomes and a manifest with upstream revisions and video checksums. Normalized outcomes omit an unreliable observation variation field from the original runner output.</aside>
+</section>
+
+<section id="slide-voxposer-programs">
+  <h2 class="t">The <span>generated plans</span></h2>
+  <p class="setup">Actual GPT-4.1 outputs used in the two recordings</p>
+  <p class="code-label">Saucepan: task condition reached during execution</p>
+  <button type="button" data-code-source="sources/voxposer-20261026/saucepan-generated-code.json" data-code-block="0" data-code-title="Saucepan generated code">View generated plan</button>
+  <p class="code-label">Button: task condition not reached</p>
+  <button type="button" data-code-source="sources/voxposer-20261026/button-generated-code.json" data-code-block="0" data-code-title="Button generated code">View generated plan</button>
+  <p class="cap">Each <code>composer(...)</code> call generates another program that defines the motion.<br>Full generated code: <a href="sources/voxposer-20261026/saucepan-generated-code.txt">Saucepan</a> · <a href="sources/voxposer-20261026/button-generated-code.txt">Button</a></p>
+  <aside class="notes">Planner blocks reproduced verbatim from the execution logs, including the provided objects context. ANSI terminal formatting was removed. These cached programs were used in the recordings; the text was not reconstructed from their behavior. The saucepan program also returns above the pan and opens the gripper, so it does not specify a sustained hold away from the pan. Logs: <a href="sources/voxposer-20261026/saucepan-execution.log">Saucepan</a> and <a href="sources/voxposer-20261026/button-execution.log">Button</a>.</aside>
+</section>
+<section id="slide-voxposer-maps">
+  <h2 class="t">The <span>generated map code</span></h2>
+  <p class="setup">For the lid grasp, the model defines a target voxel and a region where the gripper closes</p>
+  <p class="code-label">Target: the lid's centre</p>
+  <button type="button" data-code-source="sources/voxposer-20261026/saucepan-generated-code.json" data-code-block="3" data-code-title="Saucepan generated code">Inspect target-map code</button>
+  <p class="code-label">Gripper: open elsewhere, close within 1 cm of the lid</p>
+  <button type="button" data-code-source="sources/voxposer-20261026/saucepan-generated-code.json" data-code-block="4" data-code-title="Saucepan generated code">Inspect gripper-map code</button>
+  <p class="cap">Exact generated code. Positions here are voxel indices.<br><a href="sources/voxposer-20261026/saucepan-generated-code.json">All 16 saucepan code blocks</a> · <a href="sources/voxposer-20261026/button-generated-code.json">All 10 button code blocks</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__voxposer-20261026__artifacts.zip" download>All artifacts</a></p>
+  <aside class="notes">The affordance and gripper map generators are called by the composer for grasping the lid. These are programs for spatial maps, not learned object dynamics. The numeric map arrays were not saved in these trials; this slide displays the actual code that produced them. We have not rerun the trials or inferred a failure cause from the code alone. The button log includes an out-of-bounds target clamped to the grid boundary, which requires a separate diagnostic before attributing its failure.</aside>
+</section>
+</div></div>
+<div id="code-panel" popover="manual" role="dialog" aria-labelledby="code-panel-title">
+  <header><h2 id="code-panel-title">Generated code</h2><div><button type="button" id="code-pin">Keep open</button> <button type="button" id="code-close" aria-label="Close generated code panel">Close</button></div></header>
+  <div class="code-toolbar"><label for="code-block">Block</label><select id="code-block"></select><a id="code-download" download>Download these code blocks</a></div>
+  <pre><code id="code-content" class="language-python"></code></pre>
+  <p id="code-panel-status" role="status"></p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({ hash: true, width: 1280, height: 760, transition: 'none' });
+  document.querySelectorAll('[data-play-together]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const videos = [...button.closest('section').querySelectorAll('video')];
+      videos.forEach(video => { video.currentTime = 0; video.playbackRate = 1; });
+      const results = await Promise.allSettled(videos.map(video => video.play()));
+      button.textContent = results.some(result => result.status === 'rejected')
+        ? 'Playback blocked: use the video controls' : 'Restart together';
+    });
+  });
+  document.querySelectorAll('[data-pause-together]').forEach(button => {
+    button.addEventListener('click', () => button.closest('section').querySelectorAll('video').forEach(video => video.pause()));
+  });
+  const codePanel = document.getElementById('code-panel');
+  const codeContent = document.getElementById('code-content');
+  const codeBlock = document.getElementById('code-block');
+  const codeStatus = document.getElementById('code-panel-status');
+  const codePin = document.getElementById('code-pin');
+  const codeCache = new Map();
+  let codeTrigger, codeBlocks = [], codePinned = false, codeHideTimer, codeRequest = 0;
+
+  document.querySelectorAll('a[href*="generated-code"]').forEach(link => {
+    link.dataset.codeSource = link.getAttribute('href').replace(/\.txt$/, '.json');
+    const source = link.dataset.codeSource;
+    const match = source.match(/(?:\/)(apple|screwdriver|hammer|mustard|saucepan|button)(?:-seed|-api|-fingers|-generated)/);
+    link.dataset.codeTitle ||= match ? `${match[1][0].toUpperCase()}${match[1].slice(1)} generated code` : 'Generated code';
+  });
+
+  function pinCode() {
+    codePinned = true;
+    clearTimeout(codeHideTimer);
+    codePin.textContent = 'Kept open';
+    codePin.disabled = true;
+    codeStatus.textContent = 'Saved code. Select a block to inspect; Escape or Close dismisses the panel.';
+  }
+
+  function closeCode(restoreFocus = false) {
+    clearTimeout(codeHideTimer);
+    codeRequest++;
+    codePanel.hidePopover();
+    codeTrigger?.setAttribute('aria-expanded', 'false');
+    codePinned = false;
+    if (restoreFocus) codeTrigger?.focus({ preventScroll: true });
+  }
+
+  function scheduleCodeClose() {
+    if (!codePinned) codeHideTimer = setTimeout(() => closeCode(), 250);
+  }
+
+  function showCodeBlock() {
+    codeContent.textContent = codeBlocks[Number(codeBlock.value)].code;
+    delete codeContent.dataset.highlighted;
+    hljs.highlightElement(codeContent);
+    codeContent.parentElement.scrollTop = 0;
+  }
+
+  function positionCodePanel() {
+    const rect = codeTrigger.getBoundingClientRect();
+    const below = innerHeight - rect.bottom;
+    const useBelow = below > rect.top;
+    codePanel.style.top = `${useBelow ? rect.bottom + 8 : 8}px`;
+    codePanel.style.bottom = 'auto';
+    codePanel.style.maxHeight = `${Math.max(0, (useBelow ? below : rect.top) - 16)}px`;
+  }
+
+  async function openCode(trigger, pin) {
+    clearTimeout(codeHideTimer);
+    if (codePinned && !pin) return;
+    codeTrigger?.setAttribute('aria-expanded', 'false');
+    codeTrigger = trigger;
+    trigger.setAttribute('aria-expanded', 'true');
+    const request = ++codeRequest;
+    const source = trigger.dataset.codeSource;
+    document.getElementById('code-panel-title').textContent = trigger.dataset.codeTitle;
+    document.getElementById('code-download').href = source;
+    codeBlock.replaceChildren();
+    codeContent.textContent = 'Loading saved code…';
+    codePinned = false;
+    codePin.disabled = false;
+    codePin.textContent = 'Keep open';
+    codeStatus.textContent = 'Hover to preview. Click the trigger or Keep open to read and scroll.';
+    positionCodePanel();
+    codePanel.showPopover();
+    if (pin) { pinCode(); document.getElementById('code-close').focus(); }
+    try {
+      if (!codeCache.has(source)) {
+        const response = await fetch(source);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        codeCache.set(source, await response.json());
+      }
+      if (request !== codeRequest) return;
+      codeBlocks = codeCache.get(source);
+      codeBlock.replaceChildren(...codeBlocks.map((block, index) => new Option(`${index + 1}. ${block.generator}`, index)));
+      codeBlock.value = trigger.dataset.codeBlock || '0';
+      showCodeBlock();
+    } catch (error) {
+      if (request !== codeRequest) return;
+      codeContent.textContent = `Could not load the saved code (${error.message}). Use the artifact download link.`;
+    }
+  }
+
+  document.querySelectorAll('[data-code-source]').forEach(trigger => {
+    trigger.setAttribute('aria-haspopup', 'dialog');
+    trigger.setAttribute('aria-controls', 'code-panel');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') openCode(trigger, false); });
+    trigger.addEventListener('pointerleave', scheduleCodeClose);
+    trigger.addEventListener('click', event => { event.preventDefault(); openCode(trigger, true); });
+  });
+  codePanel.addEventListener('pointerenter', () => clearTimeout(codeHideTimer));
+  codePanel.addEventListener('pointerleave', scheduleCodeClose);
+  codePanel.addEventListener('keydown', event => event.stopPropagation());
+  codeBlock.addEventListener('change', showCodeBlock);
+  codePin.addEventListener('click', pinCode);
+  document.getElementById('code-close').addEventListener('click', () => closeCode(true));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && codePanel.matches(':popover-open')) {
+      event.preventDefault(); event.stopPropagation(); closeCode(true);
+    }
+  }, true);
+  document.addEventListener('pointerdown', event => {
+    if (codePanel.matches(':popover-open') && !codePanel.contains(event.target) && !event.target.closest('[data-code-source]')) closeCode();
+  });
+  Reveal.on('slidechanged', () => closeCode());
+  window.addEventListener('resize', () => { if (codePanel.matches(':popover-open')) positionCodePanel(); });
+</script>
+</body>
+</html>

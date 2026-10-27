@@ -1,0 +1,81 @@
+# Block 1: planner
+composer("grasp the screwdriver handle")
+composer("rotate the screwdriver so the shaft tip points down")
+composer("move to 6cm above the table while holding the screwdriver")
+# done
+
+# Block 2: composer
+movable = parse_query_obj('gripper')
+affordance_map = get_affordance_map('a point at the center of the screwdriver handle')
+gripper_map = get_gripper_map('open everywhere except 1cm around the screwdriver handle')
+execute(movable, affordance_map=affordance_map, gripper_map=gripper_map)
+
+# Block 3: parse_query_obj
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 4: get_affordance_map
+affordance_map = get_empty_affordance_map()
+screwdriver_handle = parse_query_obj('screwdriver handle')
+x, y, z = screwdriver_handle.position
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 5: get_gripper_map
+gripper_map = get_empty_gripper_map()
+# open everywhere
+gripper_map[:, :, :] = 1
+# close when 1cm around the screwdriver handle
+screwdriver_handle = parse_query_obj('screwdriver handle')
+set_voxel_by_radius(gripper_map, screwdriver_handle.position, radius_cm=1, value=0)
+ret_val = gripper_map
+
+# Block 6: parse_query_obj
+screwdriver_handle = detect('screwdriver handle')
+ret_val = screwdriver_handle
+
+# Block 7: parse_query_obj
+screwdriver_handle = detect('screwdriver handle')
+ret_val = screwdriver_handle
+
+# Block 8: composer
+movable = parse_query_obj('screwdriver')
+rotation_map = get_rotation_map('shaft tip points down')
+execute(movable, rotation_map=rotation_map)
+
+# Block 9: parse_query_obj
+screwdriver = detect('screwdriver')
+ret_val = screwdriver
+
+# Block 10: get_rotation_map
+rotation_map = get_empty_rotation_map()
+# Down direction in world frame is [0, 0, -1]
+down_vector = np.array([0, 0, -1])
+target_rotation = vec2quat(down_vector)
+rotation_map[:, :, :] = target_rotation
+ret_val = rotation_map
+
+# Block 11: composer
+movable = parse_query_obj('gripper')
+affordance_map = get_affordance_map('a point 6cm above the table while holding the screwdriver')
+execute(movable, affordance_map=affordance_map)
+
+# Block 12: parse_query_obj
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 13: get_affordance_map
+affordance_map = get_empty_affordance_map()
+table = parse_query_obj('table')
+(min_x, min_y, min_z), (max_x, max_y, max_z) = table.aabb
+center_x, center_y, center_z = table.position
+# 6cm above so we add to z-axis
+x = center_x
+y = center_y
+z = max_z + cm2index(6, 'z')
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 14: parse_query_obj
+table = detect('table')
+ret_val = table

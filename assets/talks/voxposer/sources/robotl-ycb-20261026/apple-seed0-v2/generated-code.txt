@@ -1,0 +1,68 @@
+# Block 1: planner
+composer("grasp the apple")
+composer("move to 6cm above the table while holding the apple")
+# done
+
+# Block 2: composer
+movable = parse_query_obj('gripper')
+affordance_map = get_affordance_map('a point at the center of the apple')
+gripper_map = get_gripper_map('open everywhere except 1cm around the apple')
+execute(movable, affordance_map=affordance_map, gripper_map=gripper_map)
+
+# Block 3: parse_query_obj
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 4: get_affordance_map
+affordance_map = get_empty_affordance_map()
+apple = parse_query_obj('apple')
+x, y, z = apple.position
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 5: get_gripper_map
+gripper_map = get_empty_gripper_map()
+# open everywhere
+gripper_map[:, :, :] = 1
+# close when 1cm around the apple
+apple = parse_query_obj('apple')
+set_voxel_by_radius(gripper_map, apple.position, radius_cm=1, value=0)
+ret_val = gripper_map
+
+# Block 6: parse_query_obj
+apple = detect('apple')
+ret_val = apple
+
+# Block 7: parse_query_obj
+apple = detect('apple')
+ret_val = apple
+
+# Block 8: composer
+movable = parse_query_obj('gripper')
+affordance_map = get_affordance_map('a point 6cm above the table while holding the apple')
+execute(movable, affordance_map=affordance_map)
+
+# Block 9: parse_query_obj
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 10: get_affordance_map
+affordance_map = get_empty_affordance_map()
+table = parse_query_obj('table')
+apple = parse_query_obj('apple')
+(min_x, min_y, min_z), (max_x, max_y, max_z) = table.aabb
+center_x, center_y, center_z = table.position
+# 6cm above the table so we add to z-axis, and use the apple's center for x and y
+x = apple.position[0]
+y = apple.position[1]
+z = max_z + cm2index(6, 'z')
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 11: parse_query_obj
+table = detect('table')
+ret_val = table
+
+# Block 12: parse_query_obj
+apple = detect('apple')
+ret_val = apple

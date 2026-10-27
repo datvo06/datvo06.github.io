@@ -1,0 +1,32 @@
+This robot has a Panda arm and a LEAP hand, not a two-finger parallel gripper.
+get_hand_state() returns a dictionary with 'joints', 'digits', and 'palm'.
+Each joints[name] entry contains angle_rad, target_rad, lower_rad, upper_rad,
+and actuator. The 16 names are finger_0, finger_1, finger_2 and thumb, each
+followed by .proximal, .lateral, .middle or .distal. Finger numbers follow
+their geometric order on the palm. Proximal bends at the palm, middle and
+distal bend farther along the digit. Finger lateral joints spread sideways;
+the thumb lateral joint twists. Positive bending closes toward the palm.
+digits[name]['pad_position_world_m'] is the current fingertip position in metres.
+palm contains position_world_m and quaternion_wxyz. All these are measured
+states; queries do not move the robot. They are dictionaries, not attributes
+of detect() observations. Do not assume other object attributes are present.
+vec2quat(direction) is an alias of the existing pointat2quat(direction).
+It returns a wxyz quaternion whose local +z axis points along the given
+nonzero world direction. Roll follows the existing pointat2quat construction;
+it is not an object-axis transform or a command to turn an object.
+The ordinary VoxPoser execute() and gripper-map interfaces remain available.
+Use only the listed APIs and the functions shown in the original examples.
+Initial measured hand state:
+{"joints": {"finger_0.proximal": {"actuator": "root_assembly_robot_hand_fingers_2_proximal_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.314, "upper_rad": 2.23}, "finger_0.lateral": {"actuator": "root_assembly_robot_hand_fingers_2_lateral_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -1.047, "upper_rad": 1.047}, "finger_0.middle": {"actuator": "root_assembly_robot_hand_fingers_2_middle_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.506, "upper_rad": 1.885}, "finger_0.distal": {"actuator": "root_assembly_robot_hand_fingers_2_distal_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.366, "upper_rad": 2.042}, "finger_1.proximal": {"actuator": "root_assembly_robot_hand_fingers_1_proximal_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.314, "upper_rad": 2.23}, "finger_1.lateral": {"actuator": "root_assembly_robot_hand_fingers_1_lateral_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -1.047, "upper_rad": 1.047}, "finger_1.middle": {"actuator": "root_assembly_robot_hand_fingers_1_middle_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.506, "upper_rad": 1.885}, "finger_1.distal": {"actuator": "root_assembly_robot_hand_fingers_1_distal_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.366, "upper_rad": 2.042}, "finger_2.proximal": {"actuator": "root_assembly_robot_hand_fingers_0_proximal_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.314, "upper_rad": 2.23}, "finger_2.lateral": {"actuator": "root_assembly_robot_hand_fingers_0_lateral_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -1.047, "upper_rad": 1.047}, "finger_2.middle": {"actuator": "root_assembly_robot_hand_fingers_0_middle_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.506, "upper_rad": 1.885}, "finger_2.distal": {"actuator": "root_assembly_robot_hand_fingers_0_distal_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.366, "upper_rad": 2.042}, "thumb.proximal": {"actuator": "root_assembly_robot_hand_thumb_proximal_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.349, "upper_rad": 2.094}, "thumb.lateral": {"actuator": "root_assembly_robot_hand_thumb_lateral_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.349, "upper_rad": 2.094}, "thumb.middle": {"actuator": "root_assembly_robot_hand_thumb_middle_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -0.47, "upper_rad": 1.95}, "thumb.distal": {"actuator": "root_assembly_robot_hand_thumb_distal_motor_motor_actuator", "angle_rad": 0.0, "target_rad": 0.0, "lower_rad": -1.34, "upper_rad": 1.88}}, "digits": {"finger_0": {"pad_position_world_m": [0.28799458158351093, 0.04132086093832479, 0.36668215531892606]}, "finger_1": {"pad_position_world_m": [0.2879945993503596, -0.004079139061671706, 0.36668215531892606]}, "finger_2": {"pad_position_world_m": [0.28799461711720814, -0.0494791390616682, 0.36668215531892606]}, "thumb": {"pad_position_world_m": [0.2965945450002974, 0.16298746583375204, 0.5570820395682724]}}, "palm": {"position_world_m": [0.3181945877290234, 0.035520872756803115, 0.48528205230283933], "quaternion_wxyz": [0.7071067811865338, -1.3835968185862672e-07, 0.7071067811865341, 1.3835968189787907e-07]}}
+
+You additionally have set_hand_joint_targets(targets), where targets is a
+dictionary from any of the 16 names in get_hand_state()['joints'] to absolute
+joint angles in radians. All 16 joints can be selected independently.
+Unspecified joints keep their current commanded target. Targets must lie
+inside the reported lower_rad and upper_rad; invalid requests raise an error.
+The command interpolates the selected targets while holding the current arm
+pose. It also remembers the resulting hand posture as the closed posture for
+subsequent Cartesian moves and gripper-map close commands. Open commands
+restore the original open posture; close commands reuse the latest specified
+posture. You may query current joint and fingertip states and revise targets
+throughout the program. This API supplies no grasp planner or posture examples.

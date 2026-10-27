@@ -1,0 +1,450 @@
+{
+  "source_revision": "ff60eaad16a044591e2a3119f6f499449869b8e7",
+  "voxposer_revision": "e3a4c9e57b6ecb45f91e19c80510091c8cbbcbce",
+  "original_preserved_at": "../robotl-ycb-20261026",
+  "scope": "One instruction/fixture per object, no MPC. Compare shared API+observation control with added joint setter.",
+  "finding": "All holds 0 s; the four B programs never invoked the joint setter. Offering this API did not induce its use; independent-finger task performance remains untested.",
+  "interface_checks": {
+    "shared_initial_observation": true,
+    "joint_count": 16,
+    "quaternion_axes_verified": 4,
+    "partial_targets_preserve_others": true,
+    "posture_survives_cartesian_motion": true,
+    "open_then_close_restores_custom_posture": true,
+    "out_of_range_request_rejected_without_motion": true,
+    "no_mpc_calls": true,
+    "physics_steps": 480
+  },
+  "trials": [
+    {
+      "object": "hammer",
+      "variant": "api-repair-fixed-closure",
+      "directory": "hammer-api-seed0-v1",
+      "result": {
+        "status": "program_finished_without_hold",
+        "mass_kg": 0.665,
+        "simulated_seconds": 33.01500000000622,
+        "wall_seconds": 33.39193252497353,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.00015989496111375352,
+        "final_hand_weight_fraction": -7.072694477676373e-05,
+        "final_external_weight_fraction": 1.0000707258590886,
+        "maximum_joint_limit_violation_rad": 0.03836053521567928,
+        "maximum_penetration_m": 0.006881608504214846,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.6376232194746396,
+        "maximum_arm_acceleration_ratio": 6.538102186244323,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.003138679802674936,
+          0.0
+        ],
+        "palm_load_n": 0.0,
+        "opposition_cosine": 0.0,
+        "elevation": -0.011887929854746552,
+        "orientation_cosine": 0.011887929854746552
+      },
+      "error": null,
+      "scene_sha256": "a7b023fc580b04b6791cdbf2ad5063171289b4fa0cac4a06bcb249aaf6377c2e",
+      "generated_blocks": 17,
+      "hand_state_queries": 0,
+      "joint_target_commands": 0,
+      "setter_code_mentions": 0,
+      "map_sets": 2,
+      "video": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 640,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "33.066667"
+        }
+      }
+    },
+    {
+      "object": "screwdriver",
+      "variant": "api-repair-fixed-closure",
+      "directory": "screwdriver-api-seed0-v1",
+      "result": {
+        "status": "program_finished_without_hold",
+        "mass_kg": 0.097,
+        "simulated_seconds": 27.00750000000459,
+        "wall_seconds": 29.355583189986646,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.00015976846355205895,
+        "final_hand_weight_fraction": 0.0,
+        "final_external_weight_fraction": 0.9988821862951822,
+        "maximum_joint_limit_violation_rad": 0.0,
+        "maximum_penetration_m": 0.004705241585833761,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.657707493547194,
+        "maximum_arm_acceleration_ratio": 3.516757920434279,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "opposition_cosine": 0.0,
+        "orientation_cosine": 0.04197269441325257
+      },
+      "error": null,
+      "scene_sha256": "f6005092780a7a4229fbf1cd955ee07079e486d200a34cd39445011a4ac4445b",
+      "generated_blocks": 15,
+      "hand_state_queries": 0,
+      "joint_target_commands": 0,
+      "setter_code_mentions": 0,
+      "map_sets": 2,
+      "video": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 640,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "27.066667"
+        }
+      }
+    },
+    {
+      "object": "apple",
+      "variant": "api-repair-fixed-closure",
+      "directory": "apple-api-seed0-v1",
+      "result": {
+        "status": "program_finished_without_hold",
+        "mass_kg": 0.068,
+        "simulated_seconds": 18.960000000000473,
+        "wall_seconds": 17.203713451046497,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.0001617692334515107,
+        "final_hand_weight_fraction": 0.0,
+        "final_external_weight_fraction": 1.0004958540327338,
+        "maximum_joint_limit_violation_rad": 0.0,
+        "maximum_penetration_m": 0.0021672559955079242,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.3139437579722211,
+        "maximum_arm_acceleration_ratio": 3.4921481859397554,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "opposition_cosine": 0.0
+      },
+      "error": null,
+      "scene_sha256": "9944139371de1fb0a9a8d222309410bad988b116083ce2a5df983648d45558aa",
+      "generated_blocks": 11,
+      "hand_state_queries": 0,
+      "joint_target_commands": 0,
+      "setter_code_mentions": 0,
+      "map_sets": 2,
+      "video": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 640,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "19.000000"
+        }
+      }
+    },
+    {
+      "object": "mustard",
+      "variant": "api-repair-fixed-closure",
+      "directory": "mustard-api-seed0-v1",
+      "result": {
+        "status": "program_error",
+        "mass_kg": 0.603,
+        "simulated_seconds": 0.0,
+        "wall_seconds": 6.54712253715843,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": 0.0010160064039298478,
+        "final_hand_weight_fraction": 0.0,
+        "final_external_weight_fraction": 0.0,
+        "maximum_joint_limit_violation_rad": 0.0,
+        "maximum_penetration_m": 0.0,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.0,
+        "maximum_arm_acceleration_ratio": 0.0,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "opposition_cosine": 0.0,
+        "orientation_cosine": 1.0
+      },
+      "error": {
+        "type": "TypeError",
+        "message": "'NoneType' object is not iterable"
+      },
+      "scene_sha256": "8935ea4de149fc4ebeb947c74faa0bf71dbaf70d6587da57f2ffdf82c91922bb",
+      "generated_blocks": 5,
+      "hand_state_queries": 0,
+      "joint_target_commands": 0,
+      "setter_code_mentions": 0,
+      "map_sets": 0,
+      "video": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 640,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "0.033333"
+        }
+      }
+    },
+    {
+      "object": "hammer",
+      "variant": "individual-finger-targets",
+      "directory": "hammer-fingers-seed0-v1",
+      "result": {
+        "status": "program_finished_without_hold",
+        "mass_kg": 0.665,
+        "simulated_seconds": 33.01500000000622,
+        "wall_seconds": 29.826489072991535,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.00015989496111375352,
+        "final_hand_weight_fraction": -7.072694477676373e-05,
+        "final_external_weight_fraction": 1.0000707258590886,
+        "maximum_joint_limit_violation_rad": 0.03836053521567928,
+        "maximum_penetration_m": 0.006881608504214846,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.6376232194746396,
+        "maximum_arm_acceleration_ratio": 6.538102186244323,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.003138679802674936,
+          0.0
+        ],
+        "palm_load_n": 0.0,
+        "opposition_cosine": 0.0,
+        "elevation": -0.011887929854746552,
+        "orientation_cosine": 0.011887929854746552
+      },
+      "error": null,
+      "scene_sha256": "a7b023fc580b04b6791cdbf2ad5063171289b4fa0cac4a06bcb249aaf6377c2e",
+      "generated_blocks": 17,
+      "hand_state_queries": 0,
+      "joint_target_commands": 0,
+      "setter_code_mentions": 0,
+      "map_sets": 2,
+      "video": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 640,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "33.066667"
+        }
+      }
+    },
+    {
+      "object": "screwdriver",
+      "variant": "individual-finger-targets",
+      "directory": "screwdriver-fingers-seed0-v1",
+      "result": {
+        "status": "program_finished_without_hold",
+        "mass_kg": 0.097,
+        "simulated_seconds": 27.00750000000459,
+        "wall_seconds": 25.933998140972108,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.00015976846355205895,
+        "final_hand_weight_fraction": 0.0,
+        "final_external_weight_fraction": 0.9988821862951822,
+        "maximum_joint_limit_violation_rad": 0.0,
+        "maximum_penetration_m": 0.004705241585833761,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.657707493547194,
+        "maximum_arm_acceleration_ratio": 3.516757920434279,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "opposition_cosine": 0.0,
+        "orientation_cosine": 0.04197269441325257
+      },
+      "error": null,
+      "scene_sha256": "f6005092780a7a4229fbf1cd955ee07079e486d200a34cd39445011a4ac4445b",
+      "generated_blocks": 15,
+      "hand_state_queries": 0,
+      "joint_target_commands": 0,
+      "setter_code_mentions": 0,
+      "map_sets": 2,
+      "video": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 640,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "27.066667"
+        }
+      }
+    },
+    {
+      "object": "apple",
+      "variant": "individual-finger-targets",
+      "directory": "apple-fingers-seed0-v1",
+      "result": {
+        "status": "program_finished_without_hold",
+        "mass_kg": 0.068,
+        "simulated_seconds": 17.597499999999776,
+        "wall_seconds": 16.80582872987725,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": -0.0001572140212806085,
+        "final_hand_weight_fraction": 0.006157571830737972,
+        "final_external_weight_fraction": 0.9883418876559037,
+        "maximum_joint_limit_violation_rad": 0.0,
+        "maximum_penetration_m": 0.0013531405942847335,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.29952205820586303,
+        "maximum_arm_acceleration_ratio": 3.4921481859397554,
+        "digit_loads_n": [
+          0.06803750152314894,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "opposition_cosine": 0.0
+      },
+      "error": null,
+      "scene_sha256": "9944139371de1fb0a9a8d222309410bad988b116083ce2a5df983648d45558aa",
+      "generated_blocks": 11,
+      "hand_state_queries": 0,
+      "joint_target_commands": 0,
+      "setter_code_mentions": 0,
+      "map_sets": 2,
+      "video": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 640,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "17.633333"
+        }
+      }
+    },
+    {
+      "object": "mustard",
+      "variant": "individual-finger-targets",
+      "directory": "mustard-fingers-seed0-v1",
+      "result": {
+        "status": "program_error",
+        "mass_kg": 0.603,
+        "simulated_seconds": 0.0,
+        "wall_seconds": 5.9895599889568985,
+        "longest_contained_seconds": 0.0,
+        "contained_success": false,
+        "longest_lifted_seconds": 0.0,
+        "lifted_success": false,
+        "stages_accepted_s": [],
+        "final_whole_clearance_m": 0.0010160064039298478,
+        "final_hand_weight_fraction": 0.0,
+        "final_external_weight_fraction": 0.0,
+        "maximum_joint_limit_violation_rad": 0.0,
+        "maximum_penetration_m": 0.0,
+        "penetration_fallback_ticks": 0,
+        "maximum_arm_speed_ratio": 0.0,
+        "maximum_arm_acceleration_ratio": 0.0,
+        "digit_loads_n": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "opposition_cosine": 0.0,
+        "orientation_cosine": 1.0
+      },
+      "error": {
+        "type": "TypeError",
+        "message": "'NoneType' object is not iterable"
+      },
+      "scene_sha256": "8935ea4de149fc4ebeb947c74faa0bf71dbaf70d6587da57f2ffdf82c91922bb",
+      "generated_blocks": 5,
+      "hand_state_queries": 0,
+      "joint_target_commands": 0,
+      "setter_code_mentions": 0,
+      "map_sets": 0,
+      "video": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 640,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "0.033333"
+        }
+      }
+    }
+  ],
+  "shared_limitations": [
+    "Cartesian IK and servo interpolation do not reject dynamically infeasible actions.",
+    "Physical violations are measured by the native validator, not prevented.",
+    "Primitive open/close examples remain in upstream prompts; no posture examples or new retry loop added.",
+    "One trial per variant/object cannot estimate general success rates."
+  ]
+}

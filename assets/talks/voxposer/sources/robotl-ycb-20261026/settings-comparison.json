@@ -1,0 +1,84 @@
+{
+  "scope": "Initial seed0-v2 RoboTL VoxPoser runs and hash-matched existing stock-current references. These are illustrative integration comparisons, not a controlled method ranking.",
+  "shared": {
+    "scene": "Identical scene.mjb SHA-256 verified per pair; hashes in comparison.json",
+    "robot": "Panda arm and stock-current LEAP",
+    "mujoco": "3.15.0",
+    "collision_detector": "libccd",
+    "physics_step_s": 0.0025,
+    "final_hold_s": 5,
+    "final_whole_object_clearance_m": 0.03,
+    "simulation_time_caps_s": {
+      "apple": 40,
+      "screwdriver": 150,
+      "hammer": 210,
+      "mustard": 40
+    }
+  },
+  "voxposer": {
+    "model": "gpt-4.1",
+    "temperature": 0,
+    "seed": 0,
+    "map_shape": [
+      100,
+      100,
+      100
+    ],
+    "max_plan_iter": 1,
+    "num_waypoints_per_plan": 10000,
+    "actions": "Cartesian hand position + quaternion + scalar closure. Closure maps to fixed per-joint targets (1.2 rad on selected flexion joints).",
+    "observations": "Privileged collision vertices; radial approximate surface normals; hand pose. Geometry reobserved between waypoints.",
+    "prediction": "Spatial path planning and bounded arm inverse kinematics. No MuJoCo grasp candidate rollouts.",
+    "contact_use": "Native outcome validator only; no contact-force channel supplied to generated planning code.",
+    "constraints": "Native executed-state checks determine acceptance; NativeEpisode.run feasibility screening is bypassed.",
+    "stopping": "Stop at accepted hold, object-specific time cap, code error, or completed generated program plus 5.1 s holding last control.",
+    "requested_clearance_m": 0.06,
+    "stage_handling": "Instantiate final-stage objective directly; omit intermediate tool-stage hold requirements."
+  },
+  "guided_mpc": {
+    "objects": [
+      "apple",
+      "screwdriver",
+      "hammer"
+    ],
+    "seed": 1,
+    "actions": "7 arm and 16 finger targets with geometry-conditioned grasp/regrasp proposals and sampled refinements.",
+    "observations": "Native state, fingertip geometry and contact/support measurements used in loss evaluation.",
+    "batch": 32,
+    "horizon_s": 4,
+    "replan_s": 0.25,
+    "threads": 3,
+    "constraints": "Screen rollouts for physical limits and penetration, with recorded recovery fallbacks.",
+    "stopping": "Advance through task stages; finish on acceptance or termination at time cap/no feasible rollout.",
+    "stage_handling": "Apple one lift stage; screwdriver/hammer include intermediate lift hold then final orientation hold.",
+    "llm_during_execution": false
+  },
+  "mustard_reference": {
+    "controller": "Fixed servo trajectory; not Guided MPC",
+    "source": "mustard-reference/artifacts.zip",
+    "note": "The saved settings carry unused MPC-style fields. Controller source confirms fixed trajectory execution."
+  },
+  "unmatched": [
+    "Controller action space",
+    "Policy observation and contact-force access",
+    "Feasibility screening",
+    "LLM/API correctness",
+    "Stage sequence",
+    "Termination rule and realized episode duration",
+    "RNG seed and some runtime package versions"
+  ],
+  "sources": {
+    "adapter": "adapter-source.txt",
+    "reference_configs": [
+      "apple-reference/settings.json",
+      "screwdriver-reference/settings.json",
+      "hammer-reference/settings.json",
+      "mustard-reference/settings.json"
+    ],
+    "voxposer_config": "apple-seed0-v2/config.json",
+    "results": "summary.json",
+    "reference_hashes": "comparison.json",
+    "native_acceptance_source": "Each reference artifacts.zip includes source.py; Hold, NativeEpisode._record, NativeEpisode.run, within_limits.",
+    "voxposer_interface": "VoxPoser revision e3a4c9e57b6ecb45f91e19c80510091c8cbbcbce, src/interfaces.py execute and _path2traj"
+  }
+}
