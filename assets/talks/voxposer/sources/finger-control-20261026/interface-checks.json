@@ -1,0 +1,1 @@
+{"shared_initial_observation":true,"joint_count":16,"quaternion_axes_verified":4,"partial_targets_preserve_others":true,"posture_survives_cartesian_motion":true,"open_then_close_restores_custom_posture":true,"out_of_range_request_rejected_without_motion":true,"no_mpc_calls":true,"physics_steps":480}

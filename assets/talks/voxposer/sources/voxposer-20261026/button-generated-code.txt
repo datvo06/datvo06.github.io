@@ -1,0 +1,73 @@
+# Block 1: planner
+objects = ['button']
+# Query: push the teal button.
+composer("move to the top of the teal button")
+composer("push down on the teal button by 2cm")
+composer("back to default pose")
+# done
+
+# Block 2: composer
+# Query: move to the top of the teal button.
+movable = parse_query_obj('gripper')
+affordance_map = get_affordance_map('a point 10cm above the teal button')
+execute(movable, affordance_map=affordance_map)
+
+# Block 3: parse_query_obj
+objects = ['button']
+# Query: gripper.
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 4: get_affordance_map
+# Query: a point 10cm above the teal button.
+affordance_map = get_empty_affordance_map()
+teal_button = parse_query_obj('teal button')
+(min_x, min_y, min_z), (max_x, max_y, max_z) = teal_button.aabb
+center_x, center_y, center_z = teal_button.position
+# 10cm above so we add to z-axis
+x = center_x
+y = center_y
+z = max_z + cm2index(10, 'z')
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 5: parse_query_obj
+objects = ['button']
+# Query: teal button.
+button = detect('button')
+ret_val = button
+
+# Block 6: composer
+# Query: push down on the teal button by 2cm.
+movable = parse_query_obj('teal button')
+affordance_map = get_affordance_map('a point 2cm below the teal button')
+execute(movable, affordance_map=affordance_map)
+
+# Block 7: parse_query_obj
+objects = ['button']
+# Query: teal button.
+button = detect('button')
+ret_val = button
+
+# Block 8: get_affordance_map
+# Query: a point 2cm below the teal button.
+affordance_map = get_empty_affordance_map()
+teal_button = parse_query_obj('teal button')
+(min_x, min_y, min_z), (max_x, max_y, max_z) = teal_button.aabb
+center_x, center_y, center_z = teal_button.position
+# 2cm below so we subtract from z-axis
+x = center_x
+y = center_y
+z = min_z - cm2index(2, 'z')
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 9: parse_query_obj
+objects = ['button']
+# Query: teal button.
+button = detect('button')
+ret_val = button
+
+# Block 10: composer
+# Query: back to default pose.
+reset_to_default_pose()

@@ -1,0 +1,101 @@
+# Block 1: planner
+composer("grasp the hammer handle")
+composer("back to default pose")
+composer("rotate the hammer so the head is above the handle and the hammer is upright")
+composer("move to 6cm above the table while holding the hammer upright")
+# done
+
+# Block 2: composer
+movable = parse_query_obj('gripper')
+affordance_map = get_affordance_map('a point at the center of the hammer handle')
+gripper_map = get_gripper_map('open everywhere except 1cm around the hammer handle')
+execute(movable, affordance_map=affordance_map, gripper_map=gripper_map)
+
+# Block 3: parse_query_obj
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 4: get_affordance_map
+affordance_map = get_empty_affordance_map()
+hammer_handle = parse_query_obj('hammer handle')
+x, y, z = hammer_handle.position
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 5: get_gripper_map
+gripper_map = get_empty_gripper_map()
+# open everywhere
+gripper_map[:, :, :] = 1
+# close when 1cm around the hammer handle
+hammer_handle = parse_query_obj('hammer handle')
+set_voxel_by_radius(gripper_map, hammer_handle.position, radius_cm=1, value=0)
+ret_val = gripper_map
+
+# Block 6: parse_query_obj
+hammer_handle = detect('hammer handle')
+ret_val = hammer_handle
+
+# Block 7: parse_query_obj
+hammer_handle = detect('hammer handle')
+ret_val = hammer_handle
+
+# Block 8: composer
+reset_to_default_pose()
+
+# Block 9: composer
+movable = parse_query_obj('hammer')
+rotation_map = get_rotation_map('head above handle and hammer upright')
+execute(movable, rotation_map=rotation_map)
+
+# Block 10: parse_query_obj
+hammer = detect('hammer')
+ret_val = hammer
+
+# Block 11: get_rotation_map
+rotation_map = get_empty_rotation_map()
+hammer = parse_query_obj('hammer')
+handle_dir = hammer.handle_direction  # assumed to be a normalized vector
+upright_quat = vec2quat([0, 0, 1])  # z-up
+# rotate so z-axis aligns with handle direction, then rotate 180 deg around x to make head above handle
+align_handle_quat = vec2quat(handle_dir)
+rotation_delta = euler2quat(np.pi, 0, 0)
+target_rotation = qmult(align_handle_quat, rotation_delta)
+rotation_map[:, :, :] = target_rotation
+ret_val = rotation_map
+
+# Block 12: composer
+movable = parse_query_obj('gripper')
+affordance_map = get_affordance_map('a point 6cm above the table')
+rotation_map = get_rotation_map('hold the hammer upright')
+execute(movable, affordance_map=affordance_map, rotation_map=rotation_map)
+
+# Block 13: parse_query_obj
+gripper = detect('gripper')
+ret_val = gripper
+
+# Block 14: get_affordance_map
+affordance_map = get_empty_affordance_map()
+table = parse_query_obj('table')
+(min_x, min_y, min_z), (max_x, max_y, max_z) = table.aabb
+center_x, center_y, center_z = table.position
+# 6cm above so we add to z-axis
+x = center_x
+y = center_y
+z = max_z + cm2index(6, 'z')
+affordance_map[x, y, z] = 1
+ret_val = affordance_map
+
+# Block 15: get_rotation_map
+rotation_map = get_empty_rotation_map()
+hammer = parse_query_obj('hammer')
+target_rotation = vec2quat([0, 0, 1])  # upright: z-axis up
+rotation_map[:, :, :] = target_rotation
+ret_val = rotation_map
+
+# Block 16: parse_query_obj
+table = detect('table')
+ret_val = table
+
+# Block 17: parse_query_obj
+hammer = detect('hammer')
+ret_val = hammer
