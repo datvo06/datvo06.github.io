@@ -26,6 +26,7 @@
     .ycb-grid video { width: 100%; height: 175px; display: block; object-fit: contain; background: #f6f7f9; }
     .comparison { width: 96%; }
     .comparison video { height: 360px; background: #f6f7f9; }
+    #slide-observation-reconstruction .model-figure { display: block; width: 94%; max-height: 300px; object-fit: contain; margin: 0 auto; }
     .reveal p.compare-note { max-width: 94%; font-size: .43em; margin: 14px auto; color: #4a4f5a; }
     .reveal button { border: 1px solid #1E3A8A; border-radius: 4px; background: white; color: #1E3A8A; padding: 7px 14px; font: inherit; font-size: 18px; cursor: pointer; }
     .reveal p.video-actions { margin: 12px auto; }
@@ -54,6 +55,24 @@
 </head>
 <body>
 <div class="reveal"><div class="slides">
+<section id="slide-observation-reconstruction">
+  <h2 class="t">Reusing the <span>domino fitter</span></h2>
+  <img class="model-figure" src="media/world-models/domino-fitter-comparison.png" alt="Same observed dominoes compared with the generic box SDF fit and the reused BabyRobot domino fitter">
+  <table class="settings">
+    <thead><tr><th scope="col">Training view</th><th scope="col">Generic box SDF</th><th scope="col">Reused domino fitter</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Depth RMSE</th><td>24.2 mm</td><td><strong>4.8 mm</strong></td></tr>
+      <tr><th scope="row">Mask IoU</th><td>0.713</td><td>0.678</td></tr>
+      <tr><th scope="row">Depth coverage</th><td>96.0%</td><td>91.6%</td></tr>
+    </tbody>
+  </table>
+  <p class="compare-note">Same RGB, depth and masks; the reused fitter also receives a clear table patch. Depth improves, silhouette overlap decreases. No held-out or control validation.</p>
+  <p class="compare-note">Both boxes remain free bodies. Table contact guides fitting; <code>assert_transform</code> initializes their poses.</p>
+  <button type="button" data-code-source="sources/world-models/reconstruction-domino-code.json" data-code-title="Reused domino fitter: saved scene.py">Inspect new scene.py</button>
+  <button type="button" data-code-source="sources/world-models/reconstruction-code.json" data-code-title="Generic box SDF: saved scene.py">Inspect baseline</button>
+  <p class="cap"><a href="sources/world-models/reconstructed-domino-scene.zip" download>New program and fit</a> · <a href="sources/world-models/reconstructed-scene.zip" download>Baseline program</a> · <a href="sources/world-models/reconstruction-comparison.json">Comparison measurements</a> · <a href="https://github.com/datvo06/robotl-reconstruction/pull/3">Implementation PR</a></p>
+  <aside class="notes">Archived BabyRobotPredicator capture exp_20260917_141030, look_01, camera 30264679. All panels use the same camera-local frame and crop; RGB, depth and selected mask hashes match across runs. Only the two dominoes are reconstructed. The generic SDF fit put 98% of the grey domino's selected points on a rear-facing box surface: surface residual 0.56 mm, median first-visible-surface error 40.7 mm toward the camera. The replacement calls BabyRobot mask_to_base_points, fit_domino_pose and resolve_side, retaining mask erosion, foreground depth filtering, contact-constrained fitting and full-cloud side resolution. The manually supplied table rectangle is [540, 390, 680, 470], with a measured plane RMS of 0.30 mm. That frame comes from this capture's depth, not a new camera-to-robot calibration. Nominal dimensions are 150 by 70 by 29 mm, mass 50 g, friction 0.5; these are supplied priors. Table contact is a reconstruction assumption, not a simulated joint. RoboTL adds a free joint to each box; the Weld anchors only the empty scene frame. The new program SHA-256 is 8a62c111f6eee620069b4ead3ee9710dc9f79d287843cee2d90d601fd6ff8d66. The displayed programs are exact saved outputs, not LLM-synthesized assemblies. The implementation passed 37 tests on polly, including synthetic single-face and multi-face export checks. This is a training-view comparison with additional table evidence; table dynamics and control transfer remain unvalidated.</aside>
+</section>
 <section id="slide-comparison-settings">
   <h2 class="t">VoxPoser and Guided MPC: <span>settings in these runs</span></h2>
   <p class="setup">Same compiled stock-hand scenes, MuJoCo 3.15 and libccd, 2.5 ms physics steps</p>
