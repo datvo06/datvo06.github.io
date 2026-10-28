@@ -27,6 +27,16 @@
     .comparison { width: 96%; }
     .comparison video { height: 360px; background: #f6f7f9; }
     #slide-observation-reconstruction .model-figure { display: block; width: 94%; max-height: 300px; object-fit: contain; margin: 0 auto; }
+    .reconstruction-setup { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; width: 94%; margin: 24px auto; }
+    .reconstruction-setup figure { margin: 0; }
+    .reconstruction-setup img { display: block; width: 100%; }
+    .reconstruction-setup ul { font-size: .52em; line-height: 1.45; margin: 0; }
+    .reconstruction-setup li { margin-bottom: 20px; }
+    .reveal table.reconstruction-io { font-size: .49em; margin: 28px auto; }
+    .reveal table.reconstruction-io th:first-child { width: 20%; }
+    .reveal table.reconstruction-io td { width: auto; }
+    .reconstruction-flow { width: 88%; font-size: .52em; line-height: 1.4; margin: 24px auto !important; }
+    .reconstruction-flow li { margin-bottom: 18px; padding-left: 8px; }
     .reveal p.compare-note { max-width: 94%; font-size: .43em; margin: 14px auto; color: #4a4f5a; }
     .reveal button { border: 1px solid #1E3A8A; border-radius: 4px; background: white; color: #1E3A8A; padding: 7px 14px; font: inherit; font-size: 18px; cursor: pointer; }
     .reveal p.video-actions { margin: 12px auto; }
@@ -55,6 +65,53 @@
 </head>
 <body>
 <div class="reveal"><div class="slides">
+<section id="slide-reconstruction-setup">
+  <h2 class="t">Reconstruction: <span>the setup</span></h2>
+  <p class="setup">Recover the poses of two known dominoes from one saved tabletop observation.</p>
+  <div class="reconstruction-setup">
+    <figure>
+      <img src="https://github.com/datvo06/datvo06.github.io/releases/download/reconstruction-context-20261028/observed.png" alt="Full archived camera image showing two upright dominoes on a cloth-covered table, with the robot and other objects nearby">
+      <figcaption class="cap">Saved left-camera view, 960 by 540 pixels<br>September 17 capture, camera 30264679</figcaption>
+    </figure>
+    <ul>
+      <li class="fragment"><strong>Scene:</strong> two rigid dominoes on a table. Reconstruct only these objects.</li>
+      <li class="fragment"><strong>Observation:</strong> RGB, aligned 3D points from FoundationStereo, and saved object masks.</li>
+      <li class="fragment"><strong>Human input:</strong> one pixel per domino and a clear rectangular patch of the table.</li>
+      <li class="fragment"><strong>Frame:</strong> fit using the table plane, then express both poses in the camera frame.</li>
+    </ul>
+  </div>
+  <p class="compare-note">This is an offline reconstruction of a static capture. A robot controller is not running.</p>
+  <aside class="notes">Source bundle exp_20260917_141030/look_01/bundle/30264679. The capture metadata identifies FoundationStereo as the XYZ source and supplies K_scaled. The selected pixels are grey (400, 340) and green (505, 390); the smallest saved masks containing them are indices 22 and 2. The clear table region is [540, 390, 680, 470]. Its measured plane RMS is 0.30 mm. The script reads saved fastsam_masks.npz and does not run segmentation again; that filename alone does not establish whether SAM2 refinement was used upstream. This run uses no camera-to-robot extrinsic transform. The recent robot-camera recalibration is therefore not applied here. Original image checksum and camera records are in sources/world-models/reconstruction-figure-inputs.json.</aside>
+</section>
+<section id="slide-reconstruction-input-output">
+  <h2 class="t">Reconstruction: <span>inputs and outputs</span></h2>
+  <table class="settings reconstruction-io">
+    <thead><tr><th scope="col">Role</th><th scope="col">What it contains</th></tr></thead>
+    <tbody>
+      <tr class="fragment"><th scope="row">Observed input</th><td>RGB image, a 3D point at each valid pixel, saved masks, and camera intrinsics.</td></tr>
+      <tr class="fragment"><th scope="row">Supplied input</th><td>Object-selection pixels and a table patch. Nominal domino size: 150 by 70 by 29 mm. Mass: 50 g; friction coefficient: 0.5.</td></tr>
+      <tr class="fragment"><th scope="row">Estimated output</th><td>Position and orientation of each domino, with a surface-fit residual. Size is fixed; mass and friction are unmeasured priors.</td></tr>
+      <tr class="fragment"><th scope="row">Exported output</th><td>A RoboTL <code>scene.py</code> with two independent box bodies, plus the fit record and compiled MuJoCo model.</td></tr>
+      <tr class="fragment"><th scope="row">Evaluation</th><td>Render the compiled geometry into the original view. Measure depth error, silhouette overlap and depth coverage.</td></tr>
+    </tbody>
+  </table>
+  <button type="button" data-code-source="sources/world-models/reconstruction-domino-code.json" data-code-title="Reconstruction output: exact saved scene.py">Inspect the output scene.py</button>
+  <p class="cap"><a href="sources/world-models/reconstructed-domino-scene.zip" download>Saved program and fit</a> · <a href="sources/world-models/reconstruction-figure-inputs.json">Camera and input records</a></p>
+  <aside class="notes">Source: scripts/reconstruct_tabletop.py at robotl-reconstruction commit ef07da9. The script requires size, mass and friction arguments; it does not identify those properties from images. Median masked RGB supplies each box's display color. write_program exports poses through assert_transform. Native compilation gives each disconnected object island a free joint; the empty scene frame is anchored separately. The table supports the fitting constraint but is not reconstructed as collision geometry in this output. The evaluator ray-casts compiled collision geometry with the saved intrinsics. All shown metrics are for the same training view; neither held-out reconstruction nor dynamics transfer has been validated.</aside>
+</section>
+<section id="slide-reconstruction-workflow">
+  <h2 class="t">Reconstruction: <span>the workflow</span></h2>
+  <ol class="reconstruction-flow">
+    <li class="fragment"><strong>Select the objects.</strong> Choose each saved mask from its clicked pixel. Reuse the archived segmentation and depth.</li>
+    <li class="fragment"><strong>Prepare the 3D points.</strong> Measure a table-aligned frame from the clear patch. Erode object-mask boundaries and filter invalid or distant depth points.</li>
+    <li class="fragment"><strong>Fit known domino geometry.</strong> Try several initial poses and minimize distance to the box surface. Constrain the bottom to touch the table.</li>
+    <li class="fragment"><strong>Resolve the visible side.</strong> Compare thickness-shifted alternatives against the surrounding 3D cloud to choose which side of the observed face the box occupies.</li>
+    <li class="fragment"><strong>Export and check.</strong> Transform poses back to the camera frame, generate RoboTL, compile to MuJoCo, and compare the rendered view with the observation.</li>
+  </ol>
+  <p class="compare-note">SDF means signed distance to the box surface. The fitting constraint does not weld the exported bodies to the table.</p>
+  <button type="button" data-code-source="sources/world-models/reconstruction-workflow-code.json" data-code-title="Reconstruction pipeline: saved implementation">Inspect the fitting pipeline</button>
+  <aside class="notes">Canonical owners are BabyRobot markerless.domino_fit.mask_to_base_points, fit_domino_pose and scene.fit_dominoes.resolve_side. Mask erosion is two pixels; foreground filtering keeps camera-depth points within 0.10 m of the fifth percentile, with at most 4000 points. Contact fitting optimizes x, y and two constrained orientation angles, deriving vertical position from known geometry and table height. resolve_side compares candidates shifted by plus or minus one thickness along the box normal and requires improved full-cloud support. The runner snapshot is from commit ef07da9; canonical function source hashes are recorded in the code download. This is numerical fitting and deterministic program export, not LLM program synthesis or MPC.</aside>
+</section>
 <section id="slide-observation-reconstruction">
   <h2 class="t">Reusing the <span>domino fitter</span></h2>
   <img class="model-figure" src="media/world-models/domino-fitter-comparison.png" alt="Same observed dominoes compared with the generic box SDF fit and the reused BabyRobot domino fitter">
