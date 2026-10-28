@@ -1,0 +1,7 @@
+[
+  {
+    "generator": "Generated RoboTL scene",
+    "code": "\"\"\"RoboTL components copied into each generated, independently loadable program.\"\"\"\nfrom robotl.ops.syntax import Pose, assert_transform\nimport effectful.handlers.jax.numpy as jnp\nfrom robotl.ops import joints, shapes\nfrom robotl.ops.syntax import Material, Origin, Port, defcomponent\n\n@defcomponent\ndef Box(self, size, mass, friction, color):\n    dx, dy, dz = size\n    self.shape = shapes.centered_cube(dx, dy, dz)\n    self.material = Material(density=mass / (dx * dy * dz), friction=friction, color=jnp.array(color))\n    self.base = self.place(Port())\n\n@defcomponent\ndef Scene(self):\n    self.base = self.place(Port())\n    self._origin = joints.Weld(Origin.base, self.base)\n    self.object_0 = Box([0.15, 0.07, 0.029], 0.05, 0.5, (0.4392156862745098, 0.5098039215686274, 0.5764705882352941, 1.0))\n    assert_transform(self.base, self.object_0.base, Pose(pos=[-0.1130805937719202, 0.13006943126176107, 0.895967138872994], rv=[2.094921749486699, 1.7284294372870705, 1.2031676872540957]))\n    self.object_1 = Box([0.15, 0.07, 0.029], 0.05, 0.5, (0.2196078431372549, 0.5254901960784314, 0.4392156862745098, 1.0))\n    assert_transform(self.base, self.object_1.base, Pose(pos=[0.039482566869181876, 0.1759373830865482, 0.8039346480785078], rv=[-0.6846554174137398, -1.2727503933299227, 1.0027668585507659]))\n\ndef factory():\n    return Scene()\n",
+    "language": "python"
+  }
+]
