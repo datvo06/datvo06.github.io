@@ -26,6 +26,10 @@
     .ycb-grid video { width: 100%; height: 175px; display: block; object-fit: contain; background: #f6f7f9; }
     .comparison { width: 96%; }
     .comparison video { height: 360px; background: #f6f7f9; }
+    .panda-press-video { width: 94%; margin: 0 auto; }
+    .panda-press-video video { display: block; width: 100%; height: 440px; object-fit: contain; background: #f6f7f9; }
+    .reveal table.settings.panda-results { font-size: .48em; margin: 24px auto; }
+    .reveal table.settings.panda-results th, .reveal table.settings.panda-results td { width: auto; padding: 12px; }
     #slide-observation-reconstruction .model-figure { display: block; width: 94%; max-height: 300px; object-fit: contain; margin: 0 auto; }
     .reconstruction-setup { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; width: 94%; margin: 24px auto; }
     .reconstruction-setup figure { margin: 0; }
@@ -129,6 +133,48 @@
   <button type="button" data-code-source="sources/world-models/reconstruction-code.json" data-code-title="Generic box SDF: saved scene.py">Inspect baseline</button>
   <p class="cap"><a href="sources/world-models/reconstructed-domino-scene.zip" download>New program and fit</a> · <a href="sources/world-models/reconstructed-scene.zip" download>Baseline program</a> · <a href="sources/world-models/reconstruction-comparison.json">Comparison measurements</a> · <a href="https://github.com/datvo06/robotl-reconstruction/pull/3">Implementation PR</a></p>
   <aside class="notes">Archived BabyRobotPredicator capture exp_20260917_141030, look_01, camera 30264679. All panels use the same camera-local frame and crop; RGB, depth and selected mask hashes match across runs. Only the two dominoes are reconstructed. The generic SDF fit put 98% of the grey domino's selected points on a rear-facing box surface: surface residual 0.56 mm, median first-visible-surface error 40.7 mm toward the camera. The replacement calls BabyRobot mask_to_base_points, fit_domino_pose and resolve_side, retaining mask erosion, foreground depth filtering, contact-constrained fitting and full-cloud side resolution. The manually supplied table rectangle is [540, 390, 680, 470], with a measured plane RMS of 0.30 mm. That frame comes from this capture's depth, not a new camera-to-robot calibration. Nominal dimensions are 150 by 70 by 29 mm, mass 50 g, friction 0.5; these are supplied priors. Table contact is a reconstruction assumption, not a simulated joint. RoboTL adds a free joint to each box; the Weld anchors only the empty scene frame. The new program SHA-256 is 8a62c111f6eee620069b4ead3ee9710dc9f79d287843cee2d90d601fd6ff8d66. The displayed programs are exact saved outputs, not LLM-synthesized assemblies. The implementation passed 37 tests on polly, including synthetic single-face and multi-face export checks. This is a training-view comparison with additional table evidence; table dynamics and control transfer remain unvalidated.</aside>
+</section>
+<section id="slide-panda-upright-press">
+  <h2 class="t">Panda: <span>pressing the upright slab</span></h2>
+  <p class="setup">Deeper press, v4: command the fingertips to 25 mm above the table.</p>
+  <figure class="panda-press-video">
+    <video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/panda-press-20261028/upright-v4.png" aria-label="Panda presses the standing lattice slab, holds it through the gust, and releases it"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/panda-press-20261028/upright-v4.mp4" type="video/mp4"></video>
+    <figcaption class="cap">Lowest slab height: <strong>34.6 mm</strong>. Held during the gust: <strong>about 37 to 40 mm</strong>.</figcaption>
+  </figure>
+  <p class="compare-note">The grey test block (rendered blue) stays upright and untouched. Scripted Panda motion with synthetic airflow.</p>
+  <button type="button" data-code-source="sources/panda-press-20261028/model-code.json" data-code-block="1" data-code-title="Upright v4: recorded scene and robot program">Inspect recorded scene</button>
+  <p class="cap"><a href="https://github.com/datvo06/datvo06.github.io/releases/download/panda-press-20261028/upright-v3.mp4">Earlier 46 mm command, v3</a> · <a href="#/slide-panda-press-results">Four-run comparison</a></p>
+  <aside class="notes">Saved robot_v4/robot_top_down.mp4 and robot_top_down.npz from the other Mac, unchanged. The full-size slab starts about 92 mm tall; the single grey test block is 152 g. MuJoCo 3.17.0, trilinear degrees of freedom, supplied Young's modulus 20 kPa, peak fan speed 13.8 m/s. Fan onset 3.2 s, release 5.7 s. Minimum vertical extent of recorded oriented bounds is 34.572 mm; over fan onset through release it ranges from 36.731 to 39.692 mm. This refines the supplied informal 36 to 39 mm summary. At release plus 1.5 s, the same height estimate is 92.058 mm. Height is not the commanded fingertip height or a single material-axis extent. The hand also occludes the jet. The 1920 by 1080, 30 fps video replays saved motion in four views; massless tracers and blades are slowed by 20 for visibility. Tracers visualize the synthetic airflow closure, not CFD. Model limitations are on the four-run comparison slide. Recorded scene, source excerpt, checksums and raw recordings are linked from this section.</aside>
+</section>
+<section id="slide-panda-flip-press">
+  <h2 class="t">Panda: <span>turning and pressing the slab</span></h2>
+  <p class="setup">Deeper press, v5: turn the slab onto its side, then command a 25 mm fingertip height.</p>
+  <figure class="panda-press-video">
+    <video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/panda-press-20261028/flip-v5.png" aria-label="Panda turns the lattice slab onto its side, presses it during the gust, releases it and returns it upright"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/panda-press-20261028/flip-v5.mp4" type="video/mp4"></video>
+    <figcaption class="cap">During the gust, the slab is on its side at <strong>about 40 mm</strong>. Tracers pass through and over it.</figcaption>
+  </figure>
+  <p class="compare-note">The grey test block (rendered blue) stays upright and untouched. Scripted Panda motion with synthetic airflow.</p>
+  <button type="button" data-code-source="sources/panda-press-20261028/model-code.json" data-code-block="3" data-code-title="Flip v5: recorded scene and robot program">Inspect recorded scene</button>
+  <p class="cap"><a href="https://github.com/datvo06/datvo06.github.io/releases/download/panda-press-20261028/flip-v2.mp4">Earlier 46 mm command, v2</a> · <a href="#/slide-panda-press-results">Four-run comparison</a></p>
+  <aside class="notes">Saved robot_v5/robot_press.mp4 and robot_press.npz, unchanged. Fan onset 14 s, release 16.5 s. Minimum bounds-based vertical height is 38.442 mm; during the pressed gust interval it ranges from 39.320 to 40.380 mm. By the saved sample at 17.984 s, under 1.5 s after release, the height is 91.671 mm. The turned press shortens the initially lateral material x axis; the upright press shortens material y. Tracers are massless visualizations of the airflow closure and are slowed by 20, while recorded robot motion replays in simulated time. The hand is itself an airflow occluder. No claim is made that the slab alone keeps the test block standing. Four views are overview, top, lattice close-up and rear. The model has no strut self-contact, so compression below about half height is not evidence of the physical lattice response.</aside>
+</section>
+<section id="slide-panda-press-results">
+  <h2 class="t">Panda press: <span>four recorded runs</span></h2>
+  <p class="setup">One grey test block behind a slab initially about 92 mm tall. All heights below are in mm.</p>
+  <table class="settings panda-results">
+    <thead><tr><th scope="col">Case</th><th scope="col">Commanded<br>fingertip height</th><th scope="col">Lowest<br>slab height</th><th scope="col">Held height<br>during the gust</th><th scope="col">Grey block</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Upright, v3</th><td>46</td><td>51.4</td><td>about 54</td><td>Stays upright</td></tr>
+      <tr><th scope="row">Upright, v4</th><td>25</td><td><strong>34.6</strong></td><td>about 37 to 40</td><td>Stays upright</td></tr>
+      <tr><th scope="row">Flip, v2</th><td>46</td><td>53.5</td><td>about 54</td><td>Stays upright</td></tr>
+      <tr><th scope="row">Flip, v5</th><td>25</td><td><strong>38.4</strong></td><td>about 40</td><td>Stays upright</td></tr>
+    </tbody>
+  </table>
+  <p class="compare-note">All four recover to about <strong>92 mm within 1.5 s</strong> after release. No contact with the grey block; its maximum tilt is 0.11 degrees.</p>
+  <p class="compare-note"><strong>Model limit:</strong> a trilinear, linear-elastic slab with no contact between struts. Below about half height, compression is too uniform to treat as a prediction for the real lattice. The hand also shadows the airflow.</p>
+  <button type="button" data-code-source="sources/panda-press-20261028/model-code.json" data-code-block="4" data-code-title="Panda motion program and saved scene configurations">Inspect robot program and scenes</button>
+  <p class="cap"><a href="sources/panda-press-20261028/results.json">Measurements and provenance</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/tag/panda-press-20261028">Videos, recordings, logs and model</a> · <a href="https://github.com/datvo06/guided-mpc-baselines/pull/6">Implementation PR, 06271a2</a></p>
+  <aside class="notes">The commanded height is a fingertip target; arm servo compliance makes the reached slab height larger. Heights here are estimates from the saved oriented material-axis bounds, including residual tilt, computed as sum(abs(block_rotation[2, :]) * lattice_dimensions_m). The raw recorder does not store exact world-axis mesh extrema. Held-height labels are rounded summaries, not exact extrema: v3 spans 51.369 to 54.397 mm over fan onset through release, v4 36.731 to 39.692, v2 53.465 to 53.742, and v5 39.320 to 40.380. Minimum values are across the entire recording. Recovery samples are at 7.2 s for upright runs and 17.984 s for flip runs, with heights 92.060, 92.058, 91.644 and 91.671 mm respectively. The non-table-contact flags are false in all saved intervals, and physics-step maximum tilt never exceeds 0.109 degrees. There is only one block in each scene; the heavy domino is not tested here. Motion is scripted, with no MPC or LLM controller. Trilinear flex deformation and prescribed airflow remain unvalidated against hardware or CFD. All four run logs contain no MuJoCo warnings. The current implementation snapshot is 06271a230fb05c6beae4bedd7a137a4118478a40. NPZ files store scenes and mesh hashes but not a source revision; PR comments attribute v2 to 238651e, v3 to 34b8fd8 and deeper runs to 06271a2. Earlier videos and experiments are unchanged.</aside>
 </section>
 <section id="slide-comparison-settings">
   <h2 class="t">VoxPoser and Guided MPC: <span>settings in these runs</span></h2>
@@ -447,7 +493,9 @@
   }
 
   function showCodeBlock() {
-    codeContent.textContent = codeBlocks[Number(codeBlock.value)].code;
+    const block = codeBlocks[Number(codeBlock.value)];
+    codeContent.textContent = block.code;
+    codeContent.className = `language-${block.language || 'python'}`;
     delete codeContent.dataset.highlighted;
     hljs.highlightElement(codeContent);
     codeContent.parentElement.scrollTop = 0;

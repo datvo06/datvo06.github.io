@@ -1,0 +1,566 @@
+{
+  "cases": [
+    {
+      "run": "robot_v3",
+      "label": "Upright, v3",
+      "commanded_fingertip_height_mm": 46.0,
+      "minimum_bounds_height_mm": 51.36914408886945,
+      "gust_held_interval_s": [
+        3.1999999999999997,
+        5.699999999999999
+      ],
+      "gust_held_bounds_height_range_mm": [
+        51.36914408886945,
+        54.39684974737445
+      ],
+      "height_at_release_plus_1_5_s_mm": 92.06034891892867,
+      "height_sample_time_s": 7.199999999999429,
+      "any_non_table_contact_with_block": false,
+      "maximum_block_tilt_deg": 0.10384895514314894,
+      "scene": {
+        "lattice": {
+          "mesh": "artifacts/lattice_wind/slab_e30_probe.msh",
+          "mass_kg": 0.10080738459840881,
+          "orientation": {
+            "downstream": "+z",
+            "up": "+y"
+          },
+          "x_m": 0.12,
+          "y_m": 0.0,
+          "material": {
+            "young_pa": 20000.0,
+            "poisson": 0.35,
+            "damping": 0.02,
+            "edge_damping": 0.05,
+            "radius_m": 0.0005,
+            "friction": 0.8
+          },
+          "pin_height_m": 0.0,
+          "region_half_m": [
+            0.08,
+            0.1
+          ],
+          "dof": "trilinear"
+        },
+        "dominoes": [
+          {
+            "name": "light",
+            "mass_kg": 0.152,
+            "x_m": 0.229,
+            "y_m": 0.0,
+            "thickness_m": 0.029,
+            "width_m": 0.07,
+            "height_m": 0.15,
+            "friction": 0.72
+          }
+        ],
+        "fan": {
+          "speed_mps": 13.8,
+          "on_s": 3.1999999999999997,
+          "hold_s": 2.0,
+          "rise_s": 0.3,
+          "tau_s": 4.4,
+          "run_s": 10.9
+        },
+        "jet": {
+          "radius_m": 0.05,
+          "height_m": 0.078,
+          "spread": 0.26,
+          "edge": 0.15
+        },
+        "airflow": {
+          "density": 1.2,
+          "attenuation_per_m": 55.0,
+          "lattice_cd": 0.6,
+          "domino_cd": 1.2,
+          "mixing": 0.08,
+          "cell_m": 0.004,
+          "x_range_m": [
+            0.0,
+            0.7
+          ],
+          "y_range_m": [
+            -0.2,
+            0.2
+          ],
+          "z_range_m": [
+            0.0,
+            0.25
+          ],
+          "skin_transmission": 1.0
+        },
+        "squeeze": null,
+        "robot": {
+          "model_dir": "artifacts/robots/mujoco_menagerie/franka_emika_panda",
+          "base_m": [
+            0.12,
+            0.45,
+            0.0
+          ],
+          "base_yaw_rad": -1.5707963267948966,
+          "x_offset_m": -0.015,
+          "axis": "z",
+          "push_from_top": 0.15,
+          "tip_bias_m": 0.005,
+          "standoff_m": 0.03,
+          "clear_m": 0.1,
+          "press_m": 0.046,
+          "start_s": 0.5,
+          "move_s": 1.2,
+          "release_after_s": 0.5
+        },
+        "acceptance": {
+          "fallen_deg": 60.0,
+          "upright_deg": 10.0,
+          "footprint_m": 0.005,
+          "settle_s": 1.0
+        },
+        "timestep_s": 0.002,
+        "record_hz": 60.0,
+        "solver_iterations": 500,
+        "stations_m": [
+          0.05,
+          0.1,
+          0.2,
+          0.25
+        ]
+      },
+      "mesh_sha256": "c6f49e1eccdf718e55108e9437e7d983b3707a26e5fe6ef68f6ddb6ec345ba2b",
+      "versions": {
+        "mujoco": "3.17.0",
+        "numpy": "2.4.6",
+        "python": "3.12.13"
+      },
+      "files_sha256": {
+        "robot_top_down.npz": "0b1165362fb819e8738aa3ee07b8acd1b0f233d7e57c0a07af64460e83814aa5",
+        "robot_top_down.mp4": "9350e23ffdf1e5c4a146fcc245706fea672aeaf4e755bf94c618c1c3f228cda0",
+        "summary.json": "cdb07a519deda1825cbb1d881180e145bd200cdf719f0077b4ed995bba26e9c8",
+        "run.log": "98df6874c38a47fe48f6426e57b3b224574520c3f2c08cc5ff9406738eba4d52"
+      }
+    },
+    {
+      "run": "robot_v4",
+      "label": "Upright, v4",
+      "commanded_fingertip_height_mm": 25.0,
+      "minimum_bounds_height_mm": 34.57242017971753,
+      "gust_held_interval_s": [
+        3.1999999999999997,
+        5.699999999999999
+      ],
+      "gust_held_bounds_height_range_mm": [
+        36.73094652448215,
+        39.69200086690504
+      ],
+      "height_at_release_plus_1_5_s_mm": 92.05810348860615,
+      "height_sample_time_s": 7.199999999999429,
+      "any_non_table_contact_with_block": false,
+      "maximum_block_tilt_deg": 0.09295722526951077,
+      "scene": {
+        "lattice": {
+          "mesh": "artifacts/lattice_wind/slab_e30_probe.msh",
+          "mass_kg": 0.10080738459840881,
+          "orientation": {
+            "downstream": "+z",
+            "up": "+y"
+          },
+          "x_m": 0.12,
+          "y_m": 0.0,
+          "material": {
+            "young_pa": 20000.0,
+            "poisson": 0.35,
+            "damping": 0.02,
+            "edge_damping": 0.05,
+            "radius_m": 0.0005,
+            "friction": 0.8
+          },
+          "pin_height_m": 0.0,
+          "region_half_m": [
+            0.08,
+            0.1
+          ],
+          "dof": "trilinear"
+        },
+        "dominoes": [
+          {
+            "name": "light",
+            "mass_kg": 0.152,
+            "x_m": 0.229,
+            "y_m": 0.0,
+            "thickness_m": 0.029,
+            "width_m": 0.07,
+            "height_m": 0.15,
+            "friction": 0.72
+          }
+        ],
+        "fan": {
+          "speed_mps": 13.8,
+          "on_s": 3.1999999999999997,
+          "hold_s": 2.0,
+          "rise_s": 0.3,
+          "tau_s": 4.4,
+          "run_s": 10.9
+        },
+        "jet": {
+          "radius_m": 0.05,
+          "height_m": 0.078,
+          "spread": 0.26,
+          "edge": 0.15
+        },
+        "airflow": {
+          "density": 1.2,
+          "attenuation_per_m": 55.0,
+          "lattice_cd": 0.6,
+          "domino_cd": 1.2,
+          "mixing": 0.08,
+          "cell_m": 0.004,
+          "x_range_m": [
+            0.0,
+            0.7
+          ],
+          "y_range_m": [
+            -0.2,
+            0.2
+          ],
+          "z_range_m": [
+            0.0,
+            0.25
+          ],
+          "skin_transmission": 1.0
+        },
+        "squeeze": null,
+        "robot": {
+          "model_dir": "artifacts/robots/mujoco_menagerie/franka_emika_panda",
+          "base_m": [
+            0.12,
+            0.45,
+            0.0
+          ],
+          "base_yaw_rad": -1.5707963267948966,
+          "x_offset_m": -0.015,
+          "axis": "z",
+          "push_from_top": 0.15,
+          "tip_bias_m": 0.005,
+          "standoff_m": 0.03,
+          "clear_m": 0.1,
+          "press_m": 0.025,
+          "start_s": 0.5,
+          "move_s": 1.2,
+          "release_after_s": 0.5
+        },
+        "acceptance": {
+          "fallen_deg": 60.0,
+          "upright_deg": 10.0,
+          "footprint_m": 0.005,
+          "settle_s": 1.0
+        },
+        "timestep_s": 0.002,
+        "record_hz": 60.0,
+        "solver_iterations": 500,
+        "stations_m": [
+          0.05,
+          0.1,
+          0.2,
+          0.25
+        ]
+      },
+      "mesh_sha256": "c6f49e1eccdf718e55108e9437e7d983b3707a26e5fe6ef68f6ddb6ec345ba2b",
+      "versions": {
+        "mujoco": "3.17.0",
+        "numpy": "2.4.6",
+        "python": "3.12.13"
+      },
+      "files_sha256": {
+        "robot_top_down.npz": "7708dc87b5f7b58cfa054020be6d89cea0b7aaa125dbecec3b171ef525f30fa8",
+        "robot_top_down.mp4": "39a3bf39e2623808219210200b2f95ed0d7d75132986ca996a0fa9158eb0f412",
+        "summary.json": "6a2ddeb13425fbf7744997cde99241bca6cbed2c17b7076963dc1d306af0f02b",
+        "run.log": "9e4ad0c9012e640b7c8c20bc130124aaabebd601576cd7b0b663f9a4b3bad7f5"
+      }
+    },
+    {
+      "run": "robot_v2",
+      "label": "Flip, v2",
+      "commanded_fingertip_height_mm": 46.0,
+      "minimum_bounds_height_mm": 53.46485881454767,
+      "gust_held_interval_s": [
+        14.0,
+        16.5
+      ],
+      "gust_held_bounds_height_range_mm": [
+        53.46485881454767,
+        53.74152762150996
+      ],
+      "height_at_release_plus_1_5_s_mm": 91.643652864358,
+      "height_sample_time_s": 17.98400000000091,
+      "any_non_table_contact_with_block": false,
+      "maximum_block_tilt_deg": 0.10659726337095538,
+      "scene": {
+        "lattice": {
+          "mesh": "artifacts/lattice_wind/slab_e30_probe.msh",
+          "mass_kg": 0.10080738459840881,
+          "orientation": {
+            "downstream": "+z",
+            "up": "+y"
+          },
+          "x_m": 0.12,
+          "y_m": 0.0,
+          "material": {
+            "young_pa": 20000.0,
+            "poisson": 0.35,
+            "damping": 0.02,
+            "edge_damping": 0.05,
+            "radius_m": 0.0005,
+            "friction": 0.8
+          },
+          "pin_height_m": 0.0,
+          "region_half_m": [
+            0.08,
+            0.1
+          ],
+          "dof": "trilinear"
+        },
+        "dominoes": [
+          {
+            "name": "light",
+            "mass_kg": 0.152,
+            "x_m": 0.229,
+            "y_m": 0.0,
+            "thickness_m": 0.029,
+            "width_m": 0.07,
+            "height_m": 0.15,
+            "friction": 0.72
+          }
+        ],
+        "fan": {
+          "speed_mps": 13.8,
+          "on_s": 14.0,
+          "hold_s": 2.0,
+          "rise_s": 0.3,
+          "tau_s": 4.4,
+          "run_s": 10.9
+        },
+        "jet": {
+          "radius_m": 0.05,
+          "height_m": 0.078,
+          "spread": 0.26,
+          "edge": 0.15
+        },
+        "airflow": {
+          "density": 1.2,
+          "attenuation_per_m": 55.0,
+          "lattice_cd": 0.6,
+          "domino_cd": 1.2,
+          "mixing": 0.08,
+          "cell_m": 0.004,
+          "x_range_m": [
+            0.0,
+            0.7
+          ],
+          "y_range_m": [
+            -0.2,
+            0.2
+          ],
+          "z_range_m": [
+            0.0,
+            0.25
+          ],
+          "skin_transmission": 1.0
+        },
+        "squeeze": null,
+        "robot": {
+          "model_dir": "artifacts/robots/mujoco_menagerie/franka_emika_panda",
+          "base_m": [
+            0.12,
+            0.45,
+            0.0
+          ],
+          "base_yaw_rad": -1.5707963267948966,
+          "x_offset_m": -0.015,
+          "push_from_top": 0.15,
+          "tip_bias_m": 0.005,
+          "standoff_m": 0.03,
+          "clear_m": 0.1,
+          "press_m": 0.046,
+          "start_s": 0.5,
+          "move_s": 1.2,
+          "release_after_s": 0.5
+        },
+        "acceptance": {
+          "fallen_deg": 60.0,
+          "upright_deg": 10.0,
+          "footprint_m": 0.005,
+          "settle_s": 1.0
+        },
+        "timestep_s": 0.002,
+        "record_hz": 60.0,
+        "solver_iterations": 500,
+        "stations_m": [
+          0.05,
+          0.1,
+          0.2,
+          0.25
+        ]
+      },
+      "mesh_sha256": "c6f49e1eccdf718e55108e9437e7d983b3707a26e5fe6ef68f6ddb6ec345ba2b",
+      "versions": {
+        "mujoco": "3.17.0",
+        "numpy": "2.4.6",
+        "python": "3.12.13"
+      },
+      "files_sha256": {
+        "robot_press.npz": "b436bb09cd2bea7165e71f0d07571aacaa98ad7ac89794ae488eed535be273a3",
+        "robot_press.mp4": "2c8ac8111a7710096e69ad5d999901c21c482c195b2dc5c20f845bd5c6fade46",
+        "summary.json": "dbddbfe368dc370ea82790c5ce4f838ca436c513a74e2be7b86bc5f2d3ca74d0",
+        "run.log": "112b69f2258f6bde6e790f54ac83d43f13f817f9084697b3ffaa5a137def0cf6"
+      }
+    },
+    {
+      "run": "robot_v5",
+      "label": "Flip, v5",
+      "commanded_fingertip_height_mm": 25.0,
+      "minimum_bounds_height_mm": 38.441810999200335,
+      "gust_held_interval_s": [
+        14.0,
+        16.5
+      ],
+      "gust_held_bounds_height_range_mm": [
+        39.320198762914096,
+        40.380271320115426
+      ],
+      "height_at_release_plus_1_5_s_mm": 91.67107338824702,
+      "height_sample_time_s": 17.98400000000091,
+      "any_non_table_contact_with_block": false,
+      "maximum_block_tilt_deg": 0.10868327032011431,
+      "scene": {
+        "lattice": {
+          "mesh": "artifacts/lattice_wind/slab_e30_probe.msh",
+          "mass_kg": 0.10080738459840881,
+          "orientation": {
+            "downstream": "+z",
+            "up": "+y"
+          },
+          "x_m": 0.12,
+          "y_m": 0.0,
+          "material": {
+            "young_pa": 20000.0,
+            "poisson": 0.35,
+            "damping": 0.02,
+            "edge_damping": 0.05,
+            "radius_m": 0.0005,
+            "friction": 0.8
+          },
+          "pin_height_m": 0.0,
+          "region_half_m": [
+            0.08,
+            0.1
+          ],
+          "dof": "trilinear"
+        },
+        "dominoes": [
+          {
+            "name": "light",
+            "mass_kg": 0.152,
+            "x_m": 0.229,
+            "y_m": 0.0,
+            "thickness_m": 0.029,
+            "width_m": 0.07,
+            "height_m": 0.15,
+            "friction": 0.72
+          }
+        ],
+        "fan": {
+          "speed_mps": 13.8,
+          "on_s": 14.0,
+          "hold_s": 2.0,
+          "rise_s": 0.3,
+          "tau_s": 4.4,
+          "run_s": 10.9
+        },
+        "jet": {
+          "radius_m": 0.05,
+          "height_m": 0.078,
+          "spread": 0.26,
+          "edge": 0.15
+        },
+        "airflow": {
+          "density": 1.2,
+          "attenuation_per_m": 55.0,
+          "lattice_cd": 0.6,
+          "domino_cd": 1.2,
+          "mixing": 0.08,
+          "cell_m": 0.004,
+          "x_range_m": [
+            0.0,
+            0.7
+          ],
+          "y_range_m": [
+            -0.2,
+            0.2
+          ],
+          "z_range_m": [
+            0.0,
+            0.25
+          ],
+          "skin_transmission": 1.0
+        },
+        "squeeze": null,
+        "robot": {
+          "model_dir": "artifacts/robots/mujoco_menagerie/franka_emika_panda",
+          "base_m": [
+            0.12,
+            0.45,
+            0.0
+          ],
+          "base_yaw_rad": -1.5707963267948966,
+          "x_offset_m": -0.015,
+          "axis": "y",
+          "push_from_top": 0.15,
+          "tip_bias_m": 0.005,
+          "standoff_m": 0.03,
+          "clear_m": 0.1,
+          "press_m": 0.025,
+          "start_s": 0.5,
+          "move_s": 1.2,
+          "release_after_s": 0.5
+        },
+        "acceptance": {
+          "fallen_deg": 60.0,
+          "upright_deg": 10.0,
+          "footprint_m": 0.005,
+          "settle_s": 1.0
+        },
+        "timestep_s": 0.002,
+        "record_hz": 60.0,
+        "solver_iterations": 500,
+        "stations_m": [
+          0.05,
+          0.1,
+          0.2,
+          0.25
+        ]
+      },
+      "mesh_sha256": "c6f49e1eccdf718e55108e9437e7d983b3707a26e5fe6ef68f6ddb6ec345ba2b",
+      "versions": {
+        "mujoco": "3.17.0",
+        "numpy": "2.4.6",
+        "python": "3.12.13"
+      },
+      "files_sha256": {
+        "robot_press.npz": "ab80f6c0e9bd1e6a85e649a2f15bf37d213c65d7b9cf504e9f4a39db9f794101",
+        "robot_press.mp4": "62a383320b79ddfdae507daa300fc7193406fbef666a954d232d6dc42705f6a0",
+        "summary.json": "ac0a86e2647ad4073992c966c7ab3a74783e9cf6db321da05e6f9447f1034d8c",
+        "run.log": "9f5938178345a1e7b483dee199c560f465b8d8002f3e57c49d7fd0aa635e7a3d"
+      }
+    }
+  ],
+  "height_definition": "Vertical extent of the recorded oriented material-axis bounds: sum(abs(block_rotation[2, :]) * lattice_dimensions_m). This is a bounds-based height estimate, not the commanded fingertip height or a single material-axis extent.",
+  "limitations": [
+    "Scripted Panda motion, synthetic airflow, no MPC or learned controller.",
+    "Trilinear linear-elastic slab with no strut self-contact; deep compression is not validated against a physical lattice.",
+    "The hand also shadows airflow; these runs do not isolate the slab effect.",
+    "One grey test block (152 g), rendered blue; no heavy block in these four scenes."
+  ],
+  "implementation_snapshot": "06271a230fb05c6beae4bedd7a137a4118478a40",
+  "implementation_pr": "https://github.com/datvo06/guided-mpc-baselines/pull/6",
+  "source_revision_note": "The source snapshot is the current PR head. Recording files contain scenes and mesh hashes, not source commits. PR comments report v2 at 238651e, v3 at 34b8fd8, and v4/v5 at 06271a2.",
+  "source_sha256": "c1074c0ad8d723c4d0d8e78c202c6d0ef347d719485b42e5044417a6db35e262"
+}
