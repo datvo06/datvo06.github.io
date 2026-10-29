@@ -1,0 +1,431 @@
+{
+  "run": "paid-refinement-20261029, gpt-5.4-mini trial 2",
+  "case_id": "EMBASE:L2018857856:0:179:1:3",
+  "sentence": "Background: Plasma ceramides and sphingomyelins have been independently linked to diabetes risk, glucose and insulin levels, and the risk of several cardiovascular (CVD) outcomes.",
+  "subject": "insulin",
+  "object": "diabetes",
+  "gold": {
+    "relation": "NO_RELATION",
+    "facticity": null
+  },
+  "selected_attempt": 7,
+  "selected_prediction": {
+    "case_id": "EMBASE:L2018857856:0:179:1:3",
+    "outcome": "decision",
+    "decision": {
+      "relation": "DRUG : DISEASE - CAUSAL_EFFECT",
+      "facticity": "fact"
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "code": "from typing import Literal\n\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        # This pair concerns lipids and disease risk/phenotypes, not one of the\n        # allowed relation topics for the supplied head/tail types.\n        return \"NO_RELATION\"\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2018857856:0:179:1:3",
+        "outcome": "decision",
+        "decision": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 0,
+        "errors": [],
+        "span_proofs": [],
+        "budgets": {
+          "edit": "0/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "not run"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": []
+      },
+      "covered_words": 0,
+      "edit_units": 0,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 2,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return \"NO_RELATION\"\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2018857856:0:179:1:3",
+        "outcome": "decision",
+        "decision": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 0,
+        "errors": [],
+        "span_proofs": [],
+        "budgets": {
+          "edit": "0/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "not run"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": []
+      },
+      "covered_words": 0,
+      "edit_units": 0,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 3,
+      "code": "from typing import Literal\n\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return \"NO_RELATION\"\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2018857856:0:179:1:3",
+        "outcome": "decision",
+        "decision": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 0,
+        "errors": [],
+        "span_proofs": [],
+        "budgets": {
+          "edit": "0/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "not run"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": []
+      },
+      "covered_words": 0,
+      "edit_units": 0,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 4,
+      "code": "from typing import Literal\n\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return \"NO_RELATION\"\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2018857856:0:179:1:3",
+        "outcome": "decision",
+        "decision": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 0,
+        "errors": [],
+        "span_proofs": [],
+        "budgets": {
+          "edit": "0/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "not run"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": []
+      },
+      "covered_words": 0,
+      "edit_units": 0,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 5,
+      "code": "from typing import Literal\n\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        # The sentence describes plasma ceramides/sphingomyelins being linked\n        # to diabetes risk and CVD outcomes, not a relation topic for the\n        # supplied drug-disease pair.\n        return \"NO_RELATION\"\n\n    return extract\n",
+      "prediction": {
+        "case_id": "EMBASE:L2018857856:0:179:1:3",
+        "outcome": "decision",
+        "decision": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 0,
+        "errors": [],
+        "span_proofs": [],
+        "budgets": {
+          "edit": "0/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "not run"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": []
+      },
+      "covered_words": 0,
+      "edit_units": 0,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 6,
+      "code": "from typing import Literal\n\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"linked to\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - CAUSAL_EFFECT\")\n        return make_relation(subject, predicate, obj, evidence, commitment=\"fact\")\n\n    return extract\n",
+      "prediction": {
+        "case_id": "EMBASE:L2018857856:0:179:1:3",
+        "outcome": "rejection",
+        "decision": null
+      },
+      "checker_report": {
+        "ok": false,
+        "relations": 0,
+        "errors": [
+          {
+            "message": "relation.commitment must be a supported factual commitment",
+            "kind": "invalid"
+          }
+        ],
+        "span_proofs": [],
+        "budgets": {
+          "edit": "0/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "failed"
+          },
+          {
+            "stage": "schema",
+            "status": "not run"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": []
+      },
+      "covered_words": 0,
+      "edit_units": 0,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 7,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"linked to\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - CAUSAL_EFFECT\")\n        return make_relation(subject, predicate, obj, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2018857856:0:179:1:3",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - CAUSAL_EFFECT",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2018857856:0:179:1:3",
+            "root_location": 0,
+            "root_start": 109,
+            "root_end": 116,
+            "source_surface": "insulin",
+            "rendered_surface": "insulin",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[109:116]: 'insulin'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2018857856:0:179:1:3",
+            "root_location": 0,
+            "root_start": 72,
+            "root_end": 81,
+            "source_surface": "linked to",
+            "rendered_surface": "DRUG : DISEASE - CAUSAL_EFFECT",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[72:81]: 'linked to'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'linked to' -> 'DRUG : DISEASE - CAUSAL_EFFECT'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2018857856:0:179:1:3",
+            "root_location": 0,
+            "root_start": 82,
+            "root_end": 90,
+            "source_surface": "diabetes",
+            "rendered_surface": "diabetes",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[82:90]: 'diabetes'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2018857856:0:179:1:3",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 179,
+            "source_surface": "Background: Plasma ceramides and sphingomyelins have been independently linked to diabetes risk, glucose and insulin levels, and the risk of several cardiovascular (CVD) outcomes.",
+            "rendered_surface": "Background: Plasma ceramides and sphingomyelins have been independently linked to diabetes risk, glucose and insulin levels, and the risk of several cardiovascular (CVD) outcomes.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:179]: 'Background: Plasma ceramides and sphingomyelins have been independently linked to diabetes risk, glucose and insulin levels, and the risk of several cardiovascular (CVD) outcomes.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - CAUSAL_EFFECT",
+            "subject": {
+              "annotation_id": "EMBASE:L2018857856:1",
+              "doc_id": "EMBASE:L2018857856:0:179:1:3",
+              "location": 0,
+              "start": 109,
+              "end": 116,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0000084",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2018857856:3",
+              "doc_id": "EMBASE:L2018857856:0:179:1:3",
+              "location": 0,
+              "start": 82,
+              "end": 90,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH010844",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 4,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 8,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return \"NO_RELATION\"\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2018857856:0:179:1:3",
+        "outcome": "decision",
+        "decision": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 0,
+        "errors": [],
+        "span_proofs": [],
+        "budgets": {
+          "edit": "0/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "not run"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": []
+      },
+      "covered_words": 0,
+      "edit_units": 0,
+      "stop_or_error": null
+    }
+  ]
+}

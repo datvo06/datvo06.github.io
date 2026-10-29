@@ -1,0 +1,1094 @@
+{
+  "run": "paid-refinement-20261029, gpt-5.4-mini trial 1",
+  "case_id": "EMBASE:L635534563:816:1120:2:4",
+  "sentence": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+  "subject": "ixabepilone",
+  "object": "triple-negative breast cancer",
+  "gold": {
+    "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+    "facticity": "fact"
+  },
+  "selected_attempt": 1,
+  "selected_prediction": {
+    "case_id": "EMBASE:L635534563:816:1120:2:4",
+    "outcome": "decision",
+    "decision": {
+      "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+      "facticity": "fact"
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        sentence_span: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])\n        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])\n        predicate_source: Span = find_span(retrieve(case.case_id), \"clinical benefit\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        return make_relation(subject, predicate, object_, sentence_span, commitment=\"affirmed\")\n    return extract\n",
+      "prediction": {
+        "case_id": "EMBASE:L635534563:816:1120:2:4",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 158,
+            "root_end": 169,
+            "source_surface": "ixabepilone",
+            "rendered_surface": "ixabepilone",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[158:169]: 'ixabepilone'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 86,
+            "root_end": 102,
+            "source_surface": "clinical benefit",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[86:102]: 'clinical benefit'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'clinical benefit' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 216,
+            "root_end": 245,
+            "source_surface": "triple-negative breast cancer",
+            "rendered_surface": "triple-negative breast cancer",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[216:245]: 'triple-negative breast cancer'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 304,
+            "source_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "rendered_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:304]: 'Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L635534563:2",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 158,
+              "end": 169,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0004585",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L635534563:4",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 216,
+              "end": 245,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH008153",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 7,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 2,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        sentence_span: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])\n        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])\n        predicate_source: Span = find_span(retrieve(case.case_id), \"clinical benefit\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        return make_relation(subject, predicate, object_, sentence_span, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L635534563:816:1120:2:4",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 158,
+            "root_end": 169,
+            "source_surface": "ixabepilone",
+            "rendered_surface": "ixabepilone",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[158:169]: 'ixabepilone'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 86,
+            "root_end": 102,
+            "source_surface": "clinical benefit",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[86:102]: 'clinical benefit'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'clinical benefit' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 216,
+            "root_end": 245,
+            "source_surface": "triple-negative breast cancer",
+            "rendered_surface": "triple-negative breast cancer",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[216:245]: 'triple-negative breast cancer'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 304,
+            "source_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "rendered_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:304]: 'Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L635534563:2",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 158,
+              "end": 169,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0004585",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L635534563:4",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 216,
+              "end": 245,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH008153",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 7,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 3,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        sentence_span: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])\n        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])\n        predicate_source: Span = find_span(retrieve(case.case_id), \"clinical benefit\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        return make_relation(subject, predicate, object_, sentence_span, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L635534563:816:1120:2:4",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 158,
+            "root_end": 169,
+            "source_surface": "ixabepilone",
+            "rendered_surface": "ixabepilone",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[158:169]: 'ixabepilone'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 86,
+            "root_end": 102,
+            "source_surface": "clinical benefit",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[86:102]: 'clinical benefit'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'clinical benefit' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 216,
+            "root_end": 245,
+            "source_surface": "triple-negative breast cancer",
+            "rendered_surface": "triple-negative breast cancer",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[216:245]: 'triple-negative breast cancer'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 304,
+            "source_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "rendered_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:304]: 'Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L635534563:2",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 158,
+              "end": 169,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0004585",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L635534563:4",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 216,
+              "end": 245,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH008153",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 7,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 4,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        sentence_span: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])\n        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])\n        predicate_source: Span = find_span(retrieve(case.case_id), \"clinical benefit\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        return make_relation(subject, predicate, object_, sentence_span, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L635534563:816:1120:2:4",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 158,
+            "root_end": 169,
+            "source_surface": "ixabepilone",
+            "rendered_surface": "ixabepilone",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[158:169]: 'ixabepilone'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 86,
+            "root_end": 102,
+            "source_surface": "clinical benefit",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[86:102]: 'clinical benefit'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'clinical benefit' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 216,
+            "root_end": 245,
+            "source_surface": "triple-negative breast cancer",
+            "rendered_surface": "triple-negative breast cancer",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[216:245]: 'triple-negative breast cancer'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 304,
+            "source_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "rendered_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:304]: 'Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L635534563:2",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 158,
+              "end": 169,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0004585",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L635534563:4",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 216,
+              "end": 245,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH008153",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 7,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 5,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        sentence_span: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])\n        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])\n        predicate_source: Span = find_span(retrieve(case.case_id), \"clinical benefit\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        return make_relation(subject, predicate, object_, sentence_span, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L635534563:816:1120:2:4",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 158,
+            "root_end": 169,
+            "source_surface": "ixabepilone",
+            "rendered_surface": "ixabepilone",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[158:169]: 'ixabepilone'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 86,
+            "root_end": 102,
+            "source_surface": "clinical benefit",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[86:102]: 'clinical benefit'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'clinical benefit' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 216,
+            "root_end": 245,
+            "source_surface": "triple-negative breast cancer",
+            "rendered_surface": "triple-negative breast cancer",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[216:245]: 'triple-negative breast cancer'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 304,
+            "source_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "rendered_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:304]: 'Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L635534563:2",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 158,
+              "end": 169,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0004585",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L635534563:4",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 216,
+              "end": 245,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH008153",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 7,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 6,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        sentence_span: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])\n        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])\n        predicate_source: Span = find_span(retrieve(case.case_id), \"clinical benefit\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        return make_relation(subject, predicate, object_, sentence_span, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L635534563:816:1120:2:4",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 158,
+            "root_end": 169,
+            "source_surface": "ixabepilone",
+            "rendered_surface": "ixabepilone",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[158:169]: 'ixabepilone'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 86,
+            "root_end": 102,
+            "source_surface": "clinical benefit",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[86:102]: 'clinical benefit'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'clinical benefit' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 216,
+            "root_end": 245,
+            "source_surface": "triple-negative breast cancer",
+            "rendered_surface": "triple-negative breast cancer",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[216:245]: 'triple-negative breast cancer'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 304,
+            "source_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "rendered_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:304]: 'Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L635534563:2",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 158,
+              "end": 169,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0004585",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L635534563:4",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 216,
+              "end": 245,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH008153",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 7,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 7,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        sentence_span: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])\n        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])\n        predicate_source: Span = find_span(retrieve(case.case_id), \"clinical benefit\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        return make_relation(subject, predicate, object_, sentence_span, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L635534563:816:1120:2:4",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 158,
+            "root_end": 169,
+            "source_surface": "ixabepilone",
+            "rendered_surface": "ixabepilone",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[158:169]: 'ixabepilone'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 86,
+            "root_end": 102,
+            "source_surface": "clinical benefit",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[86:102]: 'clinical benefit'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'clinical benefit' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 216,
+            "root_end": 245,
+            "source_surface": "triple-negative breast cancer",
+            "rendered_surface": "triple-negative breast cancer",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[216:245]: 'triple-negative breast cancer'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 304,
+            "source_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "rendered_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:304]: 'Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L635534563:2",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 158,
+              "end": 169,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0004585",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L635534563:4",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 216,
+              "end": 245,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH008153",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 7,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 8,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        sentence_span: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])\n        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])\n        predicate_source: Span = find_span(retrieve(case.case_id), \"clinical benefit\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        return make_relation(subject, predicate, object_, sentence_span, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L635534563:816:1120:2:4",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 158,
+            "root_end": 169,
+            "source_surface": "ixabepilone",
+            "rendered_surface": "ixabepilone",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[158:169]: 'ixabepilone'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 86,
+            "root_end": 102,
+            "source_surface": "clinical benefit",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[86:102]: 'clinical benefit'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'clinical benefit' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 216,
+            "root_end": 245,
+            "source_surface": "triple-negative breast cancer",
+            "rendered_surface": "triple-negative breast cancer",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[216:245]: 'triple-negative breast cancer'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L635534563:816:1120:2:4",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 304,
+            "source_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "rendered_surface": "Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:304]: 'Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for ixabepilone in special populations, such as patients with triple-negative breast cancer or those who relapsed within 12 months of prior treatment.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L635534563:2",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 158,
+              "end": 169,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0004585",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L635534563:4",
+              "doc_id": "EMBASE:L635534563:816:1120:2:4",
+              "location": 0,
+              "start": 216,
+              "end": 245,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH008153",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 7,
+      "edit_units": 2,
+      "stop_or_error": null
+    }
+  ]
+}
