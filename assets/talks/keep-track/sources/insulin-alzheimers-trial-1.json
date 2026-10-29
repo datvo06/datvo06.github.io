@@ -1,0 +1,733 @@
+{
+  "run": "paid-refinement-20261029, gpt-5.4-mini trial 1",
+  "case_id": "EMBASE:L2017878452:0:177:5:7",
+  "sentence": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+  "subject": "insulin",
+  "object": "Alzheimer’s disease",
+  "gold": {
+    "relation": "GENE : DISEASE - MODULATES",
+    "facticity": "fact"
+  },
+  "selected_attempt": 2,
+  "selected_prediction": {
+    "case_id": "EMBASE:L2017878452:0:177:5:7",
+    "outcome": "decision",
+    "decision": {
+      "relation": "GENE : DISEASE - BIOMARKER",
+      "facticity": "fact"
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"risk factor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object, evidence, commitment=\"fact\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2017878452:0:177:5:7",
+        "outcome": "rejection",
+        "decision": null
+      },
+      "checker_report": {
+        "ok": false,
+        "relations": 0,
+        "errors": [
+          {
+            "message": "relation.commitment must be a supported factual commitment",
+            "kind": "invalid"
+          }
+        ],
+        "span_proofs": [],
+        "budgets": {
+          "edit": "0/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "failed"
+          },
+          {
+            "stage": "schema",
+            "status": "not run"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": []
+      },
+      "covered_words": 0,
+      "edit_units": 0,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 2,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"risk factor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2017878452:0:177:5:7",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 36,
+            "root_end": 43,
+            "source_surface": "insulin",
+            "rendered_surface": "insulin",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[36:43]: 'insulin'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 60,
+            "root_end": 71,
+            "source_surface": "risk factor",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[60:71]: 'risk factor'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'risk factor' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 76,
+            "root_end": 95,
+            "source_surface": "Alzheimer’s disease",
+            "rendered_surface": "Alzheimer’s disease",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[76:95]: 'Alzheimer’s disease'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 177,
+            "source_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "rendered_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:177]: 'Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L2017878452:5",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 36,
+              "end": 43,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3630",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2017878452:7",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 76,
+              "end": 95,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH009324",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 3,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"risk factor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2017878452:0:177:5:7",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 36,
+            "root_end": 43,
+            "source_surface": "insulin",
+            "rendered_surface": "insulin",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[36:43]: 'insulin'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 60,
+            "root_end": 71,
+            "source_surface": "risk factor",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[60:71]: 'risk factor'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'risk factor' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 76,
+            "root_end": 95,
+            "source_surface": "Alzheimer’s disease",
+            "rendered_surface": "Alzheimer’s disease",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[76:95]: 'Alzheimer’s disease'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 177,
+            "source_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "rendered_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:177]: 'Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L2017878452:5",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 36,
+              "end": 43,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3630",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2017878452:7",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 76,
+              "end": 95,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH009324",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 4,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"risk factor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2017878452:0:177:5:7",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 36,
+            "root_end": 43,
+            "source_surface": "insulin",
+            "rendered_surface": "insulin",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[36:43]: 'insulin'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 60,
+            "root_end": 71,
+            "source_surface": "risk factor",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[60:71]: 'risk factor'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'risk factor' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 76,
+            "root_end": 95,
+            "source_surface": "Alzheimer’s disease",
+            "rendered_surface": "Alzheimer’s disease",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[76:95]: 'Alzheimer’s disease'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 177,
+            "source_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "rendered_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:177]: 'Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L2017878452:5",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 36,
+              "end": 43,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3630",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2017878452:7",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 76,
+              "end": 95,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH009324",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 5,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"risk factor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2017878452:0:177:5:7",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 36,
+            "root_end": 43,
+            "source_surface": "insulin",
+            "rendered_surface": "insulin",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[36:43]: 'insulin'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 60,
+            "root_end": 71,
+            "source_surface": "risk factor",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[60:71]: 'risk factor'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'risk factor' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 76,
+            "root_end": 95,
+            "source_surface": "Alzheimer’s disease",
+            "rendered_surface": "Alzheimer’s disease",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[76:95]: 'Alzheimer’s disease'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 177,
+            "source_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "rendered_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:177]: 'Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L2017878452:5",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 36,
+              "end": 43,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3630",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2017878452:7",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 76,
+              "end": 95,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH009324",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 6,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"risk factor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2017878452:0:177:5:7",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 36,
+            "root_end": 43,
+            "source_surface": "insulin",
+            "rendered_surface": "insulin",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[36:43]: 'insulin'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 60,
+            "root_end": 71,
+            "source_surface": "risk factor",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[60:71]: 'risk factor'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'risk factor' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 76,
+            "root_end": 95,
+            "source_surface": "Alzheimer’s disease",
+            "rendered_surface": "Alzheimer’s disease",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[76:95]: 'Alzheimer’s disease'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2017878452:0:177:5:7",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 177,
+            "source_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "rendered_surface": "Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:177]: 'Accumulating evidence suggests that insulin deficiency is a risk factor for Alzheimer’s disease (AD); however, the underlying molecular mechanisms are not completely understood.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L2017878452:5",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 36,
+              "end": 43,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3630",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2017878452:7",
+              "doc_id": "EMBASE:L2017878452:0:177:5:7",
+              "location": 0,
+              "start": 76,
+              "end": 95,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH009324",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 2,
+      "stop_or_error": null
+    }
+  ]
+}

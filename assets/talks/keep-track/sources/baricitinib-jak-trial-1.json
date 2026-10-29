@@ -1,0 +1,867 @@
+{
+  "run": "paid-refinement-20261029, gpt-5.4-mini trial 1",
+  "case_id": "EMBASE:L642703453:206:368:1:6",
+  "sentence": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+  "subject": "Baricitinib",
+  "object": "IL-6R",
+  "gold": {
+    "relation": "NO_RELATION",
+    "facticity": null
+  },
+  "selected_attempt": 3,
+  "selected_prediction": {
+    "case_id": "EMBASE:L642703453:206:368:1:6",
+    "outcome": "decision",
+    "decision": {
+      "relation": "DRUG : GENE - ANTAGONIST",
+      "facticity": "fact"
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"blockade\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : GENE - ANTAGONIST\")\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L642703453:206:368:1:6",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : GENE - ANTAGONIST",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 150,
+            "root_end": 161,
+            "source_surface": "Baricitinib",
+            "rendered_surface": "Baricitinib",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[150:161]: 'Baricitinib'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 47,
+            "root_end": 55,
+            "source_surface": "blockade",
+            "rendered_surface": "DRUG : GENE - ANTAGONIST",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[47:55]: 'blockade'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'blockade' -> 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=1"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 121,
+            "root_end": 126,
+            "source_surface": "IL-6R",
+            "rendered_surface": "IL-6R",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[121:126]: 'IL-6R'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 162,
+            "source_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "rendered_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:162]: 'The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "1/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : GENE - ANTAGONIST",
+            "subject": {
+              "annotation_id": "EMBASE:L642703453:1",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 150,
+              "end": 161,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0009753",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L642703453:6",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 121,
+              "end": 126,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3570",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Gene"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 4,
+      "edit_units": 1,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 2,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"blockade\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : GENE - ANTAGONIST\")\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L642703453:206:368:1:6",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : GENE - ANTAGONIST",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 150,
+            "root_end": 161,
+            "source_surface": "Baricitinib",
+            "rendered_surface": "Baricitinib",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[150:161]: 'Baricitinib'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 47,
+            "root_end": 55,
+            "source_surface": "blockade",
+            "rendered_surface": "DRUG : GENE - ANTAGONIST",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[47:55]: 'blockade'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'blockade' -> 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=1"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 121,
+            "root_end": 126,
+            "source_surface": "IL-6R",
+            "rendered_surface": "IL-6R",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[121:126]: 'IL-6R'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 162,
+            "source_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "rendered_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:162]: 'The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "1/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : GENE - ANTAGONIST",
+            "subject": {
+              "annotation_id": "EMBASE:L642703453:1",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 150,
+              "end": 161,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0009753",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L642703453:6",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 121,
+              "end": 126,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3570",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Gene"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 4,
+      "edit_units": 1,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 3,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"JAK inhibitor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : GENE - ANTAGONIST\")\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n    return extract\n",
+      "prediction": {
+        "case_id": "EMBASE:L642703453:206:368:1:6",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : GENE - ANTAGONIST",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 150,
+            "root_end": 161,
+            "source_surface": "Baricitinib",
+            "rendered_surface": "Baricitinib",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[150:161]: 'Baricitinib'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 136,
+            "root_end": 149,
+            "source_surface": "JAK inhibitor",
+            "rendered_surface": "DRUG : GENE - ANTAGONIST",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[136:149]: 'JAK inhibitor'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'JAK inhibitor' -> 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 121,
+            "root_end": 126,
+            "source_surface": "IL-6R",
+            "rendered_surface": "IL-6R",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[121:126]: 'IL-6R'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 162,
+            "source_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "rendered_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:162]: 'The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : GENE - ANTAGONIST",
+            "subject": {
+              "annotation_id": "EMBASE:L642703453:1",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 150,
+              "end": 161,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0009753",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L642703453:6",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 121,
+              "end": 126,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3570",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Gene"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 4,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"JAK inhibitor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : GENE - ANTAGONIST\")\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L642703453:206:368:1:6",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : GENE - ANTAGONIST",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 150,
+            "root_end": 161,
+            "source_surface": "Baricitinib",
+            "rendered_surface": "Baricitinib",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[150:161]: 'Baricitinib'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 136,
+            "root_end": 149,
+            "source_surface": "JAK inhibitor",
+            "rendered_surface": "DRUG : GENE - ANTAGONIST",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[136:149]: 'JAK inhibitor'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'JAK inhibitor' -> 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 121,
+            "root_end": 126,
+            "source_surface": "IL-6R",
+            "rendered_surface": "IL-6R",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[121:126]: 'IL-6R'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 162,
+            "source_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "rendered_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:162]: 'The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : GENE - ANTAGONIST",
+            "subject": {
+              "annotation_id": "EMBASE:L642703453:1",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 150,
+              "end": 161,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0009753",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L642703453:6",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 121,
+              "end": 126,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3570",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Gene"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 5,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"blockade of IL-6/JAK signaling\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : GENE - ANTAGONIST\")\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L642703453:206:368:1:6",
+        "outcome": "rejection",
+        "decision": null
+      },
+      "checker_report": {
+        "ok": false,
+        "relations": 0,
+        "errors": [
+          {
+            "message": "edit budget exceeded for edit: 4/2",
+            "kind": "invalid"
+          }
+        ],
+        "span_proofs": [],
+        "budgets": {
+          "edit": "0/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "failed"
+          },
+          {
+            "stage": "schema",
+            "status": "not run"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": []
+      },
+      "covered_words": 0,
+      "edit_units": 0,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 6,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"JAK inhibitor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : GENE - ANTAGONIST\")\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L642703453:206:368:1:6",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : GENE - ANTAGONIST",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 150,
+            "root_end": 161,
+            "source_surface": "Baricitinib",
+            "rendered_surface": "Baricitinib",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[150:161]: 'Baricitinib'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 136,
+            "root_end": 149,
+            "source_surface": "JAK inhibitor",
+            "rendered_surface": "DRUG : GENE - ANTAGONIST",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[136:149]: 'JAK inhibitor'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'JAK inhibitor' -> 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 121,
+            "root_end": 126,
+            "source_surface": "IL-6R",
+            "rendered_surface": "IL-6R",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[121:126]: 'IL-6R'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 162,
+            "source_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "rendered_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:162]: 'The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : GENE - ANTAGONIST",
+            "subject": {
+              "annotation_id": "EMBASE:L642703453:1",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 150,
+              "end": 161,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0009753",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L642703453:6",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 121,
+              "end": 126,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3570",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Gene"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 2,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 7,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"JAK inhibitor\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : GENE - ANTAGONIST\")\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L642703453:206:368:1:6",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : GENE - ANTAGONIST",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 150,
+            "root_end": 161,
+            "source_surface": "Baricitinib",
+            "rendered_surface": "Baricitinib",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[150:161]: 'Baricitinib'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 136,
+            "root_end": 149,
+            "source_surface": "JAK inhibitor",
+            "rendered_surface": "DRUG : GENE - ANTAGONIST",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[136:149]: 'JAK inhibitor'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'JAK inhibitor' -> 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=2"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 121,
+            "root_end": 126,
+            "source_surface": "IL-6R",
+            "rendered_surface": "IL-6R",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[121:126]: 'IL-6R'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L642703453:206:368:1:6",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 162,
+            "source_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "rendered_surface": "The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:162]: 'The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-IL-6R mAb) and JAK inhibitor Baricitinib.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "2/2"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : GENE - ANTAGONIST",
+            "subject": {
+              "annotation_id": "EMBASE:L642703453:1",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 150,
+              "end": 161,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0009753",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L642703453:6",
+              "doc_id": "EMBASE:L642703453:206:368:1:6",
+              "location": 0,
+              "start": 121,
+              "end": 126,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH3570",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Gene"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 2,
+      "stop_or_error": null
+    }
+  ]
+}
