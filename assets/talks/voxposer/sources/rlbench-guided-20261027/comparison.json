@@ -1,0 +1,72 @@
+{
+  "trials": [
+    {
+      "task": "PushButton",
+      "physics_steps": 236,
+      "success_any": true,
+      "success_final": true,
+      "first_success_step": 70,
+      "wall_s": 1057.6063784761354,
+      "planning_wall_s": 982.1716598151252,
+      "model_prediction_steps": 14336,
+      "model_replay_steps": 59160,
+      "replans": 30,
+      "physical_control_success_snapshots_match_steps": 236,
+      "historical_prediction_memory_mismatch_frames": 6,
+      "cost_improved_feasible_seed": 27,
+      "seed_infeasible_replans": 0,
+      "max_replay_error": 0.0,
+      "all_planning_left_live_unchanged": true,
+      "max_target_speed_rad_s": 1.0000000000000002,
+      "max_target_acceleration_rad_s2": 4.000000000000023,
+      "executed_arm_collisions": 0,
+      "success_steps": 167,
+      "first_grasp_step": null,
+      "final_grasped": [],
+      "image_exact_pixel_fraction": 0.93878173828125,
+      "image_mean_absolute_rgb_error": 0.048136393229166664,
+      "image_max_rgb_error": 2,
+      "variation": 12,
+      "simulation_time_s": 11.800000175833702,
+      "final_native_joint_displacement_m": 0.004098832607269287
+    },
+    {
+      "task": "TakeLidOffSaucepan",
+      "physics_steps": 278,
+      "success_any": true,
+      "success_final": true,
+      "first_success_step": 167,
+      "wall_s": 1571.228694259189,
+      "planning_wall_s": 1470.0345082404092,
+      "model_prediction_steps": 17024,
+      "model_replay_steps": 80920,
+      "replans": 35,
+      "physical_control_success_snapshots_match_steps": 278,
+      "historical_prediction_memory_mismatch_frames": 6,
+      "cost_improved_feasible_seed": 17,
+      "seed_infeasible_replans": 11,
+      "max_replay_error": 0.0,
+      "all_planning_left_live_unchanged": true,
+      "max_target_speed_rad_s": 1.0000000000000002,
+      "max_target_acceleration_rad_s2": 4.000000000000067,
+      "executed_arm_collisions": 0,
+      "success_steps": 112,
+      "first_grasp_step": 159,
+      "final_grasped": [
+        "saucepan_lid_grasp_point"
+      ],
+      "image_exact_pixel_fraction": 0.9388427734375,
+      "image_mean_absolute_rgb_error": 0.048116048177083336,
+      "image_max_rgb_error": 2,
+      "variation": 0,
+      "simulation_time_s": 13.90000020712614,
+      "final_lid_rise_m": 0.14945381879806519
+    }
+  ],
+  "diagnostic_correction": {
+    "cost_unchanged": true,
+    "first_eight_snapshots_match_execution_exactly": true,
+    "source_request": "button-v1/rollouts/0000-r1-c03.request.json",
+    "original_predictions_preserved": true
+  }
+}

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>VoxPoser Trials</title>
+  <title>Guided MPC: Models and Baselines</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reset.css">
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reveal.css">
@@ -30,7 +30,10 @@
     .panda-press-video video { display: block; width: 100%; height: 440px; object-fit: contain; background: #f6f7f9; }
     .reveal table.settings.panda-results { font-size: .48em; margin: 24px auto; }
     .reveal table.settings.panda-results th, .reveal table.settings.panda-results td { width: auto; padding: 12px; }
-    #slide-observation-reconstruction .model-figure { display: block; width: 94%; max-height: 300px; object-fit: contain; margin: 0 auto; }
+    .model-figure { display: block; width: 94%; max-height: 440px; object-fit: contain; margin: 0 auto; }
+    #slide-observation-reconstruction .model-figure { max-height: 300px; margin: 0 auto; }
+    .environment-video { width: 82%; margin: auto; }
+    .environment-video video { display: block; width: 100%; max-height: 480px; object-fit: contain; }
     .reconstruction-setup { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; width: 94%; margin: 24px auto; }
     .reconstruction-setup figure { margin: 0; }
     .reconstruction-setup img { display: block; width: 100%; }
@@ -51,6 +54,7 @@
     .reveal table.settings th { color: #1E3A8A; }
     .reveal table.settings th:first-child { width: 16%; }
     .reveal table.settings td { width: 42%; }
+    .reveal table.program-results th, .reveal table.program-results td { width: 25%; }
     #code-panel { position: fixed; inset: auto 20px 20px auto; margin: 0; padding: 0; width: min(960px, calc(100vw - 40px)); max-height: calc(100vh - 40px); border: 1px solid #c8d1e4; border-radius: 12px; box-shadow: 0 12px 50px #15244040; background: white; color: #1f2330; font: 16px "IBM Plex Sans", sans-serif; }
     #code-panel:popover-open { display: flex; flex-direction: column; }
     #code-panel header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; background: #f2f5fb; }
@@ -133,6 +137,27 @@
   <button type="button" data-code-source="sources/world-models/reconstruction-code.json" data-code-title="Generic box SDF: saved scene.py">Inspect baseline</button>
   <p class="cap"><a href="sources/world-models/reconstructed-domino-scene.zip" download>New program and fit</a> · <a href="sources/world-models/reconstructed-scene.zip" download>Baseline program</a> · <a href="sources/world-models/reconstruction-comparison.json">Comparison measurements</a> · <a href="https://github.com/datvo06/robotl-reconstruction/pull/3">Implementation PR</a></p>
   <aside class="notes">Archived BabyRobotPredicator capture exp_20260917_141030, look_01, camera 30264679. All panels use the same camera-local frame and crop; RGB, depth and selected mask hashes match across runs. Only the two dominoes are reconstructed. The generic SDF fit put 98% of the grey domino's selected points on a rear-facing box surface: surface residual 0.56 mm, median first-visible-surface error 40.7 mm toward the camera. The replacement calls BabyRobot mask_to_base_points, fit_domino_pose and resolve_side, retaining mask erosion, foreground depth filtering, contact-constrained fitting and full-cloud side resolution. The manually supplied table rectangle is [540, 390, 680, 470], with a measured plane RMS of 0.30 mm. That frame comes from this capture's depth, not a new camera-to-robot calibration. Nominal dimensions are 150 by 70 by 29 mm, mass 50 g, friction 0.5; these are supplied priors. Table contact is a reconstruction assumption, not a simulated joint. RoboTL adds a free joint to each box; the Weld anchors only the empty scene frame. The new program SHA-256 is 8a62c111f6eee620069b4ead3ee9710dc9f79d287843cee2d90d601fd6ff8d66. The displayed programs are exact saved outputs, not LLM-synthesized assemblies. The implementation passed 37 tests on polly, including synthetic single-face and multi-face export checks. This is a training-view comparison with additional table evidence; table dynamics and control transfer remain unvalidated.</aside>
+</section>
+<section id="slide-lattice-wind-scene">
+  <h2 class="t">Deformable cube <span>in a fan</span></h2>
+  <p class="setup">Let wind topple the light domino while the heavy domino stays upright, without touching either.</p>
+  <div class="row comparison">
+    <figure><video controls muted playsinline preload="metadata" poster="media/world-models/lattice-open.png" aria-label="Open-channel cube: light domino falls and heavy domino stays upright"><source src="media/world-models/lattice-open.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Open channels</strong><br>Light falls; heavy stays upright</figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="media/world-models/lattice-rotated.png" aria-label="Rotated cube: both dominoes stay upright"><source src="media/world-models/lattice-rotated.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Rotated cube</strong><br>Both stay upright</figcaption></figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together</button> <button type="button" data-pause-together>Pause both</button></p>
+  <p class="compare-note">30 mm tetrahedral lattice in MuJoCo. Scripted environment checks with synthetic airflow; flex-solver warnings remain unresolved.</p>
+  <p class="cap"><a href="sources/world-models/lattice-model-source.zip" download>Model source</a> · <a href="sources/world-models/cube30.msh" download>Tetrahedral mesh</a> · <a href="sources/world-models/lattice-results.json">Recorded settings and outcomes</a></p>
+  <aside class="notes">Saved demo_cube30_v4 joint_open and joint_closed recordings. Both use a bottom-vertex fixture; open means material +z points downstream and +y up, rotated means +x downstream and +z up. The scaled scene has a 7.285 g cube, 0.416 g light domino, 2.081 g heavy domino, 6.853 m/s prescribed peak fan speed, 2 ms steps and 3000 solver iterations. Mesh: 10,351 nodes and 27,991 tetrahedra. Young's modulus is a supplied 1 MPa. The quasi-steady airflow closure depends on current lattice geometry, applies forces through MuJoCo, and has not been calibrated to hardware or CFD. These runs do not include LLM model discovery or MPC optimization. Videos are saved-qpos replays at 15 fps, 960 × 540; bodies run in real time, airflow tracers and fan rotation are slowed 20× for visibility. The four views are overview, top, lattice close-up and rear. The original logs report flex effective-metric solver under-convergence; native completion alone does not resolve it. Full provenance and limitations are in sources/world-models/manifest.json.</aside>
+</section>
+<section id="slide-lattice-squeeze-release">
+  <h2 class="t">Squeezing and <span>releasing the cube</span></h2>
+  <figure class="environment-video"><video controls muted playsinline preload="metadata" poster="media/world-models/lattice-squeeze-release.png" aria-label="Recorded cube squeeze and release, followed by the light domino falling"><source src="media/world-models/lattice-squeeze-release.mp4" type="video/mp4"></video>
+    <figcaption class="cap">Scripted squeeze and release in the synthetic airflow environment</figcaption></figure>
+  <p class="cap"><a href="sources/world-models/lattice-model-source.zip" download>Model source</a> · <a href="sources/world-models/manifest.json">Recording details</a></p>
+  <aside class="notes">Saved demo_cube30_v4/squish recording. Unlike the fixed-orientation checks, this cube is unpinned. The commanded gap is 19.566 mm; the measured minimum material-x extent is 20.808 mm. The tracked material x axis is lateral in the open orientation. A fan pulse begins at 0.8 s, and the scripted plate release begins at 1.8 s. Light tilt stays below 0.807 degrees before release and first crosses the 60-degree threshold at the recorded sample at 2.016 s. The light max tilt over physics steps is 101.803 degrees and the heavy max is 0.535 degrees. All five recorded task predicates pass; the solver and airflow caveats still apply. This is one scripted episode, with no learned objective or controller. The renderer's source snapshot is 8cc1de41e1e5ec2ec7e69385bca3be9b8c83702a; recordings save scene and mesh hashes but do not attest the original source revision.</aside>
 </section>
 <section id="slide-panda-upright-press">
   <h2 class="t">Panda: <span>pressing the upright slab</span></h2>
@@ -407,12 +432,110 @@
   </div>
   <ul class="pts" style="font-size: 0.46em; max-width: 88%;">
     <li>Success means reaching RLBench's task condition during execution. The lid trial reaches it, but does not retain it at the final state.</li>
-    <li>Two setup trials. A matched comparison with Guided MPC is still pending.</li>
+    <li>One trial per task. Guided MPC comparisons follow; observation and action interfaces differ.</li>
   </ul>
   <p class="cap">Original recordings: 128 × 128 pixels. <a href="#/slide-voxposer-programs">View generated programs</a><br><a href="https://github.com/datvo06/datvo06.github.io/releases/download/voxposer-20261026/sources__voxposer-20261026__artifacts.zip" download>Download all artifacts</a> · <a href="sources/voxposer-20261026/manifest.json">Run details</a> · <a href="https://github.com/huangwl18/VoxPoser">VoxPoser code</a></p>
   <aside class="notes">These are initial trials of the released VoxPoser RLBench demo on rolly, not a reproduction of the paper's aggregate results or a comparison against the LEAP YCB tasks. The demo uses RLBench object masks. Its default config performs one outer planning pass; VoxPoser's separate object-pushing path uses sampling MPC. We retained upstream prompts, planner and controller, and used GPT-4.1 because the original GPT-4 endpoint rejected requests. Success is latched when an executed TaskEnvironment.step returns positive sparse reward. The saucepan trial reaches that condition before the instruction finishes; an earlier final-state-only check missed it. Both recordings are replays using cached LLM responses. Replay wall times were 13.94 seconds for saucepan and 9.81 seconds for button; these exclude initial LLM generation and are not comparable performance measurements. The videos show 278 and 236 native simulation steps at 20 Hz, respectively, at the original 128 by 128 recording resolution. The artifact bundle includes both videos, initial and final images, exact configs, normalized outcomes and a manifest with upstream revisions and video checksums. Normalized outcomes omit an unreliable observation variation field from the original runner output.</aside>
 </section>
 
+<section id="slide-rlbench-saucepan-comparison">
+  <h2 class="t">Saucepan lid: <span>VoxPoser and Guided MPC</span></h2>
+  <figure class="environment-video">
+    <video controls muted playsinline preload="metadata" poster="media/rlbench-guided-20261027/saucepan.jpg" aria-label="Saucepan comparison: VoxPoser left, Guided MPC right"><source src="media/rlbench-guided-20261027/saucepan-voxposer-left-guided-right.mp4" type="video/mp4"></video>
+    <figcaption class="cap"><strong>Left: VoxPoser</strong> reaches success, then releases the lid.<br><strong>Right: Guided MPC</strong> reaches success at 8.35 s and finishes holding the lid 14.95 cm higher.</figcaption>
+  </figure>
+  <p class="compare-note">One seed-0 episode per method. Guided MPC: 13.9 s of simulation, 26.2 min of computation.</p>
+  <button type="button" data-code-source="sources/voxposer-20261026/saucepan-generated-code.json" data-code-title="VoxPoser saucepan programs">VoxPoser generated code</button>
+  <button type="button" data-code-source="sources/rlbench-guided-20261027/controller-code.json" data-code-title="Guided MPC fixed task program">Guided MPC objective and controller</button>
+  <p class="cap"><a href="sources/rlbench-guided-20261027/comparison.json">Measured outcomes</a> · <a href="sources/rlbench-guided-20261027/artifacts.zip" download>Controller sources, settings and execution traces</a></p>
+  <aside class="notes">Native TakeLidOffSaucepan variation 0, seed 0. Guided MPC succeeds from step 167 through 278; grasp begins at step 159. Final lid rise is 0.1494538188 m. These are recorded native outcomes, not a success-rate estimate. The original VoxPoser instruction also returns and releases the lid. Guided MPC explicitly rewards lifting and retaining it, so final retention reflects a difference in objectives. Original video is 128px; Guided MPC is 640px. Both sides replay simulated time, excluding planning pauses. Saved source commit e6a3c16. Historical gripper-memory aliasing affected six diagnostic prediction frames, not physical predictions, costs or executed outcomes; the archived report documents the correction.</aside>
+</section>
+<section id="slide-rlbench-button-comparison">
+  <h2 class="t">Teal button: <span>VoxPoser and Guided MPC</span></h2>
+  <figure class="environment-video">
+    <video controls muted playsinline preload="metadata" poster="media/rlbench-guided-20261027/button.jpg" aria-label="Teal button comparison: VoxPoser left, Guided MPC right"><source src="media/rlbench-guided-20261027/button-voxposer-left-guided-right.mp4" type="video/mp4"></video>
+    <figcaption class="cap"><strong>Left: VoxPoser</strong> does not complete the press.<br><strong>Right: Guided MPC</strong> reaches success at 3.50 s; final depression is 4.10 mm against a 3 mm threshold.</figcaption>
+  </figure>
+  <p class="compare-note">One seed-0 episode per method. Guided MPC: 11.8 s of simulation, 17.6 min of computation.</p>
+  <button type="button" data-code-source="sources/voxposer-20261026/button-generated-code.json" data-code-title="VoxPoser button programs">VoxPoser generated code</button>
+  <button type="button" data-code-source="sources/rlbench-guided-20261027/controller-code.json" data-code-title="Guided MPC fixed task program">Guided MPC objective and controller</button>
+  <p class="cap"><a href="sources/rlbench-guided-20261027/comparison.json">Measured outcomes</a> · <a href="sources/rlbench-guided-20261027/artifacts.zip" download>Controller sources, settings and execution traces</a></p>
+  <aside class="notes">Native PushButton variation 12, teal RGB [0, 0.5, 0.5], seed 0. Guided MPC first succeeds at step 70 of 236. The native condition latches success; final joint displacement independently remains above threshold at 0.0040988326 m. Both sides replay simulated time. The original VoxPoser log includes a clamped target; the cause of its failure has not been isolated. This comparison establishes two executions, not a general ranking of methods.</aside>
+</section>
+<section id="slide-rlbench-comparison-settings">
+  <h2 class="t">RLBench comparison: <span>what differs</span></h2>
+  <table class="settings">
+    <thead><tr><th scope="col">Setting</th><th scope="col">VoxPoser</th><th scope="col">Guided MPC</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Task</th><td colspan="2">Same Panda, parallel gripper, task models, CoppeliaSim and native success conditions.</td></tr>
+      <tr><th scope="row">Guidance</th><td>LLM-generated spatial maps and programs.</td><td>Fixed task programs in these recordings; a separate LLM program search pilot follows.</td></tr>
+      <tr><th scope="row">Observations</th><td>Segmented point clouds.</td><td>Object poses, grasp status and button-joint state.</td></tr>
+      <tr><th scope="row">Control</th><td>Cartesian paths and discrete gripper commands.</td><td>Joint-target sequences evaluated in the native simulator; simultaneous arm/gripper control.</td></tr>
+      <tr><th scope="row">Planning</th><td>One outer planning pass in these runs.</td><td>1.6 s horizon, eight candidates, two rounds; replan every 0.4 simulated seconds.</td></tr>
+    </tbody>
+  </table>
+  <p class="compare-note">Guided MPC completed both tasks in these trials, with privileged state and simulator access. This is not yet a matched method comparison or a real-time controller.</p>
+  <p class="cap"><a href="sources/rlbench-guided-20261027/artifacts.zip" download>Full comparison report and saved controller programs</a> · <a href="https://github.com/datvo06/guided-mpc-baselines/pull/4">Implementation PR</a></p>
+  <aside class="notes">Only one full-budget episode per task. Guided MPC costs improved over feasible seeds in 27/30 button replans and 17/35 saucepan replans; another 11 saucepan replans replaced an infeasible seed. No seed-only closed-loop ablation was run. Prediction uses fresh CoppeliaSim processes and replays each executed prefix; simulation pauses during planning. Both native model assets and initial images were checked, but original numeric initial states were not saved. The VoxPoser recorder omitted gripper-actuation callbacks, so its 278/236 recorded steps do not establish identical total interaction budgets. Guided MPC counts all executed physics steps. Original cached-program replay wall times exclude LLM generation and are not comparable end-to-end timing measurements. Neither Guided MPC run registered an arm collision. Native proximity-based gripper attachment remains enabled.</aside>
+</section>
+<section id="slide-llm-mpc-program-search">
+  <h2 class="t">LLM program search: <span>the first pilot</span></h2>
+  <p class="setup">The LLM writes Python objectives, proposals and state; MPC executes them. Improvement can edit the reference; synthesis starts from a neutral hold.</p>
+  <table class="settings program-results">
+    <thead><tr><th scope="col">Task</th><th scope="col">Reference training</th><th scope="col">Held-out: full cap</th><th scope="col">Held-out: any step</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Teal button</th><td>3/4</td><td>2/4</td><td>3/4</td></tr>
+      <tr><th scope="row">Saucepan lid</th><td>3/4</td><td>1/4</td><td>2/4</td></tr>
+    </tbody>
+  </table>
+  <ul class="pts" style="font-size: .46em; max-width: 94%;">
+    <li><strong>Improvement:</strong> both searches retained the reference. The button revision scored 2/4; the saucepan revision used only short probes.</li>
+    <li><strong>Synthesis:</strong> neither search produced a fully evaluated candidate. Both exhausted their eight case attempts on probes.</li>
+  </ul>
+  <p class="compare-note">Full-cap success requires native success after the complete episode, without an execution failure. Both selected programs are the unchanged reference, so they share these held-out episodes.</p>
+  <p class="compare-note">Each search allows four programs and eight case attempts. The four searches used 1,152,676 charged simulator steps, including prediction and replay.</p>
+  <button type="button" data-code-source="sources/llm-mpc-program-search-20261028/programs.json" data-code-title="Saved Guided MPC programs">Inspect the actual programs</button>
+  <p class="cap"><a href="sources/llm-mpc-program-search-20261028/summary.json">All outcome records</a> · <a href="sources/llm-mpc-program-search-20261028/review-bundle.zip" download>Report, programs and recordings</a> · <a href="https://github.com/datvo06/guided-mpc-baselines/pull/7">Implementation PR</a></p>
+  <aside class="notes">Improvement receives the reference source; synthesis receives only a neutral hold scaffold. Each task/condition has four candidate slots, eight training case attempts, four hours and 800,000 simulator steps. Diagnostic probes and failures consume the allowance. Selection requires all four cases requested at the full task cap; declared planning failures count as unsuccessful, whereas partial or invalid evaluations cannot qualify. The planning-failure rule was clarified during integration after a standalone reference failure and after the first unchanged-reference submission, before revised-program and held-out outcomes. Both improvement selections have the same source hash as the fixed reference, so their held-out labels share four physical episodes per task, not independent replications. Native final success at the full cap is primary; transient success is separate. Both Guided MPC variants have privileged object/robot state and oracle native predictions. Native proximity attachment remains enabled. These results do not establish LLM improvement, world-model discovery or a matched advantage over VoxPoser.</aside>
+</section>
+<section id="slide-llm-mpc-button-revision">
+  <h2 class="t">Button program: <span>the revision did not improve it</span></h2>
+  <p class="setup">Same initial state, sampling seed, physics and MPC budget. Only the program changes.</p>
+  <div class="row comparison">
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/llm-mpc-program-search-20261028/button-reference-seed3.jpg" aria-label="Fixed reference completing the teal button training case"><source src="media/llm-mpc-program-search-20261028/button-reference-seed3.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Fixed reference: succeeds</strong><br>Training reset 3, sampling seed 104</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/llm-mpc-program-search-20261028/button-revision-seed3.jpg" aria-label="LLM-revised program failing the same teal button training case"><source src="media/llm-mpc-program-search-20261028/button-revision-seed3.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>LLM revision: does not complete the press</strong><br>Same 236-step episode cap</figcaption>
+    </figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Restart together</button> <button type="button" data-pause-together>Pause both</button></p>
+  <p class="compare-note">The revision limits lateral reach and changes the objective weights. Across four training cases, it succeeds twice; the reference succeeds three times.</p>
+  <button type="button" data-code-source="sources/llm-mpc-program-search-20261028/button-comparison-code.json" data-code-block="0" data-code-title="Button reference and LLM revision">Reference program</button>
+  <button type="button" data-code-source="sources/llm-mpc-program-search-20261028/button-comparison-code.json" data-code-block="1" data-code-title="Button reference and LLM revision">Actual LLM revision</button>
+  <aside class="notes">Both videos are native training episodes at reset 3 / sampling 104, variation 12, full 236-step cap, 20 Hz simulation. Reference source 14e08062; revision 56101107. Both share the extracted program interface and fixed sampler. The revision's proposed target is clipped to 0.30 m from the initial tip XY, preserves initial orientation, and changes guidance/alignment/press costs. This paired case illustrates the observed difference; no ablation identifies which program edit caused it. Videos show simulated time and omit planning pauses. Selection retained the reference. The saved third submitted source was unevaluated after the attempt allowance was exhausted.</aside>
+</section>
+<section id="slide-llm-mpc-synthesis-probes">
+  <h2 class="t">Synthesis: <span>no eligible program yet</span></h2>
+  <p class="setup">The reference is withheld. These are actual generated programs evaluated in short diagnostic probes.</p>
+  <div class="row comparison">
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/llm-mpc-program-search-20261028/button-synthesis-probe.jpg" aria-label="Generated button program during an eighty-step diagnostic probe"><source src="media/llm-mpc-program-search-20261028/button-synthesis-probe.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Teal button: 80-step probe</strong><br>No native success during these 4 seconds</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/llm-mpc-program-search-20261028/saucepan-synthesis-probe.jpg" aria-label="Generated saucepan program during a one-hundred-twenty-step diagnostic probe"><source src="media/llm-mpc-program-search-20261028/saucepan-synthesis-probe.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Saucepan lid: 120-step probe</strong><br>No native success during these 6 seconds</figcaption>
+    </figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Restart together</button> <button type="button" data-pause-together>Pause both</button></p>
+  <p class="compare-note">Both searches spent all eight case attempts on probes. Neither evaluated a program at the full task cap, so we report incomplete searches rather than a full-task success rate.</p>
+  <button type="button" data-code-source="sources/llm-mpc-program-search-20261028/synthesis-code.json" data-code-block="0" data-code-title="Actual synthesis programs">Button program</button>
+  <button type="button" data-code-source="sources/llm-mpc-program-search-20261028/synthesis-code.json" data-code-block="1" data-code-title="Actual synthesis programs">Saucepan program</button>
+  <aside class="notes">Shown: button source c9e7e81f, reset 0 / sampling 101, requested 80 steps; saucepan source 92ebde77, reset 0 / sampling 101, requested 120 steps. The neutral scaffold supplies only a current-state hold proposal. Button used four 40-step and four 80-step attempts. Saucepan used two sets of four 120-step attempts; its second program had no feasible initial proposal in all four cases. Each search saved a third source after the attempt limit was exhausted, without evaluating it. No generated source was manually repaired or substituted with the reference. Short probes can inform revisions but cannot establish full-task failure or completion.</aside>
+</section>
 <section id="slide-voxposer-programs">
   <h2 class="t">The <span>generated plans</span></h2>
   <p class="setup">Actual GPT-4.1 outputs used in the two recordings</p>
