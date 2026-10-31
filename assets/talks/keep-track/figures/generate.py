@@ -116,7 +116,7 @@ save(fig, "october-baselines")
 fig, axes = plt.subplots(
     1,
     2,
-    figsize=(13, 5.4),
+    figsize=(13, 6.6),
     layout="constrained",
     gridspec_kw={"width_ratios": [1.5, 1]},
 )
@@ -127,7 +127,9 @@ labels = [
     "+ supplied entity types",
     "Five-word mapping list",
     "Paid mappings, first accepted",
-    "Paid mappings + coverage search",
+    "Paid mappings + search, budget 2",
+    "Paid mappings + search, budget 4",
+    "Paid mappings + search, budget 8",
 ]
 f1 = [
     [64.3, 72.1, 74.4],
@@ -137,13 +139,15 @@ f1 = [
     [10.5, 5.4, 10.3],
     [59.5, 63.5, 64.3],
     [62.2, 62.4, 64.5],
+    [66.7, 62.2, 64.4],
+    [66.7, 67.4, 63.7],
 ]
 # Reported means average unrounded trial scores, so they can differ from the
 # mean of the rounded values above.
-means = [70.2, 64.3, 61.8, 63.5, 8.7, 62.4, 63.0]
-precision = [62.4, 56.3, 51.3, 53.2, 88.9, 54.5, 51.8]
-recall = [80.6, 75.0, 77.8, 78.7, 4.6, 73.1, 80.6]
-colors = [GRAY, GRAY, BLUE, BLUE, GRAY, BLUE, GREEN]
+means = [70.2, 64.3, 61.8, 63.5, 8.7, 62.4, 63.0, 64.4, 65.9]
+precision = [62.4, 56.3, 51.3, 53.2, 88.9, 54.5, 51.8, 53.7, 54.5]
+recall = [80.6, 75.0, 77.8, 78.7, 4.6, 73.1, 80.6, 80.6, 83.3]
+colors = [GRAY, GRAY, BLUE, BLUE, GRAY, BLUE, BLUE, BLUE, GREEN]
 for row, (values, mean, color) in enumerate(zip(f1, means, colors)):
     axes[0].plot([0, mean], [row, row], color=color, alpha=0.18, linewidth=13)
     axes[0].scatter(

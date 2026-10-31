@@ -46,7 +46,7 @@
     .reveal figure img { width: 100%; height: 390px; object-fit: contain; margin: 0; border: 0; box-shadow: none; }
     #october-baselines figure img { height: 330px; }
     #biorelfact-results figure img { height: 470px; }
-    #paid-mappings .source-panel, #precision-failures .source-panel, #coverage-override .source-panel, #recall-failures .source-panel { width: 1120px; }
+    #paid-mappings .source-panel, #precision-failures .source-panel, #coverage-override .source-panel, #recall-failures .source-panel, #edit-budget .source-panel { width: 1120px; }
     .attempt-strip { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin: 34px 0 16px; }
     .attempt-strip span { display: block; padding: 10px 6px; border: 1px solid #aebcd5; border-radius: 6px; background: #f4f6fa; font-size: 0.48em; line-height: 1.35; text-align: center; }
     .attempt-strip .selected-attempt { border: 2px solid var(--blue); background: #eaf1fb; }
@@ -724,10 +724,10 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <p class="eyebrow">October 22 to 29, 2026</p>
   <h2>Recall matches plain GPT, precision does not</h2>
   <figure>
-    <img src="figures/biorelfact-progress.svg" alt="Relation F1 on 65 BioRelFact development pairs, three trials each. Plain GPT 64.3, 72.1, 74.4 (mean 70.2). LangExtract 64.3, 65.1, 63.5 (64.3). Coverage search 64.4, 58.7, 62.2 (61.8). Plus supplied entity types 65.9, 61.5, 62.9 (63.5). Five-word mapping list 10.5, 5.4, 10.3 (8.7). Paid mappings, first accepted 59.5, 63.5, 64.3 (62.4). Paid mappings plus coverage search 62.2, 62.4, 64.5 (63.0). Mean precision and recall: plain GPT 62.4 and 80.6, LangExtract 56.3 and 75.0, coverage search 51.3 and 77.8, plus types 53.2 and 78.7, five-word list 88.9 and 4.6, paid first accepted 54.5 and 73.1, paid plus search 51.8 and 80.6.">
+    <img src="figures/biorelfact-progress.svg" alt="Relation F1 on 65 BioRelFact development pairs, three trials each. Plain GPT 64.3, 72.1, 74.4 (mean 70.2). LangExtract 64.3, 65.1, 63.5 (64.3). Coverage search 64.4, 58.7, 62.2 (61.8). Plus supplied entity types 65.9, 61.5, 62.9 (63.5). Five-word mapping list 10.5, 5.4, 10.3 (8.7). Paid mappings, first accepted 59.5, 63.5, 64.3 (62.4). Paid mappings plus coverage search at edit budget 2: 62.2, 62.4, 64.5 (63.0); budget 4: 66.7, 62.2, 64.4 (64.4); budget 8: 66.7, 67.4, 63.7 (65.9). Mean precision and recall: plain GPT 62.4 and 80.6, LangExtract 56.3 and 75.0, coverage search 51.3 and 77.8, plus types 53.2 and 78.7, five-word list 88.9 and 4.6, paid first accepted 54.5 and 73.1, paid plus search 51.8 and 80.6 at budget 2, 53.7 and 80.6 at budget 4, 54.5 and 83.3 at budget 8.">
     <figcaption>Each dot is one trial; bars and labels show the mean.</figcaption>
   </figure>
-  <aside class="notes">Sources: <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/BASELINE_RESULTS.md">BASELINE_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/DOMAIN_RESULTS.md">DOMAIN_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/DERIVATION_RESULTS.md">DERIVATION_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/PAID_REFINEMENT_RESULTS.md">PAID_REFINEMENT_RESULTS.md</a>. The coverage search and typed rows replay the same saved programs. Paid mappings use 8 calls per pair; the five-word row used a 32,000-token allowance, which fit one or two calls. Run records are in the private HF dataset datvo06/keeptrack-biorelfact-runs.</aside>
+  <aside class="notes">Sources: <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/BASELINE_RESULTS.md">BASELINE_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/DOMAIN_RESULTS.md">DOMAIN_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/DERIVATION_RESULTS.md">DERIVATION_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/ba2ca4a/experiments/PAID_REFINEMENT_RESULTS.md">PAID_REFINEMENT_RESULTS.md</a>. The coverage search and typed rows replay the same saved programs. Paid mappings use 8 calls per pair; the five-word row used a 32,000-token allowance, which fit one or two calls. The budget 4 and 8 rows are fresh trials with the same setup. Three trials cost $0.32 for plain GPT and $6.46 to $6.70 for the paid search. Run records are in the private HF dataset datvo06/keeptrack-biorelfact-runs.</aside>
 </section>
 
 <section id="paid-mappings" class="no-marks" data-date="2026-10-29">
@@ -897,6 +897,51 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   </table>
   </div>
   <aside class="notes">Rows 1 to 4: EMBASE:L2017878452:0:177:5:7, EMBASE:L2017030624:735:964:0:13, EMBASE:L2019940774:1213:1351:3:4 and EMBASE:L2018799259:1454:1627:12:15. Row 1 also includes temozolomide “can pharmacologically deactivate the MMR machinery”, which gives ANTAGONIST (the prompt's ANTAGONIST definition supports it) while gold is MODULATES. Full breakdown: <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/PAID_REFINEMENT_RESULTS.md">PAID_REFINEMENT_RESULTS.md</a>.</aside>
+</section>
+
+<section id="edit-budget" class="no-marks" data-date="2026-10-29">
+  <p class="eyebrow">Method change · edit budget 4 and 8</p>
+  <h2>A larger budget changes the cue, rarely the answer</h2>
+  <p class="definitions">Same 65 pairs, three trials per budget. Relation F1 moves from 63.0 to 64.4 and 65.9, while trials at one budget differ by up to 4.5 points. At budget 8, 134 of 160 paid cues still have one or two words.</p>
+  <div class="code-example">
+    <div class="code-reference"><button type="button">Generated programs · rows 1 to 3</button><div class="source-panel" role="region" aria-label="Selected generated programs for the three edit-budget pairs"><p><strong>Row 1: Vedolizumab and Crohn’s disease, budget 8, trial 3, selected attempt 6 (verbatim)</strong></p><pre><code class="language-python">def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
+    def extract(case: PairInput) -&gt; PairAnswer:
+        subject: Span = span_at(case.case_id, 0, *case.head_range)
+        obj: Span = span_at(case.case_id, 0, *case.tail_range)
+        predicate_source: Span = find_span(retrieve(case.case_id), "approved for the treatment of")
+        predicate: RefinedSpan = refine_relation(predicate_source, "DRUG : DISEASE - THERAPEUTIC_USE")
+        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))
+        return make_relation(subject, predicate, obj, evidence, commitment="affirmed")
+
+    return extract</code></pre><p><strong>Row 2: LY294002 and PI3K, budget 4, trial 2, selected attempt 4 (verbatim)</strong></p><pre><code class="language-python">def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
+    def extract(case: PairInput) -&gt; PairAnswer:
+        subject: Span = span_at(case.case_id, 0, *case.head_range)
+        obj: Span = span_at(case.case_id, 0, *case.tail_range)
+        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))
+        predicate: RefinedSpan = refine_relation(
+            find_span(retrieve(case.case_id), "blocking the PI3K/Akt pathway"),
+            "DRUG : GENE - ANTAGONIST",
+        )
+        return make_relation(subject, predicate, obj, evidence, commitment="affirmed")
+    return extract</code></pre><p><strong>Row 3: HIF-1α and hypertension, budget 4, trial 3, selected attempt 2 (verbatim)</strong></p><pre><code class="language-python">def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
+    def extract(case: PairInput) -&gt; PairAnswer:
+        subject: Span = span_at(case.case_id, 0, *case.head_range)
+        object_: Span = span_at(case.case_id, 0, *case.tail_range)
+        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))
+        predicate_span: Span = find_span(retrieve(case.case_id), "decreased miR-199a-5p expression")
+        predicate: RefinedSpan = refine_relation(predicate_span, "GENE : DISEASE - BIOMARKER")
+        return make_relation(subject, predicate, object_, evidence, commitment="affirmed")
+    return extract</code></pre><p>Full records, with every attempt and checker report: <a href="sources/vedolizumab-budget-8-trial-3.json" target="_blank" rel="noopener">row 1</a>, <a href="sources/ly294002-budget-4-trial-2.json" target="_blank" rel="noopener">row 2</a> and <a href="sources/hif1a-hypertension-budget-4-trial-3.json" target="_blank" rel="noopener">row 3</a>.</p></div></div>
+    <table class="study-cases">
+      <thead><tr><th>Pair</th><th>What the extra units bought</th></tr></thead>
+      <tbody>
+        <tr class="fragment"><td><strong>1. A longer cue, same label.</strong> “<span class="semantic-mark role-subject">Vedolizumab</span> is a gut-selective anti-lymphocyte trafficking agent <span class="semantic-mark role-predicate">approved for the treatment of</span> moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and <span class="semantic-mark role-object">Crohn's disease [CD</span>]).”</td><td>Five attempts take “treatment” at 1 unit, covering 6 words. The selected one pays 5 units to cover 10. Both give THERAPEUTIC_USE, the gold label.</td></tr>
+        <tr class="fragment"><td><strong>2. A cue that did not fit.</strong> “…before and after <span class="semantic-mark role-predicate">blocking the</span> <span class="semantic-mark role-object">PI3K</span><span class="semantic-mark role-predicate">/Akt pathway</span> with <span class="semantic-mark role-subject">LY294002</span>.”</td><td>The four-word cue costs 4 units, so budget 2 rejects it. Gold ANTAGONIST is still selected in 2 of 3 trials at every budget.</td></tr>
+        <tr class="fragment"><td><strong>3. No decision becomes a false positive.</strong> “…we found <span class="semantic-mark role-predicate">decreased miR-199a-5p expression</span> and increased <span class="semantic-mark role-subject">HIF-1α</span> expression in OSAS with <span class="semantic-mark role-object">hypertension</span>.”</td><td>Gold is NO_RELATION. Two budget-2 trials ended without a decision; every trial at 4 and 8 selects BIOMARKER. The cue is about another gene, and it covers 8 words against 5 for “increased HIF-1α expression”.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <aside class="notes">Rows 1 to 3: EMBASE:L2031903688:0:218:1:5, EMBASE:L2022855559:372:595:0:2 and EMBASE:L2019671577:958:1091:5:7. False positives where coverage replaced an accepted NO_RELATION: 7, 9, 9 per trial at budget 2; 5, 5, 9 at budget 4; 6, 4, 8 at budget 8. Selected paid cues overlapping an annotated entity mention: 48 of 160 at budget 2, 56 of 160 at budget 8. The whole-sentence control is rejected on every pair at all three budgets. Full section: <a href="https://github.com/datvo06/keep-track/blob/ba2ca4a/experiments/PAID_REFINEMENT_RESULTS.md">PAID_REFINEMENT_RESULTS.md</a>, “Larger edit budgets”.</aside>
 </section>
 
 <section id="dataset-search">
