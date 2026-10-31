@@ -1,0 +1,960 @@
+{
+  "run": "edit-budget-20261029, gpt-5.4-mini trial b8-3, edit budget 8",
+  "case_id": "EMBASE:L2031903688:0:218:1:5",
+  "sentence": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+  "subject": "Vedolizumab",
+  "object": "Crohn's disease [CD",
+  "gold": {
+    "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+    "facticity": "fact"
+  },
+  "selected_attempt": 6,
+  "selected_prediction": {
+    "case_id": "EMBASE:L2031903688:0:218:1:5",
+    "outcome": "decision",
+    "decision": {
+      "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+      "facticity": "fact"
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "code": "from typing import Callable\n\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        predicate_span: Span = find_span(retrieve(case.case_id), \"treatment\")\n        predicate: RefinedSpan = refine_relation(predicate_span, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, obj, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2031903688:0:218:1:5",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 12,
+            "root_end": 23,
+            "source_surface": "Vedolizumab",
+            "rendered_surface": "Vedolizumab",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[12:23]: 'Vedolizumab'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 94,
+            "root_end": 103,
+            "source_surface": "treatment",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[94:103]: 'treatment'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'treatment' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=1"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 196,
+            "root_end": 215,
+            "source_surface": "Crohn's disease [CD",
+            "rendered_surface": "Crohn's disease [CD",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[196:215]: \"Crohn's disease [CD\""
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 218,
+            "source_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "rendered_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:218]: \"Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).\""
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "1/8"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L2031903688:1",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 12,
+              "end": 23,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0007841",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2031903688:5",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 196,
+              "end": 215,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH004676",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 1,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 2,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        predicate_span: Span = find_span(retrieve(case.case_id), \"treatment\")\n        predicate: RefinedSpan = refine_relation(predicate_span, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, obj, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2031903688:0:218:1:5",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 12,
+            "root_end": 23,
+            "source_surface": "Vedolizumab",
+            "rendered_surface": "Vedolizumab",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[12:23]: 'Vedolizumab'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 94,
+            "root_end": 103,
+            "source_surface": "treatment",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[94:103]: 'treatment'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'treatment' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=1"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 196,
+            "root_end": 215,
+            "source_surface": "Crohn's disease [CD",
+            "rendered_surface": "Crohn's disease [CD",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[196:215]: \"Crohn's disease [CD\""
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 218,
+            "source_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "rendered_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:218]: \"Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).\""
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "1/8"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L2031903688:1",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 12,
+              "end": 23,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0007841",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2031903688:5",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 196,
+              "end": 215,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH004676",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 1,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 3,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        predicate_span: Span = find_span(retrieve(case.case_id), \"treatment\")\n        predicate: RefinedSpan = refine_relation(predicate_span, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, obj, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2031903688:0:218:1:5",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 12,
+            "root_end": 23,
+            "source_surface": "Vedolizumab",
+            "rendered_surface": "Vedolizumab",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[12:23]: 'Vedolizumab'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 94,
+            "root_end": 103,
+            "source_surface": "treatment",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[94:103]: 'treatment'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'treatment' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=1"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 196,
+            "root_end": 215,
+            "source_surface": "Crohn's disease [CD",
+            "rendered_surface": "Crohn's disease [CD",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[196:215]: \"Crohn's disease [CD\""
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 218,
+            "source_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "rendered_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:218]: \"Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).\""
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "1/8"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L2031903688:1",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 12,
+              "end": 23,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0007841",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2031903688:5",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 196,
+              "end": 215,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH004676",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 1,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 4,
+      "code": "from typing import Callable\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        predicate_source: Span = find_span(retrieve(case.case_id), \"treatment\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, obj, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2031903688:0:218:1:5",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 12,
+            "root_end": 23,
+            "source_surface": "Vedolizumab",
+            "rendered_surface": "Vedolizumab",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[12:23]: 'Vedolizumab'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 94,
+            "root_end": 103,
+            "source_surface": "treatment",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[94:103]: 'treatment'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'treatment' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=1"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 196,
+            "root_end": 215,
+            "source_surface": "Crohn's disease [CD",
+            "rendered_surface": "Crohn's disease [CD",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[196:215]: \"Crohn's disease [CD\""
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 218,
+            "source_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "rendered_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:218]: \"Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).\""
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "1/8"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L2031903688:1",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 12,
+              "end": 23,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0007841",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2031903688:5",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 196,
+              "end": 215,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH004676",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 1,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 5,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        predicate_source: Span = find_span(retrieve(case.case_id), \"treatment\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, obj, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2031903688:0:218:1:5",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 12,
+            "root_end": 23,
+            "source_surface": "Vedolizumab",
+            "rendered_surface": "Vedolizumab",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[12:23]: 'Vedolizumab'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 94,
+            "root_end": 103,
+            "source_surface": "treatment",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[94:103]: 'treatment'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'treatment' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=1"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 196,
+            "root_end": 215,
+            "source_surface": "Crohn's disease [CD",
+            "rendered_surface": "Crohn's disease [CD",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[196:215]: \"Crohn's disease [CD\""
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 218,
+            "source_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "rendered_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:218]: \"Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).\""
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "1/8"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L2031903688:1",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 12,
+              "end": 23,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0007841",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2031903688:5",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 196,
+              "end": 215,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH004676",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 6,
+      "edit_units": 1,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 6,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        predicate_source: Span = find_span(retrieve(case.case_id), \"approved for the treatment of\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, obj, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2031903688:0:218:1:5",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 12,
+            "root_end": 23,
+            "source_surface": "Vedolizumab",
+            "rendered_surface": "Vedolizumab",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[12:23]: 'Vedolizumab'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 77,
+            "root_end": 106,
+            "source_surface": "approved for the treatment of",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[77:106]: 'approved for the treatment of'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'approved for the treatment of' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=5"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 196,
+            "root_end": 215,
+            "source_surface": "Crohn's disease [CD",
+            "rendered_surface": "Crohn's disease [CD",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[196:215]: \"Crohn's disease [CD\""
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 218,
+            "source_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "rendered_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:218]: \"Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).\""
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "5/8"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L2031903688:1",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 12,
+              "end": 23,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0007841",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2031903688:5",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 196,
+              "end": 215,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH004676",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 10,
+      "edit_units": 5,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 7,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        obj: Span = span_at(case.case_id, 0, *case.tail_range)\n        predicate_source: Span = find_span(retrieve(case.case_id), \"approved for the treatment of\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"DRUG : DISEASE - THERAPEUTIC_USE\")\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, obj, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L2031903688:0:218:1:5",
+        "outcome": "decision",
+        "decision": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 12,
+            "root_end": 23,
+            "source_surface": "Vedolizumab",
+            "rendered_surface": "Vedolizumab",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[12:23]: 'Vedolizumab'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 77,
+            "root_end": 106,
+            "source_surface": "approved for the treatment of",
+            "rendered_surface": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[77:106]: 'approved for the treatment of'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'approved for the treatment of' -> 'DRUG : DISEASE - THERAPEUTIC_USE'; undeclared mapping; cost=5"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 196,
+            "root_end": 215,
+            "source_surface": "Crohn's disease [CD",
+            "rendered_surface": "Crohn's disease [CD",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[196:215]: \"Crohn's disease [CD\""
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L2031903688:0:218:1:5",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 218,
+            "source_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "rendered_surface": "Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:218]: \"Background: Vedolizumab is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and Crohn's disease [CD]).\""
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "5/8"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "subject": {
+              "annotation_id": "EMBASE:L2031903688:1",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 12,
+              "end": 23,
+              "type_id": "biorelfact:Drug",
+              "concept_id": "DR:BAYPHTH0007841",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L2031903688:5",
+              "doc_id": "EMBASE:L2031903688:0:218:1:5",
+              "location": 0,
+              "start": 196,
+              "end": 215,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH004676",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Drug",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 10,
+      "edit_units": 5,
+      "stop_or_error": null
+    }
+  ]
+}
