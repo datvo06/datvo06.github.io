@@ -61,8 +61,8 @@
     /* Fragment rows are stacking contexts, so a row rises only while its own tree shows. */
     #precision-failures tbody tr:has(.relation-ref:hover, .relation-ref:focus) { z-index: 40; }
     .relation-proof { display: none; position: absolute; left: 0; bottom: calc(100% + 6px); width: 1120px; padding: 10px 14px; font-size: 15px; line-height: 1.4; }
-    /* Keeps the tree open while the pointer moves up to it: the left column's width, and the left cell's text above a relation (up to about 105px). */
-    .relation-proof::after { content: ""; position: absolute; top: 100%; left: 0; width: 50%; height: 120px; }
+    /* Keeps the tree open while the pointer moves up to it: the left column's width, and the left cell's text above a relation (up to about 121px). */
+    .relation-proof::after { content: ""; position: absolute; top: 100%; left: 0; width: 50%; height: 130px; }
     .relation-ref:hover .relation-proof, .relation-ref:focus .relation-proof { display: block; }
     .relation-proof code { display: block; font-size: 14px; overflow-wrap: break-word; margin-top: 4px; }
     .relation-proof .relation-proof-premises { display: grid; grid-template-columns: 1fr 1.6fr 1fr 0.8fr; gap: 10px; }
@@ -73,7 +73,7 @@
     .relation-proof .proof-rule > span { white-space: nowrap; }
     .relation-proof .proof-conclusion { width: 60%; margin: 6px auto 0; }
     .attempt-strip { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin: 34px 0 16px; }
-    .attempt-strip span { display: block; padding: 10px 6px; border: 1px solid #aebcd5; border-radius: 6px; background: #f4f6fa; font-size: 0.48em; line-height: 1.35; text-align: center; }
+    .attempt-strip > span { display: block; padding: 10px 6px; border: 1px solid #aebcd5; border-radius: 6px; background: #f4f6fa; font-size: 0.48em; line-height: 1.35; text-align: center; }
     .attempt-strip .selected-attempt { border: 2px solid var(--blue); background: #eaf1fb; }
     .reveal figcaption { font-size: 0.61em; color: var(--muted); line-height: 1.4; text-align: left; }
     .reveal .nav { font-size: 0.64em; margin-top: 1.8em; }
@@ -115,6 +115,8 @@
     .role-predicate { color: #7a2b00; background: #fff0dc; }
     .role-object { color: #00654c; background: #e4f5ec; }
     .role-relation { color: #6b338a; background: #f1e8f8; border-bottom: 2px solid #6b338a; }
+    /* Full relation labels are long, so a relation mark may wrap. */
+    .semantic-mark.role-relation { white-space: normal; }
     .role-polarity { color: #9c2540; background: #ffe5eb; }
     .role-context { color: #625200; background: #fff6ce; }
     .reveal .tuple { border-left: 3px solid #6b338a; padding-left: 0.6em; }
@@ -821,9 +823,9 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
     <table class="study-cases">
       <thead><tr><th>Failure and example</th><th>Why it is wrong</th></tr></thead>
       <tbody>
-        <tr class="fragment"><td><strong>1. The cue belongs to another entity.</strong> “…anti-IL-6 receptor antibody (anti-<span class="semantic-mark role-object">IL-6R</span> mAb) and <span class="semantic-mark role-predicate">JAK inhibitor</span> <span class="semantic-mark role-subject">Baricitinib</span>.” Selected relation: <span class="relation-ref" tabindex="0" aria-describedby="pf-proof-1"><code>&lt;Baricitinib, “JAK inhibitor” → ANTAGONIST, IL-6R&gt;</code><span class="relation-proof" id="pf-proof-1" role="tooltip"><span class="relation-proof-premises"><span class="proof-node"><strong>Subject</strong><code>span_at source[150:161]: 'Baricitinib'</code><small>type biorelfact:Drug, concept DR:BAYPHTH0009753, both supplied</small></span><span class="proof-node"><strong>Predicate</strong><code>span_at source[136:149]: 'JAK inhibitor'</code><code>refine_relation 'JAK inhibitor' -&gt; 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=2</code></span><span class="proof-node"><strong>Object</strong><code>span_at source[121:126]: 'IL-6R'</code><small>type biorelfact:Gene, concept GH:BAYPHTH3570, both supplied</small></span><span class="proof-node"><strong>Evidence</strong><code>span_at source[0:162]: '…'</code><small>the whole sentence</small></span></span><span class="proof-rule"><span>make_relation, commitment="affirmed" ·</span> <span>lexical passed, schema passed, ontology not run ·</span> <span>signature biorelfact:Drug → biorelfact:Gene ·</span> <span>edit budget 2/2</span></span><span class="proof-node proof-conclusion"><strong>Selected decision</strong>DRUG : GENE - ANTAGONIST, fact<small>Gold: NO_RELATION · Trial 1, selected attempt 3 · steps and types: checker report; decision: prediction; commitment: code</small></span></span></span></td><td>“JAK inhibitor” says Baricitinib inhibits JAK. IL-6R belongs to the antibody. All six accepted programs agreed.</td></tr>
-        <tr class="fragment"><td><strong>2. An entity name is the cue.</strong> “…deranged liver function tests (<span class="semantic-mark role-subject">p.Gly292fs</span>, HNF1A); hepatic enlargement (p.Arg311Cys, HNF4A); <span class="semantic-mark role-object">renal hypoplasia</span> (p.Arg159Gln, HNF1A)…” Selected relation: <span class="relation-ref" tabindex="0" aria-describedby="pf-proof-2"><code>&lt;p.Gly292fs, “p.Gly292fs” → ASSOCIATION, renal hypoplasia&gt;</code><span class="relation-proof" id="pf-proof-2" role="tooltip"><span class="relation-proof-premises"><span class="proof-node"><strong>Subject</strong><code>span_at source[76:86]: 'p.Gly292fs'</code><small>type biorelfact:GeneVariant, concept MU:PG292FS, both supplied</small></span><span class="proof-node"><strong>Predicate</strong><code>span_at source[76:86]: 'p.Gly292fs'</code><code>refine_relation 'p.Gly292fs' -&gt; 'GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION'; undeclared mapping; cost=1</code></span><span class="proof-node"><strong>Object</strong><code>span_at source[138:154]: 'renal hypoplasia'</code><small>type biorelfact:Disease, concept SD:BAYPHTH015975, both supplied</small></span><span class="proof-node"><strong>Evidence</strong><code>span_at source[0:209]: '…'</code><small>the whole sentence</small></span></span><span class="proof-rule"><span>make_relation, commitment="affirmed" ·</span> <span>lexical passed, schema passed, ontology not run ·</span> <span>signature biorelfact:GeneVariant → biorelfact:Disease ·</span> <span>edit budget 1/2</span></span><span class="proof-node proof-conclusion"><strong>Selected decision</strong>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION, fact<small>Gold: NO_RELATION · Trial 1, selected attempt 2 · steps and types: checker report; decision: prediction; commitment: code</small></span></span></span></td><td>The list pairs p.Gly292fs with liver function tests; renal hypoplasia goes with p.Arg159Gln. All seven accepted programs agreed.</td></tr>
-        <tr class="fragment"><td><strong>3. Coverage replaces NO_RELATION.</strong> Insulin and diabetes: six programs say NO_RELATION; the selected one returns <span class="relation-ref" tabindex="0" aria-describedby="pf-proof-3"><code>&lt;insulin, “linked to” → CAUSAL_EFFECT, diabetes&gt;</code><span class="relation-proof" id="pf-proof-3" role="tooltip"><span class="relation-proof-premises"><span class="proof-node"><strong>Subject</strong><code>span_at source[109:116]: 'insulin'</code><small>type biorelfact:Drug, concept DR:BAYPHTH0000084, both supplied</small></span><span class="proof-node"><strong>Predicate</strong><code>span_at source[72:81]: 'linked to'</code><code>refine_relation 'linked to' -&gt; 'DRUG : DISEASE - CAUSAL_EFFECT'; undeclared mapping; cost=2</code></span><span class="proof-node"><strong>Object</strong><code>span_at source[82:90]: 'diabetes'</code><small>type biorelfact:Disease, concept SD:BAYPHTH010844, both supplied</small></span><span class="proof-node"><strong>Evidence</strong><code>span_at source[0:179]: '…'</code><small>the whole sentence</small></span></span><span class="proof-rule"><span>make_relation, commitment="affirmed" ·</span> <span>lexical passed, schema passed, ontology not run ·</span> <span>signature biorelfact:Drug → biorelfact:Disease ·</span> <span>edit budget 2/2</span></span><span class="proof-node proof-conclusion"><strong>Selected decision</strong>DRUG : DISEASE - CAUSAL_EFFECT, fact<small>Gold: NO_RELATION · Trial 2, selected attempt 7 · steps and types: checker report; decision: prediction; commitment: code</small></span></span></span>.</td><td>The positive covers 4 words and NO_RELATION covers none, so the positive wins. <a href="#/coverage-override">Next slide</a></td></tr>
+        <tr class="fragment"><td><strong>1. The cue belongs to another entity.</strong> “…anti-IL-6 receptor antibody (anti-<span class="semantic-mark role-object">IL-6R</span> mAb) and <span class="semantic-mark role-predicate">JAK inhibitor</span> <span class="semantic-mark role-subject">Baricitinib</span>.” Selected relation: <span class="relation-ref" tabindex="0" aria-describedby="pf-proof-1"><code>&lt;Baricitinib, “JAK inhibitor” → ANTAGONIST, IL-6R&gt;</code><span class="relation-proof" id="pf-proof-1" role="tooltip"><span class="relation-proof-premises"><span class="proof-node"><strong>Subject</strong><code>span_at source[150:161]: 'Baricitinib'</code><small>type biorelfact:Drug, concept DR:BAYPHTH0009753, both supplied</small></span><span class="proof-node"><strong>Predicate</strong><code>span_at source[136:149]: 'JAK inhibitor'</code><code>refine_relation 'JAK inhibitor' -&gt; 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=2</code></span><span class="proof-node"><strong>Object</strong><code>span_at source[121:126]: 'IL-6R'</code><small>type biorelfact:Gene, concept GH:BAYPHTH3570, both supplied</small></span><span class="proof-node"><strong>Evidence</strong><code>span_at source[0:162]: '…'</code><small>the whole sentence</small></span></span><span class="proof-rule"><span>make_relation, commitment="affirmed" ·</span> <span>lexical passed, schema passed, ontology not run ·</span> <span>signature biorelfact:Drug → biorelfact:Gene ·</span> <span>edit budget 2/2</span></span><span class="proof-node proof-conclusion"><strong>Selected decision</strong>DRUG : GENE - ANTAGONIST, fact<small>Gold: NO_RELATION · Trial 1, selected attempt 3</small></span></span></span></td><td>“JAK inhibitor” says Baricitinib inhibits JAK. IL-6R belongs to the antibody. All six accepted programs agreed.</td></tr>
+        <tr class="fragment"><td><strong>2. An entity name is the cue.</strong> “…deranged liver function tests (<span class="semantic-mark role-subject">p.Gly292fs</span>, HNF1A); hepatic enlargement (p.Arg311Cys, HNF4A); <span class="semantic-mark role-object">renal hypoplasia</span> (p.Arg159Gln, HNF1A)…” Selected relation: <span class="relation-ref" tabindex="0" aria-describedby="pf-proof-2"><code>&lt;p.Gly292fs, “p.Gly292fs” → ASSOCIATION, renal hypoplasia&gt;</code><span class="relation-proof" id="pf-proof-2" role="tooltip"><span class="relation-proof-premises"><span class="proof-node"><strong>Subject</strong><code>span_at source[76:86]: 'p.Gly292fs'</code><small>type biorelfact:GeneVariant, concept MU:PG292FS, both supplied</small></span><span class="proof-node"><strong>Predicate</strong><code>span_at source[76:86]: 'p.Gly292fs'</code><code>refine_relation 'p.Gly292fs' -&gt; 'GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION'; undeclared mapping; cost=1</code></span><span class="proof-node"><strong>Object</strong><code>span_at source[138:154]: 'renal hypoplasia'</code><small>type biorelfact:Disease, concept SD:BAYPHTH015975, both supplied</small></span><span class="proof-node"><strong>Evidence</strong><code>span_at source[0:209]: '…'</code><small>the whole sentence</small></span></span><span class="proof-rule"><span>make_relation, commitment="affirmed" ·</span> <span>lexical passed, schema passed, ontology not run ·</span> <span>signature biorelfact:GeneVariant → biorelfact:Disease ·</span> <span>edit budget 1/2</span></span><span class="proof-node proof-conclusion"><strong>Selected decision</strong>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION, fact<small>Gold: NO_RELATION · Trial 1, selected attempt 2</small></span></span></span></td><td>The list pairs p.Gly292fs with liver function tests; renal hypoplasia goes with p.Arg159Gln. All seven accepted programs agreed.</td></tr>
+        <tr class="fragment"><td><strong>3. Coverage replaces NO_RELATION.</strong> Insulin and diabetes: six programs say NO_RELATION; the selected one returns <span class="relation-ref" tabindex="0" aria-describedby="pf-proof-3"><code>&lt;insulin, “linked to” → CAUSAL_EFFECT, diabetes&gt;</code><span class="relation-proof" id="pf-proof-3" role="tooltip"><span class="relation-proof-premises"><span class="proof-node"><strong>Subject</strong><code>span_at source[109:116]: 'insulin'</code><small>type biorelfact:Drug, concept DR:BAYPHTH0000084, both supplied</small></span><span class="proof-node"><strong>Predicate</strong><code>span_at source[72:81]: 'linked to'</code><code>refine_relation 'linked to' -&gt; 'DRUG : DISEASE - CAUSAL_EFFECT'; undeclared mapping; cost=2</code></span><span class="proof-node"><strong>Object</strong><code>span_at source[82:90]: 'diabetes'</code><small>type biorelfact:Disease, concept SD:BAYPHTH010844, both supplied</small></span><span class="proof-node"><strong>Evidence</strong><code>span_at source[0:179]: '…'</code><small>the whole sentence</small></span></span><span class="proof-rule"><span>make_relation, commitment="affirmed" ·</span> <span>lexical passed, schema passed, ontology not run ·</span> <span>signature biorelfact:Drug → biorelfact:Disease ·</span> <span>edit budget 2/2</span></span><span class="proof-node proof-conclusion"><strong>Selected decision</strong>DRUG : DISEASE - CAUSAL_EFFECT, fact<small>Gold: NO_RELATION · Trial 2, selected attempt 7</small></span></span></span>.</td><td>The positive covers 4 words and NO_RELATION covers none, so the positive wins. <a href="#/coverage-override">Next slide</a></td></tr>
       </tbody>
     </table>
   </div>
@@ -975,7 +977,7 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
 <section id="lexicon-results" class="no-marks" data-date="2026-11-02">
   <p class="eyebrow">November 1 to 2, 2026 · all 1,767 pairs</p>
   <h2>Learning a predicate lexicon</h2>
-  <p class="definitions">Listed words stay free. A cue bought with the same relation in two or more other documents also becomes free when our hand-made crosswalk from the Biolink vocabulary links it to that relation. The pair’s prompt lists these cues.</p>
+  <p class="definitions">Supplied words stay free. A cue bought with the same relation in two or more other documents is also free if our hand-made crosswalk from the Biolink vocabulary links it to that relation. The prompt shows these learned cues.</p>
   <figure>
     <img src="figures/lexicon-all-pairs.svg" alt="Relation F1 on all 1,767 BioRelFact pairs, one trial per arm; the two search arms use each pair's selected program. Plain GPT 72.0, precision 64.7, recall 81.1. Paid mappings plus search at edit budget 4: 70.5, precision 60.3, recall 84.7. The same with the learned lexicon: 70.3, precision 61.3, recall 82.3.">
   </figure>
@@ -1138,18 +1140,38 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
       }
     }, true);
     Reveal.on('slidechanged', () => references.forEach(reference => setOpen(reference, false)));
-    // These authored examples use a fixed vocabulary; roles follow each example.
-    const words = /\b(?:Drug A|Drug C|Gene [BCD]|Truck T|Road R|subjects?|predicates?|objects?|relations?|blocks?|inhibits?|Accepted|Refusals?|Failures?|NOT|assay [XY])\b|(?<=does )not\b|(?<=[“"'])not(?=[”"'])|\bnever(?= inhibits|[”"'])/gi;
-    const walker = document.createTreeWalker(document.querySelector('.slides'), NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) {
-      if (!walker.currentNode.parentElement.closest('.notes, script, style, math, .no-marks')) nodes.push(walker.currentNode);
+    // Text nodes under the slides, except those inside an element matching `skip`.
+    function textNodes(skip) {
+      const walker = document.createTreeWalker(document.querySelector('.slides'), NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) {
+        if (!walker.currentNode.parentElement.closest(skip)) nodes.push(walker.currentNode);
+      }
+      return nodes;
     }
-    for (const node of nodes) {
-      const block = node.parentElement.closest('tr, p, blockquote, li, pre, button, figcaption, h2') || node.parentElement;
-      const reversed = /Gene B(?:\s+blocks\s+|,\s*blocks,\s*)Drug A|Gene B as subject/.test(block.textContent);
+    // Replace each matched word of a text node with a semantic mark.
+    function mark(node, marks) {
+      if (!marks.length) return;
       const fragment = document.createDocumentFragment();
       let end = 0;
+      for (const {index, word, role, title} of marks) {
+        fragment.append(node.textContent.slice(end, index));
+        const span = document.createElement('span');
+        span.className = `semantic-mark role-${role}`;
+        span.title = title;
+        span.textContent = word;
+        fragment.append(span);
+        end = index + word.length;
+      }
+      fragment.append(node.textContent.slice(end));
+      node.replaceWith(fragment);
+    }
+    // These authored examples use a fixed vocabulary; roles follow each example.
+    const words = /\b(?:Drug A|Drug C|Gene [BCD]|Truck T|Road R|subjects?|predicates?|objects?|relations?|blocks?|inhibits?|Accepted|Refusals?|Failures?|NOT|assay [XY])\b|(?<=does )not\b|(?<=[“"'])not(?=[”"'])|\bnever(?= inhibits|[”"'])/gi;
+    for (const node of textNodes('.notes, script, style, math, .no-marks')) {
+      const block = node.parentElement.closest('tr, p, blockquote, li, pre, button, figcaption, h2') || node.parentElement;
+      const reversed = /Gene B(?:\s+blocks\s+|,\s*blocks,\s*)Drug A|Gene B as subject/.test(block.textContent);
+      const marks = [];
       for (const match of node.textContent.matchAll(words)) {
         const word = match[0];
         const lower = word.toLowerCase();
@@ -1171,18 +1193,15 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
           const sourceCue = /does $/.test(before) && /^\s+(?:block|inhibit)\b/.test(after);
           if (!quoted && !sourceCue) continue;
         }
-        fragment.append(node.textContent.slice(end, match.index));
-        const mark = document.createElement('span');
-        mark.className = `semantic-mark role-${role}`;
-        mark.title = role === 'polarity' ? 'Negation cue' : role[0].toUpperCase() + role.slice(1);
-        mark.textContent = word;
-        fragment.append(mark);
-        end = match.index + word.length;
+        const title = role === 'polarity' ? 'Negation cue' : role[0].toUpperCase() + role.slice(1);
+        marks.push({index: match.index, word, role, title});
       }
-      if (end) {
-        fragment.append(node.textContent.slice(end));
-        node.replaceWith(fragment);
-      }
+      mark(node, marks);
+    }
+    // BioRelFact relation labels are marked on every slide, outside notes and code blocks.
+    const labels = /\b(?:(?:DRUG|GENE|GENEVARIANT) : (?:DISEASE\/PHENOTYPE|DISEASE|GENE) - )?(?:THERAPEUTIC_USE|CAUSAL_EFFECT|ANTAGONIST|AGONIST|MODULATES|BIOMARKER|ASSOCIATION)\b|\bNO_RELATION\b/g;
+    for (const node of textNodes('.notes, script, style, math, pre, .semantic-mark')) {
+      mark(node, Array.from(node.textContent.matchAll(labels), match => ({index: match.index, word: match[0], role: 'relation', title: 'Relation label'})));
     }
     Reveal.layout();
   });
