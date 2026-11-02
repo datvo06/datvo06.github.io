@@ -32,6 +32,11 @@
     .reveal table.settings.panda-results th, .reveal table.settings.panda-results td { width: auto; padding: 12px; }
     .model-figure { display: block; width: 94%; max-height: 440px; object-fit: contain; margin: 0 auto; }
     #slide-observation-reconstruction .model-figure { max-height: 300px; margin: 0 auto; }
+    .llm-recon-list { width: 86%; margin: 18px auto; font-size: .52em; line-height: 1.45; }
+    .llm-recon-list li { margin-bottom: 16px; }
+    .reveal table.settings.llm-recon-results th, .reveal table.settings.llm-recon-results td { width: auto; text-align: center; }
+    .reveal table.settings.llm-recon-results th:first-child { text-align: left; }
+    .llm-recon-video { width: 92%; }
     .environment-video { width: 82%; margin: auto; }
     .environment-video video { display: block; width: 100%; max-height: 480px; object-fit: contain; }
     .reconstruction-setup { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; width: 94%; margin: 24px auto; }
@@ -137,6 +142,52 @@
   <button type="button" data-code-source="sources/world-models/reconstruction-code.json" data-code-title="Generic box SDF: saved scene.py">Inspect baseline</button>
   <p class="cap"><a href="sources/world-models/reconstructed-domino-scene.zip" download>New program and fit</a> · <a href="sources/world-models/reconstructed-scene.zip" download>Baseline program</a> · <a href="sources/world-models/reconstruction-comparison.json">Comparison measurements</a> · <a href="https://github.com/datvo06/robotl-reconstruction/pull/3">Implementation PR</a></p>
   <aside class="notes">Archived BabyRobotPredicator capture exp_20260917_141030, look_01, camera 30264679. All panels use the same camera-local frame and crop; RGB, depth and selected mask hashes match across runs. Only the two dominoes are reconstructed. The generic SDF fit put 98% of the grey domino's selected points on a rear-facing box surface: surface residual 0.56 mm, median first-visible-surface error 40.7 mm toward the camera. The replacement calls BabyRobot mask_to_base_points, fit_domino_pose and resolve_side, retaining mask erosion, foreground depth filtering, contact-constrained fitting and full-cloud side resolution. The manually supplied table rectangle is [540, 390, 680, 470], with a measured plane RMS of 0.30 mm. That frame comes from this capture's depth, not a new camera-to-robot calibration. Nominal dimensions are 150 by 70 by 29 mm, mass 50 g, friction 0.5; these are supplied priors. Table contact is a reconstruction assumption, not a simulated joint. RoboTL adds a free joint to each box; the Weld anchors only the empty scene frame. The new program SHA-256 is 8a62c111f6eee620069b4ead3ee9710dc9f79d287843cee2d90d601fd6ff8d66. The displayed programs are exact saved outputs, not LLM-synthesized assemblies. The implementation passed 37 tests on polly, including synthetic single-face and multi-face export checks. This is a training-view comparison with additional table evidence; table dynamics and control transfer remain unvalidated.</aside>
+</section>
+<section id="slide-llm-reconstruction-setup">
+  <h2 class="t">LLM reconstruction: <span>the setup</span></h2>
+  <p class="setup">An LLM agent writes the RoboTL program of an articulated object, its parts and joints, from RGB-D views.</p>
+  <ul class="llm-recon-list">
+    <li class="fragment"><strong>Benchmark:</strong> 37 PartNet-Mobility objects in Real2Code's part-count bins. Real2Code did not release its test set, so we render one to its protocol.</li>
+    <li class="fragment"><strong>Input:</strong> nine RGB-D views of one articulation state, with cameras. Either no masks, or the ground-truth part masks.</li>
+    <li class="fragment"><strong>Agent:</strong> effectful, with a Python REPL and image tools. Every scene it writes is compiled and scored on silhouette and depth.</li>
+    <li class="fragment"><strong>Budget:</strong> 8 scenes and 30 minutes per object. The host picks the best scene on three held-out views.</li>
+    <li class="fragment"><strong>Metrics:</strong> Real2Code's own Chamfer distance and joint errors, run from their code.</li>
+  </ul>
+  <aside class="notes">Real2Code's Drive folder for its synthetic set is empty, so robotl-reconstruction renders 37 test objects from UMPNet's PartNet-Mobility URDFs following their blender_render.py: 12 views of 512 by 512 RGB-D from their front arc at 4 m, hinges in the top 60% of their range, drawers opened at least 80%, MuJoCo rendering with mean texture colors. Their Table 2 bins are 15, 9, 6 and 7 objects; the paper's text says 35 but the bins sum to 37. Real2Code also uses depth: its part_segmentation/sam_to_pcd.py lifts SAM masks to point clouds with rendered depth, and its real objects come from a LiDAR iPhone. Nine views are for fitting and three are held out for selection. Without masks the silhouette comes from valid depth and the agent may call SAM2 itself. Joints are compared in world frame; parts are paired by least total Chamfer distance. Validation views, ground truth and the source dataset stayed off each search machine until every search had ended, and a trace audit found no access to them.</aside>
+</section>
+<section id="slide-llm-reconstruction-results">
+  <h2 class="t">GPT-5.4 vs <span>Gemini 3.1 Pro</span></h2>
+  <table class="settings llm-recon-results">
+    <thead><tr><th scope="col">Condition</th><th scope="col">Model</th><th scope="col">Finished</th><th scope="col">Shape error</th><th scope="col">Joints found</th><th scope="col">Joint type</th><th scope="col">Axis position</th></tr></thead>
+    <tbody>
+      <tr><th scope="row" rowspan="2">No masks</th><td>GPT-5.4</td><td>34 of 37</td><td>92.0</td><td>50 of 72</td><td>0.77</td><td>0.31</td></tr>
+      <tr><td>Gemini 3.1 Pro</td><td>27 of 37</td><td><strong>7.0</strong></td><td><strong>63 of 72</strong></td><td><strong>0.88</strong></td><td><strong>0.05</strong></td></tr>
+      <tr><th scope="row" rowspan="2">Part masks</th><td>GPT-5.4</td><td>33 of 37</td><td>33.2</td><td>23 of 39</td><td>0.69</td><td>0.34</td></tr>
+      <tr><td>Gemini 3.1 Pro</td><td>18 of 37</td><td><strong>10.6</strong></td><td><strong>39 of 39</strong></td><td><strong>1.00</strong></td><td><strong>0.01</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="compare-note">Scores over the objects both models finished: 27 without masks, 16 with. Shape error is the median whole-object Chamfer distance, times 1000. Real2Code reports axis position errors of 0.04 to 0.08 on its own renders.</p>
+  <p class="compare-note fragment">Gemini finishes fewer: 26 of its 74 searches ended when the type checker rejected its REPL code three times in one turn, mostly on guesses at the evaluator's interface. Both runs used a prompt that never showed that interface; the prompt is now fixed, and neither model has been rerun with it.</p>
+  <p class="cap"><a href="sources/world-models/llm-recon-results.json">Per-object results</a> · <a href="https://github.com/datvo06/robotl-reconstruction/pull/4">Implementation PR</a></p>
+  <aside class="notes">Same frozen protocol for both models; only the model changed. GPT-5.4 ran through OpenAI; Gemini 3.1 Pro (gemini-3.1-pro-preview) through Vertex AI's OpenAI-compatible endpoint, both at their default reasoning effort with 8192 completion tokens. Joint type and axis position come from Real2Code's compute_joint_error after its permutation pairing, averaged per object over paired joints; axis position is in object units; joints found counts true joints that a prediction paired with. Gemini has the lower shape error on 24 of 27 objects without masks and 14 of 16 with masks. Most type-check rejections, 61% of Gemini's and 52% of GPT's, were guesses at the evaluator's interface: the prompt named the evaluator in backticks instead of a format field, so its class never reached the model. That is now fixed and not yet rerun. Gemini's searches also lost about 79 minutes in total to Vertex rate-limit retries across 74 searches. Without masks, Gemini's median shape error matches one box fitted per ground-truth mask (6.7), which has no joints. One search per object and condition.</aside>
+</section>
+<section id="slide-llm-reconstruction-chest">
+  <h2 class="t">An 11-drawer chest, <span>with part masks</span></h2>
+  <figure class="environment-video llm-recon-video"><video controls muted playsinline preload="metadata" poster="media/world-models/llm-recon-chest-gtmasks.jpg" aria-label="Ground truth, GPT-5.4 and Gemini 3.1 Pro reconstructions of an 11-drawer chest, each sweeping its own joints"><source src="media/world-models/llm-recon-chest-gtmasks.mp4" type="video/mp4"></video>
+    <figcaption class="cap">Ground truth · GPT-5.4: shape error 53.8, <strong>0 of 11</strong> joints, every drawer welded · Gemini 3.1 Pro: 1.6, <strong>11 of 11</strong> slides</figcaption></figure>
+  <button type="button" data-code-source="sources/world-models/llm-recon-chest-code.json" data-code-block="0" data-code-title="11-drawer chest: GPT-5.4's selected program">Inspect GPT-5.4's program</button>
+  <button type="button" data-code-source="sources/world-models/llm-recon-chest-code.json" data-code-block="1" data-code-title="11-drawer chest: Gemini 3.1 Pro's selected program">Inspect Gemini's program</button>
+  <p class="cap"><a href="sources/world-models/llm-recon-chest-code.json" download>Both programs</a> · <a href="sources/world-models/llm-recon-render.py" download>Renderer</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
+  <aside class="notes">Test object test-31, PartNet-Mobility StorageFurniture/46172, ground-truth part masks condition. Each panel uses the same camera; the ground truth sweeps each joint between its URDF limits and each reconstruction sweeps its own hinges and slides. GPT-5.4 placed eleven drawer fronts at their observed openings and welded each one to the base, so nothing moves: validation IoU 0.85. Gemini 3.1 Pro gave each drawer its own Slide: validation IoU 0.95. Both programs are the exact selected scenes from the saved search records.</aside>
+</section>
+<section id="slide-llm-reconstruction-table">
+  <h2 class="t">A table with drawers, <span>no masks</span></h2>
+  <figure class="environment-video llm-recon-video"><video controls muted playsinline preload="metadata" poster="media/world-models/llm-recon-table-nomasks.jpg" aria-label="Ground truth, GPT-5.4 and Gemini 3.1 Pro reconstructions of a table with eight drawers, each sweeping its own joints"><source src="media/world-models/llm-recon-table-nomasks.mp4" type="video/mp4"></video>
+    <figcaption class="cap">Ground truth · GPT-5.4: shape error 29.8, <strong>7 of 8</strong> joints · Gemini 3.1 Pro: 4.0, <strong>8 of 8</strong> joints, without part masks</figcaption></figure>
+  <button type="button" data-code-source="sources/world-models/llm-recon-table-code.json" data-code-block="0" data-code-title="Table with drawers: GPT-5.4's selected program">Inspect GPT-5.4's program</button>
+  <button type="button" data-code-source="sources/world-models/llm-recon-table-code.json" data-code-block="1" data-code-title="Table with drawers: Gemini 3.1 Pro's selected program">Inspect Gemini's program</button>
+  <p class="cap"><a href="sources/world-models/llm-recon-table-code.json" download>Both programs</a> · <a href="sources/world-models/llm-recon-render.py" download>Renderer</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
+  <aside class="notes">Test object test-33, PartNet-Mobility Table/22367, no-masks condition: the agent sees RGB, depth and cameras, with only the depth silhouette as a mask, and may call SAM2 to segment parts. GPT-5.4's validation IoU is 0.48; Gemini 3.1 Pro's is 0.88. Both programs are the exact selected scenes from the saved search records.</aside>
 </section>
 <section id="slide-lattice-wind-scene">
   <h2 class="t">Deformable cube <span>in a fan</span></h2>
