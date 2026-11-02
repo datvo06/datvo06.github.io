@@ -23,8 +23,9 @@ fig, (curve, bars) = plt.subplots(1, 2, figsize=(11, 3.4), gridspec_kw={"width_r
 views, iou = zip(*data["training"]["views_seen_vs_held_out_point_iou"])
 curve.plot([v / 1000 for v in views], iou, color=ACCENT, marker="o", markersize=4, linewidth=2)
 curve.annotate(f"stock {iou[0]:.2f}", (0, iou[0]), xytext=(8, -4), textcoords="offset points", color=MUTED)
-curve.annotate(f"{max(iou):.2f}", (views[iou.index(max(iou))] / 1000, max(iou)), xytext=(0, 8),
-               textcoords="offset points", ha="center", color=ACCENT)
+# The final check runs after both passes end, at a view count the log does not record, so it is stated, not plotted.
+curve.text(0.98, 0.08, f"after both passes: {data['training']['final_held_out_point_iou']:.2f}, the decoder used",
+           transform=curve.transAxes, ha="right", color=ACCENT)
 curve.set_xlabel("Training views seen (thousands), two passes")
 curve.set_ylabel("Held-out point IoU")
 curve.set_ylim(0.45, 1.0)
