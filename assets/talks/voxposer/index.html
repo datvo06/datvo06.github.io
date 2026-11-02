@@ -38,6 +38,10 @@
     .reveal table.settings.llm-recon-results th:first-child { text-align: left; }
     .llm-recon-video { width: 92%; }
     #slide-llm-reconstruction-masks .model-figure { max-height: 290px; }
+    .llm-recon-wins { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; width: 76%; margin: 0 auto; }
+    .llm-recon-wins figure { margin: 0; }
+    .llm-recon-wins video { display: block; width: 100%; border-radius: 4px; }
+    .llm-recon-wins .cap { margin-top: 2px; }
     .environment-video { width: 82%; margin: auto; }
     .environment-video video { display: block; width: 100%; max-height: 480px; object-fit: contain; }
     .reconstruction-setup { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; width: 94%; margin: 24px auto; }
@@ -185,6 +189,22 @@
   <p class="compare-note fragment">Segmented masks lower GPT-5.4's shape error on 19 of 30 objects, and Gemini's on 4 of 11. Gemini finishes fewer: 15 of its 17 unfinished segmented searches never got a scene past the type checker.</p>
   <p class="cap"><a href="sources/world-models/llm-recon-results.json">Per-object results</a> · <a href="https://github.com/datvo06/robotl-reconstruction/pull/4">Implementation PR</a></p>
   <aside class="notes">Same protocol for every run; only the model and the masks change. GPT-5.4 ran through OpenAI; Gemini 3.1 Pro (gemini-3.1-pro-preview) through Vertex AI's OpenAI-compatible endpoint, both at their default reasoning effort with 8192 completion tokens. The no-masks and segmented runs use colored renders and the current prompt, which shows the evaluator's interface and returns depth and overlap feedback. The true-part runs are the first runs: their prompt never showed that interface, and 35 of their 37 objects rendered flat gray because trimesh refused the textures' relative paths. Joint type and axis position come from Real2Code's compute_joint_error after its permutation pairing, averaged per object over paired joints; axis position is in object units; joints found counts true joints that a prediction paired with. Gemini has the lower shape error on 24 of 25 objects without masks, 13 of 17 with segmented masks and 14 of 16 with true parts. The 19 of 30 and 4 of 11 compare each model with itself, over the objects it finished both with segmented masks and without masks. Of Gemini's 17 unfinished segmented searches, 15 ended on type-check rejections and 2 on provider errors. One box fitted per ground-truth mask gives 6.7, with no joints. One search per object and condition.</aside>
+</section>
+<section id="slide-llm-reconstruction-wins">
+  <h2 class="t">Successful <span>reconstructions</span></h2>
+  <div class="llm-recon-wins">
+    <figure><video controls muted loop playsinline preload="metadata" poster="media/world-models/llm-recon-win-test-27.jpg" aria-label="Ground truth beside Gemini 3.1 Pro's reconstruction of a tall cabinet with doors and a drawer, from segmented masks"><source src="media/world-models/llm-recon-win-test-27.mp4" type="video/mp4"></video>
+      <figcaption class="cap">Gemini, segmented masks: <strong>4 of 4</strong> joints, 3.8</figcaption></figure>
+    <figure><video controls muted loop playsinline preload="metadata" poster="media/world-models/llm-recon-win-test-34.jpg" aria-label="Ground truth beside Gemini 3.1 Pro's reconstruction of a six-door cabinet, from segmented masks"><source src="media/world-models/llm-recon-win-test-34.mp4" type="video/mp4"></video>
+      <figcaption class="cap">Gemini, segmented masks: <strong>6 of 6</strong> joints, 6.7</figcaption></figure>
+    <figure><video controls muted loop playsinline preload="metadata" poster="media/world-models/llm-recon-win-test-30.jpg" aria-label="Ground truth beside Gemini 3.1 Pro's reconstruction of a five-drawer chest, without masks"><source src="media/world-models/llm-recon-win-test-30.mp4" type="video/mp4"></video>
+      <figcaption class="cap">Gemini, no masks: <strong>5 of 5</strong> joints, 1.7</figcaption></figure>
+    <figure><video controls muted loop playsinline preload="metadata" poster="media/world-models/llm-recon-win-test-18.jpg" aria-label="Ground truth beside GPT-5.4's reconstruction of a two-door cabinet, from segmented masks"><source src="media/world-models/llm-recon-win-test-18.mp4" type="video/mp4"></video>
+      <figcaption class="cap">GPT-5.4, segmented masks: <strong>2 of 2</strong> joints, 7.7</figcaption></figure>
+  </div>
+  <p class="compare-note">Every joint right, shape error at most 10, out of 37 with no masks, segmented masks, true parts: GPT-5.4 0, 2, 2; Gemini 11, 9, 8.</p>
+  <p class="video-actions"><button type="button" data-play-together>Play together</button> <button type="button" data-code-source="sources/world-models/llm-recon-wins-code.json" data-code-block="0" data-code-title="Doors and a drawer: Gemini 3.1 Pro's program, segmented masks">Doors and drawer</button> <button type="button" data-code-source="sources/world-models/llm-recon-wins-code.json" data-code-block="1" data-code-title="Six doors: Gemini 3.1 Pro's program, segmented masks">Six doors</button> <button type="button" data-code-source="sources/world-models/llm-recon-wins-code.json" data-code-block="2" data-code-title="Five drawers: Gemini 3.1 Pro's program, no masks">Five drawers</button> <button type="button" data-code-source="sources/world-models/llm-recon-wins-code.json" data-code-block="3" data-code-title="Two doors: GPT-5.4's program, segmented masks">Two doors</button></p>
+  <aside class="notes">Test objects test-27, a tall cabinet with doors and a drawer; test-34, six doors; test-30, five drawers; test-18, two doors. Captions give joints found and shape error. A success means every true joint paired with a predicted joint of the right type and no extra predicted joints, axis direction within 10 degrees, pivot position within 0.1 where Real2Code defines one (hinges; slides have none), and whole-object shape error at most 10, near the one-box-per-mask baseline's median of 6.7. 20 of the 37 objects succeed in at least one run, 14 of them with two or three parts; these four have the most joints, plus GPT-5.4's best. The true-part counts come from the first runs, on the earlier prompt. Each clip is the ground-truth panel beside the run's panel, cropped from that object's six-run grid video; the reconstruction sweeps each joint 0.15 or 0.6 rad around its fitted value, since no program set limits. Validation IoU 0.94, 0.91, 0.97 and 0.86. All four programs are the exact selected scenes from the saved search records; the render provenance lists each clip's source.</aside>
 </section>
 <section id="slide-llm-reconstruction-chest">
   <h2 class="t">An 11-drawer chest</h2>
