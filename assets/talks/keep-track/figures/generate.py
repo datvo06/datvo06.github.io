@@ -1,4 +1,4 @@
-"""Render the recorded pilot comparisons cited in the slides."""
+"""Render the recorded comparisons cited in the slides."""
 
 from pathlib import Path
 
@@ -31,6 +31,65 @@ def save(fig: Figure, name: str) -> None:
     """Export a plot with editable SVG text."""
     fig.savefig(OUT / f"{name}.svg", bbox_inches="tight")
     plt.close(fig)
+
+
+def plot_relation_f1(
+    name: str,
+    *,
+    height: float,
+    labels: list[str],
+    f1: list[list[float]],
+    means: list[float],
+    precision: list[float],
+    recall: list[float],
+    colors: list[str],
+    title: str,
+    f1_label: str,
+    rate_label: str,
+) -> None:
+    """Plot each arm's relation F1 trials beside its precision and recall."""
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(13, height),
+        layout="constrained",
+        gridspec_kw={"width_ratios": [1.5, 1]},
+    )
+    for row, (values, mean, color) in enumerate(zip(f1, means, colors, strict=True)):
+        axes[0].plot([0, mean], [row, row], color=color, alpha=0.18, linewidth=13)
+        offsets = 0.12 * (np.arange(len(values)) - (len(values) - 1) / 2)
+        axes[0].scatter(values, row + offsets, s=85, color=color, zorder=3)
+        axes[0].text(84, row, f"{mean:.1f}%", va="center", fontsize=14)
+    axes[0].set(
+        yticks=range(len(labels)),
+        yticklabels=labels,
+        xticks=range(0, 81, 20),
+        xlim=(0, 93),
+        ylim=(len(labels) - 0.5, -0.6),
+        xlabel=f1_label,
+    )
+    axes[0].set_title(title, loc="left", fontsize=18, pad=16)
+    for row, (p, r, color) in enumerate(zip(precision, recall, colors, strict=True)):
+        axes[1].plot([p, r], [row, row], color=color, alpha=0.35, linewidth=2)
+        axes[1].scatter(p, row, s=85, color=color, zorder=3)
+        axes[1].scatter(
+            r, row, s=85, facecolor="white", edgecolor=color, lw=2, zorder=3
+        )
+    axes[1].scatter([], [], s=85, color=GRAY, label="Precision")
+    axes[1].scatter(
+        [], [], s=85, facecolor="white", edgecolor=GRAY, lw=2, label="Recall"
+    )
+    axes[1].legend(loc="lower left", bbox_to_anchor=(0, 1.0), ncol=2, frameon=False)
+    axes[1].set(
+        yticks=range(len(labels)),
+        yticklabels=[],
+        xticks=[0, 25, 50, 75, 100],
+        xlim=(0, 100),
+        ylim=(len(labels) - 0.5, -0.6),
+        xlabel=rate_label,
+    )
+    axes[1].tick_params(axis="y", length=0)
+    save(fig, name)
 
 
 # https://github.com/datvo06/keep-track/pull/12, /13 and /14.
@@ -113,13 +172,6 @@ save(fig, "october-baselines")
 
 # keep-track experiments/{BASELINE,DOMAIN,DERIVATION,PAID_REFINEMENT}_RESULTS.md:
 # relation F1 on 65 BioRelFact development pairs, three gpt-5.4-mini trials each.
-fig, axes = plt.subplots(
-    1,
-    2,
-    figsize=(13, 6.6),
-    layout="constrained",
-    gridspec_kw={"width_ratios": [1.5, 1]},
-)
 labels = [
     "Plain GPT",
     "LangExtract",
@@ -148,35 +200,34 @@ means = [70.2, 64.3, 61.8, 63.5, 8.7, 62.4, 63.0, 64.4, 65.9]
 precision = [62.4, 56.3, 51.3, 53.2, 88.9, 54.5, 51.8, 53.7, 54.5]
 recall = [80.6, 75.0, 77.8, 78.7, 4.6, 73.1, 80.6, 80.6, 83.3]
 colors = [GRAY, GRAY, BLUE, BLUE, GRAY, BLUE, BLUE, BLUE, GREEN]
-for row, (values, mean, color) in enumerate(zip(f1, means, colors)):
-    axes[0].plot([0, mean], [row, row], color=color, alpha=0.18, linewidth=13)
-    axes[0].scatter(
-        values, row + np.array([-0.12, 0, 0.12]), s=85, color=color, zorder=3
-    )
-    axes[0].text(84, row, f"{mean:.1f}%", va="center", fontsize=14)
-axes[0].set(
-    yticks=range(len(labels)),
-    yticklabels=labels,
-    xticks=range(0, 81, 20),
-    xlim=(0, 93),
-    ylim=(len(labels) - 0.5, -0.6),
-    xlabel="Relation F1 per trial (%)",
+plot_relation_f1(
+    "biorelfact-progress",
+    height=6.6,
+    labels=labels,
+    f1=f1,
+    means=means,
+    precision=precision,
+    recall=recall,
+    colors=colors,
+    title="Relation F1 across three trials",
+    f1_label="Relation F1 per trial (%)",
+    rate_label="Mean over trials (%)",
 )
-axes[0].set_title("Relation F1 across three trials", loc="left", fontsize=18, pad=16)
-for row, (p, r, color) in enumerate(zip(precision, recall, colors)):
-    axes[1].plot([p, r], [row, row], color=color, alpha=0.35, linewidth=2)
-    axes[1].scatter(p, row, s=85, color=color, zorder=3)
-    axes[1].scatter(r, row, s=85, facecolor="white", edgecolor=color, lw=2, zorder=3)
-axes[1].scatter([], [], s=85, color=GRAY, label="Precision")
-axes[1].scatter([], [], s=85, facecolor="white", edgecolor=GRAY, lw=2, label="Recall")
-axes[1].legend(loc="lower left", bbox_to_anchor=(0, 1.0), ncol=2, frameon=False)
-axes[1].set(
-    yticks=range(len(labels)),
-    yticklabels=[],
-    xticks=[0, 25, 50, 75, 100],
-    xlim=(0, 100),
-    ylim=(len(labels) - 0.5, -0.6),
-    xlabel="Mean over trials (%)",
+
+
+# keep-track experiments/LEXICON_RESULTS.md: all 1,767 BioRelFact pairs, one
+# gpt-5.4-mini trial per arm.
+lexicon_f1 = [72.0, 70.5, 70.3]
+plot_relation_f1(
+    "lexicon-all-pairs",
+    height=2.9,
+    labels=["Plain GPT", "Paid mappings + search, budget 4", "+ learned lexicon"],
+    f1=[[value] for value in lexicon_f1],
+    means=lexicon_f1,
+    precision=[64.7, 60.3, 61.3],
+    recall=[81.1, 84.7, 82.3],
+    colors=[GRAY, BLUE, GREEN],
+    title="Relation F1, one trial",
+    f1_label="Relation F1 (%)",
+    rate_label="Precision and recall (%)",
 )
-axes[1].tick_params(axis="y", length=0)
-save(fig, "biorelfact-progress")
