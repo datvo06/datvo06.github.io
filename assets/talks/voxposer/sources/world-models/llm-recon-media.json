@@ -37,6 +37,54 @@
     "Gemini 3.1 Pro, segmented masks",
     "Gemini 3.1 Pro, ground-truth part masks"
    ]
+  },
+  {
+   "video": "media/world-models/llm-recon-win-test-27.mp4",
+   "video_sha256": "0bb502af952563b8e17b9cda112a12fdf070f29dae1e9a3a84fd6e9dd29b46bf",
+   "poster": "media/world-models/llm-recon-win-test-27.jpg",
+   "poster_sha256": "444f6dde46590b5a59f7a371cb7b4f08de09e342f2a0ab41357d7cb0b56ff086",
+   "object": "test-27",
+   "panels": [
+    "ground truth",
+    "Gemini 3.1 Pro, segmented masks"
+   ],
+   "cropped_from": "the test-27 six-run grid video, ground-truth panel and the panel in column 3 of row 2, with ffmpeg crop and hstack"
+  },
+  {
+   "video": "media/world-models/llm-recon-win-test-34.mp4",
+   "video_sha256": "6ea5410ce516df5227b40a73f0df80f26281c302f4834c415d03f6324ce3b733",
+   "poster": "media/world-models/llm-recon-win-test-34.jpg",
+   "poster_sha256": "fcfdbbbecf99d60c229f8568a646fd75ca545113fea073b212a08ba8c36a5bb4",
+   "object": "test-34",
+   "panels": [
+    "ground truth",
+    "Gemini 3.1 Pro, segmented masks"
+   ],
+   "cropped_from": "the test-34 six-run grid video, ground-truth panel and the panel in column 3 of row 2, with ffmpeg crop and hstack"
+  },
+  {
+   "video": "media/world-models/llm-recon-win-test-30.mp4",
+   "video_sha256": "18051d132799de22619a136cd2ab7a8f61b4b9c640c1374bdd941e5a425206d3",
+   "poster": "media/world-models/llm-recon-win-test-30.jpg",
+   "poster_sha256": "93890fd7b0fa2b1514e778e6ad15dc81d37526b1dcdbedce7c442e9a2edde8d6",
+   "object": "test-30",
+   "panels": [
+    "ground truth",
+    "Gemini 3.1 Pro, no masks"
+   ],
+   "cropped_from": "the test-30 six-run grid video, ground-truth panel and the panel in column 2 of row 2, with ffmpeg crop and hstack"
+  },
+  {
+   "video": "media/world-models/llm-recon-win-test-18.mp4",
+   "video_sha256": "781672904b08e29fcd17c9120d34b5cf30753115c8420f312d9547f5426cdf84",
+   "poster": "media/world-models/llm-recon-win-test-18.jpg",
+   "poster_sha256": "4aba76b23a3404b834aeafc8e9490e26c2d219e02173ceb6ea86c44fe7e78e31",
+   "object": "test-18",
+   "panels": [
+    "ground truth",
+    "GPT-5.4, segmented masks"
+   ],
+   "cropped_from": "the test-18 six-run grid video, ground-truth panel and the panel in column 3 of row 1, with ffmpeg crop and hstack"
   }
  ]
 }
