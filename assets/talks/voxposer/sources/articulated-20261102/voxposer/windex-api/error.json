@@ -1,0 +1,1 @@
+{"type":"ValueError","message":"Arm IK pose error: 0.001857 m, 0.122984 rad (limits 0.01 m, 0.08726646259971647 rad; solver: `ftol` termination condition is satisfied.)"}

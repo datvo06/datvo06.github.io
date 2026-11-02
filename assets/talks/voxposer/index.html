@@ -79,6 +79,15 @@
     #code-panel-status { padding: 10px 18px; margin: 0; font-size: 14px; color: #526078; }
     [data-code-source] { cursor: pointer; }
     @media (max-width: 600px) { #code-panel { inset: auto 8px 8px auto; width: calc(100vw - 16px); } }
+    .tool-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 18px; width: 96%; margin: 10px auto 0; }
+    .tool-grid figure, .trial-grid figure { margin: 0; }
+    .tool-grid video { display: block; width: 100%; border-radius: 4px; background: #f6f7f9; }
+    .trial-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 14px; width: 98%; margin: 6px auto 0; }
+    .trial-grid video, .trial-grid img { display: block; width: 100%; height: 150px; object-fit: contain; background: #f6f7f9; border-radius: 4px; margin: 0; }
+    .trial-grid .cap { font-size: .4em; }
+    .press-check video { display: block; width: 88%; margin: 0 auto; border-radius: 6px; }
+    .reveal table.settings.articulated-results td { width: 42%; }
+    .reveal table.settings.articulated-results { font-size: .4em; }
   </style>
 </head>
 <body>
@@ -317,6 +326,110 @@
   <p class="compare-note">Recorded adapter limitations: collision-cloud exclusion requests were ignored, and failed IK solves could still execute. These affect both H0 and A/B. The saved runs establish implementation behavior, not a method ranking.</p>
   <p class="cap"><a href="sources/robotl-ycb-20261026/settings-comparison.json">Settings audit</a> · <a href="sources/robotl-ycb-20261026/comparison.json">Reference selection</a> · <a href="sources/robotl-ycb-20261026/adapter-source.txt">Executed adapter</a></p>
   <aside class="notes">Final native hold predicates also check support, contact stability, penetration and arm speed/acceleration/joint limits, with the existing short contact-lapse tolerance. The adapter calls NativeEpisode._record but not NativeEpisode.run, so sharing the checker does not mean sharing candidate rejection. Initial adapter maximum arm acceleration ratios are approximately 3.49 to 6.54; hammer maximum penetration is 6.88 mm against the normal 3 mm limit. Motion violations can prevent hold acceptance. The RolloutBudget object in the adapter supports native recording and clocks; it does not imply that VoxPoser ran one-second MPC. Time ceilings match, correcting the earlier description of different budgets: realized episode lengths differ because of termination rules and errors. No new finger-control result is claimed here.</aside>
+</section>
+<section id="slide-articulated-tools">
+  <h2 class="t">Articulated <span>YCB tools</span></h2>
+  <div class="tool-grid">
+    <figure><video controls muted loop playsinline preload="metadata" aria-label="Power drill: the trigger presses in and springs back; the centred direction button locks it"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__tool-drill.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Power drill</strong>: trigger and direction button</figcaption></figure>
+    <figure><video controls muted loop playsinline preload="metadata" aria-label="Adjustable wrench: turning the worm slides the jaw"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__tool-wrench.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Adjustable wrench</strong>: worm turns the jaw</figcaption></figure>
+    <figure><video controls muted loop playsinline preload="metadata" aria-label="Scissors open about the pivot screw to their stop"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__tool-scissors.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Scissors</strong>: pivot screw</figcaption></figure>
+    <figure><video controls muted loop playsinline preload="metadata" aria-label="Spray bottle: the trigger swings to its stop and springs back"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__tool-bottle.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Spray bottle</strong>: trigger with return spring</figcaption></figure>
+    <figure><video controls muted loop playsinline preload="metadata" aria-label="Medium spring clamp opens to its published maximum and snaps shut"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__tool-medium_clamp.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Spring clamps</strong>: three sizes</figcaption></figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button> <button type="button" data-code-source="sources/articulated-20261102/tool-models-code.json" data-code-title="Tool models: parts, joints, springs and gear (excerpts)">Inspect the tool models</button></p>
+  <p class="cap">Excerpts of <a href="https://github.com/BasisResearch/RoboTL/blob/23dfe34b/robotl/examples/ycb_artifacts.py">robotl/examples/ycb_artifacts.py at 23dfe34b</a>, the full models</p>
+  <aside class="notes">RoboTL PRs 739 to 742. Each tool is cut from its YCB scan into parts on MuJoCo joints. Drill: trigger slide 8.5 mm with a return spring from 1 N at rest to 20 N at its stop (Omron C3AW), switch closes at 2 mm, a centred direction button locks it. Wrench: jaw geared to the worm at 3.5 mm per turn, self-locking. Scissors: pivot with friction, stop at 103 degrees. Spray bottle: trigger hinge to 46 degrees, 14.5 N at a third of its stroke and 29.4 N at its end (P&amp;G US8322630B2). Clamps: Harbor Freight's published openings 44.5, 63.5 and 88.9 mm, clamping force 93.4 N on the medium clamp, Bessey figures for the other two.</aside>
+</section>
+<section id="slide-articulated-tasks">
+  <h2 class="t">Tasks: <span>pick up, then actuate</span></h2>
+  <ul class="pts" style="max-width: 86%; font-size: .55em;">
+    <li class="fragment"><strong>Drill:</strong> press the trigger past its switch (2 mm), as far as possible</li>
+    <li class="fragment"><strong>Wrench:</strong> close the jaw one worm turn (3.5 mm), then reopen it</li>
+    <li class="fragment"><strong>Scissors:</strong> open to 30°, then close to 5°</li>
+    <li class="fragment"><strong>Spray bottle:</strong> hold it upright and pull the trigger a third of its stroke, one spray</li>
+    <li class="fragment"><strong>Spring clamps:</strong> pick up</li>
+    <li class="fragment">Each goal held 5 s while the hand carries the tool</li>
+  </ul>
+  <aside class="notes">Both methods are judged by the same RoboTL objective, scripts/actuate_mpc.py on claude/articulated-tasks 32254ccb: the pickup hold (contained, at least 95% of the weight on the hand, at most 5% outside support, 3 cm whole clearance) plus each stage's joint goal, in order, each held 5 s. A part driven more than 1 mm or 2 degrees past a stop counts as broken, so a jammed trigger never reads as a press. The drill fixture uses 16 hulls per part so a finger can reach the trigger face, and starts with the button at a side.</aside>
+</section>
+<section id="slide-drill-press-check">
+  <h2 class="t">Can the LEAP hand <span>press the drill trigger?</span></h2>
+  <figure class="press-check"><video controls muted loop playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__drill-grasp.png" aria-label="Stock LEAP hand holds the drill; the index finger pushes the trigger with its servos at their torque limit, the drill turns in the hand and the pad slides off the trigger"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__drill-press-oracle.mp4" type="video/mp4"></video></figure>
+  <ul class="pts" style="max-width: 88%; font-size: .5em;">
+    <li class="fragment">Index push 5.79 N, switch needs 5.47 N, full travel 20 N</li>
+    <li class="fragment">The pad reaches only the bottom of the trigger, 48 mm from its knuckle</li>
+    <li class="fragment">Switch never stays closed; the drill turns 12° in the hand</li>
+  </ul>
+  <p class="cap"><a href="sources/articulated-20261102/drill-check/summary.json">Measurements</a> · <a href="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__drill-grasp.png">Grasp</a> · <a href="https://github.com/BasisResearch/RoboTL/pull/744">RoboTL #744</a></p>
+  <aside class="notes">Static check plus simulation, no learning. Each LEAP servo is capped at 0.28 N m, the XC330-M288 at the 0.55 A the LEAP API writes. Press capacity is a linear program over the index's torque box through the contact Jacobian: 5.79 N without friction, 7.81 N with full pad friction. The hold margin while pressing is 5.5, so holding is easy. The simulated press applies those torques directly to the index joints: the trigger peaks briefly, then the drill turns 10 to 12 degrees in the hand and the pad slides off; the switch is closed for none of the 2 s hold. Two fingers do not fit on the trigger. A co-designed hand would need the index 35 to 40 mm higher relative to the palm's top edge, or a palm-hinge lever of 34 mm or less.</aside>
+</section>
+<section id="slide-articulated-voxposer-results">
+  <h2 class="t">VoxPoser on <span>the articulated tools</span></h2>
+  <p class="setup">14 trials on rolly, GPT-4.1, seed 0: no stage held</p>
+  <table class="settings articulated-results">
+    <thead><tr><th>Tool</th><th>A: fixed closure</th><th>B: finger API available</th></tr></thead>
+    <tbody>
+<tr><th>Drill</th><td>Pressed the drill into the table, jamming the trigger; called an undefined <code>set_object_joint_target</code> · <a href="sources/articulated-20261102/voxposer/drill-api/generated-code.json" data-code-title="Drill, A: fixed closure">Code</a></td><td>Pressed the drill into the table; set every finger joint to 0, which opens the hand · <a href="sources/articulated-20261102/voxposer/drill-fingers/generated-code.json" data-code-title="Drill, B: finger API">Code</a></td></tr>
+<tr><th>Wrench</th><td>Never closed on it; arm IK rejected a pose 58° off · <a href="sources/articulated-20261102/voxposer/wrench-api/generated-code.json" data-code-title="Wrench, A: fixed closure">Code</a></td><td>Never closed on it; arm IK rejected a pose 8.9° off · <a href="sources/articulated-20261102/voxposer/wrench-fingers/generated-code.json" data-code-title="Wrench, B: finger API">Code</a></td></tr>
+<tr><th>Scissors</th><td>Asked for "scissors handle", matched both handles; error before motion · <a href="sources/articulated-20261102/voxposer/scissors-api/generated-code.json" data-code-title="Scissors, A: fixed closure">Code</a></td><td>Same · <a href="sources/articulated-20261102/voxposer/scissors-fingers/generated-code.json" data-code-title="Scissors, B: finger API">Code</a></td></tr>
+<tr><th>Spray bottle</th><td>Bumped and turned the bottle; arm IK rejected a pose 7° off · <a href="sources/articulated-20261102/voxposer/windex-api/generated-code.json" data-code-title="Spray bottle, A: fixed closure">Code</a></td><td>Arm IK rejected a pose 22° off before its finger calls · <a href="sources/articulated-20261102/voxposer/windex-fingers/generated-code.json" data-code-title="Spray bottle, B: finger API">Code</a></td></tr>
+<tr><th>Spring clamps</th><td>Hand swept down beside the clamp; ran out the 40 s budget, all three sizes · <a href="sources/articulated-20261102/voxposer/medium_clamp-api/generated-code.json" data-code-title="Medium clamp, A: fixed closure">Code</a></td><td>Same · <a href="sources/articulated-20261102/voxposer/medium_clamp-fingers/generated-code.json" data-code-title="Medium clamp, B: finger API">Code</a></td></tr>
+    </tbody>
+  </table>
+  <ul class="pts" style="max-width: 92%; font-size: .46em;">
+    <li class="fragment"><strong>Added:</strong> part names such as "drill trigger", a reading of each part's joint, <code>wait</code>, and the in-order hold rule in the prompt</li>
+    <li class="fragment"><strong>Observed:</strong> the two drill programs read the trigger; one called the finger setter</li>
+  </ul>
+  <aside class="notes">Adapter guided-mpc-baselines claude/voxposer-articulated 13a303e on RoboTL claude/articulated-tasks 32254ccb. Same native judge as Guided MPC. The joint reading is privileged state, disclosed in each trial's config. Each trial has its own LLM cache. Arm IK accepts a pose within 1 cm and 5 degrees; the rejections listed were the solver converging with the pose still that far off. The prompt's object nouns ("drill", "spray bottle", "clamp") differ from the instructions' ("power drill", "Windex bottle", "spring clamp"); we align them in the rerun.</aside>
+</section>
+<section id="slide-articulated-voxposer-videos">
+  <h2 class="t">VoxPoser: <span>finger API trials</span></h2>
+  <div class="trial-grid">
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-drill-fingers.jpg" aria-label="VoxPoser drill trial with the finger API"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-drill-fingers.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Drill</strong>: pressed into the table<br><a href="sources/articulated-20261102/voxposer/drill-fingers/generated-code.json" data-code-title="Drill, B: finger API">Code</a> · <a href="sources/articulated-20261102/voxposer/drill-fingers/result.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-wrench-fingers.jpg" aria-label="VoxPoser wrench trial with the finger API"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-wrench-fingers.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Wrench</strong>: never closed on it<br><a href="sources/articulated-20261102/voxposer/wrench-fingers/generated-code.json" data-code-title="Wrench, B: finger API">Code</a> · <a href="sources/articulated-20261102/voxposer/wrench-fingers/result.json">Outcome</a></figcaption></figure>
+    <figure><img src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-scissors-fingers.jpg" alt="Scissors at the start of the VoxPoser trial; the program stopped before any motion">
+      <figcaption class="cap"><strong>Scissors</strong>: error before motion<br><a href="sources/articulated-20261102/voxposer/scissors-fingers/generated-code.json" data-code-title="Scissors, B: finger API">Code</a> · <a href="sources/articulated-20261102/voxposer/scissors-fingers/error.json">Error</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-windex-fingers.jpg" aria-label="VoxPoser spray bottle trial with the finger API"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-windex-fingers.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Spray bottle</strong>: IK rejected a pose<br><a href="sources/articulated-20261102/voxposer/windex-fingers/generated-code.json" data-code-title="Spray bottle, B: finger API">Code</a> · <a href="sources/articulated-20261102/voxposer/windex-fingers/result.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-medium_clamp-fingers.jpg" aria-label="VoxPoser medium clamp trial with the finger API"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-medium_clamp-fingers.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Medium clamp</strong>: swept beside it<br><a href="sources/articulated-20261102/voxposer/medium_clamp-fingers/generated-code.json" data-code-title="Medium clamp, B: finger API">Code</a> · <a href="sources/articulated-20261102/voxposer/medium_clamp-fingers/result.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-large_clamp-fingers.jpg" aria-label="VoxPoser large clamp trial with the finger API"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-large_clamp-fingers.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Large clamp</strong>: swept beside it<br><a href="sources/articulated-20261102/voxposer/large_clamp-fingers/generated-code.json" data-code-title="Large clamp, B: finger API">Code</a> · <a href="sources/articulated-20261102/voxposer/large_clamp-fingers/result.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-extra_large_clamp-fingers.jpg" aria-label="VoxPoser extra-large clamp trial with the finger API"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__voxposer-extra_large_clamp-fingers.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Extra-large clamp</strong>: swept beside it<br><a href="sources/articulated-20261102/voxposer/extra_large_clamp-fingers/generated-code.json" data-code-title="Extra-large clamp, B: finger API">Code</a> · <a href="sources/articulated-20261102/voxposer/extra_large_clamp-fingers/result.json">Outcome</a></figcaption></figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <aside class="notes">Grasp-view clips at real time, 480 by 360 at 24 fps; full recordings stay on rolly under voxposer-robotl/runs/articulated-20261102. The A trials' clips are in the same release.</aside>
+</section>
+<section id="slide-articulated-guided-mpc">
+  <h2 class="t">Guided MPC, stock hand: <span>no lift yet</span></h2>
+  <div class="trial-grid">
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-035_power_drill.jpg" aria-label="Guided MPC drill run with the stock hand, four times speed"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-035_power_drill.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Drill</strong>: pinched, never off the table<br><a href="sources/articulated-20261102/guided-mpc/035_power_drill.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-042_adjustable_wrench.jpg" aria-label="Guided MPC wrench run with the stock hand, four times speed"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-042_adjustable_wrench.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Wrench</strong>: fingertips on the table<br><a href="sources/articulated-20261102/guided-mpc/042_adjustable_wrench.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-037_scissors.jpg" aria-label="Guided MPC scissors run with the stock hand, four times speed"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-037_scissors.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Scissors</strong>: lifted 8.6 mm, slipped<br><a href="sources/articulated-20261102/guided-mpc/037_scissors.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-022_windex_bottle.jpg" aria-label="Guided MPC spray bottle run with the stock hand, four times speed"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-022_windex_bottle.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Spray bottle</strong>: never swung upright<br><a href="sources/articulated-20261102/guided-mpc/022_windex_bottle.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-050_medium_clamp.jpg" aria-label="Guided MPC medium clamp run with the stock hand, four times speed"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-050_medium_clamp.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Medium clamp</strong>: fingers close beside it<br><a href="sources/articulated-20261102/guided-mpc/050_medium_clamp.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-051_large_clamp.jpg" aria-label="Guided MPC large clamp run with the stock hand, four times speed"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-051_large_clamp.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Large clamp</strong>: held 6.3 mm up, all weight on the hand<br><a href="sources/articulated-20261102/guided-mpc/051_large_clamp.json">Outcome</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-052_extra_large_clamp.jpg" aria-label="Guided MPC extra-large clamp run with the stock hand, four times speed"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261102__guided-mpc-052_extra_large_clamp.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Extra-large clamp</strong>: pushed and turned<br><a href="sources/articulated-20261102/guided-mpc/052_extra_large_clamp.json">Outcome</a></figcaption></figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="video-actions"><button type="button" data-code-source="sources/articulated-20261102/guided-mpc/objective-code.json" data-code-title="Guided MPC objective and stages used in these runs">Inspect the objective</button></p>
+  <p class="compare-note">Four times speed. Stock LEAP hand, seed 1, before the co-design study. Source at <a href="https://github.com/BasisResearch/RoboTL/blob/32254ccb/scripts/actuate_mpc.py">RoboTL 32254ccb</a>.</p>
+  <aside class="notes">RoboTL claude/articulated-tasks 32254ccb, scripts/actuate_mpc.py on polly: batch 32, 4 s horizon, 0.25 s replan, budgets 90 s drill and spray bottle, 120 s wrench and scissors, 40 s clamps. The pinch centres at the tool's centre-of-mass height, 8 to 20 mm on the flat tools, so the fingertips close on the table. The drill reached a hand share of 0.80 and the spray bottle 0.26. A diagnostic from a held scissors state started the opening stage, but the pinch squeezed the halves shut. Lift fixes (grip height, wrist pitch, standing start for the spray bottle) are in progress, then the LLM co-design study proposes the hand and these controls.</aside>
 </section>
 <section id="slide-finger-interface-results">
   <h2 class="t">Individual finger control: <span>the programs did not use it</span></h2>
