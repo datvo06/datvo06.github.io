@@ -1,0 +1,34 @@
+[
+  {
+    "generator": "planner",
+    "code": "composer(\"grasp the wrench body\")\ncomposer(\"back to default pose\")\ncomposer(\"move to 3cm above the table while holding the wrench\")\ncomposer(\"turn the wrench thumbwheel to close the jaw to 19.3mm or less\")\ncomposer(\"turn the wrench thumbwheel to open the jaw to 22.8mm or more\")\n# done"
+  },
+  {
+    "generator": "composer",
+    "code": "movable = parse_query_obj('gripper')\naffordance_map = get_affordance_map('a point at the center of the wrench body')\ngripper_map = get_gripper_map('open everywhere except 1cm around the wrench body')\nexecute(movable, affordance_map=affordance_map, gripper_map=gripper_map)"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "gripper = detect('gripper')\nret_val = gripper"
+  },
+  {
+    "generator": "get_affordance_map",
+    "code": "affordance_map = get_empty_affordance_map()\nwrench = parse_query_obj('wrench')\nx, y, z = wrench.position\naffordance_map[x, y, z] = 1\nret_val = affordance_map"
+  },
+  {
+    "generator": "get_gripper_map",
+    "code": "gripper_map = get_empty_gripper_map()\n# open everywhere\ngripper_map[:, :, :] = 1\n# close when 1cm around the wrench body\nwrench = parse_query_obj('wrench')\nset_voxel_by_radius(gripper_map, wrench.position, radius_cm=1, value=0)\nret_val = gripper_map"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "wrench = detect('wrench')\nret_val = wrench"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "wrench = detect('wrench')\nret_val = wrench"
+  },
+  {
+    "generator": "composer",
+    "code": "reset_to_default_pose()"
+  }
+]
