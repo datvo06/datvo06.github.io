@@ -637,7 +637,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
       <tr><td>Drug A never inhibits Gene B in assay X.</td><td>Another negative form: preserve NOT. The revised sentence-pattern rules added support for “never.”</td></tr>
     </tbody>
   </table>
-  <p class="note">The first September 14 notebook had seven sources. Later that day it added reversed roles, “may” and “never,” giving ten. These five sources each have one target meaning. <a href="#/notebook-versions">Notebook history</a></p>
+  <p class="note">The first September 14 notebook had seven sources. Later that day it added reversed roles, “may” and “never,” giving ten. These five sources each have one target meaning.</p>
   <aside class="notes">The ten-source comparison appears on September 14; the explicit selection rationale and grammar-v2 study appear on September 15. <a href="https://github.com/datvo06/keep-track/blob/b05dd76/examples/negation_and_justification.ipynb">Notebook: why these ten synthetic examples</a>. “Our doc1” in the opening slides is illustrative; the actual negative fixture here uses block/Gene C.</aside>
 </section>
 
@@ -1046,24 +1046,6 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   <p class="nav"><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track/pull/28">Latest PR</a><a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">Experiment report</a></p>
 </section>
 
-<section id="notebook-versions">
-  <p class="eyebrow">Appendix: notebook revisions</p>
-  <h2>How the pilot study changed</h2>
-  <table class="study-cases">
-    <thead><tr><th>Notebook version</th><th>What changed</th></tr></thead>
-    <tbody>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/f1f05bd/examples/negation_and_justification.ipynb">September 14: authored examples</a></td><td>Seven sources, checker proofs, no model calls.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/9b75e9b/examples/negation_and_justification.ipynb">September 14: ten-source study</a></td><td>Add reversed roles, “may” and “never,” plus a recorded structured LLM baseline. Actual LangExtract follows that day.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/9cd1fdd/examples/negation_and_justification.ipynb">September 15: grammar and scoring v2</a></td><td>Accept “never”; require complete quotations from the correct document. Keep old v1 outputs separate.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/a3e1a96/examples/negation_and_justification.ipynb">September 30: new recorded study</a></td><td>GPT-5.4 mini replaces GPT-4.1 mini; the synthesis prompt changes too. Soundness-only acceptance recovers 0/8.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/d3506a6/examples/negation_and_justification.ipynb">October 1: coverage and host search</a></td><td>Add two experimental conditions on the same ten sources.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/164cd11/examples/comparison_with_main.ipynb">October 4: comparison notebook</a></td><td>Compare the September and October studies; model, prompts, interfaces and compute differ.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_and_justification.ipynb">October 5 to 6: scoped, typed examples</a></td><td>Update program examples for scoped negation and typed context values. The source set stays unchanged.</td></tr>
-    </tbody>
-  </table>
-  <p class="note">Dates identify committed notebook revisions, not every run's collection time. A fixed sentence set does not isolate the effect of each method change. <a href="#/study-setup">Back to the ten sentences</a></p>
-</section>
-
 </div></div>
 <script src="https://unpkg.com/reveal.js@5.2.1/dist/reveal.js"></script>
 <script src="https://unpkg.com/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
@@ -1090,7 +1072,7 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
     function showResearchPosition() {
       const current = slides.indexOf(Reveal.getCurrentSlide());
       const stage = sections.findLast(([id]) => slides.findIndex(slide => slide.id === id) <= current);
-      position.hidden = !stage || Reveal.getCurrentSlide().id === 'notebook-versions';
+      position.hidden = !stage;
       position.textContent = stage ? `${stage[1]} · Map` : '';
     }
     Reveal.on('slidechanged', showResearchPosition);
