@@ -47,7 +47,6 @@
     .reveal figure { margin: 0; }
     .reveal figure img { width: 100%; height: 390px; object-fit: contain; margin: 0; border: 0; box-shadow: none; }
     #october-baselines figure img { height: 330px; }
-    #biorelfact-results figure img { height: 470px; }
     #paid-mappings .source-panel, #precision-failures .source-panel, #coverage-override .source-panel, #recall-failures .source-panel, #edit-budget .source-panel, #lexicon-results .source-panel { width: 1120px; }
     #lexicon-results figure img { height: 226px; }
     #lexicon-results .code-reference .source-panel { top: auto; bottom: 100%; }
@@ -638,7 +637,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
       <tr><td>Drug A never inhibits Gene B in assay X.</td><td>Another negative form: preserve NOT. The revised sentence-pattern rules added support for “never.”</td></tr>
     </tbody>
   </table>
-  <p class="note">The first September 14 notebook had seven sources. Later that day it added reversed roles, “may” and “never,” giving ten. These five sources each have one target meaning. <a href="#/notebook-versions">Notebook history</a></p>
+  <p class="note">The first September 14 notebook had seven sources. Later that day it added reversed roles, “may” and “never,” giving ten. These five sources each have one target meaning.</p>
   <aside class="notes">The ten-source comparison appears on September 14; the explicit selection rationale and grammar-v2 study appear on September 15. <a href="https://github.com/datvo06/keep-track/blob/b05dd76/examples/negation_and_justification.ipynb">Notebook: why these ten synthetic examples</a>. “Our doc1” in the opening slides is illustrative; the actual negative fixture here uses block/Gene C.</aside>
 </section>
 
@@ -748,16 +747,6 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   </table>
   <p class="note">Relation F1 is micro F1 over the nine relations, with all 36 gold positives in the denominator. Every method runs three gpt-5.4-mini trials on the same pairs.</p>
   <aside class="notes">Data: <a href="https://github.com/Bayer-Group/biomed-relation-factuality-detection">BioRelFact</a> (BSD-3-Clause), frozen development split. Setup and scoring: <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/README.md">experiments/README.md</a>. The example pair is EMBASE:L635534563:816:1120:2:4.</aside>
-</section>
-
-<section id="biorelfact-results" class="no-marks" data-date="2026-10-29">
-  <p class="eyebrow">October 22 to 29, 2026</p>
-  <h2>Recall matches plain GPT, precision does not</h2>
-  <figure>
-    <img src="figures/biorelfact-progress.svg" alt="Relation F1 on 65 BioRelFact development pairs, three trials each. Plain GPT 64.3, 72.1, 74.4 (mean 70.2). LangExtract 64.3, 65.1, 63.5 (64.3). Coverage search 64.4, 58.7, 62.2 (61.8). Plus supplied entity types 65.9, 61.5, 62.9 (63.5). Five-word mapping list 10.5, 5.4, 10.3 (8.7). Paid mappings, first accepted 59.5, 63.5, 64.3 (62.4). Paid mappings plus coverage search at edit budget 2: 62.2, 62.4, 64.5 (63.0); budget 4: 66.7, 62.2, 64.4 (64.4); budget 8: 66.7, 67.4, 63.7 (65.9). Mean precision and recall: plain GPT 62.4 and 80.6, LangExtract 56.3 and 75.0, coverage search 51.3 and 77.8, plus types 53.2 and 78.7, five-word list 88.9 and 4.6, paid first accepted 54.5 and 73.1, paid plus search 51.8 and 80.6 at budget 2, 53.7 and 80.6 at budget 4, 54.5 and 83.3 at budget 8.">
-    <figcaption>Each dot is one trial; bars and labels show the mean.</figcaption>
-  </figure>
-  <aside class="notes">Sources: <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/BASELINE_RESULTS.md">BASELINE_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/DOMAIN_RESULTS.md">DOMAIN_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/DERIVATION_RESULTS.md">DERIVATION_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/ba2ca4a/experiments/PAID_REFINEMENT_RESULTS.md">PAID_REFINEMENT_RESULTS.md</a>. The coverage search and typed rows replay the same saved programs. Paid mappings use 8 calls per pair; the five-word row used a 32,000-token allowance, which fit one or two calls. The budget 4 and 8 rows are fresh trials with the same setup. Three trials cost $0.32 for plain GPT and $6.46 to $6.70 for the paid search. Run records are in the private HF dataset datvo06/keeptrack-biorelfact-runs.</aside>
 </section>
 
 <section id="paid-mappings" class="no-marks" data-date="2026-10-29">
@@ -1057,24 +1046,6 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   <p class="nav"><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track/pull/28">Latest PR</a><a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">Experiment report</a></p>
 </section>
 
-<section id="notebook-versions">
-  <p class="eyebrow">Appendix: notebook revisions</p>
-  <h2>How the pilot study changed</h2>
-  <table class="study-cases">
-    <thead><tr><th>Notebook version</th><th>What changed</th></tr></thead>
-    <tbody>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/f1f05bd/examples/negation_and_justification.ipynb">September 14: authored examples</a></td><td>Seven sources, checker proofs, no model calls.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/9b75e9b/examples/negation_and_justification.ipynb">September 14: ten-source study</a></td><td>Add reversed roles, “may” and “never,” plus a recorded structured LLM baseline. Actual LangExtract follows that day.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/9cd1fdd/examples/negation_and_justification.ipynb">September 15: grammar and scoring v2</a></td><td>Accept “never”; require complete quotations from the correct document. Keep old v1 outputs separate.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/a3e1a96/examples/negation_and_justification.ipynb">September 30: new recorded study</a></td><td>GPT-5.4 mini replaces GPT-4.1 mini; the synthesis prompt changes too. Soundness-only acceptance recovers 0/8.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/d3506a6/examples/negation_and_justification.ipynb">October 1: coverage and host search</a></td><td>Add two experimental conditions on the same ten sources.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/164cd11/examples/comparison_with_main.ipynb">October 4: comparison notebook</a></td><td>Compare the September and October studies; model, prompts, interfaces and compute differ.</td></tr>
-      <tr><td><a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_and_justification.ipynb">October 5 to 6: scoped, typed examples</a></td><td>Update program examples for scoped negation and typed context values. The source set stays unchanged.</td></tr>
-    </tbody>
-  </table>
-  <p class="note">Dates identify committed notebook revisions, not every run's collection time. A fixed sentence set does not isolate the effect of each method change. <a href="#/study-setup">Back to the ten sentences</a></p>
-</section>
-
 </div></div>
 <script src="https://unpkg.com/reveal.js@5.2.1/dist/reveal.js"></script>
 <script src="https://unpkg.com/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
@@ -1101,7 +1072,7 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
     function showResearchPosition() {
       const current = slides.indexOf(Reveal.getCurrentSlide());
       const stage = sections.findLast(([id]) => slides.findIndex(slide => slide.id === id) <= current);
-      position.hidden = !stage || Reveal.getCurrentSlide().id === 'notebook-versions';
+      position.hidden = !stage;
       position.textContent = stage ? `${stage[1]} · Map` : '';
     }
     Reveal.on('slidechanged', showResearchPosition);
