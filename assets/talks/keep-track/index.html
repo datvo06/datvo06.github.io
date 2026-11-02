@@ -73,7 +73,7 @@
     .relation-proof .proof-rule > span { white-space: nowrap; }
     .relation-proof .proof-conclusion { width: 60%; margin: 6px auto 0; }
     .attempt-strip { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin: 34px 0 16px; }
-    .attempt-strip span { display: block; padding: 10px 6px; border: 1px solid #aebcd5; border-radius: 6px; background: #f4f6fa; font-size: 0.48em; line-height: 1.35; text-align: center; }
+    .attempt-strip > span { display: block; padding: 10px 6px; border: 1px solid #aebcd5; border-radius: 6px; background: #f4f6fa; font-size: 0.48em; line-height: 1.35; text-align: center; }
     .attempt-strip .selected-attempt { border: 2px solid var(--blue); background: #eaf1fb; }
     .reveal figcaption { font-size: 0.61em; color: var(--muted); line-height: 1.4; text-align: left; }
     .reveal .nav { font-size: 0.64em; margin-top: 1.8em; }
@@ -115,6 +115,8 @@
     .role-predicate { color: #7a2b00; background: #fff0dc; }
     .role-object { color: #00654c; background: #e4f5ec; }
     .role-relation { color: #6b338a; background: #f1e8f8; border-bottom: 2px solid #6b338a; }
+    /* Full relation labels are long, so a relation mark may wrap. */
+    .semantic-mark.role-relation { white-space: normal; }
     .role-polarity { color: #9c2540; background: #ffe5eb; }
     .role-context { color: #625200; background: #fff6ce; }
     .reveal .tuple { border-left: 3px solid #6b338a; padding-left: 0.6em; }
@@ -1138,18 +1140,38 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
       }
     }, true);
     Reveal.on('slidechanged', () => references.forEach(reference => setOpen(reference, false)));
-    // These authored examples use a fixed vocabulary; roles follow each example.
-    const words = /\b(?:Drug A|Drug C|Gene [BCD]|Truck T|Road R|subjects?|predicates?|objects?|relations?|blocks?|inhibits?|Accepted|Refusals?|Failures?|NOT|assay [XY])\b|(?<=does )not\b|(?<=[“"'])not(?=[”"'])|\bnever(?= inhibits|[”"'])/gi;
-    const walker = document.createTreeWalker(document.querySelector('.slides'), NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) {
-      if (!walker.currentNode.parentElement.closest('.notes, script, style, math, .no-marks')) nodes.push(walker.currentNode);
+    // Text nodes under the slides, except those inside an element matching `skip`.
+    function textNodes(skip) {
+      const walker = document.createTreeWalker(document.querySelector('.slides'), NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) {
+        if (!walker.currentNode.parentElement.closest(skip)) nodes.push(walker.currentNode);
+      }
+      return nodes;
     }
-    for (const node of nodes) {
-      const block = node.parentElement.closest('tr, p, blockquote, li, pre, button, figcaption, h2') || node.parentElement;
-      const reversed = /Gene B(?:\s+blocks\s+|,\s*blocks,\s*)Drug A|Gene B as subject/.test(block.textContent);
+    // Replace each matched word of a text node with a semantic mark.
+    function mark(node, marks) {
+      if (!marks.length) return;
       const fragment = document.createDocumentFragment();
       let end = 0;
+      for (const {index, word, role, title} of marks) {
+        fragment.append(node.textContent.slice(end, index));
+        const span = document.createElement('span');
+        span.className = `semantic-mark role-${role}`;
+        span.title = title;
+        span.textContent = word;
+        fragment.append(span);
+        end = index + word.length;
+      }
+      fragment.append(node.textContent.slice(end));
+      node.replaceWith(fragment);
+    }
+    // These authored examples use a fixed vocabulary; roles follow each example.
+    const words = /\b(?:Drug A|Drug C|Gene [BCD]|Truck T|Road R|subjects?|predicates?|objects?|relations?|blocks?|inhibits?|Accepted|Refusals?|Failures?|NOT|assay [XY])\b|(?<=does )not\b|(?<=[“"'])not(?=[”"'])|\bnever(?= inhibits|[”"'])/gi;
+    for (const node of textNodes('.notes, script, style, math, .no-marks')) {
+      const block = node.parentElement.closest('tr, p, blockquote, li, pre, button, figcaption, h2') || node.parentElement;
+      const reversed = /Gene B(?:\s+blocks\s+|,\s*blocks,\s*)Drug A|Gene B as subject/.test(block.textContent);
+      const marks = [];
       for (const match of node.textContent.matchAll(words)) {
         const word = match[0];
         const lower = word.toLowerCase();
@@ -1171,18 +1193,15 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
           const sourceCue = /does $/.test(before) && /^\s+(?:block|inhibit)\b/.test(after);
           if (!quoted && !sourceCue) continue;
         }
-        fragment.append(node.textContent.slice(end, match.index));
-        const mark = document.createElement('span');
-        mark.className = `semantic-mark role-${role}`;
-        mark.title = role === 'polarity' ? 'Negation cue' : role[0].toUpperCase() + role.slice(1);
-        mark.textContent = word;
-        fragment.append(mark);
-        end = match.index + word.length;
+        const title = role === 'polarity' ? 'Negation cue' : role[0].toUpperCase() + role.slice(1);
+        marks.push({index: match.index, word, role, title});
       }
-      if (end) {
-        fragment.append(node.textContent.slice(end));
-        node.replaceWith(fragment);
-      }
+      mark(node, marks);
+    }
+    // BioRelFact relation labels are marked on every slide, outside notes and verbatim code.
+    const labels = /\b(?:(?:DRUG|GENE|GENEVARIANT) : (?:DISEASE\/PHENOTYPE|DISEASE|GENE) - )?(?:THERAPEUTIC_USE|CAUSAL_EFFECT|ANTAGONIST|AGONIST|MODULATES|BIOMARKER|ASSOCIATION)\b|\bNO_RELATION\b/g;
+    for (const node of textNodes('.notes, script, style, math, pre, .semantic-mark')) {
+      mark(node, Array.from(node.textContent.matchAll(labels), match => ({index: match.index, word: match[0], role: 'relation', title: 'Relation label'})));
     }
     Reveal.layout();
   });
