@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <style>
-    :root { --ink: #1f2330; --blue: #1e3a8a; --muted: #596170; --line: #dce1e9; }
+    :root { --ink: #1f2330; --blue: #1e3a8a; --muted: #596170; --line: #dce1e9; --failure: #9e1626; }
     .reveal { font-family: "IBM Plex Sans", sans-serif; font-size: 34px; color: var(--ink); }
     .reveal .slides { text-align: left; }
     .reveal .slides section { box-sizing: border-box; padding: 24px 42px; }
@@ -25,6 +25,8 @@
     .reveal ul, .reveal ol { display: block; margin: 0 0 0 1.1em; }
     .reveal li { margin-bottom: 0.5em; }
     .eyebrow { color: var(--blue); font-size: 0.58em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    /* Slides that point out a problem carry the failure red in their title. */
+    .reveal section.problem h2, .reveal section.problem .eyebrow { color: var(--failure); }
     .lead { font-size: 1.05em; max-width: 29em; }
     .muted, .reveal .note { color: var(--muted); }
     .reveal .note { font-size: 0.63em; line-height: 1.45; margin-top: 1em; }
@@ -118,7 +120,7 @@
     .reveal .tuple { border-left: 3px solid #6b338a; padding-left: 0.6em; }
     .reveal pre .semantic-mark { color: inherit; }
     .role-accepted, .reveal pre .role-accepted { color: #176b2c; background: #e4f8df; border-bottom: 2px solid #176b2c; }
-    .role-refusal, .role-failure, .reveal pre .role-refusal, .reveal pre .role-failure { color: #9e1626; background: #ffe1e0; border-bottom: 2px solid #9e1626; }
+    .role-refusal, .role-failure, .reveal pre .role-refusal, .reveal pre .role-failure { color: var(--failure); background: #ffe1e0; border-bottom: 2px solid var(--failure); }
     .research-map { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 24px 0; }
     .research-map a { display: block; padding: 16px 22px; border: 1px solid #aebcd5; border-radius: 8px; background: #f4f6fa; font-size: 0.8em; line-height: 1.4; }
     .research-map strong { display: block; margin-bottom: 10px; }
@@ -239,7 +241,7 @@
   <aside class="notes">Conceptual proof tree, not a captured runtime proof. Source word matching is necessary but does not establish the relation without the declared interpretation rules. The negative claim is checked directly; the tree does not first assert a positive claim. The rules node is an application premise, independent of the document. Source: <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/docs/context.md">typed context construction</a>.</aside>
 </section>
 
-<section id="source-support">
+<section id="source-support" class="problem">
   <p class="eyebrow">The problem</p>
   <h2>A correct quotation can accompany a wrong claim</h2>
   <blockquote>Drug A does not inhibit Gene B in assay X.</blockquote>
@@ -505,7 +507,7 @@ def _add(
   <aside class="notes">Example verified against <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/tests/test_core.py#L146-L168">the atomic budget regression test</a>. Execution checks and feedback: <a href="https://github.com/datvo06/keep-track/pull/10">#10</a>, <a href="https://github.com/datvo06/keep-track/pull/11">#11</a></aside>
 </section>
 
-<section id="empty-extractor" data-date="2026-09-30" data-prs="12">
+<section id="empty-extractor" class="problem" data-date="2026-09-30" data-prs="12">
   <p class="eyebrow">Recorded examples: empty answers</p>
   <h2>An empty extractor satisfies the check</h2>
   <blockquote>Drug A inhibits Gene B in assay X.</blockquote>
@@ -779,7 +781,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <aside class="notes">Identity and declared mappings stay free. A host that grants no edit.refine budget still rejects undeclared mappings; search shares its two units with formatting edits, so a predicate span has at most two words. Under the five-word list this program was rejected as an unsupported predicate refinement.</aside>
 </section>
 
-<section id="coverage-precision" class="no-marks" data-date="2026-10-29">
+<section id="coverage-precision" class="no-marks problem" data-date="2026-10-29">
   <p class="eyebrow">Why LangExtract has higher precision</p>
   <h2>Coverage search costs precision</h2>
   <p class="compact">LangExtract has higher precision (56.3% vs our 51.8%) because it answers each pair once. Our first accepted program reads sentences about as well as LangExtract. We lose precision when coverage search keeps looking after that.</p>
@@ -794,7 +796,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <p class="note">The search accounts for 2.7 of the 4.5 points. LangExtract kept 5, 8 and 4 pairs negative where our selection is positive; in 4, 5 and 3 of them our agent had proposed NO_RELATION itself.</p>
 </section>
 
-<section id="precision-failures" class="no-marks" data-date="2026-10-29">
+<section id="precision-failures" class="no-marks problem" data-date="2026-10-29">
   <p class="eyebrow">Failure cases · false positives</p>
   <h2>Why false positives remain</h2>
   <p class="definitions">Each trial selects a positive for 21 to 23 of the 29 NO_RELATION pairs. In 14, the agent never proposes NO_RELATION (rows 1 and 2). In 7 to 9, it does, and coverage ranking replaces it (row 3). Another 4 to 5 per trial put the wrong label on a positive pair.</p>
@@ -828,7 +830,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <aside class="notes">Row 1: EMBASE:L642703453:206:368:1:6, trial 1; no attempt proposed NO_RELATION in any trial. Row 2: EMBASE:L637188167:1576:1785:28:40, trial 1. Both pass the type check, so only a check that the cue relates this subject to this object would reject them. The two dimensions combine: Baricitinib with “anti-IL-6R mAb or Baricitinib” (EMBASE:L642703453:1772:1913:2:7) and pralsetinib with RET (EMBASE:L2027807039:0:220:0:3) misread the cue and also had one accepted NO_RELATION that coverage ranking replaced. Counts come from experiments/PAID_REFINEMENT_RESULTS.md. Each selected relation and its proof tree come from the selected attempt's checker report, prediction and code in the full records: rows 1 and 2 as linked from the code panel, row 3 from sources/insulin-diabetes-trial-2.json.</aside>
 </section>
 
-<section id="coverage-override" class="no-marks" data-date="2026-10-29">
+<section id="coverage-override" class="no-marks problem" data-date="2026-10-29">
   <p class="eyebrow">Failure case · trial 2</p>
   <h2>Six NO_RELATION programs lose to one positive</h2>
   <blockquote>“Plasma ceramides and sphingomyelins have been independently <span class="semantic-mark role-predicate">linked to</span> <span class="semantic-mark role-object">diabetes</span> risk, glucose and <span class="semantic-mark role-subject">insulin</span> levels, and the risk of several cardiovascular (CVD) outcomes.”</blockquote>
@@ -871,7 +873,7 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   <aside class="notes">EMBASE:L2018857856:0:179:1:3, gpt-5.4-mini trial 2 of the paid-refinement run. The mapping pays two units. Attempt numbers count from 1; the saved JSON indexes them from 0.</aside>
 </section>
 
-<section id="recall-failures" class="no-marks" data-date="2026-10-29">
+<section id="recall-failures" class="no-marks problem" data-date="2026-10-29">
   <p class="eyebrow">Failure cases · missed positives</p>
   <h2>Why 21 positives are still missed</h2>
   <p class="definitions">21 misses across three trials, from 12 pairs. Only row 3 comes from the checker.</p>
