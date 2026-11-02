@@ -62,7 +62,7 @@
     .relation-proof { display: none; position: absolute; left: 0; bottom: calc(100% + 6px); width: 1120px; padding: 10px 14px; font-size: 15px; line-height: 1.4; }
     /* Keeps the tree open while the pointer moves up to it: the left column's width, and the left cell's text above a relation (up to about 121px). */
     .relation-proof::after { content: ""; position: absolute; top: 100%; left: 0; width: 50%; height: 130px; }
-    .relation-ref:hover .relation-proof, .relation-ref:focus .relation-proof { display: block; }
+    .relation-ref:hover:not(.dismissed) .relation-proof, .relation-ref:focus .relation-proof { display: block; }
     .relation-proof code { display: block; font-size: 14px; overflow-wrap: break-word; margin-top: 4px; }
     .relation-proof .relation-proof-premises { display: grid; grid-template-columns: 1fr 1.6fr 1fr 0.8fr; gap: 10px; }
     .relation-proof .proof-node, .relation-proof .proof-rule { display: block; font-size: 15px; cursor: auto; }
@@ -1100,15 +1100,20 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
       }
     });
     // Capture keys before Reveal so Escape closes the panel instead of opening the overview.
+    const relations = Array.from(document.querySelectorAll('.relation-ref'));
+    relations.forEach(relation => relation.addEventListener('mouseleave', () => relation.classList.remove('dismissed')));
+    const shownRelation = () => relations.find(relation => relation === document.activeElement || relation.matches(':hover:not(.dismissed)'));
     window.addEventListener('keydown', event => {
       const open = references.filter(reference => reference.classList.contains('open'));
       if (event.key === 'Escape' && open.length) {
         open.forEach(reference => setOpen(reference, false));
         event.preventDefault();
         event.stopImmediatePropagation();
-      } else if (event.key === 'Escape' && document.activeElement?.matches('.relation-ref')) {
-        // A focused relation keeps its proof tree open; Escape closes it like a code panel.
-        document.activeElement.blur();
+      } else if (event.key === 'Escape' && shownRelation()) {
+        // Escape closes a proof tree like a code panel; it stays closed until the pointer leaves.
+        const relation = shownRelation();
+        relation.blur();
+        relation.classList.add('dismissed');
         event.preventDefault();
         event.stopImmediatePropagation();
       } else if ((event.key === ' ' || event.key === 'Enter') && document.activeElement?.closest('.code-reference')) {
