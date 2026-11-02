@@ -1,0 +1,30 @@
+[
+  {
+    "generator": "planner",
+    "code": "composer(\"grasp the clamp\")\ncomposer(\"move to 3cm above the table while holding the clamp\")\n# done"
+  },
+  {
+    "generator": "composer",
+    "code": "movable = parse_query_obj('gripper')\naffordance_map = get_affordance_map('a point at the center of the clamp upper handle')\ngripper_map = get_gripper_map('open everywhere except 1cm around the clamp upper handle')\nexecute(movable, affordance_map=affordance_map, gripper_map=gripper_map)"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "gripper = detect('clamp')\nret_val = gripper"
+  },
+  {
+    "generator": "get_affordance_map",
+    "code": "affordance_map = get_empty_affordance_map()\nclamp_upper_handle = parse_query_obj('clamp upper handle')\nx, y, z = clamp_upper_handle.position\naffordance_map[x, y, z] = 1\nret_val = affordance_map"
+  },
+  {
+    "generator": "get_gripper_map",
+    "code": "gripper_map = get_empty_gripper_map()\n# open everywhere\ngripper_map[:, :, :] = 1\n# close when 1cm around the clamp upper handle\nclamp_upper_handle = parse_query_obj('clamp upper handle')\nset_voxel_by_radius(gripper_map, clamp_upper_handle.position, radius_cm=1, value=0)\nret_val = gripper_map"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "clamp_upper_handle = detect('clamp upper handle')\nret_val = clamp_upper_handle"
+  },
+  {
+    "generator": "parse_query_obj",
+    "code": "clamp_upper_handle = detect('clamp upper handle')\nret_val = clamp_upper_handle"
+  }
+]
