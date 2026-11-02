@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Keep Track research progress: source-supported extraction, typed context and coverage search, with algorithms and pilot results.">
+  <meta name="description" content="Keep Track research progress: source-supported extraction, typed context and coverage search, with algorithms and results.">
   <title>Keep Track: research progress</title>
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.2.1/dist/reset.css">
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.2.1/dist/reveal.css">
@@ -46,7 +46,30 @@
     .reveal figure img { width: 100%; height: 390px; object-fit: contain; margin: 0; border: 0; box-shadow: none; }
     #october-baselines figure img { height: 330px; }
     #biorelfact-results figure img { height: 470px; }
-    #paid-mappings .source-panel, #precision-failures .source-panel, #coverage-override .source-panel, #recall-failures .source-panel, #edit-budget .source-panel { width: 1120px; }
+    #paid-mappings .source-panel, #precision-failures .source-panel, #coverage-override .source-panel, #recall-failures .source-panel, #edit-budget .source-panel, #lexicon-results .source-panel { width: 1120px; }
+    #lexicon-results figure img { height: 226px; }
+    #lexicon-results .code-reference .source-panel { top: auto; bottom: 100%; }
+    #lexicon-results .source-panel code.language-text { white-space: pre-wrap; }
+    .relation-ref { cursor: help; border-bottom: 2px dotted var(--blue); }
+    .relation-ref:focus { outline: 3px solid var(--blue); outline-offset: 3px; }
+    .relation-ref > code { font-size: 0.8em; }
+    #precision-failures td, #precision-failures tbody tr { position: relative; }
+    /* Keeps the slide inside 760px with the relation chips. */
+    #precision-failures table.study-cases { font-size: 0.6em; }
+    /* Fragment rows are stacking contexts, so a row rises only while its own tree shows. */
+    #precision-failures tbody tr:has(.relation-ref:hover, .relation-ref:focus) { z-index: 40; }
+    .relation-proof { display: none; position: absolute; left: 0; bottom: calc(100% + 6px); width: 1120px; padding: 10px 14px; font-size: 15px; line-height: 1.4; }
+    /* Keeps the tree open while the pointer moves up to it: the left column's width, and the left cell's text above a relation (up to about 105px). */
+    .relation-proof::after { content: ""; position: absolute; top: 100%; left: 0; width: 50%; height: 120px; }
+    .relation-ref:hover .relation-proof, .relation-ref:focus .relation-proof { display: block; }
+    .relation-proof code { display: block; font-size: 14px; overflow-wrap: break-word; margin-top: 4px; }
+    .relation-proof .relation-proof-premises { display: grid; grid-template-columns: 1fr 1.6fr 1fr 0.8fr; gap: 10px; }
+    .relation-proof .proof-node, .relation-proof .proof-rule { display: block; font-size: 15px; cursor: auto; }
+    .relation-proof .proof-node { padding: 6px 10px; }
+    .relation-proof .proof-node small { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .relation-proof .proof-rule { margin-top: 8px; padding-top: 4px; }
+    .relation-proof .proof-rule > span { white-space: nowrap; }
+    .relation-proof .proof-conclusion { width: 60%; margin: 6px auto 0; }
     .attempt-strip { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin: 34px 0 16px; }
     .attempt-strip span { display: block; padding: 10px 6px; border: 1px solid #aebcd5; border-radius: 6px; background: #f4f6fa; font-size: 0.48em; line-height: 1.35; text-align: center; }
     .attempt-strip .selected-attempt { border: 2px solid var(--blue); background: #eaf1fb; }
@@ -75,7 +98,10 @@
     .code-reference { position: absolute; top: -20px; right: 0; z-index: 20; font-size: 0.46em; }
     .code-reference > button { cursor: pointer; font: inherit; color: var(--blue); background: #eaf1fb; border: 1px solid #aebcd5; border-radius: 5px; padding: 4px 10px; }
     .code-reference > button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
-    .code-reference .source-panel { display: none; position: absolute; top: 100%; right: 0; width: 850px; max-height: 460px; overflow: auto; box-sizing: border-box; padding: 16px; background: white; border: 2px solid var(--blue); border-radius: 6px; box-shadow: 0 6px 24px #0003; font-size: 17px; line-height: 1.4; text-align: left; }
+    .code-reference .source-panel, .relation-proof { box-sizing: border-box; background: white; border: 2px solid var(--blue); border-radius: 6px; box-shadow: 0 6px 24px #0003; text-align: left; }
+    /* An open panel sits above table rows raised for a proof tree. */
+    .code-reference:hover:not(.dismissed), .code-reference.open { z-index: 50; }
+    .code-reference .source-panel { display: none; position: absolute; top: 100%; right: 0; width: 850px; max-height: 460px; overflow: auto; padding: 16px; font-size: 17px; line-height: 1.4; }
     .code-reference:hover:not(.dismissed) .source-panel, .code-reference.open .source-panel { display: block; }
     .code-reference .source-panel p { margin: 0 0 12px; }
     .code-reference .source-panel pre { margin: 10px 0 18px; font-size: 14px; line-height: 1.45; }
@@ -151,7 +177,7 @@
   <h1>Keep Track</h1>
   <p class="lead">Checking whether extracted relations<br>follow from their sources</p>
   <p class="muted">Dat Nguyen</p>
-  <p class="note">August to October 2026</p>
+  <p class="note">August to November 2026</p>
   <p class="nav"><a href="#/claims">Overview</a><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track">Repository</a></p>
 </section>
 
@@ -161,7 +187,7 @@
   <nav class="research-map" aria-label="Research sections">
     <a href="#/claims"><strong>1. Methods</strong><span>Check claims against their source, then search for an extractor that covers more source words within an edit budget.</span></a>
     <a href="#/study-setup"><strong>2. Experiment settings</strong><span>Ten authored sentences, expected answers and scoring criteria.</span></a>
-    <a href="#/agent-confusions"><strong>3. Results, in date order</strong><span>Recovery with search on the ten sentences, then 65 BioRelFact development pairs and what still goes wrong.</span></a>
+    <a href="#/agent-confusions"><strong>3. Results, in date order</strong><span>Recovery with search on the ten sentences, then 65 BioRelFact development pairs, what still goes wrong, and all 1,767 pairs with a learned lexicon.</span></a>
   </nav>
 </section>
 
@@ -793,13 +819,13 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
     <table class="study-cases">
       <thead><tr><th>Failure and example</th><th>Why it is wrong</th></tr></thead>
       <tbody>
-        <tr class="fragment"><td><strong>1. The cue belongs to another entity.</strong> “…anti-IL-6 receptor antibody (anti-<span class="semantic-mark role-object">IL-6R</span> mAb) and <span class="semantic-mark role-predicate">JAK inhibitor</span> <span class="semantic-mark role-subject">Baricitinib</span>.” The program maps “JAK inhibitor” to ANTAGONIST.</td><td>“JAK inhibitor” says Baricitinib inhibits JAK. IL-6R belongs to the antibody. All six accepted programs agreed.</td></tr>
-        <tr class="fragment"><td><strong>2. An entity name is the cue.</strong> “…deranged liver function tests (<span class="semantic-mark role-subject">p.Gly292fs</span>, HNF1A); hepatic enlargement (p.Arg311Cys, HNF4A); <span class="semantic-mark role-object">renal hypoplasia</span> (p.Arg159Gln, HNF1A)…” The program maps “p.Gly292fs” itself to ASSOCIATION.</td><td>The list pairs p.Gly292fs with liver function tests; renal hypoplasia goes with p.Arg159Gln. All seven accepted programs agreed.</td></tr>
-        <tr class="fragment"><td><strong>3. Coverage replaces NO_RELATION.</strong> Insulin and diabetes: six programs say NO_RELATION, one maps “linked to” to CAUSAL_EFFECT.</td><td>The positive covers 4 words and NO_RELATION covers none, so the positive wins. <a href="#/coverage-override">Next slide</a></td></tr>
+        <tr class="fragment"><td><strong>1. The cue belongs to another entity.</strong> “…anti-IL-6 receptor antibody (anti-<span class="semantic-mark role-object">IL-6R</span> mAb) and <span class="semantic-mark role-predicate">JAK inhibitor</span> <span class="semantic-mark role-subject">Baricitinib</span>.” Selected relation: <span class="relation-ref" tabindex="0" aria-describedby="pf-proof-1"><code>&lt;Baricitinib, “JAK inhibitor” → ANTAGONIST, IL-6R&gt;</code><span class="relation-proof" id="pf-proof-1" role="tooltip"><span class="relation-proof-premises"><span class="proof-node"><strong>Subject</strong><code>span_at source[150:161]: 'Baricitinib'</code><small>type biorelfact:Drug, concept DR:BAYPHTH0009753, both supplied</small></span><span class="proof-node"><strong>Predicate</strong><code>span_at source[136:149]: 'JAK inhibitor'</code><code>refine_relation 'JAK inhibitor' -&gt; 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=2</code></span><span class="proof-node"><strong>Object</strong><code>span_at source[121:126]: 'IL-6R'</code><small>type biorelfact:Gene, concept GH:BAYPHTH3570, both supplied</small></span><span class="proof-node"><strong>Evidence</strong><code>span_at source[0:162]: '…'</code><small>the whole sentence</small></span></span><span class="proof-rule"><span>make_relation, commitment="affirmed" ·</span> <span>lexical passed, schema passed, ontology not run ·</span> <span>signature biorelfact:Drug → biorelfact:Gene ·</span> <span>edit budget 2/2</span></span><span class="proof-node proof-conclusion"><strong>Selected decision</strong>DRUG : GENE - ANTAGONIST, fact<small>Gold: NO_RELATION · Trial 1, selected attempt 3 · steps and types: checker report; decision: prediction; commitment: code</small></span></span></span></td><td>“JAK inhibitor” says Baricitinib inhibits JAK. IL-6R belongs to the antibody. All six accepted programs agreed.</td></tr>
+        <tr class="fragment"><td><strong>2. An entity name is the cue.</strong> “…deranged liver function tests (<span class="semantic-mark role-subject">p.Gly292fs</span>, HNF1A); hepatic enlargement (p.Arg311Cys, HNF4A); <span class="semantic-mark role-object">renal hypoplasia</span> (p.Arg159Gln, HNF1A)…” Selected relation: <span class="relation-ref" tabindex="0" aria-describedby="pf-proof-2"><code>&lt;p.Gly292fs, “p.Gly292fs” → ASSOCIATION, renal hypoplasia&gt;</code><span class="relation-proof" id="pf-proof-2" role="tooltip"><span class="relation-proof-premises"><span class="proof-node"><strong>Subject</strong><code>span_at source[76:86]: 'p.Gly292fs'</code><small>type biorelfact:GeneVariant, concept MU:PG292FS, both supplied</small></span><span class="proof-node"><strong>Predicate</strong><code>span_at source[76:86]: 'p.Gly292fs'</code><code>refine_relation 'p.Gly292fs' -&gt; 'GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION'; undeclared mapping; cost=1</code></span><span class="proof-node"><strong>Object</strong><code>span_at source[138:154]: 'renal hypoplasia'</code><small>type biorelfact:Disease, concept SD:BAYPHTH015975, both supplied</small></span><span class="proof-node"><strong>Evidence</strong><code>span_at source[0:209]: '…'</code><small>the whole sentence</small></span></span><span class="proof-rule"><span>make_relation, commitment="affirmed" ·</span> <span>lexical passed, schema passed, ontology not run ·</span> <span>signature biorelfact:GeneVariant → biorelfact:Disease ·</span> <span>edit budget 1/2</span></span><span class="proof-node proof-conclusion"><strong>Selected decision</strong>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION, fact<small>Gold: NO_RELATION · Trial 1, selected attempt 2 · steps and types: checker report; decision: prediction; commitment: code</small></span></span></span></td><td>The list pairs p.Gly292fs with liver function tests; renal hypoplasia goes with p.Arg159Gln. All seven accepted programs agreed.</td></tr>
+        <tr class="fragment"><td><strong>3. Coverage replaces NO_RELATION.</strong> Insulin and diabetes: six programs say NO_RELATION; the selected one returns <span class="relation-ref" tabindex="0" aria-describedby="pf-proof-3"><code>&lt;insulin, “linked to” → CAUSAL_EFFECT, diabetes&gt;</code><span class="relation-proof" id="pf-proof-3" role="tooltip"><span class="relation-proof-premises"><span class="proof-node"><strong>Subject</strong><code>span_at source[109:116]: 'insulin'</code><small>type biorelfact:Drug, concept DR:BAYPHTH0000084, both supplied</small></span><span class="proof-node"><strong>Predicate</strong><code>span_at source[72:81]: 'linked to'</code><code>refine_relation 'linked to' -&gt; 'DRUG : DISEASE - CAUSAL_EFFECT'; undeclared mapping; cost=2</code></span><span class="proof-node"><strong>Object</strong><code>span_at source[82:90]: 'diabetes'</code><small>type biorelfact:Disease, concept SD:BAYPHTH010844, both supplied</small></span><span class="proof-node"><strong>Evidence</strong><code>span_at source[0:179]: '…'</code><small>the whole sentence</small></span></span><span class="proof-rule"><span>make_relation, commitment="affirmed" ·</span> <span>lexical passed, schema passed, ontology not run ·</span> <span>signature biorelfact:Drug → biorelfact:Disease ·</span> <span>edit budget 2/2</span></span><span class="proof-node proof-conclusion"><strong>Selected decision</strong>DRUG : DISEASE - CAUSAL_EFFECT, fact<small>Gold: NO_RELATION · Trial 2, selected attempt 7 · steps and types: checker report; decision: prediction; commitment: code</small></span></span></span>.</td><td>The positive covers 4 words and NO_RELATION covers none, so the positive wins. <a href="#/coverage-override">Next slide</a></td></tr>
       </tbody>
     </table>
   </div>
-  <aside class="notes">Row 1: EMBASE:L642703453:206:368:1:6, trial 1; no attempt proposed NO_RELATION in any trial. Row 2: EMBASE:L637188167:1576:1785:28:40, trial 1. Both pass the type check, so only a check that the cue relates this subject to this object would reject them. The two dimensions combine: Baricitinib with “anti-IL-6R mAb or Baricitinib” (EMBASE:L642703453:1772:1913:2:7) and pralsetinib with RET (EMBASE:L2027807039:0:220:0:3) misread the cue and also had one accepted NO_RELATION that coverage ranking replaced. Counts come from experiments/PAID_REFINEMENT_RESULTS.md.</aside>
+  <aside class="notes">Row 1: EMBASE:L642703453:206:368:1:6, trial 1; no attempt proposed NO_RELATION in any trial. Row 2: EMBASE:L637188167:1576:1785:28:40, trial 1. Both pass the type check, so only a check that the cue relates this subject to this object would reject them. The two dimensions combine: Baricitinib with “anti-IL-6R mAb or Baricitinib” (EMBASE:L642703453:1772:1913:2:7) and pralsetinib with RET (EMBASE:L2027807039:0:220:0:3) misread the cue and also had one accepted NO_RELATION that coverage ranking replaced. Counts come from experiments/PAID_REFINEMENT_RESULTS.md. Each selected relation and its proof tree come from the selected attempt's checker report, prediction and code in the full records: rows 1 and 2 as linked from the code panel, row 3 from sources/insulin-diabetes-trial-2.json.</aside>
 </section>
 
 <section id="coverage-override" class="no-marks" data-date="2026-10-29">
@@ -944,6 +970,58 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   <aside class="notes">Rows 1 to 3: EMBASE:L2031903688:0:218:1:5, EMBASE:L2022855559:372:595:0:2 and EMBASE:L2019671577:958:1091:5:7. False positives where coverage replaced an accepted NO_RELATION: 7, 9, 9 per trial at budget 2; 5, 5, 9 at budget 4; 6, 4, 8 at budget 8. Selected paid cues overlapping an annotated entity mention: 48 of 160 at budget 2, 56 of 160 at budget 8. The whole-sentence control is rejected on every pair at all three budgets. Full section: <a href="https://github.com/datvo06/keep-track/blob/ba2ca4a/experiments/PAID_REFINEMENT_RESULTS.md">PAID_REFINEMENT_RESULTS.md</a>, “Larger edit budgets”.</aside>
 </section>
 
+<section id="lexicon-results" class="no-marks" data-date="2026-11-02">
+  <p class="eyebrow">November 1 to 2, 2026 · all 1,767 pairs</p>
+  <h2>Learning a predicate lexicon</h2>
+  <p class="definitions">Listed words stay free. A cue bought with the same relation in two or more other documents also becomes free when our hand-made crosswalk from the Biolink vocabulary links it to that relation. The pair’s prompt lists these cues.</p>
+  <figure>
+    <img src="figures/lexicon-all-pairs.svg" alt="Relation F1 on all 1,767 BioRelFact pairs, one trial per arm; the two search arms use each pair's selected program. Plain GPT 72.0, precision 64.7, recall 81.1. Paid mappings plus search at edit budget 4: 70.5, precision 60.3, recall 84.7. The same with the learned lexicon: 70.3, precision 61.3, recall 82.3.">
+  </figure>
+  <div class="code-example">
+    <div class="code-reference"><button type="button">Generated programs · GFAP</button><div class="source-panel" role="region" aria-label="Selected generated programs for GFAP and astrocyte injury, without and with the learned lexicon"><p><strong>Paid mappings + search, budget 4: selected attempt 1 of 8 (verbatim)</strong></p><pre><code class="language-python">from typing import Callable
+
+
+def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
+    def extract(case: PairInput) -&gt; PairAnswer:
+        subject: Span = span_at(case.case_id, 0, *case.head_range)
+        predicate: RefinedSpan = refine_relation(
+            find_span(retrieve(case.case_id), "glial fibrillary acidic protein"),
+            "GENE : DISEASE - BIOMARKER",
+        )
+        object_: Span = span_at(case.case_id, 0, *case.tail_range)
+        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))
+        return make_relation(subject, predicate, object_, evidence, commitment="affirmed")
+
+    return extract</code></pre><p>Predicate proof step:</p><pre><code class="language-text">'glial fibrillary acidic protein' -&gt; 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=4</code></pre><p><strong>+ learned lexicon: listing added to this pair’s prompt (rendered from lexicon.json by <code>lexicon_instructions</code> at 8e50f54)</strong></p><pre><code class="language-text">Learned declared forms for this pair. Each was paid for with that relation in at least two other documents. Refining one of these forms to its relation is a declared mapping and costs no edit units. A listed form is not evidence that the relation holds for this pair.
+- 'biomarker' -&gt; GENE : DISEASE - BIOMARKER
+- 'biomarkers' -&gt; GENE : DISEASE - BIOMARKER
+- 'causes' -&gt; GENE : DISEASE - CAUSAL_EFFECT
+- 'contribution' -&gt; GENE : DISEASE - MODULATES
+- 'correlated' -&gt; GENE : DISEASE - BIOMARKER
+- 'correlation' -&gt; GENE : DISEASE - BIOMARKER
+- 'regulated' -&gt; GENE : DISEASE - MODULATES</code></pre><p><strong>+ learned lexicon: selected attempt 1 of 8 (verbatim)</strong></p><pre><code class="language-python">from typing import Any
+
+def propose_program(public_input: str, instructions: str, current_code: str, feedback: str):
+    def extract(case: PairInput):
+        subject = span_at(case.case_id, 0, *case.head_range)
+        object_ = span_at(case.case_id, 0, *case.tail_range)
+        evidence = span_at(case.case_id, 0, 0, len(case.sentence))
+        predicate_source = find_span(retrieve(case.case_id), "biomarker")
+        predicate = refine_relation(predicate_source, "GENE : DISEASE - BIOMARKER")
+        return make_relation(subject, predicate, object_, evidence, commitment="affirmed")
+    return extract</code></pre><p>Predicate proof step:</p><pre><code class="language-text">'biomarker' -&gt; 'GENE : DISEASE - BIOMARKER'; equivalence_id=biorelfact:learned-v1:GENE : DISEASE - BIOMARKER:biomarker</code></pre><p>Full records, with every attempt and checker report: <a href="sources/gfap-biomarker-no-lexicon.json" target="_blank" rel="noopener">paid mappings + search</a> and <a href="sources/gfap-biomarker-lexicon.json" target="_blank" rel="noopener">+ learned lexicon</a> (which also keeps the rendered prompt listing).</p></div></div>
+    <table class="study-cases fragment">
+      <thead><tr><th>Selected positives</th><th>Free cue</th><th>Paid cue</th></tr></thead>
+      <tbody>
+        <tr><td>Paid mappings + search, budget 4</td><td>35 (71.4% correct)</td><td>1,411 (60.0% correct)</td></tr>
+        <tr><td>+ learned lexicon</td><td>270 (70.7% correct)</td><td>1,112 (59.0% correct)</td></tr>
+      </tbody>
+    </table>
+    <p class="definitions fragment">“Blood <span class="semantic-mark role-predicate">biomarker</span> tests included <span class="semantic-mark role-subject">glial fibrillary acidic protein</span> (GFAP) for astrocyte <span class="semantic-mark role-object">injury</span>.” Without the lexicon, the program pays 4 units to map the subject’s own span to BIOMARKER; with it, “biomarker” is free. Both are correct.</p>
+  </div>
+  <aside class="notes">Source: <a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">LEXICON_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/pull/28">PR #28</a>. Both passes run gpt-5.4-mini through effectful's harness and LiteLLM at commit 8e50f54, with 8 submissions per pair and an edit budget of 4. A free cue is a declared mapping in the checker; a paid cue is an undeclared mapping that costs one edit unit per word. The 35 free cues without the lexicon all use the supplied declared mappings (biorelfact:lexical-v1). Of the 270 with it, 222 use learned entries and 48 the supplied mappings. The lexicon is learned without gold labels from the pass without it, on the same 1,767 pairs it is scored on, and a pair only receives cues from other documents. A cue must also have one meaning in those documents. Biolink model 4.4.6 supplies only terms and their hierarchy; the crosswalk from them to BioRelFact relations is hand-made and fixed in the code. The lexicon has 979 entries, 29 of them justified and reused in two or more documents. Replaying the programs from the pass without the lexicon with the lexicon in the checker but not in the prompt gives 196 free selected positives at 74.5% correct. A single conflicting purchase of “treatment” for CAUSAL_EFFECT keeps the 32-document THERAPEUTIC_USE entry out of every Drugs and Indications pair outside that document. The first accepted programs score 70.9 F1 without the lexicon and 71.1 with it, at 63.3 and 64.9 precision. Each arm has one trial, so a one-point difference is not a ranking. An earlier full-set pass without the lexicon, through a hand-built client at commit 86a8bbc, scored 71.2 F1 for the selected programs and 71.4 for the first accepted ones. The full set includes the 65 pilot pairs, where the search scores 66.7 without the lexicon, 60.9 with it, and plain GPT 61.7, below all three of its earlier pilot trials (64.3, 72.1 and 74.4). Joint relation and factuality F1 is 63.0 for plain GPT, 58.0 without the lexicon and 58.7 with it. Plain GPT is the one-call baseline from commit ac1ab32. The passes made 14,575 and 14,699 completions with 206.9M and 210.1M input tokens; Langfuse prices them at $177 and $181 without cached-input discounts. The GFAP pair is EMBASE:L641828419:477:568:7:13. Run records are in the private HF dataset datvo06/keeptrack-biorelfact-runs: the search passes under harness-20261101 and plain GPT under lexicon-20261101/gpt-all.</aside>
+</section>
+
 <section id="dataset-search">
   <p class="eyebrow">Proposed extension: one extractor across documents</p>
   <h2>Search for a program that covers more examples</h2>
@@ -972,7 +1050,7 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
     <li class="fragment"><strong>Generalization:</strong> what carries from ten development sentences to independently annotated real sources?</li>
   </ul>
   <p class="note">We have executable checks and source-support proofs for declared sentence patterns, such as “A inhibits B in assay X.” The current evidence does not yet establish a general extraction advantage.</p>
-  <p class="nav"><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track/pull/24">Latest PR</a><a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/PAID_REFINEMENT_RESULTS.md">Experiment report</a></p>
+  <p class="nav"><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track/pull/28">Latest PR</a><a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">Experiment report</a></p>
 </section>
 
 <section id="notebook-versions">

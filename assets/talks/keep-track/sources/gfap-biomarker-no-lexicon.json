@@ -1,0 +1,1094 @@
+{
+  "run": "harness-20261101, gpt-5.4-mini, all 1,767 pairs, no lexicon, edit budget 4",
+  "case_id": "EMBASE:L641828419:477:568:7:13",
+  "sentence": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+  "subject": "glial fibrillary acidic protein",
+  "object": "injury",
+  "gold": {
+    "relation": "GENE : DISEASE - BIOMARKER",
+    "facticity": "fact"
+  },
+  "selected_attempt": 1,
+  "selected_prediction": {
+    "case_id": "EMBASE:L641828419:477:568:7:13",
+    "outcome": "decision",
+    "decision": {
+      "relation": "GENE : DISEASE - BIOMARKER",
+      "facticity": "fact"
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "code": "from typing import Callable\n\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate: RefinedSpan = refine_relation(\n            find_span(retrieve(case.case_id), \"glial fibrillary acidic protein\"),\n            \"GENE : DISEASE - BIOMARKER\",\n        )\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n\n    return extract\n",
+      "prediction": {
+        "case_id": "EMBASE:L641828419:477:568:7:13",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "glial fibrillary acidic protein",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'glial fibrillary acidic protein' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=4"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 84,
+            "root_end": 90,
+            "source_surface": "injury",
+            "rendered_surface": "injury",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[84:90]: 'injury'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 91,
+            "source_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "rendered_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:91]: 'Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "4/4"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L641828419:7",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 31,
+              "end": 62,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH2670",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L641828419:13",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 84,
+              "end": 90,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH016617",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 4,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 2,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"glial fibrillary acidic protein\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L641828419:477:568:7:13",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "glial fibrillary acidic protein",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'glial fibrillary acidic protein' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=4"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 84,
+            "root_end": 90,
+            "source_surface": "injury",
+            "rendered_surface": "injury",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[84:90]: 'injury'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 91,
+            "source_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "rendered_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:91]: 'Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "4/4"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L641828419:7",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 31,
+              "end": 62,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH2670",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L641828419:13",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 84,
+              "end": 90,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH016617",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 4,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 3,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"glial fibrillary acidic protein\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L641828419:477:568:7:13",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "glial fibrillary acidic protein",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'glial fibrillary acidic protein' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=4"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 84,
+            "root_end": 90,
+            "source_surface": "injury",
+            "rendered_surface": "injury",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[84:90]: 'injury'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 91,
+            "source_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "rendered_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:91]: 'Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "4/4"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L641828419:7",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 31,
+              "end": 62,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH2670",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L641828419:13",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 84,
+              "end": 90,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH016617",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 4,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 4,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"glial fibrillary acidic protein\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L641828419:477:568:7:13",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "glial fibrillary acidic protein",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'glial fibrillary acidic protein' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=4"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 84,
+            "root_end": 90,
+            "source_surface": "injury",
+            "rendered_surface": "injury",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[84:90]: 'injury'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 91,
+            "source_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "rendered_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:91]: 'Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "4/4"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L641828419:7",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 31,
+              "end": 62,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH2670",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L641828419:13",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 84,
+              "end": 90,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH016617",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 4,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 5,
+      "code": "from typing import Callable\n\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"glial fibrillary acidic protein\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n\n    return extract\n",
+      "prediction": {
+        "case_id": "EMBASE:L641828419:477:568:7:13",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "glial fibrillary acidic protein",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'glial fibrillary acidic protein' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=4"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 84,
+            "root_end": 90,
+            "source_surface": "injury",
+            "rendered_surface": "injury",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[84:90]: 'injury'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 91,
+            "source_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "rendered_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:91]: 'Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "4/4"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L641828419:7",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 31,
+              "end": 62,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH2670",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L641828419:13",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 84,
+              "end": 90,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH016617",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 4,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 6,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"glial fibrillary acidic protein\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L641828419:477:568:7:13",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "glial fibrillary acidic protein",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'glial fibrillary acidic protein' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=4"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 84,
+            "root_end": 90,
+            "source_surface": "injury",
+            "rendered_surface": "injury",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[84:90]: 'injury'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 91,
+            "source_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "rendered_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:91]: 'Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "4/4"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L641828419:7",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 31,
+              "end": 62,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH2670",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L641828419:13",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 84,
+              "end": 90,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH016617",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 4,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 7,
+      "code": "from typing import Any\n\n\ndef propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: ExtractedSpan = find_span(retrieve(case.case_id), \"glial fibrillary acidic protein\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n\n    return extract\n",
+      "prediction": {
+        "case_id": "EMBASE:L641828419:477:568:7:13",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "glial fibrillary acidic protein",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'glial fibrillary acidic protein' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=4"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 84,
+            "root_end": 90,
+            "source_surface": "injury",
+            "rendered_surface": "injury",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[84:90]: 'injury'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 91,
+            "source_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "rendered_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:91]: 'Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "4/4"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L641828419:7",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 31,
+              "end": 62,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH2670",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L641828419:13",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 84,
+              "end": 90,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH016617",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 4,
+      "stop_or_error": null
+    },
+    {
+      "attempt": 8,
+      "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, *case.head_range)\n        predicate_source: Span = find_span(retrieve(case.case_id), \"glial fibrillary acidic protein\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENE : DISEASE - BIOMARKER\")\n        object_: Span = span_at(case.case_id, 0, *case.tail_range)\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n\n    return extract",
+      "prediction": {
+        "case_id": "EMBASE:L641828419:477:568:7:13",
+        "outcome": "decision",
+        "decision": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "fact"
+        }
+      },
+      "checker_report": {
+        "ok": true,
+        "relations": 1,
+        "errors": [],
+        "span_proofs": [
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "glial fibrillary acidic protein",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 31,
+            "root_end": 62,
+            "source_surface": "glial fibrillary acidic protein",
+            "rendered_surface": "GENE : DISEASE - BIOMARKER",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[31:62]: 'glial fibrillary acidic protein'"
+              },
+              {
+                "kind": "refine_relation",
+                "detail": "'glial fibrillary acidic protein' -> 'GENE : DISEASE - BIOMARKER'; undeclared mapping; cost=4"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 84,
+            "root_end": 90,
+            "source_surface": "injury",
+            "rendered_surface": "injury",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[84:90]: 'injury'"
+              }
+            ]
+          },
+          {
+            "doc_id": "EMBASE:L641828419:477:568:7:13",
+            "root_location": 0,
+            "root_start": 0,
+            "root_end": 91,
+            "source_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "rendered_surface": "Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.",
+            "chain": [
+              {
+                "kind": "span_at",
+                "detail": "source[0:91]: 'Blood biomarker tests included glial fibrillary acidic protein (GFAP) for astrocyte injury.'"
+              }
+            ]
+          }
+        ],
+        "budgets": {
+          "edit": "4/4"
+        },
+        "checks": [
+          {
+            "stage": "lexical",
+            "status": "passed"
+          },
+          {
+            "stage": "schema",
+            "status": "passed"
+          },
+          {
+            "stage": "ontology",
+            "status": "not run"
+          }
+        ],
+        "type_evidence": [
+          {
+            "predicate": "GENE : DISEASE - BIOMARKER",
+            "subject": {
+              "annotation_id": "EMBASE:L641828419:7",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 31,
+              "end": 62,
+              "type_id": "biorelfact:Gene",
+              "concept_id": "GH:BAYPHTH2670",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "object": {
+              "annotation_id": "EMBASE:L641828419:13",
+              "doc_id": "EMBASE:L641828419:477:568:7:13",
+              "location": 0,
+              "start": 84,
+              "end": 90,
+              "type_id": "biorelfact:Disease",
+              "concept_id": "SD:BAYPHTH016617",
+              "resource_id": "biorelfact:7a052137f1ed8a31724d572c61589b8b2ee584f4",
+              "resolution": "supplied"
+            },
+            "signature": {
+              "subject_type": "biorelfact:Gene",
+              "object_type": "biorelfact:Disease"
+            },
+            "subject_path": [],
+            "object_path": [],
+            "schema_sha256": "d840c3116a69acb362d769d9307cb19a64fe384619ab2197240b86af5a83abdb",
+            "ontology_resource": ""
+          }
+        ]
+      },
+      "covered_words": 5,
+      "edit_units": 4,
+      "stop_or_error": null
+    }
+  ]
+}
