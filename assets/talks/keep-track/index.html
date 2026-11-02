@@ -47,7 +47,6 @@
     .reveal figure { margin: 0; }
     .reveal figure img { width: 100%; height: 390px; object-fit: contain; margin: 0; border: 0; box-shadow: none; }
     #october-baselines figure img { height: 330px; }
-    #biorelfact-results figure img { height: 470px; }
     #paid-mappings .source-panel, #precision-failures .source-panel, #coverage-override .source-panel, #recall-failures .source-panel, #edit-budget .source-panel, #lexicon-results .source-panel { width: 1120px; }
     #lexicon-results figure img { height: 226px; }
     #lexicon-results .code-reference .source-panel { top: auto; bottom: 100%; }
@@ -748,16 +747,6 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   </table>
   <p class="note">Relation F1 is micro F1 over the nine relations, with all 36 gold positives in the denominator. Every method runs three gpt-5.4-mini trials on the same pairs.</p>
   <aside class="notes">Data: <a href="https://github.com/Bayer-Group/biomed-relation-factuality-detection">BioRelFact</a> (BSD-3-Clause), frozen development split. Setup and scoring: <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/README.md">experiments/README.md</a>. The example pair is EMBASE:L635534563:816:1120:2:4.</aside>
-</section>
-
-<section id="biorelfact-results" class="no-marks" data-date="2026-10-29">
-  <p class="eyebrow">October 22 to 29, 2026</p>
-  <h2>Recall matches plain GPT, precision does not</h2>
-  <figure>
-    <img src="figures/biorelfact-progress.svg" alt="Relation F1 on 65 BioRelFact development pairs, three trials each. Plain GPT 64.3, 72.1, 74.4 (mean 70.2). LangExtract 64.3, 65.1, 63.5 (64.3). Coverage search 64.4, 58.7, 62.2 (61.8). Plus supplied entity types 65.9, 61.5, 62.9 (63.5). Five-word mapping list 10.5, 5.4, 10.3 (8.7). Paid mappings, first accepted 59.5, 63.5, 64.3 (62.4). Paid mappings plus coverage search at edit budget 2: 62.2, 62.4, 64.5 (63.0); budget 4: 66.7, 62.2, 64.4 (64.4); budget 8: 66.7, 67.4, 63.7 (65.9). Mean precision and recall: plain GPT 62.4 and 80.6, LangExtract 56.3 and 75.0, coverage search 51.3 and 77.8, plus types 53.2 and 78.7, five-word list 88.9 and 4.6, paid first accepted 54.5 and 73.1, paid plus search 51.8 and 80.6 at budget 2, 53.7 and 80.6 at budget 4, 54.5 and 83.3 at budget 8.">
-    <figcaption>Each dot is one trial; bars and labels show the mean.</figcaption>
-  </figure>
-  <aside class="notes">Sources: <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/BASELINE_RESULTS.md">BASELINE_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/DOMAIN_RESULTS.md">DOMAIN_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/DERIVATION_RESULTS.md">DERIVATION_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/blob/ba2ca4a/experiments/PAID_REFINEMENT_RESULTS.md">PAID_REFINEMENT_RESULTS.md</a>. The coverage search and typed rows replay the same saved programs. Paid mappings use 8 calls per pair; the five-word row used a 32,000-token allowance, which fit one or two calls. The budget 4 and 8 rows are fresh trials with the same setup. Three trials cost $0.32 for plain GPT and $6.46 to $6.70 for the paid search. Run records are in the private HF dataset datvo06/keeptrack-biorelfact-runs.</aside>
 </section>
 
 <section id="paid-mappings" class="no-marks" data-date="2026-10-29">
