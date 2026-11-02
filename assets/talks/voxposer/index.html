@@ -38,6 +38,7 @@
     .reveal table.settings.llm-recon-results th:first-child { text-align: left; }
     .llm-recon-video { width: 92%; }
     #slide-llm-reconstruction-masks .model-figure { max-height: 290px; }
+    #slide-llm-reconstruction-masks .llm-recon-list { text-align: center; }
     .llm-recon-wins { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; width: 76%; margin: 0 auto; }
     .llm-recon-wins figure { margin: 0; }
     .llm-recon-wins video { display: block; width: 100%; border-radius: 4px; }
@@ -172,14 +173,9 @@
 <section id="slide-llm-reconstruction-masks">
   <h2 class="t">Part masks from <span>surface points</span></h2>
   <img class="model-figure" src="media/world-models/llm-recon-seg-test-32-masks.jpg" alt="A five-drawer chest's fitting view, its 9 parts from fine-tuned SAM2 point prompts, and its 6 true parts">
-  <ul class="llm-recon-list">
-    <li class="fragment">SAM2 on the agent's own boxes: median part IoU 0.53</li>
-    <li class="fragment">SAM2 at points on the object's surface, one point at a time, as Real2Code prompts it: 0.79</li>
-    <li class="fragment">Its mask decoder fine-tuned on 289 training objects: <strong>0.95</strong></li>
-    <li class="fragment">Tight boxes around the true parts, for reference: 0.97</li>
-  </ul>
+  <p class="llm-recon-list">We fine-tuned SAM2 on 12.6k rendered views of 289 PartNet-Mobility training objects, following Real2Code.</p>
   <p class="cap"><a href="https://github.com/datvo06/robotl-reconstruction/pull/5">Segmentation PR</a></p>
-  <aside class="notes">SAM2 is prompted at 100 points drawn evenly from each fitting view's own surface, one point at a time. Prompts whose masks agree, mean IoU above 0.7 over the views they share, form one part, and each pixel goes to the smallest part that claims it. This is Real2Code's test-time scheme. Only the mask decoder was fine-tuned, with Real2Code's recipe of 16 point prompts per image and a BCE, Dice and IoU-head loss, on 12.6k views of 1396 articulation states of 289 PartNet-Mobility objects outside the development and test sets: two passes on rolly's RTX 4090, held-out point IoU 0.54 to 0.90. Scores are the median IoU of each visible true part against its best predicted mask: 1241 visible parts across the fitting views of all 37 test objects for the point rows, and the 132 visible parts in the 36 views where GPT-5.4 drew boxes for the box rows. The fine-tuned segmenter over-splits, about 6.8 parts per object against about 3.6 true; this chest gets 9 parts for 6. The agent gets these masks as its segmented-masks condition.</aside>
+  <aside class="notes">SAM2 is prompted at 100 points drawn evenly from each fitting view's own surface, one point at a time. Prompts whose masks agree, mean IoU above 0.7 over the views they share, form one part, and each pixel goes to the smallest part that claims it. This is Real2Code's test-time scheme. Only the mask decoder was fine-tuned, with Real2Code's recipe of 16 point prompts per image and a BCE, Dice and IoU-head loss, on 12.6k views of 1396 articulation states of 289 PartNet-Mobility objects outside the development and test sets: two passes on rolly's RTX 4090, held-out point IoU 0.54 to 0.90. Median part IoU: SAM2 on the agent's own boxes 0.53; stock SAM2 at surface points 0.79; fine-tuned 0.95; tight boxes around the true parts 0.97. Each is the median IoU of each visible true part against its best predicted mask, over 1241 visible parts across the fitting views of all 37 test objects for the point prompts, and over the 132 visible parts in the 36 views where GPT-5.4 drew boxes for the box prompts. The fine-tuned segmenter over-splits, about 6.8 parts per object against about 3.6 true; this chest gets 9 parts for 6. The agent gets these masks as its segmented-masks condition.</aside>
 </section>
 <section id="slide-llm-reconstruction-results">
   <h2 class="t">GPT-5.4 vs <span>Gemini 3.1 Pro</span></h2>
