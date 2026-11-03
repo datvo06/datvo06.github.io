@@ -1,0 +1,2080 @@
+{
+ "runs": [
+  {
+   "key": "gpt54-none",
+   "model": "GPT-5.4",
+   "condition": "No masks"
+  },
+  {
+   "key": "gpt54-seg",
+   "model": "GPT-5.4",
+   "condition": "Segmented masks"
+  },
+  {
+   "key": "gpt54-true",
+   "model": "GPT-5.4",
+   "condition": "True parts, first runs"
+  },
+  {
+   "key": "gem31-none",
+   "model": "Gemini 3.1 Pro",
+   "condition": "No masks"
+  },
+  {
+   "key": "gem31-seg",
+   "model": "Gemini 3.1 Pro",
+   "condition": "Segmented masks"
+  },
+  {
+   "key": "gem31-true",
+   "model": "Gemini 3.1 Pro",
+   "condition": "True parts, first runs"
+  },
+  {
+   "key": "gpt6",
+   "model": "GPT-6 Astra",
+   "condition": "Segmented masks, RoboTL"
+  },
+  {
+   "key": "gpt6x",
+   "model": "GPT-6 Astra",
+   "condition": "Segmented masks, MuJoCo XML"
+  },
+  {
+   "key": "gem4s",
+   "model": "Gemini 4",
+   "condition": "Segmented masks, RoboTL, prompt line"
+  },
+  {
+   "key": "gem4x",
+   "model": "Gemini 4",
+   "condition": "Segmented masks, MuJoCo XML, prompt line"
+  }
+ ],
+ "objects": [
+  {
+   "name": "test-00",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 27.014636802524464,
+     "found": 0,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 133.26565325249658,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 2.8099215775482387,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": {
+     "cd": 2.1382765442569824,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-true": {
+     "cd": 5.4809330476514155,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 1.7628682242271636,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt6x": {
+     "cd": 1.7068400933776873,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem4s": null,
+    "gem4x": {
+     "cd": 1.7792995325930028,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    }
+   }
+  },
+  {
+   "name": "test-01",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 12.698401397763542,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 14.352739550960669,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 37.692834536146165,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": {
+     "cd": 60.90948781943662,
+     "found": 0,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-true": {
+     "cd": 47.19453465864937,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 0.1051454140157312,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.10555661759534465,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.10960147826439401,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-02",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 403.3285486906696,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 204.753006423845,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 65.0095892006322,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 5.9262294634207136,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-seg": null,
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.38000931369500995,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.228807343915127,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 2.3781306556441355,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.26979352538865387,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-03",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 378.7140067121893,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 166.2714484156812,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 147.8160760414316,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 111.26585776510225,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-seg": {
+     "cd": 6.707040788324616,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-true": {
+     "cd": 15.665851574616294,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 0.18674649613560673,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.19031305568956286,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.18607620948677436,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-04",
+   "category": "Refrigerator",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 94.13787149451836,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 15.116248855245333,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 26.520886063215293,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 2.69861151032391,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-seg": null,
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.34623086832229527,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt6x": {
+     "cd": 0.4885373862290332,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem4s": null,
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-05",
+   "category": "Laptop",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 133.7204249675478,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 196.34222239961323,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 4.137627355454736,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-none": {
+     "cd": 1.8976274036930871,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-seg": {
+     "cd": 0.7800151862751856,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.064083296785291,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt6x": {
+     "cd": 0.06047512924691972,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-06",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 71.69971564160998,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 221.692038241878,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 37.72514060203078,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 8.237774631638912,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-seg": null,
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.26369661367428526,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.26980003005818626,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.26443295468973754,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-07",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 197.51949969914335,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 210.70214346885854,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 104.29950872605612,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": {
+     "cd": 1.0621361292051454,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.11922666656547933,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.11742696179897476,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.14625633782789244,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.16636889195134288,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-08",
+   "category": "Refrigerator",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 79.42944150806322,
+     "found": 0,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 77.44272283966019,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": null,
+    "gem31-none": {
+     "cd": 1.1936769012839898,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-seg": {
+     "cd": 11.030427759487106,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.03956385254362938,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.03968578551167634,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-09",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 350.8723519636611,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": null,
+    "gpt54-true": {
+     "cd": 307.5215030083881,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 204.4403589341805,
+     "found": 0,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-seg": null,
+    "gem31-true": {
+     "cd": 236.25428433394333,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 0.09564849301953703,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.09766524992880772,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.1238476901731439,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-10",
+   "category": "Laptop",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 75.20110679242265,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 7.239368880200243,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt54-true": {
+     "cd": 5.581416143603822,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-none": null,
+    "gem31-seg": {
+     "cd": 0.4933951636597518,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-true": {
+     "cd": 0.6691860232447605,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6": {
+     "cd": 0.08997753937550672,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.07810507457744885,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": {
+     "cd": 0.08736859798857467,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-11",
+   "category": "Laptop",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 125.54971399372828,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 41.98768891663357,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 76.66990409481224,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 0.18404922291403325,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-seg": {
+     "cd": 0.7326396576926016,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.044953588774191144,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.043050517432864026,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem4s": {
+     "cd": 0.037346787960550604,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-12",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 168.3963994894498,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 200.3829999415477,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 57.91255271606186,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 14.456917452557636,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-seg": {
+     "cd": 10.991319059411724,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-true": {
+     "cd": 11.968888840202082,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 0.23255727169893417,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.19739882017269103,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.2627432719217515,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.29503226519765663,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-13",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 112.37926806839765,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": null,
+    "gpt54-true": {
+     "cd": 30.281750823485776,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 4.971880262720281,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem31-seg": {
+     "cd": 136.96037153532893,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.11690557066788813,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.11814665008809386,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.15534948683817063,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-14",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt54-none": {
+     "cd": 16.982799851172995,
+     "found": 0,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 495.5419755337223,
+     "found": 1,
+     "true": 1,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 18.604707628592315,
+     "found": 0,
+     "true": 1,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": null,
+    "gem31-true": {
+     "cd": 9.262129491315447,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6": {
+     "cd": 0.698142198643372,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.8137728976620123,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 1.0857408338197534,
+     "found": 1,
+     "true": 1,
+     "ok": true
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-15",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt54-none": {
+     "cd": 779.221074332058,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 447.6394007203445,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 29.17907957122493,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": {
+     "cd": 6.265183622994676,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem31-true": null,
+    "gpt6": null,
+    "gpt6x": {
+     "cd": 1.3797554685311626,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 1.5575332138344857,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-16",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt54-none": {
+     "cd": 196.1945247464917,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-seg": null,
+    "gpt54-true": {
+     "cd": 28.609946935426763,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 14.082295456929367,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-seg": null,
+    "gem31-true": {
+     "cd": 14.602913738415234,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 0.22136129700751075,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.3252139645811536,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.2518276235321439,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.391592954072867,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-17",
+   "category": "Refrigerator",
+   "parts": 3,
+   "runs": {
+    "gpt54-none": {
+     "cd": 408.5579865580532,
+     "found": 1,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 52.805985713528514,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-true": null,
+    "gem31-none": {
+     "cd": 96.72654887872153,
+     "found": 0,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-seg": null,
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.08479527248229787,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.07472714052097383,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-18",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt54-none": {
+     "cd": 67.83842993031764,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 7.696208752434479,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt54-true": {
+     "cd": 41.549527076446616,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 3.8791371291568284,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem31-seg": {
+     "cd": 6.832532853052012,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem31-true": {
+     "cd": 6.103367329932594,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6": {
+     "cd": 0.10408800159373222,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.10706235467876934,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.10511545083852106,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.1099069233146294,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-19",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt54-none": {
+     "cd": 298.24450544879056,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 451.2164739079045,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 18.466836000307463,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 6.036621635700737,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem31-seg": null,
+    "gem31-true": {
+     "cd": 14.180375836398476,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 0.195671164084657,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.3187292676623483,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 4.494695133364779,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-20",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt54-none": {
+     "cd": 172.31688510540295,
+     "found": 1,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 63.720016695078556,
+     "found": 0,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 12.213748693233214,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 7.285660945345619,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem31-seg": null,
+    "gem31-true": {
+     "cd": 1.488307902192601,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6": {
+     "cd": 0.32438434585470594,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.32708093771402275,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.32450316101039717,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.29536440092945265,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-21",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt54-none": {
+     "cd": 113.50093634144477,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 39.612818680411024,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 16.145335746985246,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 32.90205527503625,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-seg": null,
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.29611817468655605,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.38013871778949454,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.3798917961138512,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.5784839964834121,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-22",
+   "category": "Table",
+   "parts": 3,
+   "runs": {
+    "gpt54-none": {
+     "cd": 184.97692915085966,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 41.55203652506782,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 74.657400283077,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 24.29440013434765,
+     "found": 0,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-seg": null,
+    "gem31-true": {
+     "cd": 14.729870786552777,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 0.2141540519886695,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.19388077202462517,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": {
+     "cd": 0.16245090532059253,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-23",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt54-none": {
+     "cd": 32.75969278112874,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 29.704900823901447,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 12.827818500226664,
+     "found": 2,
+     "true": 2,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": {
+     "cd": 0.7625299476611489,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem31-true": {
+     "cd": 2.4466304811796276,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6": {
+     "cd": 0.04911368346141667,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.05784583619360399,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": {
+     "cd": 0.1318493401485509,
+     "found": 2,
+     "true": 2,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-24",
+   "category": "StorageFurniture",
+   "parts": 4,
+   "runs": {
+    "gpt54-none": {
+     "cd": 58.14237979094267,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gpt54-seg": null,
+    "gpt54-true": {
+     "cd": 22.06438894933082,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 57.23804176156227,
+     "found": 0,
+     "true": 3,
+     "ok": false
+    },
+    "gem31-seg": {
+     "cd": 57.796741564972606,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.19575348045707686,
+     "found": 3,
+     "true": 3,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.19902003020709433,
+     "found": 3,
+     "true": 3,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.24038734951174587,
+     "found": 3,
+     "true": 3,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.23990533696484823,
+     "found": 3,
+     "true": 3,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-25",
+   "category": "StorageFurniture",
+   "parts": 5,
+   "runs": {
+    "gpt54-none": {
+     "cd": 61.812007276397146,
+     "found": 2,
+     "true": 4,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 43.04254667212953,
+     "found": 4,
+     "true": 4,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 728.0958944868436,
+     "found": 0,
+     "true": 4,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": {
+     "cd": 71.00607598402343,
+     "found": 2,
+     "true": 4,
+     "ok": false
+    },
+    "gem31-true": {
+     "cd": 17.217820799608337,
+     "found": 4,
+     "true": 4,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 2.5291256496489907,
+     "found": 4,
+     "true": 4,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 1.6238270541489566,
+     "found": 4,
+     "true": 4,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-26",
+   "category": "StorageFurniture",
+   "parts": 4,
+   "runs": {
+    "gpt54-none": {
+     "cd": 7.245199620285111,
+     "found": 0,
+     "true": 3,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 29.403123371434305,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gpt54-true": null,
+    "gem31-none": {
+     "cd": 10.190617275953258,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gem31-seg": {
+     "cd": 10.37894757724639,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gem31-true": {
+     "cd": 13.692211913698758,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gpt6": {
+     "cd": 1.6203661531476268,
+     "found": 3,
+     "true": 3,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 1.1150401989789678,
+     "found": 3,
+     "true": 3,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-27",
+   "category": "StorageFurniture",
+   "parts": 5,
+   "runs": {
+    "gpt54-none": {
+     "cd": 171.99524840038512,
+     "found": 4,
+     "true": 4,
+     "ok": false
+    },
+    "gpt54-seg": null,
+    "gpt54-true": {
+     "cd": 9.822272800974329,
+     "found": 3,
+     "true": 4,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 4.618904358181055,
+     "found": 3,
+     "true": 4,
+     "ok": false
+    },
+    "gem31-seg": {
+     "cd": 3.827021484715173,
+     "found": 4,
+     "true": 4,
+     "ok": true
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.3757507390101292,
+     "found": 4,
+     "true": 4,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.4095172461001738,
+     "found": 4,
+     "true": 4,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-28",
+   "category": "StorageFurniture",
+   "parts": 5,
+   "runs": {
+    "gpt54-none": {
+     "cd": 9.174849533520712,
+     "found": 2,
+     "true": 4,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 308.77124731014527,
+     "found": 4,
+     "true": 4,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 2.1647457688943366,
+     "found": 0,
+     "true": 4,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 3.223801749582513,
+     "found": 0,
+     "true": 4,
+     "ok": false
+    },
+    "gem31-seg": null,
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.6861447896051205,
+     "found": 4,
+     "true": 4,
+     "ok": false
+    },
+    "gpt6x": {
+     "cd": 0.23611824627807687,
+     "found": 4,
+     "true": 4,
+     "ok": false
+    },
+    "gem4s": {
+     "cd": 0.2179110305508001,
+     "found": 4,
+     "true": 4,
+     "ok": false
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-29",
+   "category": "Table",
+   "parts": 4,
+   "runs": {
+    "gpt54-none": {
+     "cd": 94.34273687146809,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 39.366630916091104,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 70.21942575773839,
+     "found": 3,
+     "true": 3,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": {
+     "cd": 42.88291840214613,
+     "found": 0,
+     "true": 3,
+     "ok": false
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.811238005592718,
+     "found": 3,
+     "true": 3,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.13622184012899652,
+     "found": 3,
+     "true": 3,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.13056475423566877,
+     "found": 3,
+     "true": 3,
+     "ok": true
+    },
+    "gem4x": null
+   }
+  },
+  {
+   "name": "test-30",
+   "category": "StorageFurniture",
+   "parts": 6,
+   "runs": {
+    "gpt54-none": {
+     "cd": 24.464076323990405,
+     "found": 5,
+     "true": 5,
+     "ok": false
+    },
+    "gpt54-seg": null,
+    "gpt54-true": {
+     "cd": 17.061145648298076,
+     "found": 5,
+     "true": 5,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 1.7399657266851756,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    },
+    "gem31-seg": null,
+    "gem31-true": {
+     "cd": 1.0967932569011931,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    },
+    "gpt6": {
+     "cd": 0.3102120957654645,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.2361338305123013,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.2613445371377134,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.2686928835688413,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-31",
+   "category": "StorageFurniture",
+   "parts": 12,
+   "runs": {
+    "gpt54-none": {
+     "cd": 28.08475160741415,
+     "found": 0,
+     "true": 11,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 61.85229232080642,
+     "found": 9,
+     "true": 11,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 53.78043291315502,
+     "found": 0,
+     "true": 11,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 1.2085422055291757,
+     "found": 11,
+     "true": 11,
+     "ok": false
+    },
+    "gem31-seg": null,
+    "gem31-true": {
+     "cd": 1.6121442529941228,
+     "found": 11,
+     "true": 11,
+     "ok": true
+    },
+    "gpt6": {
+     "cd": 0.2388881293818244,
+     "found": 11,
+     "true": 11,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.23916216116880568,
+     "found": 11,
+     "true": 11,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.2421760803557506,
+     "found": 11,
+     "true": 11,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.27906660884968226,
+     "found": 11,
+     "true": 11,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-32",
+   "category": "StorageFurniture",
+   "parts": 6,
+   "runs": {
+    "gpt54-none": {
+     "cd": 118.6400984526786,
+     "found": 5,
+     "true": 5,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 33.784281881068985,
+     "found": 5,
+     "true": 5,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 42.22627757820178,
+     "found": 5,
+     "true": 5,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": null,
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.24374398721373491,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.25147814477727637,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.25772877686949913,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.2609723315406727,
+     "found": 5,
+     "true": 5,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-33",
+   "category": "Table",
+   "parts": 9,
+   "runs": {
+    "gpt54-none": {
+     "cd": 142.35179106015687,
+     "found": 4,
+     "true": 8,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 25.367460053502302,
+     "found": 4,
+     "true": 8,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 183.40131799886578,
+     "found": 8,
+     "true": 8,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 33.58651499980659,
+     "found": 0,
+     "true": 8,
+     "ok": false
+    },
+    "gem31-seg": {
+     "cd": 90.19026242195955,
+     "found": 0,
+     "true": 8,
+     "ok": false
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 3.0475442767473724,
+     "found": 8,
+     "true": 8,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.20640521606989373,
+     "found": 8,
+     "true": 8,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": {
+     "cd": 1.1304527899233354,
+     "found": 8,
+     "true": 8,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-34",
+   "category": "StorageFurniture",
+   "parts": 7,
+   "runs": {
+    "gpt54-none": {
+     "cd": 412.41068054065266,
+     "found": 6,
+     "true": 6,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 44.15120168901447,
+     "found": 5,
+     "true": 6,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 16.95105210376851,
+     "found": 6,
+     "true": 6,
+     "ok": false
+    },
+    "gem31-none": null,
+    "gem31-seg": {
+     "cd": 6.733397708831784,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    },
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.11657754973837972,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.11634669505406733,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": {
+     "cd": 0.11467833509037473,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-35",
+   "category": "StorageFurniture",
+   "parts": 7,
+   "runs": {
+    "gpt54-none": {
+     "cd": 196.77062040362398,
+     "found": 3,
+     "true": 6,
+     "ok": false
+    },
+    "gpt54-seg": {
+     "cd": 14.349561342330345,
+     "found": 3,
+     "true": 6,
+     "ok": false
+    },
+    "gpt54-true": null,
+    "gem31-none": {
+     "cd": 6.693376531253388,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    },
+    "gem31-seg": null,
+    "gem31-true": {
+     "cd": 1.6253507864667645,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    },
+    "gpt6": {
+     "cd": 0.20698419763605813,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    },
+    "gpt6x": {
+     "cd": 0.21491374038915873,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    },
+    "gem4s": {
+     "cd": 0.19008574217243907,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    },
+    "gem4x": {
+     "cd": 0.1888384455011227,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "test-36",
+   "category": "StorageFurniture",
+   "parts": 7,
+   "runs": {
+    "gpt54-none": null,
+    "gpt54-seg": {
+     "cd": 172.64972558864943,
+     "found": 2,
+     "true": 6,
+     "ok": false
+    },
+    "gpt54-true": {
+     "cd": 41.24441949769345,
+     "found": 6,
+     "true": 6,
+     "ok": false
+    },
+    "gem31-none": {
+     "cd": 8.787776449411085,
+     "found": 6,
+     "true": 6,
+     "ok": false
+    },
+    "gem31-seg": null,
+    "gem31-true": null,
+    "gpt6": {
+     "cd": 0.2952495519285069,
+     "found": 6,
+     "true": 6,
+     "ok": false
+    },
+    "gpt6x": {
+     "cd": 0.20021357085810823,
+     "found": 6,
+     "true": 6,
+     "ok": true
+    },
+    "gem4s": null,
+    "gem4x": {
+     "cd": 0.21292801700097116,
+     "found": 6,
+     "true": 6,
+     "ok": false
+    }
+   }
+  }
+ ]
+}

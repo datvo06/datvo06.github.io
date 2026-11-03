@@ -39,6 +39,12 @@
     .llm-recon-video { width: 92%; }
     #slide-llm-reconstruction-results table.settings th, #slide-llm-reconstruction-results table.settings td { padding-top: 6px; padding-bottom: 6px; }
     .reveal p.video-actions .code-label { font-size: 18px; color: #4a4f5a; margin-right: 6px; }
+    #slide-llm-reconstruction-all .all-picker { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; width: 96%; margin: 0 auto 4px; }
+    #slide-llm-reconstruction-all .all-picker button { font: 600 14px/1 ui-monospace, Menlo, monospace; padding: 5px 6px; }
+    #slide-llm-reconstruction-all button[aria-pressed="true"] { background: #1E3A8A; color: white; }
+    #slide-llm-reconstruction-all .all-programs button { font-size: 15px; padding: 5px 10px; }
+    #slide-llm-reconstruction-all .video-actions { margin: 6px auto; }
+    #slide-llm-reconstruction-all video { max-height: 360px; }
     #slide-llm-reconstruction-masks .model-figure { max-height: 210px; }
     #slide-llm-reconstruction-masks .llm-recon-list { text-align: center; margin: 10px auto; }
     #slide-llm-reconstruction-masks .sam2-chart { display: block; width: 86%; max-height: 270px; object-fit: contain; margin: 0 auto; }
@@ -251,6 +257,17 @@
   <p class="video-actions"><span class="code-label">Generated code:</span> <button type="button" data-code-source="sources/world-models/llm-recon-table-new-code.json" data-code-block="0" data-code-title="Table with drawers: GPT-6 Astra's program, RoboTL">GPT-6 Astra</button> <button type="button" data-code-source="sources/world-models/llm-recon-table-new-code.json" data-code-block="1" data-code-title="Table with drawers: GPT-6 Astra's MuJoCo XML">GPT-6 Astra, XML</button> <button type="button" data-code-source="sources/world-models/llm-recon-table-new-code.json" data-code-block="2" data-code-title="Table with drawers: Gemini 4's MuJoCo XML">Gemini 4, XML</button></p>
   <p class="cap"><a href="sources/world-models/llm-recon-table-new-code.json" download>All three programs</a> · <a href="sources/world-models/llm-recon-render/render_grid.py" download>Grid renderer</a> · <a href="sources/world-models/llm-recon-render/render_media.py" download>Panel renderer</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
   <aside class="notes">Test object test-33, PartNet-Mobility Table/22367, segmented masks, the same object as the previous slide. Every run that produced a scene found all 8 joints. GPT-6 Astra's RoboTL scene has shape error 3.05 against 0.21 for its XML scene, although both fit the held-out silhouettes almost exactly (validation IoU 0.995 and 0.994). Gemini 4 with RoboTL never evaluated a scene for this object; writing XML it evaluated one, with shape error 1.13. Gemini 4's runs carry the prompt line saying only evaluated scenes count. Every panel uses the same camera. GPT-6 Astra's XML document limits each drawer to -0.1 to 0.55 and its panel sweeps that range; the other two set no limits, so their joints sweep 0.15 around the fitted value. The programs are the exact selected scenes, the XML ones indented for display.</aside>
+</section>
+<section id="slide-llm-reconstruction-all">
+  <h2 class="t">All 37 <span>objects</span></h2>
+  <div class="all-picker" id="all-picker" role="group" aria-label="Test objects"></div>
+  <p class="video-actions all-toggle"><span class="code-label" id="all-title"></span> <button type="button" data-group="new" aria-pressed="true">GPT-6 Astra and Gemini 4</button> <button type="button" data-group="old" aria-pressed="false">GPT-5.4 and Gemini 3.1 Pro</button></p>
+  <figure class="environment-video llm-recon-video"><video id="all-video" controls muted playsinline preload="metadata" aria-label="Comparison grid for the selected test object"></video>
+    <figcaption class="cap" id="all-caption"></figcaption></figure>
+  <p class="video-actions all-programs" data-group="new"><span class="code-label">Generated code:</span> <button type="button" class="all-code" data-code-run="gpt6" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-6 Astra</button> <button type="button" class="all-code" data-code-run="gpt6x" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-6 Astra, XML</button> <button type="button" class="all-code" data-code-run="gem4s" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 4</button> <button type="button" class="all-code" data-code-run="gem4x" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 4, XML</button></p>
+  <p class="video-actions all-programs" data-group="old" hidden><span class="code-label">Generated code:</span> <button type="button" class="all-code" data-code-run="gpt54-none" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-5.4, no masks</button> <button type="button" class="all-code" data-code-run="gpt54-seg" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-5.4, segmented</button> <button type="button" class="all-code" data-code-run="gpt54-true" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-5.4, true parts</button> <button type="button" class="all-code" data-code-run="gem31-none" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 3.1, no masks</button> <button type="button" class="all-code" data-code-run="gem31-seg" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 3.1, segmented</button> <button type="button" class="all-code" data-code-run="gem31-true" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 3.1, true parts</button></p>
+  <p class="cap"><a href="sources/world-models/llm-recon-all/programs.json.gz" download>All selected programs</a> · <a href="sources/world-models/llm-recon-all/objects.json">Per-object results</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
+  <aside class="notes">All 37 test objects, one at a time. The newer-model grid shows GPT-6 Astra and Gemini 4 with segmented masks, each with RoboTL and writing MuJoCo XML directly; Gemini 4's runs carry the prompt line saying only evaluated scenes count. The older-model grid shows GPT-5.4 and Gemini 3.1 Pro with no masks, segmented masks and true parts, the true-part runs being the first runs on an earlier prompt and mostly gray renders. The caption gives each run's shape error and joints found, bold where the run is a success: every joint found and no extra ones, the right types, axes within 10 degrees and pivots within 0.1, and shape error at most 10. Reconstructions sweep their own joints between the limits they set, or 0.15 and 0.6 rad around the fitted value where they set none. The buttons open each run's selected program for the chosen object, the XML ones indented for display.</aside>
 </section>
 <section id="slide-comparison-settings">
   <h2 class="t">VoxPoser and Guided MPC: <span>settings in these runs</span></h2>
@@ -874,12 +891,21 @@
       if (!codeCache.has(source)) {
         const response = await fetch(source);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        codeCache.set(source, await response.json());
+        // A gzipped bundle is served as a plain file, so the page decompresses it.
+        const body = source.endsWith('.gz') ? response.body.pipeThrough(new DecompressionStream('gzip')) : response.body;
+        codeCache.set(source, await new Response(body).json());
       }
       if (request !== codeRequest) return;
-      codeBlocks = codeCache.get(source);
+      // A bundle maps keys, such as test objects, to their own lists of blocks.
+      const loaded = codeCache.get(source);
+      const key = trigger.dataset.codeKey;
+      if (key && !(key in loaded)) throw new Error(`no saved code for ${key}`);
+      codeBlocks = key ? loaded[key] : loaded;
       codeBlock.replaceChildren(...codeBlocks.map((block, index) => new Option(`${index + 1}. ${block.generator}`, index)));
-      codeBlock.value = trigger.dataset.codeBlock || '0';
+      const run = trigger.dataset.codeRun;
+      const index = run ? codeBlocks.findIndex(block => block.run === run) : Number(trigger.dataset.codeBlock || 0);
+      if (index < 0) throw new Error(`no saved code for ${run}`);
+      codeBlock.value = String(index);
       showCodeBlock();
     } catch (error) {
       if (request !== codeRequest) return;
@@ -911,6 +937,69 @@
   });
   Reveal.on('slidechanged', () => closeCode());
   window.addEventListener('resize', () => { if (codePanel.matches(':popover-open')) positionCodePanel(); });
+</script>
+<script>
+(async () => {
+  const slide = document.getElementById('slide-llm-reconstruction-all');
+  const source = 'sources/world-models/llm-recon-all';
+  let runs, objects;
+  try {
+    const response = await fetch(`${source}/objects.json`);
+    if (!response.ok) throw new Error(`${source}/objects.json: HTTP ${response.status}`);
+    ({ runs, objects } = await response.json());
+  } catch (error) {
+    document.getElementById('all-caption').textContent = `Could not load the object list (${error.message}).`;
+    return;
+  }
+  const order = runs.map(run => run.key);
+  const runOf = Object.fromEntries(runs.map(run => [run.key, run]));
+  const groups = {
+    old: { layout: 'Top: ground truth, GPT-5.4 with no masks, segmented masks, true parts. Bottom: observed view, Gemini 3.1 Pro in the same order.',
+           models: [['GPT-5.4', ['gpt54-none', 'gpt54-seg', 'gpt54-true']], ['Gemini 3.1 Pro', ['gem31-none', 'gem31-seg', 'gem31-true']]] },
+    new: { layout: 'Top: ground truth, GPT-6 Astra with RoboTL and with MuJoCo XML. Bottom: observed view, Gemini 4 likewise, prompted that only evaluated scenes count.',
+           models: [['GPT-6 Astra', ['gpt6', 'gpt6x']], ['Gemini 4', ['gem4s', 'gem4x']]] },
+  };
+  const video = document.getElementById('all-video');
+  let current = 0, group = 'new';
+  const score = s => {
+    if (!s) return 'no scene';
+    const text = `${s.cd.toFixed(s.cd < 10 ? 2 : 1)}, ${s.found} of ${s.true}`;
+    return s.ok ? `<strong>${text}</strong>` : text;
+  };
+  function render() {
+    const o = objects[current];
+    const wins = order.filter(key => o.runs[key] && o.runs[key].ok).length;
+    document.getElementById('all-title').textContent = `${o.name}, ${o.category}, ${o.parts} parts, ${wins} of ${order.length} runs succeed:`;
+    picks.forEach((button, i) => button.setAttribute('aria-pressed', String(i === current)));
+    slide.querySelectorAll('.all-toggle button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.group === group)));
+    video.poster = `media/world-models/llm-recon-all/${group}/${o.name}.jpg`;
+    video.src = `media/world-models/llm-recon-all/${group}/${o.name}.mp4`;
+    video.load();
+    const g = groups[group];
+    document.getElementById('all-caption').innerHTML = `${g.layout}<br>Shape error and joints, bold for a success. `
+      + g.models.map(([model, keys]) => `${model}: ${keys.map(key => score(o.runs[key])).join(' · ')}`).join('. ');
+    slide.querySelectorAll('.all-programs').forEach(row => { row.hidden = row.dataset.group !== group; });
+    slide.querySelectorAll('.all-code').forEach(button => {
+      const run = runOf[button.dataset.codeRun];
+      button.dataset.codeKey = o.name;
+      button.disabled = !o.runs[run.key];
+      button.title = o.runs[run.key] ? '' : 'No scored scene for this object';
+      button.dataset.codeTitle = `${o.name}: ${run.model}, ${run.condition}`;
+    });
+  }
+  const picker = document.getElementById('all-picker');
+  const picks = objects.map((o, i) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = o.name.slice(5);
+    button.title = `${o.name}: ${o.category}, ${o.parts} parts`;
+    button.addEventListener('click', () => { current = i; render(); });
+    picker.append(button);
+    return button;
+  });
+  slide.querySelectorAll('.all-toggle button').forEach(button => button.addEventListener('click', () => { group = button.dataset.group; render(); }));
+  render();
+})();
 </script>
 </body>
 </html>
