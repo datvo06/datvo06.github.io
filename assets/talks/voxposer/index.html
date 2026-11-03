@@ -407,7 +407,7 @@ constrain(non_overlap(self.drawer, self.shelf))</code></pre></div>
   </table>
   <ul class="pts" style="max-width: 92%; font-size: .46em;">
     <li class="fragment"><strong>Added:</strong> part names such as "power drill trigger", a reading of each part's joint, <code>wait</code>, and the in-order hold rule in the prompt</li>
-    <li class="fragment"><strong>Observed:</strong> every grasp is one waypoint at the tool's centre, then "3 cm above the table", which aims at the table's centre</li>
+    <li class="fragment"><strong>Observed:</strong> most plans grasp at one waypoint at the tool's centre, then move "3 cm above the table", which VoxPoser places over the table's centre</li>
   </ul>
   <aside class="notes">Round 2: adapter guided-mpc-baselines claude/voxposer-articulated 088965d on RoboTL claude/articulated-tasks 0d31aa8b, whose spray bottle stands on a flat base. Object nouns now match the instructions. Same native judge as Guided MPC. The joint reading is privileged state, disclosed in each trial's config; each trial has its own LLM cache. Arm IK accepts a pose within 1 cm and 5 degrees. Round 1 (13a303e on 32254ccb) also held nothing; the drill programs jammed the trigger by pressing the drill into the table. The wrench's jaw closing under a crush is a model limitation: its worm resists with a fixed friction torque, so more than about 26 N on the jaw backdrives it, where a real worm self-locks. Clips re-rendered with the scans' textures from the saved recordings; the runs are unchanged.</aside>
 </section>
