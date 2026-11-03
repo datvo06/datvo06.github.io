@@ -891,8 +891,9 @@
       if (!codeCache.has(source)) {
         const response = await fetch(source);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        // A gzipped bundle is served as a plain file, so the page decompresses it.
-        const body = source.endsWith('.gz') ? response.body.pipeThrough(new DecompressionStream('gzip')) : response.body;
+        // A gzipped bundle served as a plain file is decompressed here; one the host already decoded is not.
+        const decoded = response.headers.get('Content-Encoding') === 'gzip';
+        const body = source.endsWith('.gz') && !decoded ? response.body.pipeThrough(new DecompressionStream('gzip')) : response.body;
         codeCache.set(source, await new Response(body).json());
       }
       if (request !== codeRequest) return;
