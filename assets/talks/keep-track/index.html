@@ -49,6 +49,20 @@
     #october-baselines figure img { height: 330px; }
     #paid-mappings .source-panel, #precision-failures .source-panel, #coverage-override .source-panel, #recall-failures .source-panel, #edit-budget .source-panel, #lexicon-results .source-panel { width: 1120px; }
     #lexicon-results figure img { height: 226px; }
+    #agreement-rule table td:first-child { width: auto; }
+    #agreement-rule td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    #agreement-rule .source-panel { width: 1120px; }
+    /* The trigger sits low on this slide, so the panel opens upward and stays below the colour legend. */
+    #agreement-rule .code-reference .source-panel { top: auto; bottom: 100%; max-height: 370px; }
+    /* The table, strip and caveat share one slide, so each is set a little tighter than the deck default. */
+    #agreement-rule h2 { margin-bottom: 0.4em; }
+    #agreement-rule table { font-size: 0.6em; margin: 0.4em 0; }
+    #agreement-rule .definitions { margin: 0.4em 0 0.3em; }
+    #agreement-rule .code-reference { top: -42px; }
+    #agreement-rule .attempt-strip { margin: 6px 0 0; }
+    #agreement-rule .attempt-strip > span { padding: 4px 4px; }
+    #agreement-rule .note { margin-top: 0.6em; }
+    #agreement-rule .attempt-strip .dissent { border: 2px dashed var(--failure); }
     #lexicon-results .code-reference .source-panel { top: auto; bottom: 100%; }
     #lexicon-results .source-panel code.language-text { white-space: pre-wrap; }
     .relation-ref { cursor: help; border-bottom: 2px dotted var(--blue); }
@@ -1013,6 +1027,62 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
     <p class="definitions fragment">“Blood <span class="semantic-mark role-predicate">biomarker</span> tests included <span class="semantic-mark role-subject">glial fibrillary acidic protein</span> (GFAP) for astrocyte <span class="semantic-mark role-object">injury</span>.” Without the lexicon, the program pays 4 units to map the subject’s own span to BIOMARKER; with it, “biomarker” is free. Both are correct.</p>
   </div>
   <aside class="notes">Source: <a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">LEXICON_RESULTS.md</a>, <a href="https://github.com/datvo06/keep-track/pull/28">PR #28</a>. Both passes run gpt-5.4-mini through effectful's harness and LiteLLM at commit 8e50f54, with 8 submissions per pair and an edit budget of 4. A free cue is a declared mapping in the checker; a paid cue is an undeclared mapping that costs one edit unit per word. The 35 free cues without the lexicon all use the supplied declared mappings (biorelfact:lexical-v1). Of the 270 with it, 222 use learned entries and 48 the supplied mappings. The lexicon is learned without gold labels from the pass without it, on the same 1,767 pairs it is scored on, and a pair only receives cues from other documents. A cue must also have one meaning in those documents. Biolink model 4.4.6 supplies only terms and their hierarchy; the crosswalk from them to BioRelFact relations is hand-made and fixed in the code. The lexicon has 979 entries, 29 of them justified and reused in two or more documents. Replaying the programs from the pass without the lexicon with the lexicon in the checker but not in the prompt gives 196 free selected positives at 74.5% correct. A single conflicting purchase of “treatment” for CAUSAL_EFFECT keeps the 32-document THERAPEUTIC_USE entry out of every Drugs and Indications pair outside that document. The first accepted programs score 70.9 F1 without the lexicon and 71.1 with it, at 63.3 and 64.9 precision. Each arm has one trial, so a one-point difference is not a ranking. An earlier full-set pass without the lexicon, through a hand-built client at commit 86a8bbc, scored 71.2 F1 for the selected programs and 71.4 for the first accepted ones. The full set includes the 65 development pairs, where the search scores 66.7 without the lexicon, 60.9 with it, and plain GPT 61.7, below its three earlier trials on these pairs (64.3, 72.1 and 74.4). Joint relation and factuality F1 is 63.0 for plain GPT, 58.0 without the lexicon and 58.7 with it. Plain GPT is the one-call baseline from commit ac1ab32. The passes made 14,575 and 14,699 completions with 206.9M and 210.1M input tokens; Langfuse prices them at $177 and $181 without cached-input discounts. The GFAP pair is EMBASE:L641828419:477:568:7:13. Run records are in the private HF dataset datvo06/keeptrack-biorelfact-runs: the search passes under harness-20261101 and plain GPT under lexicon-20261101/gpt-all.</aside>
+</section>
+
+<section id="agreement-rule" class="no-marks" data-date="2026-11-03">
+  <p class="eyebrow">November 3, 2026 · selection rule, replayed on three runs</p>
+  <h2>Selection by agreement instead of coverage</h2>
+  <p class="definitions">Answers with different labels attack each other; a label is kept only if undisputed, else NO_RELATION.</p>
+  <table class="study-cases fragment">
+    <thead><tr><th>Run</th><th>Most covered words<br>P / R / F1</th><th>Agreement<br>P / R / F1</th><th>F1 change (95% CI)</th></tr></thead>
+    <tbody>
+      <tr><td>Budget 8</td><td class="num">60.2 / 85.8 / 70.8</td><td class="num">69.9 / 78.4 / <strong>73.9</strong></td><td class="num">+3.2 (1.8 to 4.4)</td></tr>
+      <tr><td>Budget 4</td><td class="num">60.3 / 84.7 / 70.5</td><td class="num">68.5 / 77.3 / 72.6</td><td class="num">+2.1 (0.9 to 3.4)</td></tr>
+      <tr><td>Budget 4 + learned lexicon</td><td class="num">61.3 / 82.3 / 70.3</td><td class="num">69.7 / 75.5 / 72.5</td><td class="num">+2.2 (0.9 to 3.4)</td></tr>
+      <tr><td>Plain GPT</td><td class="num" colspan="3">one call: 64.7 / 81.1 / 72.0</td></tr>
+    </tbody>
+  </table>
+  <div class="code-example fragment">
+    <div class="code-reference"><button type="button">Generated programs · attempts 4 and 5</button><div class="source-panel" role="region" aria-label="Two generated programs for the TAK-242 and TLR2 pair at edit budget 8"><p><strong>Attempt 4, ANTAGONIST, selected by coverage (verbatim)</strong></p><pre><code class="language-python">from typing import Callable
+
+def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
+    def extract(case: PairInput) -&gt; PairAnswer:
+        subject: Span = span_at(case.case_id, 0, *case.head_range)
+        object_: Span = span_at(case.case_id, 0, *case.tail_range)
+        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))
+        predicate_source: Span = find_span(retrieve(case.case_id), "selective inhibitors")
+        predicate: RefinedSpan = refine_relation(predicate_source, "DRUG : GENE - ANTAGONIST")
+        return make_relation(
+            subject,
+            predicate,
+            object_,
+            evidence,
+            commitment="affirmed",
+        )
+    return extract</code></pre><p>Predicate proof step:</p><pre><code class="language-text">'selective inhibitors' -&gt; 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=2</code></pre><p><strong>Attempt 5, NO_RELATION (verbatim)</strong></p><pre><code class="language-python">from typing import Callable
+
+
+def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
+    def extract(case: PairInput) -&gt; PairAnswer:
+        subject: Span = span_at(case.case_id, 0, *case.head_range)
+        object_: Span = span_at(case.case_id, 0, *case.tail_range)
+        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))
+        return "NO_RELATION"
+    return extract</code></pre><p>Under coverage, attempt 4 wins with 6 words; under agreement, attempts 5 and 6 dispute it and the pair is NO_RELATION, the gold label. Full records: <a href="sources/tak242-tlr2-budget-8.json" target="_blank" rel="noopener">every attempt of this pair</a> and <a href="sources/agreement-rule-replay.json" target="_blank" rel="noopener">the replay on all three runs</a>.</p></div></div>
+    <p class="definitions">At budget 8, 312 pairs change: 199 false positives and 37 wrong labels go, 76 true positives are lost. One, where coverage picks attempt 4: “…MMG-11 and <span class="semantic-mark role-subject">TAK-242</span> … (<span class="semantic-mark role-object">TLR) 2</span> and 4, respectively…”</p>
+    <div class="attempt-strip" aria-label="Eight attempts: six ANTAGONIST, two NO_RELATION; coverage selects attempt 4">
+      <span>1<br>ANTAGONIST<br>5 words</span>
+      <span>2<br>ANTAGONIST<br>5 words</span>
+      <span>3<br>ANTAGONIST<br>5 words</span>
+      <span class="selected-attempt">4<br>ANTAGONIST<br>6 words</span>
+      <span class="dissent">5<br>NO_RELATION<br>0 words</span>
+      <span class="dissent">6<br>NO_RELATION<br>0 words</span>
+      <span>7<br>ANTAGONIST<br>6 words</span>
+      <span>8<br>ANTAGONIST<br>6 words</span>
+    </div>
+  </div>
+  <p class="note">Written after this run was seen; one trial per run. It beats coverage on all three runs, and plain GPT only at budget 8 (+1.9, 0.2 to 3.6). Duplicating or reordering attempts changes no decision.</p>
+  <aside class="notes">Rule, formally: a Dung argumentation framework per pair with one argument per accepted attempt and rebuttal between different conclusions; grounded semantics; a label is accepted when its argument is in the grounded extension. With rebuttal only, grounded equals skeptical preferred, and on these runs the outcome equals "any accepted dissent gives NO_RELATION": attempts disagree on 312, 291 and 299 pairs of the three runs. Scores from the critic's harness, af_harness.py with ref_plugins.py:rebut_only, grounded semantics, fallback NO_RELATION; paired bootstrap, 2,000 resamples, seed 20261103. The reverse, duplicate, deduplicate and gaming transforms change 0 decisions on every run. Against plain GPT: budget 4 +0.6 (−1.1 to 2.2), budget 4 with lexicon +0.5 (−1.5 to 2.3). The TAK-242 pair is EMBASE:L2030098430:711:889:1:2; "respectively" pairs TAK-242 with TLR4. In the two budget-4 runs every accepted attempt for it said ANTAGONIST, so the rule does not fix it there. Three structural methods tested offline on the same run (clingo constraints, taint analysis of the programs, LM likelihood contrasts) add nothing to this rule, and a 120-pair pilot of model-written critiques scored below one extra plain call. A frozen fresh trial is the clean test.</aside>
 </section>
 
 <section id="dataset-search">
