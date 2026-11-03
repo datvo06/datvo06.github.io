@@ -187,15 +187,15 @@
     <thead><tr><th scope="col">Masks</th><th scope="col">Model</th><th scope="col">Finished</th><th scope="col">Shape error</th><th scope="col">Joints found</th><th scope="col">Joint type</th><th scope="col">Axis position</th><th scope="col">Successes</th></tr></thead>
     <tbody>
       <tr><th scope="row" rowspan="2">None</th><td>GPT-5.4</td><td><strong>36</strong></td><td>116.1</td><td>65 of 95</td><td><strong>0.82</strong></td><td>0.58</td><td>0</td></tr>
-      <tr><td>Gemini 3.1 Pro</td><td>26</td><td><strong>7.0</strong></td><td><strong>53 of 74</strong></td><td>0.74</td><td><strong>0.09</strong></td><td><strong>11</strong></td></tr>
+      <tr><td>Gemini 3.1 Pro</td><td>26</td><td>7.0</td><td><strong>53 of 74</strong></td><td>0.74</td><td><strong>0.09</strong></td><td><strong>11</strong></td></tr>
       <tr><th scope="row" rowspan="6">Segmented</th><td>GPT-5.4</td><td>31</td><td>52.8</td><td>69 of 85</td><td>0.83</td><td>0.31</td><td>2</td></tr>
       <tr><td>Gemini 3.1 Pro</td><td>20</td><td>6.8</td><td>33 of 47</td><td>0.75</td><td>0.06</td><td>9</td></tr>
       <tr><td>GPT-6 Astra</td><td>36</td><td>0.23</td><td><strong>99 of 99</strong></td><td>0.97</td><td>0.01</td><td>31</td></tr>
-      <tr><td>GPT-6 Astra, MuJoCo XML</td><td><strong>37</strong></td><td><strong>0.21</strong></td><td><strong>101 of 101</strong></td><td>0.97</td><td>0.01</td><td><strong>33</strong></td></tr>
+      <tr><td>GPT-6 Astra, MuJoCo XML</td><td><strong>37</strong></td><td>0.21</td><td><strong>101 of 101</strong></td><td>0.97</td><td>0.01</td><td><strong>33</strong></td></tr>
       <tr><td>Gemini 4*</td><td>23</td><td>0.24</td><td><strong>59 of 59</strong></td><td><strong>1.00</strong></td><td>0.01</td><td>21</td></tr>
       <tr><td>Gemini 4, MuJoCo XML*</td><td>19</td><td>0.26</td><td><strong>67 of 67</strong></td><td>0.95</td><td><strong>0.00</strong></td><td>17</td></tr>
       <tr><th scope="row" rowspan="2">True parts, first runs</th><td>GPT-5.4</td><td><strong>33</strong></td><td>30.3</td><td>68 of 89</td><td>0.74</td><td>0.30</td><td>2</td></tr>
-      <tr><td>Gemini 3.1 Pro</td><td>18</td><td><strong>10.6</strong></td><td><strong>48 of 48</strong></td><td><strong>1.00</strong></td><td><strong>0.01</strong></td><td><strong>8</strong></td></tr>
+      <tr><td>Gemini 3.1 Pro</td><td>18</td><td>10.6</td><td><strong>48 of 48</strong></td><td><strong>1.00</strong></td><td><strong>0.01</strong></td><td><strong>8</strong></td></tr>
     </tbody>
   </table>
   <p class="compare-note">Each row scores the objects that run finished, out of 37. Shape error is the median whole-object Chamfer distance, times 1000; a success finds every joint and no extra ones, with the right types, axes within 10° and pivots within 0.1, and shape error at most 10. The true-part rows are the first runs, on an earlier prompt and with 35 of 37 objects rendered gray. * Gemini 4's rows add one prompt line saying only evaluated scenes count; with the standard prompt it finished 6 objects, 5 of them successes.</p>
