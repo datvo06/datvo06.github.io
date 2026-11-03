@@ -1,0 +1,32 @@
+{
+  "status": "program_finished_without_hold",
+  "mass_kg": 0.2519999,
+  "simulated_seconds": 36.89500000000269,
+  "wall_seconds": 51.36058126902208,
+  "longest_contained_seconds": 0.0,
+  "contained_success": false,
+  "longest_lifted_seconds": 0.0,
+  "lifted_success": false,
+  "stages_accepted_s": [],
+  "final_whole_clearance_m": -0.0014841491476061995,
+  "final_hand_weight_fraction": -36.355476367340444,
+  "final_external_weight_fraction": 37.35566171394378,
+  "maximum_joint_limit_violation_rad": 0.02185257965623788,
+  "maximum_penetration_m": 0.0034479283533723273,
+  "penetration_fallback_ticks": 0,
+  "maximum_arm_speed_ratio": 0.7052687079578558,
+  "maximum_arm_acceleration_ratio": 3.635288474694356,
+  "digit_loads_n": [
+    28.465012311375254,
+    35.63952469549915,
+    39.558167447366344,
+    0.0
+  ],
+  "opposition_cosine": 0.0,
+  "part_joints": {
+    "jaw": -0.01582739797282799,
+    "worm": -28.32699193968775
+  },
+  "beyond_stop": 0.0,
+  "jaw_opening_m": 0.0069726020271720125
+}
