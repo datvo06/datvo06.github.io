@@ -52,7 +52,8 @@
     #agreement-rule table td:first-child { width: auto; }
     #agreement-rule td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
     #agreement-rule .source-panel { width: 1120px; }
-    #agreement-rule .code-reference .source-panel { top: auto; bottom: 100%; }
+    /* The trigger sits low on this slide, so the panel opens upward and stays below the colour legend. */
+    #agreement-rule .code-reference .source-panel { top: auto; bottom: 100%; max-height: 370px; }
     /* The table, strip and caveat share one slide, so each is set a little tighter than the deck default. */
     #agreement-rule h2 { margin-bottom: 0.4em; }
     #agreement-rule table { font-size: 0.6em; margin: 0.4em 0; }
