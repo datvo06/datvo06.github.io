@@ -45,8 +45,10 @@ def main() -> None:
         rendered = reconstruction_frames(Path(study) / "summary.json", camera)
         frames = rendered[1] if rendered else [blank] * FRAMES
         panels.append((label_text if rendered else f"{label_text}: no scene", frames))
-    half = len(panels) // 2
+    half = (len(panels) + 1) // 2
     rows = [[("ground truth", truth)] + panels[:half], [("observed view", [view.rgb] * FRAMES)] + panels[half:]]
+    if len(rows[1]) < len(rows[0]):
+        rows[1].append(("", [blank] * FRAMES))
     video = []
     for i in range(FRAMES):
         grid = np.concatenate(
