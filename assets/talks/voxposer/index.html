@@ -54,6 +54,9 @@
     .llm-recon-wins .cap { margin-top: 2px; }
     .environment-video { width: 82%; margin: auto; }
     .environment-video video { display: block; width: 100%; max-height: 480px; object-fit: contain; }
+    .code-card { width: 86%; margin: 6px auto; font-size: .4em; text-align: left; }
+    .code-card pre { margin: 0; width: 100%; box-shadow: none; }
+    .code-card pre code { padding: 10px 14px; line-height: 1.35; border: 1px solid #d9dbe3; border-radius: 6px; max-height: none; }
     .reconstruction-setup { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; width: 94%; margin: 24px auto; }
     .reconstruction-setup figure { margin: 0; }
     .reconstruction-setup img { display: block; width: 100%; }
@@ -186,6 +189,56 @@
   <img class="sam2-chart" src="media/world-models/llm-recon-sam2-finetune.png" alt="Left: held-out point IoU of the SAM2 mask decoder rising from 0.54 stock to about 0.90 over 22 thousand training views. Right: median part IoU on the 37 test objects, 0.53 with the agent's boxes, 0.79 with stock SAM2 at surface points, 0.95 fine-tuned, and 0.97 with tight true boxes as a reference.">
   <p class="cap"><a href="sources/world-models/llm-recon-sam2-finetune.json">Chart data</a> · <a href="sources/world-models/llm-recon-sam2-finetune.py" download>Chart script</a> ·<a href="https://github.com/datvo06/robotl-reconstruction/pull/5">Segmentation PR</a></p>
   <aside class="notes">The training curve is held-out point IoU, measured every 2000 training views on one twentieth of the training objects kept out of training. A last check after both passes gives 0.90, the best score, so that decoder is the one used. SAM2 is prompted at 100 points drawn evenly from each fitting view's own surface, one point at a time. Prompts whose masks agree, mean IoU above 0.7 over the views they share, form one part, and each pixel goes to the smallest part that claims it. This is Real2Code's test-time scheme. Only the mask decoder was fine-tuned, with Real2Code's recipe of 16 point prompts per image and a BCE, Dice and IoU-head loss, on 12.6k views of 1396 articulation states of 289 PartNet-Mobility objects outside the development and test sets: two passes on rolly's RTX 4090, held-out point IoU 0.54 to 0.90. Median part IoU: SAM2 on the agent's own boxes 0.53; stock SAM2 at surface points 0.79; fine-tuned 0.95; tight boxes around the true parts 0.97. Each is the median IoU of each visible true part against its best predicted mask, over 1241 visible parts across the fitting views of all 37 test objects for the point prompts, and over the 132 visible parts in the 36 views where GPT-5.4 drew boxes for the box prompts. The fine-tuned segmenter over-splits, about 6.8 parts per object against about 3.6 true; this chest gets 9 parts for 6. The agent gets these masks as its segmented-masks condition.</aside>
+</section>
+<section id="slide-llm-reconstruction-film">
+  <h2 class="t">LLM reconstruction: <span>the film</span></h2>
+  <figure class="environment-video llm-recon-video"><video controls muted playsinline preload="metadata" poster="media/world-models/llm-recon-film-drawers.jpg" aria-label="The five-drawer chest filmed from camera 4 as every drawer moves from the observed state to one stop, to the other and back; the right half tints each part with its SAM2-tracked mask"><source src="media/world-models/llm-recon-film-drawers.mp4" type="video/mp4"></video>
+    <figcaption class="cap">Camera 4 of the five-drawer chest. Right: the same frames with each part's tracked mask.</figcaption></figure>
+  <ul class="llm-recon-list">
+    <li class="fragment"><strong>Cameras:</strong> three of the nine fitting cameras, 48 frames each at 256 by 256.</li>
+    <li class="fragment"><strong>Motion:</strong> every joint moves at once, from the observed state to one stop, to the other and back, resting at each stop.</li>
+    <li class="fragment"><strong>Masks:</strong> our fine-tuned SAM2 tracks each part's mask from the first frame through the film.</li>
+    <li class="fragment"><strong>Evidence:</strong> at about a thousand pixels per camera and every frame, which part shows and how deep it is.</li>
+  </ul>
+  <aside class="notes">The film starts at the fitting views' state, so the first frame is one of the views the agent already fitted. The hand that moves the joints is not rendered: parts move as if pushed, and each rests against its stop for some frames, which is what pins a limit. The three cameras are view_0, view_4 and view_8 with the fitting views' poses. Tracking is the SAM2 video predictor on the first frame's part masks; across the 37 objects the tracks keep a median IoU of 0.92 against the true part masks at the first and last frames, 5% are lost by the end. The fit's likelihood, on 32 independent rays per frame, scores each pixel's part label and depth against the compiled scene posed at candidate joint positions, under a model where each joint follows a smoothly moving hand clipped to its limits, filtered exactly over a grid of hand positions and speeds.</aside>
+</section>
+<section id="slide-llm-reconstruction-constructs">
+  <h2 class="t">LLM reconstruction: <span>what the agent writes</span></h2>
+  <div class="code-card"><pre><code class="language-python">self.door = Slab([0.02, 0.4, 0.4], [0.8, 0.3, 0.2, 1.0])
+self.door_joint = connect(
+    self, self.door, Pose(pos=[-0.354, -0.061, 0.4], rv=[0.0, 0.0, 0.8])
+)
+self.drawer = Slab([0.36, 0.34, 0.12], [0.3, 0.5, 0.7, 1.0])
+opening = choose(dist.TruncatedNormal(-0.15, 0.02, low=-0.3, high=0.0))
+self.drawer_joint = connect(
+    self,
+    self.drawer,
+    Pose(pos=[opening, 0.0, 0.11]),
+    kinds={"slide": 0.8, "hinge": 0.1, "weld": 0.1},
+    axis=dist.ProjectedNormal(20.0 * jnp.array([-1.0, 0.0, 0.0])),
+)
+constrain(non_overlap(self.drawer, self.shelf))</code></pre></div>
+  <p class="video-actions"><span class="code-label">Excerpt of the example the agent reads. Full source:</span> <button type="button" data-code-source="sources/world-models/llm-recon-constructs-code.json" data-code-block="0" data-code-title="connected_cabinet_example: the example the agent reads for connect">connect example</button> <button type="button" data-code-source="sources/world-models/llm-recon-constructs-code.json" data-code-block="1" data-code-title="limited_cabinet_example: the example the agent reads for Params">Params example</button> <button type="button" data-code-source="sources/world-models/llm-recon-constructs-code.json" data-code-block="2" data-code-title="connect: the operation and its docstring">connect itself</button> <a href="sources/world-models/llm-recon-constructs-code.json" download>Download</a></p>
+  <ul class="llm-recon-list">
+    <li class="fragment"><strong><code>choose</code>:</strong> a value the compiler's solver settles, the agent's guess as its prior.</li>
+    <li class="fragment"><strong><code>constrain</code>:</strong> a loss the solver scores its draws by; <code>non_overlap</code> keeps two parts clear.</li>
+    <li class="fragment"><strong><code>Params</code>:</strong> the earlier film contract. The agent writes the joint itself and declares its limits with priors, <code>range=(p.door_closed, p.door_open)</code>, for the film to fit.</li>
+    <li class="fragment"><strong><code>connect</code>:</strong> which part moves against which, at the pose fitted to the views. Kind, axis, pivot and limits come from the film; the priors are optional.</li>
+    <li class="fragment">No prompt text describes these. The agent reads their docstrings and the example in its REPL.</li>
+  </ul>
+  <aside class="notes">The code is the drawer and door of connected_cabinet_example in robotl-reconstruction (PR 12), the example the agent is pointed at. choose and constrain are RoboTL operations: solve_init samples every chosen value with NUTS and keeps the draw with the highest log density, the constraints entering as factors; a plain float is never moved. Params with Prior is the contract of PR 8: a frozen dataclass of limits the agent declares, read with parameters(Params), each a joint position with a prior wide enough for the film. connect(parent, child, pose, kinds, axis, pivot) is a marker operation: until a fit solves it the scene compiles with the connection welded at pose, so a connected scene scores as its welded twin; kinds is a probability per joint kind, axis a ProjectedNormal over directions in the parent's frame, pivot a Normal over points. The agent's module binds connect, choose, constrain and numpyro's distributions in its REPL scope, so its first cell can print their source; in the pilot it printed connect's and both cabinet examples'.</aside>
+</section>
+<section id="slide-llm-reconstruction-solver">
+  <h2 class="t">LLM reconstruction: <span>what the solver does with connect</span></h2>
+  <ul class="llm-recon-list">
+    <li class="fragment"><strong>Track each part.</strong> Build the scene with every connection free, then align each part's surface to its tracked points in every frame.</li>
+    <li class="fragment"><strong>Read the motion.</strong> Each child's poses in its parent's frame, relative to the observed state.</li>
+    <li class="fragment"><strong>Propose three joints.</strong> A weld; a slide, its axis from the shifts; a hinge, its axis from the turns and its pivot from where the turns meet. Each with the best limits on a 16 by 16 grid.</li>
+    <li class="fragment"><strong>Choose by the film.</strong> The likelihood of every frame under each proposal, less a penalty per parameter, plus the agent's priors.</li>
+    <li class="fragment"><strong>Keep what the views prefer.</strong> The scene's own pose stays where the still views score it better; then fit the limits.</li>
+    <li class="fragment"><strong>Out:</strong> kind, axis, pivot, limits and both ports. 47 s per connection in the pilot.</li>
+  </ul>
+  <aside class="notes">Mechanism from PR 12 of robotl-reconstruction. The probe builds every connection as an unlimited slide so each part is its own MuJoCo link; alignment is point-to-plane ICP with trimming distances of 10, 5 and 2 cm, each frame starting from a constant-velocity prediction, with restarts around the observed pose. The motion is X = P_0^-1 T_0 and M_t = (P_t^-1 T_t) X^-1 in the parent's frame. The slide axis is the main direction of the shifts; the hinge axis is the main direction of the rotation vectors and its pivot solves (I - R_t)(c - o) = M_t o - o; both are MAP estimates under the call's priors. The choice is the exact hand filter's log marginal likelihood at the best of a 16 by 16 grid of limits, less a BIC penalty with n = frames times 32 rays, plus the log priors relative to the uninformative defaults; a weld reads the slide's table at position 0. Connections are chosen one at a time over two passes. The still-view check compares the fitting views' silhouette IoU and depth under the solved pose and the scene's own, connection by connection. The controlled check on the five-drawer chest, its joints replaced by connect at poses 3 cm and 10 degrees off, recovered five slides with axes within 0.62 degrees and limits within 6 mm in 661 s; the pilot's fit took 236 s because the agent's kind prior left only slides to score.</aside>
 </section>
 <section id="slide-llm-reconstruction-results">
   <h2 class="t">Reconstruction <span>results</span></h2>
@@ -812,6 +865,7 @@
 <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
 <script>
   Reveal.initialize({ hash: true, width: 1280, height: 760, transition: 'none' });
+  document.querySelectorAll('pre.code-card code, .code-card pre code').forEach(block => hljs.highlightElement(block));
   document.querySelectorAll('[data-play-together]').forEach(button => {
     button.addEventListener('click', async () => {
       const videos = [...button.closest('section').querySelectorAll('video')];

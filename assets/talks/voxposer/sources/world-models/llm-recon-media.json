@@ -740,6 +740,19 @@
     "GPT-6 Astra, one state, MuJoCo XML (run gpt6astra-mjcf-segmented, selected scene)",
     "GPT-6 Astra, film, agent wrote the joints and Params (run gpt6-film-pilot, returned scene, limits fitted)"
    ]
+  },
+  {
+   "video": "media/world-models/llm-recon-film-drawers.mp4",
+   "video_sha256": "81de96a01daf224d845c42542c1c33d9348390702f4f940431b005df7697617f",
+   "poster": "media/world-models/llm-recon-film-drawers.jpg",
+   "poster_sha256": "73f8a4ab3cc15fbdb3d479db6ba91b7409270159bde3321ce0ada772fa0dabb2",
+   "object": "test-32",
+   "partnet_mobility_source": "StorageFurniture/45261",
+   "generator": "sources/world-models/llm-recon-render/film_clip.py, run on polly over the segmented film capture visible/segmented-film2/test-32/trajectory (48 frames, camera view_4), the masks being the SAM2 tracks the fit uses; frames at twice the film's 256 by 256, 8 fps.",
+   "panels": [
+    "camera 4, RGB",
+    "camera 4, each tracked part mask tinted"
+   ]
   }
  ]
 }
