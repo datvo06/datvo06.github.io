@@ -17,7 +17,6 @@ import mujoco
 import numpy as np
 import trimesh
 from PIL import Image, ImageDraw
-from robotl.handlers.mujoco import compile_model
 from scipy.spatial.transform import Rotation
 
 from robotl_reconstruction.observations import load_capture
@@ -114,9 +113,9 @@ def reconstruction_frames(
     record = Summary.load(summary)
     if record.selected is None:
         return None
-    factory = record.search.evaluations[record.selected].scene.decode()
+    # A RoboTL factory or an MJCF document; each record compiles itself.
     with tempfile.TemporaryDirectory() as build:
-        _, _, model = compile_model(factory, build_path=Path(build))
+        model = record.search.evaluations[record.selected].scene.compile(Path(build))
     model.vis.global_.fovy = FOVY_DEG
     model.vis.global_.offwidth = model.vis.global_.offheight = RESOLUTION
     data = mujoco.MjData(model)

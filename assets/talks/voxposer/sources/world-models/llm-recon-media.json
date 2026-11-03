@@ -1,5 +1,5 @@
 {
- "generator": "sources/world-models/llm-recon-render/render_grid.py, which imports render_media.py from the same folder; run from that folder on rolly with robotl-reconstruction at commit e76cfb7 (datvo06/robotl-reconstruction PR #5) on its PYTHONPATH",
+ "generator": "sources/world-models/llm-recon-render/render_grid.py, which imports render_media.py from the same folder, as of datvo06.github.io commit b535e2a, before they compiled through each scene record; run from that folder on rolly with robotl-reconstruction at commit e76cfb7 (datvo06/robotl-reconstruction PR #5) on its PYTHONPATH. Items with their own generator say how they were made.",
  "rendering": "MuJoCo offscreen, 512 by 512 pixels per panel in a 4 by 2 grid scaled to 75%, 48 frames at 16 fps. Every panel uses fitting view 4's camera. The ground truth sweeps each moving URDF joint between its limits; each reconstruction sweeps its own hinges and slides between their limits, or 0.6 rad and 0.15 around the fitted value when unlimited, which every selected program was.",
  "items": [
   {
@@ -85,6 +85,38 @@
     "GPT-5.4, segmented masks"
    ],
    "cropped_from": "the test-18 six-run grid video, ground-truth panel and the panel in column 3 of row 1, with ffmpeg crop and hstack"
+  },
+  {
+   "video": "media/world-models/llm-recon-chest-new.mp4",
+   "video_sha256": "39b00e8dfcba529fce55eda23d11e314ee09663408f5b990c1bca471f5d9f71d",
+   "poster": "media/world-models/llm-recon-chest-new.jpg",
+   "poster_sha256": "7538e0b150f230bf521c1e06e0e10e1456df06cff1e296258b4acc6fe1ba7539",
+   "object": "test-31",
+   "generator": "sources/world-models/llm-recon-render/render_grid.py with render_media.py in the same folder, run on polly with robotl-reconstruction at commit 87b479f (the MJCF baseline of datvo06/robotl-reconstruction PRs #10 and #11) on its PYTHONPATH. The run used copies of these files that also drew a missing summary as an empty panel; every panel in this video comes from a saved summary, so that difference does not reach it.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, RoboTL",
+    "GPT-6 Astra, MuJoCo XML",
+    "observed view",
+    "Gemini 4, RoboTL",
+    "Gemini 4, MuJoCo XML"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-table-new.mp4",
+   "video_sha256": "971a6b15221c02dc93b364e767cd6f719da82bb4d232de755246076ad75b6147",
+   "poster": "media/world-models/llm-recon-table-new.jpg",
+   "poster_sha256": "087e92e77f2eea852e107d62567e648c6b0625d8a8c0887dea4f02b8f0749aee",
+   "object": "test-33",
+   "generator": "sources/world-models/llm-recon-render/render_grid.py with render_media.py in the same folder, run on polly with robotl-reconstruction at commit 87b479f (the MJCF baseline of datvo06/robotl-reconstruction PRs #10 and #11) on its PYTHONPATH. The run used copies of these files that also drew a missing summary as an empty panel; every panel in this video comes from a saved summary, so that difference does not reach it.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, RoboTL",
+    "GPT-6 Astra, MuJoCo XML",
+    "observed view",
+    "Gemini 4, RoboTL",
+    "Gemini 4, MuJoCo XML"
+   ]
   }
  ]
 }
