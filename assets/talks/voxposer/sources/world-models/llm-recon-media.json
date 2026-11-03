@@ -709,6 +709,37 @@
    "poster_sha256": "ec20be312d6869c846aa4e521a28273fafbac1f7ff365fa0d09cf6bc05a0b069",
    "object": "test-36",
    "generator": "sources/world-models/llm-recon-render/render_grid.py with render_media.py, run on polly with robotl-reconstruction at commit 87b479f (datvo06/robotl-reconstruction PRs #10 and #11), from copies that also drew a missing summary as an empty panel; only GPT-6 Astra's RoboTL panel for test-15 used that"
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6-drawers.mp4",
+   "video_sha256": "b80e99772132fd08cb1db44c1775232ee01a0de8e541ef0cbb59b5986adc87a9",
+   "poster": "media/world-models/llm-recon-gpt6-drawers.jpg",
+   "poster_sha256": "a4a4a9e2b0eaa8d9fc4332ed0fdef42cfae4a5049aa484c448696c1164708796",
+   "object": "test-32",
+   "partnet_mobility_source": "StorageFurniture/45261",
+   "generator": "sources/world-models/llm-recon-render/compose_gpt6_strip.py over two strips: the film panels from render_media_joints.py in the same folder, run on polly with robotl-reconstruction at commit 59db3a1 (datvo06/robotl-reconstruction PR #12) and RoboTL a1617ed5 on its PYTHONPATH; the one-state panels from render_media.py, run on polly with robotl-reconstruction at commit 87b479f (PRs #10 and #11). Both strips use fitting view 4's camera of the same observed state; their ground-truth panels differ by under 0.5 gray levels on average, and the composed video keeps the film strip's.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, one state, RoboTL (run gpt6astra-segmented, selected scene)",
+    "GPT-6 Astra, one state, MuJoCo XML (run gpt6astra-mjcf-segmented, selected scene)",
+    "GPT-6 Astra, film, agent wrote the joints and Params (run gpt6-film-pilot, returned scene, limits fitted)",
+    "GPT-6 Astra, film, agent wrote connect, solver chose the joints (run joints-gpt6-test32, fitted scene 2)"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6-door.mp4",
+   "video_sha256": "63260f3c40cd7310aa68731fc11ef22dd82e517fe8a2f014f50736e79a1a1f0f",
+   "poster": "media/world-models/llm-recon-gpt6-door.jpg",
+   "poster_sha256": "d860e0140f8b2c86f0eaefb22b36fe051c403322eb0f7f3e443859c57bf1a62c",
+   "object": "test-01",
+   "partnet_mobility_source": "StorageFurniture/45691",
+   "generator": "sources/world-models/llm-recon-render/compose_gpt6_strip.py over two strips: the film panels from render_media_joints.py in the same folder, run on polly with robotl-reconstruction at commit 59db3a1 (datvo06/robotl-reconstruction PR #12) and RoboTL a1617ed5 on its PYTHONPATH; the one-state panels from render_media.py, run on polly with robotl-reconstruction at commit 87b479f (PRs #10 and #11). Both strips use fitting view 4's camera of the same observed state; their ground-truth panels differ by under 0.5 gray levels on average, and the composed video keeps the film strip's.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, one state, RoboTL (run gpt6astra-segmented, selected scene)",
+    "GPT-6 Astra, one state, MuJoCo XML (run gpt6astra-mjcf-segmented, selected scene)",
+    "GPT-6 Astra, film, agent wrote the joints and Params (run gpt6-film-pilot, returned scene, limits fitted)"
+   ]
   }
  ]
 }
