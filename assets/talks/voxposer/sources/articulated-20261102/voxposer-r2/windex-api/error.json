@@ -1,0 +1,1 @@
+{"type":"ValueError","message":"Arm IK pose error: 0.002422 m, 0.127536 rad (limits 0.01 m, 0.08726646259971647 rad; solver: The maximum number of function evaluations is exceeded.)"}
