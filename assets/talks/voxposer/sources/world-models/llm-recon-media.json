@@ -679,34 +679,243 @@
    "generator": "sources/world-models/llm-recon-render/render_grid.py with render_media.py, run on polly with robotl-reconstruction at commit 87b479f (datvo06/robotl-reconstruction PRs #10 and #11), from copies that also drew a missing summary as an empty panel; only GPT-6 Astra's RoboTL panel for test-15 used that"
   },
   {
-   "video": "media/world-models/llm-recon-gpt6-drawers.mp4",
-   "video_sha256": "b80e99772132fd08cb1db44c1775232ee01a0de8e541ef0cbb59b5986adc87a9",
-   "poster": "media/world-models/llm-recon-gpt6-drawers.jpg",
-   "poster_sha256": "a4a4a9e2b0eaa8d9fc4332ed0fdef42cfae4a5049aa484c448696c1164708796",
-   "object": "test-32",
-   "partnet_mobility_source": "StorageFurniture/45261",
-   "generator": "sources/world-models/llm-recon-render/compose_gpt6_strip.py over two strips: the film panels from render_media_joints.py in the same folder, run on polly with robotl-reconstruction at commit 59db3a1 (datvo06/robotl-reconstruction PR #12) and RoboTL a1617ed5 on its PYTHONPATH; the one-state panels from render_media.py, run on polly with robotl-reconstruction at commit 87b479f (PRs #10 and #11). Both strips use fitting view 4's camera of the same observed state; their ground-truth panels differ by under 0.5 gray levels on average, and the composed video keeps the film strip's.",
+   "video": "media/world-models/llm-recon-gpt6/test-00.mp4",
+   "video_sha256": "062315c74a46841f9450906bdaec56a88f0cd6539b8158b00063cc62e77f5629",
+   "poster": "media/world-models/llm-recon-gpt6/test-00.jpg",
+   "poster_sha256": "a3d6c5e42bfc83253009d6b976bd8957956786c01191a34f538ac2877d4514fb",
+   "object": "test-00",
+   "partnet_mobility_source": "StorageFurniture/47391",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
    "panels": [
     "ground truth",
-    "GPT-6 Astra, one state, RoboTL (run gpt6astra-segmented, selected scene)",
-    "GPT-6 Astra, one state, MuJoCo XML (run gpt6astra-mjcf-segmented, selected scene)",
-    "GPT-6 Astra, film, agent wrote the joints and Params (run gpt6-film-pilot, returned scene, limits fitted)",
-    "GPT-6 Astra, film, agent wrote connect, solver chose the joints (run joints-gpt6-test32, fitted scene 2)"
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
    ]
   },
   {
-   "video": "media/world-models/llm-recon-gpt6-door.mp4",
-   "video_sha256": "63260f3c40cd7310aa68731fc11ef22dd82e517fe8a2f014f50736e79a1a1f0f",
-   "poster": "media/world-models/llm-recon-gpt6-door.jpg",
-   "poster_sha256": "d860e0140f8b2c86f0eaefb22b36fe051c403322eb0f7f3e443859c57bf1a62c",
+   "video": "media/world-models/llm-recon-gpt6/test-01.mp4",
+   "video_sha256": "6bdac001b3d6fa35166172c708ce5fd8aa1c4fafe31b1bcc67833ca9b9ec13a0",
+   "poster": "media/world-models/llm-recon-gpt6/test-01.jpg",
+   "poster_sha256": "a2e97a7c22caf96e2197125ea8b83467b324dec64b33f532c8bd135ff26099dd",
    "object": "test-01",
    "partnet_mobility_source": "StorageFurniture/45691",
-   "generator": "sources/world-models/llm-recon-render/compose_gpt6_strip.py over two strips: the film panels from render_media_joints.py in the same folder, run on polly with robotl-reconstruction at commit 59db3a1 (datvo06/robotl-reconstruction PR #12) and RoboTL a1617ed5 on its PYTHONPATH; the one-state panels from render_media.py, run on polly with robotl-reconstruction at commit 87b479f (PRs #10 and #11). Both strips use fitting view 4's camera of the same observed state; their ground-truth panels differ by under 0.5 gray levels on average, and the composed video keeps the film strip's.",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
    "panels": [
     "ground truth",
-    "GPT-6 Astra, one state, RoboTL (run gpt6astra-segmented, selected scene)",
-    "GPT-6 Astra, one state, MuJoCo XML (run gpt6astra-mjcf-segmented, selected scene)",
-    "GPT-6 Astra, film, agent wrote the joints and Params (run gpt6-film-pilot, returned scene, limits fitted)"
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-05.mp4",
+   "video_sha256": "1c4b0d0aae7806da8447b354294811b6887e44985028af01362704befb33c80e",
+   "poster": "media/world-models/llm-recon-gpt6/test-05.jpg",
+   "poster_sha256": "e23ff42df9c3945c6ff04ca6faffa332eeac48bc03989f3430ab8081dd4cd8a6",
+   "object": "test-05",
+   "partnet_mobility_source": "Laptop/9996",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-06.mp4",
+   "video_sha256": "d5d7530f2a38ecfb75012970d0126c5428982227978a3bd2d444baa8d6ebd894",
+   "poster": "media/world-models/llm-recon-gpt6/test-06.jpg",
+   "poster_sha256": "72f5f1f23b2d525c791605b8197ab0b9ef2c479782166c2a752ae8720b9acf6b",
+   "object": "test-06",
+   "partnet_mobility_source": "StorageFurniture/45621",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-10.mp4",
+   "video_sha256": "b96de4381faea50b1473587eb187d4190da0dc13264100b80e861d73c89b5c06",
+   "poster": "media/world-models/llm-recon-gpt6/test-10.jpg",
+   "poster_sha256": "d69d9d6915879fe26f9ae668c116d19d076ed1812aae5d9725a6704f88827a96",
+   "object": "test-10",
+   "partnet_mobility_source": "Laptop/9992",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-11.mp4",
+   "video_sha256": "d7575bc9aa3cba13fdb53299af4b9522728e3acf9e86b6ba2f068aae36cbfa76",
+   "poster": "media/world-models/llm-recon-gpt6/test-11.jpg",
+   "poster_sha256": "b1e3f3695a35ac9dc89d78e447682a459e5d8a1a7921535c9246469a12a3e2aa",
+   "object": "test-11",
+   "partnet_mobility_source": "Laptop/10125",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-15.mp4",
+   "video_sha256": "30cb4bc3c84df838edcce31c6f856f25197a50049cf0d2aea46eac4b1ccf1f87",
+   "poster": "media/world-models/llm-recon-gpt6/test-15.jpg",
+   "poster_sha256": "aecf5bfceb22bf300dbe52131b1ce5318fdcea51d36f9238fd8618f6b9d673b6",
+   "object": "test-15",
+   "partnet_mobility_source": "StorageFurniture/45146",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-16.mp4",
+   "video_sha256": "207407f1d6f857b5dd09aef20cbfe51b42f5dbf48f1b4ebf5ab012378aa59dfd",
+   "poster": "media/world-models/llm-recon-gpt6/test-16.jpg",
+   "poster_sha256": "82e2fb16598aa828778d77b248cbcce2106798e82f755d854929841ecf93bab8",
+   "object": "test-16",
+   "partnet_mobility_source": "StorageFurniture/48379",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-20.mp4",
+   "video_sha256": "21cdbb8f7dda4e969db8c41897f195734611c789910b2123f8d50f06636eb749",
+   "poster": "media/world-models/llm-recon-gpt6/test-20.jpg",
+   "poster_sha256": "df9ab50c813a551ae3437f3a21a09816006c05a225a7acbb39ad5d1e1bc84682",
+   "object": "test-20",
+   "partnet_mobility_source": "StorageFurniture/49038",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-21.mp4",
+   "video_sha256": "8dbd66e3a74bf0664b823ff38bcb1575c940468548d7b513d095cd8baf5f2afb",
+   "poster": "media/world-models/llm-recon-gpt6/test-21.jpg",
+   "poster_sha256": "ac74fa0357f16d5a4e232dd4aacff774f058add0a048691f653734a002ef08c9",
+   "object": "test-21",
+   "partnet_mobility_source": "StorageFurniture/45162",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-25.mp4",
+   "video_sha256": "e8d9977913d9d4c8d2d284b35e87bf8486ab5accbc17c29203b30a0892301044",
+   "poster": "media/world-models/llm-recon-gpt6/test-25.jpg",
+   "poster_sha256": "d27ad4c1e81e2dffcf084658cecb08345b25ad96f5c1685e99874bf9bf529f76",
+   "object": "test-25",
+   "partnet_mobility_source": "StorageFurniture/45332",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-26.mp4",
+   "video_sha256": "9a125ff961fb0849f2a0123c30d7af12f19c04f0133ad986e8250c3515f04b3c",
+   "poster": "media/world-models/llm-recon-gpt6/test-26.jpg",
+   "poster_sha256": "e3fd634024a513d2a9cff50e8d4d44eef2af5691be47d6aede0d0918204263d7",
+   "object": "test-26",
+   "partnet_mobility_source": "StorageFurniture/45756",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-30.mp4",
+   "video_sha256": "953297a7219c42eb1f74cabc168ed25e35988b9fbe705996e0ce114771f82703",
+   "poster": "media/world-models/llm-recon-gpt6/test-30.jpg",
+   "poster_sha256": "1160b090966c239a4c9a09b5def6f8056bf43e6ca51bc61b2f8f34de81338e74",
+   "object": "test-30",
+   "partnet_mobility_source": "StorageFurniture/46109",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-31.mp4",
+   "video_sha256": "dda3b59dd6d6c70a738ca3ebb33809607e8256ccbef01f9580f8d03cd6ac1d8d",
+   "poster": "media/world-models/llm-recon-gpt6/test-31.jpg",
+   "poster_sha256": "3a61ad182e57f32bbe1916585b72ae85749427c0506394c42e9247e88d074809",
+   "object": "test-31",
+   "partnet_mobility_source": "StorageFurniture/46172",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
+   ]
+  },
+  {
+   "video": "media/world-models/llm-recon-gpt6/test-35.mp4",
+   "video_sha256": "230177ab2393f8f8cf15be99c5526f30aaab35ddee1145b8bfac9dfbce6ec529",
+   "poster": "media/world-models/llm-recon-gpt6/test-35.jpg",
+   "poster_sha256": "a53b7a65389b019306cba6838c59ef75586d88c659958013e3fd0beb11472792",
+   "object": "test-35",
+   "partnet_mobility_source": "StorageFurniture/47235",
+   "generator": "sources/world-models/llm-recon-render/compose_all_gpt6.py over two strips rendered on polly: the one-state panels with ground truth from render_media.py (robotl-reconstruction 87b479f, PRs #10 and #11) and the film panels from render_media_joints.py (robotl-reconstruction 785adf3, PR #13 on PR #12, which rebuilds each fitted scene with its solved connections and parameters). Fitting view 4's camera in both; a run that selected no scene keeps an empty panel.",
+   "panels": [
+    "ground truth",
+    "GPT-6 Astra, One state, RoboTL",
+    "GPT-6 Astra, One state, MuJoCo XML",
+    "GPT-6 Astra, Film, the agent's joints and Params",
+    "GPT-6 Astra, Film, connect and the joint solver"
    ]
   },
   {
