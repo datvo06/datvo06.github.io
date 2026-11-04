@@ -1,0 +1,234 @@
+{
+  "plan": {
+    "kind": "then",
+    "first": {
+      "kind": "then",
+      "first": {
+        "kind": "written",
+        "name": "reach",
+        "objective": {
+          "code": "def terms(scene: Component) -> dict[str, Loss]:\n    palm = cast(PickupScene, scene).assembly.robot.hand.origin.pose.pos\n    return {\"palm_near\": Minimize(ejnp.sum((palm - jnp.asarray(target)) ** 2))}\n"
+        },
+        "effect": {
+          "code": "def terms(scene: Component) -> dict[str, Loss]:\n    palm = cast(PickupScene, scene).assembly.robot.hand.origin.pose.pos\n    distance = ejnp.sqrt(ejnp.sum((palm - jnp.asarray(target)) ** 2))\n    return {\"palm_at\": KeepBelow(distance, tolerance_m)}\n"
+        },
+        "maintain": null,
+        "support": null,
+        "dwell_s": 0.2,
+        "timeout_s": 6.0,
+        "arm": {
+          "mode": "planned",
+          "position_m": [
+            0.02,
+            -0.054,
+            0.20600000000000002
+          ],
+          "face_toward": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "fingers_toward": [
+            -0.910728794598455,
+            -0.41300491848069476,
+            0.0
+          ],
+          "frame": "object",
+          "duration_s": 3.0
+        },
+        "hand": {
+          "mode": "planned",
+          "targets": {
+            "finger0": {
+              "base": 1.2,
+              "spread": 0.0,
+              "middle": 0.15,
+              "distal": 0.12
+            },
+            "finger1": {
+              "base": 1.2,
+              "spread": 0.0,
+              "middle": 0.15,
+              "distal": 0.12
+            },
+            "finger2": {
+              "base": 1.2,
+              "spread": 0.0,
+              "middle": 0.15,
+              "distal": 0.12
+            },
+            "thumb": {
+              "base": 0.9,
+              "spread": 1.4,
+              "middle": 0.27,
+              "distal": 0.18
+            }
+          },
+          "duration_s": 2.0
+        },
+        "horizon_s": 1.0,
+        "replan_s": 0.25
+      },
+      "second": {
+        "kind": "written",
+        "name": "descend",
+        "objective": {
+          "code": "def terms(scene: Component) -> dict[str, Loss]:\n    palm = cast(PickupScene, scene).assembly.robot.hand.origin.pose.pos\n    return {\"palm_near\": Minimize(ejnp.sum((palm - jnp.asarray(target)) ** 2))}\n"
+        },
+        "effect": {
+          "code": "def terms(scene: Component) -> dict[str, Loss]:\n    palm = cast(PickupScene, scene).assembly.robot.hand.origin.pose.pos\n    distance = ejnp.sqrt(ejnp.sum((palm - jnp.asarray(target)) ** 2))\n    return {\"palm_at\": KeepBelow(distance, tolerance_m)}\n"
+        },
+        "maintain": null,
+        "support": null,
+        "dwell_s": 0.2,
+        "timeout_s": 5.0,
+        "arm": {
+          "mode": "planned",
+          "position_m": [
+            0.02,
+            -0.054,
+            0.126
+          ],
+          "face_toward": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "fingers_toward": [
+            -0.910728794598455,
+            -0.41300491848069476,
+            0.0
+          ],
+          "frame": "object",
+          "duration_s": 2.0
+        },
+        "hand": {
+          "mode": "held"
+        },
+        "horizon_s": 1.0,
+        "replan_s": 0.25
+      }
+    },
+    "second": {
+      "kind": "then",
+      "first": {
+        "kind": "written",
+        "name": "pinch",
+        "objective": {
+          "code": "def pinch_objective(scene: Component) -> dict[str, Loss]:\n    \"\"\"Load the thumb and the fingers against each other, the native\n    capture's own thumb, finger and opposition support residuals.\"\"\"\n    support = cast(PickupScene, scene).support\n    return {name: support[name] for name in (\"thumb\", \"fingers\", \"opposition\")}\n"
+        },
+        "effect": {
+          "code": "def pinched(scene: Component) -> dict[str, Loss]:\n    \"\"\"The pinch is secured: thumb and two fingers carry half the weight each\n    (the native capture's support residuals), with opposed normals.\"\"\"\n    support = cast(PickupScene, scene).support\n    return {\n        name: support[name]\n        for name in (\"thumb\", \"fingers\", \"opposition\", \"finger0\", \"finger1\")\n    }\n"
+        },
+        "maintain": null,
+        "support": null,
+        "dwell_s": 0.3,
+        "timeout_s": 8.0,
+        "arm": {
+          "mode": "held"
+        },
+        "hand": {
+          "mode": "planned",
+          "targets": {
+            "finger0": {
+              "base": 1.7,
+              "spread": 0.0,
+              "middle": 1.3,
+              "distal": 0.9
+            },
+            "finger1": {
+              "base": 1.7,
+              "spread": 0.0,
+              "middle": 1.3,
+              "distal": 0.9
+            },
+            "finger2": {
+              "base": 1.7,
+              "spread": 0.0,
+              "middle": 1.3,
+              "distal": 0.9
+            },
+            "thumb": {
+              "base": 1.6,
+              "spread": 1.4,
+              "middle": 1.4,
+              "distal": 0.9
+            }
+          },
+          "duration_s": 2.0
+        },
+        "horizon_s": 1.0,
+        "replan_s": 0.25
+      },
+      "second": {
+        "kind": "then",
+        "first": {
+          "kind": "written",
+          "name": "lift",
+          "objective": {
+            "code": "def lift_objective(scene: Component) -> dict[str, Loss]:\n    \"\"\"Raise the object while the hand carries it: the capture's lift height,\n    and the hand keeping hold.\"\"\"\n    picked = cast(PickupScene, scene)\n    return {\"height\": picked.task_losses[\"lift\"]} | in_hand(scene)\n"
+          },
+          "effect": {
+            "code": "def terms(scene: Component) -> dict[str, Loss]:\n    bottom = cast(PickupScene, scene).contact_observations[\"bottom_m\"].get().x[0]\n    return {\"clear\": KeepAbove(bottom, clearance_m)}\n"
+          },
+          "maintain": {
+            "code": "def in_hand(scene: Component) -> dict[str, Loss]:\n    \"\"\"The hand keeps hold: its contacts bear a tenth of the weight at least.\"\"\"\n    picked = cast(PickupScene, scene)\n    weight = (\n        sum(float(mass.to(\"kg\").value) for _, _, mass in picked.assembly.obj.parts_info)\n        * 9.81\n    )\n    load = picked.contact_observations[\"hand_normal_load_N\"].get().x[0]\n    return {\"held\": KeepAbove(load, 0.1 * weight)}\n"
+          },
+          "support": null,
+          "dwell_s": 0.2,
+          "timeout_s": 8.0,
+          "arm": {
+            "mode": "sampled",
+            "scale": 1.0
+          },
+          "hand": {
+            "mode": "held"
+          },
+          "horizon_s": 1.0,
+          "replan_s": 0.1
+        },
+        "second": {
+          "kind": "written",
+          "name": "hold",
+          "objective": {
+            "code": "def lift_objective(scene: Component) -> dict[str, Loss]:\n    \"\"\"Raise the object while the hand carries it: the capture's lift height,\n    and the hand keeping hold.\"\"\"\n    picked = cast(PickupScene, scene)\n    return {\"height\": picked.task_losses[\"lift\"]} | in_hand(scene)\n"
+          },
+          "effect": {
+            "code": "def terms(scene: Component) -> dict[str, Loss]:\n    bottom = cast(PickupScene, scene).contact_observations[\"bottom_m\"].get().x[0]\n    return {\"clear\": KeepAbove(bottom, clearance_m)}\n"
+          },
+          "maintain": {
+            "code": "def in_hand(scene: Component) -> dict[str, Loss]:\n    \"\"\"The hand keeps hold: its contacts bear a tenth of the weight at least.\"\"\"\n    picked = cast(PickupScene, scene)\n    weight = (\n        sum(float(mass.to(\"kg\").value) for _, _, mass in picked.assembly.obj.parts_info)\n        * 9.81\n    )\n    load = picked.contact_observations[\"hand_normal_load_N\"].get().x[0]\n    return {\"held\": KeepAbove(load, 0.1 * weight)}\n"
+          },
+          "support": null,
+          "dwell_s": 5.0,
+          "timeout_s": 8.0,
+          "arm": {
+            "mode": "held"
+          },
+          "hand": {
+            "mode": "held"
+          },
+          "horizon_s": 1.0,
+          "replan_s": 0.25
+        }
+      }
+    }
+  },
+  "initial_grasp": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.01,
+    "yaw": 0.0,
+    "pitch": 0.0,
+    "roll": 0.0,
+    "base": 1.6,
+    "spread": 0.0,
+    "middle": 0.5,
+    "distal": 0.4,
+    "thumb_base": 1.2,
+    "thumb_spread": 1.4,
+    "thumb_middle": 0.9,
+    "thumb_distal": 0.6,
+    "preshape": 0.75
+  }
+}

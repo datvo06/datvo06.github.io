@@ -1,0 +1,447 @@
+{
+  "plan": {
+    "kind": "then",
+    "first": {
+      "kind": "written",
+      "name": "clear high waypoint",
+      "objective": {
+        "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepBelow\n    x = cast(PickupScene, s)\n    palm = x.assembly.robot.hand.origin.pose.pos\n    goal = x.assembly.obj.pose @ n.asarray((0.018, -0.16, 0.45))\n    return {\"moving_palm_goal\": KeepBelow(n.sqrt(n.sum((palm-goal)**2)), 0.025)}\n"
+      },
+      "effect": {
+        "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepBelow\n    x = cast(PickupScene, s)\n    palm = x.assembly.robot.hand.origin.pose.pos\n    goal = x.assembly.obj.pose @ n.asarray((0.018, -0.16, 0.45))\n    return {\"moving_palm_goal\": KeepBelow(n.sqrt(n.sum((palm-goal)**2)), 0.025)}\n"
+      },
+      "maintain": null,
+      "support": null,
+      "dwell_s": 0.15,
+      "timeout_s": 9.0,
+      "arm": {
+        "mode": "planned",
+        "position_m": {
+          "item_0": 0.018,
+          "item_1": -0.16,
+          "item_2": 0.45
+        },
+        "face_toward": {
+          "item_0": 0.0,
+          "item_1": 0.0,
+          "item_2": -1.0
+        },
+        "fingers_toward": {
+          "item_0": 0.0,
+          "item_1": 1.0,
+          "item_2": 0.0
+        },
+        "frame": "object",
+        "duration_s": 4.5
+      },
+      "hand": {
+        "mode": "planned",
+        "targets": [
+          {
+            "digit": "finger0",
+            "role": "base",
+            "radians": 1.08
+          },
+          {
+            "digit": "finger0",
+            "role": "spread",
+            "radians": 0.0
+          },
+          {
+            "digit": "finger0",
+            "role": "middle",
+            "radians": 0.03
+          },
+          {
+            "digit": "finger0",
+            "role": "distal",
+            "radians": 0.03
+          },
+          {
+            "digit": "finger1",
+            "role": "base",
+            "radians": 1.08
+          },
+          {
+            "digit": "finger1",
+            "role": "spread",
+            "radians": 0.0
+          },
+          {
+            "digit": "finger1",
+            "role": "middle",
+            "radians": 0.03
+          },
+          {
+            "digit": "finger1",
+            "role": "distal",
+            "radians": 0.03
+          },
+          {
+            "digit": "finger2",
+            "role": "base",
+            "radians": 1.08
+          },
+          {
+            "digit": "finger2",
+            "role": "spread",
+            "radians": 0.0
+          },
+          {
+            "digit": "finger2",
+            "role": "middle",
+            "radians": 0.03
+          },
+          {
+            "digit": "finger2",
+            "role": "distal",
+            "radians": 0.03
+          },
+          {
+            "digit": "thumb",
+            "role": "base",
+            "radians": 0.72
+          },
+          {
+            "digit": "thumb",
+            "role": "spread",
+            "radians": 1.4
+          },
+          {
+            "digit": "thumb",
+            "role": "middle",
+            "radians": 0.08
+          },
+          {
+            "digit": "thumb",
+            "role": "distal",
+            "radians": 0.03
+          }
+        ],
+        "duration_s": 2.0
+      },
+      "horizon_s": 1.0,
+      "replan_s": 0.25
+    },
+    "second": {
+      "kind": "then",
+      "first": {
+        "kind": "written",
+        "name": "high over sprayer",
+        "objective": {
+          "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepBelow\n    x = cast(PickupScene, s)\n    palm = x.assembly.robot.hand.origin.pose.pos\n    goal = x.assembly.obj.pose @ n.asarray((0.018, -0.045, 0.43))\n    return {\"moving_palm_goal\": KeepBelow(n.sqrt(n.sum((palm-goal)**2)), 0.02)}\n"
+        },
+        "effect": {
+          "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepBelow\n    x = cast(PickupScene, s)\n    palm = x.assembly.robot.hand.origin.pose.pos\n    goal = x.assembly.obj.pose @ n.asarray((0.018, -0.045, 0.43))\n    return {\"moving_palm_goal\": KeepBelow(n.sqrt(n.sum((palm-goal)**2)), 0.02)}\n"
+        },
+        "maintain": null,
+        "support": null,
+        "dwell_s": 0.15,
+        "timeout_s": 7.0,
+        "arm": {
+          "mode": "planned",
+          "position_m": {
+            "item_0": 0.018,
+            "item_1": -0.045,
+            "item_2": 0.43
+          },
+          "face_toward": {
+            "item_0": 0.0,
+            "item_1": 0.0,
+            "item_2": -1.0
+          },
+          "fingers_toward": {
+            "item_0": 0.0,
+            "item_1": 1.0,
+            "item_2": 0.0
+          },
+          "frame": "object",
+          "duration_s": 3.0
+        },
+        "hand": {
+          "mode": "held"
+        },
+        "horizon_s": 1.0,
+        "replan_s": 0.25
+      },
+      "second": {
+        "kind": "then",
+        "first": {
+          "kind": "written",
+          "name": "settled reachable neck descent",
+          "objective": {
+            "code": "def reachable_neck(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepBelow\n\n    x = cast(PickupScene, s)\n    palm = x.assembly.robot.hand.origin.pose.pos\n    goal = x.assembly.obj.pose @ n.asarray((0.018, -0.045, 0.350))\n    distance = n.sqrt(n.sum((palm - goal) ** 2))\n    return {\"palm_at_reachable_neck\": KeepBelow(distance, 0.025)}\n"
+          },
+          "effect": {
+            "code": "def settled_reachable_neck(s: object) -> dict[str, object]:\n    x = cast(PickupScene, s)\n    palm = x.assembly.robot.hand.origin.pose.pos\n    goal = x.assembly.obj.pose @ n.asarray((0.018, -0.045, 0.350))\n    distance = n.sqrt(n.sum((palm - goal) ** 2))\n    speed = x.contact_observations[\"relative_speed_m_s\"].get().x[0]\n    return {\n        \"reachable_neck_region\": KeepBelow(distance, 0.060),\n        \"settled_relative_motion\": KeepBelow(speed, 0.025),\n    }\n"
+          },
+          "maintain": null,
+          "support": null,
+          "dwell_s": 0.2,
+          "timeout_s": 12.0,
+          "arm": {
+            "mode": "planned",
+            "position_m": {
+              "item_0": 0.018,
+              "item_1": -0.045,
+              "item_2": 0.35
+            },
+            "face_toward": {
+              "item_0": 0.0,
+              "item_1": 0.0,
+              "item_2": -1.0
+            },
+            "fingers_toward": {
+              "item_0": 0.0,
+              "item_1": 1.0,
+              "item_2": 0.0
+            },
+            "frame": "object",
+            "duration_s": 4.0
+          },
+          "hand": {
+            "mode": "held"
+          },
+          "horizon_s": 1.0,
+          "replan_s": 0.25
+        },
+        "second": {
+          "kind": "then",
+          "first": {
+            "kind": "written",
+            "name": "gentle neck grasp",
+            "objective": {
+              "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    from experiments.panda_leap_pickup import PickupScene\n    x = cast(PickupScene, s)\n    return {\"thumb\": x.support[\"thumb\"], \"fingers\": x.support[\"fingers\"], \"opposition\": x.support[\"opposition\"]}\n"
+            },
+            "effect": {
+              "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    from experiments.panda_leap_pickup import PickupScene\n    x = cast(PickupScene, s)\n    return {\"thumb\": x.support[\"thumb\"], \"fingers\": x.support[\"fingers\"], \"opposition\": x.support[\"opposition\"]}\n"
+            },
+            "maintain": null,
+            "support": null,
+            "dwell_s": 0.4,
+            "timeout_s": 9.0,
+            "arm": {
+              "mode": "held"
+            },
+            "hand": {
+              "mode": "planned",
+              "targets": [
+                {
+                  "digit": "finger0",
+                  "role": "base",
+                  "radians": 1.48
+                },
+                {
+                  "digit": "finger0",
+                  "role": "spread",
+                  "radians": 0.0
+                },
+                {
+                  "digit": "finger0",
+                  "role": "middle",
+                  "radians": 0.55
+                },
+                {
+                  "digit": "finger0",
+                  "role": "distal",
+                  "radians": 0.4
+                },
+                {
+                  "digit": "finger1",
+                  "role": "base",
+                  "radians": 1.48
+                },
+                {
+                  "digit": "finger1",
+                  "role": "spread",
+                  "radians": 0.0
+                },
+                {
+                  "digit": "finger1",
+                  "role": "middle",
+                  "radians": 0.72
+                },
+                {
+                  "digit": "finger1",
+                  "role": "distal",
+                  "radians": 0.5
+                },
+                {
+                  "digit": "finger2",
+                  "role": "base",
+                  "radians": 1.48
+                },
+                {
+                  "digit": "finger2",
+                  "role": "spread",
+                  "radians": 0.0
+                },
+                {
+                  "digit": "finger2",
+                  "role": "middle",
+                  "radians": 0.68
+                },
+                {
+                  "digit": "finger2",
+                  "role": "distal",
+                  "radians": 0.48
+                },
+                {
+                  "digit": "thumb",
+                  "role": "base",
+                  "radians": 1.34
+                },
+                {
+                  "digit": "thumb",
+                  "role": "spread",
+                  "radians": 1.4
+                },
+                {
+                  "digit": "thumb",
+                  "role": "middle",
+                  "radians": 0.84
+                },
+                {
+                  "digit": "thumb",
+                  "role": "distal",
+                  "radians": 0.55
+                }
+              ],
+              "duration_s": 3.0
+            },
+            "horizon_s": 1.5,
+            "replan_s": 0.2
+          },
+          "second": {
+            "kind": "then",
+            "first": {
+              "kind": "written",
+              "name": "modulated upright lift",
+              "objective": {
+                "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepAbove, Minimize\n    x = cast(PickupScene, s)\n    load = x.contact_observations[\"hand_normal_load_N\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"lift\": x.task_losses[\"whole_clearance\"], \"carry\": KeepAbove(load, 9.2), \"upright\": Minimize(1.0-cosine)}\n"
+              },
+              "effect": {
+                "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepAbove\n    x = cast(PickupScene, s)\n    bottom = x.contact_observations[\"bottom_m\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"clearance\": KeepAbove(bottom, 0.042), \"upright\": KeepAbove(cosine, 0.94)}\n"
+              },
+              "maintain": null,
+              "support": {
+                "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    from experiments.panda_leap_pickup import PickupScene\n    x = cast(PickupScene, s)\n    return {\"thumb\": x.support[\"thumb\"], \"fingers\": x.support[\"fingers\"], \"opposition\": x.support[\"opposition\"]}\n"
+              },
+              "dwell_s": 0.4,
+              "timeout_s": 14.0,
+              "arm": {
+                "mode": "sampled",
+                "scale": 0.75
+              },
+              "hand": {
+                "mode": "held"
+              },
+              "horizon_s": 2.5,
+              "replan_s": 0.1
+            },
+            "second": {
+              "kind": "then",
+              "first": {
+                "kind": "written",
+                "name": "establish five second pickup",
+                "objective": {
+                  "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepAbove, Minimize\n    x = cast(PickupScene, s)\n    load = x.contact_observations[\"hand_normal_load_N\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"lift\": x.task_losses[\"whole_clearance\"], \"carry\": KeepAbove(load, 9.2), \"upright\": Minimize(1.0-cosine)}\n"
+                },
+                "effect": {
+                  "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepAbove\n    x = cast(PickupScene, s)\n    mass = sum(float(v[2].to(\"kg\").value) for v in x.assembly.obj.parts_info)\n    load = x.contact_observations[\"hand_normal_load_N\"].get().x[0]\n    bottom = x.contact_observations[\"bottom_m\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"clearance\": KeepAbove(bottom, 0.030), \"carried\": KeepAbove(load, 0.95*mass*9.81), \"upright\": KeepAbove(cosine, 0.94)}\n"
+                },
+                "maintain": null,
+                "support": {
+                  "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    from experiments.panda_leap_pickup import PickupScene\n    x = cast(PickupScene, s)\n    return {\"thumb\": x.support[\"thumb\"], \"fingers\": x.support[\"fingers\"], \"opposition\": x.support[\"opposition\"]}\n"
+                },
+                "dwell_s": 5.0,
+                "timeout_s": 9.0,
+                "arm": {
+                  "mode": "held"
+                },
+                "hand": {
+                  "mode": "held"
+                },
+                "horizon_s": 1.0,
+                "replan_s": 0.25
+              },
+              "second": {
+                "kind": "then",
+                "first": {
+                  "kind": "written",
+                  "name": "sample trigger squeeze",
+                  "objective": {
+                    "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene, part_joint_sensors\n    from robotl.ops.losses import KeepAbove\n    x = cast(PickupScene, s)\n    trigger = part_joint_sensors(x.assembly.obj)[\"trigger\"].get().theta\n    bottom = x.contact_observations[\"bottom_m\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"trigger_third\": KeepAbove(trigger, 0.275), \"clearance\": KeepAbove(bottom, 0.030), \"upright\": KeepAbove(cosine, 0.94)}\n"
+                  },
+                  "effect": {
+                    "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene, part_joint_sensors\n    from robotl.ops.losses import KeepAbove\n    x = cast(PickupScene, s)\n    trigger = part_joint_sensors(x.assembly.obj)[\"trigger\"].get().theta\n    bottom = x.contact_observations[\"bottom_m\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"trigger_third\": KeepAbove(trigger, 0.275), \"clearance\": KeepAbove(bottom, 0.030), \"upright\": KeepAbove(cosine, 0.94)}\n"
+                  },
+                  "maintain": {
+                    "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepAbove\n    x = cast(PickupScene, s)\n    mass = sum(float(v[2].to(\"kg\").value) for v in x.assembly.obj.parts_info)\n    load = x.contact_observations[\"hand_normal_load_N\"].get().x[0]\n    bottom = x.contact_observations[\"bottom_m\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"clearance\": KeepAbove(bottom, 0.027), \"carried\": KeepAbove(load, 0.82*mass*9.81), \"upright\": KeepAbove(cosine, 0.90)}\n"
+                  },
+                  "support": {
+                    "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    from experiments.panda_leap_pickup import PickupScene\n    x = cast(PickupScene, s)\n    return {\"thumb\": x.support[\"thumb\"], \"fingers\": x.support[\"fingers\"], \"opposition\": x.support[\"opposition\"]}\n"
+                  },
+                  "dwell_s": 0.5,
+                  "timeout_s": 15.0,
+                  "arm": {
+                    "mode": "held"
+                  },
+                  "hand": {
+                    "mode": "sampled",
+                    "scale": 1.0
+                  },
+                  "horizon_s": 4.0,
+                  "replan_s": 0.1
+                },
+                "second": {
+                  "kind": "written",
+                  "name": "retain sprayed upright hold",
+                  "objective": {
+                    "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene, part_joint_sensors\n    from robotl.ops.losses import KeepAbove\n    x = cast(PickupScene, s)\n    trigger = part_joint_sensors(x.assembly.obj)[\"trigger\"].get().theta\n    bottom = x.contact_observations[\"bottom_m\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"trigger_third\": KeepAbove(trigger, 0.275), \"clearance\": KeepAbove(bottom, 0.030), \"upright\": KeepAbove(cosine, 0.94)}\n"
+                  },
+                  "effect": {
+                    "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene, part_joint_sensors\n    from robotl.ops.losses import KeepAbove\n    x = cast(PickupScene, s)\n    trigger = part_joint_sensors(x.assembly.obj)[\"trigger\"].get().theta\n    bottom = x.contact_observations[\"bottom_m\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"trigger_third\": KeepAbove(trigger, 0.275), \"clearance\": KeepAbove(bottom, 0.030), \"upright\": KeepAbove(cosine, 0.94)}\n"
+                  },
+                  "maintain": {
+                    "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    import effectful.handlers.jax.numpy as n\n    from experiments.panda_leap_pickup import PickupScene\n    from robotl.ops.losses import KeepAbove\n    x = cast(PickupScene, s)\n    mass = sum(float(v[2].to(\"kg\").value) for v in x.assembly.obj.parts_info)\n    load = x.contact_observations[\"hand_normal_load_N\"].get().x[0]\n    bottom = x.contact_observations[\"bottom_m\"].get().x[0]\n    axis = x.assembly.obj.tip.pose.pos - x.assembly.obj.base.pose.pos\n    cosine = axis[2] / n.sqrt(n.sum(axis*axis) + 1e-12)\n    return {\"clearance\": KeepAbove(bottom, 0.027), \"carried\": KeepAbove(load, 0.82*mass*9.81), \"upright\": KeepAbove(cosine, 0.90)}\n"
+                  },
+                  "support": {
+                    "code": "def reward(s: object) -> dict[str, object]:\n    from typing import cast\n    from experiments.panda_leap_pickup import PickupScene\n    x = cast(PickupScene, s)\n    return {\"thumb\": x.support[\"thumb\"], \"fingers\": x.support[\"fingers\"], \"opposition\": x.support[\"opposition\"]}\n"
+                  },
+                  "dwell_s": 5.0,
+                  "timeout_s": 8.0,
+                  "arm": {
+                    "mode": "held"
+                  },
+                  "hand": {
+                    "mode": "held"
+                  },
+                  "horizon_s": 1.0,
+                  "replan_s": 0.25
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "initial_grasp": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.01,
+    "yaw": 0.0,
+    "pitch": 0.0,
+    "roll": 0.0,
+    "base": 1.6,
+    "spread": 0.0,
+    "middle": 0.5,
+    "distal": 0.4,
+    "thumb_base": 1.2,
+    "thumb_spread": 1.4,
+    "thumb_middle": 0.9,
+    "thumb_distal": 0.6,
+    "preshape": 0.75
+  }
+}
