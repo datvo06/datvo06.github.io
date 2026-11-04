@@ -101,6 +101,7 @@
     .press-check video { display: block; width: 88%; margin: 0 auto; border-radius: 6px; }
     .reveal table.settings.articulated-results td { width: 42%; }
     .reveal table.settings.articulated-results { font-size: .4em; }
+    #slide-codesign-large-clamp .press-check video { width: auto; max-width: 88%; max-height: 360px; }
   </style>
 </head>
 <body>
@@ -454,6 +455,45 @@ constrain(non_overlap(self.drawer, self.shelf))</code></pre></div>
   <p class="video-actions"><button type="button" data-code-source="sources/articulated-20261102/guided-mpc/objective-code.json" data-code-title="Guided MPC objective and stages used in these runs">Inspect the objective</button></p>
   <p class="compare-note">Four times speed, re-rendered with the scans' textures. Stock LEAP hand, seed 1, before the co-design study. Source at <a href="https://github.com/BasisResearch/RoboTL/blob/32254ccb/scripts/actuate_mpc.py">RoboTL 32254ccb</a>.</p>
   <aside class="notes">RoboTL claude/articulated-tasks 32254ccb, scripts/actuate_mpc.py on polly: batch 32, 4 s horizon, 0.25 s replan, budgets 90 s drill and spray bottle, 120 s wrench and scissors, 40 s clamps. The pinch centres at the tool's centre-of-mass height, 8 to 20 mm on the flat tools, so the fingertips close on the table. The drill reached a hand share of 0.80 and the spray bottle 0.26. A diagnostic from a held scissors state started the opening stage, but the pinch squeezed the halves shut. Lift fixes (grip height, wrist pitch, standing start for the spray bottle) are in progress, then the LLM co-design study proposes the hand and these controls.</aside>
+</section>
+<section id="slide-codesign-large-clamp">
+  <h2 class="t">Co-designed hand: <span>the large clamp lifted</span></h2>
+  <figure class="press-check"><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__design2-large-clamp.jpg" aria-label="Guided MPC with the co-designed hand, ball tips on every digit, lifts the large spring clamp and holds it clear of the table"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__design2-large-clamp.mp4" type="video/mp4"></video></figure>
+  <ul class="pts" style="max-width: 88%; font-size: .5em;">
+    <li class="fragment">The agent's design 2: ball tips on every digit, proposed from design 1's results</li>
+    <li class="fragment">Lift accepted at 32.0 s, 62.7 mm up, held 5 s</li>
+    <li class="fragment">The stock hand lifted none of the seven tools</li>
+  </ul>
+  <p class="video-actions"><button type="button" data-code-source="sources/articulated-20261102/staged/design2-proposal-code.json" data-code-title="Co-design agent, design 2: reasoning, hand and clamp controls (excerpt)">Inspect the proposal</button> <a href="sources/articulated-20261102/staged/design2-proposal.json" download>Full proposal</a></p>
+  <p class="compare-note">Twice real speed. Native Guided MPC runner, one hand for all seven tools.</p>
+  <aside class="notes">Co-design study on polly, 2026-11-02, gpt-5.6-sol proposing one LEAP hand plus per-tool grip controls for all seven articulated tools, scored by the native judge. Design 0 (stock) and design 1 (silicone hook tips) lifted nothing; design 1 carried the spray bottle 74 mm briefly. Design 2 changed every tip to a ball and the large clamp passed its lift hold. Design 3's clamp runs went numerically unstable and stopped the study. This is a designed hand, not the stock one.</aside>
+</section>
+<section id="slide-written-stages">
+  <h2 class="t">LLM-written <span>staged control</span></h2>
+  <ul class="pts" style="max-width: 86%; font-size: .52em;">
+    <li class="fragment">One tool at a time, stock hand: the LLM writes every stage as code, its objective, goal and constraints</li>
+    <li class="fragment">Arm and hand each planned, sampled or held, per stage</li>
+    <li class="fragment">Stages run on the existing staged controller and compose with Then, Choice, Fallback, Guard and Together</li>
+    <li class="fragment">The native judge decides success, unchanged</li>
+  </ul>
+  <p class="video-actions"><button type="button" data-code-source="sources/articulated-20261102/staged/022_windex_bottle-plan-4-code.json" data-code-title="Spray bottle, plan 5: the LLM's eight stages (excerpt)">Inspect a written plan</button> <a href="sources/articulated-20261102/staged/022_windex_bottle-plan-4-plan.json" download>Full plan</a></p>
+  <aside class="notes">A WrittenStage plan leaf: objective, effect, maintain and support are synthesized RewardFn code over the scene's sensors, plus dwell, timeout, horizon and replan, and an arm mode and a hand mode (planned palm pose by IK, planned servo targets, sampled at a scale, or held). It compiles through the existing compile_operator into the library StagedController. Sampling one part at zero sigma on the other is the arm and hand split. The judge drives the native ActuatedGrasp checks over the episode's data, and a replay of a recorded native run gives the same accepted stages. Work in progress on RoboTL branch claude/staged-programs.</aside>
+</section>
+<section id="slide-written-results">
+  <h2 class="t">LLM-written control, stock hand: <span>no lift yet</span></h2>
+  <div class="trial-grid">
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__llm-windex-plan4.jpg" aria-label="LLM-written plan for the spray bottle: planned approach over the sprayer, neck descent times out"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__llm-windex-plan4.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Spray bottle</strong>, plan 5: over the sprayer, neck descent timed out<br><a href="sources/articulated-20261102/staged/022_windex_bottle-plan-4-code.json" data-code-source="sources/articulated-20261102/staged/022_windex_bottle-plan-4-code.json" data-code-title="Spray bottle, plan 5 (excerpt)">Code</a> · <a href="sources/articulated-20261102/staged/022_windex_bottle-plan-4-plan.json" download>Full plan</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__llm-scissors-plan0.jpg" aria-label="LLM-written plan for the scissors: approach completes, the grasp presses them into the table"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__llm-scissors-plan0.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Scissors</strong>, plan 1: approach done, grasp pressed them into the table<br><a href="sources/articulated-20261102/staged/037_scissors-plan-0-code.json" data-code-source="sources/articulated-20261102/staged/037_scissors-plan-0-code.json" data-code-title="Scissors, plan 1 (excerpt)">Code</a> · <a href="sources/articulated-20261102/staged/037_scissors-plan-0-plan.json" download>Full plan</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__llm-large-clamp-plan0.jpg" aria-label="LLM-written plan for the large clamp: reach completes, descent times out"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__llm-large-clamp-plan0.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Large clamp</strong>, plan 1: reach done, descent timed out<br><a href="sources/articulated-20261102/staged/051_large_clamp-plan-0-code.json" data-code-source="sources/articulated-20261102/staged/051_large_clamp-plan-0-code.json" data-code-title="Large clamp, plan 1 (excerpt)">Code</a> · <a href="sources/articulated-20261102/staged/051_large_clamp-plan-0-plan.json" download>Full plan</a></figcaption></figure>
+    <figure><video controls muted playsinline preload="metadata" poster="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__handwritten-large-clamp-v15.jpg" aria-label="Hand-written plan for the large clamp: reach, descent and pinch complete, the lift is refused"><source src="https://github.com/datvo06/datvo06.github.io/releases/download/articulated-tools-20261102/articulated-20261104__handwritten-large-clamp-v15.mp4" type="video/mp4"></video>
+      <figcaption class="cap"><strong>Large clamp</strong>, hand-written: pinch secured, lift refused<br><a href="sources/articulated-20261102/staged/handwritten-large-clamp-v15-code.json" data-code-source="sources/articulated-20261102/staged/handwritten-large-clamp-v15-code.json" data-code-title="Large clamp, hand-written plan (excerpt)">Code</a> · <a href="sources/articulated-20261102/staged/handwritten-large-clamp-v15-plan.json" download>Full plan</a></figcaption></figure>
+  </div>
+  <p class="video-actions"><button type="button" data-play-together>Play together from start</button> <button type="button" data-pause-together>Pause all</button></p>
+  <p class="compare-note">Real time. Drill, wrench and clamp studies are blocked on memory.</p>
+  <aside class="notes">Per-tool studies on polly with gpt-5.6-sol writing up to 8 plans each, stock menagerie LEAP hand. The spray bottle's first two plans failed their reach; plans 3 to 5 fixed it and timed out descending to the neck. The drill and wrench attempts were blocked by evaluator bugs (a strict grasp-search IK tolerance on free-space reaches, a dropped initial grasp, reach timing past the arm limits), since fixed. The clamp and drill studies then exceeded polly's memory: each rollout returns all 10,191 sensor values for every step of the LLM's 1.5 to 4 s horizons; returning only the steps the losses read is the next fix. The hand-written clamp plan reaches, descends and pinches with an opposed grip in every variant, but no variant lifts: a firm grip presses the clamp into the table at 4 to 5 times its weight, a softer one does not hold it, and a sampled lift shears the grip open.</aside>
 </section>
 <section id="slide-finger-interface-results">
   <h2 class="t">Individual finger control: <span>the programs did not use it</span></h2>
