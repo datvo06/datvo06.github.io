@@ -39,8 +39,8 @@
     .llm-recon-video { width: 92%; }
     #slide-llm-reconstruction-results table.settings th, #slide-llm-reconstruction-results table.settings td { padding-top: 6px; padding-bottom: 6px; }
     .reveal p.video-actions .code-label { font-size: 18px; color: #4a4f5a; margin-right: 6px; }
-    #slide-llm-reconstruction-all .all-picker { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; width: 96%; margin: 0 auto 4px; }
-    #slide-llm-reconstruction-all .all-picker button { font: 600 14px/1 ui-monospace, Menlo, monospace; padding: 5px 6px; }
+    #slide-llm-reconstruction-all .all-picker, #slide-llm-reconstruction-gpt6-attempts .all-picker { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; width: 96%; margin: 0 auto 4px; }
+    #slide-llm-reconstruction-all .all-picker button, #slide-llm-reconstruction-gpt6-attempts .all-picker button { font: 600 14px/1 ui-monospace, Menlo, monospace; padding: 5px 6px; }
     #slide-llm-reconstruction-all button[aria-pressed="true"] { background: #1E3A8A; color: white; }
     #slide-llm-reconstruction-all .all-programs button { font-size: 15px; padding: 5px 10px; }
     #slide-llm-reconstruction-all .video-actions { margin: 6px auto; }
@@ -308,13 +308,13 @@ constrain(non_overlap(self.drawer, self.shelf))</code></pre></div>
 </section>
 <section id="slide-llm-reconstruction-gpt6-attempts">
   <h2 class="t">GPT-6 Astra, <span>four attempts</span></h2>
-  <figure class="environment-video llm-recon-video"><video controls muted playsinline preload="metadata" poster="media/world-models/llm-recon-gpt6-drawers.jpg" aria-label="Ground truth beside GPT-6 Astra's four reconstructions of a cabinet with five drawers: one state writing RoboTL, one state writing MuJoCo XML, film with the agent writing the joints, film with the agent writing connect and the solver choosing the joints, each sweeping its own joints"><source src="media/world-models/llm-recon-gpt6-drawers.mp4" type="video/mp4"></video>
-    <figcaption class="cap">Five drawers, true travel 0.87. One state, RoboTL and XML: shape error 0.24 and 0.25, <strong>5 of 5</strong>, no limits. Film, agent's joints: shape error 0.26, <strong>5 of 5</strong>, travel 0.867 to 0.874. Film, solver's joints: shape error 0.29, <strong>5 of 5</strong>, axes within 0.7 degrees, travel 0.871 to 0.872.</figcaption></figure>
-  <figure class="environment-video llm-recon-video"><video controls muted playsinline preload="metadata" poster="media/world-models/llm-recon-gpt6-door.jpg" aria-label="Ground truth beside GPT-6 Astra's three reconstructions of a cabinet with one door: one state writing RoboTL, one state writing MuJoCo XML, film with the agent writing the joints, each sweeping its own joint"><source src="media/world-models/llm-recon-gpt6-door.mp4" type="video/mp4"></video>
-    <figcaption class="cap">One door, true 0 to 1.81 rad. One state, RoboTL and XML: shape error 0.11 and 0.11, <strong>1 of 1</strong>, no limits. Film, agent's joints: 0.013 to 1.810.</figcaption></figure>
-  <p class="video-actions"><span class="code-label">Generated code:</span> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="0" data-code-title="Five drawers: GPT-6 Astra's program, one state, RoboTL">Drawers, RoboTL</button> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="1" data-code-title="Five drawers: GPT-6 Astra's MuJoCo XML, one state">Drawers, XML</button> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="2" data-code-title="Five drawers: GPT-6 Astra's program, film, joints and Params written by the agent">Drawers, film</button> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="3" data-code-title="Five drawers: GPT-6 Astra's program, film, connect written by the agent">Drawers, connect</button> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="4" data-code-title="One door: GPT-6 Astra's program, one state, RoboTL">Door, RoboTL</button> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="5" data-code-title="One door: GPT-6 Astra's MuJoCo XML, one state">Door, XML</button> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="6" data-code-title="One door: GPT-6 Astra's program, film, joints and Params written by the agent">Door, film</button> <span class="code-label">Fit records:</span> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="7" data-code-title="Five drawers, film: the fitted Params and limits the agent's-joints panel is rendered with">Drawers, film</button> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="8" data-code-title="Five drawers, film: the solved connections and limits the connect panel is rendered with">Drawers, connect</button> <button type="button" data-code-source="sources/world-models/llm-recon-gpt6-attempts-code.json" data-code-block="9" data-code-title="One door, film: the fitted Params and limits the agent's-joints panel is rendered with">Door, film</button></p>
-  <p class="cap"><a href="sources/world-models/llm-recon-gpt6-attempts-code.json" download>All seven programs and three fit records</a> · <a href="sources/world-models/llm-recon-gpt6-attempts-fits.json" download>Fit records alone</a> · <a href="sources/world-models/llm-recon-render/compose_gpt6_strip.py" download>Strip composer</a> · <a href="sources/world-models/llm-recon-render/render_media_joints.py" download>Film panel renderer</a> · <a href="sources/world-models/llm-recon-render/render_media.py" download>Panel renderer</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
-  <aside class="notes">Test objects test-32 (PartNet-Mobility StorageFurniture/45261) and test-01 (StorageFurniture/45691), segmented masks, the same observed state in every attempt. One state: the agent sees the fitting views only and writes the parts and joints, as RoboTL or as a MuJoCo XML document; neither program sets limits, so those panels sweep 0.15 around the fitted opening of a drawer and 0.6 rad around that of the door. Film, agent's joints: the agent also sees a film of a hand moving every joint, writes the joints itself and declares their limits as Params with priors; the fit tracks the parts through the film with SAM2 and samples the limits (run gpt6-film-pilot, 8 scenes and 4 fits in 45 minutes). Film, connect: the agent writes connect(parent, child, pose) with a kind and axis prior for each drawer and the solver chooses the joint kind, axis, pivot and limits from the film (run joints-gpt6-test32); it evaluated 3 scenes and fitted one, then its search ended at 14 minutes when the type checker refused a REPL cell, and selection picked the fitted scene on the validation views (IoU 0.996). Scored against the URDF: shape error 0.293 against 0.259 for the agent's-joints run, 5 of 5 slides in both, axis error 0.06 to 0.69 degrees where the agent's own -x axis scored 0.00, and limits within 3.9 mm closed and 5.9 mm open of 0 to 0.87 against 2.7 and 6.2 mm. The solve took 236 s for five connections. The agent read the construct the way the design intends: its first REPL cell printed the source of connect and of the two cabinet examples. The door has no connect panel because that pilot ran on the drawers only. The XML panels are dark because the agents' documents have no skybox. Film panels start at the closed end of each solved range. The programs are the exact selected or returned scenes, the XML ones indented for display. A film panel is its program built with its fit record, the posterior parameters, limits and solved connections, which the fit-record buttons show and the fits file carries; the per-frame tracks and ray samples stay in the runs. The connect line in the drawers program is connect(self, d, Pose(pos=[x, 0., 0.]), kinds={'slide': 1.}, axis=dist.ProjectedNormal(40. * jnp.array([-1., 0., 0.]))).</aside>
+  <div class="all-picker" id="gpt6-picker" role="group" aria-label="Test objects"></div>
+  <p class="video-actions"><span class="code-label" id="gpt6-title"></span></p>
+  <figure class="environment-video llm-recon-video"><video id="gpt6-video" controls muted playsinline preload="metadata" aria-label="Ground truth beside GPT-6 Astra's four attempts at the selected object: one state writing RoboTL, one state writing MuJoCo XML, film with the agent's own joints, and film with connect and the joint solver, each sweeping its joints"></video>
+    <figcaption class="cap" id="gpt6-caption"></figcaption></figure>
+  <p class="video-actions"><span class="code-label">Generated code:</span> <button type="button" class="gpt6-code" data-code-run="gpt6" data-code-source="sources/world-models/llm-recon-gpt6/programs.json.gz" data-code-key="test-00" data-code-title="">One state, RoboTL</button> <button type="button" class="gpt6-code" data-code-run="gpt6x" data-code-source="sources/world-models/llm-recon-gpt6/programs.json.gz" data-code-key="test-00" data-code-title="">One state, XML</button> <button type="button" class="gpt6-code" data-code-run="film" data-code-source="sources/world-models/llm-recon-gpt6/programs.json.gz" data-code-key="test-00" data-code-title="">Film, joints</button> <button type="button" class="gpt6-code" data-code-run="connect" data-code-source="sources/world-models/llm-recon-gpt6/programs.json.gz" data-code-key="test-00" data-code-title="">Film, connect</button> <span class="code-label">Fit records:</span> <button type="button" class="gpt6-code" data-code-run="film-fit" data-code-source="sources/world-models/llm-recon-gpt6/programs.json.gz" data-code-key="test-00" data-code-title="">Film, joints</button> <button type="button" class="gpt6-code" data-code-run="connect-fit" data-code-source="sources/world-models/llm-recon-gpt6/programs.json.gz" data-code-key="test-00" data-code-title="">Film, connect</button></p>
+  <p class="cap"><a href="sources/world-models/llm-recon-gpt6/programs.json.gz" download>All selected programs and fit records</a> · <a href="sources/world-models/llm-recon-gpt6/objects.json">Per-object results</a> · <a href="sources/world-models/llm-recon-render/compose_all_gpt6.py" download>Strip composer</a> · <a href="sources/world-models/llm-recon-render/render_media_joints.py" download>Film panel renderer</a> · <a href="sources/world-models/llm-recon-render/render_media.py" download>Panel renderer</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
+  <aside class="notes">The 15 test objects whose film searches ran on rolly, segmented masks, the same observed state in every attempt; the other 22 ran on polly and join this picker when their scoring finishes. The split between hosts was the launcher's, by object number, not a choice by result. One state: the agent sees the fitting views only and writes the parts and joints, as RoboTL or as a MuJoCo XML document; those programs set no limits, so their panels sweep 0.15 around a drawer's fitted opening and 0.6 rad around a door's. Film, the agent's joints: the agent also sees the film, writes the joints itself and declares their limits as Params with priors, and the fit tracks the parts through the film with SAM2 and samples the limits. Film, connect: the agent writes connect(parent, child, pose), with priors where it has them, and the solver chooses each joint's kind, axis, pivot and limits from the film. Both film runs used the same code snapshot (robotl-reconstruction 05fe792, PR 12) and differ only in the agent's instructions; 2 or 3 workers per host, 45 minutes and 8 proposals per object. The caption gives each run's shape error and joints found, bold for a success: every joint found and no extra one, the right types, axes within 10 degrees and pivots within 0.1, and shape error at most 10; the film runs add the benchmark's mean range error over paired joints, 0 when the limits match. Where the connect run shows no joints, selection picked a scene the agent evaluated but never fitted, whose connections were still welds; PR 13 fits every connected scene on evaluation so that cannot recur. The XML panels are dark because the agents' documents have no skybox. Film panels start at the closed end of each solved range. The buttons open each run's selected program for the chosen object, the XML ones indented for display, and the fit record a film panel is built with: posterior parameters, limits, solved connections and, where the snapshot recorded them, the film scores.</aside>
 </section>
 <section id="slide-comparison-settings">
   <h2 class="t">VoxPoser and Guided MPC: <span>settings in these runs</span></h2>
@@ -1047,6 +1047,60 @@ constrain(non_overlap(self.drawer, self.shelf))</code></pre></div>
     return button;
   });
   slide.querySelectorAll('.all-toggle button').forEach(button => button.addEventListener('click', () => { group = button.dataset.group; render(); }));
+  render();
+})();
+</script>
+<script>
+(async () => {
+  const slide = document.getElementById('slide-llm-reconstruction-gpt6-attempts');
+  const source = 'sources/world-models/llm-recon-gpt6';
+  let runs, objects;
+  try {
+    const response = await fetch(`${source}/objects.json`);
+    if (!response.ok) throw new Error(`${source}/objects.json: HTTP ${response.status}`);
+    ({ runs, objects } = await response.json());
+  } catch (error) {
+    document.getElementById('gpt6-caption').textContent = `Could not load the object list (${error.message}).`;
+    return;
+  }
+  const runOf = Object.fromEntries(runs.map(run => [run.key, run]));
+  const video = document.getElementById('gpt6-video');
+  let current = 0;
+  const score = s => {
+    if (!s) return 'no scene';
+    let text = `${s.cd.toFixed(s.cd < 10 ? 2 : 1)}, ${s.found} of ${s.true}`;
+    if (s.range !== null && s.range !== undefined) text += `, range ${s.range.toFixed(2)}`;
+    return s.ok ? `<strong>${text}</strong>` : text;
+  };
+  function render() {
+    const o = objects[current];
+    const wins = runs.filter(run => o.runs[run.key] && o.runs[run.key].ok).length;
+    document.getElementById('gpt6-title').textContent = `${o.name}, ${o.category}, ${o.parts} parts, ${wins} of ${runs.length} attempts succeed:`;
+    picks.forEach((button, i) => button.setAttribute('aria-pressed', String(i === current)));
+    video.poster = `media/world-models/llm-recon-gpt6/${o.name}.jpg`;
+    video.src = `media/world-models/llm-recon-gpt6/${o.name}.mp4`;
+    video.load();
+    document.getElementById('gpt6-caption').innerHTML = 'Left to right: ground truth, one state with RoboTL, one state with MuJoCo XML, film with the agent\'s joints and Params, film with connect and the solver.<br>Shape error and joints, bold for a success; film runs add the range error. '
+      + runs.map(run => `${run.condition}: ${score(o.runs[run.key])}`).join(' · ');
+    slide.querySelectorAll('.gpt6-code').forEach(button => {
+      const key = button.dataset.codeRun.replace(/-fit$/, '');
+      const run = runOf[key];
+      button.dataset.codeKey = o.name;
+      button.disabled = !o.runs[key];
+      button.title = o.runs[key] ? '' : 'No scored scene for this object';
+      button.dataset.codeTitle = `${o.name}: ${run.model}, ${run.condition}${button.dataset.codeRun.endsWith('-fit') ? ', fit record' : ''}`;
+    });
+  }
+  const picker = document.getElementById('gpt6-picker');
+  const picks = objects.map((o, i) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = o.name.slice(5);
+    button.title = `${o.name}: ${o.category}, ${o.parts} parts`;
+    button.addEventListener('click', () => { current = i; render(); });
+    picker.append(button);
+    return button;
+  });
   render();
 })();
 </script>
