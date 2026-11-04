@@ -39,19 +39,22 @@
     .llm-recon-video { width: 92%; }
     #slide-llm-reconstruction-results table.settings th, #slide-llm-reconstruction-results table.settings td { padding-top: 6px; padding-bottom: 6px; }
     .reveal p.video-actions .code-label { font-size: 18px; color: #4a4f5a; margin-right: 6px; }
-    #slide-llm-reconstruction-all .all-picker, #slide-llm-reconstruction-gpt6-attempts .all-picker { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; width: 96%; margin: 0 auto 4px; }
-    #slide-llm-reconstruction-all .all-picker button, #slide-llm-reconstruction-gpt6-attempts .all-picker button { font: 600 14px/1 ui-monospace, Menlo, monospace; padding: 5px 6px; }
-    #slide-llm-reconstruction-all button[aria-pressed="true"], #slide-llm-reconstruction-gpt6-attempts button[aria-pressed="true"] { background: #1E3A8A; color: white; }
+    #slide-llm-reconstruction-all .recon-controls { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; font-size: 18px; margin: 8px auto; }
+    #recon-object { max-width: 270px; font: inherit; padding: 6px; color: #1f2330; background: white; border: 1px solid #aab8d0; border-radius: 4px; }
+    #slide-llm-reconstruction-all button[aria-pressed="true"] { background: #1E3A8A; color: white; }
     #slide-llm-reconstruction-all .all-programs button { font-size: 15px; padding: 5px 10px; }
-    #slide-llm-reconstruction-all .video-actions { margin: 6px auto; }
-    #slide-llm-reconstruction-all video { max-height: 360px; }
+    #slide-llm-reconstruction-all .video-actions { margin: 8px auto; }
+    #slide-llm-reconstruction-all video { height: 340px; max-height: none; }
+    #slide-llm-reconstruction-all[data-comparison="film"] video { height: 250px; }
+    #slide-llm-reconstruction-all .cap { font-size: 16px; line-height: 1.3; margin: 5px auto; max-width: 96%; }
+    #slide-llm-reconstruction-all #all-title { font-size: 18px; }
+    .reveal table.recon-scores { width: 94%; margin: 8px auto; table-layout: fixed; font-size: 16px; line-height: 1.2; }
+    .reveal table.recon-scores th, .reveal table.recon-scores td { text-align: center; padding: 4px; border-bottom: 1px solid #dce2ed; }
+    .reveal table.recon-scores th:first-child { width: 135px; text-align: left; }
+    .reveal table.recon-scores thead th, .reveal table.recon-scores strong { color: #1E3A8A; }
     #slide-llm-reconstruction-masks .model-figure { max-height: 210px; }
     #slide-llm-reconstruction-masks .llm-recon-list { text-align: center; margin: 10px auto; }
     #slide-llm-reconstruction-masks .sam2-chart { display: block; width: 86%; max-height: 270px; object-fit: contain; margin: 0 auto; }
-    .llm-recon-wins { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; width: 76%; margin: 0 auto; }
-    .llm-recon-wins figure { margin: 0; }
-    .llm-recon-wins video { display: block; width: 100%; border-radius: 4px; }
-    .llm-recon-wins .cap { margin-top: 2px; }
     .environment-video { width: 82%; margin: auto; }
     .environment-video video { display: block; width: 100%; max-height: 480px; object-fit: contain; }
     .code-card { width: 86%; margin: 6px auto; font-size: .4em; text-align: left; }
@@ -260,62 +263,39 @@ constrain(non_overlap(self.drawer, self.shelf))</code></pre></div>
   </table>
   <p class="compare-note">Each row scores the objects that run finished, out of 37. Shape error is the median whole-object Chamfer distance, times 1000; a success finds every joint and no extra ones, with the right types, axes within 10° and pivots within 0.1, and shape error at most 10. The true-part rows are the first runs, on an earlier prompt and with 35 of 37 objects rendered gray. * Gemini 4's rows add one prompt line saying only evaluated scenes count; with the standard prompt it finished 6 objects, 5 of them successes.</p>
   <p class="compare-note fragment">GPT-6 Astra does as well writing MuJoCo XML directly, without RoboTL (33 successes against 31); Gemini 4 finishes fewer objects that way (19 against 23). Gemini 4 finished only 6 objects until one prompt line said only evaluated scenes count.</p>
-  <p class="video-actions"><span class="code-label">Generated code for the 11-drawer chest:</span> <button type="button" data-code-source="sources/world-models/llm-recon-new-models-code.json" data-code-block="0" data-code-title="11-drawer chest: GPT-6 Astra's program, RoboTL">GPT-6 Astra</button> <button type="button" data-code-source="sources/world-models/llm-recon-new-models-code.json" data-code-block="1" data-code-title="11-drawer chest: GPT-6 Astra's MuJoCo XML">GPT-6 Astra, XML</button> <button type="button" data-code-source="sources/world-models/llm-recon-new-models-code.json" data-code-block="2" data-code-title="11-drawer chest: Gemini 4's program, RoboTL">Gemini 4</button> <button type="button" data-code-source="sources/world-models/llm-recon-new-models-code.json" data-code-block="3" data-code-title="11-drawer chest: Gemini 4's MuJoCo XML">Gemini 4, XML</button></p>
   <p class="cap"><a href="sources/world-models/llm-recon-results.json">Per-object results</a> · <a href="sources/world-models/llm-recon-new-models-programs.json.gz" download>Every selected program of the new runs</a> · <a href="https://github.com/datvo06/robotl-reconstruction/pull/4">Implementation PR</a></p>
-  <aside class="notes">The buttons open each new run's selected program for the 11-drawer chest, test-31, where all four find 11 of 11 joints with shape error 0.24 to 0.28; the XML programs are indented for display, and the bundle keeps every selected program exactly as written. Same protocol for every run: 8 scenes and 30 minutes per object, selection on three held-out views, Real2Code's chamfer_distance and compute_joint_error. Only the model, the masks, the representation and, for Gemini 4, one prompt line change. GPT-5.4 and GPT-6 Astra (gpt-6-astra) ran through OpenAI; Gemini 3.1 Pro (gemini-3.1-pro-preview) and Gemini 4 (gemini-4-argon) through Vertex AI's OpenAI-compatible endpoint, all at their default reasoning effort with 8192 completion tokens. Joint type and axis position are averaged per object over paired joints; axis position is in object units; joints found counts true joints that a prediction paired with. Medians cover each run's own finished objects, so successes out of 37 is the fairer comparison across rows. GPT-6 Astra evaluated about 8 scenes per object; an audit of its 1,820 REPL cells found no access outside each study's views and output, and its 9 subprocess calls compiled C++ ray-casters it wrote itself. Its RoboTL run lost test-15 at selection, when the chosen scene's door and drawer overlapped by 0.012. The MuJoCo XML run writes each scene as one MJCF document, with no RoboTL; on the 36 objects both GPT-6 runs finished, RoboTL has the lower shape error on 19 and XML on 17. The Gemini 4 row adds one prompt line saying only evaluated scenes count: with the standard prompt it scored its own scenes in the REPL for the whole 30 minutes and finished 6 objects, 5 of them successes. Gemini 4 writing MuJoCo XML, with the same prompt line, finished 19 objects, 17 of them successes; on the 12 objects both Gemini 4 versions finished, XML has the lower shape error on 4. One search per object and condition.</aside>
+  <aside class="notes">The object browser holds every selected program. On the 11-drawer chest, test-31, all four new-model runs find 11 of 11 joints with shape error 0.24 to 0.28. XML is indented for display; the download retains the saved programs. Same protocol for every run: 8 scenes and 30 minutes per object, selection on three held-out views, Real2Code's chamfer_distance and compute_joint_error. Only the model, the masks, the representation and, for Gemini 4, one prompt line change. GPT-5.4 and GPT-6 Astra (gpt-6-astra) ran through OpenAI; Gemini 3.1 Pro (gemini-3.1-pro-preview) and Gemini 4 (gemini-4-argon) through Vertex AI's OpenAI-compatible endpoint, all at their default reasoning effort with 8192 completion tokens. Joint type and axis position are averaged per object over paired joints; axis position is in object units; joints found counts true joints that a prediction paired with. Medians cover each run's own finished objects, so successes out of 37 is the fairer comparison across rows. GPT-6 Astra evaluated about 8 scenes per object; an audit of its 1,820 REPL cells found no access outside each study's views and output, and its 9 subprocess calls compiled C++ ray-casters it wrote itself. Its RoboTL run lost test-15 at selection, when the chosen scene's door and drawer overlapped by 0.012. The MuJoCo XML run writes each scene as one MJCF document, with no RoboTL; on the 36 objects both GPT-6 runs finished, RoboTL has the lower shape error on 19 and XML on 17. The Gemini 4 row adds one prompt line saying only evaluated scenes count: with the standard prompt it scored its own scenes in the REPL for the whole 30 minutes and finished 6 objects, 5 of them successes. Gemini 4 writing MuJoCo XML, with the same prompt line, finished 19 objects, 17 of them successes; on the 12 objects both Gemini 4 versions finished, XML has the lower shape error on 4. One search per object and condition.</aside>
 </section>
-<section id="slide-llm-reconstruction-wins">
-  <h2 class="t">Successful <span>reconstructions</span></h2>
-  <div class="llm-recon-wins">
-    <figure><video controls muted loop playsinline preload="metadata" poster="media/world-models/llm-recon-win-test-27.jpg" aria-label="Ground truth beside Gemini 3.1 Pro's reconstruction of a tall cabinet with doors and a drawer, from segmented masks"><source src="media/world-models/llm-recon-win-test-27.mp4" type="video/mp4"></video>
-      <figcaption class="cap">Gemini, segmented masks: <strong>4 of 4</strong> joints, 3.8</figcaption></figure>
-    <figure><video controls muted loop playsinline preload="metadata" poster="media/world-models/llm-recon-win-test-34.jpg" aria-label="Ground truth beside Gemini 3.1 Pro's reconstruction of a six-door cabinet, from segmented masks"><source src="media/world-models/llm-recon-win-test-34.mp4" type="video/mp4"></video>
-      <figcaption class="cap">Gemini, segmented masks: <strong>6 of 6</strong> joints, 6.7</figcaption></figure>
-    <figure><video controls muted loop playsinline preload="metadata" poster="media/world-models/llm-recon-win-test-30.jpg" aria-label="Ground truth beside Gemini 3.1 Pro's reconstruction of a five-drawer chest, without masks"><source src="media/world-models/llm-recon-win-test-30.mp4" type="video/mp4"></video>
-      <figcaption class="cap">Gemini, no masks: <strong>5 of 5</strong> joints, 1.7</figcaption></figure>
-    <figure><video controls muted loop playsinline preload="metadata" poster="media/world-models/llm-recon-win-test-18.jpg" aria-label="Ground truth beside GPT-5.4's reconstruction of a two-door cabinet, from segmented masks"><source src="media/world-models/llm-recon-win-test-18.mp4" type="video/mp4"></video>
-      <figcaption class="cap">GPT-5.4, segmented masks: <strong>2 of 2</strong> joints, 7.7</figcaption></figure>
+<section id="slide-llm-reconstruction-all" data-comparison="new">
+  <h2 class="t">Reconstruction: <span>all 37 objects</span></h2>
+  <div class="recon-controls">
+    <label for="recon-object">Object</label><select id="recon-object" aria-label="Test object"></select>
+    <button type="button" data-example="test-31">11-drawer chest</button>
+    <button type="button" data-example="test-33">8-drawer table</button>
+    <div class="all-toggle" role="group" aria-label="Comparison">
+      <button type="button" data-group="new" aria-pressed="true">Models and formats</button>
+      <button type="button" data-group="old" aria-pressed="false">Mask conditions</button>
+      <button type="button" data-group="film" aria-pressed="false">Motion and solver</button>
+    </div>
   </div>
-  <p class="compare-note">Every joint right, shape error at most 10, out of 37 with no masks, segmented masks, true parts: GPT-5.4 0, 2, 2; Gemini 11, 9, 8.</p>
-  <p class="video-actions"><button type="button" data-play-together>Play together</button> <button type="button" data-code-source="sources/world-models/llm-recon-wins-code.json" data-code-block="0" data-code-title="Doors and a drawer: Gemini 3.1 Pro's program, segmented masks">Doors and drawer</button> <button type="button" data-code-source="sources/world-models/llm-recon-wins-code.json" data-code-block="1" data-code-title="Six doors: Gemini 3.1 Pro's program, segmented masks">Six doors</button> <button type="button" data-code-source="sources/world-models/llm-recon-wins-code.json" data-code-block="2" data-code-title="Five drawers: Gemini 3.1 Pro's program, no masks">Five drawers</button> <button type="button" data-code-source="sources/world-models/llm-recon-wins-code.json" data-code-block="3" data-code-title="Two doors: GPT-5.4's program, segmented masks">Two doors</button></p>
-  <aside class="notes">Test objects test-27, a tall cabinet with doors and a drawer; test-34, six doors; test-30, five drawers; test-18, two doors. Captions give joints found and shape error. A success means every true joint paired with a predicted joint of the right type and no extra predicted joints, axis direction within 10 degrees, pivot position within 0.1 where Real2Code defines one (hinges; slides have none), and whole-object shape error at most 10, near the one-box-per-mask baseline's median of 6.7. 20 of the 37 objects succeed in at least one run, 14 of them with two or three parts; these four have the most joints, plus GPT-5.4's best. The true-part counts come from the first runs, on the earlier prompt. Each clip is the ground-truth panel beside the run's panel, cropped from that object's six-run grid video; the reconstruction sweeps each joint 0.15 or 0.6 rad around its fitted value, since no program set limits. Validation IoU 0.94, 0.91, 0.97 and 0.86. All four programs are the exact selected scenes from the saved search records; the render provenance lists each clip's source.</aside>
-</section>
-<section id="slide-llm-reconstruction-chest">
-  <h2 class="t">An 11-drawer chest</h2>
-  <figure class="environment-video llm-recon-video"><video controls muted playsinline preload="metadata" poster="media/world-models/llm-recon-chest-runs.jpg" aria-label="Ground truth and the observed view beside GPT-5.4's and Gemini 3.1 Pro's reconstructions of an 11-drawer chest with no masks, segmented masks and true part masks, each sweeping its own joints"><source src="media/world-models/llm-recon-chest-runs.mp4" type="video/mp4"></video>
-    <figcaption class="cap">Top: ground truth, GPT-5.4 with no masks, segmented masks, true parts. Bottom: observed view, Gemini 3.1 Pro.<br>Shape error and joints. GPT-5.4: 28.1, 0 of 11 · 61.9, <strong>9 of 11</strong> · 53.8, 0 of 11. Gemini: 1.2, <strong>11 of 11</strong> · no scene · 1.6, <strong>11 of 11</strong></figcaption></figure>
-  <p class="video-actions"><button type="button" data-code-source="sources/world-models/llm-recon-chest-code.json" data-code-block="0" data-code-title="11-drawer chest: GPT-5.4's program, no masks">GPT-5.4, no masks</button> <button type="button" data-code-source="sources/world-models/llm-recon-chest-code.json" data-code-block="1" data-code-title="11-drawer chest: GPT-5.4's program, segmented masks">GPT-5.4, segmented</button> <button type="button" data-code-source="sources/world-models/llm-recon-chest-code.json" data-code-block="2" data-code-title="11-drawer chest: GPT-5.4's program, true parts">GPT-5.4, true parts</button> <button type="button" data-code-source="sources/world-models/llm-recon-chest-code.json" data-code-block="3" data-code-title="11-drawer chest: Gemini 3.1 Pro's program, no masks">Gemini, no masks</button> <button type="button" data-code-source="sources/world-models/llm-recon-chest-code.json" data-code-block="4" data-code-title="11-drawer chest: Gemini 3.1 Pro's program, true parts">Gemini, true parts</button></p>
-  <p class="cap"><a href="sources/world-models/llm-recon-chest-code.json" download>All five programs</a> · <a href="sources/world-models/llm-recon-render/render_grid.py" download>Grid renderer</a> · <a href="sources/world-models/llm-recon-render/render_media.py" download>Panel renderer</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
-  <aside class="notes">Test object test-31, PartNet-Mobility StorageFurniture/46172. Every panel uses the same camera; the ground truth sweeps each joint between its URDF limits, and each reconstruction sweeps its own joints around the fitted value, 0.15 for slides and 0.6 rad for hinges, since no program set limits. GPT-5.4 gave the drawers no joints without masks or with true parts (validation IoU 0.87 and 0.85); with segmented masks it wrote eight sliding drawers and one hinged door, which pair with 9 of the 11 true joints (0.75). Gemini found all 11 joints without masks (0.92) and with true parts (0.95); its segmented search ended on a provider error before any scene. All five programs are the exact selected scenes from the saved search records.</aside>
-</section>
-<section id="slide-llm-reconstruction-table">
-  <h2 class="t">A table with drawers</h2>
-  <figure class="environment-video llm-recon-video"><video controls muted playsinline preload="metadata" poster="media/world-models/llm-recon-table-runs.jpg" aria-label="Ground truth and the observed view beside GPT-5.4's and Gemini 3.1 Pro's reconstructions of a table with eight drawers with no masks, segmented masks and true part masks, each sweeping its own joints"><source src="media/world-models/llm-recon-table-runs.mp4" type="video/mp4"></video>
-    <figcaption class="cap">Top: ground truth, GPT-5.4 with no masks, segmented masks, true parts. Bottom: observed view, Gemini 3.1 Pro.<br>Shape error and joints. GPT-5.4: 142.4, 4 of 8 · 25.4, 4 of 8 · 183.4, <strong>8 of 8</strong>. Gemini: 33.6, 0 of 8 · 90.2, 0 of 8 · no scene</figcaption></figure>
-  <p class="video-actions"><button type="button" data-code-source="sources/world-models/llm-recon-table-code.json" data-code-block="0" data-code-title="Table with drawers: GPT-5.4's program, no masks">GPT-5.4, no masks</button> <button type="button" data-code-source="sources/world-models/llm-recon-table-code.json" data-code-block="1" data-code-title="Table with drawers: GPT-5.4's program, segmented masks">GPT-5.4, segmented</button> <button type="button" data-code-source="sources/world-models/llm-recon-table-code.json" data-code-block="2" data-code-title="Table with drawers: GPT-5.4's program, true parts">GPT-5.4, true parts</button> <button type="button" data-code-source="sources/world-models/llm-recon-table-code.json" data-code-block="3" data-code-title="Table with drawers: Gemini 3.1 Pro's program, no masks">Gemini, no masks</button> <button type="button" data-code-source="sources/world-models/llm-recon-table-code.json" data-code-block="4" data-code-title="Table with drawers: Gemini 3.1 Pro's program, segmented masks">Gemini, segmented</button></p>
-  <p class="cap"><a href="sources/world-models/llm-recon-table-code.json" download>All five programs</a> · <a href="sources/world-models/llm-recon-render/render_grid.py" download>Grid renderer</a> · <a href="sources/world-models/llm-recon-render/render_media.py" download>Panel renderer</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
-  <aside class="notes">Test object test-33, PartNet-Mobility Table/22367. GPT-5.4 found 4 of the 8 joints without masks and with segmented masks, and all 8 with true parts, where its silhouette fit is poorest (validation IoU 0.32, 0.58 and 0.18). Gemini has the best silhouette fit without masks (validation IoU 0.71) but gave the table no joints there or with segmented masks (0.48); its true-part search ended when the type checker rejected its code. All five programs are the exact selected scenes from the saved search records.</aside>
-</section>
-<section id="slide-llm-reconstruction-all">
-  <h2 class="t">All 37 <span>objects</span></h2>
-  <div class="all-picker" id="all-picker" role="group" aria-label="Test objects"></div>
-  <p class="video-actions all-toggle"><span class="code-label" id="all-title"></span> <button type="button" data-group="new" aria-pressed="true">GPT-6 Astra and Gemini 4</button> <button type="button" data-group="old" aria-pressed="false">GPT-5.4 and Gemini 3.1 Pro</button></p>
+  <p class="cap" id="all-title" role="status"></p>
   <figure class="environment-video llm-recon-video"><video id="all-video" controls muted playsinline preload="metadata" aria-label="Comparison grid for the selected test object"></video>
     <figcaption class="cap" id="all-caption"></figcaption></figure>
+  <table class="recon-scores" aria-label="Results for the selected object"><thead id="recon-score-head"></thead><tbody id="recon-score-body"></tbody></table>
   <p class="video-actions all-programs" data-group="new"><span class="code-label">Generated code:</span> <button type="button" class="all-code" data-code-run="gpt6" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-6 Astra</button> <button type="button" class="all-code" data-code-run="gpt6x" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-6 Astra, XML</button> <button type="button" class="all-code" data-code-run="gem4s" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 4</button> <button type="button" class="all-code" data-code-run="gem4x" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 4, XML</button></p>
   <p class="video-actions all-programs" data-group="old" hidden><span class="code-label">Generated code:</span> <button type="button" class="all-code" data-code-run="gpt54-none" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-5.4, no masks</button> <button type="button" class="all-code" data-code-run="gpt54-seg" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-5.4, segmented</button> <button type="button" class="all-code" data-code-run="gpt54-true" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">GPT-5.4, true parts</button> <button type="button" class="all-code" data-code-run="gem31-none" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 3.1, no masks</button> <button type="button" class="all-code" data-code-run="gem31-seg" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 3.1, segmented</button> <button type="button" class="all-code" data-code-run="gem31-true" data-code-source="sources/world-models/llm-recon-all/programs.json.gz" data-code-key="test-00" data-code-title="">Gemini 3.1, true parts</button></p>
-  <p class="cap"><a href="sources/world-models/llm-recon-all/programs.json.gz" download>All selected programs</a> · <a href="sources/world-models/llm-recon-all/objects.json">Per-object results</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
-  <aside class="notes">All 37 test objects, one at a time. The newer-model grid shows GPT-6 Astra and Gemini 4 with segmented masks, each with RoboTL and writing MuJoCo XML directly; Gemini 4's runs carry the prompt line saying only evaluated scenes count. The older-model grid shows GPT-5.4 and Gemini 3.1 Pro with no masks, segmented masks and true parts, the true-part runs being the first runs on an earlier prompt and mostly gray renders. The caption gives each run's shape error and joints found, bold where the run is a success: every joint found and no extra ones, the right types, axes within 10 degrees and pivots within 0.1, and shape error at most 10. Reconstructions sweep their own joints between the limits they set, or 0.15 and 0.6 rad around the fitted value where they set none. The buttons open each run's selected program for the chosen object, the XML ones indented for display.</aside>
-</section>
-<section id="slide-llm-reconstruction-gpt6-attempts">
-  <h2 class="t">GPT-6 Astra, <span>four attempts</span></h2>
-  <div class="all-picker" id="gpt6-picker" role="group" aria-label="Test objects"></div>
-  <p class="video-actions"><span class="code-label" id="gpt6-title"></span></p>
-  <figure class="environment-video llm-recon-video"><video id="gpt6-video" controls muted playsinline preload="metadata" aria-label="Ground truth beside GPT-6 Astra's four attempts at the selected object: one state writing RoboTL, one state writing MuJoCo XML, film with the agent's own joints, and film with connect and the joint solver, each sweeping its joints"></video>
-    <figcaption class="cap" id="gpt6-caption"></figcaption></figure>
-  <p class="video-actions"><span class="code-label">Generated code:</span> <button type="button" class="gpt6-code" data-code-run="gpt6" data-code-source="sources/world-models/llm-recon-gpt6/programs-state.json.gz" data-code-key="test-00" data-code-title="">One state, RoboTL</button> <button type="button" class="gpt6-code" data-code-run="gpt6x" data-code-source="sources/world-models/llm-recon-gpt6/programs-state.json.gz" data-code-key="test-00" data-code-title="">One state, XML</button> <button type="button" class="gpt6-code" data-code-run="film" data-code-source="sources/world-models/llm-recon-gpt6/programs-film.json.gz" data-code-key="test-00" data-code-title="">Film, joints</button> <button type="button" class="gpt6-code" data-code-run="connect" data-code-source="sources/world-models/llm-recon-gpt6/programs-film.json.gz" data-code-key="test-00" data-code-title="">Film, connect</button> <span class="code-label">Fit records:</span> <button type="button" class="gpt6-code" data-code-run="film-fit" data-code-source="sources/world-models/llm-recon-gpt6/programs-film.json.gz" data-code-key="test-00" data-code-title="">Film, joints</button> <button type="button" class="gpt6-code" data-code-run="connect-fit" data-code-source="sources/world-models/llm-recon-gpt6/programs-film.json.gz" data-code-key="test-00" data-code-title="">Film, connect</button></p>
-  <p class="cap"><a href="sources/world-models/llm-recon-gpt6/programs-state.json.gz" download>One-state programs</a> · <a href="sources/world-models/llm-recon-gpt6/programs-film.json.gz" download>Film programs and fit records</a> · <a href="sources/world-models/llm-recon-gpt6/objects.json">Per-object results</a> · <a href="sources/world-models/llm-recon-render/compose_all_gpt6.py" download>Strip composer</a> · <a href="sources/world-models/llm-recon-render/render_media_joints.py" download>Film panel renderer</a> · <a href="sources/world-models/llm-recon-render/render_media.py" download>Panel renderer</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
-  <aside class="notes">All 37 test objects, segmented masks, the same observed state in every attempt; the film searches ran 15 on rolly and 22 on polly, split by object number. One state: the agent sees the fitting views only and writes the parts and joints, as RoboTL or as a MuJoCo XML document; those programs set no limits, so their panels sweep 0.15 around a drawer's fitted opening and 0.6 rad around a door's. Film, the agent's joints: the agent also sees the film, writes the joints itself and declares their limits as Params with priors, and the fit tracks the parts through the film with SAM2 and samples the limits. Film, connect: the agent writes connect(parent, child, pose), with priors where it has them, and the solver chooses each joint's kind, axis, pivot and limits from the film. Both film runs used the same code snapshot (robotl-reconstruction 05fe792, PR 12) and differ only in the agent's instructions; 2 or 3 workers per host, 45 minutes and 8 proposals per object. The caption gives each run's shape error and joints found, bold for a success: every joint found and no extra one, the right types, axes within 10 degrees and pivots within 0.1, and shape error at most 10; the film runs add the benchmark's mean range error over paired joints, 0 when the limits match. In ten objects of the connect run (test-10, 17, 20, 22, 23, 24, 27, 32, 34 and 36) selection picked a scene the agent had evaluated but never fitted, whose connections were still welds: no joints, a rigid video. Those ten selected scenes were fitted afterwards with the same solver, which is what evaluating them does under PR 13; eight succeed and are what the picker shows, and two (test-17, test-20) were refused because the film swings a door through the scene's own fixed base, so they stay welded. With those fits the connect run succeeds on 35 of 37 objects, 97 of 101 joints, mean range error 0.115 over paired joints. The XML panels are dark because the agents' documents have no skybox. Film panels start at the closed end of each solved range. The buttons open each run's selected program for the chosen object, the XML ones indented for display, and the fit record a film panel is built with: posterior parameters, limits, solved connections and, where the snapshot recorded them, the film scores.</aside>
+  <p class="video-actions all-programs" data-group="film" hidden><span class="code-label">Generated code:</span> <button type="button" class="all-code" data-code-run="gpt6" data-code-source="sources/world-models/llm-recon-gpt6/programs-state.json.gz" data-code-key="test-00" data-code-title="">One state, RoboTL</button> <button type="button" class="all-code" data-code-run="gpt6x" data-code-source="sources/world-models/llm-recon-gpt6/programs-state.json.gz" data-code-key="test-00" data-code-title="">One state, XML</button> <button type="button" class="all-code" data-code-run="film" data-code-source="sources/world-models/llm-recon-gpt6/programs-film.json.gz" data-code-key="test-00" data-code-title="">Film, joints</button> <button type="button" class="all-code" data-code-run="connect" data-code-source="sources/world-models/llm-recon-gpt6/programs-film.json.gz" data-code-key="test-00" data-code-title="">Film, connect</button> <span class="code-label">Fit records:</span> <button type="button" class="all-code" data-code-run="film-fit" data-code-source="sources/world-models/llm-recon-gpt6/programs-film.json.gz" data-code-key="test-00" data-code-title="">Film, joints</button> <button type="button" class="all-code" data-code-run="connect-fit" data-code-source="sources/world-models/llm-recon-gpt6/programs-film.json.gz" data-code-key="test-00" data-code-title="">Film, connect</button></p>
+  <p class="cap" id="recon-condition"></p>
+  <p class="cap" id="recon-coverage" hidden>Pending: film and film + <code>connect</code> for GPT-5.4 and Gemini 3.1 Pro, 37 objects each (148 searches).</p>
+  <p class="cap recon-downloads"><a id="recon-programs" href="sources/world-models/llm-recon-all/programs.json.gz" download>Selected programs</a><span id="recon-film-download" hidden> · <a href="sources/world-models/llm-recon-gpt6/programs-film.json.gz" download>Film programs and fits</a></span> · <a id="recon-results" href="sources/world-models/llm-recon-all/objects.json">Per-object results</a> · <a href="sources/world-models/llm-recon-media.json">Render provenance</a></p>
+  <aside class="notes">
+    <p>All 37 objects use the same saved results and renders as the earlier object-specific slides. Models and formats compares one-state GPT-6 Astra and Gemini 4, each writing RoboTL or MuJoCo XML, with segmented masks. Mask conditions compares GPT-5.4 and Gemini 3.1 Pro with no masks, segmented masks and true parts. The true-part runs used an earlier prompt and 35 of 37 objects rendered gray. Gemini 4's new-model runs add the instruction that only evaluated scenes count. One-state searches have 30 minutes and eight proposals, with selection on three held-out views.</p>
+    <p>Motion and solver compares GPT-6 Astra's two one-state runs with two film runs: the agent writes its joints and limit Params, or writes connect and lets the solver choose kind, axis, pivot and limits. Both film runs used robotl-reconstruction 05fe792 (PR 12), 45 minutes and eight proposals per object, with 15 objects on rolly and 22 on polly. Ten connect selections had been evaluated but never fitted: test-10, 17, 20, 22, 23, 24, 27, 32, 34 and 36. They were fitted afterwards with the same solver, as evaluation does under PR 13. Eight succeeded; test-17 and test-20 were refused for overlap and remain welded. The displayed connect results include these later fits: 35 of 37 successes, 97 of 101 joints, mean range error 0.115 over paired joints.</p>
+    <p>Film coverage is currently complete only for GPT-6 Astra. GPT-5.4 has two-object pilots, test-01 and test-32, for explicit joints and Params (gpt54-explicit-pilot) and connect (gpt54-connect-pilot2); these use different code snapshots and are not a full matched baseline. No Gemini 3.1 Pro film runs were found in the experiment directories on rolly or polly. The new 37-object runs for both models and both constructs were launched on November 4, 2026 from robotl-reconstruction 1e71675, with only the trajectory skill prompt changed for explicit joints and Params. Both use fit-on-evaluate and the same 45-minute, eight-proposal budget. Their results are pending; the GPT-6 runs above used the earlier contract.</p>
+    <p>Chamfer is whole-object distance times 1000. Success requires every true joint, no extra joint, correct types, axes within 10 degrees, pivots within 0.1 where defined, and Chamfer at most 10. Finding every joint alone is insufficient. Range error is the benchmark mean over paired joints; zero means matching limits. Reference panels sweep URDF limits. One-state programs set no limits and sweep 0.15 for slides or 0.6 rad for hinges around the fitted state. Film panels begin at the closed end of their solved ranges. XML panels are dark because the generated documents have no skybox.</p>
+    <p>The chest shortcut selects test-31, StorageFurniture/46172. GPT-5.4 omits joints without masks and with true parts; segmented masks give eight drawers and one hinged door. Gemini 3.1 finds 11 joints without masks and with true parts; its segmented run stops on a provider error. The table shortcut selects test-33, Table/22367. GPT-5.4 finds all eight joints only with true parts, despite poor geometry. Gemini 3.1 gives the table no joints without masks or with segmented masks; its true-part run fails type checking. Earlier successful examples remain available as test-27, test-34, test-30 and test-18 in the object selector.</p>
+    <p>Each code button opens the selected object's saved program, and the film buttons also expose its fit record. Downloads retain the full bundles. <a href="sources/world-models/llm-recon-render/render_grid.py">Grid renderer</a>; <a href="sources/world-models/llm-recon-render/render_media.py">panel renderer</a>; <a href="sources/world-models/llm-recon-render/compose_all_gpt6.py">film strip composer</a>; <a href="sources/world-models/llm-recon-render/render_media_joints.py">film panel renderer</a>.</p>
+  </aside>
 </section>
 <section id="slide-comparison-settings">
   <h2 class="t">VoxPoser and Guided MPC: <span>settings in these runs</span></h2>
@@ -890,6 +870,23 @@ constrain(non_overlap(self.drawer, self.shelf))</code></pre></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
 <script>
+  function normalizeReconstructionLink() {
+    const aliases = {
+      'slide-llm-reconstruction-chest': ['test-31', 'old'],
+      'slide-llm-reconstruction-table': ['test-33', 'old'],
+      'slide-llm-reconstruction-gpt6-attempts': ['test-00', 'film'],
+      'slide-llm-reconstruction-wins': ['test-27', 'old'],
+    };
+    const target = aliases[location.hash.split('/')[1]];
+    if (!target) return;
+    const url = new URL(location.href);
+    url.searchParams.set('object', target[0]);
+    url.searchParams.set('comparison', target[1]);
+    url.hash = '/slide-llm-reconstruction-all';
+    history.replaceState(null, '', url);
+  }
+  normalizeReconstructionLink();
+  window.addEventListener('hashchange', normalizeReconstructionLink);
   Reveal.initialize({ hash: true, width: 1280, height: 760, transition: 'none' });
   document.querySelectorAll('pre.code-card code, .code-card pre code').forEach(block => hljs.highlightElement(block));
   document.querySelectorAll('[data-play-together]').forEach(button => {
@@ -1032,118 +1029,110 @@ constrain(non_overlap(self.drawer, self.shelf))</code></pre></div>
 <script>
 (async () => {
   const slide = document.getElementById('slide-llm-reconstruction-all');
-  const source = 'sources/world-models/llm-recon-all';
-  let runs, objects;
+  const root = 'sources/world-models';
+  let states, films;
   try {
-    const response = await fetch(`${source}/objects.json`);
-    if (!response.ok) throw new Error(`${source}/objects.json: HTTP ${response.status}`);
-    ({ runs, objects } = await response.json());
+    [states, films] = await Promise.all(['llm-recon-all', 'llm-recon-gpt6'].map(async directory => {
+      const response = await fetch(`${root}/${directory}/objects.json`);
+      if (!response.ok) throw new Error(`${directory}: HTTP ${response.status}`);
+      return response.json();
+    }));
   } catch (error) {
-    document.getElementById('all-caption').textContent = `Could not load the object list (${error.message}).`;
+    document.getElementById('all-title').textContent = `Could not load the comparisons (${error.message}).`;
     return;
   }
-  const order = runs.map(run => run.key);
-  const runOf = Object.fromEntries(runs.map(run => [run.key, run]));
   const groups = {
-    old: { layout: 'Top: ground truth, GPT-5.4 with no masks, segmented masks, true parts. Bottom: observed view, Gemini 3.1 Pro in the same order.',
-           models: [['GPT-5.4', ['gpt54-none', 'gpt54-seg', 'gpt54-true']], ['Gemini 3.1 Pro', ['gem31-none', 'gem31-seg', 'gem31-true']]] },
-    new: { layout: 'Top: ground truth, GPT-6 Astra with RoboTL and with MuJoCo XML. Bottom: observed view, Gemini 4 likewise, prompted that only evaluated scenes count.',
-           models: [['GPT-6 Astra', ['gpt6', 'gpt6x']], ['Gemini 4', ['gem4s', 'gem4x']]] },
+    new: {
+      data: states, keys: ['gpt6', 'gpt6x', 'gem4s', 'gem4x'],
+      labels: ['GPT-6 Astra<br>RoboTL', 'GPT-6 Astra<br>MuJoCo XML', 'Gemini 4<br>RoboTL', 'Gemini 4<br>MuJoCo XML'],
+      media: 'llm-recon-all/new', source: 'llm-recon-all', programs: 'programs.json.gz',
+      layout: 'Top: reference, GPT-6 Astra (RoboTL / XML). Bottom: observed view, Gemini 4 (RoboTL / XML).',
+      note: 'One state, segmented masks. Gemini 4 was prompted that only evaluated scenes count.',
+    },
+    old: {
+      data: states, keys: ['gpt54-none', 'gpt54-seg', 'gpt54-true', 'gem31-none', 'gem31-seg', 'gem31-true'],
+      labels: ['GPT-5.4<br>No masks', 'GPT-5.4<br>Segmented', 'GPT-5.4<br>True parts', 'Gemini 3.1<br>No masks', 'Gemini 3.1<br>Segmented', 'Gemini 3.1<br>True parts'],
+      media: 'llm-recon-all/old', source: 'llm-recon-all', programs: 'programs.json.gz',
+      layout: 'Top: reference, GPT-5.4 (no masks / segmented / true parts). Bottom: observed view, Gemini 3.1 Pro (same order).',
+      note: 'One state. True-part runs used an earlier prompt and mostly gray renders.',
+    },
+    film: {
+      data: films, keys: ['gpt6', 'gpt6x', 'film', 'connect'],
+      labels: ['One state<br>RoboTL', 'One state<br>MuJoCo XML', 'Film<br>Joints + Params', 'Film<br>Connect + solver'],
+      media: 'llm-recon-gpt6', source: 'llm-recon-gpt6', programs: 'programs-state.json.gz',
+      layout: 'GPT-6 Astra, left to right: reference, one state (RoboTL / XML), film (joints + Params / connect + solver).',
+      note: 'Connect includes ten fits run after selection: eight accepted, two remained welded. One-state / film budgets: 30 / 45 min, eight proposals.',
+    },
   };
-  const video = document.getElementById('all-video');
-  let current = 0, group = 'new';
-  const score = s => {
-    if (!s) return 'no scene';
-    const text = `${s.cd.toFixed(s.cd < 10 ? 2 : 1)}, ${s.found} of ${s.true}`;
-    return s.ok ? `<strong>${text}</strong>` : text;
-  };
-  function render() {
-    const o = objects[current];
-    const wins = order.filter(key => o.runs[key] && o.runs[key].ok).length;
-    document.getElementById('all-title').textContent = `${o.name}, ${o.category}, ${o.parts} parts, ${wins} of ${order.length} runs succeed:`;
-    picks.forEach((button, i) => button.setAttribute('aria-pressed', String(i === current)));
-    slide.querySelectorAll('.all-toggle button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.group === group)));
-    video.poster = `media/world-models/llm-recon-all/${group}/${o.name}.jpg`;
-    video.src = `media/world-models/llm-recon-all/${group}/${o.name}.mp4`;
-    video.load();
-    const g = groups[group];
-    document.getElementById('all-caption').innerHTML = `${g.layout}<br>Shape error and joints, bold for a success. `
-      + g.models.map(([model, keys]) => `${model}: ${keys.map(key => score(o.runs[key])).join(' · ')}`).join('. ');
-    slide.querySelectorAll('.all-programs').forEach(row => { row.hidden = row.dataset.group !== group; });
-    slide.querySelectorAll('.all-code').forEach(button => {
-      const run = runOf[button.dataset.codeRun];
-      button.dataset.codeKey = o.name;
-      button.disabled = !o.runs[run.key];
-      button.title = o.runs[run.key] ? '' : 'No scored scene for this object';
-      button.dataset.codeTitle = `${o.name}: ${run.model}, ${run.condition}`;
-    });
-  }
-  const picker = document.getElementById('all-picker');
-  const picks = objects.map((o, i) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = o.name.slice(5);
-    button.title = `${o.name}: ${o.category}, ${o.parts} parts`;
-    button.addEventListener('click', () => { current = i; render(); });
-    picker.append(button);
-    return button;
+  const picker = document.getElementById('recon-object');
+  states.objects.forEach(o => {
+    const option = document.createElement('option');
+    option.value = o.name;
+    option.textContent = `${o.name}: ${o.category}, ${o.parts} parts`;
+    picker.append(option);
   });
-  slide.querySelectorAll('.all-toggle button').forEach(button => button.addEventListener('click', () => { group = button.dataset.group; render(); }));
-  render();
-})();
-</script>
-<script>
-(async () => {
-  const slide = document.getElementById('slide-llm-reconstruction-gpt6-attempts');
-  const source = 'sources/world-models/llm-recon-gpt6';
-  let runs, objects;
-  try {
-    const response = await fetch(`${source}/objects.json`);
-    if (!response.ok) throw new Error(`${source}/objects.json: HTTP ${response.status}`);
-    ({ runs, objects } = await response.json());
-  } catch (error) {
-    document.getElementById('gpt6-caption').textContent = `Could not load the object list (${error.message}).`;
-    return;
-  }
-  const runOf = Object.fromEntries(runs.map(run => [run.key, run]));
-  const video = document.getElementById('gpt6-video');
-  let current = 0;
-  const score = s => {
-    if (!s) return 'no scene';
-    let text = `${s.cd.toFixed(s.cd < 10 ? 2 : 1)}, ${s.found} of ${s.true}`;
-    if (s.range !== null && s.range !== undefined) text += `, range ${s.range.toFixed(2)}`;
-    return s.ok ? `<strong>${text}</strong>` : text;
-  };
+  picker.addEventListener('keydown', event => event.stopPropagation());
+  const video = document.getElementById('all-video');
+  let current, group;
   function render() {
-    const o = objects[current];
-    const wins = runs.filter(run => o.runs[run.key] && o.runs[run.key].ok).length;
-    document.getElementById('gpt6-title').textContent = `${o.name}, ${o.category}, ${o.parts} parts, ${wins} of ${runs.length} attempts succeed:`;
-    picks.forEach((button, i) => button.setAttribute('aria-pressed', String(i === current)));
-    video.poster = `media/world-models/llm-recon-gpt6/${o.name}.jpg`;
-    video.src = `media/world-models/llm-recon-gpt6/${o.name}.mp4`;
+    closeCode();
+    const g = groups[group];
+    const o = g.data.objects.find(object => object.name === current);
+    picker.value = current;
+    slide.dataset.comparison = group;
+    document.getElementById('all-title').textContent = `${o.name} · ${o.category} · ${o.parts} parts`;
+    slide.querySelectorAll('.all-toggle button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.group === group)));
+    video.pause();
+    video.poster = `media/world-models/${g.media}/${o.name}.jpg`;
+    video.src = `media/world-models/${g.media}/${o.name}.mp4`;
+    video.setAttribute('aria-label', `${o.name}. ${g.layout}`);
     video.load();
-    document.getElementById('gpt6-caption').innerHTML = 'Left to right: ground truth, one state with RoboTL, one state with MuJoCo XML, film with the agent\'s joints and Params, film with connect and the solver.<br>Shape error and joints, bold for a success; film runs add the range error. '
-      + runs.map(run => `${run.condition}: ${score(o.runs[run.key])}`).join(' · ');
-    slide.querySelectorAll('.gpt6-code').forEach(button => {
+    document.getElementById('all-caption').textContent = g.layout;
+    document.getElementById('recon-condition').textContent = g.note;
+    document.getElementById('recon-score-head').innerHTML = '<tr><th scope="col">Measure</th>' + g.labels.map(label => `<th scope="col">${label}</th>`).join('') + '</tr>';
+    const metrics = [
+      ['Chamfer ×1000 ↓', s => s.cd.toFixed(s.cd < 10 ? 2 : 1)],
+      ['Joints found', s => `${s.found} of ${s.true}`],
+      ...(group === 'film' ? [['Range error ↓', s => s.range == null ? 'Not estimated' : s.range.toFixed(2)]] : []),
+      ['Success', s => s.ok ? '<strong>Yes</strong>' : 'No'],
+    ];
+    document.getElementById('recon-score-body').innerHTML = metrics.map(([label, value]) => `<tr><th scope="row">${label}</th>${g.keys.map(key => `<td>${o.runs[key] ? value(o.runs[key]) : 'No scene'}</td>`).join('')}</tr>`).join('');
+    slide.querySelectorAll('.all-programs').forEach(row => { row.hidden = row.dataset.group !== group; });
+    slide.querySelectorAll(`.all-programs[data-group="${group}"] .all-code`).forEach(button => {
       const key = button.dataset.codeRun.replace(/-fit$/, '');
-      const run = runOf[key];
+      const run = g.data.runs.find(run => run.key === key);
       button.dataset.codeKey = o.name;
       button.disabled = !o.runs[key];
       button.title = o.runs[key] ? '' : 'No scored scene for this object';
       button.dataset.codeTitle = `${o.name}: ${run.model}, ${run.condition}${button.dataset.codeRun.endsWith('-fit') ? ', fit record' : ''}`;
     });
+    document.getElementById('recon-programs').href = `${root}/${g.source}/${g.programs}`;
+    document.getElementById('recon-results').href = `${root}/${g.source}/objects.json`;
+    document.getElementById('recon-film-download').hidden = group !== 'film';
+    document.getElementById('recon-coverage').hidden = group !== 'film';
+    Reveal.layout();
   }
-  const picker = document.getElementById('gpt6-picker');
-  const picks = objects.map((o, i) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = o.name.slice(5);
-    button.title = `${o.name}: ${o.category}, ${o.parts} parts`;
-    button.addEventListener('click', () => { current = i; render(); });
-    picker.append(button);
-    return button;
-  });
-  render();
+  function readSelection() {
+    const params = new URLSearchParams(location.search);
+    current = states.objects.some(o => o.name === params.get('object')) ? params.get('object') : 'test-00';
+    group = Object.hasOwn(groups, params.get('comparison')) ? params.get('comparison') : 'new';
+    render();
+  }
+  function select(object, comparison) {
+    current = object;
+    group = comparison;
+    const url = new URL(location.href);
+    url.searchParams.set('object', current);
+    url.searchParams.set('comparison', group);
+    history.replaceState(null, '', url);
+    render();
+  }
+  picker.addEventListener('change', () => select(picker.value, group));
+  slide.querySelectorAll('.all-toggle button').forEach(button => button.addEventListener('click', () => select(current, button.dataset.group)));
+  slide.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click', () => select(button.dataset.example, group)));
+  window.addEventListener('hashchange', () => { if (location.hash.split('/')[1] === slide.id) readSelection(); });
+  window.addEventListener('popstate', readSelection);
+  readSelection();
 })();
 </script>
 </body>
