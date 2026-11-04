@@ -93,6 +93,111 @@
    }
   },
   {
+   "name": "test-02",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt6": {
+     "cd": 0.38000931369500995,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.228807343915127,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.29721613421746684,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.008301896942479847
+    },
+    "connect": {
+     "cd": 0.24751925987572757,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.009779255084880867
+    }
+   }
+  },
+  {
+   "name": "test-03",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt6": {
+     "cd": 0.18674649613560673,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.19031305568956286,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.18517028485085343,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.007549576925557244
+    },
+    "connect": {
+     "cd": 0.1864672679872364,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.010248085493883785
+    }
+   }
+  },
+  {
+   "name": "test-04",
+   "category": "Refrigerator",
+   "parts": 2,
+   "runs": {
+    "gpt6": {
+     "cd": 0.34623086832229527,
+     "found": 1,
+     "true": 1,
+     "ok": false,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.4885373862290332,
+     "found": 1,
+     "true": 1,
+     "ok": false,
+     "range": null
+    },
+    "film": {
+     "cd": 0.5284934260322872,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.005204294344428706
+    },
+    "connect": {
+     "cd": 0.4574143401410143,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.0052887418507393535
+    }
+   }
+  },
+  {
    "name": "test-05",
    "category": "Laptop",
    "parts": 2,
@@ -159,6 +264,111 @@
      "true": 1,
      "ok": true,
      "range": 0.014207853446226326
+    }
+   }
+  },
+  {
+   "name": "test-07",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt6": {
+     "cd": 0.11922666656547933,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.11742696179897476,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.16168682050586228,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.00017377979771315832
+    },
+    "connect": {
+     "cd": 0.129227410973426,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.009389257899455328
+    }
+   }
+  },
+  {
+   "name": "test-08",
+   "category": "Refrigerator",
+   "parts": 2,
+   "runs": {
+    "gpt6": {
+     "cd": 0.03956385254362938,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.03968578551167634,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.0632797025488614,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 2.6330062199320103e-05
+    },
+    "connect": {
+     "cd": 0.04349111795879762,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.0010446373810356624
+    }
+   }
+  },
+  {
+   "name": "test-09",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt6": {
+     "cd": 0.09564849301953703,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.09766524992880772,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.09548002591355356,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.005181291034093927
+    },
+    "connect": {
+     "cd": 0.09393037374015908,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.012007722696889322
     }
    }
   },
@@ -233,6 +443,111 @@
    }
   },
   {
+   "name": "test-12",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt6": {
+     "cd": 0.23255727169893417,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.19739882017269103,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.17181710383871057,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.008283118683841018
+    },
+    "connect": {
+     "cd": 2.077581091947202,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.013831929380502928
+    }
+   }
+  },
+  {
+   "name": "test-13",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt6": {
+     "cd": 0.11690557066788813,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.11814665008809386,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.1262547288462458,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.010580158764179948
+    },
+    "connect": {
+     "cd": 0.11799270438587021,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.0125650826099718
+    }
+   }
+  },
+  {
+   "name": "test-14",
+   "category": "StorageFurniture",
+   "parts": 2,
+   "runs": {
+    "gpt6": {
+     "cd": 0.698142198643372,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.8137728976620123,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.7142978382485388,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.008687138235579761
+    },
+    "connect": {
+     "cd": 0.8146149366231374,
+     "found": 1,
+     "true": 1,
+     "ok": true,
+     "range": 0.012553105772096007
+    }
+   }
+  },
+  {
    "name": "test-15",
    "category": "StorageFurniture",
    "parts": 3,
@@ -293,6 +608,111 @@
      "true": 2,
      "ok": true,
      "range": 0.012940432563389281
+    }
+   }
+  },
+  {
+   "name": "test-17",
+   "category": "Refrigerator",
+   "parts": 3,
+   "runs": {
+    "gpt6": {
+     "cd": 0.08479527248229787,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.07472714052097383,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.12565930114053095,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": 0.00024760617931818274
+    },
+    "connect": {
+     "cd": 0.14475707263063306,
+     "found": 0,
+     "true": 2,
+     "ok": false,
+     "range": 1.0
+    }
+   }
+  },
+  {
+   "name": "test-18",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt6": {
+     "cd": 0.10408800159373222,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.10706235467876934,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.10805083774529986,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": 0.013113912832460772
+    },
+    "connect": {
+     "cd": 0.10566588564773721,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": 0.16025740633430585
+    }
+   }
+  },
+  {
+   "name": "test-19",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt6": {
+     "cd": 0.195671164084657,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.3187292676623483,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 5.136145235934401,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": 0.00851574916177028
+    },
+    "connect": {
+     "cd": 4.481754385290974,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": 0.012330177237501683
     }
    }
   },
@@ -367,6 +787,111 @@
    }
   },
   {
+   "name": "test-22",
+   "category": "Table",
+   "parts": 3,
+   "runs": {
+    "gpt6": {
+     "cd": 0.2141540519886695,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.19388077202462517,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.735875901454204,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": 0.007521019359116976
+    },
+    "connect": {
+     "cd": 0.17153940357597852,
+     "found": 0,
+     "true": 2,
+     "ok": false,
+     "range": 1.0
+    }
+   }
+  },
+  {
+   "name": "test-23",
+   "category": "StorageFurniture",
+   "parts": 3,
+   "runs": {
+    "gpt6": {
+     "cd": 0.04911368346141667,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.05784583619360399,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.13542249403399093,
+     "found": 2,
+     "true": 2,
+     "ok": true,
+     "range": 0.0007464330750536208
+    },
+    "connect": {
+     "cd": 0.15883221730395297,
+     "found": 0,
+     "true": 2,
+     "ok": false,
+     "range": 1.0
+    }
+   }
+  },
+  {
+   "name": "test-24",
+   "category": "StorageFurniture",
+   "parts": 4,
+   "runs": {
+    "gpt6": {
+     "cd": 0.19575348045707686,
+     "found": 3,
+     "true": 3,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.19902003020709433,
+     "found": 3,
+     "true": 3,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 1.1042089699472926,
+     "found": 3,
+     "true": 3,
+     "ok": true,
+     "range": 0.010850977659363345
+    },
+    "connect": {
+     "cd": 1.1762995985786662,
+     "found": 0,
+     "true": 3,
+     "ok": false,
+     "range": 1.0
+    }
+   }
+  },
+  {
    "name": "test-25",
    "category": "StorageFurniture",
    "parts": 5,
@@ -433,6 +958,111 @@
      "true": 3,
      "ok": true,
      "range": 0.117706882000902
+    }
+   }
+  },
+  {
+   "name": "test-27",
+   "category": "StorageFurniture",
+   "parts": 5,
+   "runs": {
+    "gpt6": {
+     "cd": 0.3757507390101292,
+     "found": 4,
+     "true": 4,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.4095172461001738,
+     "found": 4,
+     "true": 4,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.38812932440730546,
+     "found": 4,
+     "true": 4,
+     "ok": true,
+     "range": 0.0011985176963009436
+    },
+    "connect": {
+     "cd": 0.41199172754699304,
+     "found": 0,
+     "true": 4,
+     "ok": false,
+     "range": 1.0
+    }
+   }
+  },
+  {
+   "name": "test-28",
+   "category": "StorageFurniture",
+   "parts": 5,
+   "runs": {
+    "gpt6": {
+     "cd": 0.6861447896051205,
+     "found": 4,
+     "true": 4,
+     "ok": false,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.23611824627807687,
+     "found": 4,
+     "true": 4,
+     "ok": false,
+     "range": null
+    },
+    "film": {
+     "cd": 0.15664723287455168,
+     "found": 4,
+     "true": 4,
+     "ok": true,
+     "range": 0.5676555740952234
+    },
+    "connect": {
+     "cd": 0.2027297723013205,
+     "found": 4,
+     "true": 4,
+     "ok": true,
+     "range": 0.6154371535899046
+    }
+   }
+  },
+  {
+   "name": "test-29",
+   "category": "Table",
+   "parts": 4,
+   "runs": {
+    "gpt6": {
+     "cd": 0.811238005592718,
+     "found": 3,
+     "true": 3,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.13622184012899652,
+     "found": 3,
+     "true": 3,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.12387992413391913,
+     "found": 3,
+     "true": 3,
+     "ok": true,
+     "range": 0.007553013835289353
+    },
+    "connect": {
+     "cd": 0.1118396641604127,
+     "found": 3,
+     "true": 3,
+     "ok": true,
+     "range": 0.008225353345305497
     }
    }
   },
@@ -507,6 +1137,111 @@
    }
   },
   {
+   "name": "test-32",
+   "category": "StorageFurniture",
+   "parts": 6,
+   "runs": {
+    "gpt6": {
+     "cd": 0.24374398721373491,
+     "found": 5,
+     "true": 5,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.25147814477727637,
+     "found": 5,
+     "true": 5,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.25004651096293623,
+     "found": 5,
+     "true": 5,
+     "ok": true,
+     "range": 0.14965724117419643
+    },
+    "connect": {
+     "cd": 0.26740245468192136,
+     "found": 0,
+     "true": 5,
+     "ok": false,
+     "range": 1.0
+    }
+   }
+  },
+  {
+   "name": "test-33",
+   "category": "Table",
+   "parts": 9,
+   "runs": {
+    "gpt6": {
+     "cd": 3.0475442767473724,
+     "found": 8,
+     "true": 8,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.20640521606989373,
+     "found": 8,
+     "true": 8,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 3.107466269904987,
+     "found": 8,
+     "true": 8,
+     "ok": true,
+     "range": 0.014265737995415195
+    },
+    "connect": {
+     "cd": 0.23252631367576304,
+     "found": 8,
+     "true": 8,
+     "ok": true,
+     "range": 0.18085320177707948
+    }
+   }
+  },
+  {
+   "name": "test-34",
+   "category": "StorageFurniture",
+   "parts": 7,
+   "runs": {
+    "gpt6": {
+     "cd": 0.11657754973837972,
+     "found": 6,
+     "true": 6,
+     "ok": true,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.11634669505406733,
+     "found": 6,
+     "true": 6,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.11780745832360424,
+     "found": 6,
+     "true": 6,
+     "ok": true,
+     "range": 0.17548664672127195
+    },
+    "connect": {
+     "cd": 0.11689506294947324,
+     "found": 0,
+     "true": 6,
+     "ok": false,
+     "range": 1.0
+    }
+   }
+  },
+  {
    "name": "test-35",
    "category": "StorageFurniture",
    "parts": 7,
@@ -538,6 +1273,41 @@
      "true": 6,
      "ok": true,
      "range": 0.08299228419627004
+    }
+   }
+  },
+  {
+   "name": "test-36",
+   "category": "StorageFurniture",
+   "parts": 7,
+   "runs": {
+    "gpt6": {
+     "cd": 0.2952495519285069,
+     "found": 6,
+     "true": 6,
+     "ok": false,
+     "range": null
+    },
+    "gpt6x": {
+     "cd": 0.20021357085810823,
+     "found": 6,
+     "true": 6,
+     "ok": true,
+     "range": null
+    },
+    "film": {
+     "cd": 0.7188967724673113,
+     "found": 6,
+     "true": 6,
+     "ok": true,
+     "range": 0.011643602349777274
+    },
+    "connect": {
+     "cd": 0.7670006052706587,
+     "found": 0,
+     "true": 6,
+     "ok": false,
+     "range": 1.0
     }
    }
   }
