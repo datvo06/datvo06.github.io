@@ -3,11 +3,13 @@
 render_media_joints.py <out dir> <dataset root> <hidden root> <visible root> <object> <label=spec>...
 
 A spec is ``study:<search.json>:<index>``: a search's evaluation, rebuilt with its
-fit's connections and parameters when it was fitted. Panels share fitting view 4's
-camera; the ground truth sweeps each joint between its URDF limits, a scene
-sweeps its hinges and slides between their ranges, or around their observed
-value when unlimited. Needs robotl-reconstruction at PR #12 (claude/joint-solver)
-on the path, beside render_media.py from this folder.
+fit's connections and parameters when it was fitted; ``none`` keeps an empty
+panel for a run that selected no scene. Panels share fitting view 4's camera;
+the ground truth sweeps each joint between its URDF limits, a scene sweeps its
+hinges and slides between their ranges, or around their observed value when
+unlimited. A hidden root named ``none`` renders the reconstructions alone, for
+a host that must hold no ground truth. Needs robotl-reconstruction at PR #13
+(claude/fit-on-evaluate) on the path, beside render_media.py from this folder.
 """
 
 import json
@@ -94,17 +96,27 @@ def main() -> None:
     out, dataset, hidden, visible, name = map(Path, sys.argv[1:6])
     panels_spec = [arg.split("=", 1) for arg in sys.argv[6:]]
     out.mkdir(parents=True, exist_ok=True)
-    record = json.loads((hidden / name.name / "ground_truth" / "object.json").read_text())
     _, views = load_capture(visible / name.name / "fitting" / "capture.json")
     view = next(v for v in views if v.files.name == VIEW)
     # The film captures carry one mask per part, so the object's extent is every part's points.
     points = np.concatenate([view.points(part) for view in views for part in view.files.object_ids])
     camera = free_camera(np.asarray(view.files.world_from_camera), np.median(points, axis=0))
-    with tempfile.TemporaryDirectory() as meshes:
-        truth = ground_truth_frames(dataset / record["category"] / record["object"], camera, Path(meshes))
-    panels = [("ground truth", truth)]
+    panels = []
     stills = [label(view.rgb, "observed view")]
+    # A hidden root named "none" renders the reconstructions alone, for a host that
+    # must hold no ground truth while agents search on it.
+    if hidden.name != "none":
+        record = json.loads((hidden / name.name / "ground_truth" / "object.json").read_text())
+        with tempfile.TemporaryDirectory() as meshes:
+            truth = ground_truth_frames(dataset / record["category"] / record["object"], camera, Path(meshes))
+        panels.append(("ground truth", truth))
+    blank = np.full((RESOLUTION, RESOLUTION, 3), 235, dtype=np.uint8)
     for text, spec in panels_spec:
+        # A run that selected no scene for the object keeps its place as an empty panel.
+        if spec == "none":
+            panels.append((f"{text}: no scene", [blank] * FRAMES))
+            stills.append(label(blank, f"{text}: no scene"))
+            continue
         factory, parameters = factory_of(spec)
         fitted, frames = scene_frames(factory, parameters, camera)
         panels.append((text, frames))
