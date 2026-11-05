@@ -1,0 +1,4536 @@
+{
+  "test-15": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-15",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45146",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.18810215796562993,
+            "chamfer_norm": 0.1367514600144292
+          },
+          {
+            "truth": "link_0",
+            "predicted": "9:root_door",
+            "chamfer": 0.22337860491990602,
+            "chamfer_norm": 0.42546047991719366
+          },
+          {
+            "truth": "link_1",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.6525814445463987,
+            "chamfer_norm": 1.7575102021513858
+          }
+        ]
+      },
+      "whole_chamfer": 0.20769484522462292,
+      "whole_chamfer_norm": 0.10989039518350564,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.749388443158968
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.5723656174683827,
+            "gt_type": 3,
+            "range": 0.08188696675771034
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793833001.0179436,
+        "model_calls": 37,
+        "tokens": 1092922
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-15",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793833001.1384296,
+        "model_calls": 30,
+        "tokens": 857397
+      },
+      "evaluations": 0
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-15",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45146",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.01006492545400349,
+            "chamfer_norm": 0.010677394164636322
+          },
+          {
+            "truth": "link_0",
+            "predicted": "10:root_drawer_front",
+            "chamfer": 0.024865124586398748,
+            "chamfer_norm": 0.06780552101669414
+          },
+          {
+            "truth": "link_1",
+            "predicted": "9:root_door",
+            "chamfer": 0.029944195228464934,
+            "chamfer_norm": 0.12400881381050782
+          }
+        ]
+      },
+      "whole_chamfer": 0.012563349707913056,
+      "whole_chamfer_norm": 0.00936182174546423,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.8194996343037882
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.007634419753426103,
+            "gt_type": 3,
+            "range": 0.36860420773058067
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793850326.2784579,
+        "model_calls": 48,
+        "tokens": 2382939
+      },
+      "evaluations": 1
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-15",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793850331.6537762,
+        "model_calls": 47,
+        "tokens": 1637017
+      },
+      "evaluations": 0
+    }
+  },
+  "test-16": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-16",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/48379",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.23311004724888051,
+            "chamfer_norm": 0.14257757920929193
+          },
+          {
+            "truth": "link_0",
+            "predicted": "9:root_door",
+            "chamfer": 0.5334776964403953,
+            "chamfer_norm": 1.7300581390119139
+          },
+          {
+            "truth": "link_1",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.926939356817835,
+            "chamfer_norm": 3.5865217953448765
+          }
+        ]
+      },
+      "whole_chamfer": 0.24539356889241878,
+      "whole_chamfer_norm": 0.12389082469673421,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.49229825709074065,
+            "gt_type": 3,
+            "range": 0.254657758087789
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793833475.88677,
+        "model_calls": 53,
+        "tokens": 2371426
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-16",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/48379",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.045478651058641434,
+            "chamfer_norm": 0.04512754255374512
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.03723217129776936,
+      "whole_chamfer_norm": 0.017320681356505163,
+      "joints": {
+        "truth": 2,
+        "predicted": 0,
+        "missing": 2,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793834249.2578633,
+        "model_calls": 29,
+        "tokens": 994004
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-16",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/48379",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.006647542362731747,
+            "chamfer_norm": 0.004504847389688178
+          },
+          {
+            "truth": "link_0",
+            "predicted": "13:root_door2",
+            "chamfer": 0.0016741838336227582,
+            "chamfer_norm": 0.0044267593942186045
+          },
+          {
+            "truth": "link_1",
+            "predicted": "12:root_door1",
+            "chamfer": 0.00011942564800058317,
+            "chamfer_norm": 0.0004862489755986649
+          }
+        ]
+      },
+      "whole_chamfer": 0.00590821955566905,
+      "whole_chamfer_norm": 0.002933610284517307,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.012298241041388103,
+            "gt_type": 3,
+            "range": 0.09212248856623595
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.005208220901897764,
+            "gt_type": 3,
+            "range": 0.0013588383078388944
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793850342.0220082,
+        "model_calls": 89,
+        "tokens": 5627826
+      },
+      "evaluations": 2
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-16",
+      "masks": "supplied",
+      "selected": 3,
+      "object": "StorageFurniture/48379",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "3:root_body",
+            "chamfer": 0.025691010940439966,
+            "chamfer_norm": 0.01907579565273235
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.03811356982809985,
+      "whole_chamfer_norm": 0.017556931008371208,
+      "joints": {
+        "truth": 2,
+        "predicted": 1,
+        "missing": 1,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": [
+          1.0
+        ]
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793851042.0759754,
+        "model_calls": 46,
+        "tokens": 1701809
+      },
+      "evaluations": 5
+    }
+  },
+  "test-17": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-17",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Refrigerator/10586",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.029460278969228017,
+            "chamfer_norm": 0.03158940516019115
+          },
+          {
+            "truth": "link_1",
+            "predicted": "8:root_left_door",
+            "chamfer": 0.174120264269543,
+            "chamfer_norm": 0.910598419098439
+          },
+          {
+            "truth": "link_2",
+            "predicted": "9:root_right_door",
+            "chamfer": 0.10115693842429194,
+            "chamfer_norm": 0.7102999237826537
+          }
+        ]
+      },
+      "whole_chamfer": 0.056696461396610734,
+      "whole_chamfer_norm": 0.026912363338451633,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.021471288494013807,
+            "gt_type": 3,
+            "range": 0.7152078015232874
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.04627181797399432,
+            "gt_type": 3,
+            "range": 0.6288624495842536
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793851571.911212,
+        "model_calls": 44,
+        "tokens": 1580700
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-17",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Refrigerator/10586",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.03274728689338852,
+            "chamfer_norm": 0.03372926094283969
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.04153837036877701,
+      "whole_chamfer_norm": 0.019677244898044306,
+      "joints": {
+        "truth": 2,
+        "predicted": 0,
+        "missing": 2,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793851729.5173066,
+        "model_calls": 22,
+        "tokens": 554456
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-17",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Refrigerator/10586",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.021292389851719672,
+            "chamfer_norm": 0.021379831198802463
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.027022131470866236,
+      "whole_chamfer_norm": 0.01263927896959392,
+      "joints": {
+        "truth": 2,
+        "predicted": 0,
+        "missing": 2,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793852068.693407,
+        "model_calls": 115,
+        "tokens": 7024968
+      },
+      "evaluations": 4
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-17",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793852141.6785767,
+        "model_calls": 19,
+        "tokens": 534481
+      },
+      "evaluations": 0
+    }
+  },
+  "test-18": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-18",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793852374.419897,
+        "model_calls": 35,
+        "tokens": 1220157
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-18",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/46732",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.16618639104306684,
+            "chamfer_norm": 0.07018618757226129
+          },
+          {
+            "truth": "link_0",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.7770262708493411,
+            "chamfer_norm": 2.689050103950468
+          },
+          {
+            "truth": "link_1",
+            "predicted": "9:root_door",
+            "chamfer": 0.15157181662544417,
+            "chamfer_norm": 0.7333187750849679
+          }
+        ]
+      },
+      "whole_chamfer": 0.1780850304453147,
+      "whole_chamfer_norm": 0.07403953545860681,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.11145050606667578,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793852482.3519747,
+        "model_calls": 20,
+        "tokens": 464063
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-18",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/46732",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.08017820430073153,
+            "chamfer_norm": 0.21455181655016478
+          },
+          {
+            "truth": "link_0",
+            "predicted": "11:root_bot_door",
+            "chamfer": 0.24390030389461428,
+            "chamfer_norm": 1.3975310163193297
+          },
+          {
+            "truth": "link_1",
+            "predicted": "12:root_top_door",
+            "chamfer": 0.22362888940695305,
+            "chamfer_norm": 1.6900161648480942
+          }
+        ]
+      },
+      "whole_chamfer": 0.02991962099180799,
+      "whole_chamfer_norm": 0.044489321342607586,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.028549461439715984,
+            "gt_type": 3,
+            "range": 0.5920139176578361
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.028549461439715984,
+            "gt_type": 3,
+            "range": 0.3302108695705235
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793852784.294124,
+        "model_calls": 99,
+        "tokens": 6554063
+      },
+      "evaluations": 1
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-18",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793852962.688715,
+        "model_calls": 18,
+        "tokens": 542023
+      },
+      "evaluations": 0
+    }
+  },
+  "test-19": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-19",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793853173.191991,
+        "model_calls": 12,
+        "tokens": 239529
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-19",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793853367.5848596,
+        "model_calls": 34,
+        "tokens": 1196189
+      },
+      "evaluations": 0
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-19",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "StorageFurniture/46480",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.00685312148965902,
+            "chamfer_norm": 0.006367786016223415
+          },
+          {
+            "truth": "link_0",
+            "predicted": "13:root_door_right",
+            "chamfer": 0.00027401946781802696,
+            "chamfer_norm": 0.001264418656107132
+          },
+          {
+            "truth": "link_1",
+            "predicted": "12:root_door_left",
+            "chamfer": 0.00038338636407781834,
+            "chamfer_norm": 0.02578863842171375
+          }
+        ]
+      },
+      "whole_chamfer": 0.005975762518620415,
+      "whole_chamfer_norm": 0.0030803322308839017,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.017245266004478843,
+            "gt_type": 3,
+            "range": 0.021793872510884493
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.02248072927168887,
+            "gt_type": 3,
+            "range": 0.03908701318129004
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793853981.8703022,
+        "model_calls": 51,
+        "tokens": 2341451
+      },
+      "evaluations": 4
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-19",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793854784.5717437,
+        "model_calls": 21,
+        "tokens": 533250
+      },
+      "evaluations": 0
+    }
+  },
+  "test-20": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-20",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793854981.0143857,
+        "model_calls": 39,
+        "tokens": 1624557
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-20",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/49038",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.0846119112415392,
+            "chamfer_norm": 0.06440298588102646
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.009013341397434524,
+      "whole_chamfer_norm": 0.0040589663655683705,
+      "joints": {
+        "truth": 2,
+        "predicted": 0,
+        "missing": 2,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793855000.1650405,
+        "model_calls": 19,
+        "tokens": 446964
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-20",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/49038",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.004873056850855755,
+            "chamfer_norm": 0.004699029289793738
+          },
+          {
+            "truth": "link_1",
+            "predicted": "8:root_drawer2",
+            "chamfer": 0.4929891639917391,
+            "chamfer_norm": 2.1931080289314253
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.03031832830842429,
+      "whole_chamfer_norm": 0.01024580914864874,
+      "joints": {
+        "truth": 2,
+        "predicted": 1,
+        "missing": 1,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": [
+          1.0
+        ]
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793855241.19468,
+        "model_calls": 89,
+        "tokens": 5392118
+      },
+      "evaluations": 1
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-20",
+      "masks": "supplied",
+      "selected": 3,
+      "object": "StorageFurniture/49038",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.0007947797816075547,
+            "chamfer_norm": 0.0015595699281074566
+          },
+          {
+            "truth": "link_1",
+            "predicted": "9:root_door2",
+            "chamfer": 0.0005001164666876081,
+            "chamfer_norm": 0.0019490488671000516
+          },
+          {
+            "truth": "link_2",
+            "predicted": "8:root_door0",
+            "chamfer": 0.0004726801254006851,
+            "chamfer_norm": 0.03411453300862338
+          }
+        ]
+      },
+      "whole_chamfer": 0.0007562271736391082,
+      "whole_chamfer_norm": 0.0011076938706291108,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.07544997204393125,
+            "pos": 0.007821349822129483,
+            "gt_type": 3,
+            "range": 0.017616773366742167
+          },
+          {
+            "type": 1,
+            "rot": 0.17689516445421363,
+            "pos": 0.0021706371223124982,
+            "gt_type": 3,
+            "range": 0.03283510091910291
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793855526.820035,
+        "model_calls": 80,
+        "tokens": 3681710
+      },
+      "evaluations": 6
+    }
+  },
+  "test-21": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-21",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45162",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.18433673456105515,
+            "chamfer_norm": 0.13687970997840435
+          },
+          {
+            "truth": "link_0",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.7325013004875733,
+            "chamfer_norm": 15.04397679768265
+          },
+          {
+            "truth": "link_1",
+            "predicted": "9:root_door",
+            "chamfer": 0.13435253030518152,
+            "chamfer_norm": 0.39950454101843413
+          }
+        ]
+      },
+      "whole_chamfer": 0.21174530201486885,
+      "whole_chamfer_norm": 0.11086295351982985,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.24320077374519794,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793855827.4638872,
+        "model_calls": 43,
+        "tokens": 1444247
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-21",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793856408.8940783,
+        "model_calls": 12,
+        "tokens": 231780
+      },
+      "evaluations": 0
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-21",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793856537.2455862,
+        "model_calls": 19,
+        "tokens": 484399
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-21",
+      "masks": "supplied",
+      "selected": 4,
+      "object": "StorageFurniture/45162",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.025018248709806255,
+            "chamfer_norm": 0.028331404083847343
+          },
+          {
+            "truth": "link_0",
+            "predicted": "9:root_door_slab",
+            "chamfer": 0.0016900285950243574,
+            "chamfer_norm": 0.009924384053201115
+          },
+          {
+            "truth": "link_1",
+            "predicted": "10:root_drawer_front",
+            "chamfer": 0.10384165169493839,
+            "chamfer_norm": 0.1973216516959957
+          }
+        ]
+      },
+      "whole_chamfer": 0.020698754128124372,
+      "whole_chamfer_norm": 0.00969423378091749,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793856809.092194,
+        "model_calls": 76,
+        "tokens": 3645861
+      },
+      "evaluations": 5
+    }
+  },
+  "test-22": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-22",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Table/23472",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "8:root_door",
+            "chamfer": 0.13528230602961988,
+            "chamfer_norm": 0.1322409414357406
+          },
+          {
+            "truth": "link_0",
+            "predicted": "root",
+            "chamfer": 0.4405178235632147,
+            "chamfer_norm": 2.2996495881067944
+          },
+          {
+            "truth": "link_1",
+            "predicted": "9:root_drawer",
+            "chamfer": 0.00937091669809156,
+            "chamfer_norm": 0.024101774083411846
+          }
+        ]
+      },
+      "whole_chamfer": 0.023862330299924805,
+      "whole_chamfer_norm": 0.013261995965030634,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.7061605400565858,
+            "gt_type": 3,
+            "range": 0.28453183196690346
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.4878292985389273
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793857217.486041,
+        "model_calls": 41,
+        "tokens": 1184704
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-22",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Table/23472",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.007014835811555928,
+            "chamfer_norm": 0.005807642333671248
+          },
+          {
+            "truth": "link_0",
+            "predicted": "9:root_door",
+            "chamfer": 0.0034365363475873114,
+            "chamfer_norm": 0.02220177588575349
+          },
+          {
+            "truth": "link_1",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.0063231206722237756,
+            "chamfer_norm": 0.024230654118642954
+          }
+        ]
+      },
+      "whole_chamfer": 0.006332725332213702,
+      "whole_chamfer_norm": 0.0034091077130829917,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0061604860492251445,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793857888.1006942,
+        "model_calls": 19,
+        "tokens": 449799
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-22",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Table/23472",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.012149095700941897,
+            "chamfer_norm": 0.0078286296933009
+          },
+          {
+            "truth": "link_0",
+            "predicted": "9:root_door",
+            "chamfer": 0.02542645263745331,
+            "chamfer_norm": 0.07817772259425586
+          },
+          {
+            "truth": "link_1",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.007252233129000053,
+            "chamfer_norm": 0.01727172904251243
+          }
+        ]
+      },
+      "whole_chamfer": 0.00970933252616777,
+      "whole_chamfer_norm": 0.005492600059107116,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793858068.6821096,
+        "model_calls": 85,
+        "tokens": 4658471
+      },
+      "evaluations": 2
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-22",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793858237.8069236,
+        "model_calls": 84,
+        "tokens": 3036275
+      },
+      "evaluations": 0
+    }
+  },
+  "test-23": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-23",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793859196.0059178,
+        "model_calls": 36,
+        "tokens": 1105565
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-23",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45767",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.07823645428696928,
+            "chamfer_norm": 0.5060847063331713
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.03459809965464173,
+      "whole_chamfer_norm": 0.0643738885497786,
+      "joints": {
+        "truth": 2,
+        "predicted": 0,
+        "missing": 2,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793859687.6351454,
+        "model_calls": 13,
+        "tokens": 277360
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-23",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45767",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.0028151594528611997,
+            "chamfer_norm": 0.00560691618929207
+          },
+          {
+            "truth": "link_0",
+            "predicted": "4:root_door0",
+            "chamfer": 0.0003784254391243107,
+            "chamfer_norm": 0.08900685875200974
+          },
+          {
+            "truth": "link_1",
+            "predicted": "6:root_drawer4",
+            "chamfer": 0.0002787176703118526,
+            "chamfer_norm": 0.08575764871720502
+          }
+        ]
+      },
+      "whole_chamfer": 0.002144168915130376,
+      "whole_chamfer_norm": 0.003023271386588043,
+      "joints": {
+        "truth": 2,
+        "predicted": 4,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.026153314094991248,
+            "gt_type": 3,
+            "range": 0.9397143853592884
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.026153314094991248,
+            "gt_type": 3,
+            "range": 0.9732236031308631
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793859805.0214765,
+        "model_calls": 98,
+        "tokens": 6260451
+      },
+      "evaluations": 2
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-23",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45767",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.0006672495627645399,
+            "chamfer_norm": 0.0011247276610865738
+          },
+          {
+            "truth": "link_0",
+            "predicted": "10:root_bottom_door",
+            "chamfer": 0.00024307839929632195,
+            "chamfer_norm": 0.024926447597608113
+          },
+          {
+            "truth": "link_1",
+            "predicted": "11:root_top_door",
+            "chamfer": 0.00022662243205163736,
+            "chamfer_norm": 0.05470543840873247
+          }
+        ]
+      },
+      "whole_chamfer": 0.0005915043941039538,
+      "whole_chamfer_norm": 0.000514045349190626,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0685106597952533,
+            "pos": 0.013835158371410177,
+            "gt_type": 3,
+            "range": 0.048870427182851284
+          },
+          {
+            "type": 1,
+            "rot": 0.04121851919327379,
+            "pos": 0.0010337469212974835,
+            "gt_type": 3,
+            "range": 0.04672480304980864
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793860067.7755308,
+        "model_calls": 61,
+        "tokens": 2686672
+      },
+      "evaluations": 2
+    }
+  },
+  "test-24": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-24",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793860799.1965716,
+        "model_calls": 27,
+        "tokens": 962129
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-24",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793861073.577166,
+        "model_calls": 19,
+        "tokens": 468111
+      },
+      "evaluations": 0
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-24",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793861159.463189,
+        "model_calls": 27,
+        "tokens": 781686
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-24",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/46874",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 4,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.03144839893894938,
+            "chamfer_norm": 0.02254875798152499
+          },
+          {
+            "truth": "link_0",
+            "predicted": "9:root_door_right",
+            "chamfer": 0.00015199024001942996,
+            "chamfer_norm": 0.0004914546982394702
+          },
+          {
+            "truth": "link_1",
+            "predicted": "8:root_door_left",
+            "chamfer": 0.00014810361466641622,
+            "chamfer_norm": 0.00040674718764225547
+          },
+          {
+            "truth": "link_2",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.015377439851728087,
+            "chamfer_norm": 0.07027505009576673
+          }
+        ]
+      },
+      "whole_chamfer": 0.02154679086701501,
+      "whole_chamfer_norm": 0.010656285383116276,
+      "joints": {
+        "truth": 3,
+        "predicted": 3,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.20979446468891122,
+            "pos": 0.0002878684198492439,
+            "gt_type": 3,
+            "range": 0.002032196659123797
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793861396.768721,
+        "model_calls": 63,
+        "tokens": 3291455
+      },
+      "evaluations": 3
+    }
+  },
+  "test-25": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-25",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793861545.401226,
+        "model_calls": 41,
+        "tokens": 1385644
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-25",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45332",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.1915927943287965,
+            "chamfer_norm": 0.20216888945065464
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.10164311934683298,
+      "whole_chamfer_norm": 0.045261570684182094,
+      "joints": {
+        "truth": 4,
+        "predicted": 0,
+        "missing": 4,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793861843.3948536,
+        "model_calls": 41,
+        "tokens": 1414277
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-25",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793861944.7773263,
+        "model_calls": 10,
+        "tokens": 191515
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-25",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793862020.4822686,
+        "model_calls": 9,
+        "tokens": 187179
+      },
+      "evaluations": 0
+    }
+  },
+  "test-26": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-26",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45756",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 4,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.03370848580546686,
+            "chamfer_norm": 0.03889807609661063
+          },
+          {
+            "truth": "link_0",
+            "predicted": "12:root_top_drawer",
+            "chamfer": 0.007267103670979332,
+            "chamfer_norm": 0.03257201285282374
+          },
+          {
+            "truth": "link_1",
+            "predicted": "10:root_bot_drawer",
+            "chamfer": 0.02019576487920087,
+            "chamfer_norm": 0.0523686693428395
+          },
+          {
+            "truth": "link_2",
+            "predicted": "11:root_mid_drawer",
+            "chamfer": 0.04432273734146616,
+            "chamfer_norm": 0.09452347594033077
+          }
+        ]
+      },
+      "whole_chamfer": 0.025958685339456937,
+      "whole_chamfer_norm": 0.013183838047533916,
+      "joints": {
+        "truth": 3,
+        "predicted": 3,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793862096.6006885,
+        "model_calls": 35,
+        "tokens": 1229988
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-26",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45756",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.07036974539113086,
+            "chamfer_norm": 0.1019356197858869
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.01813076854506622,
+      "whole_chamfer_norm": 0.009531471939414572,
+      "joints": {
+        "truth": 3,
+        "predicted": 0,
+        "missing": 3,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793862438.4015,
+        "model_calls": 15,
+        "tokens": 359240
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-26",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793862628.538973,
+        "model_calls": 26,
+        "tokens": 664101
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-26",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45756",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 4,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.007094758133088769,
+            "chamfer_norm": 0.005249848390276035
+          },
+          {
+            "truth": "link_0",
+            "predicted": "20:root_d2",
+            "chamfer": 0.0029412998075405193,
+            "chamfer_norm": 0.009642798469213818
+          },
+          {
+            "truth": "link_1",
+            "predicted": "8:root_d0",
+            "chamfer": 0.0033250482851065405,
+            "chamfer_norm": 0.0060853211736707664
+          },
+          {
+            "truth": "link_2",
+            "predicted": "14:root_d1",
+            "chamfer": 0.0032801291959704687,
+            "chamfer_norm": 0.006009537190992229
+          }
+        ]
+      },
+      "whole_chamfer": 0.0035030825126063526,
+      "whole_chamfer_norm": 0.001843534784609249,
+      "joints": {
+        "truth": 3,
+        "predicted": 3,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 1.620093575675002,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.13446283967867312
+          },
+          {
+            "type": 1,
+            "rot": 0.518699141180287,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.20091524116939263
+          },
+          {
+            "type": 1,
+            "rot": 2.860983425257578,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.03670278289457318
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793862838.1931903,
+        "model_calls": 56,
+        "tokens": 3007278
+      },
+      "evaluations": 1
+    }
+  },
+  "test-27": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-27",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793862952.7365046,
+        "model_calls": 41,
+        "tokens": 1420747
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-27",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45759",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.003288195634460844,
+            "chamfer_norm": 0.0022570808596337356
+          },
+          {
+            "truth": "link_0",
+            "predicted": "11:root_low_door",
+            "chamfer": 0.1258073617415949,
+            "chamfer_norm": 1.0886523198211464
+          },
+          {
+            "truth": "link_1",
+            "predicted": "12:root_mid_door",
+            "chamfer": 0.1374197409852005,
+            "chamfer_norm": 1.3954303530040422
+          },
+          {
+            "truth": "link_2",
+            "predicted": "13:root_top_door",
+            "chamfer": 0.060579776855777846,
+            "chamfer_norm": 0.3282860159987795
+          },
+          {
+            "truth": "link_3",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.07444964756255927,
+            "chamfer_norm": 0.2387139113613146
+          }
+        ]
+      },
+      "whole_chamfer": 0.009164256675222866,
+      "whole_chamfer_norm": 0.009800236443722427,
+      "joints": {
+        "truth": 4,
+        "predicted": 4,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.2836657153381988,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.2836657153381988,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.3036656351425618,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.08508706979457378,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.23976510763168324
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793863312.9021323,
+        "model_calls": 24,
+        "tokens": 918167
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-27",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793863931.4560916,
+        "model_calls": 11,
+        "tokens": 308179
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-27",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793864046.4594715,
+        "model_calls": 7,
+        "tokens": 129212
+      },
+      "evaluations": 0
+    }
+  },
+  "test-28": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-28",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793864095.758732,
+        "model_calls": 38,
+        "tokens": 982592
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-28",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45642",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.020892769378224412,
+            "chamfer_norm": 0.016750974741659555
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.016551461769626224,
+      "whole_chamfer_norm": 0.014407042708665331,
+      "joints": {
+        "truth": 4,
+        "predicted": 0,
+        "missing": 4,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793864250.8730323,
+        "model_calls": 19,
+        "tokens": 627113
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-28",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793864548.0803833,
+        "model_calls": 23,
+        "tokens": 582184
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-28",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793864753.5527282,
+        "model_calls": 17,
+        "tokens": 381828
+      },
+      "evaluations": 0
+    }
+  },
+  "test-29": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-29",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Table/32324",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.10002035768483888,
+            "chamfer_norm": 0.09381430524906766
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.07725461346455295,
+      "whole_chamfer_norm": 0.04845020993947517,
+      "joints": {
+        "truth": 3,
+        "predicted": 0,
+        "missing": 3,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793864881.8178313,
+        "model_calls": 53,
+        "tokens": 1929323
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-29",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Table/32324",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.05663835591881669,
+            "chamfer_norm": 0.04659876197008912
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.04258461957272165,
+      "whole_chamfer_norm": 0.025762144311705336,
+      "joints": {
+        "truth": 3,
+        "predicted": 0,
+        "missing": 3,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793865006.3395,
+        "model_calls": 19,
+        "tokens": 488615
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-29",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793865181.866824,
+        "model_calls": 81,
+        "tokens": 4468384
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-29",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "Table/32324",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.13327882827780105,
+            "chamfer_norm": 0.1460481893296018
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.09359445653057877,
+      "whole_chamfer_norm": 0.07797674173081784,
+      "joints": {
+        "truth": 3,
+        "predicted": 0,
+        "missing": 3,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793865387.0261436,
+        "model_calls": 28,
+        "tokens": 974048
+      },
+      "evaluations": 2
+    }
+  },
+  "test-30": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-30",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/46109",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.30672481115419864,
+            "chamfer_norm": 0.21879803027406808
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.3760035936896902,
+            "chamfer_norm": 0.7930412733141808
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": "9:root_door",
+            "chamfer": 0.27646200732254206,
+            "chamfer_norm": 0.5889394442305123
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.4040112005247703,
+      "whole_chamfer_norm": 0.1792454538286171,
+      "joints": {
+        "truth": 5,
+        "predicted": 2,
+        "missing": 3,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793865663.300305,
+        "model_calls": 27,
+        "tokens": 813755
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-30",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/46109",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.30834563936259746,
+            "chamfer_norm": 0.21979025444314818
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.37606391513804444,
+            "chamfer_norm": 0.7923265691023325
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": "9:root_door",
+            "chamfer": 0.27926751008859624,
+            "chamfer_norm": 0.5921952545501405
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.40335923129711243,
+      "whole_chamfer_norm": 0.17860739275209295,
+      "joints": {
+        "truth": 5,
+        "predicted": 2,
+        "missing": 3,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.7459358369270126
+          }
+        ],
+        "unpaired_ranges": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793866148.8227174,
+        "model_calls": 22,
+        "tokens": 667426
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-30",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/46109",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": "root",
+            "chamfer": 0.19984517532606721,
+            "chamfer_norm": 3.808414915524495
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.0150372380917039,
+      "whole_chamfer_norm": 0.0053476409656121725,
+      "joints": {
+        "truth": 5,
+        "predicted": 0,
+        "missing": 5,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793866285.6191032,
+        "model_calls": 70,
+        "tokens": 3235505
+      },
+      "evaluations": 2
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-30",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/46109",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.002629622026862589,
+            "chamfer_norm": 0.0017389797451296733
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.17695692190228227,
+      "whole_chamfer_norm": 0.06256869680828221,
+      "joints": {
+        "truth": 5,
+        "predicted": 0,
+        "missing": 5,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793866378.870569,
+        "model_calls": 89,
+        "tokens": 4901991
+      },
+      "evaluations": 3
+    }
+  },
+  "test-31": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-31",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793867896.6528268,
+        "model_calls": 42,
+        "tokens": 1496970
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-31",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793868302.1956866,
+        "model_calls": 34,
+        "tokens": 1140772
+      },
+      "evaluations": 0
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-31",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793868401.700128,
+        "model_calls": 87,
+        "tokens": 6700569
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-31",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793868518.5794425,
+        "model_calls": 17,
+        "tokens": 462587
+      },
+      "evaluations": 0
+    }
+  },
+  "test-32": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-32",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793868663.8218746,
+        "model_calls": 36,
+        "tokens": 1357205
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-32",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45261",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": "root",
+            "chamfer": 0.1722820752573731,
+            "chamfer_norm": 2.4221908027382106
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.007644116753581842,
+      "whole_chamfer_norm": 0.0033176800112341785,
+      "joints": {
+        "truth": 5,
+        "predicted": 0,
+        "missing": 5,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793868887.1346695,
+        "model_calls": 17,
+        "tokens": 362523
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-32",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45261",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 6,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.0006559743543231714,
+            "chamfer_norm": 0.0005100845924251021
+          },
+          {
+            "truth": "link_0",
+            "predicted": "12:root_drawer_5",
+            "chamfer": 0.008602998159137077,
+            "chamfer_norm": 0.11492632431813633
+          },
+          {
+            "truth": "link_1",
+            "predicted": "11:root_drawer_4",
+            "chamfer": 0.008509407468255578,
+            "chamfer_norm": 0.14024279598327982
+          },
+          {
+            "truth": "link_2",
+            "predicted": "10:root_drawer_3",
+            "chamfer": 0.00871626306772045,
+            "chamfer_norm": 0.16845097976475984
+          },
+          {
+            "truth": "link_3",
+            "predicted": "9:root_drawer_2",
+            "chamfer": 0.008708224547362869,
+            "chamfer_norm": 0.20018536058960484
+          },
+          {
+            "truth": "link_4",
+            "predicted": "8:root_drawer_1",
+            "chamfer": 0.006236126426345625,
+            "chamfer_norm": 0.015355444675769993
+          }
+        ]
+      },
+      "whole_chamfer": 0.003537770240806813,
+      "whole_chamfer_norm": 0.002415356618546718,
+      "joints": {
+        "truth": 5,
+        "predicted": 5,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.24299874446401326
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.09026851548540149
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.1338860548894022
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.11676553387945932
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.26457877026862386
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793869000.688899,
+        "model_calls": 99,
+        "tokens": 5387065
+      },
+      "evaluations": 2
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-32",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793869573.461056,
+        "model_calls": 53,
+        "tokens": 1863789
+      },
+      "evaluations": 0
+    }
+  },
+  "test-33": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-33",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Table/22367",
+      "bin": "6-15",
+      "parts": {
+        "truth": 9,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.12696331966990745,
+            "chamfer_norm": 0.0907555423650225
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": "9:root_door",
+            "chamfer": 0.11409789566344633,
+            "chamfer_norm": 2.4590311972354204
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": "10:root_drawer",
+            "chamfer": 0.0976475397493754,
+            "chamfer_norm": 0.22818651786308303
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_6",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_7",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.13566759173919576,
+      "whole_chamfer_norm": 0.07853190933301502,
+      "joints": {
+        "truth": 8,
+        "predicted": 2,
+        "missing": 6,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.9364728040748705
+          }
+        ],
+        "unpaired_ranges": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793870384.559224,
+        "model_calls": 32,
+        "tokens": 1077555
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-33",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Table/22367",
+      "bin": "6-15",
+      "parts": {
+        "truth": 9,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.10444885988810168,
+            "chamfer_norm": 0.10693491266983793
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_6",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_7",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.03466078014031082,
+      "whole_chamfer_norm": 0.02000207869682502,
+      "joints": {
+        "truth": 8,
+        "predicted": 0,
+        "missing": 8,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793870829.5286036,
+        "model_calls": 16,
+        "tokens": 390577
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-33",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793871062.2571523,
+        "model_calls": 48,
+        "tokens": 2449078
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-33",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793871117.7709625,
+        "model_calls": 13,
+        "tokens": 315225
+      },
+      "evaluations": 0
+    }
+  },
+  "test-34": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-34",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/49062",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.34775138039929027,
+            "chamfer_norm": 0.24308295682132872
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.41945067979690415,
+      "whole_chamfer_norm": 0.16756608303021153,
+      "joints": {
+        "truth": 6,
+        "predicted": 0,
+        "missing": 6,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793871190.921839,
+        "model_calls": 20,
+        "tokens": 511720
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-34",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793871296.0111651,
+        "model_calls": 11,
+        "tokens": 223128
+      },
+      "evaluations": 0
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-34",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/49062",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 7,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.02987965512683471,
+            "chamfer_norm": 0.13428321287290662
+          },
+          {
+            "truth": "link_0",
+            "predicted": "6:root_p3",
+            "chamfer": 0.1363622828493649,
+            "chamfer_norm": 3.4075827266136227
+          },
+          {
+            "truth": "link_1",
+            "predicted": "7:root_p4",
+            "chamfer": 0.1294961207103869,
+            "chamfer_norm": 1.2155592528025503
+          },
+          {
+            "truth": "link_2",
+            "predicted": "4:root_p1",
+            "chamfer": 0.136262279122096,
+            "chamfer_norm": 1.2578833423166196
+          },
+          {
+            "truth": "link_3",
+            "predicted": "5:root_p2",
+            "chamfer": 0.12829500094006652,
+            "chamfer_norm": 1.8771997313583042
+          },
+          {
+            "truth": "link_4",
+            "predicted": "8:root_p5",
+            "chamfer": 0.13615185890445264,
+            "chamfer_norm": 34.10292928383467
+          },
+          {
+            "truth": "link_5",
+            "predicted": "9:root_p7",
+            "chamfer": 0.13065305447846184,
+            "chamfer_norm": 1.1658159897868754
+          }
+        ]
+      },
+      "whole_chamfer": 0.03179593302581205,
+      "whole_chamfer_norm": 0.01784713274905271,
+      "joints": {
+        "truth": 6,
+        "predicted": 6,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.003442213516464232,
+            "gt_type": 3,
+            "range": 0.8521876259972945
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.007616389047087779,
+            "gt_type": 3,
+            "range": 0.5129945727641632
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.003442186985940454,
+            "gt_type": 3,
+            "range": 0.5257140925460195
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.00761641064731311,
+            "gt_type": 3,
+            "range": 0.6155030015192267
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.003442179436273951,
+            "gt_type": 3,
+            "range": 0.6898146895720079
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.007616366383305595,
+            "gt_type": 3,
+            "range": 0.5112922200604786
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793871378.6895819,
+        "model_calls": 75,
+        "tokens": 3751891
+      },
+      "evaluations": 1
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-34",
+      "masks": "supplied",
+      "selected": 3,
+      "object": "StorageFurniture/49062",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 7,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.00268920944162591,
+            "chamfer_norm": 0.0025261692301471474
+          },
+          {
+            "truth": "link_0",
+            "predicted": "13:root_part_3",
+            "chamfer": 6.220835583793376e-05,
+            "chamfer_norm": 0.0010409452418094207
+          },
+          {
+            "truth": "link_1",
+            "predicted": "14:root_part_4",
+            "chamfer": 5.7892084192907834e-05,
+            "chamfer_norm": 0.0003828040487558152
+          },
+          {
+            "truth": "link_2",
+            "predicted": "11:root_part_1",
+            "chamfer": 0.0001417484439401018,
+            "chamfer_norm": 0.001439986789642911
+          },
+          {
+            "truth": "link_3",
+            "predicted": "12:root_part_2",
+            "chamfer": 0.00012396204474666807,
+            "chamfer_norm": 0.0016403426876685175
+          },
+          {
+            "truth": "link_4",
+            "predicted": "15:root_part_5",
+            "chamfer": 3.842215776296185e-05,
+            "chamfer_norm": 0.01165056885520297
+          },
+          {
+            "truth": "link_5",
+            "predicted": "16:root_part_7",
+            "chamfer": 0.00012301375001299845,
+            "chamfer_norm": 0.0010956245448538612
+          }
+        ]
+      },
+      "whole_chamfer": 0.0021294484156317442,
+      "whole_chamfer_norm": 0.0008162141700783891,
+      "joints": {
+        "truth": 6,
+        "predicted": 6,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.5769215808782909,
+            "pos": 0.005758889195214344,
+            "gt_type": 3,
+            "range": 0.38845428408428806
+          },
+          {
+            "type": 1,
+            "rot": 0.03527140561843561,
+            "pos": 0.005430331956818568,
+            "gt_type": 3,
+            "range": 0.13320775492346426
+          },
+          {
+            "type": 1,
+            "rot": 0.2624479486125797,
+            "pos": 0.004414606879796256,
+            "gt_type": 3,
+            "range": 0.38721285105831116
+          },
+          {
+            "type": 1,
+            "rot": 0.12114166301923476,
+            "pos": 0.006023104522319552,
+            "gt_type": 3,
+            "range": 0.13176125376107595
+          },
+          {
+            "type": 1,
+            "rot": 0.1542431618052575,
+            "pos": 0.003957637881282839,
+            "gt_type": 3,
+            "range": 0.018365634948329213
+          },
+          {
+            "type": 1,
+            "rot": 0.21825325004539448,
+            "pos": 0.005466525670771804,
+            "gt_type": 3,
+            "range": 0.015621499310764952
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793871480.3516054,
+        "model_calls": 44,
+        "tokens": 1861352
+      },
+      "evaluations": 5
+    }
+  },
+  "test-35": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-35",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793872513.8293347,
+        "model_calls": 24,
+        "tokens": 964537
+      },
+      "evaluations": 0
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-35",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/47235",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.04658032766665373,
+            "chamfer_norm": 0.0893790807627563
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": "16:root_drawer_bot",
+            "chamfer": 0.1739718080130263,
+            "chamfer_norm": 0.5254589221137135
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": "18:root_drawer_top",
+            "chamfer": 0.19404042570475039,
+            "chamfer_norm": 0.6108585133117936
+          }
+        ]
+      },
+      "whole_chamfer": 0.009123133024642877,
+      "whole_chamfer_norm": 0.006842929925499159,
+      "joints": {
+        "truth": 6,
+        "predicted": 2,
+        "missing": 4,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 2.2445020217273406,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.8918138095257722
+          },
+          {
+            "type": 1,
+            "rot": 1.7032405981268208,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.9274909746686366
+          }
+        ],
+        "unpaired_ranges": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793872997.3345096,
+        "model_calls": 11,
+        "tokens": 223723
+      },
+      "evaluations": 1
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-35",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793873373.133462,
+        "model_calls": 12,
+        "tokens": 266043
+      },
+      "evaluations": 0
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-35",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/47235",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.05927911890023956,
+            "chamfer_norm": 0.1359149457658458
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.007295014932254514,
+      "whole_chamfer_norm": 0.006452079299796053,
+      "joints": {
+        "truth": 6,
+        "predicted": 0,
+        "missing": 6,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793873478.7834933,
+        "model_calls": 80,
+        "tokens": 4361189
+      },
+      "evaluations": 5
+    }
+  },
+  "test-36": {
+    "gpt54-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-36",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/47926",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 7,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "18:root_right_drawer",
+            "chamfer": 1.1543417756367014,
+            "chamfer_norm": 1.182171178740885
+          },
+          {
+            "truth": "link_0",
+            "predicted": "root",
+            "chamfer": 1.2894165371088775,
+            "chamfer_norm": 36.05052758419481
+          },
+          {
+            "truth": "link_1",
+            "predicted": "14:root_left_drawer",
+            "chamfer": 1.3320791901528954,
+            "chamfer_norm": 15.985799696653366
+          },
+          {
+            "truth": "link_2",
+            "predicted": "17:root_mid_door",
+            "chamfer": 0.25342037570825127,
+            "chamfer_norm": 1.9168922846197072
+          },
+          {
+            "truth": "link_3",
+            "predicted": "15:root_left_door",
+            "chamfer": 0.4848212078968282,
+            "chamfer_norm": 3.968919506262222
+          },
+          {
+            "truth": "link_4",
+            "predicted": "16:root_mid_drawer",
+            "chamfer": 0.9100327715454561,
+            "chamfer_norm": 13.262829182624275
+          },
+          {
+            "truth": "link_5",
+            "predicted": "19:root_right_door",
+            "chamfer": 0.49534672031424976,
+            "chamfer_norm": 3.0663271276551907
+          }
+        ]
+      },
+      "whole_chamfer": 0.26809490488884735,
+      "whole_chamfer_norm": 0.18209339068470026,
+      "joints": {
+        "truth": 6,
+        "predicted": 6,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.037988861600235846,
+            "gt_type": 3,
+            "range": 0.6306512974174345
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": false,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793873796.7502685,
+        "model_calls": 39,
+        "tokens": 1166096
+      },
+      "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-36",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793874089.8681083,
+        "model_calls": 26,
+        "tokens": 788038
+      },
+      "evaluations": 0
+    },
+    "gem31-film": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-36",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/47926",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.01648329226757489,
+            "chamfer_norm": 0.0360305564995293
+          },
+          {
+            "truth": "link_0",
+            "predicted": "11:root_door3",
+            "chamfer": 0.1211656055621114,
+            "chamfer_norm": 2.535709524702571
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": "10:root_door1",
+            "chamfer": 0.11878030267006387,
+            "chamfer_norm": 1.028984126025257
+          },
+          {
+            "truth": "link_4",
+            "predicted": "13:root_drawer8",
+            "chamfer": 0.3212761581278307,
+            "chamfer_norm": 1.651991587367012
+          },
+          {
+            "truth": "link_5",
+            "predicted": "12:root_drawer4",
+            "chamfer": 0.3157784830794412,
+            "chamfer_norm": 1.6293170367334153
+          }
+        ]
+      },
+      "whole_chamfer": 0.03777206197455184,
+      "whole_chamfer_norm": 0.02995857108018057,
+      "joints": {
+        "truth": 6,
+        "predicted": 4,
+        "missing": 2,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.021885493137017153,
+            "gt_type": 3,
+            "range": 0.9095967687540215
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.008361841331380071,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": [
+          1.0,
+          1.0
+        ]
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793874494.7189558,
+        "model_calls": 66,
+        "tokens": 3361658
+      },
+      "evaluations": 2
+    },
+    "gem31-connect": {
+      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-connect/test-36",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793874531.96356,
+        "model_calls": 9,
+        "tokens": 306842
+      },
+      "evaluations": 0
+    }
+  }
+}
