@@ -2,7 +2,7 @@
 
 compose_baseline_comparison.py <root> <visible inputs> <object>
 The root contains one-state/ and film/ published videos, xml/runs/ scored
-summaries, and objects.json. Missing XML results remain pending.
+summaries, and objects.json for all 74 completed XML searches.
 """
 
 import argparse
@@ -84,18 +84,16 @@ def main() -> None:
         key = f"{model}-xml"
         frames = blank
         caption = f"{title}: XML"
-        record = {"run": key}
-        if key not in result:
-            caption += " — pending"
-            record["status"] = "pending"
+        summary = args.root / "xml" / "runs" / key / name / "summary.json"
+        record = {
+            "run": key,
+            "summary_sha256": hashlib.sha256(summary.read_bytes()).hexdigest(),
+            "selected": json.loads(summary.read_text())["selected"],
+        }
+        if result[key] is None:
+            caption += " — no scene"
         else:
-            summary = args.root / "xml" / "runs" / key / name / "summary.json"
-            record["summary_sha256"] = hashlib.sha256(summary.read_bytes()).hexdigest()
-            record["selected"] = json.loads(summary.read_text())["selected"]
-            if result[key] is None:
-                caption += " — no scene"
-            else:
-                _, frames = reconstruction_frames(summary, camera)
+            _, frames = reconstruction_frames(summary, camera)
         panels.append(tile(frames, caption))
         provenance["xml"].append(record)
         for column, condition in enumerate(("film", "connect")):
