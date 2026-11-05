@@ -22,157 +22,265 @@
       "run": "gpt54-xml",
       "object": "test-00",
       "summary_sha256": "8402f23a2beb4e707f1c2eb63ea22cbdcc2f4b3ff4de2c35a2cf98352e55ebfe",
-      "benchmark_sha256": "2295744ac33c3fc41c12b395f8a952f3ad6fb51574f96fc91bdb40d2b2bb2469"
+      "benchmark_sha256": "39de32900a83115f7f590681e9d95a4cff72c9bc0fa45cfeee9fb6b8f2c0ac2c"
     },
     {
       "run": "gem31-xml",
       "object": "test-00",
       "summary_sha256": "4bbd7631f732b4d8c8c49e024f89cf393079f7061f03af113fef31a451421977",
-      "benchmark_sha256": "559ae79ce29ed58bf15e3664ee311e5baad961685146cf6797c905d5d6ff94f0"
+      "benchmark_sha256": "c949d0af1eb11838ba1f92245f2c4f8c03ef827ae79142292b8733d4637f98b7"
     },
     {
       "run": "gpt54-xml",
       "object": "test-01",
       "summary_sha256": "bd5e3b74be04b50685d55ebb0b8e4cecf612863dc9a742ab533e1c02e9a7cd2b",
-      "benchmark_sha256": "213fdf2ccab7a918ae79f7755e6036b4c84f0668222e67fc75bb98ea9191b2b9"
+      "benchmark_sha256": "069a871c39256f4174b08c451d61aaea22b43e76abdd9580c57d50e50d112650"
     },
     {
       "run": "gem31-xml",
       "object": "test-01",
       "summary_sha256": "173ca4d56c5e859f894a60b468db8503c820fb1e876123d4ff080472cb1a2dc6",
-      "benchmark_sha256": "705181c20c9a698c95be54abc3907b6a7a14df50f2c72afc8348d6a8f86df853"
+      "benchmark_sha256": "3714e8b3af788db929306d917bb2aafdacdf7c65c68d684ce453acc939dcd76d"
     },
     {
       "run": "gpt54-xml",
       "object": "test-02",
       "summary_sha256": "56961902f0b321682badd4ca62a4bc091fcba662ba03fe91da178f09778fb4a9",
-      "benchmark_sha256": "52f926561985b44e740c63dc884ffcf1241163dd5fc6cde8b930914373b60528"
+      "benchmark_sha256": "85a1916deced1205664c9c4859b4d8f0d402be5cf3077e16e1a9119d51a738c8"
     },
     {
       "run": "gem31-xml",
       "object": "test-02",
       "summary_sha256": "5a8fcc520e22b017c0d7c23dce1c028bc7af252d6296d96f75f97f9e09da9d42",
-      "benchmark_sha256": "5bdf3a8322dec0cd5bf3b9b827a4c16b9f352588b87e10ab3fb61021814ce087"
+      "benchmark_sha256": "21ed405f99e974b967a446afc46af6b15a496d6747e8c2a82e8cc2fd8296153b"
     },
     {
       "run": "gpt54-xml",
       "object": "test-03",
       "summary_sha256": "f8968d2c6576c1c0f19db30925932eab5c42a51b51d9ca75538b95b4f99b84a9",
-      "benchmark_sha256": "3d2a29444710422a98fa285cb5321671905d4fe282a2661a28c6e3f05019c2d5"
+      "benchmark_sha256": "4f0189314ba541bc8e618e13cea171b7e062a434404902dcb258412ef75891d5"
     },
     {
       "run": "gem31-xml",
       "object": "test-03",
       "summary_sha256": "fb531d87e44ae0f2a6acac931235cf662cabfcc0ea2315d2082e7627aeae998c",
-      "benchmark_sha256": "dc4024a8d1a0fbf592ba3bccf71bd3cadfc08a390fa65e26a4cd3328269e1e17"
+      "benchmark_sha256": "c874ffca15f4bd9c8eff390e073d9edccc3a5497848b9f7d4c7c16f6baf6f20c"
     },
     {
       "run": "gpt54-xml",
       "object": "test-04",
       "summary_sha256": "297970ea8b5f0f5d18532f8a10eed3fcbbbb54c59c1aed11c5e02beaa6b8aa4c",
-      "benchmark_sha256": "c6b3472569ba6a44c21856c0e770dce59a08f412b3b48e6bc6aa7f481f50e57c"
+      "benchmark_sha256": "9a247c8c64cc459e3e1a1481ee2d417b284de976f0422a4881e3c891349180aa"
     },
     {
       "run": "gem31-xml",
       "object": "test-04",
       "summary_sha256": "0191fb4ff08c1171629659ebdf55134636803c257589e5f2a21afce05ee4eda5",
-      "benchmark_sha256": "316db3e299dbe8c689c4509de1a183cdb2716efa640e128da77f7adde7a22546"
+      "benchmark_sha256": "a607e0e7d328cf998c9bec41b10c24fae7f259269273ecb00f62d58d9f2ecbd2"
     },
     {
       "run": "gpt54-xml",
       "object": "test-05",
       "summary_sha256": "8d13c99bc9f8ba729f268a3ded00e3ae35b5e6f11b13d8f556d5292c08298d14",
-      "benchmark_sha256": "226a5222da76e45d6e5c3a2dc176295b7ab34945a0f80fc9e4bdca949bcdbbc5"
+      "benchmark_sha256": "176fd14b5588e481fbc9425a43c2f17cbb0b15cbac1a53fbbd73b0f2ce4a6f99"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-05",
+      "summary_sha256": "d5ee6e9d4a10cc5335f74a7179da12b0854399e96f4be0bbbd2de482909fca54",
+      "benchmark_sha256": "2fb120b509718b4f17a3d530f8de02bec3e5f9b25dc595362476aede092473e8"
     },
     {
       "run": "gpt54-xml",
       "object": "test-06",
       "summary_sha256": "0f5a02f745a59a6cbca48a23e0de99625b29641e1bbc69d964994a2c3b675a19",
-      "benchmark_sha256": "707e79bc1efaac198652ac4a65ba17b759a396ac82a0c227b2333c3c99a6799c"
+      "benchmark_sha256": "8bdef708cd58e6af0c705159cec21053f51b1ed5ba061af2475182b4f762b9fd"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-06",
+      "summary_sha256": "43c24439dac0603ce238fecc700dd236a0042ca32c27ad95d305e91977b20c7c",
+      "benchmark_sha256": "b01027fe521e5a82599fce591b89857ff7a75cf0c4ebaa20e2925a83c26459bd"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-07",
+      "summary_sha256": "7452983e5c416fc18841f7da411403ff759e8a98358b229d08541cc932429155",
+      "benchmark_sha256": "296a2849d99a7e6e2200f33ad67f6d12e0c4d4183140023d07da6493a1d5b187"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-07",
+      "summary_sha256": "8a3e5a800563de328451d95d0ae113e7a6342adf680bf9ed7f8f8025b6231477",
+      "benchmark_sha256": "57f9f322e032fd07443f96bef2525ee8e4be745be51b45522b0bbde6dd01480e"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-08",
+      "summary_sha256": "d4c8bb0dd31d2f65d6c3762dd37e434b992d944fc95f4cbc67e4836aef5e3f8f",
+      "benchmark_sha256": "a9ab05be01bd37ad24a95285598967cfff7748a55a60eb39e2400a2cdf4f1595"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-08",
+      "summary_sha256": "38d78a60cbeb6bfc5b2a744a1f63e66aeb36cb5e91955037a1ee146cac928baa",
+      "benchmark_sha256": "8c8df1db2edc6f99b5f2fb38e7e25fc4068330107b0863051d152ebfddd82e10"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-09",
+      "summary_sha256": "2b9a5db8c707ce97f95942244d8abd7ca7bd6470d5478d5d8c8e2a00bc7ef877",
+      "benchmark_sha256": "69dbc46012e0dc22af564be465081411e71ecfd82f185e62348a77434f52bc41"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-09",
+      "summary_sha256": "887d0d4d3636e35a26bfc2e373520bdbb4a210c5da5d369d82de446c547d82e8",
+      "benchmark_sha256": "527da68fb4377152973266e067c9ebb985d8c9e2482dc6c202981c31a7ac00b0"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-10",
+      "summary_sha256": "0d02a632ce256fca25ad53c57bacc29a493437ba86ab158b2295db308f506f99",
+      "benchmark_sha256": "3f49513b03a8b32c6c5505f6a566dfbec1e2890b067920f93d9c72521eabdac8"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-10",
+      "summary_sha256": "e5892d18ec22ba6fc2e700c2d33f078d1ca1554ed44e101ba704090979dce44f",
+      "benchmark_sha256": "d0b71a89b6ebbd4b45da2f5282496daaa2caa499aa944ac6fa2ee7cac0772ec1"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-11",
+      "summary_sha256": "417ddc30248eceaffb38fbebe54ea9beb7c367dfa23f61f91af37c2eaa8a8114",
+      "benchmark_sha256": "4271e0411fd21cdca7ecbacc240960317a480174cf8de0c0d953690089ab5f68"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-11",
+      "summary_sha256": "7d2be328188eef224a9633b08ff71ec74e9cc1b81574d7dd1dec41e5a61b4c5e",
+      "benchmark_sha256": "94d57833f4645234c4bc970e70dd37838c967bb37d2a9123f4648c013becae96"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-12",
+      "summary_sha256": "2a5aebb94d94bd9d470ded67158a05b7794054af317091aaf6bcbcb178f4c03c",
+      "benchmark_sha256": "74da1891ad6eac7ea757b9a2722b82af3b4a821f3fe551f013b1bcaffadfaa89"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-12",
+      "summary_sha256": "5942a2fcee1f28813108ee2a4e40a306104d31d89dbb4cdf352982bf300183dc",
+      "benchmark_sha256": "4f0519b9a957f040b22acd194529dbf10e736ac14c9fef26e5650641d47d904b"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-13",
+      "summary_sha256": "4fb6d63f7f85bb69af72988fecfd8bac0bae0e9cd0925cf4c802e87a6b149fef",
+      "benchmark_sha256": "1c5501159154714a52dd3a1fdec08e93bbf45ec066410e738bccb5f84c058670"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-13",
+      "summary_sha256": "dc8f9689654bd88ce7c03b42ae94b9d3ade56270b4e88d24c3e01934b480c8f3",
+      "benchmark_sha256": "eb18ed229e08ebd634a1a0efe0b402c8f0f2a98e4fb35c46ef68678cb22c5efd"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-14",
+      "summary_sha256": "a3f6353b0ec525903107dcc2182cfb76a86363d9c3fc1d89de6f260b7f198689",
+      "benchmark_sha256": "d717ef86c28a142432f6ec3044a06504b792c57b888d56eb100e8462df4a3fcc"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-14",
+      "summary_sha256": "911fcb7e0aba87b3686daff0c33e63113c5b45ded5beb365e98ef85b268db097",
+      "benchmark_sha256": "ca537808ff525efdac7ef2103def2986cd8aa8e2fbb96180cffeea453151b16c"
     },
     {
       "run": "gpt54-xml",
       "object": "test-15",
       "summary_sha256": "c8ae982bf607e2ed4608c4b025086bceab9bd63297eafa648ad029d4d42bd2f2",
-      "benchmark_sha256": "5c80be2943c9d6dff1626f6cc23892225c268737c914a766a3067480a11430f4"
+      "benchmark_sha256": "241a68000588b023329cbeace69f1e6a5077e4ff3d61fba4c9e4f9573c94c105"
     },
     {
       "run": "gem31-xml",
       "object": "test-15",
       "summary_sha256": "2aa87be8978e6f94e24bff2f25f481531774131e9ec25bd6ce7410731f4ed1b0",
-      "benchmark_sha256": "a41ba7d20ba774eb0125e4072aa0c834d0bf6c70c8e01bd62429a862f449c5d6"
+      "benchmark_sha256": "0a11a0bcdf35b4cb2f176740d012dfdf80f41bf8f99be61be9367e91684dbdb7"
     },
     {
       "run": "gpt54-xml",
       "object": "test-16",
       "summary_sha256": "d4f0bba19c29508cf25f798c4e6f9f4b8fcaf43c3a13c44310b44d7710594044",
-      "benchmark_sha256": "35395b6de58aa9bd38a3ee0be4cf848e88d1501af3f4518a8e9feb43846a5dc8"
+      "benchmark_sha256": "97572019c7d07c41f17b8ca95fde6fff066b8c0db9c39c081840978a9731aecb"
     },
     {
       "run": "gem31-xml",
       "object": "test-16",
       "summary_sha256": "580f5cfba2a2166f626ed86900cbf070b760ec0a531754b2f03ba398beecc234",
-      "benchmark_sha256": "d103f5ee046092d84f34538de141fe4575198de59c1fcae236dab111bea33a7f"
+      "benchmark_sha256": "9c8b2db6eae326bd63b56b1ccc9f51980b2de524363389415b927f13fa9f1302"
     },
     {
       "run": "gpt54-xml",
       "object": "test-17",
       "summary_sha256": "92ea93c05fd319cdeec1298e299f53dbae49fa2506a4d29e18a7a0b4d3f4cc60",
-      "benchmark_sha256": "f6d69cec5b47e07b1edcb815751d2e51ccddfe923acaa11ce45460110ab34ef4"
+      "benchmark_sha256": "c12e99c78f18b7b665839f76becc1aecb2b74af35effe9d33ee45967d24c608f"
     },
     {
       "run": "gem31-xml",
       "object": "test-17",
       "summary_sha256": "ae920d43e758ac290bf6f4cd8e961ab33cf084f53a3e0988c430dab37696bdf4",
-      "benchmark_sha256": "c8f3b4b9068f7ce43433b5abc46d0b4f7bbcd844cd66c86cb4339bcc8a945754"
+      "benchmark_sha256": "30475722d732d4f3c444e71f229d84c3bafe9f353b00582f2db223f1cc4c3853"
     },
     {
       "run": "gpt54-xml",
       "object": "test-18",
       "summary_sha256": "aa26993bffcd909e28622fb97d52784e5c11091eb065085e9f730da178e26641",
-      "benchmark_sha256": "2692fc3ee4b8682d872ecd6a6d74f6cc09b2a5d5034c33d0df27126b1591f99e"
+      "benchmark_sha256": "61312d7fa725f4edf49996cb0434135160e5b678af6e87821aefbe488986790f"
     },
     {
       "run": "gem31-xml",
       "object": "test-18",
       "summary_sha256": "b94920b1e4b29aab8ddb02f65844d364530d0d8c657b7384eee8795be6af7ec4",
-      "benchmark_sha256": "df6a0faffaaff65b519a76a8c175f524a546502cee21017c841dd00a16862c8f"
+      "benchmark_sha256": "33272120052d058471b6a81b6dfb30f555f67b68fe9ce33379c5a53e9ba3ea7c"
     },
     {
       "run": "gpt54-xml",
       "object": "test-19",
       "summary_sha256": "870bff4f907e8d54e13306d1528feb7eba8235660dd58e504993f669a5f3fbdb",
-      "benchmark_sha256": "044fd6a5e019dadcdcafe312238d7aed460a8889b5bfbdf0ac4c4230850a0e61"
+      "benchmark_sha256": "155c90ea9d3c737ea3888ba2b042c79e2c1015db5c59c26dccfdafc44daf21d7"
     },
     {
       "run": "gem31-xml",
       "object": "test-19",
       "summary_sha256": "8397626f719aa5fa5b7b7187fc38e0ab3dd9b619b21d52562895587e0dcf7266",
-      "benchmark_sha256": "fd6a8643365417a655569250734be037fdf7da643b908079dad0f258d5ab6007"
+      "benchmark_sha256": "1150c70e308f89660f474a430b6448b8514eebb6b0d3cd04470f0efea58cd3f0"
     },
     {
       "run": "gpt54-xml",
       "object": "test-20",
       "summary_sha256": "86eb1c4664e85a52657a56897c6bb00cb9e882e3b2eada7b1dd0ab1301a3105a",
-      "benchmark_sha256": "3f33c5c1f80d7554ffd395adbeb2e32e6c732c6476db0197a5ecb8ab1587700f"
+      "benchmark_sha256": "c3620e996b3845d2caf1ce35fa6c5d6e9b0fce3947fc850d20605bedecca4c80"
     },
     {
       "run": "gem31-xml",
       "object": "test-20",
       "summary_sha256": "0ee5ea601b482e4a12f7c1c6b1615b45decdbe18da1613b17205a09538d52521",
-      "benchmark_sha256": "2c8cbfae48b07da65f39ffdfafc9be625e6974deb8c00e667c2c569fe90aa80b"
+      "benchmark_sha256": "4bfab29edb8dd02ec3c17263808434c4402546314abd848da3fb713bb48ca1f5"
     },
     {
       "run": "gpt54-xml",
       "object": "test-21",
       "summary_sha256": "f119f43d98dfc2dc57e21c23dd398fba12daff9d3bd719b17b9d146d5c16c04d",
-      "benchmark_sha256": "cdfc296a23908d6a6fff7384f45c8d3f1cd9cd6c8ec5401f6881b3440cb66d60"
+      "benchmark_sha256": "7ed0652edd8b77b461caecc1d5e0142e1cb371660485c76a6e2858bfb1ab4f39"
     },
     {
       "run": "gem31-xml",
       "object": "test-21",
       "summary_sha256": "421b12d7b658ae927c5401d047682b92e604035d6585b9e58e6f3ea9f92e8a22",
-      "benchmark_sha256": "073d71f4b602419b37e5d61608b804424829c644bd7c524307d1762af39e120f"
+      "benchmark_sha256": "80067319e998204f427477b95578d2c10a29fb0e6efb5e0ded9680800911fd90"
     },
     {
       "run": "gpt54-xml",
@@ -184,25 +292,175 @@
       "run": "gem31-xml",
       "object": "test-22",
       "summary_sha256": "1eaaa7f12bb0fc4ea414d42e8285632ea75618ac7c41fd5b3e73cf36a016fb45",
-      "benchmark_sha256": "1ff1eafa3315a3bcd10ea358f7bba76a618d0929d47ffad420696e67ef7334cb"
+      "benchmark_sha256": "44947abbbaba04b85226e3bf1ef394bb13a9c9e66fdb79476ac75c3cf726a0c5"
     },
     {
       "run": "gpt54-xml",
       "object": "test-23",
       "summary_sha256": "071a213a75313867ad8926fce8c5e0a3dd521ab166b4b23a391ebaad393c484e",
-      "benchmark_sha256": "7fe2cb244d0cd8782c90c9911cbcc5a934b80413a81514221bcf57022d67d2e3"
+      "benchmark_sha256": "9705c39657982018c56b7cda7865fcbd8a25cfadd085ab6426f57656622d6a74"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-23",
+      "summary_sha256": "44b6055d4e2dc7bd428cc80c9979dcfeb8489d8740785063195cf55c6b6231f4",
+      "benchmark_sha256": "468c1c136aa3c67b85b29ccbe2b6096934495f0059c430ec69b3f029a39af5e1"
     },
     {
       "run": "gpt54-xml",
       "object": "test-24",
       "summary_sha256": "4c3d4e690cb189f8afd981ecc0e5d14329efda28d63ad2904205566542fde580",
-      "benchmark_sha256": "599912db36b95005bf7109a886d0adf474e194bcd4f25b5d9614721f5fd2c127"
+      "benchmark_sha256": "f814151c72c5ce3f09c0ec81dcc53af121c9f84d90e3af972e0b0cbe44ef9dc1"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-24",
+      "summary_sha256": "1d346b6b0306fc1242b4d557cfe66f8c1ac38e2cdec128a8d3921604d0d9bc6d",
+      "benchmark_sha256": "502f7196bb00176818c16f88b6408ee5633c6d3f04975c2486abfe9ac89c313c"
     },
     {
       "run": "gpt54-xml",
       "object": "test-25",
       "summary_sha256": "b73d4d21db7ada6f4aecb7f0faaa1636ea9190ab7207abc24991b9ef10c9caa2",
-      "benchmark_sha256": "d1b2b020aee43df6957731ef66f3cb8a410598ce784ac977062d84f47bd6c53c"
+      "benchmark_sha256": "1fb45f2cd214191d7fddc7e1ae203af42cd6470eb982e2590e1cd8cf2be63671"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-25",
+      "summary_sha256": "740c2f61a6a13d21be9b684b6b5d4d6fe191e25417ad94b0e49815bb6313e83f",
+      "benchmark_sha256": "e233693b5a11caea368f5bdc1fb1b779a8556a96817b3428bb013945c33284b7"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-26",
+      "summary_sha256": "d020739667d80c3376ec083458d64246dadf57543082ff4c120e2ec8aa3b810a",
+      "benchmark_sha256": "312c68cfe47229568d57c016ac18df385185a782fc458176e2309cecfb5a43e7"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-26",
+      "summary_sha256": "e2bbf6b4e3b01817eec4f2dbacdb6827485259eaacc208c1f2cc6b7ed648be8c",
+      "benchmark_sha256": "4784cb3ce3ef194d2a30b46fd3182e10f2143aa1c900500ab822282fa6e5762f"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-27",
+      "summary_sha256": "a8d0dad746f2d2b63cfbef9d091f8164af47d1942f78973be75fa2248679a516",
+      "benchmark_sha256": "b0f58f93d834054eb2be34cc5edcb22268e94ba9a7241dfdd1f1a43f6a494326"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-27",
+      "summary_sha256": "ea1d4a352c3bc9ead969213d6dde7fbe8115c72e850c78215e3ef5f2e73ab96d",
+      "benchmark_sha256": "c0fd9f6d817c81920b310425d45e11731d6859ad18369cb6bf12c8539586b6dc"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-28",
+      "summary_sha256": "d0cf739dd9bf7bd9263cb35c1f186dce5063964c6caf3c318d27d7876e61223c",
+      "benchmark_sha256": "e9847fd2c135bbdb78e500b4f396aa46026f77a49d17851743f7f4520478787c"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-28",
+      "summary_sha256": "2fe05f7938770c7d7444035d3ccadf1fc7a2b7cd9764cdd09f6642c901f427c3",
+      "benchmark_sha256": "6fd929e6b5eb34879c606c5cf524fd9b662d59868ec3950b0ba9fd50b17b27ee"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-29",
+      "summary_sha256": "41858c3679a5c78e7bbe819916633f51e09804e7e3007bc53dab73d2115ab85c",
+      "benchmark_sha256": "ae2969ffb0ea5eef0d0bdba904b230c8efa43e8742632ab96652995a3ae4cae4"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-29",
+      "summary_sha256": "5193983f8a8d08219470260e80ac0f80855e45745badbef9ace8d62d131e43ea",
+      "benchmark_sha256": "a5ae19e88735c22f45f4c0719c9b510abc65bf2b2cbcd0ae52381271dd5bd875"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-30",
+      "summary_sha256": "83eda5e48c415e3e3c594e29cf2634b0e08c6dab4eb457fd15ce6b2cae9a731a",
+      "benchmark_sha256": "545b005eb617d45fbf6a9b2c66175e12042e44c48671bf118d9a727741a8da38"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-30",
+      "summary_sha256": "b5f8adbf433d8be8fac35877a1c829ce26460f90dd861df52516325ba48a020d",
+      "benchmark_sha256": "13396959ce5c0820f25d26588465ee8956f7f8b239a201d821301611a00ccf91"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-31",
+      "summary_sha256": "05e9dd8f8415199872b1ab49ee31ba3d5678c716c7050eb84d88e5dd554292ea",
+      "benchmark_sha256": "3c8a7fe31c573287046bd8c5ef0acbc12e4cbd1d3bc195c9109c556ee3be612b"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-31",
+      "summary_sha256": "64a5c15adf9d73c873df1e4d374ba4a9bf21711943b89cb18cc15f60ac6258a3",
+      "benchmark_sha256": "a8bc52fc7e2a14ba48623fcf20a59bb31b7f1672997596fd8e2ce1accc985cad"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-32",
+      "summary_sha256": "289e26adb5c8b6449e01b9e857f9eaa6b9ccd4324b4ce37952c4513e952a7bb8",
+      "benchmark_sha256": "6aacc831c78a674e5d8fbf68c2e52633cf7f4149f6a8f214fe42dfcbed0f3eba"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-32",
+      "summary_sha256": "5453bff078cc1207163000a6e400fd60fdc316acd0501109495dfb9558078a49",
+      "benchmark_sha256": "4e68e994889d752a7c1ef933097a17ed4021f7aac5d0d2e25da36bd1ff064760"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-33",
+      "summary_sha256": "9f854a895ae629de20dfe2a704fc5b387ec7329e677295a7cad7483134c82634",
+      "benchmark_sha256": "9e39466ace3e4079a7c6ab5774ad72ed23e394d88b6a28cebe2af1ab77f65d58"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-33",
+      "summary_sha256": "2856b6d08b5f5b6d2ee2204f481afc47349ba0048cf92a3d59e50111b2b330bf",
+      "benchmark_sha256": "713457c22f411dfb0f66b9cd37162cffc30c3c3e28ea6d91f855d47f6d8f1f2e"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-34",
+      "summary_sha256": "679c1f2d7776b525cb822fc311bfd23d530e93c7f61005bb71fb625d62a14e19",
+      "benchmark_sha256": "6f2e0e734434f489d9b74fea50899560290195d0912854f95f27e3f2029f9d5b"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-34",
+      "summary_sha256": "ab2de57c57ca0ac347dcf99d6e2c4a7081288bba1d07bf23f4b3515135ee29d9",
+      "benchmark_sha256": "5887426fa20d937874e8e039e2ebc3ae6eebc5f6fbcf9d5445846c537b8fa7ed"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-35",
+      "summary_sha256": "cf55e069cef9a73da66bb5f6211a073512b4d5c93e699792dd188698fe14ccba",
+      "benchmark_sha256": "b7cc6ab5c8e8dcc85e52d9d67b40beaecd9d2b7c16959603a78d8572f154ca6e"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-35",
+      "summary_sha256": "1fc30c5922fb137250bfc11ea07cd4c5a389b7339297e5fcc98477627b07f28c",
+      "benchmark_sha256": "ba58d7692a395e3b2b8b50dc29aa3f726eeb859c7a25b8c8a7c516b89ef9db18"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-36",
+      "summary_sha256": "63a4526f8a8e257c9d15bd647bf98fbfaacfde6d94aa6287abc7dc3548a9e392",
+      "benchmark_sha256": "45d6c9f3d1841015f133cf5fb2a37cdaa0a82837e8cb779fc5ba32a13ed9f00f"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-36",
+      "summary_sha256": "a0cc85178c33c106b44b3a3f88704ae02e6aa77d5f1b4cf1def5049954139127",
+      "benchmark_sha256": "aee08343a2f021f0c25aca14d974bcd4e44dfb5558b0a3dce931fe416edbf9b7"
     }
   ],
   "xml_protocol": {
@@ -721,11 +979,10 @@
       "Film, connect + solver"
     ]
   },
-  "missing_xml": "Pending: no scored benchmark in this export; explicit null means a completed selection with no scene.",
-  "exported_utc": "2026-11-05T18:39:48.032361+00:00",
+  "exported_utc": "2026-11-05T22:17:51.739133+00:00",
   "renderer": {
     "script": "llm-recon-render/compose_baseline_comparison.py",
-    "sha256": "8e0ca37a9ac132942b44ebe46733aa61f4758932e72ff755ad6b23251af5177d",
+    "sha256": "8c96eda1d5988b2b017fc877103d7b662be340374cc9e04d47aa1d3b1f3e5f1c",
     "panel_renderer": "llm-recon-render/render_media.py",
     "panel_renderer_sha256": "113234ee45d9e4402b4ba9cfe438c7decb60aec92ef5ff0965b395bc7e48fc29",
     "robotl_reconstruction": "1e71675",
@@ -737,6 +994,7 @@
     "frames": 48,
     "poster_frame": 24
   },
+  "scoring": "Final benchmark pass for all 74 XML searches. Real2Code samples 100,000 surface points per mesh without a fixed seed, so Chamfer values can vary on rescoring. The 31 previously exported XML selections, joint counts and success labels are unchanged.",
   "renders": [
     {
       "object": "test-00",
@@ -903,12 +1161,13 @@
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "d5ee6e9d4a10cc5335f74a7179da12b0854399e96f4be0bbbd2de482909fca54",
+          "selected": 1
         }
       ],
       "outputs": {
-        "mp4": "5f536510050ae709767cb599745ea0cc4122ded686b5f8b78f9ce41ec27ad19d",
-        "jpg": "15aaf96dd10002d76881c9a00c0b73760989da7020a0ea8e737dc6816ba31af0"
+        "mp4": "9a73eaed28d2b1024a775636545e04df7594bc872189ec2ea799c13aac14ab95",
+        "jpg": "15664929c88e63d8b0a2d2817e93bf7134727a45796e47cbd03d0befbb707154"
       }
     },
     {
@@ -931,12 +1190,13 @@
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "43c24439dac0603ce238fecc700dd236a0042ca32c27ad95d305e91977b20c7c",
+          "selected": 1
         }
       ],
       "outputs": {
-        "mp4": "df59c1cc82e2a52069cbe393983bbb337ea80e6b91aed210217e27d84f670c5f",
-        "jpg": "35ae63fd5e74bf06d7898f7aa29a8fd868df4a21c98894c7f5d1fcb611c64714"
+        "mp4": "5ac41f656be1a35dfed5f7f81245bc93193f2c324fd31c243698b26449519df5",
+        "jpg": "7415438cc65afd4813e94004edeae12a480ec9b5193fb3be0a94f18d1a5cb209"
       }
     },
     {
@@ -954,16 +1214,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "7452983e5c416fc18841f7da411403ff759e8a98358b229d08541cc932429155",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "8a3e5a800563de328451d95d0ae113e7a6342adf680bf9ed7f8f8025b6231477",
+          "selected": 1
         }
       ],
       "outputs": {
-        "mp4": "6732e5bfc71a9ebdba799e1a31b4f08ee4aed0b5d7451570733875254479bf77",
-        "jpg": "4856e66d17aa4e693658871c36a859b7df8383a7f97facfa197c12fc6c0ff694"
+        "mp4": "148d29154ec99b33df8df6783c318dfa805966605417bf19296d34d512c74a31",
+        "jpg": "7da44d9764c19a8fc5f0d9e966546ebe91eec330e6a382907f4564f0c3d03c9f"
       }
     },
     {
@@ -981,16 +1243,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "d4c8bb0dd31d2f65d6c3762dd37e434b992d944fc95f4cbc67e4836aef5e3f8f",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "38d78a60cbeb6bfc5b2a744a1f63e66aeb36cb5e91955037a1ee146cac928baa",
+          "selected": 2
         }
       ],
       "outputs": {
-        "mp4": "d15385cd3a770a35ebe98458248d8bf8e207070497974ac361987d7f3307bd2d",
-        "jpg": "db4188985ce8bd6f0fe6b8b5292ec703850e650659bc25bbd6136d70c77ccf2f"
+        "mp4": "5436af35033570865357a233fbacaf6c1971d1a7127fc2120748c9cc0d6bda16",
+        "jpg": "4d056f9eed026edd79b2fe8cfe1625a9c3a774a665fb879776473605cf37b7a7"
       }
     },
     {
@@ -1008,16 +1272,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "2b9a5db8c707ce97f95942244d8abd7ca7bd6470d5478d5d8c8e2a00bc7ef877",
+          "selected": 1
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "887d0d4d3636e35a26bfc2e373520bdbb4a210c5da5d369d82de446c547d82e8",
+          "selected": 2
         }
       ],
       "outputs": {
-        "mp4": "25743121b5b815f6be4a7fe4f0ddcbf599c520ebf58fc6943165a092216dfea4",
-        "jpg": "9b6c0d96c1eae846652c2a4d8d3e2eed3ecb20f9d42253051b296bf1d938904e"
+        "mp4": "ea3d2d37eb7dbd1c5951fb2e2dcf58dac73c40717ccd8ec58804a3f790e039c6",
+        "jpg": "521434884e12d77510cdfad3cd5f29789f101d33986f3d708993fb95bb035c0e"
       }
     },
     {
@@ -1035,16 +1301,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "0d02a632ce256fca25ad53c57bacc29a493437ba86ab158b2295db308f506f99",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "e5892d18ec22ba6fc2e700c2d33f078d1ca1554ed44e101ba704090979dce44f",
+          "selected": 1
         }
       ],
       "outputs": {
-        "mp4": "060a02d2fb4c420c054132ae3528a2ee3f209e80b5d5350ddaf66f1c4d1bba3d",
-        "jpg": "7ab6172b4f906032ff440b01917263ea6671839750eab45fe84d754e8509e2de"
+        "mp4": "fdbd2e9d5d58e4425d1f27810ed3558a1f96b439fd2dfdd99963735c5b08a617",
+        "jpg": "614dee1fb35638744db4e0c31a55de5c9a94956dd440e669e31fb35251e529b2"
       }
     },
     {
@@ -1062,16 +1330,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "417ddc30248eceaffb38fbebe54ea9beb7c367dfa23f61f91af37c2eaa8a8114",
+          "selected": 2
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "7d2be328188eef224a9633b08ff71ec74e9cc1b81574d7dd1dec41e5a61b4c5e",
+          "selected": 3
         }
       ],
       "outputs": {
-        "mp4": "3c9d210a7ac43660cc718335a9730c1014e5d3df7db2891c40a91e98ec9de754",
-        "jpg": "4d09effbf5a034b2010225e25a827ecdd93219f9372f596b1a43eaf95d23cdb2"
+        "mp4": "edd6322cbefa28f9a3b663315861866ee026cc996428e1bcd9501faacfba55a0",
+        "jpg": "ab409a8830e94928a6f0adc47fd20328cc6aa1a312abfcc7e19112e3badac936"
       }
     },
     {
@@ -1089,16 +1359,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "2a5aebb94d94bd9d470ded67158a05b7794054af317091aaf6bcbcb178f4c03c",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "5942a2fcee1f28813108ee2a4e40a306104d31d89dbb4cdf352982bf300183dc",
+          "selected": 2
         }
       ],
       "outputs": {
-        "mp4": "050015cbe4c18b21bc190d80a28272fd9b79b1ebe8aedda9ff42c38057a626d8",
-        "jpg": "8e2a317ade8eb63df55796208c19844d95e41f9570faaff63af989554dd1e861"
+        "mp4": "ba8b446ac701164ccb748184d1724f7f19ac310e04aa92b13aff7b8b2d6ce2f3",
+        "jpg": "3e6d88494ef4bd5f3d349aa47b17c67ee978c0dac90472b84cbe9612c387e794"
       }
     },
     {
@@ -1116,16 +1388,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "4fb6d63f7f85bb69af72988fecfd8bac0bae0e9cd0925cf4c802e87a6b149fef",
+          "selected": 1
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "dc8f9689654bd88ce7c03b42ae94b9d3ade56270b4e88d24c3e01934b480c8f3",
+          "selected": 4
         }
       ],
       "outputs": {
-        "mp4": "8d56ab681e1450685a5041a99e1072644d2c679bf0b8997622a226a45724911a",
-        "jpg": "e6a26870e6650ab6b62e64625c2df9ab8c9f516855fee608b8c432f3d38f1937"
+        "mp4": "d7a78a3aee31e221f15a1b5a8851220855abdca4801cdccc3528033894b4bfb4",
+        "jpg": "372f119b45b222fb49bf5fcd1debfdf5e01c79719830621d4dd9a5e9d09442ab"
       }
     },
     {
@@ -1143,16 +1417,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "a3f6353b0ec525903107dcc2182cfb76a86363d9c3fc1d89de6f260b7f198689",
+          "selected": 1
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "911fcb7e0aba87b3686daff0c33e63113c5b45ded5beb365e98ef85b268db097",
+          "selected": 1
         }
       ],
       "outputs": {
-        "mp4": "4a2745e2bc5abdbe21705ee176d28728c8aba072a390bee14c36a00997f8c51f",
-        "jpg": "d6e755c19f9ce5c26df49e60a83004d86ac9c5ce99bde64db2fa64b78ac4268d"
+        "mp4": "8b5dd4822b31605dd4f1c8feca63fbd2299ddcc6707945ab5376d42b3c2ef804",
+        "jpg": "acded8621bea14f7c69f8ecb39d51b61ddda319b522c38f0e052598a233966c7"
       }
     },
     {
@@ -1407,12 +1683,13 @@
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "44b6055d4e2dc7bd428cc80c9979dcfeb8489d8740785063195cf55c6b6231f4",
+          "selected": 1
         }
       ],
       "outputs": {
-        "mp4": "e2e7f072b3dabe4d23620786df925fc0e9aa36250c002e951d4ae774cf0cede1",
-        "jpg": "b5f1cd2daac9c4a23b60920a2ee433dc00000e4ccd7f736886b3d7c72fede2af"
+        "mp4": "373b02bb36bcdd1dc3aba4dbdfacd05b5eb15594c2a93bcb1cab31c4ea66dc74",
+        "jpg": "4092b407abfa92e47425920dd7ac07753f61316834c2dab45ce860cf53928be0"
       }
     },
     {
@@ -1435,12 +1712,13 @@
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "1d346b6b0306fc1242b4d557cfe66f8c1ac38e2cdec128a8d3921604d0d9bc6d",
+          "selected": 6
         }
       ],
       "outputs": {
-        "mp4": "69297df0add3fff53a4b7cf2e57796c28163243ad1fb254e85d2b80f3c860038",
-        "jpg": "ed1a86ec65a195d0c0ff8b258e8731a28f42a6d4fe8da66becebb16fc1b9b254"
+        "mp4": "a4bdf590ba47472f1a7f1c8fac5dde44bdd30379d95149ef8a32d4ac3451e6a6",
+        "jpg": "bcb557389894af0c9b1a4735c08485793f42c3e6bc333d9447cba1c17f2d0bf4"
       }
     },
     {
@@ -1463,12 +1741,13 @@
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "740c2f61a6a13d21be9b684b6b5d4d6fe191e25417ad94b0e49815bb6313e83f",
+          "selected": 1
         }
       ],
       "outputs": {
-        "mp4": "9b69dadf1f4ded60749bc4cdd3c7c7206a0dfc2f4dcf5a2459cdb47787b3d9a3",
-        "jpg": "075b60783f60722712e55436e1507b28ec54c73089c891132a634f6eb69ce450"
+        "mp4": "7bf8251d5fb4cd83d48ac30a8fdfb7cab4721c7ed083cdaa2aff491a79ee6452",
+        "jpg": "c2096d5c92d4daab6b3ded4a2736c049f3718dd3d460b3fbea57a161e3c2b73f"
       }
     },
     {
@@ -1486,16 +1765,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "d020739667d80c3376ec083458d64246dadf57543082ff4c120e2ec8aa3b810a",
+          "selected": 1
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "e2bbf6b4e3b01817eec4f2dbacdb6827485259eaacc208c1f2cc6b7ed648be8c",
+          "selected": 1
         }
       ],
       "outputs": {
-        "mp4": "f1e46e7a4a0735dd6194200dbc0f2a2b6a134d4ea4d1aa1a0643c4fdad497afc",
-        "jpg": "5406c92abf19d46aad553e2360b00a9802184b4afd2b7a51730e4eac03e96c82"
+        "mp4": "85c30b3fbfa7c1a39563ac5f8fe8913a4a1c93929fe5df00452a346acc960f29",
+        "jpg": "1d18800f6c1104cef7578002de4d0b167ebd1d20367bb6fd920ef5ddd274059f"
       }
     },
     {
@@ -1513,16 +1794,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "a8d0dad746f2d2b63cfbef9d091f8164af47d1942f78973be75fa2248679a516",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "ea1d4a352c3bc9ead969213d6dde7fbe8115c72e850c78215e3ef5f2e73ab96d",
+          "selected": 2
         }
       ],
       "outputs": {
-        "mp4": "21ee5ebf04d391a438e23b9e9009318f8320acdd5c84f4bfcfd7baefbc230156",
-        "jpg": "faa66652e62f6fb9e236fb35049c2b490b17ef5eb83cab24a56bd4298168da1a"
+        "mp4": "707e741ceba61de3e861e2a7b2ed65a6efbe4fa3aa2b3cc4fdfd8d9e546864e4",
+        "jpg": "048459854a14c720176f9c7fbed4aeb5676c13d77098786073fa89a8464b8fd6"
       }
     },
     {
@@ -1540,16 +1823,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "d0cf739dd9bf7bd9263cb35c1f186dce5063964c6caf3c318d27d7876e61223c",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "2fe05f7938770c7d7444035d3ccadf1fc7a2b7cd9764cdd09f6642c901f427c3",
+          "selected": 0
         }
       ],
       "outputs": {
-        "mp4": "c2a0f15776475ab9c02a602853a04d7eaa82d45f8734b7647a41cf9629554d01",
-        "jpg": "a528bfe6dd9b3fe44b73bde8ac439968e4a10e87b339b8b6a95cb24b9fa0bf46"
+        "mp4": "c6cb7a72197d39a8729f79d6a0a4c8420d6b6bbf3448747c1e06d145d893d71e",
+        "jpg": "a91fb752cba484ff927c2112a53d5bf57820d7be746c4763ab1f2ab3523b3c51"
       }
     },
     {
@@ -1567,16 +1852,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "41858c3679a5c78e7bbe819916633f51e09804e7e3007bc53dab73d2115ab85c",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "5193983f8a8d08219470260e80ac0f80855e45745badbef9ace8d62d131e43ea",
+          "selected": 5
         }
       ],
       "outputs": {
-        "mp4": "4b396eba8d593de718e10b377a96feb1bc856797cdffe80f5ea15c11f1e0f3c9",
-        "jpg": "4252c0e816edeab40d156cf34057e1a3108d81258761789541d7192f309591d1"
+        "mp4": "02c9799d12f3348149833211954cffe272c51f2e7c8f272dfb22575d9d386517",
+        "jpg": "b0e70298ed0ee9f8a4c18ebc8235e95f4ee5ab250285e567c18545ffc5184f76"
       }
     },
     {
@@ -1594,16 +1881,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "83eda5e48c415e3e3c594e29cf2634b0e08c6dab4eb457fd15ce6b2cae9a731a",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "b5f8adbf433d8be8fac35877a1c829ce26460f90dd861df52516325ba48a020d",
+          "selected": 7
         }
       ],
       "outputs": {
-        "mp4": "10ae698bebdad8a8097c83c9f178b337f67a12220456c5c0855fff61d5f2c9c5",
-        "jpg": "b8f90ce8e735b2b7db1c5d2b10eabe13c40243a69439087a12842181f32f9b61"
+        "mp4": "2926b2fcbe53eeccd046b24901a44ef0c99272d4c1bba24ce77988f3c476c1cb",
+        "jpg": "b86975b6368cc6bad1881270ca8cb66ff9966dec8d2ceaf69d2b84724c967797"
       }
     },
     {
@@ -1621,16 +1910,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "05e9dd8f8415199872b1ab49ee31ba3d5678c716c7050eb84d88e5dd554292ea",
+          "selected": 1
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "64a5c15adf9d73c873df1e4d374ba4a9bf21711943b89cb18cc15f60ac6258a3",
+          "selected": 5
         }
       ],
       "outputs": {
-        "mp4": "ddd949f8f32a1cdbf2b50748ce7b41b90f50a09d6fc3dfaf7e1b92e3e3df3796",
-        "jpg": "ae1bcfdecc22b655e8878e1b939d78c90695ae698477f076d25dd4ed788b6d50"
+        "mp4": "d43f588090e2587097f8c3b1f3bee54409795180d473f05e0bcf0258dd8457be",
+        "jpg": "c1cb0566510b8584ce0f1718e1894f5d03e5f7171ac8035764ee96fdd6925f90"
       }
     },
     {
@@ -1648,16 +1939,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "289e26adb5c8b6449e01b9e857f9eaa6b9ccd4324b4ce37952c4513e952a7bb8",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "5453bff078cc1207163000a6e400fd60fdc316acd0501109495dfb9558078a49",
+          "selected": 2
         }
       ],
       "outputs": {
-        "mp4": "4bc0eb43efbc71b8411bdfe5bf82417b251470d4e68d9478a36140a460e42d3e",
-        "jpg": "797785ba4f4bccb926c1fb1d31b7763013f0851ea51c76da58a14718d4445a7b"
+        "mp4": "4b8cd2679322600a9e809f6a7684a33e3c8d992a8b03bbe3aba2e6ee9c3ef065",
+        "jpg": "cc910ec849599d8044b8f5a0f5eedc542e04f1b9b0e0af2b9802a8adfe4fab5d"
       }
     },
     {
@@ -1675,16 +1968,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "9f854a895ae629de20dfe2a704fc5b387ec7329e677295a7cad7483134c82634",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "2856b6d08b5f5b6d2ee2204f481afc47349ba0048cf92a3d59e50111b2b330bf",
+          "selected": 5
         }
       ],
       "outputs": {
-        "mp4": "a6e0cf68f99b04dbd3a2b9f7d60053c80f9893448e5e140518ff42b9a6936f32",
-        "jpg": "339ecc134cfdcee2e518a0de01c309df7293920b13f482a9d6c75a07f6df7a5a"
+        "mp4": "cefa32ae21e75bc29705a29c0865073824ba5ee671de0ba296f362c9884957f8",
+        "jpg": "89775a9f1ebff5fd9231dac3d4e2dd8f2d221a06fb853c3ee33f6627b4e70a3a"
       }
     },
     {
@@ -1702,16 +1997,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "679c1f2d7776b525cb822fc311bfd23d530e93c7f61005bb71fb625d62a14e19",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "ab2de57c57ca0ac347dcf99d6e2c4a7081288bba1d07bf23f4b3515135ee29d9",
+          "selected": 0
         }
       ],
       "outputs": {
-        "mp4": "113babc3c233fa9767a7336f913b795da0070dc98c9702ff5871fcd1d4774b5a",
-        "jpg": "3e915946600c7e93ef24f488d399d86fedb01ddf5ec922f175c4e8d01bff382f"
+        "mp4": "a5777c607c6b4d54d13b521439127ebc1a6304ff40293d2ede705c30977227ff",
+        "jpg": "7decc32536c871069f3dedc47226ce5adabd76e62798e21de3e71889d4a5c6d7"
       }
     },
     {
@@ -1729,16 +2026,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "cf55e069cef9a73da66bb5f6211a073512b4d5c93e699792dd188698fe14ccba",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "1fc30c5922fb137250bfc11ea07cd4c5a389b7339297e5fcc98477627b07f28c",
+          "selected": 5
         }
       ],
       "outputs": {
-        "mp4": "bb784e50d980890188333e2e52cde085173f6f739bc153daa96af0c8ecb1042d",
-        "jpg": "7a326747d54f1a1f7b7f912177e1b2371b67a6d0fa6188a9c77859061d9358a2"
+        "mp4": "381ae657aec5fdac3cc363a11d3c5fa8de66c853f4c4bc3f5b24486efbad8f7c",
+        "jpg": "f554ce9d859d2c6688305362ed7872dfc0c0cb49dab245d4d57479cbd2cf9fbe"
       }
     },
     {
@@ -1756,16 +2055,18 @@
       "xml": [
         {
           "run": "gpt54-xml",
-          "status": "pending"
+          "summary_sha256": "63a4526f8a8e257c9d15bd647bf98fbfaacfde6d94aa6287abc7dc3548a9e392",
+          "selected": 0
         },
         {
           "run": "gem31-xml",
-          "status": "pending"
+          "summary_sha256": "a0cc85178c33c106b44b3a3f88704ae02e6aa77d5f1b4cf1def5049954139127",
+          "selected": 6
         }
       ],
       "outputs": {
-        "mp4": "6430b020fcd90771a840e794b698420b4368d01bc28b480bb8540b797ee07e8a",
-        "jpg": "8bb2707d22b1b600917923ff27ae8abd11831ccd536057943fa17851062451dd"
+        "mp4": "e779bbc9255b422fc014133fcc089bdf6c14caa9a139ccae64c123b5eda0359c",
+        "jpg": "7767e9dad396a050ccfb45790cafb4299719f4192de5305290101c3ff7b294ba"
       }
     }
   ]

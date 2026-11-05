@@ -78,13 +78,13 @@
           "fitted": true
         },
         "gpt54-xml": {
-          "cd": 4.102706694859728,
+          "cd": 4.127855950668053,
           "found": 1,
           "true": 1,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 2.106275080116553,
+          "cd": 2.079026824409136,
           "found": 1,
           "true": 1,
           "ok": false
@@ -134,13 +134,13 @@
         },
         "gem31-connect": null,
         "gpt54-xml": {
-          "cd": 40.21734095548034,
+          "cd": 39.66968986850257,
           "found": 1,
           "true": 1,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 1.8816657945229969,
+          "cd": 1.905710499437375,
           "found": 1,
           "true": 1,
           "ok": true
@@ -185,13 +185,13 @@
           "fitted": true
         },
         "gpt54-xml": {
-          "cd": 594.4053843858611,
+          "cd": 593.6033509734224,
           "found": 1,
           "true": 1,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 6.560562662141268,
+          "cd": 6.444840116493071,
           "found": 1,
           "true": 1,
           "ok": true
@@ -248,13 +248,13 @@
           "fitted": true
         },
         "gpt54-xml": {
-          "cd": 239.10362921159617,
+          "cd": 239.3305504270139,
           "found": 1,
           "true": 1,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 167.3578837259478,
+          "cd": 168.9904547047686,
           "found": 0,
           "true": 1,
           "ok": false
@@ -292,13 +292,13 @@
         },
         "gem31-connect": null,
         "gpt54-xml": {
-          "cd": 51.152798936418094,
+          "cd": 51.300200030535734,
           "found": 1,
           "true": 1,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 5.035392925407813,
+          "cd": 5.0196107259594305,
           "found": 1,
           "true": 1,
           "ok": true
@@ -341,10 +341,16 @@
           "fitted": true
         },
         "gpt54-xml": {
-          "cd": 295.9377816299075,
+          "cd": 298.53260153860816,
           "found": 1,
           "true": 1,
           "ok": false
+        },
+        "gem31-xml": {
+          "cd": 0.8114774728289111,
+          "found": 1,
+          "true": 1,
+          "ok": true
         }
       }
     },
@@ -386,7 +392,13 @@
         },
         "gem31-connect": null,
         "gpt54-xml": {
-          "cd": 22.87421815091087,
+          "cd": 22.925139858038985,
+          "found": 2,
+          "true": 1,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 14.314025344370094,
           "found": 2,
           "true": 1,
           "ok": false
@@ -434,7 +446,19 @@
           "range": 1.0,
           "fitted": true
         },
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 653.5203344115619,
+          "found": 1,
+          "true": 1,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 3.235881528662038,
+          "found": 1,
+          "true": 1,
+          "ok": true
+        }
       }
     },
     {
@@ -478,6 +502,18 @@
           "ok": false,
           "range": 1.0,
           "fitted": false
+        },
+        "gpt54-xml": {
+          "cd": 31.66047483362093,
+          "found": 4,
+          "true": 1,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 0.8484979867225579,
+          "found": 3,
+          "true": 1,
+          "ok": false
         }
       }
     },
@@ -498,7 +534,19 @@
           "fitted": false
         },
         "gem31-film": null,
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 14.97639693296663,
+          "found": 1,
+          "true": 1,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 2.5095946851277704,
+          "found": 1,
+          "true": 1,
+          "ok": true
+        }
       }
     },
     {
@@ -549,6 +597,18 @@
           "ok": false,
           "range": 1.0,
           "fitted": false
+        },
+        "gpt54-xml": {
+          "cd": 132.73520504785662,
+          "found": 1,
+          "true": 1,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 29.72156716224592,
+          "found": 1,
+          "true": 1,
+          "ok": false
         }
       }
     },
@@ -586,7 +646,19 @@
           "range": 0.45467171701745723,
           "fitted": true
         },
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 200.08317140360055,
+          "found": 1,
+          "true": 1,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 0.2671466365659845,
+          "found": 1,
+          "true": 1,
+          "ok": true
+        }
       }
     },
     {
@@ -630,7 +702,19 @@
           "range": 0.7658868650651338,
           "fitted": true
         },
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 354.24485361488956,
+          "found": 1,
+          "true": 1,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 28.12018080192457,
+          "found": 1,
+          "true": 1,
+          "ok": false
+        }
       }
     },
     {
@@ -676,6 +760,18 @@
           "ok": true,
           "range": 0.007209445666778835,
           "fitted": true
+        },
+        "gpt54-xml": {
+          "cd": 698.2906628498109,
+          "found": 1,
+          "true": 1,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 4.33074231272074,
+          "found": 1,
+          "true": 1,
+          "ok": true
         }
       }
     },
@@ -715,7 +811,19 @@
           "range": 0.49482502539392514,
           "fitted": true
         },
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 43.80979470398146,
+          "found": 2,
+          "true": 1,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 7.178794658336154,
+          "found": 1,
+          "true": 1,
+          "ok": true
+        }
       }
     },
     {
@@ -754,13 +862,13 @@
         },
         "gem31-connect": null,
         "gpt54-xml": {
-          "cd": 72.40975278117206,
+          "cd": 72.48120297806959,
           "found": 2,
           "true": 2,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 7.646469429141345,
+          "cd": 7.473669578745689,
           "found": 2,
           "true": 2,
           "ok": true
@@ -807,13 +915,13 @@
           "fitted": false
         },
         "gpt54-xml": {
-          "cd": 34.05479967075541,
+          "cd": 34.48367118419832,
           "found": 2,
           "true": 2,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 7.125856231322491,
+          "cd": 7.15832631149517,
           "found": 2,
           "true": 2,
           "ok": true
@@ -858,13 +966,13 @@
         },
         "gem31-connect": null,
         "gpt54-xml": {
-          "cd": 39.12066909459524,
+          "cd": 39.140173046945264,
           "found": 3,
           "true": 2,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 27.334007150414564,
+          "cd": 27.370035446613286,
           "found": 2,
           "true": 2,
           "ok": false
@@ -907,13 +1015,13 @@
         },
         "gem31-connect": null,
         "gpt54-xml": {
-          "cd": 193.7339981279671,
+          "cd": 193.1935942900255,
           "found": 2,
           "true": 2,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 3.466174633369896,
+          "cd": 3.4633691545183756,
           "found": 2,
           "true": 2,
           "ok": true
@@ -944,13 +1052,13 @@
         },
         "gem31-connect": null,
         "gpt54-xml": {
-          "cd": 237.461409143738,
+          "cd": 237.3517880755942,
           "found": 4,
           "true": 2,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 27.230764643476824,
+          "cd": 27.243575344300115,
           "found": 0,
           "true": 2,
           "ok": false
@@ -995,13 +1103,13 @@
           "fitted": true
         },
         "gpt54-xml": {
-          "cd": 541.8573808009012,
+          "cd": 537.5728723683757,
           "found": 3,
           "true": 2,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 2.9825034026139754,
+          "cd": 2.9798063298635658,
           "found": 2,
           "true": 2,
           "ok": false
@@ -1039,13 +1147,13 @@
           "fitted": true
         },
         "gpt54-xml": {
-          "cd": 69.20634078309676,
+          "cd": 68.79670933976017,
           "found": 2,
           "true": 2,
           "ok": false
         },
         "gem31-xml": {
-          "cd": 2.325092607206114,
+          "cd": 2.357001396617896,
           "found": 2,
           "true": 2,
           "ok": true
@@ -1091,7 +1199,7 @@
         "gem31-connect": null,
         "gpt54-xml": null,
         "gem31-xml": {
-          "cd": 5.242174058696164,
+          "cd": 5.179952984972481,
           "found": 2,
           "true": 2,
           "ok": true
@@ -1141,10 +1249,16 @@
           "fitted": true
         },
         "gpt54-xml": {
-          "cd": 76.18225276701774,
+          "cd": 76.51448186033977,
           "found": 2,
           "true": 2,
           "ok": false
+        },
+        "gem31-xml": {
+          "cd": 0.23787622198562713,
+          "found": 2,
+          "true": 2,
+          "ok": true
         }
       }
     },
@@ -1172,7 +1286,13 @@
           "fitted": true
         },
         "gpt54-xml": {
-          "cd": 62.59022427243331,
+          "cd": 62.0419874217276,
+          "found": 3,
+          "true": 3,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 14.876915780764207,
           "found": 3,
           "true": 3,
           "ok": false
@@ -1208,7 +1328,13 @@
         "gem31-film": null,
         "gem31-connect": null,
         "gpt54-xml": {
-          "cd": 38.32276985654847,
+          "cd": 38.62119422308977,
+          "found": 0,
+          "true": 4,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 73.16966497070472,
           "found": 0,
           "true": 4,
           "ok": false
@@ -1256,6 +1382,18 @@
           "ok": true,
           "range": 0.12402695458087964,
           "fitted": true
+        },
+        "gpt54-xml": {
+          "cd": 49.326142445086994,
+          "found": 3,
+          "true": 3,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 12.591273044800365,
+          "found": 0,
+          "true": 3,
+          "ok": false
         }
       }
     },
@@ -1281,7 +1419,19 @@
           "fitted": true
         },
         "gem31-film": null,
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 43.55771696215972,
+          "found": 3,
+          "true": 4,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 2.8836019475353587,
+          "found": 4,
+          "true": 4,
+          "ok": true
+        }
       }
     },
     {
@@ -1306,7 +1456,19 @@
           "fitted": false
         },
         "gem31-film": null,
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 6.923248999888041,
+          "found": 5,
+          "true": 4,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 1.5586957359991447,
+          "found": 0,
+          "true": 4,
+          "ok": false
+        }
       }
     },
     {
@@ -1350,6 +1512,18 @@
           "ok": false,
           "range": 1.0,
           "fitted": false
+        },
+        "gpt54-xml": {
+          "cd": 50.99074882484627,
+          "found": 4,
+          "true": 3,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 12.196373781547514,
+          "found": 4,
+          "true": 3,
+          "ok": false
         }
       }
     },
@@ -1391,6 +1565,18 @@
           "ok": false,
           "range": 1.0,
           "fitted": false
+        },
+        "gpt54-xml": {
+          "cd": 11.645906819026031,
+          "found": 4,
+          "true": 5,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 3.8624590047671115,
+          "found": 5,
+          "true": 5,
+          "ok": true
         }
       }
     },
@@ -1409,7 +1595,19 @@
         "gpt54-film": null,
         "gpt54-connect": null,
         "gem31-film": null,
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 31.073982096740327,
+          "found": 0,
+          "true": 11,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 1.6731329545287792,
+          "found": 10,
+          "true": 11,
+          "ok": false
+        }
       }
     },
     {
@@ -1441,7 +1639,19 @@
           "range": 0.16969952379738001,
           "fitted": true
         },
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 156.97850871360424,
+          "found": 4,
+          "true": 5,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 50.675130749001546,
+          "found": 0,
+          "true": 5,
+          "ok": false
+        }
       }
     },
     {
@@ -1478,7 +1688,19 @@
           "fitted": false
         },
         "gem31-film": null,
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 36.22339202033572,
+          "found": 4,
+          "true": 8,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 4.688030216640044,
+          "found": 4,
+          "true": 8,
+          "ok": false
+        }
       }
     },
     {
@@ -1522,6 +1744,18 @@
           "ok": true,
           "range": 0.17910387968103894,
           "fitted": true
+        },
+        "gpt54-xml": {
+          "cd": 255.1590420962061,
+          "found": 1,
+          "true": 6,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 5.044606819502051,
+          "found": 6,
+          "true": 6,
+          "ok": true
         }
       }
     },
@@ -1554,6 +1788,18 @@
           "ok": false,
           "range": 1.0,
           "fitted": false
+        },
+        "gpt54-xml": {
+          "cd": 12.536467923128104,
+          "found": 3,
+          "true": 6,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 5.258304743678061,
+          "found": 6,
+          "true": 6,
+          "ok": true
         }
       }
     },
@@ -1586,7 +1832,19 @@
           "range": 0.9773991921885054,
           "fitted": true
         },
-        "gem31-connect": null
+        "gem31-connect": null,
+        "gpt54-xml": {
+          "cd": 46.030862160845935,
+          "found": 7,
+          "true": 6,
+          "ok": false
+        },
+        "gem31-xml": {
+          "cd": 1.27631680391372,
+          "found": 4,
+          "true": 6,
+          "ok": false
+        }
       }
     }
   ]

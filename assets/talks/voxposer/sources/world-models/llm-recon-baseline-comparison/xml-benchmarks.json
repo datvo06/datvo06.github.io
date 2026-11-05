@@ -13,19 +13,19 @@
           {
             "truth": "root",
             "predicted": "2:door",
-            "chamfer": 0.08442136311340943,
-            "chamfer_norm": 0.25497436198543266
+            "chamfer": 0.08427009570850243,
+            "chamfer_norm": 0.25492526470663934
           },
           {
             "truth": "link_1",
             "predicted": "root",
-            "chamfer": 0.08037987587529424,
-            "chamfer_norm": 4.184480592203489
+            "chamfer": 0.08130094846211183,
+            "chamfer_norm": 4.245146509210956
           }
         ]
       },
-      "whole_chamfer": 0.004102706694859728,
-      "whole_chamfer_norm": 0.005050009047151078,
+      "whole_chamfer": 0.004127855950668053,
+      "whole_chamfer_norm": 0.005040274993569177,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -62,19 +62,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.006783670030088541,
-            "chamfer_norm": 0.005463961006866708
+            "chamfer": 0.006745135038348548,
+            "chamfer_norm": 0.005430093412922854
           },
           {
             "truth": "link_1",
             "predicted": "2:part_1",
-            "chamfer": 0.0009533592688651004,
-            "chamfer_norm": 0.07077007912467599
+            "chamfer": 0.0009477161615413768,
+            "chamfer_norm": 0.0704954361073299
           }
         ]
       },
-      "whole_chamfer": 0.002106275080116553,
-      "whole_chamfer_norm": 0.0029505516800751824,
+      "whole_chamfer": 0.002079026824409136,
+      "whole_chamfer_norm": 0.0029313532119744365,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -113,19 +113,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.007379199963221823,
-            "chamfer_norm": 0.003843339886559019
+            "chamfer": 0.007406051075412534,
+            "chamfer_norm": 0.003866981106157865
           },
           {
             "truth": "link_0",
             "predicted": "2:door",
-            "chamfer": 0.45827229457364976,
-            "chamfer_norm": 1.2924784623859193
+            "chamfer": 0.4582169357423802,
+            "chamfer_norm": 1.2923712054243177
           }
         ]
       },
-      "whole_chamfer": 0.04021734095548034,
-      "whole_chamfer_norm": 0.020075159493566933,
+      "whole_chamfer": 0.03966968986850257,
+      "whole_chamfer_norm": 0.01979070132804771,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -162,19 +162,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.002462534833434826,
-            "chamfer_norm": 0.001318109745933277
+            "chamfer": 0.002497476153227774,
+            "chamfer_norm": 0.0013364359298163946
           },
           {
             "truth": "link_0",
             "predicted": "2:door",
-            "chamfer": 0.00021548806759201657,
-            "chamfer_norm": 0.0005486691577313011
+            "chamfer": 0.00021526810479039924,
+            "chamfer_norm": 0.0005476623309760827
           }
         ]
       },
-      "whole_chamfer": 0.001881665794522997,
-      "whole_chamfer_norm": 0.0009323734974481314,
+      "whole_chamfer": 0.001905710499437375,
+      "whole_chamfer_norm": 0.0009372320521335339,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -213,19 +213,19 @@
           {
             "truth": "root",
             "predicted": "2:door",
-            "chamfer": 6.484747341971978,
-            "chamfer_norm": 5.777904280289615
+            "chamfer": 6.499392633368114,
+            "chamfer_norm": 5.790437457668219
           },
           {
             "truth": "link_0",
             "predicted": "root",
-            "chamfer": 1.7303126043465804,
-            "chamfer_norm": 3.3476196064115986
+            "chamfer": 1.7287512961350449,
+            "chamfer_norm": 3.3442692071189404
           }
         ]
       },
-      "whole_chamfer": 0.5944053843858611,
-      "whole_chamfer_norm": 0.19075070145378964,
+      "whole_chamfer": 0.5936033509734224,
+      "whole_chamfer_norm": 0.19049769199657407,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -262,19 +262,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.00714361379038396,
-            "chamfer_norm": 0.00428060102971709
+            "chamfer": 0.007104971036513574,
+            "chamfer_norm": 0.004248240952905253
           },
           {
             "truth": "link_0",
             "predicted": "2:door",
-            "chamfer": 0.002921451050878068,
-            "chamfer_norm": 0.0021128954264678715
+            "chamfer": 0.0029554403618089783,
+            "chamfer_norm": 0.002132972574183316
           }
         ]
       },
-      "whole_chamfer": 0.006560562662141268,
-      "whole_chamfer_norm": 0.002432368363744624,
+      "whole_chamfer": 0.0064448401164930716,
+      "whole_chamfer_norm": 0.0023894757265225256,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -313,19 +313,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.1466617572654043,
-            "chamfer_norm": 0.11754250977514442
+            "chamfer": 0.1462719439540569,
+            "chamfer_norm": 0.11723260369436256
           },
           {
             "truth": "link_0",
             "predicted": "2:door",
-            "chamfer": 0.6297875487627154,
-            "chamfer_norm": 1.4192169698163164
+            "chamfer": 0.6343383504434237,
+            "chamfer_norm": 1.4308775320661544
           }
         ]
       },
-      "whole_chamfer": 0.23910362921159617,
-      "whole_chamfer_norm": 0.07841032764749,
+      "whole_chamfer": 0.2393305504270139,
+      "whole_chamfer_norm": 0.07876320326929859,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -362,8 +362,8 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.2775103643479681,
-            "chamfer_norm": 0.2237230735751748
+            "chamfer": 0.2775240090212002,
+            "chamfer_norm": 0.2237198304495827
           },
           {
             "truth": "link_0",
@@ -373,8 +373,8 @@
           }
         ]
       },
-      "whole_chamfer": 0.1673578837259478,
-      "whole_chamfer_norm": 0.05346944807142445,
+      "whole_chamfer": 0.16899045470476862,
+      "whole_chamfer_norm": 0.05404619623078617,
       "joints": {
         "truth": 1,
         "predicted": 0,
@@ -413,19 +413,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.014976398297769696,
-            "chamfer_norm": 0.024663603998597503
+            "chamfer": 0.014904696459068015,
+            "chamfer_norm": 0.024528166153823985
           },
           {
             "truth": "link_0",
             "predicted": "2:door",
-            "chamfer": 0.276448746535329,
-            "chamfer_norm": 1.6761497528593088
+            "chamfer": 0.2772103424856456,
+            "chamfer_norm": 1.6784369013875478
           }
         ]
       },
-      "whole_chamfer": 0.051152798936418095,
-      "whole_chamfer_norm": 0.04777122414009613,
+      "whole_chamfer": 0.05130020003053573,
+      "whole_chamfer_norm": 0.048062648762661066,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -462,19 +462,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.005639976646855723,
-            "chamfer_norm": 0.009094633820606171
+            "chamfer": 0.005603351585491443,
+            "chamfer_norm": 0.009044638002251618
           },
           {
             "truth": "link_0",
             "predicted": "2:door",
-            "chamfer": 0.004103612507264983,
-            "chamfer_norm": 0.04867135893740488
+            "chamfer": 0.004089768230244869,
+            "chamfer_norm": 0.04842304486026987
           }
         ]
       },
-      "whole_chamfer": 0.005035392925407813,
-      "whole_chamfer_norm": 0.004715785575548913,
+      "whole_chamfer": 0.0050196107259594305,
+      "whole_chamfer_norm": 0.004724018337698699,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -513,19 +513,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.06387583479255746,
-            "chamfer_norm": 4.385535128731801
+            "chamfer": 0.06367051840289682,
+            "chamfer_norm": 4.408529104523187
           },
           {
             "truth": "link_0",
             "predicted": "2:lid",
-            "chamfer": 0.5976030196313323,
-            "chamfer_norm": 1.1849036060206628
+            "chamfer": 0.5981110223147801,
+            "chamfer_norm": 1.1866858256948518
           }
         ]
       },
-      "whole_chamfer": 0.29593778162990747,
-      "whole_chamfer_norm": 0.2131356795731477,
+      "whole_chamfer": 0.29853260153860817,
+      "whole_chamfer_norm": 0.21496432852822436,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -548,6 +548,55 @@
         "tokens": 276516
       },
       "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-05",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "Laptop/9996",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.00037937260728061555,
+            "chamfer_norm": 0.032109666041299854
+          },
+          {
+            "truth": "link_0",
+            "predicted": "2:part_0_hinge",
+            "chamfer": 0.0012989010984894777,
+            "chamfer_norm": 0.0026851434257959017
+          }
+        ]
+      },
+      "whole_chamfer": 0.0008114774728289111,
+      "whole_chamfer_norm": 0.0008662663385859712,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.02077299999999979,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793902748.201829,
+        "model_calls": 28,
+        "tokens": 788091
+      },
+      "evaluations": 3
     }
   },
   "test-06": {
@@ -564,19 +613,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.013021601856963496,
-            "chamfer_norm": 0.010157319824956008
+            "chamfer": 0.013049264323436041,
+            "chamfer_norm": 0.010202712221766677
           },
           {
             "truth": "link_0",
             "predicted": "3:drawer",
-            "chamfer": 0.1757263640339606,
-            "chamfer_norm": 0.17482766894748425
+            "chamfer": 0.17547196182141897,
+            "chamfer_norm": 0.1741899134369943
           }
         ]
       },
-      "whole_chamfer": 0.02287421815091087,
-      "whole_chamfer_norm": 0.014130954861644458,
+      "whole_chamfer": 0.022925139858038984,
+      "whole_chamfer_norm": 0.014194632220128034,
       "joints": {
         "truth": 1,
         "predicted": 2,
@@ -599,16 +648,857 @@
         "tokens": 281095
       },
       "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-06",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45621",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "3:right_drawer",
+            "chamfer": 0.15759273430666568,
+            "chamfer_norm": 0.1075882918159473
+          },
+          {
+            "truth": "link_0",
+            "predicted": "2:left_door",
+            "chamfer": 0.0014572662453036151,
+            "chamfer_norm": 0.003242673487364091
+          }
+        ]
+      },
+      "whole_chamfer": 0.014314025344370094,
+      "whole_chamfer_norm": 0.006936556754485467,
+      "joints": {
+        "truth": 1,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.02115854493735561,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793902753.664289,
+        "model_calls": 143,
+        "tokens": 6980895
+      },
+      "evaluations": 8
     }
   },
-  "test-07": {},
-  "test-08": {},
-  "test-09": {},
-  "test-10": {},
-  "test-11": {},
-  "test-12": {},
-  "test-13": {},
-  "test-14": {},
+  "test-07": {
+    "gpt54-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-07",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/48490",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.5893776846771398,
+            "chamfer_norm": 2.513019010108841
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:door",
+            "chamfer": 2.0752447584675293,
+            "chamfer_norm": 2.234662823167419
+          }
+        ]
+      },
+      "whole_chamfer": 0.6535203344115619,
+      "whole_chamfer_norm": 0.21721124858009344,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 1.552954230158309,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793902988.7026243,
+        "model_calls": 17,
+        "tokens": 469950
+      },
+      "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-07",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/48490",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.0037300429863483557,
+            "chamfer_norm": 0.0032398759427887344
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:part_0",
+            "chamfer": 0.0001520484591196426,
+            "chamfer_norm": 0.00014450888452580737
+          }
+        ]
+      },
+      "whole_chamfer": 0.003235881528662038,
+      "whole_chamfer_norm": 0.0014958838200979621,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.013045769841691146,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793903073.0875375,
+        "model_calls": 55,
+        "tokens": 1880229
+      },
+      "evaluations": 7
+    }
+  },
+  "test-08": {
+    "gpt54-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-08",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Refrigerator/12054",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.06856561156381549,
+            "chamfer_norm": 0.12853594363648818
+          },
+          {
+            "truth": "link_0",
+            "predicted": "2:door_left",
+            "chamfer": 0.09216563138383904,
+            "chamfer_norm": 0.2977775312093636
+          }
+        ]
+      },
+      "whole_chamfer": 0.03166047483362093,
+      "whole_chamfer_norm": 0.024868281423862857,
+      "joints": {
+        "truth": 1,
+        "predicted": 4,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.25120781511828333,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793903844.1062784,
+        "model_calls": 18,
+        "tokens": 463080
+      },
+      "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-08",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "Refrigerator/12054",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 4,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.04098483491854522,
+            "chamfer_norm": 0.10712464011123338
+          },
+          {
+            "truth": "link_0",
+            "predicted": "5:part_2_door",
+            "chamfer": 0.002368048786358514,
+            "chamfer_norm": 0.00845886206250301
+          }
+        ]
+      },
+      "whole_chamfer": 0.000848497986722558,
+      "whole_chamfer_norm": 0.0006257669171345545,
+      "joints": {
+        "truth": 1,
+        "predicted": 3,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.25109371333238456,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793903953.2432148,
+        "model_calls": 83,
+        "tokens": 3927389
+      },
+      "evaluations": 3
+    }
+  },
+  "test-09": {
+    "gpt54-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-09",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45717",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.019080164727219462,
+            "chamfer_norm": 0.11673924943201838
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:door",
+            "chamfer": 0.001091423565721382,
+            "chamfer_norm": 0.0007292371367296673
+          }
+        ]
+      },
+      "whole_chamfer": 0.014976396932966629,
+      "whole_chamfer_norm": 0.003742434924654522,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.04333953943197931,
+            "pos": 0.8687200164258072,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793904490.0105693,
+        "model_calls": 23,
+        "tokens": 553959
+      },
+      "evaluations": 3
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-09",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "StorageFurniture/45717",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.0029274610450523543,
+            "chamfer_norm": 0.0037617368121726363
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:door",
+            "chamfer": 0.00020113159827409927,
+            "chamfer_norm": 0.00040603500016117263
+          }
+        ]
+      },
+      "whole_chamfer": 0.0025095946851277705,
+      "whole_chamfer_norm": 0.0010555277330837256,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0022242103024191495,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793904643.4418614,
+        "model_calls": 65,
+        "tokens": 2419013
+      },
+      "evaluations": 5
+    }
+  },
+  "test-10": {
+    "gpt54-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-10",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Laptop/9992",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.001349685696347433,
+            "chamfer_norm": 0.15843103923307897
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:screen",
+            "chamfer": 0.2813487935248376,
+            "chamfer_norm": 0.8047688399661103
+          }
+        ]
+      },
+      "whole_chamfer": 0.13273520504785663,
+      "whole_chamfer_norm": 0.1959577892708367,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.007116882961617749,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905092.4280643,
+        "model_calls": 14,
+        "tokens": 379955
+      },
+      "evaluations": 5
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-10",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "Laptop/9992",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.00011917446650551722,
+            "chamfer_norm": 0.010987257076659575
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:lid",
+            "chamfer": 0.06822100713592434,
+            "chamfer_norm": 0.29785636207133015
+          }
+        ]
+      },
+      "whole_chamfer": 0.02972156716224592,
+      "whole_chamfer_norm": 0.049152391948524964,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.034616882961617745,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905198.8832433,
+        "model_calls": 42,
+        "tokens": 1244369
+      },
+      "evaluations": 8
+    }
+  },
+  "test-11": {
+    "gpt54-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-11",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "Laptop/10125",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "2:lid",
+            "chamfer": 1.0203087149037016,
+            "chamfer_norm": 43.97335826203124
+          },
+          {
+            "truth": "link_1",
+            "predicted": "root",
+            "chamfer": 0.304886592567156,
+            "chamfer_norm": 0.7533792363397
+          }
+        ]
+      },
+      "whole_chamfer": 0.20008317140360055,
+      "whole_chamfer_norm": 0.3148908177951943,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 90.0,
+            "pos": 0.8897013444657369,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905290.8092394,
+        "model_calls": 20,
+        "tokens": 435229
+      },
+      "evaluations": 8
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-11",
+      "masks": "supplied",
+      "selected": 3,
+      "object": "Laptop/10125",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.00041051508948435566,
+            "chamfer_norm": 0.0710071978859168
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:lid",
+            "chamfer": 8.008348326403297e-05,
+            "chamfer_norm": 0.00018062393507058908
+          }
+        ]
+      },
+      "whole_chamfer": 0.0002671466365659845,
+      "whole_chamfer_norm": 0.0005162245639752537,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0353578923855499,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905410.5121663,
+        "model_calls": 114,
+        "tokens": 4801468
+      },
+      "evaluations": 5
+    }
+  },
+  "test-12": {
+    "gpt54-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-12",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/46029",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "2:door",
+            "chamfer": 0.3438983137266773,
+            "chamfer_norm": 0.32143233337765603
+          },
+          {
+            "truth": "link_0",
+            "predicted": "root",
+            "chamfer": 0.17123140021570105,
+            "chamfer_norm": 0.6805226602874699
+          }
+        ]
+      },
+      "whole_chamfer": 0.35424485361488955,
+      "whole_chamfer_norm": 0.12624167360506258,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.9214935966739859,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905765.8892438,
+        "model_calls": 24,
+        "tokens": 668253
+      },
+      "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-12",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "StorageFurniture/46029",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.03294624924218997,
+            "chamfer_norm": 0.025540399198108892
+          },
+          {
+            "truth": "link_0",
+            "predicted": "2:door",
+            "chamfer": 0.003128389790263422,
+            "chamfer_norm": 0.005670682108100103
+          }
+        ]
+      },
+      "whole_chamfer": 0.02812018080192457,
+      "whole_chamfer_norm": 0.010970569108130867,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.026493596673985875,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905902.7390373,
+        "model_calls": 75,
+        "tokens": 2877826
+      },
+      "evaluations": 8
+    }
+  },
+  "test-13": {
+    "gpt54-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-13",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45419",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 1.0940356731420557,
+            "chamfer_norm": 4.839307055287321
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:door",
+            "chamfer": 1.1445740039163237,
+            "chamfer_norm": 1.2768303146670639
+          }
+        ]
+      },
+      "whole_chamfer": 0.6982906628498109,
+      "whole_chamfer_norm": 0.2161337235166077,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 1.2387090326272558,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793906519.6598787,
+        "model_calls": 18,
+        "tokens": 424308
+      },
+      "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-13",
+      "masks": "supplied",
+      "selected": 4,
+      "object": "StorageFurniture/45419",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.004944401000804215,
+            "chamfer_norm": 0.004166973243380424
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:door",
+            "chamfer": 0.00022770972318584293,
+            "chamfer_norm": 0.0002331723989326987
+          }
+        ]
+      },
+      "whole_chamfer": 0.00433074231272074,
+      "whole_chamfer_norm": 0.0018275090405911354,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.001290967372744145,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793906617.0969875,
+        "model_calls": 41,
+        "tokens": 1416828
+      },
+      "evaluations": 7
+    }
+  },
+  "test-14": {
+    "gpt54-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-14",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45203",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.02245562265792375,
+            "chamfer_norm": 0.025244303161695944
+          },
+          {
+            "truth": "link_0",
+            "predicted": "3:inner",
+            "chamfer": 0.3291767155646166,
+            "chamfer_norm": 1.6790838528956442
+          }
+        ]
+      },
+      "whole_chamfer": 0.04380979470398146,
+      "whole_chamfer_norm": 0.021448475136165268,
+      "joints": {
+        "truth": 1,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.460214626659894,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793906646.9281101,
+        "model_calls": 23,
+        "tokens": 579449
+      },
+      "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/datnguyen/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-14",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45203",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.008368996077077199,
+            "chamfer_norm": 0.013231140867175391
+          },
+          {
+            "truth": "link_0",
+            "predicted": "2:door",
+            "chamfer": 0.00023573134868389551,
+            "chamfer_norm": 0.0014938986646109611
+          }
+        ]
+      },
+      "whole_chamfer": 0.007178794658336154,
+      "whole_chamfer_norm": 0.00943444981437987,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.01688431334010604,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793906784.050071,
+        "model_calls": 52,
+        "tokens": 1897259
+      },
+      "evaluations": 7
+    }
+  },
   "test-15": {
     "gpt54-xml": {
       "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-15",
@@ -623,25 +1513,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.08524922781855254,
-            "chamfer_norm": 0.06522518359155863
+            "chamfer": 0.08489509452052697,
+            "chamfer_norm": 0.06477241573548692
           },
           {
             "truth": "link_0",
             "predicted": "2:drawer",
-            "chamfer": 0.3906642786178335,
-            "chamfer_norm": 0.6818000646709959
+            "chamfer": 0.39086098714804385,
+            "chamfer_norm": 0.6819672474244458
           },
           {
             "truth": "link_1",
             "predicted": "3:door",
-            "chamfer": 0.18949131880798367,
-            "chamfer_norm": 0.8121275129354177
+            "chamfer": 0.19000550712617037,
+            "chamfer_norm": 0.8142186671876595
           }
         ]
       },
-      "whole_chamfer": 0.07240975278117207,
-      "whole_chamfer_norm": 0.052181057670888584,
+      "whole_chamfer": 0.07248120297806959,
+      "whole_chamfer_norm": 0.05221274159605359,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -684,25 +1574,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.00884403082999627,
-            "chamfer_norm": 0.00975096399624093
+            "chamfer": 0.008916490471432316,
+            "chamfer_norm": 0.009829470142416183
           },
           {
             "truth": "link_0",
             "predicted": "3:drawer",
-            "chamfer": 0.012040644309080216,
-            "chamfer_norm": 0.055787190345670215
+            "chamfer": 0.01206811899946927,
+            "chamfer_norm": 0.0557828900745915
           },
           {
             "truth": "link_1",
             "predicted": "2:door",
-            "chamfer": 0.0005724927793251909,
-            "chamfer_norm": 0.0020874994007490126
+            "chamfer": 0.0005695540339653851,
+            "chamfer_norm": 0.002074806036747412
           }
         ]
       },
-      "whole_chamfer": 0.007646469429141345,
-      "whole_chamfer_norm": 0.005692954770899846,
+      "whole_chamfer": 0.007473669578745689,
+      "whole_chamfer_norm": 0.00557312023877607,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -747,25 +1637,25 @@
           {
             "truth": "root",
             "predicted": "2:door_right",
-            "chamfer": 0.672285436488133,
-            "chamfer_norm": 0.6177970544507301
+            "chamfer": 0.6704932711905557,
+            "chamfer_norm": 0.6156484818815775
           },
           {
             "truth": "link_0",
             "predicted": "3:door_left",
-            "chamfer": 3.4209112276522307,
-            "chamfer_norm": 15.484039191370188
+            "chamfer": 3.421479863183194,
+            "chamfer_norm": 15.48760689990791
           },
           {
             "truth": "link_1",
             "predicted": "root",
-            "chamfer": 0.8649549904210277,
-            "chamfer_norm": 3.637538573073717
+            "chamfer": 0.8604232910882077,
+            "chamfer_norm": 3.617904699553753
           }
         ]
       },
-      "whole_chamfer": 0.034054799670755406,
-      "whole_chamfer_norm": 0.016059002239141452,
+      "whole_chamfer": 0.034483671184198324,
+      "whole_chamfer_norm": 0.01623350362159666,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -808,25 +1698,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.008045512331585312,
-            "chamfer_norm": 0.005361415966025886
+            "chamfer": 0.008263406855858673,
+            "chamfer_norm": 0.005489453881098322
           },
           {
             "truth": "link_0",
             "predicted": "3:right_door",
-            "chamfer": 0.00038017761015521595,
-            "chamfer_norm": 0.0014439599550473774
+            "chamfer": 0.000378654487346784,
+            "chamfer_norm": 0.0014379159866131732
           },
           {
             "truth": "link_1",
             "predicted": "2:left_door",
-            "chamfer": 0.0004659712572245808,
-            "chamfer_norm": 0.0019453556451104253
+            "chamfer": 0.0004661962572835936,
+            "chamfer_norm": 0.0019467528944004226
           }
         ]
       },
-      "whole_chamfer": 0.0071258562313224905,
-      "whole_chamfer_norm": 0.0035460559291434573,
+      "whole_chamfer": 0.0071583263114951695,
+      "whole_chamfer_norm": 0.0035672696627897646,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -871,25 +1761,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.04835689882452228,
-            "chamfer_norm": 0.04924553693383035
+            "chamfer": 0.048594507200846154,
+            "chamfer_norm": 0.04958463302023479
           },
           {
             "truth": "link_1",
             "predicted": "2:left_door",
-            "chamfer": 0.1277093295395902,
-            "chamfer_norm": 0.21056987830024795
+            "chamfer": 0.12732706387302353,
+            "chamfer_norm": 0.2101919919475102
           },
           {
             "truth": "link_2",
             "predicted": "4:right_door",
-            "chamfer": 0.1292282305120179,
-            "chamfer_norm": 1.1144728985976942
+            "chamfer": 0.1293404126541032,
+            "chamfer_norm": 1.1160470638699982
           }
         ]
       },
-      "whole_chamfer": 0.039120669094595245,
-      "whole_chamfer_norm": 0.018510243705591893,
+      "whole_chamfer": 0.03914017304694527,
+      "whole_chamfer_norm": 0.01849403116378003,
       "joints": {
         "truth": 2,
         "predicted": 3,
@@ -932,25 +1822,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.018476081837458067,
-            "chamfer_norm": 0.0172972489310448
+            "chamfer": 0.018261948261085334,
+            "chamfer_norm": 0.017029985129252894
           },
           {
             "truth": "link_1",
             "predicted": "3:part_1",
-            "chamfer": 0.05298938423211866,
-            "chamfer_norm": 0.3238254498073425
+            "chamfer": 0.05296149147977484,
+            "chamfer_norm": 0.32503900840362304
           },
           {
             "truth": "link_2",
             "predicted": "2:part_0",
-            "chamfer": 0.07592170912655448,
-            "chamfer_norm": 0.7483491256087043
+            "chamfer": 0.0758447521335288,
+            "chamfer_norm": 0.7474109866087446
           }
         ]
       },
-      "whole_chamfer": 0.027334007150414563,
-      "whole_chamfer_norm": 0.012912585288069604,
+      "whole_chamfer": 0.027370035446613285,
+      "whole_chamfer_norm": 0.012945243205298154,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -995,25 +1885,25 @@
           {
             "truth": "root",
             "predicted": "2:upper_door",
-            "chamfer": 0.26478975860578186,
-            "chamfer_norm": 0.1806816214550435
+            "chamfer": 0.2661681717254565,
+            "chamfer_norm": 0.18076103615908987
           },
           {
             "truth": "link_0",
             "predicted": "3:lower_door",
-            "chamfer": 0.610958325451031,
-            "chamfer_norm": 2.489503338932618
+            "chamfer": 0.6109517944507232,
+            "chamfer_norm": 2.4898884581501592
           },
           {
             "truth": "link_1",
             "predicted": "root",
-            "chamfer": 0.4746907320030531,
-            "chamfer_norm": 2.9929189984284577
+            "chamfer": 0.4750547135527281,
+            "chamfer_norm": 2.9958912234323556
           }
         ]
       },
-      "whole_chamfer": 0.1937339981279671,
-      "whole_chamfer_norm": 0.36842971690471915,
+      "whole_chamfer": 0.1931935942900255,
+      "whole_chamfer_norm": 0.36744162933256624,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -1056,25 +1946,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.003984897395847847,
-            "chamfer_norm": 0.0019405979495886465
+            "chamfer": 0.003985504433910672,
+            "chamfer_norm": 0.0019392613855677434
           },
           {
             "truth": "link_0",
             "predicted": "2:lower_door",
-            "chamfer": 0.0006126623243192989,
-            "chamfer_norm": 0.0027237251363979027
+            "chamfer": 0.000625279600219414,
+            "chamfer_norm": 0.0027777063266235884
           },
           {
             "truth": "link_1",
             "predicted": "3:upper_door",
-            "chamfer": 0.0006089224818149663,
-            "chamfer_norm": 0.002923853032308544
+            "chamfer": 0.0006093846479062956,
+            "chamfer_norm": 0.00292031053315202
           }
         ]
       },
-      "whole_chamfer": 0.0034661746333698963,
-      "whole_chamfer_norm": 0.0015178552552270123,
+      "whole_chamfer": 0.0034633691545183755,
+      "whole_chamfer_norm": 0.0015136699326334453,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -1119,25 +2009,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.2642275624784449,
-            "chamfer_norm": 0.3310178101718444
+            "chamfer": 0.26628784534522704,
+            "chamfer_norm": 0.33360309255412596
           },
           {
             "truth": "link_0",
             "predicted": "2:drawer_left",
-            "chamfer": 0.23208406520309743,
-            "chamfer_norm": 0.4506406165813661
+            "chamfer": 0.23042709555705124,
+            "chamfer_norm": 0.44769640690047185
           },
           {
             "truth": "link_1",
             "predicted": "5:door_right",
-            "chamfer": 0.1438255555577509,
-            "chamfer_norm": 8.804661497713658
+            "chamfer": 0.14400448943573463,
+            "chamfer_norm": 8.822165979662621
           }
         ]
       },
-      "whole_chamfer": 0.237461409143738,
-      "whole_chamfer_norm": 0.11141610806083474,
+      "whole_chamfer": 0.23735178807559418,
+      "whole_chamfer_norm": 0.11136585512752736,
       "joints": {
         "truth": 2,
         "predicted": 4,
@@ -1180,8 +2070,8 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.044741957514030345,
-            "chamfer_norm": 0.04785385101537321
+            "chamfer": 0.04457966190983098,
+            "chamfer_norm": 0.047691357273252015
           },
           {
             "truth": "link_0",
@@ -1197,8 +2087,8 @@
           }
         ]
       },
-      "whole_chamfer": 0.027230764643476825,
-      "whole_chamfer_norm": 0.014817600593920972,
+      "whole_chamfer": 0.027243575344300115,
+      "whole_chamfer_norm": 0.014837786198749502,
       "joints": {
         "truth": 2,
         "predicted": 0,
@@ -1243,25 +2133,25 @@
           {
             "truth": "root",
             "predicted": "3:mid_door",
-            "chamfer": 1.2231379800967184,
-            "chamfer_norm": 0.5318546834408339
+            "chamfer": 1.2255899290701466,
+            "chamfer_norm": 0.5328466750697765
           },
           {
             "truth": "link_1",
             "predicted": "root",
-            "chamfer": 4.941090555538134,
-            "chamfer_norm": 23.601384580717774
+            "chamfer": 4.939926684464728,
+            "chamfer_norm": 23.603452727857437
           },
           {
             "truth": "link_2",
             "predicted": "2:left_door",
-            "chamfer": 0.1877910054765014,
-            "chamfer_norm": 11.32138207071225
+            "chamfer": 0.18869831296943762,
+            "chamfer_norm": 11.337432485584582
           }
         ]
       },
-      "whole_chamfer": 0.5418573808009012,
-      "whole_chamfer_norm": 0.14486584097905797,
+      "whole_chamfer": 0.5375728723683757,
+      "whole_chamfer_norm": 0.1437486297851455,
       "joints": {
         "truth": 2,
         "predicted": 3,
@@ -1304,25 +2194,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.003254978744751738,
-            "chamfer_norm": 0.006541774990662826
+            "chamfer": 0.003281816696942024,
+            "chamfer_norm": 0.006609229697918501
           },
           {
             "truth": "link_1",
             "predicted": "3:part_2",
-            "chamfer": 0.0022297343731383827,
-            "chamfer_norm": 0.007080770383174223
+            "chamfer": 0.002182624568693113,
+            "chamfer_norm": 0.006953365195974064
           },
           {
             "truth": "link_2",
             "predicted": "2:part_0",
-            "chamfer": 0.0006813095200455313,
-            "chamfer_norm": 0.04594070546168924
+            "chamfer": 0.0006814065088263422,
+            "chamfer_norm": 0.04598388222238158
           }
         ]
       },
-      "whole_chamfer": 0.002982503402613975,
-      "whole_chamfer_norm": 0.004750138374362928,
+      "whole_chamfer": 0.002979806329863566,
+      "whole_chamfer_norm": 0.004750537119115864,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -1367,25 +2257,25 @@
           {
             "truth": "root",
             "predicted": "3:door",
-            "chamfer": 0.2450144690208701,
-            "chamfer_norm": 0.3390706788121736
+            "chamfer": 0.2450865503959114,
+            "chamfer_norm": 0.33926910813571826
           },
           {
             "truth": "link_0",
             "predicted": "root",
-            "chamfer": 0.5743548561061673,
-            "chamfer_norm": 22.169844099013226
+            "chamfer": 0.5748034098241852,
+            "chamfer_norm": 22.13354346704488
           },
           {
             "truth": "link_1",
             "predicted": "2:drawer",
-            "chamfer": 0.12528322939196926,
-            "chamfer_norm": 0.3845991746909375
+            "chamfer": 0.12570220520045383,
+            "chamfer_norm": 0.3851920440562601
           }
         ]
       },
-      "whole_chamfer": 0.06920634078309676,
-      "whole_chamfer_norm": 0.04014387972750346,
+      "whole_chamfer": 0.06879670933976018,
+      "whole_chamfer_norm": 0.04015381316920939,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -1428,25 +2318,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.002013306018015572,
-            "chamfer_norm": 0.0021632519170484304
+            "chamfer": 0.0020052347342237858,
+            "chamfer_norm": 0.002159743279504805
           },
           {
             "truth": "link_0",
             "predicted": "2:door",
-            "chamfer": 0.0005663391253151616,
-            "chamfer_norm": 0.024725537950800625
+            "chamfer": 0.0005680620142552136,
+            "chamfer_norm": 0.02474575023457365
           },
           {
             "truth": "link_1",
             "predicted": "3:drawer",
-            "chamfer": 0.006869743840017969,
-            "chamfer_norm": 0.038176795478069556
+            "chamfer": 0.006847375809763408,
+            "chamfer_norm": 0.03829514651048709
           }
         ]
       },
-      "whole_chamfer": 0.002325092607206114,
-      "whole_chamfer_norm": 0.0012689728759797962,
+      "whole_chamfer": 0.002357001396617896,
+      "whole_chamfer_norm": 0.0012770895318399101,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -1505,25 +2395,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.007842825062069871,
-            "chamfer_norm": 0.005896169981445386
+            "chamfer": 0.007934803587794918,
+            "chamfer_norm": 0.005969907537757042
           },
           {
             "truth": "link_0",
             "predicted": "3:door",
-            "chamfer": 0.0005677273918679618,
-            "chamfer_norm": 0.0036874799833556187
+            "chamfer": 0.0005670659464337833,
+            "chamfer_norm": 0.003684786666131681
           },
           {
             "truth": "link_1",
             "predicted": "2:drawer",
-            "chamfer": 0.0006628368633478906,
-            "chamfer_norm": 0.0022900368835581733
+            "chamfer": 0.0006584026478207923,
+            "chamfer_norm": 0.0022790722443306608
           }
         ]
       },
-      "whole_chamfer": 0.005242174058696164,
-      "whole_chamfer_norm": 0.003320065395864668,
+      "whole_chamfer": 0.005179952984972481,
+      "whole_chamfer_norm": 0.0033040424658438055,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -1568,25 +2458,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.10800343653093718,
-            "chamfer_norm": 0.5848941352012385
+            "chamfer": 0.10792389997855632,
+            "chamfer_norm": 0.5842026323909482
           },
           {
             "truth": "link_0",
             "predicted": "3:lower_door",
-            "chamfer": 0.12250933503511124,
-            "chamfer_norm": 26.33260707318594
+            "chamfer": 0.12277094487790106,
+            "chamfer_norm": 26.347477467348163
           },
           {
             "truth": "link_1",
             "predicted": "2:upper_door",
-            "chamfer": 0.11970892577776052,
-            "chamfer_norm": 21.348988598493012
+            "chamfer": 0.1198709538490823,
+            "chamfer_norm": 21.41204408878047
           }
         ]
       },
-      "whole_chamfer": 0.07618225276701775,
-      "whole_chamfer_norm": 0.23179228483876274,
+      "whole_chamfer": 0.07651448186033977,
+      "whole_chamfer_norm": 0.23249727483685967,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -1615,6 +2505,67 @@
         "tokens": 427872
       },
       "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-23",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45767",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.00019812123920970383,
+            "chamfer_norm": 0.0006473968409732023
+          },
+          {
+            "truth": "link_0",
+            "predicted": "3:part_5",
+            "chamfer": 0.0006303695453572628,
+            "chamfer_norm": 0.24504181694824353
+          },
+          {
+            "truth": "link_1",
+            "predicted": "2:part_4",
+            "chamfer": 2.976442034661695e-05,
+            "chamfer_norm": 0.010272556762048071
+          }
+        ]
+      },
+      "whole_chamfer": 0.00023787622198562713,
+      "whole_chamfer_norm": 0.0005283702242088638,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.002346682924776522,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.002346682924776522,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793902753.555,
+        "model_calls": 58,
+        "tokens": 2293292
+      },
+      "evaluations": 3
     }
   },
   "test-24": {
@@ -1631,31 +2582,31 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.07009901190964159,
-            "chamfer_norm": 0.054213463615098004
+            "chamfer": 0.07134391862518438,
+            "chamfer_norm": 0.0552506448950619
           },
           {
             "truth": "link_0",
             "predicted": "4:right_door",
-            "chamfer": 0.0652074513274315,
-            "chamfer_norm": 0.2921301491036363
+            "chamfer": 0.06505574616257698,
+            "chamfer_norm": 0.2915255213751573
           },
           {
             "truth": "link_1",
             "predicted": "3:left_door",
-            "chamfer": 0.05557000001259293,
-            "chamfer_norm": 0.20562789965972525
+            "chamfer": 0.05563145498893514,
+            "chamfer_norm": 0.2058007197554065
           },
           {
             "truth": "link_2",
             "predicted": "2:drawer",
-            "chamfer": 0.2877308076078221,
-            "chamfer_norm": 1.8509260115010597
+            "chamfer": 0.2876029755309054,
+            "chamfer_norm": 1.8440546977701389
           }
         ]
       },
-      "whole_chamfer": 0.06259022427243331,
-      "whole_chamfer_norm": 0.03153449463855175,
+      "whole_chamfer": 0.0620419874217276,
+      "whole_chamfer_norm": 0.031282901388768644,
       "joints": {
         "truth": 3,
         "predicted": 3,
@@ -1690,6 +2641,79 @@
         "tokens": 388050
       },
       "evaluations": 1
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-24",
+      "masks": "supplied",
+      "selected": 6,
+      "object": "StorageFurniture/46874",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 4,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.021327319419584934,
+            "chamfer_norm": 0.01644741916790635
+          },
+          {
+            "truth": "link_0",
+            "predicted": "4:left_door",
+            "chamfer": 0.00047023300111784965,
+            "chamfer_norm": 0.0023825801842867304
+          },
+          {
+            "truth": "link_1",
+            "predicted": "3:right_door",
+            "chamfer": 0.0001379907149834854,
+            "chamfer_norm": 0.0006034731894191257
+          },
+          {
+            "truth": "link_2",
+            "predicted": "2:drawer",
+            "chamfer": 0.005532110351458414,
+            "chamfer_norm": 0.04571599228529687
+          }
+        ]
+      },
+      "whole_chamfer": 0.014876915780764208,
+      "whole_chamfer_norm": 0.007162248760959469,
+      "joints": {
+        "truth": 3,
+        "predicted": 3,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.005995756668649155,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.012670194209341235,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793902757.1743915,
+        "model_calls": 46,
+        "tokens": 2479697
+      },
+      "evaluations": 8
     }
   },
   "test-25": {
@@ -1706,8 +2730,8 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.13665059073871536,
-            "chamfer_norm": 0.15263299360108992
+            "chamfer": 0.13618332188584725,
+            "chamfer_norm": 0.15214244784196615
           },
           {
             "truth": "link_0",
@@ -1735,8 +2759,8 @@
           }
         ]
       },
-      "whole_chamfer": 0.03832276985654847,
-      "whole_chamfer_norm": 0.019272288957823847,
+      "whole_chamfer": 0.03862119422308977,
+      "whole_chamfer_norm": 0.019392254492851507,
       "joints": {
         "truth": 4,
         "predicted": 0,
@@ -1777,17 +2801,2259 @@
         "tokens": 475701
       },
       "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-25",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45332",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.02890728759187845,
+            "chamfer_norm": 0.021203873852512184
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.07316966497070472,
+      "whole_chamfer_norm": 0.03299101801085397,
+      "joints": {
+        "truth": 4,
+        "predicted": 0,
+        "missing": 4,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793902763.9751732,
+        "model_calls": 60,
+        "tokens": 2115239
+      },
+      "evaluations": 4
     }
   },
-  "test-26": {},
-  "test-27": {},
-  "test-28": {},
-  "test-29": {},
-  "test-30": {},
-  "test-31": {},
-  "test-32": {},
-  "test-33": {},
-  "test-34": {},
-  "test-35": {},
-  "test-36": {}
+  "test-26": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-26",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45756",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 4,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.16274507472071148,
+            "chamfer_norm": 0.23810547830413745
+          },
+          {
+            "truth": "link_0",
+            "predicted": "2:topdrawer",
+            "chamfer": 0.0867426683325772,
+            "chamfer_norm": 0.18110574480789626
+          },
+          {
+            "truth": "link_1",
+            "predicted": "4:botdrawer",
+            "chamfer": 0.11485035808383233,
+            "chamfer_norm": 0.23628247518370954
+          },
+          {
+            "truth": "link_2",
+            "predicted": "3:middrawer",
+            "chamfer": 0.10892112135030833,
+            "chamfer_norm": 0.2226946401249546
+          }
+        ]
+      },
+      "whole_chamfer": 0.04932614244508699,
+      "whole_chamfer_norm": 0.02492812009035235,
+      "joints": {
+        "truth": 3,
+        "predicted": 3,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793903386.9738078,
+        "model_calls": 18,
+        "tokens": 465799
+      },
+      "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-26",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45756",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.07923407640125504,
+            "chamfer_norm": 0.1194270092679655
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.012591273044800365,
+      "whole_chamfer_norm": 0.006381328180223049,
+      "joints": {
+        "truth": 3,
+        "predicted": 0,
+        "missing": 3,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793903513.375913,
+        "model_calls": 89,
+        "tokens": 3385310
+      },
+      "evaluations": 8
+    }
+  },
+  "test-27": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-27",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45759",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 4,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.06561291644866213,
+            "chamfer_norm": 0.1702760438519219
+          },
+          {
+            "truth": "link_0",
+            "predicted": "4:lowerdoor",
+            "chamfer": 0.27773991389632935,
+            "chamfer_norm": 2.8595477268533283
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": "2:topdoor",
+            "chamfer": 0.17058343614502505,
+            "chamfer_norm": 0.9231332626504846
+          },
+          {
+            "truth": "link_3",
+            "predicted": "3:drawer",
+            "chamfer": 0.4469017804700003,
+            "chamfer_norm": 1.3670418850615735
+          }
+        ]
+      },
+      "whole_chamfer": 0.04355771696215972,
+      "whole_chamfer_norm": 0.04710862493795802,
+      "joints": {
+        "truth": 4,
+        "predicted": 3,
+        "missing": 1,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.5836657023273751,
+            "gt_type": 3
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.5836657023273751,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793903518.7384343,
+        "model_calls": 15,
+        "tokens": 339773
+      },
+      "evaluations": 1
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-27",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "StorageFurniture/45759",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.003898142951443153,
+            "chamfer_norm": 0.0028235318298588086
+          },
+          {
+            "truth": "link_0",
+            "predicted": "2:part_1",
+            "chamfer": 0.0002324225146819203,
+            "chamfer_norm": 0.0019789916907003834
+          },
+          {
+            "truth": "link_1",
+            "predicted": "3:part_2",
+            "chamfer": 0.00014021162430935758,
+            "chamfer_norm": 0.001360603756302945
+          },
+          {
+            "truth": "link_2",
+            "predicted": "5:part_3",
+            "chamfer": 0.0002184292528598609,
+            "chamfer_norm": 0.0012016449745785112
+          },
+          {
+            "truth": "link_3",
+            "predicted": "4:part_4",
+            "chamfer": 0.0049987927944131726,
+            "chamfer_norm": 0.026826008251269903
+          }
+        ]
+      },
+      "whole_chamfer": 0.0028836019475353587,
+      "whole_chamfer_norm": 0.001937527504546629,
+      "joints": {
+        "truth": 4,
+        "predicted": 4,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0063342976726248335,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0063342976726248335,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0063342976726248335,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793903535.8942893,
+        "model_calls": 54,
+        "tokens": 2131225
+      },
+      "evaluations": 4
+    }
+  },
+  "test-28": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-28",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45642",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 6,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "3:drawer_mid",
+            "chamfer": 0.44960991653769083,
+            "chamfer_norm": 0.31175311951004786
+          },
+          {
+            "truth": "link_0",
+            "predicted": "root",
+            "chamfer": 0.26327996931475117,
+            "chamfer_norm": 98.08043438174249
+          },
+          {
+            "truth": "link_1",
+            "predicted": "4:drawer_right",
+            "chamfer": 0.7319360527661594,
+            "chamfer_norm": 23.493447380546282
+          },
+          {
+            "truth": "link_2",
+            "predicted": "5:door_left",
+            "chamfer": 0.05829746762236593,
+            "chamfer_norm": 28.665278391849196
+          },
+          {
+            "truth": "link_3",
+            "predicted": "2:drawer_left",
+            "chamfer": 0.03598758445588353,
+            "chamfer_norm": 9.294847011281934
+          }
+        ]
+      },
+      "whole_chamfer": 0.006923248999888041,
+      "whole_chamfer_norm": 0.021050390755090662,
+      "joints": {
+        "truth": 4,
+        "predicted": 5,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 89.99999999999997,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 89.99999999999997,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 89.99999999999997,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793903639.7169392,
+        "model_calls": 15,
+        "tokens": 440402
+      },
+      "evaluations": 1
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-28",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45642",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.003308546216170244,
+            "chamfer_norm": 0.00606873082959225
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.0015586957359991448,
+      "whole_chamfer_norm": 0.00487055336629719,
+      "joints": {
+        "truth": 4,
+        "predicted": 0,
+        "missing": 4,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793903757.8756342,
+        "model_calls": 45,
+        "tokens": 1499802
+      },
+      "evaluations": 3
+    }
+  },
+  "test-29": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-29",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Table/32324",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "3:drawer_top",
+            "chamfer": 0.2399847585719597,
+            "chamfer_norm": 0.23909937948307716
+          },
+          {
+            "truth": "link_0",
+            "predicted": "2:door_left",
+            "chamfer": 0.22947893544717665,
+            "chamfer_norm": 2.5543258140411678
+          },
+          {
+            "truth": "link_1",
+            "predicted": "4:drawer_mid",
+            "chamfer": 0.8300151689853172,
+            "chamfer_norm": 3.3091310183699116
+          },
+          {
+            "truth": "link_2",
+            "predicted": "root",
+            "chamfer": 0.2904099061659195,
+            "chamfer_norm": 5.247751596884364
+          }
+        ]
+      },
+      "whole_chamfer": 0.05099074882484627,
+      "whole_chamfer_norm": 0.0372410082450226,
+      "joints": {
+        "truth": 3,
+        "predicted": 4,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793904321.8479128,
+        "model_calls": 23,
+        "tokens": 851623
+      },
+      "evaluations": 1
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-29",
+      "masks": "supplied",
+      "selected": 5,
+      "object": "Table/32324",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.012368761113014454,
+            "chamfer_norm": 0.009401926913848535
+          },
+          {
+            "truth": "link_0",
+            "predicted": "4:part_5",
+            "chamfer": 0.002855955656950546,
+            "chamfer_norm": 0.041772009806593305
+          },
+          {
+            "truth": "link_1",
+            "predicted": "3:part_2",
+            "chamfer": 0.004142000728995585,
+            "chamfer_norm": 0.053039568997899564
+          },
+          {
+            "truth": "link_2",
+            "predicted": "2:part_6",
+            "chamfer": 0.0029531523793946777,
+            "chamfer_norm": 0.042998114279280415
+          }
+        ]
+      },
+      "whole_chamfer": 0.012196373781547514,
+      "whole_chamfer_norm": 0.008232244961659078,
+      "joints": {
+        "truth": 3,
+        "predicted": 4,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793904515.7414298,
+        "model_calls": 70,
+        "tokens": 3638186
+      },
+      "evaluations": 8
+    }
+  },
+  "test-30": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-30",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/46109",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.06436303900458609,
+            "chamfer_norm": 0.05193948276423355
+          },
+          {
+            "truth": "link_1",
+            "predicted": "5:drawer4",
+            "chamfer": 0.01053187038714261,
+            "chamfer_norm": 0.01155713702266905
+          },
+          {
+            "truth": "link_2",
+            "predicted": "4:drawer3",
+            "chamfer": 0.005185412960225633,
+            "chamfer_norm": 0.03039357534686419
+          },
+          {
+            "truth": "link_3",
+            "predicted": "3:drawer2",
+            "chamfer": 0.005095035969201721,
+            "chamfer_norm": 0.039892865339211624
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": "2:drawer_top",
+            "chamfer": 0.004986542561603256,
+            "chamfer_norm": 0.041198613653300895
+          }
+        ]
+      },
+      "whole_chamfer": 0.01164590681902603,
+      "whole_chamfer_norm": 0.005076473144426177,
+      "joints": {
+        "truth": 5,
+        "predicted": 4,
+        "missing": 1,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793904554.8977318,
+        "model_calls": 15,
+        "tokens": 346906
+      },
+      "evaluations": 3
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-30",
+      "masks": "supplied",
+      "selected": 7,
+      "object": "StorageFurniture/46109",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 6,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.0009170663712926826,
+            "chamfer_norm": 0.0007177508621287466
+          },
+          {
+            "truth": "link_1",
+            "predicted": "6:part_6",
+            "chamfer": 0.014102243496697343,
+            "chamfer_norm": 0.017428362123203395
+          },
+          {
+            "truth": "link_2",
+            "predicted": "5:part_4",
+            "chamfer": 0.0871772102383746,
+            "chamfer_norm": 0.12291945376176985
+          },
+          {
+            "truth": "link_3",
+            "predicted": "4:part_2",
+            "chamfer": 0.008222593152949724,
+            "chamfer_norm": 0.04213384846648781
+          },
+          {
+            "truth": "link_4",
+            "predicted": "3:part_5",
+            "chamfer": 0.00558057997571669,
+            "chamfer_norm": 0.04143893025894963
+          },
+          {
+            "truth": "link_5",
+            "predicted": "2:part_3",
+            "chamfer": 0.005763405402526548,
+            "chamfer_norm": 0.03413474972630066
+          }
+        ]
+      },
+      "whole_chamfer": 0.0038624590047671116,
+      "whole_chamfer_norm": 0.00185894667424632,
+      "joints": {
+        "truth": 5,
+        "predicted": 5,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793904585.9005616,
+        "model_calls": 77,
+        "tokens": 2748298
+      },
+      "evaluations": 8
+    }
+  },
+  "test-31": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-31",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/46172",
+      "bin": "6-15",
+      "parts": {
+        "truth": 12,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.03668528823019014,
+            "chamfer_norm": 0.04079636669657482
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_10",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_11",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_6",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_7",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_8",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_9",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.031073982096740328,
+      "whole_chamfer_norm": 0.012605120069948876,
+      "joints": {
+        "truth": 11,
+        "predicted": 0,
+        "missing": 11,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793904651.754954,
+        "model_calls": 15,
+        "tokens": 399879
+      },
+      "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-31",
+      "masks": "supplied",
+      "selected": 5,
+      "object": "StorageFurniture/46172",
+      "bin": "6-15",
+      "parts": {
+        "truth": 12,
+        "predicted": 11,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.00025032791001289084,
+            "chamfer_norm": 0.0002266404111220187
+          },
+          {
+            "truth": "link_1",
+            "predicted": "5:part_5",
+            "chamfer": 0.00119388818687958,
+            "chamfer_norm": 0.013100420922962612
+          },
+          {
+            "truth": "link_10",
+            "predicted": "9:part_9",
+            "chamfer": 0.0012088956112797672,
+            "chamfer_norm": 0.0069074288565594754
+          },
+          {
+            "truth": "link_11",
+            "predicted": "4:part_4",
+            "chamfer": 0.004566335675320572,
+            "chamfer_norm": 0.011457694240124315
+          },
+          {
+            "truth": "link_2",
+            "predicted": "3:part_2",
+            "chamfer": 0.0009274215012951965,
+            "chamfer_norm": 0.0047763315968668155
+          },
+          {
+            "truth": "link_3",
+            "predicted": "11:part_11",
+            "chamfer": 0.0028109094607042476,
+            "chamfer_norm": 0.010418867497835344
+          },
+          {
+            "truth": "link_4",
+            "predicted": "8:part_8",
+            "chamfer": 0.002124415584796861,
+            "chamfer_norm": 0.006526699278922181
+          },
+          {
+            "truth": "link_5",
+            "predicted": "10:part_10",
+            "chamfer": 0.06846597605051212,
+            "chamfer_norm": 0.09346130953636438
+          },
+          {
+            "truth": "link_6",
+            "predicted": "7:part_7",
+            "chamfer": 0.0005944350501625929,
+            "chamfer_norm": 0.004385589544405287
+          },
+          {
+            "truth": "link_7",
+            "predicted": "6:part_6",
+            "chamfer": 0.0005999543084174906,
+            "chamfer_norm": 0.0044976077369665406
+          },
+          {
+            "truth": "link_8",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_9",
+            "predicted": "2:group_1_3_12",
+            "chamfer": 0.0033415888468611822,
+            "chamfer_norm": 0.12086221893963356
+          }
+        ]
+      },
+      "whole_chamfer": 0.0016731329545287793,
+      "whole_chamfer_norm": 0.0008207738666068175,
+      "joints": {
+        "truth": 11,
+        "predicted": 10,
+        "missing": 1,
+        "pairing": "assignment",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793904777.6261532,
+        "model_calls": 69,
+        "tokens": 3189138
+      },
+      "evaluations": 6
+    }
+  },
+  "test-32": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-32",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45261",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "2:drawer0",
+            "chamfer": 0.34059083953666913,
+            "chamfer_norm": 0.27178424497180825
+          },
+          {
+            "truth": "link_0",
+            "predicted": "5:drawer3",
+            "chamfer": 0.7575398588084025,
+            "chamfer_norm": 0.869667915592155
+          },
+          {
+            "truth": "link_1",
+            "predicted": "root",
+            "chamfer": 0.6849107409321071,
+            "chamfer_norm": 6.6876750937038985
+          },
+          {
+            "truth": "link_2",
+            "predicted": "4:drawer2",
+            "chamfer": 0.7792008347370504,
+            "chamfer_norm": 0.590917219294994
+          },
+          {
+            "truth": "link_3",
+            "predicted": "3:drawer1",
+            "chamfer": 0.9051246581825715,
+            "chamfer_norm": 1.0087408147989159
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.15697850871360425,
+      "whole_chamfer_norm": 0.04829314451295347,
+      "joints": {
+        "truth": 5,
+        "predicted": 4,
+        "missing": 1,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905808.4300747,
+        "model_calls": 12,
+        "tokens": 296612
+      },
+      "evaluations": 1
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-32",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "StorageFurniture/45261",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.038761097178989436,
+            "chamfer_norm": 0.030113241601658486
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.05067513074900155,
+      "whole_chamfer_norm": 0.017687624520857422,
+      "joints": {
+        "truth": 5,
+        "predicted": 0,
+        "missing": 5,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905839.0979297,
+        "model_calls": 125,
+        "tokens": 6737071
+      },
+      "evaluations": 8
+    }
+  },
+  "test-33": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-33",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "Table/22367",
+      "bin": "6-15",
+      "parts": {
+        "truth": 9,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.039210910047697625,
+            "chamfer_norm": 0.036069401791089535
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": "5:drawer_top",
+            "chamfer": 0.43035380828655784,
+            "chamfer_norm": 2.4317301862862344
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": "3:drawer_midlow",
+            "chamfer": 0.3620816398234832,
+            "chamfer_norm": 4.703940176402625
+          },
+          {
+            "truth": "link_6",
+            "predicted": "4:drawer_midtop",
+            "chamfer": 0.3319087935956794,
+            "chamfer_norm": 0.9969501556992386
+          },
+          {
+            "truth": "link_7",
+            "predicted": "2:drawer_bottom",
+            "chamfer": 0.36770244909366656,
+            "chamfer_norm": 4.743796656930344
+          }
+        ]
+      },
+      "whole_chamfer": 0.036223392020335726,
+      "whole_chamfer_norm": 0.019993583232356723,
+      "joints": {
+        "truth": 8,
+        "predicted": 4,
+        "missing": 4,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905847.6729758,
+        "model_calls": 14,
+        "tokens": 427693
+      },
+      "evaluations": 2
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-33",
+      "masks": "supplied",
+      "selected": 5,
+      "object": "Table/22367",
+      "bin": "6-15",
+      "parts": {
+        "truth": 9,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.007527026326382559,
+            "chamfer_norm": 0.005899096074400357
+          },
+          {
+            "truth": "link_0",
+            "predicted": "5:drawer_4",
+            "chamfer": 0.04363510072518539,
+            "chamfer_norm": 0.262984681293466
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": "4:drawer_3",
+            "chamfer": 0.02768821443461109,
+            "chamfer_norm": 0.4192836376681995
+          },
+          {
+            "truth": "link_5",
+            "predicted": "3:drawer_2",
+            "chamfer": 0.05238628195666695,
+            "chamfer_norm": 0.2862310562414475
+          },
+          {
+            "truth": "link_6",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_7",
+            "predicted": "2:drawer_1",
+            "chamfer": 0.00853128642388113,
+            "chamfer_norm": 0.02551747862465069
+          }
+        ]
+      },
+      "whole_chamfer": 0.004688030216640044,
+      "whole_chamfer_norm": 0.0025405625202075456,
+      "joints": {
+        "truth": 8,
+        "predicted": 4,
+        "missing": 4,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905912.198775,
+        "model_calls": 51,
+        "tokens": 1899706
+      },
+      "evaluations": 8
+    }
+  },
+  "test-34": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-34",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/49062",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "2:b",
+            "chamfer": 0.20785912562410266,
+            "chamfer_norm": 0.11716865370163371
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.2551590420962061,
+      "whole_chamfer_norm": 0.10266229788348821,
+      "joints": {
+        "truth": 6,
+        "predicted": 1,
+        "missing": 5,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.46344220685590676,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793905980.111124,
+        "model_calls": 13,
+        "tokens": 333029
+      },
+      "evaluations": 1
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-34",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/49062",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 7,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.004267110067168584,
+            "chamfer_norm": 0.0021696949242370053
+          },
+          {
+            "truth": "link_0",
+            "predicted": "4:part_3",
+            "chamfer": 0.0024393856704811125,
+            "chamfer_norm": 0.07140233577113667
+          },
+          {
+            "truth": "link_1",
+            "predicted": "7:part_4",
+            "chamfer": 0.012160049529994653,
+            "chamfer_norm": 0.12580857147285748
+          },
+          {
+            "truth": "link_2",
+            "predicted": "3:part_1",
+            "chamfer": 0.02536894691552219,
+            "chamfer_norm": 0.21448740666216987
+          },
+          {
+            "truth": "link_3",
+            "predicted": "6:part_2",
+            "chamfer": 0.005129715406361014,
+            "chamfer_norm": 0.09464796460714694
+          },
+          {
+            "truth": "link_4",
+            "predicted": "2:part_5",
+            "chamfer": 0.0003733131553611508,
+            "chamfer_norm": 0.05197916395131512
+          },
+          {
+            "truth": "link_5",
+            "predicted": "5:part_7",
+            "chamfer": 0.01612525187691064,
+            "chamfer_norm": 0.13397799232517105
+          }
+        ]
+      },
+      "whole_chamfer": 0.005044606819502051,
+      "whole_chamfer_norm": 0.0026055902464096788,
+      "joints": {
+        "truth": 6,
+        "predicted": 6,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0034422068559067376,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0023836000706025096,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0034422068559067376,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0023836000706025096,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0034422068559067376,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0023836000706025096,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793906081.7689922,
+        "model_calls": 80,
+        "tokens": 4698871
+      },
+      "evaluations": 4
+    }
+  },
+  "test-35": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-35",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/47235",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 4,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.04697405332513413,
+            "chamfer_norm": 0.0962375178222546
+          },
+          {
+            "truth": "link_0",
+            "predicted": "4:botdrawer",
+            "chamfer": 0.1855975126290772,
+            "chamfer_norm": 0.3584544719295236
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": "3:middrawer",
+            "chamfer": 0.22516702052312204,
+            "chamfer_norm": 0.4786713722980701
+          },
+          {
+            "truth": "link_5",
+            "predicted": "2:topdoor",
+            "chamfer": 0.21300606781513298,
+            "chamfer_norm": 0.465279131871174
+          }
+        ]
+      },
+      "whole_chamfer": 0.012536467923128104,
+      "whole_chamfer_norm": 0.010333632450725268,
+      "joints": {
+        "truth": 6,
+        "predicted": 3,
+        "missing": 3,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793906550.8903995,
+        "model_calls": 16,
+        "tokens": 381373
+      },
+      "evaluations": 3
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-35",
+      "masks": "supplied",
+      "selected": 5,
+      "object": "StorageFurniture/47235",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 7,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.01425652699240744,
+            "chamfer_norm": 0.015695353441694378
+          },
+          {
+            "truth": "link_0",
+            "predicted": "4:bl",
+            "chamfer": 0.005432671749422518,
+            "chamfer_norm": 0.023727462918768826
+          },
+          {
+            "truth": "link_1",
+            "predicted": "3:ml",
+            "chamfer": 0.006282072266908708,
+            "chamfer_norm": 0.030939790406714532
+          },
+          {
+            "truth": "link_2",
+            "predicted": "2:tl",
+            "chamfer": 0.010822254616020148,
+            "chamfer_norm": 0.10159161819676443
+          },
+          {
+            "truth": "link_3",
+            "predicted": "7:br",
+            "chamfer": 0.005408679318449733,
+            "chamfer_norm": 0.02360950868957678
+          },
+          {
+            "truth": "link_4",
+            "predicted": "6:mr",
+            "chamfer": 0.0075952171242289895,
+            "chamfer_norm": 0.03442229863841381
+          },
+          {
+            "truth": "link_5",
+            "predicted": "5:tr",
+            "chamfer": 0.009264622830181448,
+            "chamfer_norm": 0.10155336003209453
+          }
+        ]
+      },
+      "whole_chamfer": 0.005258304743678061,
+      "whole_chamfer_norm": 0.004535562342694064,
+      "joints": {
+        "truth": 6,
+        "predicted": 6,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793906655.7780585,
+        "model_calls": 87,
+        "tokens": 5139281
+      },
+      "evaluations": 6
+    }
+  },
+  "test-36": {
+    "gpt54-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gpt54-xml/test-36",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/47926",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 8,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.05579353719623202,
+            "chamfer_norm": 0.0956758471510719
+          },
+          {
+            "truth": "link_0",
+            "predicted": "8:right_outer_door",
+            "chamfer": 0.10105564672546904,
+            "chamfer_norm": 3.8141882981108397
+          },
+          {
+            "truth": "link_1",
+            "predicted": "7:right_inner_door",
+            "chamfer": 0.0212586204586151,
+            "chamfer_norm": 0.7980132396209367
+          },
+          {
+            "truth": "link_2",
+            "predicted": "6:mid_door",
+            "chamfer": 0.12224814097184952,
+            "chamfer_norm": 2.720530769323024
+          },
+          {
+            "truth": "link_3",
+            "predicted": "5:left_door",
+            "chamfer": 0.1740881741242542,
+            "chamfer_norm": 1.7055871442259598
+          },
+          {
+            "truth": "link_4",
+            "predicted": "4:right_drawer",
+            "chamfer": 0.019128154975847418,
+            "chamfer_norm": 0.10234094927669746
+          },
+          {
+            "truth": "link_5",
+            "predicted": "2:left_drawer",
+            "chamfer": 0.02710935923491357,
+            "chamfer_norm": 0.13415388724388128
+          }
+        ]
+      },
+      "whole_chamfer": 0.04603086216084593,
+      "whole_chamfer_norm": 0.03101895207036368,
+      "joints": {
+        "truth": 6,
+        "predicted": 7,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.3118855255598819,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.12640297191451352,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.2929888675607003,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.2716381910914847,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793907040.6506944,
+        "model_calls": 21,
+        "tokens": 610881
+      },
+      "evaluations": 1
+    },
+    "gem31-xml": {
+      "study": "/home/amberli/Marc/reconstruction-xml-20261105/runs/gem31-xml/test-36",
+      "masks": "supplied",
+      "selected": 6,
+      "object": "StorageFurniture/47926",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.009545233320083996,
+            "chamfer_norm": 0.027617738873627132
+          },
+          {
+            "truth": "link_0",
+            "predicted": "3:part_3",
+            "chamfer": 0.00010315420672808912,
+            "chamfer_norm": 0.0019638823149076214
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_3",
+            "predicted": "2:part_1",
+            "chamfer": 0.00013453323761319347,
+            "chamfer_norm": 0.0010681645326331302
+          },
+          {
+            "truth": "link_4",
+            "predicted": "5:part_8",
+            "chamfer": 0.003395642247674386,
+            "chamfer_norm": 0.02311619641384878
+          },
+          {
+            "truth": "link_5",
+            "predicted": "4:part_4",
+            "chamfer": 0.01579392697105733,
+            "chamfer_norm": 0.07799705258519637
+          }
+        ]
+      },
+      "whole_chamfer": 0.00127631680391372,
+      "whole_chamfer_norm": 0.0009322791464706141,
+      "joints": {
+        "truth": 6,
+        "predicted": 4,
+        "missing": 2,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.010114474440118038,
+            "gt_type": 3
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.011361808908515236,
+            "gt_type": 3
+          }
+        ]
+      },
+      "budget": {
+        "max_wall_s": 1800.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793907225.1118598,
+        "model_calls": 56,
+        "tokens": 2446079
+      },
+      "evaluations": 7
+    }
+  }
 }
