@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw
 from scipy.spatial.transform import Rotation
 
 from robotl_reconstruction.observations import load_capture
-from robotl_reconstruction.real2code import (
+from robotl_reconstruction.utils.real2code import (
     FOVY_DEG,
     MOVING,
     RESOLUTION,
