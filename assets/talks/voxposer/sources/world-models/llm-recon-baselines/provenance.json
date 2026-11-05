@@ -65,14 +65,524 @@
     "code-connect/src/robotl_reconstruction/utils/segmentation.py": "9e0eeb6e53f9bc4ff08c959d50cc7852f24886f029c315e4fdb75f15373c17d5"
   },
   "snapshot_date": "2026-11-05",
-  "scored_searches": 88,
+  "scored_searches": 148,
   "planned_searches": 148,
-  "rendered_objects": 22,
+  "rendered_objects": 37,
   "planned_objects": 37,
-  "selection": "Canonical validation selection before benchmark scoring; selected scene rendered with its saved parameters and solved connections.",
+  "selection": "Canonical validation selection before benchmark scoring; selected scene rendered with its saved parameters and solved connections. Selected programs without connect calls or Params have no fitting variables and remain explicitly unfitted; no post-selection program edits were made.",
   "comparison_note": "These searches use fit-on-evaluate at 1e71675. Archived GPT-6 film searches used 05fe792, with ten connect fits run after selection.",
   "success_rule": "Chamfer times 1000 <= 10; no missing or extra joints; paired joint type score 1, axis error <= 10 degrees, pivot error <= 0.1 when defined. Range error is the mean of available paired joint range errors and is not part of this success rule.",
   "objects": [
+    {
+      "object": "test-00",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-00.mp4",
+      "reference_sha256": "062315c74a46841f9450906bdaec56a88f0cd6539b8158b00063cc62e77f5629",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": null,
+          "summary_sha256": "d5a8591fa46a19fa6e51a9f01788f1a0b7a42e3114bb92e6ea2b4b20299066cb",
+          "fitted": false
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "8e44f5a771320ee147759c242c947ce9f07d70a44d76945571ccf21243cf9f5a",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": null,
+          "summary_sha256": "0f8566ddc119a9b79c4b6cc59c15e16d04996c7cf886711058f1a0220ba713c7",
+          "fitted": false
+        },
+        {
+          "run": "gem31-connect",
+          "selected": 3,
+          "summary_sha256": "a0c082c7ad971cf3a46f93d53caa6f9daedc36228c34ea9eda3330ef35254f38",
+          "fitted": true
+        }
+      ],
+      "mp4_sha256": "3270ba022504564d6f4de6efa2ba6238f66eef3a2410d0dff62ed150e13aa99b",
+      "jpg_sha256": "567882cd17d41e1b58d5390a6ef91124ea15620c1ae39631c2b1459875bfdb75"
+    },
+    {
+      "object": "test-01",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-01.mp4",
+      "reference_sha256": "6bdac001b3d6fa35166172c708ce5fd8aa1c4fafe31b1bcc67833ca9b9ec13a0",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 1,
+          "summary_sha256": "dbefdb65eaeea0cd49450774abcbc92d40a8d8c154117c61268b9fb60dd96ce7",
+          "fitted": true
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "8fc5714e83c76cd2fe7c93db765ab59544359b22bf419dff4765058c33488d7a",
+          "fitted": true
+        },
+        {
+          "run": "gem31-film",
+          "selected": 0,
+          "summary_sha256": "e23082e1e2a584b47b766497ad9095ccabf8d24a5eaaa2611d40b231b2a08265",
+          "fitted": false
+        },
+        {
+          "run": "gem31-connect",
+          "selected": null,
+          "summary_sha256": "7092992a86cd11f093dcbae6c6a6d228ecc97de11893dbb4732542d8cef7c7cb",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "899f1e4712bcb7801cf09aef92c5e3678ef7c8087ab8dc3d7b30ca185d66a6c8",
+      "jpg_sha256": "5c7042eae12a449a67c0167bbe5cfb5417eb92cc544a1c487316f10c69535bb4"
+    },
+    {
+      "object": "test-02",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-02.mp4",
+      "reference_sha256": "1c7b001037fad46d91ab4408348b72e2fcc97b99e89cfb6a3d1efb694e9e1be3",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": null,
+          "summary_sha256": "54d7c397a18c2ac41a67ba364f9ea7ec6d8b1a1086a7f3c371f064be1818d667",
+          "fitted": false
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "71dee15b5e8a6550e950980303afb2e0ba90a5943107d34f4e49c427a01ce702",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": 1,
+          "summary_sha256": "a43182e4ab8ec8efc2e0f3f217938158fcc0db9bbb3f230f9d3324aa508ac780",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": 4,
+          "summary_sha256": "47c8264b97ee5407a7e15c33a3d730b704ee1dd4299a4dd9337cb2b6c443f78c",
+          "fitted": true
+        }
+      ],
+      "mp4_sha256": "4177fa299639c9155128aa22d578641a624491703657f05249acf57e945062a3",
+      "jpg_sha256": "dd4449ff1a3c43afb2e4b9886a59a49fe7d93ff5152302e9e89a3b9277e3736a"
+    },
+    {
+      "object": "test-03",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-03.mp4",
+      "reference_sha256": "6d292e9c0c7b100b2725931e25fdc194bbebffd817edcc4537281ee32306b3b4",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 0,
+          "summary_sha256": "a33040bb5134e560d36accb57250839cbe4b22119d8f2a2a7eb57f74700ac499",
+          "fitted": true
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "4788fa291709d2194893119acf55baf01330b50b67be95d322b6974a6317b5f4",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": 1,
+          "summary_sha256": "e1d4782812ad8f85b0cf91dc741b850c9c90c6f3ce5f94e4b72c27bae7efec94",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": 2,
+          "summary_sha256": "8976e1c30788b75e79125bbe1a2cee538047e942c8c158bac818c6db26eba0ea",
+          "fitted": true
+        }
+      ],
+      "mp4_sha256": "eb407c90fded355affb70e37bfc504e8b6ed90f84752289840da278801b646d5",
+      "jpg_sha256": "4ccdd6e8f3e081c4a0199d9538af30108eb760c2a257cf3bbd5b1bc911e55aab"
+    },
+    {
+      "object": "test-04",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-04.mp4",
+      "reference_sha256": "d21c01ea73001b799e3e99496bf0a29d3fd7642d80984e54cd5f1ef58e6d4a0d",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 0,
+          "summary_sha256": "2779ae79fc7e9852583ee2476a1149fd140248154802f774f95686fcddf2fa5d",
+          "fitted": true
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": null,
+          "summary_sha256": "0323685b1e2332b294238bea9da36dfcd64f7206f9b6959226fee72658d3811e",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": 0,
+          "summary_sha256": "9d955e9f7789ee091a31f19d51142e279178bd373927f3eb8bb69aa3f5b49039",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": null,
+          "summary_sha256": "99444cf5c2c94ae30c759aa50d876534f734be8c2210211c3b73bb96b1f15283",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "5b43514f3f1b16ee1b78b827835c963dd3316b01953409c4e415b5f6ba5c2881",
+      "jpg_sha256": "aa4e8f2164dd9beaee403c37115baf1693645fba214a498a6e2f3f5e877063b9"
+    },
+    {
+      "object": "test-05",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-05.mp4",
+      "reference_sha256": "1c4b0d0aae7806da8447b354294811b6887e44985028af01362704befb33c80e",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": null,
+          "summary_sha256": "fa30849fe12ba391f6742dfeddbe6de7d2139f77ece760cc319daf0560104531",
+          "fitted": false
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "af4e1931017c4876095a12454f9afbdf18f59e09e219aa95f0544dad1268eff0",
+          "fitted": true
+        },
+        {
+          "run": "gem31-film",
+          "selected": null,
+          "summary_sha256": "1b7faa8372d77ab4d2f299c72e0639e9a93f975efd6619d5a673c1bba57f687b",
+          "fitted": false
+        },
+        {
+          "run": "gem31-connect",
+          "selected": 4,
+          "summary_sha256": "659024f39018f3cc1f7b0a69065b68dbed2305ba0491f94de9ebd905ec64b212",
+          "fitted": true
+        }
+      ],
+      "mp4_sha256": "7e36b32998d5ce00df00df2928a91ea00aae178f5a8724aa7118290d00a76108",
+      "jpg_sha256": "ca5b4d2ad579ee2583836e59921f5a88009a441fc7fcc2911e703b37926cb8dc"
+    },
+    {
+      "object": "test-06",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-06.mp4",
+      "reference_sha256": "d5d7530f2a38ecfb75012970d0126c5428982227978a3bd2d444baa8d6ebd894",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 0,
+          "summary_sha256": "564b5751894e9ee1e8990a0bd299acb336fc65abf3ac1ef6ee7fc95ef0020939",
+          "fitted": true
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 1,
+          "summary_sha256": "66f17d57557ba1bffa3757175a1172633997236bfb454bf8d0b0c55291d97ae0",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": 0,
+          "summary_sha256": "67c2135545fc3b4d1fb3e662c0c1ed15e3bb689449649b0c1eb2e863e1b752bf",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": null,
+          "summary_sha256": "476c097b6163027be5dc777c62827b3db76a1008a1b3bf4ad4a8e2dbe272d215",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "8626e58940aa6f15652dcc5605993ab2f9ecac4010c49e3c6964be084bf112db",
+      "jpg_sha256": "aa9730661747ccf34a78bfe39026de534b558437d893810b29ee445c84a0fc36"
+    },
+    {
+      "object": "test-07",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-07.mp4",
+      "reference_sha256": "ee21f55f333a228a1500386d3df9607dc0281939de5417d9d6798e1aec26c1ae",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 0,
+          "summary_sha256": "50af49020a796e523937d17be0166d05d9a2240e138af51f27150fa63ca64b49",
+          "fitted": false
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "d9ab36b8bf2a946c559575548868e4b9baf60bf38f3eb4861473b276e43eeb72",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": 0,
+          "summary_sha256": "392aa30eb300671f99c3834b4a61334ffe46027a3f1336bce1539b8981ebc357",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": null,
+          "summary_sha256": "51af09c1c9fcac51f90530bd4db8c309a993b4ddb0b7d59b9794dcea177c6d31",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "d495808d50a0504d2eb6dc92cdfcdbb8364521225d10f95931f1e8965c0f71e2",
+      "jpg_sha256": "379df1bd3a9b5243f67d5c25bea07a99c9dd003be92189e1abcb9d2448854288"
+    },
+    {
+      "object": "test-08",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-08.mp4",
+      "reference_sha256": "afa721f34918715737c09432d6c4296a5cdaef6f9110616c8c48bb38057ce43a",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 0,
+          "summary_sha256": "4bcc14441099020e2eab63127542124ad3116cddb5a564ead9d3ec415f5d1be3",
+          "fitted": true
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "e4cae1931261ab4a19c3c185cff8fc98fdf4510e8c387df3dbef73b747fef69e",
+          "fitted": true
+        },
+        {
+          "run": "gem31-film",
+          "selected": null,
+          "summary_sha256": "3bb1b18f6b63d9f5d1ff18863c215ceae1f46ad550ffdd923144cdd06fe6c0e9",
+          "fitted": false
+        },
+        {
+          "run": "gem31-connect",
+          "selected": 0,
+          "summary_sha256": "a4c75a66e77d057bd8ff27facc9fd4838e45c10ed3722ac001b6f671f2c7d6e2",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "19c6705b4effd1af539f3ee06eae237e2c12c60fa0d7d7a4f7abaec1deb6085f",
+      "jpg_sha256": "19416978dae08a20f6411096c3dd5658db75716b3cf5f045e8e204cf923fbcd8"
+    },
+    {
+      "object": "test-09",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-09.mp4",
+      "reference_sha256": "86742d34c5206c64f60fad70352fa0aa8cc9dd1df0df5c28fc5d80f2e0a8638d",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": null,
+          "summary_sha256": "a8046ecbc15254eb4ddcbcd4250d0bb32c015873b84a8264024afe513aede46d",
+          "fitted": false
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "679177c759b44b9bbf70367cd99aa7257192f29b3ea4655b40e47ac5563e6a99",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": null,
+          "summary_sha256": "3a4f0b467171b8ea9afac52dd117f1a9b8bf4c425cb82b02de5acfeee9846853",
+          "fitted": false
+        },
+        {
+          "run": "gem31-connect",
+          "selected": null,
+          "summary_sha256": "a9d66758dfb480b5c028088e33b31aa23a49389ced524f2f1459cfc909de0339",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "98c7db22ba2b915bb740a04583569ee9f3fc4254f0e40330a762490ed280f30f",
+      "jpg_sha256": "734718b14df80f230c62b9030cf109c0fca5351fdb96225af8cd00e146dca76d"
+    },
+    {
+      "object": "test-10",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-10.mp4",
+      "reference_sha256": "64a6f993580d94e99f2cd55669df95ed4bc12f7e8c8a10399927323cea774baf",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 0,
+          "summary_sha256": "425e3c1f5100fca5840a7797306b6f01ab93ab2ffe5697ab179fa6b9ffde0d23",
+          "fitted": false
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "bd9c07d6eaa1ff89cb11b37a977fd07e859609ba2c5e2af891a157981d0cce8b",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": 7,
+          "summary_sha256": "6a981b8227d1157b717891f7f5127c0ad21f56953f9ecbf7f8a35106c9c1db8a",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": 6,
+          "summary_sha256": "bd0598044f580e174d1251f5a701163ca5cdf41fec1fc421263ce3f4142c1451",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "db4a8fb56ae5ed5fbb7d455873513c484a0a20054da31266ba8bfff94b2ee4ed",
+      "jpg_sha256": "4078039202e33978fbd60dd2e43159f44cffe39edd672c37c7d15e5455b9f4b6"
+    },
+    {
+      "object": "test-11",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-11.mp4",
+      "reference_sha256": "d7575bc9aa3cba13fdb53299af4b9522728e3acf9e86b6ba2f068aae36cbfa76",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": null,
+          "summary_sha256": "3c098fa48636c3baf5f61bf766892d4cddb0a46e9c7d361d565eca0366f7a915",
+          "fitted": false
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 1,
+          "summary_sha256": "828f1c6695e34cb63a63685d29b81da12b2edd53513dd7fafafda000817fb6ee",
+          "fitted": true
+        },
+        {
+          "run": "gem31-film",
+          "selected": 6,
+          "summary_sha256": "db6e6a80290254f1af47a721ae73b6bc9003896488e015edcc938b767d8d50d0",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": null,
+          "summary_sha256": "d046dd6923c96d79560585c86eca8291c9f5d1c50a41c7e47338d6013d4e7499",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "e9e904f9649e46922e209760913480f4e7a8e9b0f9ee07a386e199c830dfd159",
+      "jpg_sha256": "b248ce170518f5f4bdfd5c35dc2badf5ade2730cc97b39396796e7bd5f0225f4"
+    },
+    {
+      "object": "test-12",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-12.mp4",
+      "reference_sha256": "2762f84d1e6cd78822d768e69ec3bc7639455938a547d276b278b134b26f0011",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 0,
+          "summary_sha256": "a3ce64bf26e919586845eec254a5c0077e360d44eaf815bb0b250d2f5061dca1",
+          "fitted": true
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "71dd04d0d257d24edd4760ccb142dc6e4e1927090fb2309e36c9020d1e2da9b1",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": 1,
+          "summary_sha256": "df313bf855a4df6c406094867d290e209af6146b3fe219c7be552b0b80832898",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": null,
+          "summary_sha256": "b17a0601b724cc45b8d0daa57314d15942bf0885efbb25f2dfa35c7ca969a55e",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "b8a4ba7b8285f6a7656284da81cd43481fd639f8e19a1fce2603b96500d30eb0",
+      "jpg_sha256": "0a10690713e9fc338b868022dc991a612f3b3a2080e63c4567ec7d5f6eea33b4"
+    },
+    {
+      "object": "test-13",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-13.mp4",
+      "reference_sha256": "5bb3fc0402ea4d5355a81a7bb5f6d6c800b9896924f302101a96f4d24d77cd0c",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 0,
+          "summary_sha256": "df6b7362819605e9a693942b56fa93cdd1ecfbd677d0318b383f0689e2d86de7",
+          "fitted": true
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "33e88417d27864cc76fe30d8cd33c5eaefc9169676cfbb7ddac7a3be53434d95",
+          "fitted": true
+        },
+        {
+          "run": "gem31-film",
+          "selected": 3,
+          "summary_sha256": "c88c06352b1cbe1caa163393b464a7d784558b2efd31dbb813ab828062cb89c9",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": 3,
+          "summary_sha256": "9f6f3f45ea6f83ef77cf6611bc61c4ac712392b133dd0a258543710355a130f1",
+          "fitted": true
+        }
+      ],
+      "mp4_sha256": "7723bdb3063ec434e668280e037493da102e25ea724986b27fcd732dd5da63d7",
+      "jpg_sha256": "cdd10a5787b85729016759a71d282feed33a4ae089d75dc7229c957ce1d8d165"
+    },
+    {
+      "object": "test-14",
+      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-14.mp4",
+      "reference_sha256": "6853b5d24dc0b18293340c06b1942fb1eab4a2effafab67122aa5e421ba2d371",
+      "reference_panel": 0,
+      "runs": [
+        {
+          "run": "gpt54-film",
+          "selected": 0,
+          "summary_sha256": "4ed14df57f3c2678b310086fd125d6efaf5fe477f80711adff52fd9ad4d6f364",
+          "fitted": false
+        },
+        {
+          "run": "gpt54-connect",
+          "selected": 0,
+          "summary_sha256": "8b096ba82df1771e4e74ad12d1e8a44dcefeb78c76bc2204ea37d3c553f3e442",
+          "fitted": false
+        },
+        {
+          "run": "gem31-film",
+          "selected": 0,
+          "summary_sha256": "57155b237cafd158c7cccdf3e6bf787eb989f0d61e8472cfd110b983efbbb575",
+          "fitted": true
+        },
+        {
+          "run": "gem31-connect",
+          "selected": null,
+          "summary_sha256": "9da3dc4e0daac15480d33b02dff34a9d439fac91f7b241e10f01ecb51d240e96",
+          "fitted": false
+        }
+      ],
+      "mp4_sha256": "68d7895095e5f2dc6c5bec1a4b49ea2b2cf183507eb0d13696823a9eb156c3b0",
+      "jpg_sha256": "22b125434c0c9efdb3b47051192283af04da631adb1ada2ace52ff8923afc7fe"
+    },
     {
       "object": "test-15",
       "reference": "/home/amberli/joints-media/out-single/test-15.mp4",

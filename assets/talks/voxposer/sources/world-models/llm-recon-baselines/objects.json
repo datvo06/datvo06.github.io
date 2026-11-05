@@ -26,112 +26,465 @@
       "name": "test-00",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": null,
+        "gpt54-connect": {
+          "cd": 5.199597918234725,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-film": null,
+        "gem31-connect": {
+          "cd": 3.071634263308126,
+          "found": 1,
+          "true": 1,
+          "ok": true,
+          "range": 0.08302812413735816,
+          "fitted": true
+        }
+      }
     },
     {
       "name": "test-01",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 8.478566779190556,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.2694646895891659,
+          "fitted": true
+        },
+        "gpt54-connect": {
+          "cd": 2.4810787176120845,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.040948365150013544,
+          "fitted": true
+        },
+        "gem31-film": {
+          "cd": 56.890480734270376,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-connect": null
+      }
     },
     {
       "name": "test-02",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": null,
+        "gpt54-connect": {
+          "cd": 322.71497287545463,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-film": {
+          "cd": 5.961557497539375,
+          "found": 1,
+          "true": 1,
+          "ok": true,
+          "range": 0.7891428233074207,
+          "fitted": true
+        },
+        "gem31-connect": {
+          "cd": 29.561744819784963,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.02381871955659909,
+          "fitted": true
+        }
+      }
     },
     {
       "name": "test-03",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 134.35434531162784,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.8466485548093783,
+          "fitted": true
+        },
+        "gpt54-connect": {
+          "cd": 149.67158704363626,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-film": {
+          "cd": 6.762935430173016,
+          "found": 1,
+          "true": 1,
+          "ok": true,
+          "range": 0.7227830871161196,
+          "fitted": true
+        },
+        "gem31-connect": {
+          "cd": 7.367955598192244,
+          "found": 1,
+          "true": 1,
+          "ok": true,
+          "range": 0.03299696056951662,
+          "fitted": true
+        }
+      }
     },
     {
       "name": "test-04",
       "category": "Refrigerator",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 122.30992296503298,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.7843132328930025,
+          "fitted": true
+        },
+        "gpt54-connect": null,
+        "gem31-film": {
+          "cd": 148.80426222787557,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.4148043050215223,
+          "fitted": true
+        },
+        "gem31-connect": null
+      }
     },
     {
       "name": "test-05",
       "category": "Laptop",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": null,
+        "gpt54-connect": {
+          "cd": 16.210194761016105,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.21687096322148725,
+          "fitted": true
+        },
+        "gem31-film": null,
+        "gem31-connect": {
+          "cd": 83.16076223256843,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.6640254225726805,
+          "fitted": true
+        }
+      }
     },
     {
       "name": "test-06",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 217.42289859437588,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.12757864308493372,
+          "fitted": true
+        },
+        "gpt54-connect": {
+          "cd": 74.49631685444486,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-film": {
+          "cd": 29.176549199017305,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.35463899084520645,
+          "fitted": true
+        },
+        "gem31-connect": null
+      }
     },
     {
       "name": "test-07",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 72.22450844724109,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gpt54-connect": {
+          "cd": 209.5141538424701,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-film": {
+          "cd": 340.3767748161135,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": true
+        },
+        "gem31-connect": null
+      }
     },
     {
       "name": "test-08",
       "category": "Refrigerator",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 61.698174358973326,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.8756716223035689,
+          "fitted": true
+        },
+        "gpt54-connect": {
+          "cd": 6.452864515311906,
+          "found": 1,
+          "true": 1,
+          "ok": true,
+          "range": 0.02512694497143264,
+          "fitted": true
+        },
+        "gem31-film": null,
+        "gem31-connect": {
+          "cd": 31.13918518915427,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        }
+      }
     },
     {
       "name": "test-09",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": null,
+        "gpt54-connect": {
+          "cd": 220.21023953453528,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-film": null,
+        "gem31-connect": null
+      }
     },
     {
       "name": "test-10",
       "category": "Laptop",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 85.33152605111584,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gpt54-connect": {
+          "cd": 93.67432790573072,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-film": {
+          "cd": 1.1170647223250336,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.9999655879385795,
+          "fitted": true
+        },
+        "gem31-connect": {
+          "cd": 5.270253495629909,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        }
+      }
     },
     {
       "name": "test-11",
       "category": "Laptop",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": null,
+        "gpt54-connect": {
+          "cd": 0.6379641725467801,
+          "found": 1,
+          "true": 1,
+          "ok": true,
+          "range": 0.05701408679665643,
+          "fitted": true
+        },
+        "gem31-film": {
+          "cd": 34.404546870094634,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.45467171701745723,
+          "fitted": true
+        },
+        "gem31-connect": null
+      }
     },
     {
       "name": "test-12",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 199.47826082220672,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.15958681052113488,
+          "fitted": true
+        },
+        "gpt54-connect": {
+          "cd": 250.5993779881678,
+          "found": 0,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-film": {
+          "cd": 99.15690897962875,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.7658868650651338,
+          "fitted": true
+        },
+        "gem31-connect": null
+      }
     },
     {
       "name": "test-13",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 55.75152631022261,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.49489222607213,
+          "fitted": true
+        },
+        "gpt54-connect": {
+          "cd": 35.301109719534125,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.09805173104567344,
+          "fitted": true
+        },
+        "gem31-film": {
+          "cd": 114.19127177801498,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.5183099851313475,
+          "fitted": true
+        },
+        "gem31-connect": {
+          "cd": 4.803058799968115,
+          "found": 1,
+          "true": 1,
+          "ok": true,
+          "range": 0.007209445666778835,
+          "fitted": true
+        }
+      }
     },
     {
       "name": "test-14",
       "category": "StorageFurniture",
       "parts": 2,
-      "status": "pending",
-      "runs": {}
+      "runs": {
+        "gpt54-film": {
+          "cd": 56.67329391042611,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gpt54-connect": {
+          "cd": 7.62222046091577,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 1.0,
+          "fitted": false
+        },
+        "gem31-film": {
+          "cd": 14.974959685436055,
+          "found": 1,
+          "true": 1,
+          "ok": false,
+          "range": 0.49482502539392514,
+          "fitted": true
+        },
+        "gem31-connect": null
+      }
     },
     {
       "name": "test-15",
       "category": "StorageFurniture",
       "parts": 3,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 207.69484522462292,
@@ -157,7 +510,6 @@
       "name": "test-16",
       "category": "StorageFurniture",
       "parts": 3,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 245.39356889241878,
@@ -197,7 +549,6 @@
       "name": "test-17",
       "category": "Refrigerator",
       "parts": 3,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 56.69646139661074,
@@ -230,7 +581,6 @@
       "name": "test-18",
       "category": "StorageFurniture",
       "parts": 3,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": {
@@ -256,7 +606,6 @@
       "name": "test-19",
       "category": "StorageFurniture",
       "parts": 3,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": null,
@@ -275,7 +624,6 @@
       "name": "test-20",
       "category": "StorageFurniture",
       "parts": 3,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": {
@@ -308,7 +656,6 @@
       "name": "test-21",
       "category": "StorageFurniture",
       "parts": 3,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 211.74530201486886,
@@ -334,7 +681,6 @@
       "name": "test-22",
       "category": "Table",
       "parts": 3,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 23.862330299924803,
@@ -367,7 +713,6 @@
       "name": "test-23",
       "category": "StorageFurniture",
       "parts": 3,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": {
@@ -400,7 +745,6 @@
       "name": "test-24",
       "category": "StorageFurniture",
       "parts": 4,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": null,
@@ -419,7 +763,6 @@
       "name": "test-25",
       "category": "StorageFurniture",
       "parts": 5,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": {
@@ -438,7 +781,6 @@
       "name": "test-26",
       "category": "StorageFurniture",
       "parts": 4,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 25.958685339456938,
@@ -471,7 +813,6 @@
       "name": "test-27",
       "category": "StorageFurniture",
       "parts": 5,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": {
@@ -490,7 +831,6 @@
       "name": "test-28",
       "category": "StorageFurniture",
       "parts": 5,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": {
@@ -509,7 +849,6 @@
       "name": "test-29",
       "category": "Table",
       "parts": 4,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 77.25461346455295,
@@ -542,7 +881,6 @@
       "name": "test-30",
       "category": "StorageFurniture",
       "parts": 6,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 404.0112005247703,
@@ -582,7 +920,6 @@
       "name": "test-31",
       "category": "StorageFurniture",
       "parts": 12,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": null,
@@ -594,7 +931,6 @@
       "name": "test-32",
       "category": "StorageFurniture",
       "parts": 6,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": {
@@ -620,7 +956,6 @@
       "name": "test-33",
       "category": "Table",
       "parts": 9,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 135.66759173919576,
@@ -646,7 +981,6 @@
       "name": "test-34",
       "category": "StorageFurniture",
       "parts": 7,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 419.4506797969041,
@@ -679,7 +1013,6 @@
       "name": "test-35",
       "category": "StorageFurniture",
       "parts": 7,
-      "status": "ready",
       "runs": {
         "gpt54-film": null,
         "gpt54-connect": {
@@ -705,7 +1038,6 @@
       "name": "test-36",
       "category": "StorageFurniture",
       "parts": 7,
-      "status": "ready",
       "runs": {
         "gpt54-film": {
           "cd": 268.09490488884734,
