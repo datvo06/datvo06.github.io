@@ -1,0 +1,204 @@
+{
+  "sample_pairs": 120,
+  "headline": {
+    "reader": {
+      "F1": 79.26075869502357,
+      "precision": 86.34515149779484,
+      "recall": 73.25072886297382,
+      "weighted_pairs": 1766.999999999997,
+      "weighted_wrong_pairs": 368.35000000000025,
+      "pair_error_percent": 20.846066779852904
+    },
+    "stronger": {
+      "F1": 70.69880334161215,
+      "precision": 84.3320764880151,
+      "recall": 60.86005830903794,
+      "weighted_pairs": 1766.999999999997,
+      "weighted_wrong_pairs": 501.1000000000003,
+      "pair_error_percent": 28.358800226372445
+    },
+    "rules": {
+      "F1": 57.06387599960513,
+      "precision": 88.40624044050168,
+      "recall": 42.128279883381964,
+      "weighted_pairs": 1766.999999999997,
+      "weighted_wrong_pairs": 637.6499999999999,
+      "pair_error_percent": 36.08658743633282
+    }
+  },
+  "by_stratum": {
+    "correct_negative": {
+      "reader": {
+        "F1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "weighted_pairs": 457.00000000000017,
+        "weighted_wrong_pairs": 22.85,
+        "pair_error_percent": 4.999999999999998
+      },
+      "stronger": {
+        "F1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "weighted_pairs": 457.00000000000017,
+        "weighted_wrong_pairs": 0.0,
+        "pair_error_percent": 0.0
+      },
+      "rules": {
+        "F1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "weighted_pairs": 457.00000000000017,
+        "weighted_wrong_pairs": 0.0,
+        "pair_error_percent": 0.0
+      }
+    },
+    "correct_positive": {
+      "reader": {
+        "F1": 91.89189189189189,
+        "precision": 100.0,
+        "recall": 85.0,
+        "weighted_pairs": 807.0000000000002,
+        "weighted_wrong_pairs": 121.05000000000001,
+        "pair_error_percent": 14.999999999999998
+      },
+      "stronger": {
+        "F1": 78.78787878787878,
+        "precision": 100.0,
+        "recall": 64.99999999999999,
+        "weighted_pairs": 807.0000000000002,
+        "weighted_wrong_pairs": 282.45,
+        "pair_error_percent": 34.99999999999999
+      },
+      "rules": {
+        "F1": 66.66666666666667,
+        "precision": 100.0,
+        "recall": 49.99999999999999,
+        "weighted_pairs": 807.0000000000002,
+        "weighted_wrong_pairs": 403.50000000000006,
+        "pair_error_percent": 49.99999999999999
+      }
+    },
+    "false_positive": {
+      "reader": {
+        "F1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "weighted_pairs": 281.0000000000001,
+        "weighted_wrong_pairs": 70.25,
+        "pair_error_percent": 24.99999999999999
+      },
+      "stronger": {
+        "F1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "weighted_pairs": 281.0000000000001,
+        "weighted_wrong_pairs": 98.35,
+        "pair_error_percent": 34.999999999999986
+      },
+      "rules": {
+        "F1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "weighted_pairs": 281.0000000000001,
+        "weighted_wrong_pairs": 42.150000000000006,
+        "pair_error_percent": 14.999999999999996
+      }
+    },
+    "missed_absent": {
+      "reader": {
+        "F1": 46.15384615384615,
+        "precision": 100.0,
+        "recall": 30.0,
+        "weighted_pairs": 60.0,
+        "weighted_wrong_pairs": 42.0,
+        "pair_error_percent": 70.0
+      },
+      "stronger": {
+        "F1": 46.15384615384615,
+        "precision": 100.0,
+        "recall": 30.0,
+        "weighted_pairs": 60.0,
+        "weighted_wrong_pairs": 42.0,
+        "pair_error_percent": 70.0
+      },
+      "rules": {
+        "F1": 26.08695652173913,
+        "precision": 100.0,
+        "recall": 15.0,
+        "weighted_pairs": 60.0,
+        "weighted_wrong_pairs": 51.0,
+        "pair_error_percent": 85.0
+      }
+    },
+    "missed_available": {
+      "reader": {
+        "F1": 58.06451612903228,
+        "precision": 81.81818181818183,
+        "recall": 45.000000000000014,
+        "weighted_pairs": 95.99999999999997,
+        "weighted_wrong_pairs": 52.79999999999999,
+        "pair_error_percent": 55.00000000000001
+      },
+      "stronger": {
+        "F1": 80.00000000000001,
+        "precision": 93.33333333333334,
+        "recall": 70.00000000000001,
+        "weighted_pairs": 95.99999999999997,
+        "weighted_wrong_pairs": 28.8,
+        "pair_error_percent": 30.00000000000001
+      },
+      "rules": {
+        "F1": 25.0,
+        "precision": 74.99999999999999,
+        "recall": 15.000000000000002,
+        "weighted_pairs": 95.99999999999997,
+        "weighted_wrong_pairs": 81.59999999999998,
+        "pair_error_percent": 85.0
+      }
+    },
+    "wrong_label": {
+      "reader": {
+        "F1": 14.81481481481482,
+        "precision": 28.57142857142857,
+        "recall": 10.000000000000004,
+        "weighted_pairs": 65.99999999999997,
+        "weighted_wrong_pairs": 59.39999999999998,
+        "pair_error_percent": 90.00000000000001
+      },
+      "stronger": {
+        "F1": 34.482758620689665,
+        "precision": 55.55555555555555,
+        "recall": 25.00000000000001,
+        "weighted_pairs": 65.99999999999997,
+        "weighted_wrong_pairs": 49.499999999999986,
+        "pair_error_percent": 75.0
+      },
+      "rules": {
+        "F1": 16.000000000000007,
+        "precision": 40.0,
+        "recall": 10.000000000000004,
+        "weighted_pairs": 65.99999999999997,
+        "weighted_wrong_pairs": 59.39999999999998,
+        "pair_error_percent": 90.00000000000001
+      }
+    }
+  },
+  "paired_F1_intervals": {
+    "stronger_minus_reader": [
+      -20.83657840068797,
+      0.8305065672697509
+    ],
+    "rules_minus_reader": [
+      -39.91730009133764,
+      -8.140531225090768
+    ],
+    "rules_minus_stronger": [
+      -26.843065659152096,
+      -3.7146007566347237
+    ]
+  },
+  "unresolved_cases": 92,
+  "unresolved_weighted_pairs": 1234.95,
+  "uncertainty": "Within-stratum pair bootstrap conditional on saved outputs; no finite-population or generation-variability correction. Development data."
+}

@@ -1,0 +1,113 @@
+{
+  "meaning": {
+    "readings": [
+      {
+        "events": [
+          {
+            "id": "e1",
+            "trigger": {
+              "start": 68,
+              "end": 85
+            },
+            "action": "treatment",
+            "meaning": "treatment failure",
+            "roles": [
+              {
+                "id": "r1",
+                "role": "actor",
+                "members": [
+                  {
+                    "start": 30,
+                    "end": 37
+                  },
+                  {
+                    "start": 42,
+                    "end": 55
+                  }
+                ]
+              },
+              {
+                "id": "r2",
+                "role": "affected",
+                "members": [
+                  {
+                    "start": 92,
+                    "end": 110
+                  },
+                  {
+                    "start": 115,
+                    "end": 138
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "scopes": [],
+        "references": [],
+        "coordinations": [
+          {
+            "actor_role": "r1",
+            "affected_role": "r2",
+            "pairing": "respectively",
+            "cue": {
+              "start": 139,
+              "end": 153
+            }
+          }
+        ],
+        "unresolved": [],
+        "coverage": "The sentence reports treatment failure in patients with loiasis and mansonellosis, with the two conditions paired respectively to the two listed drugs."
+      }
+    ]
+  },
+  "report": {
+    "readings": [
+      {
+        "event_links": {
+          "coordinations[0]": "e1"
+        },
+        "witnesses": [
+          {
+            "event": "e1",
+            "actor": [
+              30,
+              37
+            ],
+            "affected": [
+              92,
+              110
+            ],
+            "commitment": "affirmed",
+            "premises": [
+              "e1",
+              "r1",
+              "r2",
+              "coordinations[0]"
+            ]
+          },
+          {
+            "event": "e1",
+            "actor": [
+              42,
+              55
+            ],
+            "affected": [
+              115,
+              138
+            ],
+            "commitment": "affirmed",
+            "premises": [
+              "e1",
+              "r1",
+              "r2",
+              "coordinations[0]"
+            ]
+          }
+        ],
+        "issues": []
+      }
+    ]
+  },
+  "error": null
+}

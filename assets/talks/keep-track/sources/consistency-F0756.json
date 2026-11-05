@@ -1,0 +1,29 @@
+{
+  "baseline": {
+    "relation": "NO_RELATION",
+    "facticity": null
+  },
+  "premises": {
+    "failures": [
+      {
+        "reading": 0,
+        "event": "e1",
+        "treatment_role": "r2",
+        "disease_role": "r1",
+        "cue": {
+          "start": 68,
+          "end": 85
+        }
+      }
+    ]
+  },
+  "required": {
+    "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+    "facticity": "counterfact"
+  },
+  "result": {
+    "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+    "facticity": "counterfact"
+  },
+  "error": null
+}
