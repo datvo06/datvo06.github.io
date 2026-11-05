@@ -121,6 +121,9 @@
     .code-reference .source-panel p { margin: 0 0 12px; }
     .code-reference .source-panel pre { margin: 10px 0 18px; font-size: 14px; line-height: 1.45; }
     .code-reference .source-panel pre code { padding: 12px; }
+    .code-reference.saved-artifact { position: relative; top: auto; right: auto; font-size: 0.64em; }
+    .code-reference.saved-artifact .source-panel { top: auto; bottom: 100%; left: 0; right: auto; width: 1050px; max-height: 490px; }
+    .reveal .result-table { font-size: 0.65em; }
     #method > .code-example > pre { font-size: 0.58em; line-height: 1.45; }
     .semantic-legend { position: absolute; top: 12px; left: 24px; z-index: 25; display: flex; gap: 12px; flex-wrap: wrap; font-size: 16px; line-height: 1.4; }
     .semantic-mark { border-radius: 3px; padding: 0 0.1em; white-space: nowrap; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
@@ -204,7 +207,7 @@
   <nav class="research-map" aria-label="Research sections">
     <a href="#/claims"><strong>1. Methods</strong><span>Check claims against their source, then search for an extractor that covers more source words within an edit budget.</span></a>
     <a href="#/study-setup"><strong>2. Experiment settings</strong><span>Ten authored sentences, expected answers and scoring criteria.</span></a>
-    <a href="#/agent-confusions"><strong>3. Results, in date order</strong><span>Recovery with search on the ten sentences, then 65 BioRelFact development pairs, what still goes wrong, and all 1,767 pairs with a learned lexicon.</span></a>
+    <a href="#/agent-confusions"><strong>3. Results, in date order</strong><span>Authored sentences, BioRelFact search and agreement, reviewed interpretations and automatic checks.</span></a>
   </nav>
 </section>
 
@@ -1104,13 +1107,77 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   <aside class="notes">Local design document: keep-track/.claude/worktrees/paper-plan/COVERAGE_OPTIMIZATION_PLAN.md, dataset-mode section. It proposes separate per-document coverage/edit objectives and retaining candidates not beaten on both, with final selection by coverage then spending. The displayed mean-coverage problem is a concrete proposed aggregation for discussion, not a claim that the plan or PRs implement it. Budgets here reset per document; there is no shared corpus-wide spending cap. The token-coverage surrogate does not certify completeness or correct abstention. Gold reference labels stay outside the search objective. No implemented dataset-mode study was found in the fetched PRs or branches as of October 19, 2026.</aside>
 </section>
 
+<section id="biorelfact-full" class="no-marks">
+  <p class="eyebrow">November · BioRelFact · all 1,767 pairs</p>
+  <h2>Full-corpus extraction results</h2>
+  <p class="definitions">Nine relation types. Micro F1 excludes NO_RELATION as a positive class. Each method has one recorded run on this inspected development corpus.</p>
+  <table class="result-table">
+    <thead><tr><th>Method</th><th>Precision</th><th>Recall</th><th>Relation F1</th></tr></thead>
+    <tbody>
+      <tr><td>Plain GPT-5.4-mini</td><td>64.7</td><td>81.1</td><td>72.0</td></tr>
+      <tr><td>Paid mappings + coverage search</td><td>60.3</td><td>84.7</td><td>70.5</td></tr>
+      <tr><td>Search + learned predicate lexicon</td><td>61.3</td><td>82.3</td><td>70.3</td></tr>
+      <tr><td>Agreement selection</td><td>69.93</td><td>78.43</td><td>73.93</td></tr>
+      <tr><td><strong>Mini interpretation → GPT-5.4 review → mini reader</strong></td><td>80.69</td><td>70.26</td><td><strong>75.12</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="note">75.12 is the latest verified full-run artifact here. Different prompts and compute: this table does not isolate formal reasoning. <a href="sources/fullrun-results.json">Full-run scores</a> · <a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">Search and lexicon report</a></p>
+  <aside class="notes">All 1,767 pairs come from 1,408 documents, with 1,029 positive relations. The reviewed pipeline uses 5,301 model completions. The 75.9 mentioned in the lexicon report is the paper's GPT-4o 2-shot definition baseline, not a verified result of this pipeline. Do not substitute it for 75.116883 without a new run artifact. Earlier 65-pair studies and different selection rules are not directly comparable to this table.</aside>
+</section>
+
+<section id="interpretation-fullrun" class="no-marks">
+  <p class="eyebrow">November · fresh full run</p>
+  <h2>Review improves precision and loses recall</h2>
+  <table>
+    <thead><tr><th>Compared with agreement</th><th>Pairs</th></tr></thead>
+    <tbody><tr><td>Errors repaired</td><td>254</td></tr><tr><td>Previously correct answers broken</td><td>175</td></tr><tr><td>Total pipeline errors</td><td>424 / 1,767</td></tr></tbody>
+  </table>
+  <p class="compact">F1 increases by 1.18 points. The paired document-bootstrap interval is −1.06 to +3.42 points.</p>
+  <p class="note">Conditional on one generation. This does not establish a repeatable improvement, or a causal benefit from formal reasoning.</p>
+  <div class="code-reference saved-artifact" data-artifact="sources/fullrun-F0756.json"><button type="button" aria-expanded="false">Inspect the saved reviewed interpretation</button><div class="source-panel" role="region"><p>Actual full-run F0756 output. <a href="sources/fullrun-F0756.json" download>Download full artifact</a></p><pre><code class="language-json">Loading saved artifact…</code></pre></div></div>
+  <aside class="notes">Gold-NO_RELATION false positives fall from 281 to 118; wrong positive labels from 66 to 55; missed positives rise from 156 to 251. The remaining F1 gap is 24.88 points. Bootstrap: 2,000 paired document draws, seed 2026110502, with generation variability unmeasured.</aside>
+</section>
+
+<section id="formalization-coverage" class="no-marks">
+  <p class="eyebrow">November · fixed-interpretation mapping experiment</p>
+  <h2>The rule system often receives no premises</h2>
+  <p class="lead">92 / 120 cases remain unresolved.</p>
+  <p class="compact">80 cases contain no premises at all. 77 of those are unresolved. Rules cannot recover an omitted semantic claim.</p>
+  <pre><code class="language-json">{"worlds": [{"premises": []</code></pre>
+  <p class="note">Opening excerpt of actual I118 output, concerning formoterol and asthma. Both direct readers predict THERAPEUTIC_USE; the rule arm lacks a premise. <a href="sources/mapping-results.json">Mapping results</a></p>
+  <div class="code-reference saved-artifact" data-artifact="sources/mapping-I118.json"><button type="button" aria-expanded="false">Inspect the complete premise artifact</button><div class="source-panel" role="region"><p>Actual I118 output, including completeness assumptions. <a href="sources/mapping-I118.json" download>Download full artifact</a></p><pre><code class="language-json">Loading saved artifact…</code></pre></div></div>
+  <aside class="notes">Unresolved cases represent 69.9% of the weighted population estimate. For benchmark scoring they map to NO_RELATION, but remain explicitly unresolved in the saved artifacts. Neither source-to-graph coverage nor the model-supplied semantic premises is certified by Python validation.</aside>
+</section>
+
+<section id="proposal-hook-pilot" class="no-marks">
+  <p class="eyebrow">November · eight selected natural pairs + three injected defects</p>
+  <h2>Structural checks miss semantic omissions</h2>
+  <table class="result-table">
+    <tbody><tr><td>Natural first drafts accepted</td><td>8 / 8</td></tr><tr><td>Natural drafts triggering repair</td><td>0 / 8</td></tr><tr><td>Correct relation labels, before / after checks</td><td>5 / 8 → 5 / 8</td></tr><tr><td>Correct labels after generic review</td><td>4 / 8</td></tr><tr><td>Injected defects rejected and repaired</td><td>3 / 3</td></tr><tr><td>Repairs preserving exact expected pairs</td><td>1 / 3</td></tr></tbody>
+  </table>
+  <p class="note">The hook works, but natural mistakes pass: omitted negation, lost intervention identity and final labels that disregard derived pairs. This selected pilot does not estimate full-corpus F1.</p>
+  <div class="code-reference saved-artifact" data-artifact="sources/hook-F0756.json"><button type="button" aria-expanded="false">Inspect an accepted interpretation and its derived pairs</button><div class="source-panel" role="region"><p>Actual F0756 interpretation and host-derived witnesses. <a href="sources/hook-F0756.json" download>Download full artifact</a> · <a href="sources/hook-results.json">All pilot results</a></p><pre><code class="language-json">Loading saved artifact…</code></pre></div></div>
+  <aside class="notes">Eight pairs from seven documents, chosen by source features. Only two gold-positive pairs; neither positive was correct, giving relation F1 zero despite 5/8 correct labels. Seeded fixtures test cross-event ownership, respectively arity and contradictory pairings. Two repairs include the comma after Y and fail the frozen exact-span criterion. No natural rejection means the matched repair-feedback subset is empty.</aside>
+</section>
+
+<section id="answer-consistency" class="no-marks">
+  <p class="eyebrow">November · targeted follow-up · same eight cases</p>
+  <h2>A derived pair can constrain the final label</h2>
+  <blockquote class="compact">“…loiasis and mansonellosis experienced treatment failure (with diethylcarbamazine and levamisole-mebendazole, respectively).”</blockquote>
+  <p class="compact">Explicit premise: failed treatment, drug role <code>r2</code>, disease role <code>r1</code>.<br>Derived pair: diethylcarbamazine → loiasis.</p>
+  <p class="compact"><strong>Historical answer:</strong> NO_RELATION<br><strong>After validation and repair:</strong> THERAPEUTIC_USE / counterfact</p>
+  <p class="note">5/8 → 6/8 correct; seven predictions unchanged. Known development case. The semantic premise and failed-efficacy convention are assumptions. The repair receives the required label. <a href="sources/consistency-001-results.json">First run</a> · <a href="sources/consistency-002-results.json">Follow-up</a></p>
+  <div class="code-reference saved-artifact" data-artifact="sources/consistency-F0756.json"><button type="button" aria-expanded="false">Inspect the premise, requirement and repaired answer</button><div class="source-panel" role="region"><p>Actual follow-up F0756 result. <a href="sources/consistency-F0756.json" download>Download full artifact</a> · <a href="sources/consistency-F0756-repair.json" download>Automatic feedback and response</a></p><pre><code class="language-json">Loading saved artifact…</code></pre></div></div>
+  <aside class="notes">First live run: zero requirements, 5/8 correct, eight calls; the model swapped treatment and disease roles. Follow-up adds validation against supplied target types: one requirement, one historical answer rejected and repaired, 6/8 correct, nine real calls plus one historical injection. All fresh follow-up premises passed first attempt, so the type check's causal contribution is unmeasured. Both runs remain available: sources/consistency-001-results.json and sources/consistency-002-results.json. F0755 and F1519 remain wrong. Directly emitting the derived requirement would avoid the repair call. No representative accuracy or full-corpus F1 claim follows.</aside>
+</section>
+
 <section id="current-scope">
   <p class="eyebrow">Research questions ahead</p>
   <h2>Coverage, reliability and broader source language</h2>
   <ul>
-    <li class="fragment"><strong>Coverage:</strong> can we recover supported relations while returning no claim for sentences expressing uncertainty or absence of evidence?</li>
-    <li class="fragment"><strong>Reliability:</strong> do the search and typing effects repeat with matched prompts, compute and a larger vocabulary?</li>
-    <li class="fragment"><strong>Generalization:</strong> what carries from ten development sentences to independently annotated real sources?</li>
+    <li class="fragment"><strong>Semantic coverage:</strong> can source operators reliably produce the premises that activate a check?</li>
+    <li class="fragment"><strong>Answer consistency:</strong> can final labels respect derived participant bindings without introducing regressions?</li>
+    <li class="fragment"><strong>Generalization:</strong> do gains repeat on fresh documents under a validated annotation policy?</li>
   </ul>
   <p class="note">We have executable checks and source-support proofs for declared sentence patterns, such as “A inhibits B in assay X.” The current evidence does not yet establish a general extraction advantage.</p>
   <p class="nav"><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track/pull/28">Latest PR</a><a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">Experiment report</a></p>
@@ -1132,6 +1199,17 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
     margin: 0.06,
     plugins: [RevealHighlight, RevealNotes]
   }).then(() => {
+    document.querySelectorAll('[data-artifact]').forEach(reference => {
+      fetch(reference.dataset.artifact).then(response => {
+        if (!response.ok) throw new Error('Artifact could not be loaded');
+        return response.json();
+      }).then(value => {
+        const code = reference.querySelector('code');
+        code.textContent = JSON.stringify(value, null, 2);
+        code.removeAttribute('data-highlighted');
+        Reveal.getPlugin('highlight').highlightBlock(code);
+      }).catch(error => { reference.querySelector('code').textContent = error.message; });
+    });
     const sections = [
       ['claims', '1 / 3 · Methods'],
       ['study-setup', '2 / 3 · Experiment settings'],

@@ -1,0 +1,207 @@
+{
+  "scores": {
+    "baseline": {
+      "outcomes": {
+        "decision": 8
+      },
+      "joint_correct": 5,
+      "relation": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 2
+      },
+      "joint": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 2
+      },
+      "factuality_confusion": {
+        "counterfact": {
+          "NO_RELATION": 1
+        },
+        "fact": {
+          "fact": 1
+        }
+      },
+      "relation_correct": 5
+    },
+    "result": {
+      "outcomes": {
+        "decision": 8
+      },
+      "joint_correct": 5,
+      "relation": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 2
+      },
+      "joint": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 2
+      },
+      "factuality_confusion": {
+        "counterfact": {
+          "NO_RELATION": 1
+        },
+        "fact": {
+          "fact": 1
+        }
+      },
+      "relation_correct": 5
+    }
+  },
+  "requirements": 0,
+  "historical_violations": 0,
+  "premise_failures": 0,
+  "model_calls": 8,
+  "historical_injections": 0,
+  "prompt_tokens": 81897,
+  "completion_tokens": 640,
+  "details": {
+    "F0532": {
+      "baseline": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "premises": {
+        "failures": []
+      },
+      "required": null,
+      "result": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "error": null
+    },
+    "F0598": {
+      "baseline": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "premises": {
+        "failures": []
+      },
+      "required": null,
+      "result": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "error": null
+    },
+    "F0755": {
+      "baseline": {
+        "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+        "facticity": "counterfact"
+      },
+      "premises": {
+        "failures": [
+          {
+            "reading": 0,
+            "event": "e1",
+            "treatment_role": "r2",
+            "disease_role": "r1",
+            "cue": {
+              "start": 68,
+              "end": 85
+            }
+          }
+        ]
+      },
+      "required": null,
+      "result": {
+        "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+        "facticity": "counterfact"
+      },
+      "error": null
+    },
+    "F0756": {
+      "baseline": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "premises": {
+        "failures": [
+          {
+            "reading": 0,
+            "event": "e1",
+            "treatment_role": "r1",
+            "disease_role": "r2",
+            "cue": {
+              "start": 68,
+              "end": 85
+            }
+          }
+        ]
+      },
+      "required": null,
+      "result": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "error": null
+    },
+    "F0780": {
+      "baseline": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "premises": {
+        "failures": []
+      },
+      "required": null,
+      "result": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "error": null
+    },
+    "F1396": {
+      "baseline": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "premises": {
+        "failures": []
+      },
+      "required": null,
+      "result": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "error": null
+    },
+    "F1519": {
+      "baseline": {
+        "relation": "GENE : DISEASE - MODULATES",
+        "facticity": "fact"
+      },
+      "premises": {
+        "failures": []
+      },
+      "required": null,
+      "result": {
+        "relation": "GENE : DISEASE - MODULATES",
+        "facticity": "fact"
+      },
+      "error": null
+    },
+    "F1650": {
+      "baseline": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "premises": {
+        "failures": []
+      },
+      "required": null,
+      "result": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "error": null
+    }
+  },
+  "key_sha256": "437c4f5819b9a888e12055c65f0425469c4604695a00ab65c13b9dc373ed97d5",
+  "scorer_sha256": "a600f5ed34f8648ee99086ed0a4b4673f151ddeced0c708f3f49fa55165e75c8"
+}

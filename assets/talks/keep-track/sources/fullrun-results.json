@@ -1,0 +1,43 @@
+{
+  "pairs": 1767,
+  "documents": 1408,
+  "headline": {
+    "agreement": {
+      "F1": 73.9349519010536,
+      "precision": 69.93067590987869,
+      "recall": 78.42565597667638,
+      "weighted_pairs": 1767.0,
+      "weighted_wrong_pairs": 503.0,
+      "pair_error_percent": 28.466327108092813,
+      "baseline_errors_fixed": 0.0,
+      "baseline_correct_broken": 0.0,
+      "baseline_errors_remaining": 503.0
+    },
+    "reviewed": {
+      "F1": 75.11688311688312,
+      "precision": 80.69196428571429,
+      "recall": 70.26239067055394,
+      "weighted_pairs": 1767.0,
+      "weighted_wrong_pairs": 424.0,
+      "pair_error_percent": 23.995472552348613,
+      "baseline_errors_fixed": 254.0,
+      "baseline_correct_broken": 175.0,
+      "baseline_errors_remaining": 249.0
+    }
+  },
+  "reviewed_minus_agreement_F1": 1.1819312158295219,
+  "document_bootstrap_95_interval": [
+    -1.0612122100348955,
+    3.422327292336732
+  ],
+  "source_failure_cases": {
+    "raw": 177,
+    "reviewed": 30
+  },
+  "review_statuses": {
+    "corrected": 1081,
+    "adequate": 535,
+    "unresolved": 151
+  },
+  "uncertainty": "Exact scores on the inspected corpus. Document-resampling interval describes document-mix sensitivity conditional on saved generations, not uncertainty in the observed full-corpus score or model-generation variability."
+}

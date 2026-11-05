@@ -1,0 +1,348 @@
+{
+  "natural_cases": 8,
+  "natural_documents": 7,
+  "natural_first_drafts_rejected": 0,
+  "scores": {
+    "raw": {
+      "outcomes": {
+        "decision": 8
+      },
+      "joint_correct": 5,
+      "relation": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 2
+      },
+      "joint": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 2
+      },
+      "factuality_confusion": {
+        "counterfact": {
+          "NO_RELATION": 1
+        },
+        "fact": {
+          "fact": 1
+        }
+      },
+      "relation_correct": 5,
+      "relation_f1": 0.0
+    },
+    "guided": {
+      "outcomes": {
+        "decision": 8
+      },
+      "joint_correct": 5,
+      "relation": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 2
+      },
+      "joint": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 2
+      },
+      "factuality_confusion": {
+        "counterfact": {
+          "NO_RELATION": 1
+        },
+        "fact": {
+          "fact": 1
+        }
+      },
+      "relation_correct": 5,
+      "relation_f1": 0.0
+    },
+    "generic": {
+      "outcomes": {
+        "decision": 8
+      },
+      "joint_correct": 4,
+      "relation": {
+        "true_positives": 0,
+        "false_positives": 3,
+        "false_negatives": 2
+      },
+      "joint": {
+        "true_positives": 0,
+        "false_positives": 3,
+        "false_negatives": 2
+      },
+      "factuality_confusion": {
+        "counterfact": {
+          "NO_RELATION": 1
+        },
+        "fact": {
+          "fact": 1
+        }
+      },
+      "relation_correct": 4,
+      "relation_f1": 0.0
+    }
+  },
+  "details": [
+    {
+      "id": "F0755",
+      "group": "coordination",
+      "source": "However, 30% of patients with loiasis and mansonellosis experienced treatment failure (with diethylcarbamazine and levamisole-mebendazole, respectively).",
+      "head": "mebendazole",
+      "tail": "loiasis",
+      "first_draft_rejected": false,
+      "guided_accepted": true,
+      "generic_accepted": true,
+      "gold": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "agreement": "NO_RELATION",
+      "predictions": {
+        "raw": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "counterfact"
+        },
+        "guided": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "counterfact"
+        },
+        "generic": {
+          "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+          "facticity": "fact"
+        }
+      }
+    },
+    {
+      "id": "F0756",
+      "group": "coordination",
+      "source": "However, 30% of patients with loiasis and mansonellosis experienced treatment failure (with diethylcarbamazine and levamisole-mebendazole, respectively).",
+      "head": "diethylcarbamazine",
+      "tail": "loiasis",
+      "first_draft_rejected": false,
+      "guided_accepted": true,
+      "generic_accepted": true,
+      "gold": {
+        "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+        "facticity": "counterfact"
+      },
+      "agreement": "DRUG : DISEASE - THERAPEUTIC_USE",
+      "predictions": {
+        "raw": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "guided": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "generic": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      }
+    },
+    {
+      "id": "F0780",
+      "group": "scope",
+      "source": "No association between GDM and PPARG rs1801282 SNV indicates further validation may be needed.",
+      "head": "PPARG",
+      "tail": "GDM",
+      "first_draft_rejected": false,
+      "guided_accepted": true,
+      "generic_accepted": true,
+      "gold": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "agreement": "NO_RELATION",
+      "predictions": {
+        "raw": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "guided": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "generic": {
+          "relation": "GENE : DISEASE - BIOMARKER",
+          "facticity": "counterfact"
+        }
+      }
+    },
+    {
+      "id": "F1396",
+      "group": "scope",
+      "source": "However, the relationship between mGluR5 and cognition in MDD and PTSD has not yet been directly investigated.",
+      "head": "mGluR5",
+      "tail": "MDD",
+      "first_draft_rejected": false,
+      "guided_accepted": true,
+      "generic_accepted": true,
+      "gold": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "agreement": "NO_RELATION",
+      "predictions": {
+        "raw": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "guided": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "generic": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      }
+    },
+    {
+      "id": "F1519",
+      "group": "intervention",
+      "source": "Knockdown of KDM2B in TNBC cell lines reduced their proliferation rate and tumor growth in vivo.",
+      "head": "KDM2B",
+      "tail": "tumor",
+      "first_draft_rejected": false,
+      "guided_accepted": true,
+      "generic_accepted": true,
+      "gold": {
+        "relation": "GENE : DISEASE - CAUSAL_EFFECT",
+        "facticity": "fact"
+      },
+      "agreement": "GENE : DISEASE - MODULATES",
+      "predictions": {
+        "raw": {
+          "relation": "GENE : DISEASE - MODULATES",
+          "facticity": "fact"
+        },
+        "guided": {
+          "relation": "GENE : DISEASE - MODULATES",
+          "facticity": "fact"
+        },
+        "generic": {
+          "relation": "GENE : DISEASE - MODULATES",
+          "facticity": "fact"
+        }
+      }
+    },
+    {
+      "id": "F0532",
+      "group": "intervention",
+      "source": "Silencing DANCR or overexpressing miR-33b-5p effectively enhanced the Taxol sensitivity of PCa cells.",
+      "head": "Taxol",
+      "tail": "miR-33b",
+      "first_draft_rejected": false,
+      "guided_accepted": true,
+      "generic_accepted": true,
+      "gold": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "agreement": "NO_RELATION",
+      "predictions": {
+        "raw": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "guided": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "generic": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      }
+    },
+    {
+      "id": "F0598",
+      "group": "binding",
+      "source": "In addition, treatment with NMDAR antagonists, gabapentin, or \u03b12\u03b41Tat peptide reversed TBS-induced pain hypersensitivity.",
+      "head": "gabapentin",
+      "tail": "NMDAR",
+      "first_draft_rejected": false,
+      "guided_accepted": true,
+      "generic_accepted": true,
+      "gold": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "agreement": "NO_RELATION",
+      "predictions": {
+        "raw": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "guided": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "generic": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      }
+    },
+    {
+      "id": "F1650",
+      "group": "binding",
+      "source": "Mechanistically, loss of Pip4k2c sensitized both mouse and human melanoma to insulin-mediated PI3K/AKT pathway activation.",
+      "head": "insulin",
+      "tail": "Pip4k2c",
+      "first_draft_rejected": false,
+      "guided_accepted": true,
+      "generic_accepted": true,
+      "gold": {
+        "relation": "NO_RELATION",
+        "facticity": null
+      },
+      "agreement": "NO_RELATION",
+      "predictions": {
+        "raw": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "guided": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        },
+        "generic": {
+          "relation": "NO_RELATION",
+          "facticity": null
+        }
+      }
+    }
+  ],
+  "seeded": [
+    {
+      "id": "S001",
+      "defect": "ownership",
+      "accepted": true,
+      "expected_inhibition_pairs_preserved": true,
+      "attempts_including_injection": 2
+    },
+    {
+      "id": "S002",
+      "defect": "arity",
+      "accepted": true,
+      "expected_inhibition_pairs_preserved": false,
+      "attempts_including_injection": 2
+    },
+    {
+      "id": "S003",
+      "defect": "contradiction",
+      "accepted": true,
+      "expected_inhibition_pairs_preserved": false,
+      "attempts_including_injection": 2
+    }
+  ],
+  "model_origin_calls": 33,
+  "prompt_tokens": 351161,
+  "completion_tokens": 14608,
+  "wall_seconds": 44.73663009493612,
+  "scoring_key_sha256": "437c4f5819b9a888e12055c65f0425469c4604695a00ab65c13b9dc373ed97d5",
+  "evaluator_sha256": "9c67c19e7aae488fc89d60b045b476a58bc46739e4e9b7c388262de6d1ce4aa7"
+}
