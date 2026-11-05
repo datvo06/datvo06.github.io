@@ -26,7 +26,7 @@ from render_media import FRAMES, VIEW, free_camera, ground_truth_frames, label, 
 from robotl.handlers.mujoco import compile_model
 
 from robotl_reconstruction.articulation import WELDED, built_under, solved
-from robotl_reconstruction.real2code import FOVY_DEG, RESOLUTION
+from robotl_reconstruction.utils.real2code import FOVY_DEG, RESOLUTION
 from robotl_reconstruction.study import Search
 
 
