@@ -1,0 +1,1772 @@
+{
+  "sources": [
+    {
+      "path": "llm-recon-all/objects.json",
+      "sha256": "c40669283f3d4678601bbb2e2f4bf02d39857bf24d377725871f144501c563f8"
+    },
+    {
+      "path": "llm-recon-all/programs.json.gz",
+      "sha256": "310e08fca13bb30c6bd42be922fbb26193d0c3a20a91c82a5ffa07dc15023d0d"
+    },
+    {
+      "path": "llm-recon-baselines/objects.json",
+      "sha256": "7578bdb85cef06e838f6aa4a1b989bd1d4d6e9b19542679ee7ed8bcc5bbbc1d2"
+    },
+    {
+      "path": "llm-recon-baselines/programs.json.gz",
+      "sha256": "6bea02b2ba4512eab0f87a65b99e104fd69442767f759f6e9569f612ecbc511b"
+    }
+  ],
+  "xml_inputs": [
+    {
+      "run": "gpt54-xml",
+      "object": "test-00",
+      "summary_sha256": "8402f23a2beb4e707f1c2eb63ea22cbdcc2f4b3ff4de2c35a2cf98352e55ebfe",
+      "benchmark_sha256": "2295744ac33c3fc41c12b395f8a952f3ad6fb51574f96fc91bdb40d2b2bb2469"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-00",
+      "summary_sha256": "4bbd7631f732b4d8c8c49e024f89cf393079f7061f03af113fef31a451421977",
+      "benchmark_sha256": "559ae79ce29ed58bf15e3664ee311e5baad961685146cf6797c905d5d6ff94f0"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-01",
+      "summary_sha256": "bd5e3b74be04b50685d55ebb0b8e4cecf612863dc9a742ab533e1c02e9a7cd2b",
+      "benchmark_sha256": "213fdf2ccab7a918ae79f7755e6036b4c84f0668222e67fc75bb98ea9191b2b9"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-01",
+      "summary_sha256": "173ca4d56c5e859f894a60b468db8503c820fb1e876123d4ff080472cb1a2dc6",
+      "benchmark_sha256": "705181c20c9a698c95be54abc3907b6a7a14df50f2c72afc8348d6a8f86df853"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-02",
+      "summary_sha256": "56961902f0b321682badd4ca62a4bc091fcba662ba03fe91da178f09778fb4a9",
+      "benchmark_sha256": "52f926561985b44e740c63dc884ffcf1241163dd5fc6cde8b930914373b60528"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-02",
+      "summary_sha256": "5a8fcc520e22b017c0d7c23dce1c028bc7af252d6296d96f75f97f9e09da9d42",
+      "benchmark_sha256": "5bdf3a8322dec0cd5bf3b9b827a4c16b9f352588b87e10ab3fb61021814ce087"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-03",
+      "summary_sha256": "f8968d2c6576c1c0f19db30925932eab5c42a51b51d9ca75538b95b4f99b84a9",
+      "benchmark_sha256": "3d2a29444710422a98fa285cb5321671905d4fe282a2661a28c6e3f05019c2d5"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-03",
+      "summary_sha256": "fb531d87e44ae0f2a6acac931235cf662cabfcc0ea2315d2082e7627aeae998c",
+      "benchmark_sha256": "dc4024a8d1a0fbf592ba3bccf71bd3cadfc08a390fa65e26a4cd3328269e1e17"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-04",
+      "summary_sha256": "297970ea8b5f0f5d18532f8a10eed3fcbbbb54c59c1aed11c5e02beaa6b8aa4c",
+      "benchmark_sha256": "c6b3472569ba6a44c21856c0e770dce59a08f412b3b48e6bc6aa7f481f50e57c"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-04",
+      "summary_sha256": "0191fb4ff08c1171629659ebdf55134636803c257589e5f2a21afce05ee4eda5",
+      "benchmark_sha256": "316db3e299dbe8c689c4509de1a183cdb2716efa640e128da77f7adde7a22546"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-05",
+      "summary_sha256": "8d13c99bc9f8ba729f268a3ded00e3ae35b5e6f11b13d8f556d5292c08298d14",
+      "benchmark_sha256": "226a5222da76e45d6e5c3a2dc176295b7ab34945a0f80fc9e4bdca949bcdbbc5"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-06",
+      "summary_sha256": "0f5a02f745a59a6cbca48a23e0de99625b29641e1bbc69d964994a2c3b675a19",
+      "benchmark_sha256": "707e79bc1efaac198652ac4a65ba17b759a396ac82a0c227b2333c3c99a6799c"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-15",
+      "summary_sha256": "c8ae982bf607e2ed4608c4b025086bceab9bd63297eafa648ad029d4d42bd2f2",
+      "benchmark_sha256": "5c80be2943c9d6dff1626f6cc23892225c268737c914a766a3067480a11430f4"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-15",
+      "summary_sha256": "2aa87be8978e6f94e24bff2f25f481531774131e9ec25bd6ce7410731f4ed1b0",
+      "benchmark_sha256": "a41ba7d20ba774eb0125e4072aa0c834d0bf6c70c8e01bd62429a862f449c5d6"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-16",
+      "summary_sha256": "d4f0bba19c29508cf25f798c4e6f9f4b8fcaf43c3a13c44310b44d7710594044",
+      "benchmark_sha256": "35395b6de58aa9bd38a3ee0be4cf848e88d1501af3f4518a8e9feb43846a5dc8"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-16",
+      "summary_sha256": "580f5cfba2a2166f626ed86900cbf070b760ec0a531754b2f03ba398beecc234",
+      "benchmark_sha256": "d103f5ee046092d84f34538de141fe4575198de59c1fcae236dab111bea33a7f"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-17",
+      "summary_sha256": "92ea93c05fd319cdeec1298e299f53dbae49fa2506a4d29e18a7a0b4d3f4cc60",
+      "benchmark_sha256": "f6d69cec5b47e07b1edcb815751d2e51ccddfe923acaa11ce45460110ab34ef4"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-17",
+      "summary_sha256": "ae920d43e758ac290bf6f4cd8e961ab33cf084f53a3e0988c430dab37696bdf4",
+      "benchmark_sha256": "c8f3b4b9068f7ce43433b5abc46d0b4f7bbcd844cd66c86cb4339bcc8a945754"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-18",
+      "summary_sha256": "aa26993bffcd909e28622fb97d52784e5c11091eb065085e9f730da178e26641",
+      "benchmark_sha256": "2692fc3ee4b8682d872ecd6a6d74f6cc09b2a5d5034c33d0df27126b1591f99e"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-18",
+      "summary_sha256": "b94920b1e4b29aab8ddb02f65844d364530d0d8c657b7384eee8795be6af7ec4",
+      "benchmark_sha256": "df6a0faffaaff65b519a76a8c175f524a546502cee21017c841dd00a16862c8f"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-19",
+      "summary_sha256": "870bff4f907e8d54e13306d1528feb7eba8235660dd58e504993f669a5f3fbdb",
+      "benchmark_sha256": "044fd6a5e019dadcdcafe312238d7aed460a8889b5bfbdf0ac4c4230850a0e61"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-19",
+      "summary_sha256": "8397626f719aa5fa5b7b7187fc38e0ab3dd9b619b21d52562895587e0dcf7266",
+      "benchmark_sha256": "fd6a8643365417a655569250734be037fdf7da643b908079dad0f258d5ab6007"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-20",
+      "summary_sha256": "86eb1c4664e85a52657a56897c6bb00cb9e882e3b2eada7b1dd0ab1301a3105a",
+      "benchmark_sha256": "3f33c5c1f80d7554ffd395adbeb2e32e6c732c6476db0197a5ecb8ab1587700f"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-20",
+      "summary_sha256": "0ee5ea601b482e4a12f7c1c6b1615b45decdbe18da1613b17205a09538d52521",
+      "benchmark_sha256": "2c8cbfae48b07da65f39ffdfafc9be625e6974deb8c00e667c2c569fe90aa80b"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-21",
+      "summary_sha256": "f119f43d98dfc2dc57e21c23dd398fba12daff9d3bd719b17b9d146d5c16c04d",
+      "benchmark_sha256": "cdfc296a23908d6a6fff7384f45c8d3f1cd9cd6c8ec5401f6881b3440cb66d60"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-21",
+      "summary_sha256": "421b12d7b658ae927c5401d047682b92e604035d6585b9e58e6f3ea9f92e8a22",
+      "benchmark_sha256": "073d71f4b602419b37e5d61608b804424829c644bd7c524307d1762af39e120f"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-22",
+      "summary_sha256": "c9c45b9efad17ae89f1619ad156307d460e5eaf164d8ee81784cdd7b63bc0d40",
+      "benchmark_sha256": "6825ee2efef152f4616e050088aff1de341393c63ac6142390941452d88d1936"
+    },
+    {
+      "run": "gem31-xml",
+      "object": "test-22",
+      "summary_sha256": "1eaaa7f12bb0fc4ea414d42e8285632ea75618ac7c41fd5b3e73cf36a016fb45",
+      "benchmark_sha256": "1ff1eafa3315a3bcd10ea358f7bba76a618d0929d47ffad420696e67ef7334cb"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-23",
+      "summary_sha256": "071a213a75313867ad8926fce8c5e0a3dd521ab166b4b23a391ebaad393c484e",
+      "benchmark_sha256": "7fe2cb244d0cd8782c90c9911cbcc5a934b80413a81514221bcf57022d67d2e3"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-24",
+      "summary_sha256": "4c3d4e690cb189f8afd981ecc0e5d14329efda28d63ad2904205566542fde580",
+      "benchmark_sha256": "599912db36b95005bf7109a886d0adf474e194bcd4f25b5d9614721f5fd2c127"
+    },
+    {
+      "run": "gpt54-xml",
+      "object": "test-25",
+      "summary_sha256": "b73d4d21db7ada6f4aecb7f0faaa1636ea9190ab7207abc24991b9ef10c9caa2",
+      "benchmark_sha256": "d1b2b020aee43df6957731ef66f3cb8a410598ce784ac977062d84f47bd6c53c"
+    }
+  ],
+  "xml_protocol": {
+    "conditions": {
+      "gpt54": "gpt-5.4",
+      "gem31": "openai/google/gemini-3.1-pro-preview"
+    },
+    "settings": {
+      "max_wall_s": 1800,
+      "proposals": 8,
+      "max_completion_tokens": 8192,
+      "reasoning_effort": null,
+      "model_timeout_s": 300,
+      "evaluation_timeout_s": 300,
+      "num_retries": 3,
+      "type_checker": "ty"
+    },
+    "workers": {
+      "rolly": 2,
+      "polly": 3
+    },
+    "jobs": [
+      {
+        "object": "test-00",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-00",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-01",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-01",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-02",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-02",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-03",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-03",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-04",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-04",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-05",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-05",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-06",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-06",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-07",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-07",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-08",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-08",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-09",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-09",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-10",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-10",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-11",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-11",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-12",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-12",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-13",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-13",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-14",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-14",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "rolly"
+      },
+      {
+        "object": "test-15",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-15",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-16",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-16",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-17",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-17",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-18",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-18",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-19",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-19",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-20",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-20",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-21",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-21",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-22",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-22",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-23",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-23",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-24",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-24",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-25",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-25",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-26",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-26",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-27",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-27",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-28",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-28",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-29",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-29",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-30",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-30",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-31",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-31",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-32",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-32",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-33",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-33",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-34",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-34",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-35",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-35",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-36",
+        "model": "gpt54",
+        "construct": "xml",
+        "host": "polly"
+      },
+      {
+        "object": "test-36",
+        "model": "gem31",
+        "construct": "xml",
+        "host": "polly"
+      }
+    ],
+    "source_origin": "Exact archived source from polly:/home/amberli/Marc/claude-llm-recon/code/gpt6astra-mjcf-segmented; src verified identical to gemini4-mjcf-segmented.",
+    "source_sha256": {
+      "code/src/robotl_reconstruction/__init__.py": "dadd01f01e9f90231efc747c0741290429725a913288996f2c71e34422b8802d",
+      "code/src/robotl_reconstruction/agent.py": "4d7f30fbc3c8351d0ffeecb123dc629f6146a19195f5914133fd78312b1d0560",
+      "code/src/robotl_reconstruction/babyrobot.py": "29fcc7a0b3db6ecc7c63c57e1fd4d4f80920bf89a8f0de6fd79f2c68acb33a5c",
+      "code/src/robotl_reconstruction/benchmark.py": "91d5694bb5e4bbaa3ab4762f8d16f0730b339b2461b9906362e441fbd52607a0",
+      "code/src/robotl_reconstruction/budget.py": "0a5230b66549739a27c8b1544822520a3fd64a2fd20dfc0554b52270be4ff491",
+      "code/src/robotl_reconstruction/cabinet_example.xml": "ed6ee583d3086a3f7ac8a0c931749e669895b8d0894c0725815907bedd61b1dd",
+      "code/src/robotl_reconstruction/cli.py": "389865e808c6b357554f5829fcab8e582a6a31c3c12505e1c8b91b07f3e42231",
+      "code/src/robotl_reconstruction/evaluation.py": "17ffc03ed981627dfb80c9e506107ba84a1efa8b4303b02aff46c1f45feedfab",
+      "code/src/robotl_reconstruction/fitting.py": "ae8c26e71ec7db64c332dae488313bbe9b4b6d5de0ad260c345d24f8f8d1ec76",
+      "code/src/robotl_reconstruction/image_tools.py": "b4201c42a64d0890afc4cc3935f6df260bce055e37bb4bf0a606c5f4025c8a25",
+      "code/src/robotl_reconstruction/mjcf_agent.py": "edc104d19309b8daf486279f86b1ce0762c6548766d8d78246a71d16fcaa0b48",
+      "code/src/robotl_reconstruction/mjcf_runner.py": "0e0c72b0839c0be6edf8c1f90bcb377bbfb3d79657cf1049964ec6110c81222a",
+      "code/src/robotl_reconstruction/observations.py": "ec16cbfaa8ff7dcbc03d218ad21e9b88d749ada6ca45a47b76942094eb9cf59b",
+      "code/src/robotl_reconstruction/programs.py": "1d7fcc155ac8e53f4dc3a66d32778b68693262a8a2ddea5684044007d45f0872",
+      "code/src/robotl_reconstruction/real2code.py": "90449f24890f2f057d2aaef71d3eb096e9c8f0f654af000b1f18c020a36e3468",
+      "code/src/robotl_reconstruction/runner.py": "64bc3d3d8ca2847bf8c905e4d4652df2c7cd48fa9080df675e8fce8fb6ef5acd",
+      "code/src/robotl_reconstruction/scene_example.py": "64b5773487cdc9a1a0d63c12c04727d1d0b45710473f68da7b94325d3bdcc892",
+      "code/src/robotl_reconstruction/scene_template.py": "74b5e9f162c2b994d8cd5523fe1c3e92ec6335586011efe628ce48cac64b4470",
+      "code/src/robotl_reconstruction/segmentation.py": "ed7ecdee43ba8c9c3ef646e33ef839850af0ae6549d043f259d626f50fc46780",
+      "code/src/robotl_reconstruction/study.py": "30bd2f010cbb9b02c07580abc893ea0db001632715348fb85f40bb18b035f289"
+    },
+    "protocol_notes": [
+      "One-state fitting inputs only, segmented masks; no film evidence.",
+      "Reuse archived XML runner, agent prompts and evaluator without edits. Only models and output paths change.",
+      "Bwrap masks /home, /tmp and process namespace; only own fitting input, source/runtime and output are mounted. Existing held-out material is outside the sandbox.",
+      "Validation selection, scoring and rendering run separately after search completion.",
+      "Preserve full-budget deadline exits; stop pending jobs on an early worker failure or disk space below 5 GiB."
+    ],
+    "input_tree_sha256": "ff620f5fc9d49e0b88749a0399cab66f2a991a944af7af60f5ae3431f543e1d7",
+    "input_file_count": 1036,
+    "dispatch_started_utc": "2026-11-05T16:27:47.805401+00:00",
+    "launcher_sha256": {
+      "dispatch.py": "84b8ba1d035b755f3593314b12ba8d1ef8c92142b8a4b1b6ccbeeed085b53268",
+      "study_entry.py": "e19a30a82068c2d69058d27069119ecf71dfdfbdd3b5e56b43a184b64b58d3b5"
+    }
+  },
+  "layout": {
+    "rows": [
+      "GPT-5.4",
+      "Gemini 3.1 Pro"
+    ],
+    "columns": [
+      "Reference",
+      "One state, RoboTL",
+      "One state, XML",
+      "Film, joints + Params",
+      "Film, connect + solver"
+    ]
+  },
+  "missing_xml": "Pending: no scored benchmark in this export; explicit null means a completed selection with no scene.",
+  "exported_utc": "2026-11-05T18:39:48.032361+00:00",
+  "renderer": {
+    "script": "llm-recon-render/compose_baseline_comparison.py",
+    "sha256": "8e0ca37a9ac132942b44ebe46733aa61f4758932e72ff755ad6b23251af5177d",
+    "panel_renderer": "llm-recon-render/render_media.py",
+    "panel_renderer_sha256": "113234ee45d9e4402b4ba9cfe438c7decb60aec92ef5ff0965b395bc7e48fc29",
+    "robotl_reconstruction": "1e71675",
+    "resolution": [
+      1920,
+      768
+    ],
+    "fps": 16,
+    "frames": 48,
+    "poster_frame": 24
+  },
+  "renders": [
+    {
+      "object": "test-00",
+      "inputs": [
+        {
+          "path": "one-state/test-00.mp4",
+          "sha256": "d170cc519e5d54bb03fe0b986196c5480e9a6f4474029faa031d48f31a77d5fd"
+        },
+        {
+          "path": "film/test-00.mp4",
+          "sha256": "3270ba022504564d6f4de6efa2ba6238f66eef3a2410d0dff62ed150e13aa99b"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "8402f23a2beb4e707f1c2eb63ea22cbdcc2f4b3ff4de2c35a2cf98352e55ebfe",
+          "selected": 4
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "4bbd7631f732b4d8c8c49e024f89cf393079f7061f03af113fef31a451421977",
+          "selected": 3
+        }
+      ],
+      "outputs": {
+        "mp4": "b05f6512432488c8987413b3904d26fee7305648cd487492d6981e67c612e405",
+        "jpg": "86a9bda597a96c2b73bf774d7e03e1b5a3b85fb52bf8bb251ff0f5df3b52075f"
+      }
+    },
+    {
+      "object": "test-01",
+      "inputs": [
+        {
+          "path": "one-state/test-01.mp4",
+          "sha256": "5eccc8ac7b7539bf4bce31f0e83202b559764d4a4cd3518436626bcb9e97f17c"
+        },
+        {
+          "path": "film/test-01.mp4",
+          "sha256": "899f1e4712bcb7801cf09aef92c5e3678ef7c8087ab8dc3d7b30ca185d66a6c8"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "bd5e3b74be04b50685d55ebb0b8e4cecf612863dc9a742ab533e1c02e9a7cd2b",
+          "selected": 0
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "173ca4d56c5e859f894a60b468db8503c820fb1e876123d4ff080472cb1a2dc6",
+          "selected": 7
+        }
+      ],
+      "outputs": {
+        "mp4": "215b473d1c538471e7cf4d0ea8d1003d19527d2b1bed3d4452561ae6f909bf6f",
+        "jpg": "cb4fdc813277d006a88b0f6b33a4d092bfb31d26b038347c518fc72902dfdc6a"
+      }
+    },
+    {
+      "object": "test-02",
+      "inputs": [
+        {
+          "path": "one-state/test-02.mp4",
+          "sha256": "2070980408d52f96416eac7cf76534bc00ca1313fb430c46d350c451e0dba034"
+        },
+        {
+          "path": "film/test-02.mp4",
+          "sha256": "4177fa299639c9155128aa22d578641a624491703657f05249acf57e945062a3"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "56961902f0b321682badd4ca62a4bc091fcba662ba03fe91da178f09778fb4a9",
+          "selected": 2
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "5a8fcc520e22b017c0d7c23dce1c028bc7af252d6296d96f75f97f9e09da9d42",
+          "selected": 3
+        }
+      ],
+      "outputs": {
+        "mp4": "ff1d63a959eb96e0420df1475fcc98cc7fa4b5a5102094342d966bb02de6722c",
+        "jpg": "fc0343cc257e120a9c73a45e852fc1d36095fdd896c2d3d7251642cccda072f2"
+      }
+    },
+    {
+      "object": "test-03",
+      "inputs": [
+        {
+          "path": "one-state/test-03.mp4",
+          "sha256": "76126c81635104b5e5f267601d3d9f9e3da175b197393773a21955d21f328036"
+        },
+        {
+          "path": "film/test-03.mp4",
+          "sha256": "eb407c90fded355affb70e37bfc504e8b6ed90f84752289840da278801b646d5"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "f8968d2c6576c1c0f19db30925932eab5c42a51b51d9ca75538b95b4f99b84a9",
+          "selected": 0
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "fb531d87e44ae0f2a6acac931235cf662cabfcc0ea2315d2082e7627aeae998c",
+          "selected": 0
+        }
+      ],
+      "outputs": {
+        "mp4": "9f42e0e50591dd19af39898ea2dd0fdc6f29c2b8fd23636a3712f524f99ec6a6",
+        "jpg": "1b2b44358825579100b89244d0aafc1b88485f27f0e03c087d6c393a6f9d351d"
+      }
+    },
+    {
+      "object": "test-04",
+      "inputs": [
+        {
+          "path": "one-state/test-04.mp4",
+          "sha256": "b465e09b5ab000cbe67b2f8a1c1822204cff2682e9546fa0b3c7b0353709fea3"
+        },
+        {
+          "path": "film/test-04.mp4",
+          "sha256": "5b43514f3f1b16ee1b78b827835c963dd3316b01953409c4e415b5f6ba5c2881"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "297970ea8b5f0f5d18532f8a10eed3fcbbbb54c59c1aed11c5e02beaa6b8aa4c",
+          "selected": 0
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "0191fb4ff08c1171629659ebdf55134636803c257589e5f2a21afce05ee4eda5",
+          "selected": 4
+        }
+      ],
+      "outputs": {
+        "mp4": "508245907c6ab52fd45e8dc02cf8030d90478c6320f09ac40c39a399cf210f88",
+        "jpg": "8e279472cc600b988f03eedb20a39b27c8370afc983cc94a3834aab44b2b5a83"
+      }
+    },
+    {
+      "object": "test-05",
+      "inputs": [
+        {
+          "path": "one-state/test-05.mp4",
+          "sha256": "3e900402d6ff4a01c6319573b04614c6f391871e5d742b804d2e71ccb1272a1a"
+        },
+        {
+          "path": "film/test-05.mp4",
+          "sha256": "7e36b32998d5ce00df00df2928a91ea00aae178f5a8724aa7118290d00a76108"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "8d13c99bc9f8ba729f268a3ded00e3ae35b5e6f11b13d8f556d5292c08298d14",
+          "selected": 0
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "5f536510050ae709767cb599745ea0cc4122ded686b5f8b78f9ce41ec27ad19d",
+        "jpg": "15aaf96dd10002d76881c9a00c0b73760989da7020a0ea8e737dc6816ba31af0"
+      }
+    },
+    {
+      "object": "test-06",
+      "inputs": [
+        {
+          "path": "one-state/test-06.mp4",
+          "sha256": "e32e293c82e0542b7deeb6114c1ce1a2ad42846f7a91b220695c812e1e8c7fe2"
+        },
+        {
+          "path": "film/test-06.mp4",
+          "sha256": "8626e58940aa6f15652dcc5605993ab2f9ecac4010c49e3c6964be084bf112db"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "0f5a02f745a59a6cbca48a23e0de99625b29641e1bbc69d964994a2c3b675a19",
+          "selected": 1
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "df59c1cc82e2a52069cbe393983bbb337ea80e6b91aed210217e27d84f670c5f",
+        "jpg": "35ae63fd5e74bf06d7898f7aa29a8fd868df4a21c98894c7f5d1fcb611c64714"
+      }
+    },
+    {
+      "object": "test-07",
+      "inputs": [
+        {
+          "path": "one-state/test-07.mp4",
+          "sha256": "0859a4102720d61ba92f4fc92f79ce488c48b28e555e8ffc517b664147243cac"
+        },
+        {
+          "path": "film/test-07.mp4",
+          "sha256": "d495808d50a0504d2eb6dc92cdfcdbb8364521225d10f95931f1e8965c0f71e2"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "6732e5bfc71a9ebdba799e1a31b4f08ee4aed0b5d7451570733875254479bf77",
+        "jpg": "4856e66d17aa4e693658871c36a859b7df8383a7f97facfa197c12fc6c0ff694"
+      }
+    },
+    {
+      "object": "test-08",
+      "inputs": [
+        {
+          "path": "one-state/test-08.mp4",
+          "sha256": "8ea6cec84bb1dd1d8271d88122e6c63a34208a974f34bccfa6ee4fee9da2ddb3"
+        },
+        {
+          "path": "film/test-08.mp4",
+          "sha256": "19c6705b4effd1af539f3ee06eae237e2c12c60fa0d7d7a4f7abaec1deb6085f"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "d15385cd3a770a35ebe98458248d8bf8e207070497974ac361987d7f3307bd2d",
+        "jpg": "db4188985ce8bd6f0fe6b8b5292ec703850e650659bc25bbd6136d70c77ccf2f"
+      }
+    },
+    {
+      "object": "test-09",
+      "inputs": [
+        {
+          "path": "one-state/test-09.mp4",
+          "sha256": "96c22c7af80dabffabc5e38b0d5ba11e5952e214a0a91f6ea63e05751b25ad51"
+        },
+        {
+          "path": "film/test-09.mp4",
+          "sha256": "98c7db22ba2b915bb740a04583569ee9f3fc4254f0e40330a762490ed280f30f"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "25743121b5b815f6be4a7fe4f0ddcbf599c520ebf58fc6943165a092216dfea4",
+        "jpg": "9b6c0d96c1eae846652c2a4d8d3e2eed3ecb20f9d42253051b296bf1d938904e"
+      }
+    },
+    {
+      "object": "test-10",
+      "inputs": [
+        {
+          "path": "one-state/test-10.mp4",
+          "sha256": "e2d2a8bb2752d3c1fd910b3a19a8c78663da5261cbc0a75736f56aa11652cd9c"
+        },
+        {
+          "path": "film/test-10.mp4",
+          "sha256": "db4a8fb56ae5ed5fbb7d455873513c484a0a20054da31266ba8bfff94b2ee4ed"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "060a02d2fb4c420c054132ae3528a2ee3f209e80b5d5350ddaf66f1c4d1bba3d",
+        "jpg": "7ab6172b4f906032ff440b01917263ea6671839750eab45fe84d754e8509e2de"
+      }
+    },
+    {
+      "object": "test-11",
+      "inputs": [
+        {
+          "path": "one-state/test-11.mp4",
+          "sha256": "6f6f447a66575d2d3b98b8edd48ecbf4d0d88a6b4d50114f35b664269c9b976d"
+        },
+        {
+          "path": "film/test-11.mp4",
+          "sha256": "e9e904f9649e46922e209760913480f4e7a8e9b0f9ee07a386e199c830dfd159"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "3c9d210a7ac43660cc718335a9730c1014e5d3df7db2891c40a91e98ec9de754",
+        "jpg": "4d09effbf5a034b2010225e25a827ecdd93219f9372f596b1a43eaf95d23cdb2"
+      }
+    },
+    {
+      "object": "test-12",
+      "inputs": [
+        {
+          "path": "one-state/test-12.mp4",
+          "sha256": "a902eecfafc5e3ccd3febc07e2c262e70556d405a2d43d719a0100ef29f66b84"
+        },
+        {
+          "path": "film/test-12.mp4",
+          "sha256": "b8a4ba7b8285f6a7656284da81cd43481fd639f8e19a1fce2603b96500d30eb0"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "050015cbe4c18b21bc190d80a28272fd9b79b1ebe8aedda9ff42c38057a626d8",
+        "jpg": "8e2a317ade8eb63df55796208c19844d95e41f9570faaff63af989554dd1e861"
+      }
+    },
+    {
+      "object": "test-13",
+      "inputs": [
+        {
+          "path": "one-state/test-13.mp4",
+          "sha256": "628e92ede054719b8c2038394123231f35a9f12f65dca701b34467fdca82754a"
+        },
+        {
+          "path": "film/test-13.mp4",
+          "sha256": "7723bdb3063ec434e668280e037493da102e25ea724986b27fcd732dd5da63d7"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "8d56ab681e1450685a5041a99e1072644d2c679bf0b8997622a226a45724911a",
+        "jpg": "e6a26870e6650ab6b62e64625c2df9ab8c9f516855fee608b8c432f3d38f1937"
+      }
+    },
+    {
+      "object": "test-14",
+      "inputs": [
+        {
+          "path": "one-state/test-14.mp4",
+          "sha256": "f58107faa3e90d21cf7946be57f17e76b0f4fc95760a6efd182c236b50e8bd35"
+        },
+        {
+          "path": "film/test-14.mp4",
+          "sha256": "68d7895095e5f2dc6c5bec1a4b49ea2b2cf183507eb0d13696823a9eb156c3b0"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "4a2745e2bc5abdbe21705ee176d28728c8aba072a390bee14c36a00997f8c51f",
+        "jpg": "d6e755c19f9ce5c26df49e60a83004d86ac9c5ce99bde64db2fa64b78ac4268d"
+      }
+    },
+    {
+      "object": "test-15",
+      "inputs": [
+        {
+          "path": "one-state/test-15.mp4",
+          "sha256": "72d9f5828146019f54635e04f4132645cbc0f7b86df5d1af5b9b57fcb574e42e"
+        },
+        {
+          "path": "film/test-15.mp4",
+          "sha256": "48183af5e22f7d6ec1f0bccb3530ba2b5fc5253de68f1d21a8d3c5a126fd397d"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "c8ae982bf607e2ed4608c4b025086bceab9bd63297eafa648ad029d4d42bd2f2",
+          "selected": 0
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "2aa87be8978e6f94e24bff2f25f481531774131e9ec25bd6ce7410731f4ed1b0",
+          "selected": 0
+        }
+      ],
+      "outputs": {
+        "mp4": "73925d38907d672433bb93de5cc4cde626b5d34652a0793255e0badf89881ed4",
+        "jpg": "18c0cf7c09ac9e80b0f72d5b31582ab6810d5b63de7a2caf7fa6a8a1fdbaaedf"
+      }
+    },
+    {
+      "object": "test-16",
+      "inputs": [
+        {
+          "path": "one-state/test-16.mp4",
+          "sha256": "13c7b2e5f6f3c6d29436f81e36c1717b2af5221a464bd5f47c6d53c76785e547"
+        },
+        {
+          "path": "film/test-16.mp4",
+          "sha256": "14243b761d8b6aca5c95a0602f413d928a0e8cb3d6270d4a7a78e9cf30d5e0bb"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "d4f0bba19c29508cf25f798c4e6f9f4b8fcaf43c3a13c44310b44d7710594044",
+          "selected": 0
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "580f5cfba2a2166f626ed86900cbf070b760ec0a531754b2f03ba398beecc234",
+          "selected": 7
+        }
+      ],
+      "outputs": {
+        "mp4": "33250d0c2335c1143cc17f84e12cad8f6ec7ffb04fa24f2814aeaa636af0c1c8",
+        "jpg": "d9867e91185b50adf1eae88cd92fdbe1193a38ce6dda77780301f4f6ec9dee30"
+      }
+    },
+    {
+      "object": "test-17",
+      "inputs": [
+        {
+          "path": "one-state/test-17.mp4",
+          "sha256": "63684c0fc340856d9264e6aa00240d9475cf95c34b27f906f943473a263925ac"
+        },
+        {
+          "path": "film/test-17.mp4",
+          "sha256": "fd464c7352fe0495c704e036a3fa11678bf562bdaf01b41cac01712b2b1dce99"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "92ea93c05fd319cdeec1298e299f53dbae49fa2506a4d29e18a7a0b4d3f4cc60",
+          "selected": 0
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "ae920d43e758ac290bf6f4cd8e961ab33cf084f53a3e0988c430dab37696bdf4",
+          "selected": 3
+        }
+      ],
+      "outputs": {
+        "mp4": "8083dcf5aa7c4d90f9fc584839de4bbe20a76e385dbbd39d45a08331f785080e",
+        "jpg": "8cd3e03e0941eee7b09edea49f3f38977a2f8a448a73255de4418bdd97be79e4"
+      }
+    },
+    {
+      "object": "test-18",
+      "inputs": [
+        {
+          "path": "one-state/test-18.mp4",
+          "sha256": "a985d334735398b76ac7bd7c181df494d6cd68dd8b3779646c79e8e0f25368ac"
+        },
+        {
+          "path": "film/test-18.mp4",
+          "sha256": "b4a7bb960110e556ce43698cb0445176703e0cf1d4b0e487b0ad60b35f5d4ca1"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "aa26993bffcd909e28622fb97d52784e5c11091eb065085e9f730da178e26641",
+          "selected": 1
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "b94920b1e4b29aab8ddb02f65844d364530d0d8c657b7384eee8795be6af7ec4",
+          "selected": 5
+        }
+      ],
+      "outputs": {
+        "mp4": "71d4de00c92a0b1e8b5f99bad4736efdbb1a25548c5f5e16b92b273495791c4d",
+        "jpg": "599ae8420a622a3cbdb08ae6883723dfae76b52469e41f70d1893f3bd8f100ea"
+      }
+    },
+    {
+      "object": "test-19",
+      "inputs": [
+        {
+          "path": "one-state/test-19.mp4",
+          "sha256": "602a4a26ae6f5e177d6ad540f36245a9f2f68ef07b24e5804cbb48180771d006"
+        },
+        {
+          "path": "film/test-19.mp4",
+          "sha256": "00e4c929d4557ef7e816bb75ea00da4ccf7592b00914ab0f9fccd8504987e523"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "870bff4f907e8d54e13306d1528feb7eba8235660dd58e504993f669a5f3fbdb",
+          "selected": 1
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "8397626f719aa5fa5b7b7187fc38e0ab3dd9b619b21d52562895587e0dcf7266",
+          "selected": 0
+        }
+      ],
+      "outputs": {
+        "mp4": "c10a8a7d01b113ffd743eb328010c83787c6ab5b6245f9131a8b7489524df3bf",
+        "jpg": "fad19a226c2f19cb730d0ff74b37acfe498e7c8ecebc4107ab8a66b2a620627c"
+      }
+    },
+    {
+      "object": "test-20",
+      "inputs": [
+        {
+          "path": "one-state/test-20.mp4",
+          "sha256": "79b675d6ae7d40351317e92930a30043d14d0a68c87d6dc9f9ce342467bf0692"
+        },
+        {
+          "path": "film/test-20.mp4",
+          "sha256": "b96f77a01fcfd4f717ef7b16956a477afc0abfed2c578ae1bc6fe16b1d4ca189"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "86eb1c4664e85a52657a56897c6bb00cb9e882e3b2eada7b1dd0ab1301a3105a",
+          "selected": 0
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "0ee5ea601b482e4a12f7c1c6b1615b45decdbe18da1613b17205a09538d52521",
+          "selected": 5
+        }
+      ],
+      "outputs": {
+        "mp4": "a22197a2798c8a82cee1349353f75c919814de95678e341bb73e7d26f14b503b",
+        "jpg": "6f5aeacc532730f6299fbbc28133be37c00bd052d424b2377e834390de384690"
+      }
+    },
+    {
+      "object": "test-21",
+      "inputs": [
+        {
+          "path": "one-state/test-21.mp4",
+          "sha256": "a6e90752d0330fca1ed4a03a306c1ff12708d397232415c025cb9282f63768eb"
+        },
+        {
+          "path": "film/test-21.mp4",
+          "sha256": "41e3339b61c2fe37849e2f90c577e51719bd9af68b2f3669bf3e4ee357074a2a"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "f119f43d98dfc2dc57e21c23dd398fba12daff9d3bd719b17b9d146d5c16c04d",
+          "selected": 5
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "421b12d7b658ae927c5401d047682b92e604035d6585b9e58e6f3ea9f92e8a22",
+          "selected": 6
+        }
+      ],
+      "outputs": {
+        "mp4": "cb564250572d2e9cf1a7dce4e20adc3b8976a2ab782695a4c55521e62881c49a",
+        "jpg": "e7ef09b41dcad88cd483e27bf4c6d396afcfb76416b53dac0185095a34429b0c"
+      }
+    },
+    {
+      "object": "test-22",
+      "inputs": [
+        {
+          "path": "one-state/test-22.mp4",
+          "sha256": "a6c68869e8cbcf79f2d8c123dfd6c4cfcf4c35f4fb10a2edc9798301db88c749"
+        },
+        {
+          "path": "film/test-22.mp4",
+          "sha256": "9984d793506607287a18400bd557a371d342415d42fbaf592fa92aada99422da"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "c9c45b9efad17ae89f1619ad156307d460e5eaf164d8ee81784cdd7b63bc0d40",
+          "selected": null
+        },
+        {
+          "run": "gem31-xml",
+          "summary_sha256": "1eaaa7f12bb0fc4ea414d42e8285632ea75618ac7c41fd5b3e73cf36a016fb45",
+          "selected": 1
+        }
+      ],
+      "outputs": {
+        "mp4": "28f7b24b7ba12566cefb5cfbe7bce496c33c617d59f4e012865cd1a8d58e1360",
+        "jpg": "a59ffadf4a79814f04c44dff1b2d7bb4834b84ffb44366265e920d8805e9980c"
+      }
+    },
+    {
+      "object": "test-23",
+      "inputs": [
+        {
+          "path": "one-state/test-23.mp4",
+          "sha256": "51bca664580d0e87194393d75ee2c9c41aeb3f81ed67986096abf4a078e73c09"
+        },
+        {
+          "path": "film/test-23.mp4",
+          "sha256": "5d27321c091cacf618f3ef04a954a2f142b981b66acd86d67ce4735c52f29d8c"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "071a213a75313867ad8926fce8c5e0a3dd521ab166b4b23a391ebaad393c484e",
+          "selected": 1
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "e2e7f072b3dabe4d23620786df925fc0e9aa36250c002e951d4ae774cf0cede1",
+        "jpg": "b5f1cd2daac9c4a23b60920a2ee433dc00000e4ccd7f736886b3d7c72fede2af"
+      }
+    },
+    {
+      "object": "test-24",
+      "inputs": [
+        {
+          "path": "one-state/test-24.mp4",
+          "sha256": "89f174d9f23d5eed7471be184c9ddb27b44d7f5618e00b1a656c576315596ef3"
+        },
+        {
+          "path": "film/test-24.mp4",
+          "sha256": "509c1e2bfa3c004a05f5899e40c91171f699e7729e4a34a154066c0351af4922"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "4c3d4e690cb189f8afd981ecc0e5d14329efda28d63ad2904205566542fde580",
+          "selected": 0
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "69297df0add3fff53a4b7cf2e57796c28163243ad1fb254e85d2b80f3c860038",
+        "jpg": "ed1a86ec65a195d0c0ff8b258e8731a28f42a6d4fe8da66becebb16fc1b9b254"
+      }
+    },
+    {
+      "object": "test-25",
+      "inputs": [
+        {
+          "path": "one-state/test-25.mp4",
+          "sha256": "648173eb4b2a303aee668d6cfc8610d89e2d836b1a14fb7a64ac66e1051bc369"
+        },
+        {
+          "path": "film/test-25.mp4",
+          "sha256": "5ca6996d7b44c6ff09b918d1a772bd1905c1c67ec144ba84d460d8de8c989fe1"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "summary_sha256": "b73d4d21db7ada6f4aecb7f0faaa1636ea9190ab7207abc24991b9ef10c9caa2",
+          "selected": 1
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "9b69dadf1f4ded60749bc4cdd3c7c7206a0dfc2f4dcf5a2459cdb47787b3d9a3",
+        "jpg": "075b60783f60722712e55436e1507b28ec54c73089c891132a634f6eb69ce450"
+      }
+    },
+    {
+      "object": "test-26",
+      "inputs": [
+        {
+          "path": "one-state/test-26.mp4",
+          "sha256": "19bc68ab60022598eb280f6ee614c4b3429e093b5e96fa6557b54048bbf01ac2"
+        },
+        {
+          "path": "film/test-26.mp4",
+          "sha256": "8cb22a73fa172be6415977458f4a3dbd6136240c2e088d9e1da8218c258984b3"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "f1e46e7a4a0735dd6194200dbc0f2a2b6a134d4ea4d1aa1a0643c4fdad497afc",
+        "jpg": "5406c92abf19d46aad553e2360b00a9802184b4afd2b7a51730e4eac03e96c82"
+      }
+    },
+    {
+      "object": "test-27",
+      "inputs": [
+        {
+          "path": "one-state/test-27.mp4",
+          "sha256": "2f28da6b3296fdb8b192018fa78f72810c752e32cc3fba7017425350d077a34a"
+        },
+        {
+          "path": "film/test-27.mp4",
+          "sha256": "a868278c69d3f66f0cd645f6fd526bd23cb2e4bce079c76dc10a36a6425dfdb4"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "21ee5ebf04d391a438e23b9e9009318f8320acdd5c84f4bfcfd7baefbc230156",
+        "jpg": "faa66652e62f6fb9e236fb35049c2b490b17ef5eb83cab24a56bd4298168da1a"
+      }
+    },
+    {
+      "object": "test-28",
+      "inputs": [
+        {
+          "path": "one-state/test-28.mp4",
+          "sha256": "7202da51570c41bd75ac2a31b3564b2958ee5ee763a9fa9f99bce4c456816012"
+        },
+        {
+          "path": "film/test-28.mp4",
+          "sha256": "e65d5f5f36270c20f7b70cd6abdf46a9f65a57497d80db9f980e63012d0cda85"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "c2a0f15776475ab9c02a602853a04d7eaa82d45f8734b7647a41cf9629554d01",
+        "jpg": "a528bfe6dd9b3fe44b73bde8ac439968e4a10e87b339b8b6a95cb24b9fa0bf46"
+      }
+    },
+    {
+      "object": "test-29",
+      "inputs": [
+        {
+          "path": "one-state/test-29.mp4",
+          "sha256": "da365ef02a8771f82f435ffcee1c958d097b95ee1a78f7cefc58173cfc891343"
+        },
+        {
+          "path": "film/test-29.mp4",
+          "sha256": "8c27bc593747bc2231be8100bf1cd0e7bbf272c26e4f1be81522d889448b1a0a"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "4b396eba8d593de718e10b377a96feb1bc856797cdffe80f5ea15c11f1e0f3c9",
+        "jpg": "4252c0e816edeab40d156cf34057e1a3108d81258761789541d7192f309591d1"
+      }
+    },
+    {
+      "object": "test-30",
+      "inputs": [
+        {
+          "path": "one-state/test-30.mp4",
+          "sha256": "cffdc1f9aad4185d448d67bfefdb1ed89935576768bea61672a2337dd20d6735"
+        },
+        {
+          "path": "film/test-30.mp4",
+          "sha256": "716694bd8c50f2f618cb04a15e496b2b3b70d19ef4f1b050f376f971e9e983c1"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "10ae698bebdad8a8097c83c9f178b337f67a12220456c5c0855fff61d5f2c9c5",
+        "jpg": "b8f90ce8e735b2b7db1c5d2b10eabe13c40243a69439087a12842181f32f9b61"
+      }
+    },
+    {
+      "object": "test-31",
+      "inputs": [
+        {
+          "path": "one-state/test-31.mp4",
+          "sha256": "9a676d0907983753f9c2b03b54b006af09f026dfcdaaefac0e85bb539f59f5f8"
+        },
+        {
+          "path": "film/test-31.mp4",
+          "sha256": "585addc6dacc589a5b8d743649e6bf68fa458b9f3f451b47c98727f81dd4e93e"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "ddd949f8f32a1cdbf2b50748ce7b41b90f50a09d6fc3dfaf7e1b92e3e3df3796",
+        "jpg": "ae1bcfdecc22b655e8878e1b939d78c90695ae698477f076d25dd4ed788b6d50"
+      }
+    },
+    {
+      "object": "test-32",
+      "inputs": [
+        {
+          "path": "one-state/test-32.mp4",
+          "sha256": "222c62db6a4345fe484693b48f1e19e94c87c8677b11b6a2eca3e48a7ab073c1"
+        },
+        {
+          "path": "film/test-32.mp4",
+          "sha256": "df3d9eae272f4fdfb3f79df2d9ea8c2bd5e7436a5feaf094ada86dff9cab4345"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "4bc0eb43efbc71b8411bdfe5bf82417b251470d4e68d9478a36140a460e42d3e",
+        "jpg": "797785ba4f4bccb926c1fb1d31b7763013f0851ea51c76da58a14718d4445a7b"
+      }
+    },
+    {
+      "object": "test-33",
+      "inputs": [
+        {
+          "path": "one-state/test-33.mp4",
+          "sha256": "a5e329581a0d8b4436ac22b8c0326b13495e72485f9e93d6e2da596092e29ae2"
+        },
+        {
+          "path": "film/test-33.mp4",
+          "sha256": "bae6058171c72f96d3397321c5eb307f4e6e2961d63207dbd3ab38a9d6189505"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "a6e0cf68f99b04dbd3a2b9f7d60053c80f9893448e5e140518ff42b9a6936f32",
+        "jpg": "339ecc134cfdcee2e518a0de01c309df7293920b13f482a9d6c75a07f6df7a5a"
+      }
+    },
+    {
+      "object": "test-34",
+      "inputs": [
+        {
+          "path": "one-state/test-34.mp4",
+          "sha256": "81414ee4a3578a4483db6609eaf36c7a49dc3407fe0ff0104bb3e031ff31912e"
+        },
+        {
+          "path": "film/test-34.mp4",
+          "sha256": "76f9fbc1003f8598b4cd8d3250e37da0a9ef7452d24f85443082d00e2e0b0108"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "113babc3c233fa9767a7336f913b795da0070dc98c9702ff5871fcd1d4774b5a",
+        "jpg": "3e915946600c7e93ef24f488d399d86fedb01ddf5ec922f175c4e8d01bff382f"
+      }
+    },
+    {
+      "object": "test-35",
+      "inputs": [
+        {
+          "path": "one-state/test-35.mp4",
+          "sha256": "3284967a83b34b76b759ff789495961b12226d070c23b2b46b78f51c40a66d38"
+        },
+        {
+          "path": "film/test-35.mp4",
+          "sha256": "4d4d0f28858f6673d3ca5b4eb4c8f3450101c6c3cee07ba135801d2a85f3fae1"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "bb784e50d980890188333e2e52cde085173f6f739bc153daa96af0c8ecb1042d",
+        "jpg": "7a326747d54f1a1f7b7f912177e1b2371b67a6d0fa6188a9c77859061d9358a2"
+      }
+    },
+    {
+      "object": "test-36",
+      "inputs": [
+        {
+          "path": "one-state/test-36.mp4",
+          "sha256": "b458e0f9e36104dab2b09a98857d540d34882ee95f48d1b784257b20d1ce0118"
+        },
+        {
+          "path": "film/test-36.mp4",
+          "sha256": "cf34a7b86bcbab6a7617c866edf11ae4fcb3533580d5f050a50d579301f690df"
+        }
+      ],
+      "xml": [
+        {
+          "run": "gpt54-xml",
+          "status": "pending"
+        },
+        {
+          "run": "gem31-xml",
+          "status": "pending"
+        }
+      ],
+      "outputs": {
+        "mp4": "6430b020fcd90771a840e794b698420b4368d01bc28b480bb8540b797ee07e8a",
+        "jpg": "8bb2707d22b1b600917923ff27ae8abd11831ccd536057943fa17851062451dd"
+      }
+    }
+  ]
+}
