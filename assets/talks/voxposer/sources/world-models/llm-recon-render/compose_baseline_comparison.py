@@ -21,13 +21,13 @@ SIZE = 384
 FONT = ImageFont.truetype("DejaVuSans.ttf", 15)
 
 
-def tile(frames: Iterable[np.ndarray], title: str) -> np.ndarray:
+def tile(frames: Iterable[np.ndarray], title: str, size: int = SIZE) -> np.ndarray:
     """Resize a panel and replace its caption at the composite's resolution."""
     result = []
     for frame in frames:
-        image = Image.fromarray(frame).resize((SIZE, SIZE), Image.Resampling.LANCZOS)
+        image = Image.fromarray(frame).resize((size, size), Image.Resampling.LANCZOS)
         draw = ImageDraw.Draw(image)
-        draw.rectangle((0, 0, SIZE, 27), fill="white")
+        draw.rectangle((0, 0, size, 27), fill="white")
         draw.text((8, 5), title, fill="#1f2330", font=FONT)
         result.append(np.asarray(image))
     return np.stack(result)

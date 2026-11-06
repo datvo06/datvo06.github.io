@@ -1,95 +1,35 @@
 {
-  "source_commit": "1e71675",
-  "conditions": {
-    "gpt54": "gpt-5.4",
-    "gem31": "openai/google/gemini-3.1-pro-preview"
-  },
-  "settings": {
-    "max_wall_s": 2700,
-    "fit_timeout_s": 1500,
-    "proposals": 8,
-    "max_completion_tokens": 8192
-  },
-  "input_tree_sha256": "0ac8f4b04411760e54be5cf66197731ee520f200dffdd2bc048ebdd3ae4db67f",
-  "input_file_count": 17057,
-  "source_sha256": {
-    "code-film/src/robotl_reconstruction/__init__.py": "dadd01f01e9f90231efc747c0741290429725a913288996f2c71e34422b8802d",
-    "code-film/src/robotl_reconstruction/agent.py": "5d0fea84402b93a6bffcd374ad92bcc61f965c5f9bbb49931136896590f257e0",
-    "code-film/src/robotl_reconstruction/articulation.py": "ac9b7c49f8fc33118b640f542b792581e88b38551eb7377ef8108ce4b53931d5",
-    "code-film/src/robotl_reconstruction/budget.py": "0a5230b66549739a27c8b1544822520a3fd64a2fd20dfc0554b52270be4ff491",
-    "code-film/src/robotl_reconstruction/connections.py": "dea0fd236ed7502c04f874a2f731c2f6a724ebdadabad941d61d4fe23a33e634",
-    "code-film/src/robotl_reconstruction/evaluation.py": "1a10c67525b6c26fef6fd622329b720626c5eed916d95efe2af7cae39e805f74",
-    "code-film/src/robotl_reconstruction/image_tools.py": "b4201c42a64d0890afc4cc3935f6df260bce055e37bb4bf0a606c5f4025c8a25",
-    "code-film/src/robotl_reconstruction/observations.py": "ec16cbfaa8ff7dcbc03d218ad21e9b88d749ada6ca45a47b76942094eb9cf59b",
-    "code-film/src/robotl_reconstruction/runner.py": "5f67b780abe841c8f70598e8035d6e4b56756d58aeaa239733761c95112efb42",
-    "code-film/src/robotl_reconstruction/scene_example.py": "b5ea3a078a7e1efc73f99e73d1e38a889743a4d5e82f8d9b3b4d7fc19e3f8105",
-    "code-film/src/robotl_reconstruction/stubs/mujoco/__init__.pyi": "87b6833ffb7e97db70672a4a8878db98621a79c6689ca41ec89b3938915f0d1f",
-    "code-film/src/robotl_reconstruction/study.py": "2ed7bfe7e7ca1c676bb1012ff5e81c08772f87eb79f615931b69923d8428605b",
-    "code-film/src/robotl_reconstruction/utils/README.md": "21e9835f5cc7c13ca297ec3fd2b4e7a355cd5216a9e3a684a5e3eac62b512e65",
-    "code-film/src/robotl_reconstruction/utils/__init__.py": "1f516e3b36d5057c2ccb9ba1ef049ece953f1d3abab0616a49b1bd577743e484",
-    "code-film/src/robotl_reconstruction/utils/babyrobot.py": "29fcc7a0b3db6ecc7c63c57e1fd4d4f80920bf89a8f0de6fd79f2c68acb33a5c",
-    "code-film/src/robotl_reconstruction/utils/benchmark.py": "b838e6e8e52223408d7abd8166484f3df9a4f0b9df971e4b2d40c83ef3698b02",
-    "code-film/src/robotl_reconstruction/utils/cabinet_example.xml": "ed6ee583d3086a3f7ac8a0c931749e669895b8d0894c0725815907bedd61b1dd",
-    "code-film/src/robotl_reconstruction/utils/cli.py": "b183040091f0a4906801e14bd5d185a0d03441dc5d67d19e50cf5d7644ca224b",
-    "code-film/src/robotl_reconstruction/utils/fitting.py": "ae8c26e71ec7db64c332dae488313bbe9b4b6d5de0ad260c345d24f8f8d1ec76",
-    "code-film/src/robotl_reconstruction/utils/mjcf_agent.py": "5503c278c0ba330a97da51582cf57775be8345062edfaa76d845939d9a214b99",
-    "code-film/src/robotl_reconstruction/utils/mjcf_runner.py": "7dbca29e906bdaf8520a203b8bec4fca12e2e422e36bfa27aea8548a6a717edc",
-    "code-film/src/robotl_reconstruction/utils/programs.py": "209cdd34fb3292509b1e60a6aa43ff7c247ad53f3b102214bd3710222d994c9e",
-    "code-film/src/robotl_reconstruction/utils/real2code.py": "23622dbf1d3b1dbcbe9a1891eef50d1aecc27efd4f72cddd26256c82be865757",
-    "code-film/src/robotl_reconstruction/utils/scene_template.py": "74b5e9f162c2b994d8cd5523fe1c3e92ec6335586011efe628ce48cac64b4470",
-    "code-film/src/robotl_reconstruction/utils/segmentation.py": "9e0eeb6e53f9bc4ff08c959d50cc7852f24886f029c315e4fdb75f15373c17d5",
-    "code-connect/src/robotl_reconstruction/__init__.py": "dadd01f01e9f90231efc747c0741290429725a913288996f2c71e34422b8802d",
-    "code-connect/src/robotl_reconstruction/agent.py": "b17e053318f37aafcc8be9b201b761269624b9add4a26dfc62dacf292e6a5ecc",
-    "code-connect/src/robotl_reconstruction/articulation.py": "ac9b7c49f8fc33118b640f542b792581e88b38551eb7377ef8108ce4b53931d5",
-    "code-connect/src/robotl_reconstruction/budget.py": "0a5230b66549739a27c8b1544822520a3fd64a2fd20dfc0554b52270be4ff491",
-    "code-connect/src/robotl_reconstruction/connections.py": "dea0fd236ed7502c04f874a2f731c2f6a724ebdadabad941d61d4fe23a33e634",
-    "code-connect/src/robotl_reconstruction/evaluation.py": "1a10c67525b6c26fef6fd622329b720626c5eed916d95efe2af7cae39e805f74",
-    "code-connect/src/robotl_reconstruction/image_tools.py": "b4201c42a64d0890afc4cc3935f6df260bce055e37bb4bf0a606c5f4025c8a25",
-    "code-connect/src/robotl_reconstruction/observations.py": "ec16cbfaa8ff7dcbc03d218ad21e9b88d749ada6ca45a47b76942094eb9cf59b",
-    "code-connect/src/robotl_reconstruction/runner.py": "5f67b780abe841c8f70598e8035d6e4b56756d58aeaa239733761c95112efb42",
-    "code-connect/src/robotl_reconstruction/scene_example.py": "b5ea3a078a7e1efc73f99e73d1e38a889743a4d5e82f8d9b3b4d7fc19e3f8105",
-    "code-connect/src/robotl_reconstruction/stubs/mujoco/__init__.pyi": "87b6833ffb7e97db70672a4a8878db98621a79c6689ca41ec89b3938915f0d1f",
-    "code-connect/src/robotl_reconstruction/study.py": "2ed7bfe7e7ca1c676bb1012ff5e81c08772f87eb79f615931b69923d8428605b",
-    "code-connect/src/robotl_reconstruction/utils/README.md": "21e9835f5cc7c13ca297ec3fd2b4e7a355cd5216a9e3a684a5e3eac62b512e65",
-    "code-connect/src/robotl_reconstruction/utils/__init__.py": "1f516e3b36d5057c2ccb9ba1ef049ece953f1d3abab0616a49b1bd577743e484",
-    "code-connect/src/robotl_reconstruction/utils/babyrobot.py": "29fcc7a0b3db6ecc7c63c57e1fd4d4f80920bf89a8f0de6fd79f2c68acb33a5c",
-    "code-connect/src/robotl_reconstruction/utils/benchmark.py": "b838e6e8e52223408d7abd8166484f3df9a4f0b9df971e4b2d40c83ef3698b02",
-    "code-connect/src/robotl_reconstruction/utils/cabinet_example.xml": "ed6ee583d3086a3f7ac8a0c931749e669895b8d0894c0725815907bedd61b1dd",
-    "code-connect/src/robotl_reconstruction/utils/cli.py": "b183040091f0a4906801e14bd5d185a0d03441dc5d67d19e50cf5d7644ca224b",
-    "code-connect/src/robotl_reconstruction/utils/fitting.py": "ae8c26e71ec7db64c332dae488313bbe9b4b6d5de0ad260c345d24f8f8d1ec76",
-    "code-connect/src/robotl_reconstruction/utils/mjcf_agent.py": "5503c278c0ba330a97da51582cf57775be8345062edfaa76d845939d9a214b99",
-    "code-connect/src/robotl_reconstruction/utils/mjcf_runner.py": "7dbca29e906bdaf8520a203b8bec4fca12e2e422e36bfa27aea8548a6a717edc",
-    "code-connect/src/robotl_reconstruction/utils/programs.py": "209cdd34fb3292509b1e60a6aa43ff7c247ad53f3b102214bd3710222d994c9e",
-    "code-connect/src/robotl_reconstruction/utils/real2code.py": "23622dbf1d3b1dbcbe9a1891eef50d1aecc27efd4f72cddd26256c82be865757",
-    "code-connect/src/robotl_reconstruction/utils/scene_template.py": "74b5e9f162c2b994d8cd5523fe1c3e92ec6335586011efe628ce48cac64b4470",
-    "code-connect/src/robotl_reconstruction/utils/segmentation.py": "9e0eeb6e53f9bc4ff08c959d50cc7852f24886f029c315e4fdb75f15373c17d5"
-  },
-  "snapshot_date": "2026-11-05",
   "scored_searches": 148,
   "planned_searches": 148,
   "rendered_objects": 37,
   "planned_objects": 37,
-  "selection": "Canonical validation selection before benchmark scoring; selected scene rendered with its saved parameters and solved connections. Selected programs without connect calls or Params have no fitting variables and remain explicitly unfitted; no post-selection program edits were made.",
-  "comparison_note": "These searches use fit-on-evaluate at 1e71675. Archived GPT-6 film searches used 05fe792, with ten connect fits run after selection.",
+  "selection": "Held-out validation selection from saved accepted candidates before benchmark scoring.",
   "success_rule": "Chamfer times 1000 <= 10; no missing or extra joints; paired joint type score 1, axis error <= 10 degrees, pivot error <= 0.1 when defined. Range error is the mean of available paired joint range errors and is not part of this success rule.",
   "objects": [
     {
       "object": "test-00",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-00.mp4",
-      "reference_sha256": "062315c74a46841f9450906bdaec56a88f0cd6539b8158b00063cc62e77f5629",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "d5a8591fa46a19fa6e51a9f01788f1a0b7a42e3114bb92e6ea2b4b20299066cb",
-          "fitted": false
+          "selected": 0,
+          "summary_sha256": "524ace33c335bdb0cefac4e0d58fbef23365ac48666d26db756ba50ad9051358",
+          "benchmark_sha256": "7056519ea8744080617ddc49bfb51675e0b3129e7c1f31852b5ba9eefb999678",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-00",
+          "fitted": true,
+          "program_sha256": "630de9155cb79b82124587c91f7706a5114e0598cb40b3a6a0f5fc3ec9c93652",
+          "fit_sha256": "6f4c7284c52bd8a519301bc5033a2711875d09cf1ccda878e24edcfd5ff5e5d9",
+          "video_sha256": "dd972f6921fa0793f20f45806265f79aa3c1b78884f8177e7a2c8dfcaabe73d3"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "8e44f5a771320ee147759c242c947ce9f07d70a44d76945571ccf21243cf9f5a",
-          "fitted": false
+          "selected": 7,
+          "summary_sha256": "0380ef8c176c024064d2915786e971dfeca9e4d23166f9b5f49c8633280fcb53",
+          "benchmark_sha256": "2e1ad982b0d8a1244da12506f938cc0c88c6a6af9bce5f5dbeba109a52147028",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-00",
+          "fitted": true,
+          "program_sha256": "7ace120d0ba9e341b1f2359599b22944a8ef9259bef02a4d4d2c5b674744b592",
+          "fit_sha256": "837088bc3ee43e189c3710aa5fd9a44d89d988b5ea889bbf16e7b7eb74d3a4b8",
+          "video_sha256": "c171f0f5c1e88a8b24d1f114816124f597b8d4c90eb732e6ddf8a82fd4007781"
         },
         {
           "run": "gem31-film",
@@ -104,26 +44,40 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "3270ba022504564d6f4de6efa2ba6238f66eef3a2410d0dff62ed150e13aa99b",
-      "jpg_sha256": "567882cd17d41e1b58d5390a6ef91124ea15620c1ae39631c2b1459875bfdb75"
+      "mp4_sha256": "a7dce17603228453797156aab011a9d85e5b11a923be55b8a17b4b5a3ff2dd0c",
+      "jpg_sha256": "ed7b155d05e1495541f7b7065913cb5e49dde866d3d47ba6e7c6dcfa32904c3a",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-00.mp4",
+        "reference_sha256": "062315c74a46841f9450906bdaec56a88f0cd6539b8158b00063cc62e77f5629",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "3270ba022504564d6f4de6efa2ba6238f66eef3a2410d0dff62ed150e13aa99b"
     },
     {
       "object": "test-01",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-01.mp4",
-      "reference_sha256": "6bdac001b3d6fa35166172c708ce5fd8aa1c4fafe31b1bcc67833ca9b9ec13a0",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 1,
-          "summary_sha256": "dbefdb65eaeea0cd49450774abcbc92d40a8d8c154117c61268b9fb60dd96ce7",
-          "fitted": true
+          "selected": 2,
+          "summary_sha256": "6ece046a50cb7fe8c6411ad84774c9b026062d9069a467c97328584a534fed2a",
+          "benchmark_sha256": "60e4c7ec4396b25d83a007a573582570f6614506e885ee7f03e9ef62ddac054d",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-01",
+          "fitted": true,
+          "program_sha256": "5bd4dc7f6c87d6936cdfb44f4b733aef46ecbd653df4e7beac22cd41c2384a0a",
+          "fit_sha256": "6364e8b1c5584dfe4c15f0cfcc115594840a7aa898aa3d8cf6fce31a9e11d1d7",
+          "video_sha256": "6f622df68ea2bdbc20db786621e4554efe199fe330dfd28abe84b4a9764f4e9b"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "8fc5714e83c76cd2fe7c93db765ab59544359b22bf419dff4765058c33488d7a",
-          "fitted": true
+          "selected": 2,
+          "summary_sha256": "3a0ebd45075b11734058dc14901e4bae683b78fef49ac2bc4d284c6ec01273ce",
+          "benchmark_sha256": "8d061bfa5a0c0299891acd0fd1bad361dc392b3f8dfba29e456273ef321da555",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-01",
+          "fitted": true,
+          "program_sha256": "d65c013fc8fa61b879a33d289b5d5c9460da8d1060f8f8228adc37f83157fa3f",
+          "fit_sha256": "bbc41aac144afa87ad0318b97f6ae89dc89a4076d3784f7a93f7c86e1eeaaae0",
+          "video_sha256": "ded85aa45785de3bdfe7e77275b31faa3784595282c0368b9347c8fefdf33d79"
         },
         {
           "run": "gem31-film",
@@ -138,26 +92,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "899f1e4712bcb7801cf09aef92c5e3678ef7c8087ab8dc3d7b30ca185d66a6c8",
-      "jpg_sha256": "5c7042eae12a449a67c0167bbe5cfb5417eb92cc544a1c487316f10c69535bb4"
+      "mp4_sha256": "3adcc93272f0bec93104fae26edaa333f95c62a427c7a9a7f76b24fe0fab56c1",
+      "jpg_sha256": "0ffeefc53ca369d4277636d6250d41384c5215d1ecab53e44d99ae97cb079191",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-01.mp4",
+        "reference_sha256": "6bdac001b3d6fa35166172c708ce5fd8aa1c4fafe31b1bcc67833ca9b9ec13a0",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "899f1e4712bcb7801cf09aef92c5e3678ef7c8087ab8dc3d7b30ca185d66a6c8"
     },
     {
       "object": "test-02",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-02.mp4",
-      "reference_sha256": "1c7b001037fad46d91ab4408348b72e2fcc97b99e89cfb6a3d1efb694e9e1be3",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "54d7c397a18c2ac41a67ba364f9ea7ec6d8b1a1086a7f3c371f064be1818d667",
-          "fitted": false
+          "selected": 0,
+          "summary_sha256": "d4de3cbf6bb3d80ad4b5bc515205d3b8114531e625e0e635071d0783472363ed",
+          "benchmark_sha256": "0a8fb4bb60cd243d9a5e357967dfc72825acce6fa7cd17fe50d0d9aa48997174",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-02",
+          "fitted": true,
+          "program_sha256": "80d4e1369cb04b62cc1cabdd5e2b2d7333c74968422c54206e3736bf527846ea",
+          "fit_sha256": "796fe2370cdd905c4f20536995290c26d0cf6a769bb73ef0f507db573ffa9552",
+          "video_sha256": "d6853c586e160fc6f6cb6d5f987f302a677b52e6f5d62cee5e3d758f6bfac976"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "71dee15b5e8a6550e950980303afb2e0ba90a5943107d34f4e49c427a01ce702",
-          "fitted": false
+          "selected": 1,
+          "summary_sha256": "b8426e3e1d723a7dfaa2ab41413766445c6c1eec672b8878eeafd607820ec502",
+          "benchmark_sha256": "d835c407d64e1df68366f47d3c4c2c052ba1d1ad0f6545ef383a4ff5b2c84299",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-02",
+          "fitted": true,
+          "program_sha256": "36fbaface776253b534214c53e96bf6b19623f8294668b3b0a97597ccac8542e",
+          "fit_sha256": "9ef8f7cf8c3b7947037f8b5bc5c4ae20b849af524fecc81512b4eec6c6d41a0c",
+          "video_sha256": "339b1c655e2e08e57ed41c953fb503a67191c5636ce38743904518086363f98c"
         },
         {
           "run": "gem31-film",
@@ -172,26 +140,40 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "4177fa299639c9155128aa22d578641a624491703657f05249acf57e945062a3",
-      "jpg_sha256": "dd4449ff1a3c43afb2e4b9886a59a49fe7d93ff5152302e9e89a3b9277e3736a"
+      "mp4_sha256": "847954aa49c314b47106dbf478bfa99835657a30bb3678de970eb22175e87bac",
+      "jpg_sha256": "8758aebfaec4110c6952f2d14c650f088ddb9386be1f6ab617b919a612b7a81f",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-02.mp4",
+        "reference_sha256": "1c7b001037fad46d91ab4408348b72e2fcc97b99e89cfb6a3d1efb694e9e1be3",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "4177fa299639c9155128aa22d578641a624491703657f05249acf57e945062a3"
     },
     {
       "object": "test-03",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-03.mp4",
-      "reference_sha256": "6d292e9c0c7b100b2725931e25fdc194bbebffd817edcc4537281ee32306b3b4",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "a33040bb5134e560d36accb57250839cbe4b22119d8f2a2a7eb57f74700ac499",
-          "fitted": true
+          "selected": 5,
+          "summary_sha256": "b6fd37b719319f9aa2387d221754f9373ef1cf00fd5ca32184478c82669693d3",
+          "benchmark_sha256": "aefc1dd2b8cffac83453080f214dd6e8c2848088009cb256f885b96508f7aad5",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-03",
+          "fitted": true,
+          "program_sha256": "7414bd3daf8b727e8bd3d8607e4baca377cc86d992b52412a0fd6d713c25bc3e",
+          "fit_sha256": "d7c242119bc813d05b6663deb8d7ba1638d003b1e1978de62a725b4bed78d6c6",
+          "video_sha256": "b69839f1c6a65af762b0a50076be8243d0c1aa0b39dad9072e2bf50773078750"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "4788fa291709d2194893119acf55baf01330b50b67be95d322b6974a6317b5f4",
-          "fitted": false
+          "selected": 5,
+          "summary_sha256": "c2c5b3749efed38ca3edd8eda1ad5a4bc0c791aded46d0d6c1d0a15350bbcff0",
+          "benchmark_sha256": "0cc53ffaca163e52a9ce7e44c779675ab6dacfecdd5a55ebc146c3b97123cb30",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-03",
+          "fitted": true,
+          "program_sha256": "16b0b00e65ee078d79e15ab602cca7884b1b9ba34f4b9bcbeea099d12b4f9556",
+          "fit_sha256": "607b1962e780a0cda0b56f3c6b1495c03d2b2b63767ef9ac5ba0e8c4e829802f",
+          "video_sha256": "93ea7e1a0b8a1504abacd80a4b283eaa628f897f192f279ddf1ec87b5ac77815"
         },
         {
           "run": "gem31-film",
@@ -206,26 +188,40 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "eb407c90fded355affb70e37bfc504e8b6ed90f84752289840da278801b646d5",
-      "jpg_sha256": "4ccdd6e8f3e081c4a0199d9538af30108eb760c2a257cf3bbd5b1bc911e55aab"
+      "mp4_sha256": "14baf2a7bccfa503d36d525c2d0dc5ab4d18b07a7d3d91f04f3becde1b7924c1",
+      "jpg_sha256": "d04ba5d0f3c12cec527afc1febbf1e844e21bd0070ca4bf85e3747675cde535e",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-03.mp4",
+        "reference_sha256": "6d292e9c0c7b100b2725931e25fdc194bbebffd817edcc4537281ee32306b3b4",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "eb407c90fded355affb70e37bfc504e8b6ed90f84752289840da278801b646d5"
     },
     {
       "object": "test-04",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-04.mp4",
-      "reference_sha256": "d21c01ea73001b799e3e99496bf0a29d3fd7642d80984e54cd5f1ef58e6d4a0d",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "2779ae79fc7e9852583ee2476a1149fd140248154802f774f95686fcddf2fa5d",
-          "fitted": true
+          "selected": 5,
+          "summary_sha256": "5d151dacf755f0a5a0656510567b10973d8b87ca65dc298201269d6a5a0d0668",
+          "benchmark_sha256": "fbef6f6c69b1e5f1f17daae181131cc43c52028cef1c89fb60d401a26a7e157d",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-04",
+          "fitted": true,
+          "program_sha256": "d12bdf8caa4ba2f906cea4e6af4a7f9f2211fe71f8364f0772dcb67acd47ecc8",
+          "fit_sha256": "5725ac4a1b48523d7f195ece6a5b8818ddf2408dce340c63023f2c406da807ec",
+          "video_sha256": "38643f8fc297c69bbc10320f36075815414cf0f3ed87f2ef1f5c6b35b066a46e"
         },
         {
           "run": "gpt54-connect",
-          "selected": null,
-          "summary_sha256": "0323685b1e2332b294238bea9da36dfcd64f7206f9b6959226fee72658d3811e",
-          "fitted": false
+          "selected": 0,
+          "summary_sha256": "4ad7a3f60ae2c132601958de7cfe0dfaa00b17aef1c4243fbe785510ba85ec70",
+          "benchmark_sha256": "e5e33ff0af28498378e2bd4b7d57d2810bc690e9a9a5e187abd9729e28980ad7",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-04",
+          "fitted": true,
+          "program_sha256": "78dccba5fc8c614e419f9c84acb3dd4aaca60d10bebea00ffbfd968d8be6f315",
+          "fit_sha256": "123f5b1efe692d490bd485ca19f23d2d13e1892cd94d14eb86dd915484065d16",
+          "video_sha256": "8151a392ed22a0580b8ed61a6f312788951b52e8b301ca667629706385360a47"
         },
         {
           "run": "gem31-film",
@@ -240,26 +236,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "5b43514f3f1b16ee1b78b827835c963dd3316b01953409c4e415b5f6ba5c2881",
-      "jpg_sha256": "aa4e8f2164dd9beaee403c37115baf1693645fba214a498a6e2f3f5e877063b9"
+      "mp4_sha256": "2a9145c9f3c590f15922e9ee53b2a159c41063aa77b5a09b8b7b0509bc1b0dab",
+      "jpg_sha256": "ceb109c933cb6d3fe15c56997fce3d94164e76fe94c7c7c18b54f6f91cc0e3f1",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-04.mp4",
+        "reference_sha256": "d21c01ea73001b799e3e99496bf0a29d3fd7642d80984e54cd5f1ef58e6d4a0d",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "5b43514f3f1b16ee1b78b827835c963dd3316b01953409c4e415b5f6ba5c2881"
     },
     {
       "object": "test-05",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-05.mp4",
-      "reference_sha256": "1c4b0d0aae7806da8447b354294811b6887e44985028af01362704befb33c80e",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "fa30849fe12ba391f6742dfeddbe6de7d2139f77ece760cc319daf0560104531",
-          "fitted": false
+          "selected": 6,
+          "summary_sha256": "335e9b93bb734e2a8fcf4306182012e8aa10ac37feaa5bd475ad6cd915269f61",
+          "benchmark_sha256": "f4fb07282e6a126438463c74f74ee3d19190cc3b2457711c703c26135fabea5d",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-05",
+          "fitted": true,
+          "program_sha256": "3d08005104989b1471d62b91068da724aec142dc18ef542ff35ee093577af0e6",
+          "fit_sha256": "85058cdcb8b40d5296ef32aa3b1679cead233e6541e50a33b7a9d690aeba884d",
+          "video_sha256": "720ba4e7f0020439d458700f280536ff8a811ea83d94713875f93ca75cea160c"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "af4e1931017c4876095a12454f9afbdf18f59e09e219aa95f0544dad1268eff0",
-          "fitted": true
+          "selected": 1,
+          "summary_sha256": "5a50bab33c631e40873d40567baf11e4b759f0c5edd667583fb2d6a62e566465",
+          "benchmark_sha256": "5bc272f8134065345daa67735beaf470b5f9540d17c09e45c9a3761487076aa2",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-05",
+          "fitted": true,
+          "program_sha256": "8ffcbb2a1f87283d84f9452e0b8b3cf35c87dbe49fc2b96c6254604b1471c262",
+          "fit_sha256": "d9855bb7d1093fc15884cfe9a4935264033b6e0af3f31d5cbee9b3dfe73e33f7",
+          "video_sha256": "01373c8651f2325f8891c1a4bc77de549278f8e70ae8ae2b64ef0200d5ca02fb"
         },
         {
           "run": "gem31-film",
@@ -274,26 +284,40 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "7e36b32998d5ce00df00df2928a91ea00aae178f5a8724aa7118290d00a76108",
-      "jpg_sha256": "ca5b4d2ad579ee2583836e59921f5a88009a441fc7fcc2911e703b37926cb8dc"
+      "mp4_sha256": "80b715dada39735434d9f911bbdf35fc087c901a6b3751698f98608cc208a733",
+      "jpg_sha256": "dcd6c6f5c1ac8ee057e116c62d9d23beac5e4da1e4c9e72692e69f3f0ae8af23",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-05.mp4",
+        "reference_sha256": "1c4b0d0aae7806da8447b354294811b6887e44985028af01362704befb33c80e",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "7e36b32998d5ce00df00df2928a91ea00aae178f5a8724aa7118290d00a76108"
     },
     {
       "object": "test-06",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-06.mp4",
-      "reference_sha256": "d5d7530f2a38ecfb75012970d0126c5428982227978a3bd2d444baa8d6ebd894",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "564b5751894e9ee1e8990a0bd299acb336fc65abf3ac1ef6ee7fc95ef0020939",
-          "fitted": true
+          "selected": 4,
+          "summary_sha256": "101780af4a947b9131d5bc3b0ae4d599dfe2a35493654ab4ff0d13c48fb1c08c",
+          "benchmark_sha256": "3e07e1815808f03cb7a5974157af251e1c95c427f5147d0daf0bfd6fd06edab9",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-06",
+          "fitted": true,
+          "program_sha256": "ca063099c9b6155328adfb1a46e15ed85da4b3c7596be563518678f9d5e4a95b",
+          "fit_sha256": "7fd8cf0ad85ee6872ed752dbae5dd47f0790133f312a22ba08e109f2e1d03b1f",
+          "video_sha256": "e406b37cce44697f032adbd47ee2962f124888bcf981d8ee54ce9d3bd9c5dd98"
         },
         {
           "run": "gpt54-connect",
-          "selected": 1,
-          "summary_sha256": "66f17d57557ba1bffa3757175a1172633997236bfb454bf8d0b0c55291d97ae0",
-          "fitted": false
+          "selected": 5,
+          "summary_sha256": "62915ba5e9be85c74703e0b964e3f88601c97ec2d40f0516d2c0b3879a91f723",
+          "benchmark_sha256": "2c5099c317a315b52ac876725c647c737ee2ffe8eb721fce57b680a5d57189b6",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-06",
+          "fitted": true,
+          "program_sha256": "306f8008adeff14313f970c7478d74b2f3db0a0422f30a80393b6131bf864ebe",
+          "fit_sha256": "142d391c68b5edb166ce1120216f996909721025634a84014cff5e8490a6f3c1",
+          "video_sha256": "999f078bb50ecce5e34952aac0e67864f6aaffc6212b9d9fa17296582f5794d3"
         },
         {
           "run": "gem31-film",
@@ -308,26 +332,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "8626e58940aa6f15652dcc5605993ab2f9ecac4010c49e3c6964be084bf112db",
-      "jpg_sha256": "aa9730661747ccf34a78bfe39026de534b558437d893810b29ee445c84a0fc36"
+      "mp4_sha256": "4fd53751506b74e55cddeee08e7134cb7dcf7b85999bfe0fc416977d44e5e607",
+      "jpg_sha256": "81421b1ff5246725f19a33b6543514203edfc49b8148fab1c119b02f505ec6b0",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-06.mp4",
+        "reference_sha256": "d5d7530f2a38ecfb75012970d0126c5428982227978a3bd2d444baa8d6ebd894",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "8626e58940aa6f15652dcc5605993ab2f9ecac4010c49e3c6964be084bf112db"
     },
     {
       "object": "test-07",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-07.mp4",
-      "reference_sha256": "ee21f55f333a228a1500386d3df9607dc0281939de5417d9d6798e1aec26c1ae",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
           "selected": 0,
-          "summary_sha256": "50af49020a796e523937d17be0166d05d9a2240e138af51f27150fa63ca64b49",
-          "fitted": false
+          "summary_sha256": "b5ed19a40dea4d9ea3bdbb6be5568b1004409b4e8eb124012ff81b40ef4fedad",
+          "benchmark_sha256": "d959a413f8d78a59b630493f5381fbad5aecf52fe5ac3e2aa6b3216fa5fe8b54",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-07",
+          "fitted": true,
+          "program_sha256": "87279ac61496084fcd9f6c223d8ac7c69826f22396137978c8dd6a18e10126f0",
+          "fit_sha256": "fd7293ce38e76d2b4dc0108b5c3d7391b2b95d70c2bb6ba108e1b8b8f1f8218e",
+          "video_sha256": "1f998c595b581606d5c616e0a69e6c49520159c3cb5bfb0ace99ef4026071909"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "d9ab36b8bf2a946c559575548868e4b9baf60bf38f3eb4861473b276e43eeb72",
-          "fitted": false
+          "selected": 2,
+          "summary_sha256": "ac34fc55095ff4bdf153366263500d97d2e12e9718a13c419fad792368c2a7f2",
+          "benchmark_sha256": "f4fbf93571816e4112fad3a5e61fc9dd26cec33d411a54609360cff9229be6ba",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-07",
+          "fitted": true,
+          "program_sha256": "a05ddfbf151ec1c35cee30d1b49a87d01cf760fdd60e100e4a4788d024816bb5",
+          "fit_sha256": "975ad2be001f15bf5701a087368d8878b6efad213c45581314572b00c8b7f048",
+          "video_sha256": "b7ec865ed99c07c92676a55241d545329badc3d9b2a661b8f9829f96a7868df8"
         },
         {
           "run": "gem31-film",
@@ -342,26 +380,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "d495808d50a0504d2eb6dc92cdfcdbb8364521225d10f95931f1e8965c0f71e2",
-      "jpg_sha256": "379df1bd3a9b5243f67d5c25bea07a99c9dd003be92189e1abcb9d2448854288"
+      "mp4_sha256": "e2888a92845f66515c99d3ed9b3bdca6aedd45dd672ce20f8ecb491c779feba3",
+      "jpg_sha256": "c44eb21240df1e222bf73f2eb4103ca09b520057d36b6d9137a58c9cc8efc32e",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-07.mp4",
+        "reference_sha256": "ee21f55f333a228a1500386d3df9607dc0281939de5417d9d6798e1aec26c1ae",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "d495808d50a0504d2eb6dc92cdfcdbb8364521225d10f95931f1e8965c0f71e2"
     },
     {
       "object": "test-08",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-08.mp4",
-      "reference_sha256": "afa721f34918715737c09432d6c4296a5cdaef6f9110616c8c48bb38057ce43a",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "4bcc14441099020e2eab63127542124ad3116cddb5a564ead9d3ec415f5d1be3",
-          "fitted": true
+          "selected": 2,
+          "summary_sha256": "2a379b3f157e5677a395511d11e13dc9395517a5aba7e122cae6a9c88bec82dc",
+          "benchmark_sha256": "416e422cd484cef57ad0cbb8e0ee8db9950c6467b9075ebdf294c0535d55f550",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-08",
+          "fitted": true,
+          "program_sha256": "329e0dc682f7015aa76f753a2518e848f00f2bc3a1679e43e707430aca5ab9aa",
+          "fit_sha256": "48aab9369db13726f060aae04680e2846204926b39830ba17a027855192bf7ba",
+          "video_sha256": "6c037f5ccde29cf43b5413a42958af1409588241dfd51d78c99d1d0bd7add68a"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "e4cae1931261ab4a19c3c185cff8fc98fdf4510e8c387df3dbef73b747fef69e",
-          "fitted": true
+          "selected": 6,
+          "summary_sha256": "1e89e3e7088f8976e9e131b0fd8ef8001312bb3498b2f2959bce11efe22d4ce2",
+          "benchmark_sha256": "a3971c9f3a80cb03f0d6e3fa54398cb1ad42801d4515a12c86f10daa911efe77",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-08",
+          "fitted": true,
+          "program_sha256": "7822247f0ef62150c540b23c1ad9bc9ab7240ca7721d5a048f873b721a3b1822",
+          "fit_sha256": "6d78ed55d7c4777139548b8e0341d14703ec96d755642bb1b0a3f435166b74a1",
+          "video_sha256": "6a827ca6cb3f6b46c0c0f09053f6b6028042f49612435807dda48d1cde497841"
         },
         {
           "run": "gem31-film",
@@ -376,26 +428,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "19c6705b4effd1af539f3ee06eae237e2c12c60fa0d7d7a4f7abaec1deb6085f",
-      "jpg_sha256": "19416978dae08a20f6411096c3dd5658db75716b3cf5f045e8e204cf923fbcd8"
+      "mp4_sha256": "0b740cddd7322400ac3f132aa8971dabcc09fc476a300ea72aa4b92e4ba55d2d",
+      "jpg_sha256": "9336570e61c951774e60b567c1223788d46b2b0b79b850a1e5e936e44d7827c5",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-08.mp4",
+        "reference_sha256": "afa721f34918715737c09432d6c4296a5cdaef6f9110616c8c48bb38057ce43a",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "19c6705b4effd1af539f3ee06eae237e2c12c60fa0d7d7a4f7abaec1deb6085f"
     },
     {
       "object": "test-09",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-09.mp4",
-      "reference_sha256": "86742d34c5206c64f60fad70352fa0aa8cc9dd1df0df5c28fc5d80f2e0a8638d",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "a8046ecbc15254eb4ddcbcd4250d0bb32c015873b84a8264024afe513aede46d",
-          "fitted": false
+          "selected": 0,
+          "summary_sha256": "056d46a54be7313eff7b8c4467a9f35c597b4a0a4d88ee9aba00ff08e8d619b1",
+          "benchmark_sha256": "192c45b632e370e3a8866bc51a282ef1af11207c21e9361ce58af3f3a0bb49c9",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-09",
+          "fitted": true,
+          "program_sha256": "9779aba8bf6841366450e40424795070a54d0653ce6fcecf799e874f52e27f33",
+          "fit_sha256": "16f1e8ce2573f509d18470c9be89c01813277da24dad4d203ee24189b7997cb3",
+          "video_sha256": "84b09d1a60bbdfd7bea80df874f0fd829664a9496fc48a0d7923ebe75eb7eb42"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "679177c759b44b9bbf70367cd99aa7257192f29b3ea4655b40e47ac5563e6a99",
-          "fitted": false
+          "selected": 2,
+          "summary_sha256": "ffdac9a112df8269d8a5725e829ced470057787191c23cc8561352b0e29a3632",
+          "benchmark_sha256": "bf751d069dd532539cf9add1f48014bf48a2b44af546f2342157facf31a8b364",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-09",
+          "fitted": true,
+          "program_sha256": "23a860feb284aff32963a9aa3d031e06a36746fb077a3e38d4f56791f98156d6",
+          "fit_sha256": "4e7bdf9b97244727ca3e3933767eb218727a1b85745b368c6e5a2f14ebb340a2",
+          "video_sha256": "8713d333218045afa90fd848425a418dd331c5adeccdc37341c3ea4b607dbbdb"
         },
         {
           "run": "gem31-film",
@@ -410,26 +476,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "98c7db22ba2b915bb740a04583569ee9f3fc4254f0e40330a762490ed280f30f",
-      "jpg_sha256": "734718b14df80f230c62b9030cf109c0fca5351fdb96225af8cd00e146dca76d"
+      "mp4_sha256": "3ccff7ca914b3461094bb3776d7e5134ccd9ebe453d2f032de5aa7b8a2bf8b07",
+      "jpg_sha256": "aada8b75f756de722b351038ca7e9eb995619dfcfe9737be8f47eb4ec742632c",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-09.mp4",
+        "reference_sha256": "86742d34c5206c64f60fad70352fa0aa8cc9dd1df0df5c28fc5d80f2e0a8638d",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "98c7db22ba2b915bb740a04583569ee9f3fc4254f0e40330a762490ed280f30f"
     },
     {
       "object": "test-10",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-10.mp4",
-      "reference_sha256": "64a6f993580d94e99f2cd55669df95ed4bc12f7e8c8a10399927323cea774baf",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
           "selected": 0,
-          "summary_sha256": "425e3c1f5100fca5840a7797306b6f01ab93ab2ffe5697ab179fa6b9ffde0d23",
-          "fitted": false
+          "summary_sha256": "19fa951d800356402d03d8898b2c787c408b3d784f657b890eeffb558e528d70",
+          "benchmark_sha256": "3711036d45ce64b50edde3cd76316b5d6b5f9cee6b07fe12dfbeab58bfef1650",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-10",
+          "fitted": true,
+          "program_sha256": "1a92353116f6c73f03c525ec37127c761b50eb9256d5f84182e3d73399640df0",
+          "fit_sha256": "d7d4245a97bc25ccbca40fa9ead4b0455e31b515678bcc9f27112df17b29598e",
+          "video_sha256": "e93842543e1a166ff250f48ffac0821cca960df7f8ec93765bcf299b9d18fb2a"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "bd9c07d6eaa1ff89cb11b37a977fd07e859609ba2c5e2af891a157981d0cce8b",
-          "fitted": false
+          "selected": 1,
+          "summary_sha256": "4c8c263e4114639fe71d6e53ea9958748b9595450c84ff2a27bf67ae56ee228d",
+          "benchmark_sha256": "530541d6afb421e0ae408bbcc2ac431e384bfd720fe70c3720afe6b7b89e8388",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-10",
+          "fitted": true,
+          "program_sha256": "cbf8af002ccb9ab79298bba9dcd8b97b24bddb29e1e93c21744d83f7883abed5",
+          "fit_sha256": "e3b9e00f99536c18c09edd5f51d221729d83537c4c299a84519c0afea03bcaac",
+          "video_sha256": "8bd04a6e9ae8435efcfe2f9965e665a33cffa08f6e409d3d503f63c67881cdb4"
         },
         {
           "run": "gem31-film",
@@ -444,26 +524,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "db4a8fb56ae5ed5fbb7d455873513c484a0a20054da31266ba8bfff94b2ee4ed",
-      "jpg_sha256": "4078039202e33978fbd60dd2e43159f44cffe39edd672c37c7d15e5455b9f4b6"
+      "mp4_sha256": "d3d0ee4e58d0caaf7446ee266290d44da314de24714e2fed40c12d356480efed",
+      "jpg_sha256": "0bd77dba51c9200dd0e0965a294a9c170d649d79d807b3ccb7ee0aa7065fe725",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-10.mp4",
+        "reference_sha256": "64a6f993580d94e99f2cd55669df95ed4bc12f7e8c8a10399927323cea774baf",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "db4a8fb56ae5ed5fbb7d455873513c484a0a20054da31266ba8bfff94b2ee4ed"
     },
     {
       "object": "test-11",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-11.mp4",
-      "reference_sha256": "d7575bc9aa3cba13fdb53299af4b9522728e3acf9e86b6ba2f068aae36cbfa76",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "3c098fa48636c3baf5f61bf766892d4cddb0a46e9c7d361d565eca0366f7a915",
-          "fitted": false
+          "selected": 1,
+          "summary_sha256": "0c4688d4bb8e1397d394596571a251226c3f6b74d600fabc8d0e903f7fe133e5",
+          "benchmark_sha256": "64f2b8b642fea8e97289f067ba3ba69ba5eeb7b845ec0d5150bdb5fe94e3ab5a",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-11",
+          "fitted": true,
+          "program_sha256": "a6b91efbd125ae7a0bdb0bcf1ae329845fbcd5cd868f2bda4f61769ba5284591",
+          "fit_sha256": "7150b45bdfa91a66074244d01f58fff6508172c33045e16c9e253c2b3801e67d",
+          "video_sha256": "5174b91777e82605ffcb6085a7e664b2437378c609d8e4d0a66b78ce4d351a9e"
         },
         {
           "run": "gpt54-connect",
-          "selected": 1,
-          "summary_sha256": "828f1c6695e34cb63a63685d29b81da12b2edd53513dd7fafafda000817fb6ee",
-          "fitted": true
+          "selected": 6,
+          "summary_sha256": "f621682ca7fd99d8e9e5e866dd2b22ff87675786b175c56ea87cbe093dbb5f00",
+          "benchmark_sha256": "c37ef2ac1342e108b93fecc98d60b7c317f3d0518d7a448ee81def1e09b6fa77",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-11",
+          "fitted": true,
+          "program_sha256": "28de3c60fb92e7831ce73266b6459a9b6ef6446a7c289f2bb975c1c0b4f99a3b",
+          "fit_sha256": "f33fdc44e6af1d9133c23bd81c7e261cd6b93b8d670f98ed01811770f856db3a",
+          "video_sha256": "e77eeb657aa77a1b8e68a80082e8b2957c7041c8e4177aaafe14ed601d27b3e0"
         },
         {
           "run": "gem31-film",
@@ -478,26 +572,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "e9e904f9649e46922e209760913480f4e7a8e9b0f9ee07a386e199c830dfd159",
-      "jpg_sha256": "b248ce170518f5f4bdfd5c35dc2badf5ade2730cc97b39396796e7bd5f0225f4"
+      "mp4_sha256": "150509fbef18cd9c22d64d69fa2097a02cb4e6b15db54bb99a81ee52c54c889c",
+      "jpg_sha256": "93f01f6fc96fc1e7b03d137266e92ad8551b71438f2ff34c9d24dd863b02be61",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-11.mp4",
+        "reference_sha256": "d7575bc9aa3cba13fdb53299af4b9522728e3acf9e86b6ba2f068aae36cbfa76",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "e9e904f9649e46922e209760913480f4e7a8e9b0f9ee07a386e199c830dfd159"
     },
     {
       "object": "test-12",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-12.mp4",
-      "reference_sha256": "2762f84d1e6cd78822d768e69ec3bc7639455938a547d276b278b134b26f0011",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "a3ce64bf26e919586845eec254a5c0077e360d44eaf815bb0b250d2f5061dca1",
-          "fitted": true
+          "selected": 6,
+          "summary_sha256": "e5e7af9623fa8438dcf9c8b302fe7c2dabbc7417550d78efa8f657e2a0527356",
+          "benchmark_sha256": "17734983af798c8ed09d5645df4749cf9a5d7f2ad9171f94cf36fd4bc87e87b4",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-12",
+          "fitted": true,
+          "program_sha256": "db7b281b8da76477d92a1547b34759f168ea36aa2c9438fec54c9f135518b9c0",
+          "fit_sha256": "7ae12353c00cb48fe7868762a50e0611b1f57a576c0e0ac3bc8f993d8f93d36e",
+          "video_sha256": "f85ff6484d64f8fc7273caa4c55bca0a18583a5de62a531a8ec2671364f64634"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "71dd04d0d257d24edd4760ccb142dc6e4e1927090fb2309e36c9020d1e2da9b1",
-          "fitted": false
+          "selected": 2,
+          "summary_sha256": "e852db190e15fd3ccb15bbabfbe324e5302ba23c15d92ccc82357976f65117ee",
+          "benchmark_sha256": "e76d056b046fd9b4c36631057fea99824a02d9d4c600f3733b7abc3642cd35f2",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-12",
+          "fitted": true,
+          "program_sha256": "dfba606918c225b3137898e294ae8ca249a908f6533f93e493e266518e4cbd39",
+          "fit_sha256": "e2167ded25ae99bc785a75daba84b5b657483c254610fb01d544378dd58f4687",
+          "video_sha256": "d17238e44c9cf4eb875cfb45b43780d5a7cc7597cc108dbd2f25e7706cf63438"
         },
         {
           "run": "gem31-film",
@@ -512,26 +620,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "b8a4ba7b8285f6a7656284da81cd43481fd639f8e19a1fce2603b96500d30eb0",
-      "jpg_sha256": "0a10690713e9fc338b868022dc991a612f3b3a2080e63c4567ec7d5f6eea33b4"
+      "mp4_sha256": "45b7de70b3004b5514e9fa5f3f43c8f25f4add5d9dbc94ce24dfe6765104f005",
+      "jpg_sha256": "20e6ff1505c6f9ccc18f138506164061ba42e94b39c02169e3df4d922ab7a175",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-12.mp4",
+        "reference_sha256": "2762f84d1e6cd78822d768e69ec3bc7639455938a547d276b278b134b26f0011",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "b8a4ba7b8285f6a7656284da81cd43481fd639f8e19a1fce2603b96500d30eb0"
     },
     {
       "object": "test-13",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-13.mp4",
-      "reference_sha256": "5bb3fc0402ea4d5355a81a7bb5f6d6c800b9896924f302101a96f4d24d77cd0c",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "df6b7362819605e9a693942b56fa93cdd1ecfbd677d0318b383f0689e2d86de7",
-          "fitted": true
+          "selected": 5,
+          "summary_sha256": "6322e0ec93c8a00d5fdf200b013c83387b1a8b857a8345e2699ef6a0f478ad6b",
+          "benchmark_sha256": "e9c00bf4e72e4165883ac696dabcc3e539ce7ec05ee1989492221503ff9789aa",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-13",
+          "fitted": true,
+          "program_sha256": "6588481e54428f212ba0596de3211846a413af5acf818499dcb4129fbf0f5af9",
+          "fit_sha256": "0986bf76d23cabb38c50adf43b05c683c594809ab9bf03f3b0f5158d06e6242f",
+          "video_sha256": "5e648be561156dc04991764ae2a99910a173f2f6e7483256a4e43c726a0ebe95"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "33e88417d27864cc76fe30d8cd33c5eaefc9169676cfbb7ddac7a3be53434d95",
-          "fitted": true
+          "selected": 5,
+          "summary_sha256": "452c96c4d3f9eb949781ae7a43823bd4c5d41ce15a79c5b49dd0f9cc06a38eb8",
+          "benchmark_sha256": "c1f60724c21b67db0f12608d38ed072761294ac43ea3f8aa563e531cf46eec23",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-13",
+          "fitted": true,
+          "program_sha256": "73f14c2c85ea9ab545f7ed264b42dd15828d36e1b4c85b2e823081322ce38dde",
+          "fit_sha256": "a3e158e291b09bdccca8ae1ddee2fc45bb536c02146a2cb98de02863ea61a1a2",
+          "video_sha256": "6719d6e185697972caeebb3908e61fe76886d2696e268a93ba1971f2804e47ea"
         },
         {
           "run": "gem31-film",
@@ -546,26 +668,40 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "7723bdb3063ec434e668280e037493da102e25ea724986b27fcd732dd5da63d7",
-      "jpg_sha256": "cdd10a5787b85729016759a71d282feed33a4ae089d75dc7229c957ce1d8d165"
+      "mp4_sha256": "295272cfa4e5dcf6bc2f0d64536f77dd71f143d78c643d0092c370aa0d013888",
+      "jpg_sha256": "aed991c7a2082ca6d8ad4844b6cfa6f4bf4466b21501f67b3e551cf9c1bc305f",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-13.mp4",
+        "reference_sha256": "5bb3fc0402ea4d5355a81a7bb5f6d6c800b9896924f302101a96f4d24d77cd0c",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "7723bdb3063ec434e668280e037493da102e25ea724986b27fcd732dd5da63d7"
     },
     {
       "object": "test-14",
-      "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-14.mp4",
-      "reference_sha256": "6853b5d24dc0b18293340c06b1942fb1eab4a2effafab67122aa5e421ba2d371",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
           "selected": 0,
-          "summary_sha256": "4ed14df57f3c2678b310086fd125d6efaf5fe477f80711adff52fd9ad4d6f364",
-          "fitted": false
+          "summary_sha256": "94bb8091b17cbdebb4b0c0525f1b5f67bcf5864fbf8c1a4565709b4da3484225",
+          "benchmark_sha256": "d03c9e0e2b48371e0bf1460b5e07695366a9b54dd547c30d15e335b878392608",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-14",
+          "fitted": true,
+          "program_sha256": "adb09caf096ef24d379e2f0cb0ca18aec42a165d2bdfb5d109bcb816b95292b1",
+          "fit_sha256": "221b322ce4fbd7bf6d072b2a65fb8dcba244191c3e84664cccb83f6162e2def9",
+          "video_sha256": "9fc97b18f8d90f6e9faf05acea52117d1538d58480aacbbedee879d0686baf58"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "8b096ba82df1771e4e74ad12d1e8a44dcefeb78c76bc2204ea37d3c553f3e442",
-          "fitted": false
+          "selected": 2,
+          "summary_sha256": "6e1f3ae9934c2e09f2e0b0eea908d7d7743ac687e680a86746f36cf29784e26f",
+          "benchmark_sha256": "5f53c07a4d1fd18065c23bf5e9bb67fa17c128292ade573c3a069e9a2054add4",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-14",
+          "fitted": true,
+          "program_sha256": "8dfd1dc8b5a6481568acc77add271f47f384f6a2c39a7bb1e8ce9f8bcd0acb28",
+          "fit_sha256": "98ddf1e8e679f3d23ad734ca96bb6befc6de10424647801da420d4a060dc3b46",
+          "video_sha256": "01b1281e3c9f57a5c7e72b4fcc27de95199007b6ba51b7b0cc3fc4858bd906f8"
         },
         {
           "run": "gem31-film",
@@ -580,26 +716,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "68d7895095e5f2dc6c5bec1a4b49ea2b2cf183507eb0d13696823a9eb156c3b0",
-      "jpg_sha256": "22b125434c0c9efdb3b47051192283af04da631adb1ada2ace52ff8923afc7fe"
+      "mp4_sha256": "a5ddb53d7c335a49ca231e1adfed5346bd625bfa61f132fff23ae0d107ae2179",
+      "jpg_sha256": "8d78bc748658c332cdaf33abee746e995ad7e6a2f2545ea9b9a0a95f6f3afb4b",
+      "previous_reference": {
+        "reference": "/home/datnguyen/Marc/reconstruction-baselines-20261104/reference/test-14.mp4",
+        "reference_sha256": "6853b5d24dc0b18293340c06b1942fb1eab4a2effafab67122aa5e421ba2d371",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "68d7895095e5f2dc6c5bec1a4b49ea2b2cf183507eb0d13696823a9eb156c3b0"
     },
     {
       "object": "test-15",
-      "reference": "/home/amberli/joints-media/out-single/test-15.mp4",
-      "reference_sha256": "aa1227c139381fafeca2828c92019521717ee71e4bac1339324b5ceb35ea3a0d",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "d620d53ff6b9c43873dad958c2abe0bcc7b2b61014b516c3dc3b70cb9abfaae5",
-          "fitted": true
+          "selected": 2,
+          "summary_sha256": "0c3dbeb8ce2240e06a6916c66bfe8c1e5651c9bc8a2ecdbe4a5d89c6a53c8e6c",
+          "benchmark_sha256": "5b35455848573ac61d70005598528f42551cd425c15d84369cbf06ca96727159",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-15",
+          "fitted": true,
+          "program_sha256": "2bb705cd308d98098361221e81a2da499c675de6d48ed4b0fcd0ba821bba64b3",
+          "fit_sha256": "1dda801722a4e68b3862dfad4241e913b76b2966310d3a41ad85dc00616ab507",
+          "video_sha256": "ce1ff89f5e3dc184022313aef33fa583b5becd64997d268bcbbc5d683225afa0"
         },
         {
           "run": "gpt54-connect",
-          "selected": null,
-          "summary_sha256": "0674f8e67ff18f5d860834beda6cc38f42ff1db058da001ac3477c2570920e94",
-          "fitted": false
+          "selected": 1,
+          "summary_sha256": "821cf9f1d24f4404f1c2cd7a0cbc8902598557beb58ef63cfc344c47d03291c3",
+          "benchmark_sha256": "5c955eda7f16394a4ae0b271951b99fd3b85965eb42e5c1c6896499f4a7c837a",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-15",
+          "fitted": true,
+          "program_sha256": "e96e87d42d6d857e29c88d0756a2aeb645cca40a3e38d9024aae05849a48691c",
+          "fit_sha256": "754fc2b358940d56e7ca4f6af886601e942316ef2834ee9de4409cc051f39913",
+          "video_sha256": "44ec4ba436b7b86f3bfed8f1b797b4885188f49a7b644ca98802871b7e19a8a8"
         },
         {
           "run": "gem31-film",
@@ -614,26 +764,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "48183af5e22f7d6ec1f0bccb3530ba2b5fc5253de68f1d21a8d3c5a126fd397d",
-      "jpg_sha256": "224051a666d70f9682306bc0ddb6b34510f83e80084ad9f7cc3e1d354376b30f"
+      "mp4_sha256": "efd39a8eed50ac0f836d7fba0a570407ed5fafdba6fd903a5c6ad6ff788e482d",
+      "jpg_sha256": "d71e5f2a52534c5b583223fc4fe762a2344c159198bb5063f1090d911453dca1",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-15.mp4",
+        "reference_sha256": "aa1227c139381fafeca2828c92019521717ee71e4bac1339324b5ceb35ea3a0d",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "48183af5e22f7d6ec1f0bccb3530ba2b5fc5253de68f1d21a8d3c5a126fd397d"
     },
     {
       "object": "test-16",
-      "reference": "/home/amberli/joints-media/out-single/test-16.mp4",
-      "reference_sha256": "df7855012201915d221d7846617f4f4918266890896a46ada7a23ff10076093d",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "90009e64c5e931b717d117e5f391f15a5eb03d1f206ce4248a11381e786bcea8",
-          "fitted": true
+          "selected": 1,
+          "summary_sha256": "cb69e80c2434e37ab78acb43db304b19ba82139bda8379557cb2dfc14daeba91",
+          "benchmark_sha256": "3bd0f75adb9623f46eb7344c6f6c8eece0370bfc45f3c7c70f479e22a06c4a73",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-16",
+          "fitted": true,
+          "program_sha256": "bbf893667812fc3a334127f88839899736571dd9ecf914c73d0c42e2d44757c0",
+          "fit_sha256": "b87f025ed1fd04a3629c8f4b8e571e55b35685611ca05189261b3e7572d990a2",
+          "video_sha256": "8fce8e2448d61e983644586e86f435af5eaedcafe4c7773228037fd84fc9cd71"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "95d25602e4ba0dcf6d3ac10188bfb996fd791768b461ef8f7f1af81b66faff15",
-          "fitted": false
+          "selected": 7,
+          "summary_sha256": "4dda0989ce83eeb03f97d9589e27ed8bf888e5f7e8ed9684837d66a8d343c88b",
+          "benchmark_sha256": "1146ca61359c2b34884182b5c8a8bf558a307bed982bf076a5e2ddc49632f100",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-16",
+          "fitted": true,
+          "program_sha256": "ff7ace48e4b26629cb984942cd99ef4222c845c54d14b7a4e96fbacedec1ccfc",
+          "fit_sha256": "0f80bff5deee5f6db04a4823f61c2609269c8bb0d57c5812fbbe657acc56241b",
+          "video_sha256": "c33ffd69d5ca42b7dc51cab5ca72265ab7c304c3221c0cb988333de59f9837da"
         },
         {
           "run": "gem31-film",
@@ -648,26 +812,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "14243b761d8b6aca5c95a0602f413d928a0e8cb3d6270d4a7a78e9cf30d5e0bb",
-      "jpg_sha256": "9a17d09146f2a4ac19ae67c8ef3500c93ee57fced48974506cccf5f39429ad2d"
+      "mp4_sha256": "8634a75030954950963028fc4bf23446bebf4a5b78e3d3dd0186b804e1496c3a",
+      "jpg_sha256": "a825eca98382afef2e79667ec58e3ddf3a021695589ec384fbc25006d4696b4c",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-16.mp4",
+        "reference_sha256": "df7855012201915d221d7846617f4f4918266890896a46ada7a23ff10076093d",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "14243b761d8b6aca5c95a0602f413d928a0e8cb3d6270d4a7a78e9cf30d5e0bb"
     },
     {
       "object": "test-17",
-      "reference": "/home/amberli/joints-media/out-single/test-17.mp4",
-      "reference_sha256": "8c5f801206e1b0cd595f883b0c3587ca6e3cf7ee60bc4f64d5e3e9b5b368cc07",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "81e8b00574aa5c146bbe3909943a049808a4efc75ea510ad9a17661ec6c723f3",
-          "fitted": true
+          "selected": 3,
+          "summary_sha256": "c29c4e45b840ec8b5813ffb98dccc7cdb9b8063e4a247a1cfaac889ee358c124",
+          "benchmark_sha256": "3b0e70d65f8969e2cea35de4a74325c9bdcbe24bf722264f4607ae16dc97da92",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-17",
+          "fitted": true,
+          "program_sha256": "cfc0c903337c3aeef671d79ff955c4d770aa6f5247aca28200e484de9a838b2d",
+          "fit_sha256": "7cc0424f2c6e86c5d9060c63c5b44d3add34e25918476104941a355269b9c0db",
+          "video_sha256": "77a50a61eb036bd6cd91b1bc40fc184e5cc4deea121633b34f75a07c907a46db"
         },
         {
           "run": "gpt54-connect",
           "selected": 0,
-          "summary_sha256": "e5d9fc4ba745d223f287117eab57aacec27e412d2eee9e320cc9fc05dcc646a1",
-          "fitted": false
+          "summary_sha256": "7a69fac1645e6b282be4d3e2eaf902d714aca7abb211817cbd0bf220627b172f",
+          "benchmark_sha256": "88a4a9f966be2c3688fedbbd8505bc52ba7beb0d3bb813a25211621399502b1a",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-17",
+          "fitted": true,
+          "program_sha256": "051a6aa5eb6f4d43c5774fe3fd0a996d75e0fa4fde4de17f39cd5f5a86f4c87d",
+          "fit_sha256": "ef605cfc2235e4b427a47206932bfd67ee1d431f39d56696f5591bbdcbd12d13",
+          "video_sha256": "57d21fd195d46f739f9e1d2fccb97a0a00694b49aed344dfafb68d078c6b3346"
         },
         {
           "run": "gem31-film",
@@ -682,26 +860,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "fd464c7352fe0495c704e036a3fa11678bf562bdaf01b41cac01712b2b1dce99",
-      "jpg_sha256": "0c48e94d6dd52dc2d1598e5d7534b57179a9e55ab8c7ed8a1ea46b564791b704"
+      "mp4_sha256": "18d1474b8608651eaf9c350b5a87bca436d4e50690cb09cb2d9545f882cb2c39",
+      "jpg_sha256": "5224deb41868b90c17ccc94cbd0ed2301f72500ff232f712f1eb8dfe9a07b472",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-17.mp4",
+        "reference_sha256": "8c5f801206e1b0cd595f883b0c3587ca6e3cf7ee60bc4f64d5e3e9b5b368cc07",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "fd464c7352fe0495c704e036a3fa11678bf562bdaf01b41cac01712b2b1dce99"
     },
     {
       "object": "test-18",
-      "reference": "/home/amberli/joints-media/out-single/test-18.mp4",
-      "reference_sha256": "4304d93c6e63a5ab4dd2d57632d92144646737b9d0ec85a5193e989021d0c1ba",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "49411eb8e9461e4051d38a125a15e45aa93654bd2640c99097f2626cca968455",
-          "fitted": false
+          "selected": 0,
+          "summary_sha256": "8a41eef21a5cc4bc881027514d9160f84176850e34683b8189c9a025698e58af",
+          "benchmark_sha256": "d9c80a51d2966d3ef11ebf3554976a88bc774b42ea9d5c82ea70af665bce26d7",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-18",
+          "fitted": true,
+          "program_sha256": "76530dbbe5f8136583da2efb157e9268a267744f3dc99d92fd416ed0f0416a1c",
+          "fit_sha256": "7d2083e8294d8970a2bd0593337bb5e9c4a30816852f03e214b0d1cc122dd318",
+          "video_sha256": "369f6d827ea48a85ee414ff3328cfbf8d7b09ea5bcca3ed742ebc6f264627930"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "b287421168e09e917d096d131144d0575324150303632513f0f723c3a08cd61f",
-          "fitted": false
+          "selected": 3,
+          "summary_sha256": "8fe4ee024dd281baf624ce55670ee69ed50113e2361caf2f72ce8f7245e9fcea",
+          "benchmark_sha256": "cc12184981a948c32a7fe98ddaeb7824a4fcf8e45737f1c81096485a96501b14",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-18",
+          "fitted": true,
+          "program_sha256": "4139891f9e14eab3d5d68a8781fa7ee16d9774a738de433834f3fe313673069c",
+          "fit_sha256": "29b9de81f3eba3c503ac269f7afa20add946f873e61faa645ab20710ebc75e0f",
+          "video_sha256": "5c4919e3313791a34528e0875448af70bcee6e4af9a2b244f12d53e611ac4a72"
         },
         {
           "run": "gem31-film",
@@ -716,26 +908,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "b4a7bb960110e556ce43698cb0445176703e0cf1d4b0e487b0ad60b35f5d4ca1",
-      "jpg_sha256": "a9520ebaeee6f4a24143750877b6eec5d869fffc919dd746ed11f244bedf4373"
+      "mp4_sha256": "e3cefd743c8d131da3638013529ca412deb677451617487b4c3d7181792ff1d7",
+      "jpg_sha256": "460cc89f862b7e3095addeb5a430036dd6e547f12294a58af046f88f162a37c6",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-18.mp4",
+        "reference_sha256": "4304d93c6e63a5ab4dd2d57632d92144646737b9d0ec85a5193e989021d0c1ba",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "b4a7bb960110e556ce43698cb0445176703e0cf1d4b0e487b0ad60b35f5d4ca1"
     },
     {
       "object": "test-19",
-      "reference": "/home/amberli/joints-media/out-single/test-19.mp4",
-      "reference_sha256": "145424677e53dc98d3afd0ee5bcec00eada9cf5062103cddb755211cfbab02e7",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "954698e66d3c1215fa760f7d282e56bf3f0723602be0867fde3730f06c7e2643",
-          "fitted": false
+          "selected": 0,
+          "summary_sha256": "7ba60297061cfe30a8fa4ca56bd12091c1cd9735303042a89298df5a578d3499",
+          "benchmark_sha256": "ee293adca356613666f9f657046c7b8986d9eee6d7fc4948a1ceb765a89884ad",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-19",
+          "fitted": true,
+          "program_sha256": "0b4abf46610a57ae02827c516b9e847032cb388958084d1f830b3ed256283fb2",
+          "fit_sha256": "3205511de2a0bf769b60a779b20516d3deed198196011511cb135e25d4e91639",
+          "video_sha256": "aa6696dd2bf1d7da6e1f3979ea3c148c63458060df6331969bbf35471c20a2d1"
         },
         {
           "run": "gpt54-connect",
-          "selected": null,
-          "summary_sha256": "f55045eb33f9079cc36cbd230ccb3ab8e036ccd5ed40044d134a0f64d27bbd4a",
-          "fitted": false
+          "selected": 3,
+          "summary_sha256": "0cdb1fb7afa9a6ca574a56728d256d37ba59d395392d5e4a660c1b3b81a44f4e",
+          "benchmark_sha256": "fc1cf2722b738b3415c532affcf37aa30edb7c97ae82367404ea1650ef12a5e5",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-19",
+          "fitted": true,
+          "program_sha256": "90e1893b340802287e354ee14189f13df95fec94c1ad9dde0a389b76bbe240a5",
+          "fit_sha256": "f8f1984027f6a619faa8bc2280de3611e98b8a97f6231851445b776b17452bf5",
+          "video_sha256": "38a6c7a503b3dcb05fb2e9407ebc59b8a2f498bba76f3ec90fe9796cac6efaba"
         },
         {
           "run": "gem31-film",
@@ -750,26 +956,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "00e4c929d4557ef7e816bb75ea00da4ccf7592b00914ab0f9fccd8504987e523",
-      "jpg_sha256": "4301f8566cd9f01919b7c6f8338d162aaee3b169de43f184c5563be5e95e7467"
+      "mp4_sha256": "2108dc85434db52cba34ebbd71a77cdaf563144ce912a0c8c2bbf260b65a4030",
+      "jpg_sha256": "cbf34f41b96c25d52734ae9734f2cc5cc6e343afd45083f8eb8870f2314105f5",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-19.mp4",
+        "reference_sha256": "145424677e53dc98d3afd0ee5bcec00eada9cf5062103cddb755211cfbab02e7",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "00e4c929d4557ef7e816bb75ea00da4ccf7592b00914ab0f9fccd8504987e523"
     },
     {
       "object": "test-20",
-      "reference": "/home/amberli/joints-media/out-single/test-20.mp4",
-      "reference_sha256": "096fbb4c06e5940e7626834984475c0bf6752d9f306a7249686c919f5007f675",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "42b53062722c5e40c73d8b57000cb23b28038eb8b8d6e5f0e51cc750b4fe3d3e",
-          "fitted": false
+          "selected": 0,
+          "summary_sha256": "2b0fcfdc8f2bb9c66c5030aea28dfc40f90697751d9aaaa39171cd2ade9e9d38",
+          "benchmark_sha256": "41e7373cd8210bf3665e26d8373f7d68b62a341f0e0108b3bbb55e38624b8df6",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-20",
+          "fitted": true,
+          "program_sha256": "b1e78054642afe400ab8ddff0a446c24f3faa25789696efb68368e883b133fc2",
+          "fit_sha256": "573a02d90ba7526ebed90ff00f25b32d827832a5da2c75ee7092609b47dd8c7a",
+          "video_sha256": "0f47bab411347a38ff89cd4317c1e460ee9fbadedcae1534f5631cebc0ef7b49"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "b693857bddab50733647eb1e8bf501e659de50c901e0886dccb4f229889322b9",
-          "fitted": false
+          "selected": 1,
+          "summary_sha256": "2df369209ae9ef3a2e0b517c52a11750085b352a16bd2c5c9dffd68215fab516",
+          "benchmark_sha256": "6201f5f0d1b8ad9043205826c29ef1097f18c88150c4bde4e4160c22e337e00f",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-20",
+          "fitted": true,
+          "program_sha256": "992acc1b7b4863ca910763f8b326cccffabb618c0115de779f2cc7c16bf92784",
+          "fit_sha256": "ddcfc7b2102caa0e55cfbc1e25c6a26e43caa301d047b91046fa0526712c1cd8",
+          "video_sha256": "c8887e7234833d29ab145277413791444f0411d03000a0490ec1a461ec33aab8"
         },
         {
           "run": "gem31-film",
@@ -784,26 +1004,40 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "b96f77a01fcfd4f717ef7b16956a477afc0abfed2c578ae1bc6fe16b1d4ca189",
-      "jpg_sha256": "9a5df301179482918e6957d002dba847c248b00bea33ac8144cd03876e3a60f8"
+      "mp4_sha256": "0e8a546e8ff6da24718830712ff84a2407343c7f023af83e04310612f9b4b760",
+      "jpg_sha256": "eb1b9ca9428f2cffcf6bd6aa0651b8cea7083dba452c74c3e182684c6cb26c98",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-20.mp4",
+        "reference_sha256": "096fbb4c06e5940e7626834984475c0bf6752d9f306a7249686c919f5007f675",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "b96f77a01fcfd4f717ef7b16956a477afc0abfed2c578ae1bc6fe16b1d4ca189"
     },
     {
       "object": "test-21",
-      "reference": "/home/amberli/joints-media/out-single/test-21.mp4",
-      "reference_sha256": "7cb2a7fd9de6e58ca8982f985a164835916abf937217024b4399ff7c76f9da28",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "838315c92709eb59ed2273472c020e5971e8ee90eb4aeb702d5d46aed75eb392",
-          "fitted": false
+          "selected": 4,
+          "summary_sha256": "2beba7d3b30bd2a002b51af80c667b8b19c0729dd303cef2eeb85b8aa0ca6ff9",
+          "benchmark_sha256": "84a4e9f1a260632c10e8a2f59b9bee1f3178693a503beb2806dd50f0669024e6",
+          "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-21",
+          "fitted": true,
+          "program_sha256": "4342c6784c9994e9425c2f736477223dcc5ab5eb266822ca65260c3687820858",
+          "fit_sha256": "2594fe3134d27a5f2d56397a9f5a4b64061a638ffde627dced19da4c5bf14ce7",
+          "video_sha256": "786b41ec367d027f39f93dbc4d383ed0eadd681a2d6c5a8699f42b3ae904b96c"
         },
         {
           "run": "gpt54-connect",
-          "selected": null,
-          "summary_sha256": "e58fe26761961ad45d6a379db4a8fd4a7d0d89947f0c05b87a31ba16f383f571",
-          "fitted": false
+          "selected": 1,
+          "summary_sha256": "c9d89632ba59757823aa8af55f1ec641bce9b51cdf64da419c79097d046266d2",
+          "benchmark_sha256": "1d95461f024fbfce4e95fe3226b98c75425bbdbe8fcd7c7dd81b4877b4ca5ed9",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-21",
+          "fitted": true,
+          "program_sha256": "29d4cb2da6b324d45cc0daeec47178cdc47707ecca0812307e6c7a874a917236",
+          "fit_sha256": "3133353f9803bfb0523c4e3a2cf8a2846e0dcabec0b1bb292e5023e97b47acfa",
+          "video_sha256": "28e59117aa3aea22f1ccb0af528952a614137bcb0c3cd065ab52ea022e5f3dd7"
         },
         {
           "run": "gem31-film",
@@ -818,26 +1052,40 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "41e3339b61c2fe37849e2f90c577e51719bd9af68b2f3669bf3e4ee357074a2a",
-      "jpg_sha256": "eabebfbec51cac56f0b161b7ebddbcf5d7b41a429f690e8ea52a3e6a9a4b0a31"
+      "mp4_sha256": "3c9e9ab1afb73b76ba4d6b12e4e178c22930ed3d61cb937290e8d868045c8e89",
+      "jpg_sha256": "136964a0e3b5a53f9c62dba99df942718817445aec8ae2a38f025471fc0ac6f8",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-21.mp4",
+        "reference_sha256": "7cb2a7fd9de6e58ca8982f985a164835916abf937217024b4399ff7c76f9da28",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "41e3339b61c2fe37849e2f90c577e51719bd9af68b2f3669bf3e4ee357074a2a"
     },
     {
       "object": "test-22",
-      "reference": "/home/amberli/joints-media/out-single/test-22.mp4",
-      "reference_sha256": "db4b89c66926648634f544b5e6575931e72145d0f6a5cc0943e96b7cd9546947",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
           "selected": 0,
-          "summary_sha256": "ba1a474cc022d55af2a2b73c17e72556b964fbe453c1c452d93974167377b18f",
-          "fitted": false
+          "summary_sha256": "3a2be3f6e990c2bb435cfebdc710fdfe6e9f98d5f2f8b35dac5dde7c758bc2da",
+          "benchmark_sha256": "b8a028704eb1daf882463ca6ed55118f10f48e08c8f54b844f10ef5935cb5e8c",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-22",
+          "fitted": true,
+          "program_sha256": "546742ca587c57aa5b36366dd1b1a9ee62b9b336084e13e6bf6103f0a75b3445",
+          "fit_sha256": "c9c162cd2b627a032c3651eb6f2a73a548ede0d2084d2b5f8f03259ca877577e",
+          "video_sha256": "a3bbd81c697b3e903a2009e9c428da5262bc2f3a28d1b095e5185b0334d0ac5c"
         },
         {
           "run": "gpt54-connect",
           "selected": 0,
-          "summary_sha256": "6cdff6130f87e7759910e642cd375b4f7e32ebb8ae9ba4b4881d0a2e0effa61f",
-          "fitted": false
+          "summary_sha256": "09f7b59dcf6b28907fd8c479b80e40897adf4445ac42a9f34ee208fb7388a123",
+          "benchmark_sha256": "47e4bae03dfebc0d02435a07e039af3c75cd8652ee0cd4feb8addd9b0bd286a8",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-22",
+          "fitted": true,
+          "program_sha256": "05204f42fd813c44b00b0ebe012593d18f7b36a2e45a390b8f3109061878989a",
+          "fit_sha256": "ee9b2e86176266576abfb4c4e48e5e8aac9e1f9dd1f3f7fe0a995e0210921dcc",
+          "video_sha256": "29c756cdbd946e96016f94bb1ed0611470ea765620bf6df8ccce02ce23318404"
         },
         {
           "run": "gem31-film",
@@ -852,26 +1100,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "9984d793506607287a18400bd557a371d342415d42fbaf592fa92aada99422da",
-      "jpg_sha256": "00384112c87da338526202181266ef4968195fa15b6afd10b93728927ed75ed3"
+      "mp4_sha256": "6e80aa662a2650633f2b9d4535f03e4fe3233c66001f60ce2d0e88316df3bc85",
+      "jpg_sha256": "b23c12fb9ae14e7c85cb2b81fa39d2cd16abc7f3b94dc12583a4a67c89758bda",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-22.mp4",
+        "reference_sha256": "db4b89c66926648634f544b5e6575931e72145d0f6a5cc0943e96b7cd9546947",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "9984d793506607287a18400bd557a371d342415d42fbaf592fa92aada99422da"
     },
     {
       "object": "test-23",
-      "reference": "/home/amberli/joints-media/out-single/test-23.mp4",
-      "reference_sha256": "c2c283b1df9d8e721bdb4b908a6dd88ca61bc45317be9f7c9f6ac07da7a18499",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "3b1a129b5e6818684bc675526a8a0c1c6af5a3618f77ca4f50daacb2dfe6b1a1",
-          "fitted": false
+          "selected": 3,
+          "summary_sha256": "13a445a7fffff1f4530a50cd7163ec2b3c696888235ec737322a150b84976112",
+          "benchmark_sha256": "c3926001b085e9f6f058b799c4d4f550d612f1d356c5d7f8a75a62663d2cfcca",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-23",
+          "fitted": true,
+          "program_sha256": "b84fe9e69e7f5306228c174a20101cbe6e57b9179303a759c40c72c5b4c6e16e",
+          "fit_sha256": "92ee23b77ad6c0304bac8dda30fd7bb81229a7463a5f84ef502dbe9d233172b1",
+          "video_sha256": "abb78997ae6dd7bb59e5cfe9abfd4e26e298d8da83bc44f8c89b30eaf3d3042b"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "bd876983529c2ba82db3289f3087ecded5f5e0294fee060add740170256c1f50",
-          "fitted": false
+          "selected": 2,
+          "summary_sha256": "9f14fdb997ca46ef4c46ac5f98ac707e3e5d2da0dacc73cc9af9d71e8bc48168",
+          "benchmark_sha256": "07ea633d606db5604f4057b6f9f0b2189dff789a410e624fac21530a60117abc",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-23",
+          "fitted": true,
+          "program_sha256": "46a726e04764e0fe094772adbbaedddbc2b42e5430d5cd80c250a1cf93751ce6",
+          "fit_sha256": "ec715fffb6f6a5bf9342e81057b873e8165fa7f0bdecc4aab4077db28b2a55cf",
+          "video_sha256": "afb283936215de7604b573b0f1b66eb235a10100c22913fbc55b373b63cd68a8"
         },
         {
           "run": "gem31-film",
@@ -886,25 +1148,36 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "5d27321c091cacf618f3ef04a954a2f142b981b66acd86d67ce4735c52f29d8c",
-      "jpg_sha256": "10e9805a1543792b3dcc2e9ceb160f76eab2cf3abd86b2109417b5d003f340be"
+      "mp4_sha256": "7b7d306a622ab8223b3943ba3f32ea145db9ff77a790ca96b2276bbddbe0b70c",
+      "jpg_sha256": "3c3bdb68ed761ceb9ee44cf16759ec25be311dc09c324fdf78cc3081079f9cd5",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-23.mp4",
+        "reference_sha256": "c2c283b1df9d8e721bdb4b908a6dd88ca61bc45317be9f7c9f6ac07da7a18499",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "5d27321c091cacf618f3ef04a954a2f142b981b66acd86d67ce4735c52f29d8c"
     },
     {
       "object": "test-24",
-      "reference": "/home/amberli/joints-media/out-single/test-24.mp4",
-      "reference_sha256": "951ee2dcfb8c10a84754fc730c6114926e6c89efe0e140a6cc6cdc9cb216352a",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "9b0dab7f42f7d9202f2ce3f4f1c92618208335cafae565e95fa2175a38e8f195",
-          "fitted": false
+          "selected": 0,
+          "summary_sha256": "1de7b3b831f11d69a02a4ddf90d3bb628c8f4db8c35bc34815dee99024eeef45",
+          "benchmark_sha256": "f7dac59f8d772798fde9265cd7d450ea21b0b7d5280d20a096050084bb27aa6a",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-24",
+          "fitted": true,
+          "program_sha256": "fe6d8918bc62537808337450e91c1248168bb2ecaa197e9b96cc6f40f58ea137",
+          "fit_sha256": "ef1bf26cf964c17f5522c27c41ad70b8928755d8ae3fb8f6e3bcb5d806a9aa23",
+          "video_sha256": "9db93fd795372a9a41bf3fb6e5d0734e9151e43336623fc4192168e488944b4b"
         },
         {
           "run": "gpt54-connect",
           "selected": null,
-          "summary_sha256": "af58ff688ee9f3535649e01a43c690b032a5ff41af57533fe4057043f7be9eec",
+          "summary_sha256": "934732eee19aff99565524da52e63abd1662888a5e536e0fc4b348235a6e5158",
+          "benchmark_sha256": "3fb216471598a63c7c053e03af31169f64cf35d3a166412f1746fb090cd65fe6",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-24",
           "fitted": false
         },
         {
@@ -920,26 +1193,40 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "509c1e2bfa3c004a05f5899e40c91171f699e7729e4a34a154066c0351af4922",
-      "jpg_sha256": "b8ece0da7cd5377287455445b0f3dc1d18cde4a06419378ab57b3e104ab475e6"
+      "mp4_sha256": "bcf83c26d06ee0a7f1205f4d7b1cbef8372488a671d4a4dde7b54203da320d61",
+      "jpg_sha256": "da0cb03762570c0cd98b26f4e639b26c9d51b8a1686d4bbc8c19241538b84c48",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-24.mp4",
+        "reference_sha256": "951ee2dcfb8c10a84754fc730c6114926e6c89efe0e140a6cc6cdc9cb216352a",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "509c1e2bfa3c004a05f5899e40c91171f699e7729e4a34a154066c0351af4922"
     },
     {
       "object": "test-25",
-      "reference": "/home/amberli/joints-media/out-single/test-25.mp4",
-      "reference_sha256": "c7ed8e3f6cdd83230c3fab5e1d90050e55f21e9b4c50e1769929a4236b97e36b",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "7722bc1d39925aa131939525a5dbb63ac794a03b8b65ca6b3fe8543679f3585a",
-          "fitted": false
+          "selected": 4,
+          "summary_sha256": "c715419139f82fb1b5e92a0289e01fc577c91392a6a09ad76297e0acc37229cc",
+          "benchmark_sha256": "404ac93e2e471191a942e654dfa5af3317d9ede6dbce024b3336570335593a9c",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-25",
+          "fitted": true,
+          "program_sha256": "6f7c706740a7407ad5d92534eafcbc576d13497512b88a4f57d77cdb416b2434",
+          "fit_sha256": "7ea4a06d25268a4f05f30f8428cd75ff218e68cf687c75b993dc2a10299eb8f4",
+          "video_sha256": "cb2dbe73f16f1bf374d9983dee69e83fb1122cd7ccbbd8c9a569cb6c54c111b2"
         },
         {
           "run": "gpt54-connect",
           "selected": 0,
-          "summary_sha256": "63c76a5d30aaff65f712a8446def6c3e8ea68e26b1476d5dc5fcbe1ae9626cc2",
-          "fitted": false
+          "summary_sha256": "6500395fc35616432e7af8a7552f8fb9ed65a9551850bce4846551849aaa8205",
+          "benchmark_sha256": "1d3d0d2dfa13f29e29825d2bfac055529de18454f3be167974489cf7c0ca107e",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-25",
+          "fitted": true,
+          "program_sha256": "278e32298654f82c50bd369023d6240f922e7cf88ae1ef1c70fbd89b78f40686",
+          "fit_sha256": "a0e46ea20029af07debd70d5d323b1b41e73c6a482dbc9b223f1c137a62dfe9b",
+          "video_sha256": "3211ab377a65e041d36b49555ae9c626fae72e2459f6908aa44bcac1da9be20d"
         },
         {
           "run": "gem31-film",
@@ -954,26 +1241,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "5ca6996d7b44c6ff09b918d1a772bd1905c1c67ec144ba84d460d8de8c989fe1",
-      "jpg_sha256": "2a82c21e6a6b6eb00263ec179f20d2bd77023e7f6297780e00c80739c7143617"
+      "mp4_sha256": "d9c9eeb6d85e0d3a176b0f444a2a97c541c27e5c9f77b76d8347c3116cb92d24",
+      "jpg_sha256": "3837bcb439c351cc77085adb94d14d93cb66d6fbb0401e61ec0b01761bbc7c54",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-25.mp4",
+        "reference_sha256": "c7ed8e3f6cdd83230c3fab5e1d90050e55f21e9b4c50e1769929a4236b97e36b",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "5ca6996d7b44c6ff09b918d1a772bd1905c1c67ec144ba84d460d8de8c989fe1"
     },
     {
       "object": "test-26",
-      "reference": "/home/amberli/joints-media/out-single/test-26.mp4",
-      "reference_sha256": "edea52d91f47de4a55d2d17e10728e202e450583d294b4d8ecc8d418c089637d",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "b57327e3c6a56bc7cfa14321b08aa2f46118c9b79a5a8e3eaa228698a0d8d5bb",
-          "fitted": false
+          "selected": 4,
+          "summary_sha256": "b2028e0f3f5d6560083fd6da55e121b3f642d9e38a504d1b09fda6e93ca47b46",
+          "benchmark_sha256": "1087c3197531ec4c049fbd8c556faac664f03a4ba971bbf45210b87101b60550",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-26",
+          "fitted": true,
+          "program_sha256": "25a85b794881676660c8d0ea239de3bcd99fdd998e42d9433cfbc29f8e208fac",
+          "fit_sha256": "2d58533f1cb58cc29a46a604be2065aa8de5cef603e30324940a2a8ede49d43c",
+          "video_sha256": "caf9da9ebcc40cb07fd23ab909ee36edfa81900117b360fad47637bac67ed14f"
         },
         {
           "run": "gpt54-connect",
           "selected": 0,
-          "summary_sha256": "68de575da8d1f55c3903e578d22d60be50f423d48fefa49c4e149d1bdf4ff405",
-          "fitted": false
+          "summary_sha256": "f8e1ec1d1e2d73f8f00b5eda97f284dea4fbf7c320974b6a6a21cf198065fe0e",
+          "benchmark_sha256": "c8ecf32bbc8fd74982dab7455640b2c1b9e2274dc7ee8fd8af4bd8ca4675945a",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-26",
+          "fitted": true,
+          "program_sha256": "a6b80d09e64291ec910e5fdd499ab3d63adad3b402b61ae31c1f6f3362cd01f7",
+          "fit_sha256": "15d37bb87be7fe9a1638f08a31aae35b88580cbf3aef99faeddbc855e31f0bf3",
+          "video_sha256": "0ed308d14878f908a834b7dbbf97fede44dd733c9335fe40637cc70652eb37d6"
         },
         {
           "run": "gem31-film",
@@ -988,26 +1289,37 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "8cb22a73fa172be6415977458f4a3dbd6136240c2e088d9e1da8218c258984b3",
-      "jpg_sha256": "18ca08f5ae3654d0795a3b8fadcdf2b2e74d5716584c1f53e47fce2ed643c180"
+      "mp4_sha256": "e466951fc71736af42420fe46e3750287ec3ef8b38a7a09b94541f66008da371",
+      "jpg_sha256": "e9c35e6adfc51aec04994b2839902d3c48b4cc691e5d4fdb2292423031022a16",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-26.mp4",
+        "reference_sha256": "edea52d91f47de4a55d2d17e10728e202e450583d294b4d8ecc8d418c089637d",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "8cb22a73fa172be6415977458f4a3dbd6136240c2e088d9e1da8218c258984b3"
     },
     {
       "object": "test-27",
-      "reference": "/home/amberli/joints-media/out-single/test-27.mp4",
-      "reference_sha256": "9fd27d62d28dc03e5297db653e457e358da0350173f2116999a33867434b02f6",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "a7b5075a9c6232df484a0935cf0a8ed365083aa2394633c17422746e96137a50",
-          "fitted": false
+          "selected": 0,
+          "summary_sha256": "9d56fa633f039a0c87098e7f1afa415b59c597cf3eff12dd789377cf2d33f69c",
+          "benchmark_sha256": "caf83b9c0a2849b801b946fe3a5f88b9970353f72c00d411a505896991d4b6f2",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-27",
+          "fitted": true,
+          "program_sha256": "b76b9299ddd0328cbb947f97d5187ce650340285ba1ca9c2088cde951b65f55c",
+          "fit_sha256": "1a5eb5b28421202e4216c15fe1a618869a7c995bb0176ce22343f4a97fafd1ac",
+          "video_sha256": "5b5c384c34977ab91d6dc30bd45ee39ce4fff166a143def10cea3ca59dba13d1"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "84f3d792bd5bcb93daaadb08865a126223531686ae60122bdb7cb0f0292739b7",
-          "fitted": true
+          "selected": null,
+          "summary_sha256": "be92f7e9151c73534cb5190a7ad383194e36beaafa930e9805604596f75ae960",
+          "benchmark_sha256": "8f9d0e3e0083dd34fd8bfda441337e5801b72ae17670e194d34d1ade8e817745",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-27",
+          "fitted": false
         },
         {
           "run": "gem31-film",
@@ -1022,26 +1334,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "a868278c69d3f66f0cd645f6fd526bd23cb2e4bce079c76dc10a36a6425dfdb4",
-      "jpg_sha256": "dde6de6a6d69137099e09fb5252049d919c74f59f4af41b63f9c3c3bc3ece2a0"
+      "mp4_sha256": "76eee2f20cba660fee2958c70205d916cd6306c9c041bb340027477170fd3d6b",
+      "jpg_sha256": "32f815b87734a09d12ec467912232bc6a4925c5c64d036ee1163af222ef80931",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-27.mp4",
+        "reference_sha256": "9fd27d62d28dc03e5297db653e457e358da0350173f2116999a33867434b02f6",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "a868278c69d3f66f0cd645f6fd526bd23cb2e4bce079c76dc10a36a6425dfdb4"
     },
     {
       "object": "test-28",
-      "reference": "/home/amberli/joints-media/out-single/test-28.mp4",
-      "reference_sha256": "6fb7f6ff19f9209b62760e8d7b541f136f8757ae08d9ec39b96a972850a478cf",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "adbb7c8dc6053e5e679c119c6847998fe6721abc7010797b94ba093a3d639173",
-          "fitted": false
+          "selected": 3,
+          "summary_sha256": "a6da1ceb2e5c20a19e6168b2c997415a91068f99a5f3b4d3e82185f28da9d299",
+          "benchmark_sha256": "2649c1197401726e4337cc826967905427554ff46427545833efda9d87d2638d",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-28",
+          "fitted": true,
+          "program_sha256": "21c2989136e08473a3ab98eb2e3a20b6ad0f3c251ec314149aa3789e3b41d91d",
+          "fit_sha256": "0ab8335fde44e84260ece6ed86ef33f03a34365b14b5ded0dcfd05d5c39707da",
+          "video_sha256": "e21ec202c16b01ba744b3214f2aba0cec462e2ad1af6390990d177a4651aefc6"
         },
         {
           "run": "gpt54-connect",
           "selected": 0,
-          "summary_sha256": "8ec76c4c22b4ee2e07937b99d263c9e5ec63c714efa3b0b695a3e07abaafb05a",
-          "fitted": false
+          "summary_sha256": "33323749fc2c045bb0aa1ee803143c69b0d4ca0c6d1278335b76ea4148609f7e",
+          "benchmark_sha256": "070cf64cffa7d674d4be6d7db8fc15bd028a9e634ffc2021f7ab9e86f3383afe",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-28",
+          "fitted": true,
+          "program_sha256": "e7b6f23ca6a1104f70534fda9492722554ca98d85e8b223a66ff2d02c875dd65",
+          "fit_sha256": "61a66ab9c730ce018f961636836516df22edde1dc754b8d8aca7f375d8fbc37e",
+          "video_sha256": "c6b36b57c72f71cc49c830c74a2f96eca1f7f3e8dc70f6abc6e8354af199e5dd"
         },
         {
           "run": "gem31-film",
@@ -1056,26 +1382,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "e65d5f5f36270c20f7b70cd6abdf46a9f65a57497d80db9f980e63012d0cda85",
-      "jpg_sha256": "80d0d1860957eab47d806681b789416cb702d0ac3a7b06b1c91b6ebe65b0e7c1"
+      "mp4_sha256": "2e12b8ebfdf440e1988fc32123ad5ac7bb369d106430a5d793c16c3b72bd7c65",
+      "jpg_sha256": "b44d7ff3090e2eb3a9b97b2139693e0dbbe53e1dbad8e608a7af4a61bb41d2db",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-28.mp4",
+        "reference_sha256": "6fb7f6ff19f9209b62760e8d7b541f136f8757ae08d9ec39b96a972850a478cf",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "e65d5f5f36270c20f7b70cd6abdf46a9f65a57497d80db9f980e63012d0cda85"
     },
     {
       "object": "test-29",
-      "reference": "/home/amberli/joints-media/out-single/test-29.mp4",
-      "reference_sha256": "3c6c426d800062d9918960b34f5bbaccc29f553bbe3a00fd24fad73233f947f4",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "ce3dedcc556c237be82776ddd3f6113cda3fc3b850670313a5a46ee72a6e297a",
-          "fitted": false
+          "selected": 6,
+          "summary_sha256": "758ba8427d5921e89fe1333b9f840f8699905f86c62b75b80163a7418efe7e84",
+          "benchmark_sha256": "4631ccd85de7ac706ee0a34f98fdde73b2d0e5fc28d7ef5893a0898cd291e302",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-29",
+          "fitted": true,
+          "program_sha256": "4691254c635c50842ea3744c58a3a6d587a36631c10c48f8ace64c9ad7c3cdb2",
+          "fit_sha256": "feae08a3c8f2dfdc40d6a1a911a6c864170be390b654e9f31de23e3f58ce3a1b",
+          "video_sha256": "a8bd4586284222f2d67722e03f95eb1a35f6094c86d9b34a9c46c347f7c6a3c1"
         },
         {
           "run": "gpt54-connect",
           "selected": 0,
-          "summary_sha256": "ab014bc899835dd688d7ba242646b2b07134433fd062b60c2b7b9114f44281f7",
-          "fitted": false
+          "summary_sha256": "05a15a0d36bf80fa8bdbf5c48efbad4a1f3eb62e9458f1fc1764097a3fa56497",
+          "benchmark_sha256": "9245b42649fc444ed4272ded9ebf5aceb95e5b71dfc2d2bfdd4eb0b087470269",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-29",
+          "fitted": true,
+          "program_sha256": "622afd58f84ea3be58f7ad75438d5dcc3a8213ada3e851c3efe4103b37f4e5aa",
+          "fit_sha256": "e9a98bac8c00ac80c2115f02097119468c849f92331bf027dd778c83ad1a07ea",
+          "video_sha256": "ae27ffc3353b8480348268c1b2ddc8f524be297d17eac5b184d27bd8193c7036"
         },
         {
           "run": "gem31-film",
@@ -1090,26 +1430,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "8c27bc593747bc2231be8100bf1cd0e7bbf272c26e4f1be81522d889448b1a0a",
-      "jpg_sha256": "2a70fb9491e6c4dfc783dd52a5e6c5a4f80c0d41ed2ef518d7bd1828a0e34994"
+      "mp4_sha256": "4b601a1ecde8c4d79929f187c549bcecf658ec25d5bdcb3964b299f8799767b8",
+      "jpg_sha256": "469e8f444eea8e9a8beeef9d131d69cc73bc141a24bbbcf6a24e9738523a58ce",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-29.mp4",
+        "reference_sha256": "3c6c426d800062d9918960b34f5bbaccc29f553bbe3a00fd24fad73233f947f4",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "8c27bc593747bc2231be8100bf1cd0e7bbf272c26e4f1be81522d889448b1a0a"
     },
     {
       "object": "test-30",
-      "reference": "/home/amberli/joints-media/out-single/test-30.mp4",
-      "reference_sha256": "427312910665856d244a9b512addb1abe223894f3b94ebba502cb1a994971b2b",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "2750560bf8684a9448e42f7369e8a83f93dc6103b25fb6956c9e0417b32a9700",
-          "fitted": false
+          "selected": 3,
+          "summary_sha256": "1bc962447dfbf4122bfa1b983dcbcfbb1e80dd0e533371ac97d6edbbb9bb3f28",
+          "benchmark_sha256": "1008bf97cae90435b7ec9d513202eb739831f1dddbdeb4fc5d965cb0180627f2",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-30",
+          "fitted": true,
+          "program_sha256": "b0f851597772eb67b1ba0e898549e5e716bacd3d7f5aedb8aeac38f50cd4f9e1",
+          "fit_sha256": "626f1608095e1a814c2e7b70dc5a3ab84880fcebb6dbe3ac969ae19bdbe657e4",
+          "video_sha256": "d7cd0d108e34e0d1f89b9b3d2fb9977d2fa0ec4c1d8e07b560bd7b9b7bf87c0e"
         },
         {
           "run": "gpt54-connect",
           "selected": 0,
-          "summary_sha256": "57928e9f76a218dfd74bcd5cf62e447fbd6f8a3d417789ace51406114593c4b0",
-          "fitted": true
+          "summary_sha256": "d9338e6976be67543ad878ef7f781da7ab57435c6811ca91de6e729c0a4a1526",
+          "benchmark_sha256": "6d47cecab46a356d0fff2772331dda6533a4c0aaf2345dd9e79532923b7d021b",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-30",
+          "fitted": true,
+          "program_sha256": "f730f1d51627743c7ee888115595d8e18014a1f32baa1a1b521570c6f421bc68",
+          "fit_sha256": "c520ea29437886b13fa8e63f7985114837acdbf933de57cf542011861ecd575b",
+          "video_sha256": "0648a4caa7657e2952e49877ad3b89241a7de44a216404ff7fd8d03881d8e864"
         },
         {
           "run": "gem31-film",
@@ -1124,25 +1478,36 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "716694bd8c50f2f618cb04a15e496b2b3b70d19ef4f1b050f376f971e9e983c1",
-      "jpg_sha256": "26400af3e10360f210e38dc1fcb9cd14232bae96eea38f82e78208a2aab8f164"
+      "mp4_sha256": "1ba470fded8673dbf3c70c038fce33cef50bae858c54e1e49427765ef407a511",
+      "jpg_sha256": "1f663cfa675669d025234c212cfb3c70a637c8259b0b9187f77eb041b38bbc45",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-30.mp4",
+        "reference_sha256": "427312910665856d244a9b512addb1abe223894f3b94ebba502cb1a994971b2b",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "716694bd8c50f2f618cb04a15e496b2b3b70d19ef4f1b050f376f971e9e983c1"
     },
     {
       "object": "test-31",
-      "reference": "/home/amberli/joints-media/out-single/test-31.mp4",
-      "reference_sha256": "9073e076617781f61337dd63c669b0351f62e3a8de9b42e6b39b90af36c985c6",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "edf1137dd61dcef7bf3fff57c588e8e9e97ee4e2c27c76142f5a638c9700a5df",
-          "fitted": false
+          "selected": 1,
+          "summary_sha256": "53d0ffd8c5220113e49875f118ae06aa049d39fe7eebd1685732f1a1fc6e8ebe",
+          "benchmark_sha256": "9f83290bdfe93cd244050e6e3c546141fb0c2361909116a0b3eacf20acf921c1",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-31",
+          "fitted": true,
+          "program_sha256": "d7f5403dcabba5605a56d03596b72dca32c3e6c49a3be721cadbf1e0dc9c1f83",
+          "fit_sha256": "f017fe0e7309ef410949671ff4ff231d3480572e4db19d8ae3653040390fd3a4",
+          "video_sha256": "ced202eae1bb7f2539888da03b70d57c4c2ea3ac065e121c7c242c6b099f3647"
         },
         {
           "run": "gpt54-connect",
           "selected": null,
-          "summary_sha256": "dab031720aa67c70a9f983f2be3eaeb17758a2657661f9272bb44ede1fc4c714",
+          "summary_sha256": "0552643c1d09fab2491097d2a006779e442397f43a7ccf96d18c3dbb43094036",
+          "benchmark_sha256": "a026882ab83f5ad196f87123855756a13f91f5162e1ddba57431518fa729c2bf",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-31",
           "fitted": false
         },
         {
@@ -1158,26 +1523,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "585addc6dacc589a5b8d743649e6bf68fa458b9f3f451b47c98727f81dd4e93e",
-      "jpg_sha256": "0e46faa39ea80872d17489693ea436f6f5ac20c16439561f76ae875bf861f83e"
+      "mp4_sha256": "cd5a46d8cbfcef794c855e03a008cd0a3ba29343bb6985e1d59f05cac222529b",
+      "jpg_sha256": "509e418d9fa915d7145ca3547412782de3f2a2014559c25b11e2fa2747ca1a20",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-31.mp4",
+        "reference_sha256": "9073e076617781f61337dd63c669b0351f62e3a8de9b42e6b39b90af36c985c6",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "585addc6dacc589a5b8d743649e6bf68fa458b9f3f451b47c98727f81dd4e93e"
     },
     {
       "object": "test-32",
-      "reference": "/home/amberli/joints-media/out-single/test-32.mp4",
-      "reference_sha256": "19b75e56080550292d1a9f0529b2ce90e15e713656b7ed709daa415c566f272c",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "078b1d8081cebcdc933a44451142223cb711898a0f19e2de804b33ec8b991117",
-          "fitted": false
+          "selected": 6,
+          "summary_sha256": "f68b38d5dd99fde97a4e43c838912af1e3e3e65f2213b6c6d356a86a31afe05b",
+          "benchmark_sha256": "f1d1683e767123948e56b61d4537f76a6cdc9a8630e59ddcf4054aa9b935d639",
+          "source_search": "/home/datnguyen/Marc/reconstruction-soft-collision-20261106/runs/gpt54-params/test-32",
+          "fitted": true,
+          "program_sha256": "1a3492854758bdc111f237c3e880ebeb872e84fe7db909df9a6e50693bc671a8",
+          "fit_sha256": "f2dab86123e3e105455e1248a08e9199b78a21e0866acc76d06cf80689f4fc3b",
+          "video_sha256": "b9c77efce35cd89c0d7691c01c76026e04ac835a1d3452fd4e35127a8baf0345"
         },
         {
           "run": "gpt54-connect",
           "selected": 0,
-          "summary_sha256": "f6b65a6c0cf6bea2f7122fedeb329fedb795a9f0b6dca206157aed98c7a5c774",
-          "fitted": false
+          "summary_sha256": "54c70d8a2c2386a748483d61d4c2380d81afa3ec8616e8544e9067897b368096",
+          "benchmark_sha256": "31b0f9c6d8cf21fd545de9bf7d31781d0864ed3797860bb820f8ecd2a30729e3",
+          "source_search": "/home/datnguyen/Marc/reconstruction-soft-collision-20261106/runs/gpt54-connect/test-32",
+          "fitted": true,
+          "program_sha256": "0a5c3e1f58ae9a4416fd312a51d87af3a5902416adc79b187b6924e496f11f06",
+          "fit_sha256": "d3f9bdc1a8266902da64f657a3a8cd12695add3932c4e8a357d509234ec70bfb",
+          "video_sha256": "6b346d2fc6aa9fd66eb7a8b829af92b2268c7feb8150f162f2aa3b88ef8f6cf6"
         },
         {
           "run": "gem31-film",
@@ -1192,26 +1571,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "df3d9eae272f4fdfb3f79df2d9ea8c2bd5e7436a5feaf094ada86dff9cab4345",
-      "jpg_sha256": "5cf836094ef1ba98b7a2b9f23a3f909028b7e0fca8d937ebd38dcca17575dc3b"
+      "mp4_sha256": "cc3824e074762f4509ebe386fd6a8cc3cc5a1d7517b3bf9bcf54cd6fb6fe82e6",
+      "jpg_sha256": "79b03c7374d5c4c1f37fc5722f69300936507d892e9c42e7be73983db27ab329",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-32.mp4",
+        "reference_sha256": "19b75e56080550292d1a9f0529b2ce90e15e713656b7ed709daa415c566f272c",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "df3d9eae272f4fdfb3f79df2d9ea8c2bd5e7436a5feaf094ada86dff9cab4345"
     },
     {
       "object": "test-33",
-      "reference": "/home/amberli/joints-media/out-single/test-33.mp4",
-      "reference_sha256": "29f557a5cda267c919dba1ed326253fddfbaa96f362d96fa0b5129910b1f7ce9",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "6aaf3d6c4dc94da60d63b1c24e7e862f1f2ed467872d79d773560a4ea6d11540",
-          "fitted": true
+          "selected": 1,
+          "summary_sha256": "0c8ccd43d268b92eecdc035b74dd35132003b5912924dbc2c4b402e02a68baa5",
+          "benchmark_sha256": "f61a6b72f5a9a60c82b7fd0dfa95f1c49b2ba71dab0f343f609e59a474def926",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-33",
+          "fitted": true,
+          "program_sha256": "c0be310bf34ae4cd3d8b1f4703b5a63a470010907068325dc0bc705cea4ef611",
+          "fit_sha256": "b8dd982827e807c0537c6468dee17b201e4f01a6709e38452be1eb88971dc3a6",
+          "video_sha256": "1f543595ee291ccf60b84127746c3600d8690296e6009b8c94e034986b15f113"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "e30638a0cac0f25399c45c5e10bf8a1033271e418344bb5ac54ac828ad8e2f95",
-          "fitted": false
+          "selected": 2,
+          "summary_sha256": "61fed22337b78806528ffc62b9b2560690de56fe1d7216668503b72894f4d798",
+          "benchmark_sha256": "3e9d85035d1d58f063455fd105729d71180c49a7f0acbd97f81e6ca3a072227a",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-33",
+          "fitted": true,
+          "program_sha256": "0c9a58e1fab34584e093817fcb4d2e0169406873cbe2165b5ade473df429c64c",
+          "fit_sha256": "ea6bfef2b7a7c5604ee83400109c3d3c4ef941bca8f2873ed57aa028682d0cd6",
+          "video_sha256": "5444a068cb1ef482584ed55a3e2d873ffb6f1a966061abde0a7dc8737965913b"
         },
         {
           "run": "gem31-film",
@@ -1226,26 +1619,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "bae6058171c72f96d3397321c5eb307f4e6e2961d63207dbd3ab38a9d6189505",
-      "jpg_sha256": "6f48c7fbe113f7187bc8f379a32859ffe84b53a7eb82a987f632602fbefe97ec"
+      "mp4_sha256": "ed5c521dc564a3f216df16d093be29ee5359c621fed70258a1929509c8c7eea3",
+      "jpg_sha256": "736321ebab7aa768d3805914641a6f582cf65251c937acdc95ae3f23b3ba25ff",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-33.mp4",
+        "reference_sha256": "29f557a5cda267c919dba1ed326253fddfbaa96f362d96fa0b5129910b1f7ce9",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "bae6058171c72f96d3397321c5eb307f4e6e2961d63207dbd3ab38a9d6189505"
     },
     {
       "object": "test-34",
-      "reference": "/home/amberli/joints-media/out-single/test-34.mp4",
-      "reference_sha256": "9d4e145979c298673e69db4099fae8b212baa796fb3ffc2a8ce82b30f977effd",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "49f98edfbf9decf77cc1371f9c6a5a991b9cd633fe8a71e11fd111d55b8536d1",
-          "fitted": false
+          "selected": 7,
+          "summary_sha256": "5ffc0ab3a907b56f14a52834259206b39fec3cd37d312b7f992c2cfe2d397c3a",
+          "benchmark_sha256": "b2292bcf0e9c9581907053ce7ffc2e9c32625c5a269736f8750acb116e93b5ad",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-34",
+          "fitted": true,
+          "program_sha256": "a61a9d1b88d55c605c0b1118e03910f5931af482f6e2a7fd52c5c89f89266460",
+          "fit_sha256": "7a6ea1693ea46667089517d93846a1074c2d9c130c3b188612eef90d5308bd91",
+          "video_sha256": "7affd0ebefe5719852734a936595cc8b934fe9a827440157fd97824417f1a86a"
         },
         {
           "run": "gpt54-connect",
-          "selected": null,
-          "summary_sha256": "cecbb1b2a2597351b490d1165bd2c84f6f440572cd5cceeffa15099def8623f6",
-          "fitted": false
+          "selected": 2,
+          "summary_sha256": "0ca279ebcf5ae4a656a1fd21654b9af7daba691337eed0d3ed859b9ad704c4bf",
+          "benchmark_sha256": "52c341119be50dabbc7b0c150dd54ce96b296f9db93ec7a04f9d74d61cd7dce3",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-34",
+          "fitted": true,
+          "program_sha256": "308d452125ef80b049bb3e67ab6a90ed703c02c2173f3c8c8561acb72c37adee",
+          "fit_sha256": "d792ea5ab33714047eddc0fa03d70be2fb7b182929be0863ff925c6c3196f4a7",
+          "video_sha256": "58dde8c23a34efba918465d12982d2a5b567f1471ca7f6ded97745b5ddad115b"
         },
         {
           "run": "gem31-film",
@@ -1260,26 +1667,40 @@
           "fitted": true
         }
       ],
-      "mp4_sha256": "76f9fbc1003f8598b4cd8d3250e37da0a9ef7452d24f85443082d00e2e0b0108",
-      "jpg_sha256": "93a815c226cc7a825b9e1b1e294e7e0a9e6f1d890d3b8e3f8046660194ac6d23"
+      "mp4_sha256": "26623509ffd128c3aafeae7da2af79426bfb5b22ea58bd313e5aa6a3f4067674",
+      "jpg_sha256": "53b045be1f1e5cdb68a39993c1794e9a387a978d722129002bcb5cde0cf7a895",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-34.mp4",
+        "reference_sha256": "9d4e145979c298673e69db4099fae8b212baa796fb3ffc2a8ce82b30f977effd",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "76f9fbc1003f8598b4cd8d3250e37da0a9ef7452d24f85443082d00e2e0b0108"
     },
     {
       "object": "test-35",
-      "reference": "/home/amberli/joints-media/out-single/test-35.mp4",
-      "reference_sha256": "f30905c9d1c4df3b87590336af93733225fd7cae3a2f9c9659cabb4cf3f70b82",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": null,
-          "summary_sha256": "caa1ff28eec6b1d9e800eff0cbccd173cb8572bfc7a695195dc00e00bb112328",
-          "fitted": false
+          "selected": 2,
+          "summary_sha256": "b9204e228adfb25352b6d16bb1bfdc416e3ac3b7594ab83b5bdb72ea3717ef49",
+          "benchmark_sha256": "0dfefc577a894f418acf8881e4fd44109134035ea7ca61bb230dc00b11b6bff3",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-35",
+          "fitted": true,
+          "program_sha256": "7ff500c70c22804390111af1d3f1389290079970c719bc08ae569b88ae2829c3",
+          "fit_sha256": "b2fef8caa3d26ef1687e3b1885c540186858d7442342915fc976cb1997281f6d",
+          "video_sha256": "0646f25d5c166d32ab723cfb50bceebd29d944f5d06795a6b230863a0d93dafd"
         },
         {
           "run": "gpt54-connect",
-          "selected": 0,
-          "summary_sha256": "d67bde63ea2b068391596cf7703dcc64f96a40cbc298178af08e09fb7dd05364",
-          "fitted": true
+          "selected": 7,
+          "summary_sha256": "6853e1a349f3731e2e3acf27c275a11811094a63a59f512e478bef22b8dec730",
+          "benchmark_sha256": "7d1c7375ffc5aed7d37bbc090850da66d977782d8383c452a0b32a157e373b6c",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-35",
+          "fitted": true,
+          "program_sha256": "114144df99f2edbd86226aca6e5b7192fccf3f920674ef20ee38a2ed7559143d",
+          "fit_sha256": "c6c9e12d65c6e8c7c7be758054d6d51a6482016095df13619f7da87534075087",
+          "video_sha256": "e751a75586aee67b0b0b5eb2c628488a66a051e4a41736b72d0f45346833ff71"
         },
         {
           "run": "gem31-film",
@@ -1294,26 +1715,40 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "4d4d0f28858f6673d3ca5b4eb4c8f3450101c6c3cee07ba135801d2a85f3fae1",
-      "jpg_sha256": "130ac74cac4e34b30760bb5f5b8bb295f663a4b013735797dfe68d7b8c1ed24b"
+      "mp4_sha256": "1349873bccf8d3265fc58805ff40e60d6a9f06ebfc7b4b759cbd72f6e8af23c8",
+      "jpg_sha256": "ca6c2fd1ffb9928acde413c880d99f3901e1182f378b2957667bc23afe3a4398",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-35.mp4",
+        "reference_sha256": "f30905c9d1c4df3b87590336af93733225fd7cae3a2f9c9659cabb4cf3f70b82",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "4d4d0f28858f6673d3ca5b4eb4c8f3450101c6c3cee07ba135801d2a85f3fae1"
     },
     {
       "object": "test-36",
-      "reference": "/home/amberli/joints-media/out-single/test-36.mp4",
-      "reference_sha256": "39cffa001e0c766fb28facb9d3974e22535a7639080f8df7244e8bc208ac04b1",
-      "reference_panel": 0,
       "runs": [
         {
           "run": "gpt54-film",
-          "selected": 0,
-          "summary_sha256": "2ff074738bf5fb5bfd1902c54fde405ec2adb3c7d1157a440b891ae6e1ae5cbb",
-          "fitted": false
+          "selected": 2,
+          "summary_sha256": "9d771e15fefd75a8fcde095a13baa844e5e69a35a02f4ced3a2bdd9a92504253",
+          "benchmark_sha256": "410a19371fc79295ebdde00ccbd2824fbe2ff00ca8b41c33ca67dd4b81c6c2cb",
+          "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-36",
+          "fitted": true,
+          "program_sha256": "931b93262a3ed84deee891e28171e742efb1d4a1ff39b67302e949a769db1f1a",
+          "fit_sha256": "91dcb0e0d1d137f5a53a48509ca3677b96a03c8cf88b6986fac66eaa0e8b92b1",
+          "video_sha256": "c938679f787ed677ae3bb4f1820f1759477569ed56e6912118154efa6ae13835"
         },
         {
           "run": "gpt54-connect",
-          "selected": null,
-          "summary_sha256": "a0008ac89a8453814861b66f12acd677f374105f4d26009886af8a8ef89acbfc",
-          "fitted": false
+          "selected": 1,
+          "summary_sha256": "2c59dbc546e5292e60c05193068c88c6ca6885eb5b02908264e3fce7d835d9a2",
+          "benchmark_sha256": "ae557bfbe9acbaf3c0288f8a784ceb1852d092cb7d3e4ea9044605ce4bec8a23",
+          "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-36",
+          "fitted": true,
+          "program_sha256": "3250e9445762435918dd12715811abc0528ec08f367775737b95d4e055cb576a",
+          "fit_sha256": "c9a863a56210356f3067a3b8259daaa4f3e9a63f33059ab44cb381e7c12e68d7",
+          "video_sha256": "788f468770c21999b0abd411e2fc703fb7e5baa0a58886e223ddb5bce86071a4"
         },
         {
           "run": "gem31-film",
@@ -1328,8 +1763,996 @@
           "fitted": false
         }
       ],
-      "mp4_sha256": "cf34a7b86bcbab6a7617c866edf11ae4fcb3533580d5f050a50d579301f690df",
-      "jpg_sha256": "10a7ba22ec8c9a55c0cdb8bd1dfbb44fb879804e605fb82541275d8f5071aeab"
+      "mp4_sha256": "7dbb2b2d02fe696b7c825548c3c254f4772ab01c8939b104599538b71d594fa2",
+      "jpg_sha256": "4a4c5cec0d1021cf75be42531d5d060ea1129dcb119ae7cc60b020cfe757d5bd",
+      "previous_reference": {
+        "reference": "/home/amberli/joints-media/out-single/test-36.mp4",
+        "reference_sha256": "39cffa001e0c766fb28facb9d3974e22535a7639080f8df7244e8bc208ac04b1",
+        "reference_panel": 0
+      },
+      "reference": "Observed film, middle calibrated camera",
+      "previous_mp4_sha256": "cf34a7b86bcbab6a7617c866edf11ae4fcb3533580d5f050a50d579301f690df"
     }
-  ]
+  ],
+  "gpt54_film_rerun": {
+    "scoring_note": "Canonical Real2Code metrics with 100,000 sampled points per mesh. test-34 Params used 24 workers for exact cKDTree queries; metric definitions and sample count are unchanged.",
+    "renderer": {
+      "script": "llm-recon-render/render_selected_trajectory.py",
+      "sha256": "5ce2da6adc0412d75e8e25f33562bc7de7e5b8a18a59c52681c8360812974ba4"
+    },
+    "date": "2026-11-06",
+    "source_commit": "61252875311db4ab6f9f3c811874d28ba2c87a55",
+    "source_tree": "9978d2daa64cb83213b1bab0aaa0dbf36a41e414",
+    "settings": {
+      "model": "gpt-5.4",
+      "type_checker": "ty",
+      "proposals": 8,
+      "max_wall_s": 2700,
+      "model_timeout_s": 300,
+      "max_completion_tokens": 8192,
+      "num_retries": 3,
+      "fit_timeout_s": 1500
+    },
+    "scored_searches": 74,
+    "fitted_selections": 71,
+    "selection": "Held-out validation selection from saved accepted candidates before benchmark scoring.",
+    "fitting": "Harness-owned trajectory fitting with a finite collision prior. Geometry and initial poses are fixed for Params; only its joint limits are fitted.",
+    "playback": "Saved fitted joint positions at the observed film timestamps. The observed film and both GPT-5.4 film panels share the middle calibrated camera. Other panels retain their archived range sweeps.",
+    "runs": [
+      {
+        "run": "gpt54-connect",
+        "selected": 0,
+        "summary_sha256": "09f7b59dcf6b28907fd8c479b80e40897adf4445ac42a9f34ee208fb7388a123",
+        "benchmark_sha256": "47e4bae03dfebc0d02435a07e039af3c75cd8652ee0cd4feb8addd9b0bd286a8",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-22",
+        "fitted": true,
+        "program_sha256": "05204f42fd813c44b00b0ebe012593d18f7b36a2e45a390b8f3109061878989a",
+        "fit_sha256": "ee9b2e86176266576abfb4c4e48e5e8aac9e1f9dd1f3f7fe0a995e0210921dcc",
+        "video_sha256": "29c756cdbd946e96016f94bb1ed0611470ea765620bf6df8ccce02ce23318404",
+        "object": "test-22"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "1de7b3b831f11d69a02a4ddf90d3bb628c8f4db8c35bc34815dee99024eeef45",
+        "benchmark_sha256": "f7dac59f8d772798fde9265cd7d450ea21b0b7d5280d20a096050084bb27aa6a",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-24",
+        "fitted": true,
+        "program_sha256": "fe6d8918bc62537808337450e91c1248168bb2ecaa197e9b96cc6f40f58ea137",
+        "fit_sha256": "ef1bf26cf964c17f5522c27c41ad70b8928755d8ae3fb8f6e3bcb5d806a9aa23",
+        "video_sha256": "9db93fd795372a9a41bf3fb6e5d0734e9151e43336623fc4192168e488944b4b",
+        "object": "test-24"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 4,
+        "summary_sha256": "b2028e0f3f5d6560083fd6da55e121b3f642d9e38a504d1b09fda6e93ca47b46",
+        "benchmark_sha256": "1087c3197531ec4c049fbd8c556faac664f03a4ba971bbf45210b87101b60550",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-26",
+        "fitted": true,
+        "program_sha256": "25a85b794881676660c8d0ea239de3bcd99fdd998e42d9433cfbc29f8e208fac",
+        "fit_sha256": "2d58533f1cb58cc29a46a604be2065aa8de5cef603e30324940a2a8ede49d43c",
+        "video_sha256": "caf9da9ebcc40cb07fd23ab909ee36edfa81900117b360fad47637bac67ed14f",
+        "object": "test-26"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": null,
+        "summary_sha256": "be92f7e9151c73534cb5190a7ad383194e36beaafa930e9805604596f75ae960",
+        "benchmark_sha256": "8f9d0e3e0083dd34fd8bfda441337e5801b72ae17670e194d34d1ade8e817745",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-27",
+        "fitted": false,
+        "object": "test-27"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 6,
+        "summary_sha256": "758ba8427d5921e89fe1333b9f840f8699905f86c62b75b80163a7418efe7e84",
+        "benchmark_sha256": "4631ccd85de7ac706ee0a34f98fdde73b2d0e5fc28d7ef5893a0898cd291e302",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-29",
+        "fitted": true,
+        "program_sha256": "4691254c635c50842ea3744c58a3a6d587a36631c10c48f8ace64c9ad7c3cdb2",
+        "fit_sha256": "feae08a3c8f2dfdc40d6a1a911a6c864170be390b654e9f31de23e3f58ce3a1b",
+        "video_sha256": "a8bd4586284222f2d67722e03f95eb1a35f6094c86d9b34a9c46c347f7c6a3c1",
+        "object": "test-29"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 1,
+        "summary_sha256": "53d0ffd8c5220113e49875f118ae06aa049d39fe7eebd1685732f1a1fc6e8ebe",
+        "benchmark_sha256": "9f83290bdfe93cd244050e6e3c546141fb0c2361909116a0b3eacf20acf921c1",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-31",
+        "fitted": true,
+        "program_sha256": "d7f5403dcabba5605a56d03596b72dca32c3e6c49a3be721cadbf1e0dc9c1f83",
+        "fit_sha256": "f017fe0e7309ef410949671ff4ff231d3480572e4db19d8ae3653040390fd3a4",
+        "video_sha256": "ced202eae1bb7f2539888da03b70d57c4c2ea3ac065e121c7c242c6b099f3647",
+        "object": "test-31"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 2,
+        "summary_sha256": "61fed22337b78806528ffc62b9b2560690de56fe1d7216668503b72894f4d798",
+        "benchmark_sha256": "3e9d85035d1d58f063455fd105729d71180c49a7f0acbd97f81e6ca3a072227a",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-33",
+        "fitted": true,
+        "program_sha256": "0c9a58e1fab34584e093817fcb4d2e0169406873cbe2165b5ade473df429c64c",
+        "fit_sha256": "ea6bfef2b7a7c5604ee83400109c3d3c4ef941bca8f2873ed57aa028682d0cd6",
+        "video_sha256": "5444a068cb1ef482584ed55a3e2d873ffb6f1a966061abde0a7dc8737965913b",
+        "object": "test-33"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 2,
+        "summary_sha256": "b9204e228adfb25352b6d16bb1bfdc416e3ac3b7594ab83b5bdb72ea3717ef49",
+        "benchmark_sha256": "0dfefc577a894f418acf8881e4fd44109134035ea7ca61bb230dc00b11b6bff3",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-35",
+        "fitted": true,
+        "program_sha256": "7ff500c70c22804390111af1d3f1389290079970c719bc08ae569b88ae2829c3",
+        "fit_sha256": "b2fef8caa3d26ef1687e3b1885c540186858d7442342915fc976cb1997281f6d",
+        "video_sha256": "0646f25d5c166d32ab723cfb50bceebd29d944f5d06795a6b230863a0d93dafd",
+        "object": "test-35"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "524ace33c335bdb0cefac4e0d58fbef23365ac48666d26db756ba50ad9051358",
+        "benchmark_sha256": "7056519ea8744080617ddc49bfb51675e0b3129e7c1f31852b5ba9eefb999678",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-00",
+        "fitted": true,
+        "program_sha256": "630de9155cb79b82124587c91f7706a5114e0598cb40b3a6a0f5fc3ec9c93652",
+        "fit_sha256": "6f4c7284c52bd8a519301bc5033a2711875d09cf1ccda878e24edcfd5ff5e5d9",
+        "video_sha256": "dd972f6921fa0793f20f45806265f79aa3c1b78884f8177e7a2c8dfcaabe73d3",
+        "object": "test-00"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 7,
+        "summary_sha256": "0380ef8c176c024064d2915786e971dfeca9e4d23166f9b5f49c8633280fcb53",
+        "benchmark_sha256": "2e1ad982b0d8a1244da12506f938cc0c88c6a6af9bce5f5dbeba109a52147028",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-00",
+        "fitted": true,
+        "program_sha256": "7ace120d0ba9e341b1f2359599b22944a8ef9259bef02a4d4d2c5b674744b592",
+        "fit_sha256": "837088bc3ee43e189c3710aa5fd9a44d89d988b5ea889bbf16e7b7eb74d3a4b8",
+        "video_sha256": "c171f0f5c1e88a8b24d1f114816124f597b8d4c90eb732e6ddf8a82fd4007781",
+        "object": "test-00"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 2,
+        "summary_sha256": "6ece046a50cb7fe8c6411ad84774c9b026062d9069a467c97328584a534fed2a",
+        "benchmark_sha256": "60e4c7ec4396b25d83a007a573582570f6614506e885ee7f03e9ef62ddac054d",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-01",
+        "fitted": true,
+        "program_sha256": "5bd4dc7f6c87d6936cdfb44f4b733aef46ecbd653df4e7beac22cd41c2384a0a",
+        "fit_sha256": "6364e8b1c5584dfe4c15f0cfcc115594840a7aa898aa3d8cf6fce31a9e11d1d7",
+        "video_sha256": "6f622df68ea2bdbc20db786621e4554efe199fe330dfd28abe84b4a9764f4e9b",
+        "object": "test-01"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 2,
+        "summary_sha256": "3a0ebd45075b11734058dc14901e4bae683b78fef49ac2bc4d284c6ec01273ce",
+        "benchmark_sha256": "8d061bfa5a0c0299891acd0fd1bad361dc392b3f8dfba29e456273ef321da555",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-01",
+        "fitted": true,
+        "program_sha256": "d65c013fc8fa61b879a33d289b5d5c9460da8d1060f8f8228adc37f83157fa3f",
+        "fit_sha256": "bbc41aac144afa87ad0318b97f6ae89dc89a4076d3784f7a93f7c86e1eeaaae0",
+        "video_sha256": "ded85aa45785de3bdfe7e77275b31faa3784595282c0368b9347c8fefdf33d79",
+        "object": "test-01"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "d4de3cbf6bb3d80ad4b5bc515205d3b8114531e625e0e635071d0783472363ed",
+        "benchmark_sha256": "0a8fb4bb60cd243d9a5e357967dfc72825acce6fa7cd17fe50d0d9aa48997174",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-02",
+        "fitted": true,
+        "program_sha256": "80d4e1369cb04b62cc1cabdd5e2b2d7333c74968422c54206e3736bf527846ea",
+        "fit_sha256": "796fe2370cdd905c4f20536995290c26d0cf6a769bb73ef0f507db573ffa9552",
+        "video_sha256": "d6853c586e160fc6f6cb6d5f987f302a677b52e6f5d62cee5e3d758f6bfac976",
+        "object": "test-02"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 1,
+        "summary_sha256": "b8426e3e1d723a7dfaa2ab41413766445c6c1eec672b8878eeafd607820ec502",
+        "benchmark_sha256": "d835c407d64e1df68366f47d3c4c2c052ba1d1ad0f6545ef383a4ff5b2c84299",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-02",
+        "fitted": true,
+        "program_sha256": "36fbaface776253b534214c53e96bf6b19623f8294668b3b0a97597ccac8542e",
+        "fit_sha256": "9ef8f7cf8c3b7947037f8b5bc5c4ae20b849af524fecc81512b4eec6c6d41a0c",
+        "video_sha256": "339b1c655e2e08e57ed41c953fb503a67191c5636ce38743904518086363f98c",
+        "object": "test-02"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 5,
+        "summary_sha256": "b6fd37b719319f9aa2387d221754f9373ef1cf00fd5ca32184478c82669693d3",
+        "benchmark_sha256": "aefc1dd2b8cffac83453080f214dd6e8c2848088009cb256f885b96508f7aad5",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-03",
+        "fitted": true,
+        "program_sha256": "7414bd3daf8b727e8bd3d8607e4baca377cc86d992b52412a0fd6d713c25bc3e",
+        "fit_sha256": "d7c242119bc813d05b6663deb8d7ba1638d003b1e1978de62a725b4bed78d6c6",
+        "video_sha256": "b69839f1c6a65af762b0a50076be8243d0c1aa0b39dad9072e2bf50773078750",
+        "object": "test-03"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 5,
+        "summary_sha256": "c2c5b3749efed38ca3edd8eda1ad5a4bc0c791aded46d0d6c1d0a15350bbcff0",
+        "benchmark_sha256": "0cc53ffaca163e52a9ce7e44c779675ab6dacfecdd5a55ebc146c3b97123cb30",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-03",
+        "fitted": true,
+        "program_sha256": "16b0b00e65ee078d79e15ab602cca7884b1b9ba34f4b9bcbeea099d12b4f9556",
+        "fit_sha256": "607b1962e780a0cda0b56f3c6b1495c03d2b2b63767ef9ac5ba0e8c4e829802f",
+        "video_sha256": "93ea7e1a0b8a1504abacd80a4b283eaa628f897f192f279ddf1ec87b5ac77815",
+        "object": "test-03"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 5,
+        "summary_sha256": "5d151dacf755f0a5a0656510567b10973d8b87ca65dc298201269d6a5a0d0668",
+        "benchmark_sha256": "fbef6f6c69b1e5f1f17daae181131cc43c52028cef1c89fb60d401a26a7e157d",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-04",
+        "fitted": true,
+        "program_sha256": "d12bdf8caa4ba2f906cea4e6af4a7f9f2211fe71f8364f0772dcb67acd47ecc8",
+        "fit_sha256": "5725ac4a1b48523d7f195ece6a5b8818ddf2408dce340c63023f2c406da807ec",
+        "video_sha256": "38643f8fc297c69bbc10320f36075815414cf0f3ed87f2ef1f5c6b35b066a46e",
+        "object": "test-04"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 0,
+        "summary_sha256": "4ad7a3f60ae2c132601958de7cfe0dfaa00b17aef1c4243fbe785510ba85ec70",
+        "benchmark_sha256": "e5e33ff0af28498378e2bd4b7d57d2810bc690e9a9a5e187abd9729e28980ad7",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-04",
+        "fitted": true,
+        "program_sha256": "78dccba5fc8c614e419f9c84acb3dd4aaca60d10bebea00ffbfd968d8be6f315",
+        "fit_sha256": "123f5b1efe692d490bd485ca19f23d2d13e1892cd94d14eb86dd915484065d16",
+        "video_sha256": "8151a392ed22a0580b8ed61a6f312788951b52e8b301ca667629706385360a47",
+        "object": "test-04"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 6,
+        "summary_sha256": "335e9b93bb734e2a8fcf4306182012e8aa10ac37feaa5bd475ad6cd915269f61",
+        "benchmark_sha256": "f4fb07282e6a126438463c74f74ee3d19190cc3b2457711c703c26135fabea5d",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-05",
+        "fitted": true,
+        "program_sha256": "3d08005104989b1471d62b91068da724aec142dc18ef542ff35ee093577af0e6",
+        "fit_sha256": "85058cdcb8b40d5296ef32aa3b1679cead233e6541e50a33b7a9d690aeba884d",
+        "video_sha256": "720ba4e7f0020439d458700f280536ff8a811ea83d94713875f93ca75cea160c",
+        "object": "test-05"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 1,
+        "summary_sha256": "5a50bab33c631e40873d40567baf11e4b759f0c5edd667583fb2d6a62e566465",
+        "benchmark_sha256": "5bc272f8134065345daa67735beaf470b5f9540d17c09e45c9a3761487076aa2",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-05",
+        "fitted": true,
+        "program_sha256": "8ffcbb2a1f87283d84f9452e0b8b3cf35c87dbe49fc2b96c6254604b1471c262",
+        "fit_sha256": "d9855bb7d1093fc15884cfe9a4935264033b6e0af3f31d5cbee9b3dfe73e33f7",
+        "video_sha256": "01373c8651f2325f8891c1a4bc77de549278f8e70ae8ae2b64ef0200d5ca02fb",
+        "object": "test-05"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 4,
+        "summary_sha256": "101780af4a947b9131d5bc3b0ae4d599dfe2a35493654ab4ff0d13c48fb1c08c",
+        "benchmark_sha256": "3e07e1815808f03cb7a5974157af251e1c95c427f5147d0daf0bfd6fd06edab9",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-06",
+        "fitted": true,
+        "program_sha256": "ca063099c9b6155328adfb1a46e15ed85da4b3c7596be563518678f9d5e4a95b",
+        "fit_sha256": "7fd8cf0ad85ee6872ed752dbae5dd47f0790133f312a22ba08e109f2e1d03b1f",
+        "video_sha256": "e406b37cce44697f032adbd47ee2962f124888bcf981d8ee54ce9d3bd9c5dd98",
+        "object": "test-06"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 5,
+        "summary_sha256": "62915ba5e9be85c74703e0b964e3f88601c97ec2d40f0516d2c0b3879a91f723",
+        "benchmark_sha256": "2c5099c317a315b52ac876725c647c737ee2ffe8eb721fce57b680a5d57189b6",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-06",
+        "fitted": true,
+        "program_sha256": "306f8008adeff14313f970c7478d74b2f3db0a0422f30a80393b6131bf864ebe",
+        "fit_sha256": "142d391c68b5edb166ce1120216f996909721025634a84014cff5e8490a6f3c1",
+        "video_sha256": "999f078bb50ecce5e34952aac0e67864f6aaffc6212b9d9fa17296582f5794d3",
+        "object": "test-06"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "b5ed19a40dea4d9ea3bdbb6be5568b1004409b4e8eb124012ff81b40ef4fedad",
+        "benchmark_sha256": "d959a413f8d78a59b630493f5381fbad5aecf52fe5ac3e2aa6b3216fa5fe8b54",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-07",
+        "fitted": true,
+        "program_sha256": "87279ac61496084fcd9f6c223d8ac7c69826f22396137978c8dd6a18e10126f0",
+        "fit_sha256": "fd7293ce38e76d2b4dc0108b5c3d7391b2b95d70c2bb6ba108e1b8b8f1f8218e",
+        "video_sha256": "1f998c595b581606d5c616e0a69e6c49520159c3cb5bfb0ace99ef4026071909",
+        "object": "test-07"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 2,
+        "summary_sha256": "ac34fc55095ff4bdf153366263500d97d2e12e9718a13c419fad792368c2a7f2",
+        "benchmark_sha256": "f4fbf93571816e4112fad3a5e61fc9dd26cec33d411a54609360cff9229be6ba",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-07",
+        "fitted": true,
+        "program_sha256": "a05ddfbf151ec1c35cee30d1b49a87d01cf760fdd60e100e4a4788d024816bb5",
+        "fit_sha256": "975ad2be001f15bf5701a087368d8878b6efad213c45581314572b00c8b7f048",
+        "video_sha256": "b7ec865ed99c07c92676a55241d545329badc3d9b2a661b8f9829f96a7868df8",
+        "object": "test-07"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 2,
+        "summary_sha256": "2a379b3f157e5677a395511d11e13dc9395517a5aba7e122cae6a9c88bec82dc",
+        "benchmark_sha256": "416e422cd484cef57ad0cbb8e0ee8db9950c6467b9075ebdf294c0535d55f550",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-08",
+        "fitted": true,
+        "program_sha256": "329e0dc682f7015aa76f753a2518e848f00f2bc3a1679e43e707430aca5ab9aa",
+        "fit_sha256": "48aab9369db13726f060aae04680e2846204926b39830ba17a027855192bf7ba",
+        "video_sha256": "6c037f5ccde29cf43b5413a42958af1409588241dfd51d78c99d1d0bd7add68a",
+        "object": "test-08"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 6,
+        "summary_sha256": "1e89e3e7088f8976e9e131b0fd8ef8001312bb3498b2f2959bce11efe22d4ce2",
+        "benchmark_sha256": "a3971c9f3a80cb03f0d6e3fa54398cb1ad42801d4515a12c86f10daa911efe77",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-08",
+        "fitted": true,
+        "program_sha256": "7822247f0ef62150c540b23c1ad9bc9ab7240ca7721d5a048f873b721a3b1822",
+        "fit_sha256": "6d78ed55d7c4777139548b8e0341d14703ec96d755642bb1b0a3f435166b74a1",
+        "video_sha256": "6a827ca6cb3f6b46c0c0f09053f6b6028042f49612435807dda48d1cde497841",
+        "object": "test-08"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "056d46a54be7313eff7b8c4467a9f35c597b4a0a4d88ee9aba00ff08e8d619b1",
+        "benchmark_sha256": "192c45b632e370e3a8866bc51a282ef1af11207c21e9361ce58af3f3a0bb49c9",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-09",
+        "fitted": true,
+        "program_sha256": "9779aba8bf6841366450e40424795070a54d0653ce6fcecf799e874f52e27f33",
+        "fit_sha256": "16f1e8ce2573f509d18470c9be89c01813277da24dad4d203ee24189b7997cb3",
+        "video_sha256": "84b09d1a60bbdfd7bea80df874f0fd829664a9496fc48a0d7923ebe75eb7eb42",
+        "object": "test-09"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 2,
+        "summary_sha256": "ffdac9a112df8269d8a5725e829ced470057787191c23cc8561352b0e29a3632",
+        "benchmark_sha256": "bf751d069dd532539cf9add1f48014bf48a2b44af546f2342157facf31a8b364",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-09",
+        "fitted": true,
+        "program_sha256": "23a860feb284aff32963a9aa3d031e06a36746fb077a3e38d4f56791f98156d6",
+        "fit_sha256": "4e7bdf9b97244727ca3e3933767eb218727a1b85745b368c6e5a2f14ebb340a2",
+        "video_sha256": "8713d333218045afa90fd848425a418dd331c5adeccdc37341c3ea4b607dbbdb",
+        "object": "test-09"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "19fa951d800356402d03d8898b2c787c408b3d784f657b890eeffb558e528d70",
+        "benchmark_sha256": "3711036d45ce64b50edde3cd76316b5d6b5f9cee6b07fe12dfbeab58bfef1650",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-10",
+        "fitted": true,
+        "program_sha256": "1a92353116f6c73f03c525ec37127c761b50eb9256d5f84182e3d73399640df0",
+        "fit_sha256": "d7d4245a97bc25ccbca40fa9ead4b0455e31b515678bcc9f27112df17b29598e",
+        "video_sha256": "e93842543e1a166ff250f48ffac0821cca960df7f8ec93765bcf299b9d18fb2a",
+        "object": "test-10"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 1,
+        "summary_sha256": "4c8c263e4114639fe71d6e53ea9958748b9595450c84ff2a27bf67ae56ee228d",
+        "benchmark_sha256": "530541d6afb421e0ae408bbcc2ac431e384bfd720fe70c3720afe6b7b89e8388",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-10",
+        "fitted": true,
+        "program_sha256": "cbf8af002ccb9ab79298bba9dcd8b97b24bddb29e1e93c21744d83f7883abed5",
+        "fit_sha256": "e3b9e00f99536c18c09edd5f51d221729d83537c4c299a84519c0afea03bcaac",
+        "video_sha256": "8bd04a6e9ae8435efcfe2f9965e665a33cffa08f6e409d3d503f63c67881cdb4",
+        "object": "test-10"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 1,
+        "summary_sha256": "0c4688d4bb8e1397d394596571a251226c3f6b74d600fabc8d0e903f7fe133e5",
+        "benchmark_sha256": "64f2b8b642fea8e97289f067ba3ba69ba5eeb7b845ec0d5150bdb5fe94e3ab5a",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-11",
+        "fitted": true,
+        "program_sha256": "a6b91efbd125ae7a0bdb0bcf1ae329845fbcd5cd868f2bda4f61769ba5284591",
+        "fit_sha256": "7150b45bdfa91a66074244d01f58fff6508172c33045e16c9e253c2b3801e67d",
+        "video_sha256": "5174b91777e82605ffcb6085a7e664b2437378c609d8e4d0a66b78ce4d351a9e",
+        "object": "test-11"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 6,
+        "summary_sha256": "f621682ca7fd99d8e9e5e866dd2b22ff87675786b175c56ea87cbe093dbb5f00",
+        "benchmark_sha256": "c37ef2ac1342e108b93fecc98d60b7c317f3d0518d7a448ee81def1e09b6fa77",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-11",
+        "fitted": true,
+        "program_sha256": "28de3c60fb92e7831ce73266b6459a9b6ef6446a7c289f2bb975c1c0b4f99a3b",
+        "fit_sha256": "f33fdc44e6af1d9133c23bd81c7e261cd6b93b8d670f98ed01811770f856db3a",
+        "video_sha256": "e77eeb657aa77a1b8e68a80082e8b2957c7041c8e4177aaafe14ed601d27b3e0",
+        "object": "test-11"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 6,
+        "summary_sha256": "e5e7af9623fa8438dcf9c8b302fe7c2dabbc7417550d78efa8f657e2a0527356",
+        "benchmark_sha256": "17734983af798c8ed09d5645df4749cf9a5d7f2ad9171f94cf36fd4bc87e87b4",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-12",
+        "fitted": true,
+        "program_sha256": "db7b281b8da76477d92a1547b34759f168ea36aa2c9438fec54c9f135518b9c0",
+        "fit_sha256": "7ae12353c00cb48fe7868762a50e0611b1f57a576c0e0ac3bc8f993d8f93d36e",
+        "video_sha256": "f85ff6484d64f8fc7273caa4c55bca0a18583a5de62a531a8ec2671364f64634",
+        "object": "test-12"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 2,
+        "summary_sha256": "e852db190e15fd3ccb15bbabfbe324e5302ba23c15d92ccc82357976f65117ee",
+        "benchmark_sha256": "e76d056b046fd9b4c36631057fea99824a02d9d4c600f3733b7abc3642cd35f2",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-12",
+        "fitted": true,
+        "program_sha256": "dfba606918c225b3137898e294ae8ca249a908f6533f93e493e266518e4cbd39",
+        "fit_sha256": "e2167ded25ae99bc785a75daba84b5b657483c254610fb01d544378dd58f4687",
+        "video_sha256": "d17238e44c9cf4eb875cfb45b43780d5a7cc7597cc108dbd2f25e7706cf63438",
+        "object": "test-12"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 5,
+        "summary_sha256": "6322e0ec93c8a00d5fdf200b013c83387b1a8b857a8345e2699ef6a0f478ad6b",
+        "benchmark_sha256": "e9c00bf4e72e4165883ac696dabcc3e539ce7ec05ee1989492221503ff9789aa",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-13",
+        "fitted": true,
+        "program_sha256": "6588481e54428f212ba0596de3211846a413af5acf818499dcb4129fbf0f5af9",
+        "fit_sha256": "0986bf76d23cabb38c50adf43b05c683c594809ab9bf03f3b0f5158d06e6242f",
+        "video_sha256": "5e648be561156dc04991764ae2a99910a173f2f6e7483256a4e43c726a0ebe95",
+        "object": "test-13"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 5,
+        "summary_sha256": "452c96c4d3f9eb949781ae7a43823bd4c5d41ce15a79c5b49dd0f9cc06a38eb8",
+        "benchmark_sha256": "c1f60724c21b67db0f12608d38ed072761294ac43ea3f8aa563e531cf46eec23",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-13",
+        "fitted": true,
+        "program_sha256": "73f14c2c85ea9ab545f7ed264b42dd15828d36e1b4c85b2e823081322ce38dde",
+        "fit_sha256": "a3e158e291b09bdccca8ae1ddee2fc45bb536c02146a2cb98de02863ea61a1a2",
+        "video_sha256": "6719d6e185697972caeebb3908e61fe76886d2696e268a93ba1971f2804e47ea",
+        "object": "test-13"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "94bb8091b17cbdebb4b0c0525f1b5f67bcf5864fbf8c1a4565709b4da3484225",
+        "benchmark_sha256": "d03c9e0e2b48371e0bf1460b5e07695366a9b54dd547c30d15e335b878392608",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-14",
+        "fitted": true,
+        "program_sha256": "adb09caf096ef24d379e2f0cb0ca18aec42a165d2bdfb5d109bcb816b95292b1",
+        "fit_sha256": "221b322ce4fbd7bf6d072b2a65fb8dcba244191c3e84664cccb83f6162e2def9",
+        "video_sha256": "9fc97b18f8d90f6e9faf05acea52117d1538d58480aacbbedee879d0686baf58",
+        "object": "test-14"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 2,
+        "summary_sha256": "6e1f3ae9934c2e09f2e0b0eea908d7d7743ac687e680a86746f36cf29784e26f",
+        "benchmark_sha256": "5f53c07a4d1fd18065c23bf5e9bb67fa17c128292ade573c3a069e9a2054add4",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-14",
+        "fitted": true,
+        "program_sha256": "8dfd1dc8b5a6481568acc77add271f47f384f6a2c39a7bb1e8ce9f8bcd0acb28",
+        "fit_sha256": "98ddf1e8e679f3d23ad734ca96bb6befc6de10424647801da420d4a060dc3b46",
+        "video_sha256": "01b1281e3c9f57a5c7e72b4fcc27de95199007b6ba51b7b0cc3fc4858bd906f8",
+        "object": "test-14"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 2,
+        "summary_sha256": "0c3dbeb8ce2240e06a6916c66bfe8c1e5651c9bc8a2ecdbe4a5d89c6a53c8e6c",
+        "benchmark_sha256": "5b35455848573ac61d70005598528f42551cd425c15d84369cbf06ca96727159",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-15",
+        "fitted": true,
+        "program_sha256": "2bb705cd308d98098361221e81a2da499c675de6d48ed4b0fcd0ba821bba64b3",
+        "fit_sha256": "1dda801722a4e68b3862dfad4241e913b76b2966310d3a41ad85dc00616ab507",
+        "video_sha256": "ce1ff89f5e3dc184022313aef33fa583b5becd64997d268bcbbc5d683225afa0",
+        "object": "test-15"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 1,
+        "summary_sha256": "821cf9f1d24f4404f1c2cd7a0cbc8902598557beb58ef63cfc344c47d03291c3",
+        "benchmark_sha256": "5c955eda7f16394a4ae0b271951b99fd3b85965eb42e5c1c6896499f4a7c837a",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-15",
+        "fitted": true,
+        "program_sha256": "e96e87d42d6d857e29c88d0756a2aeb645cca40a3e38d9024aae05849a48691c",
+        "fit_sha256": "754fc2b358940d56e7ca4f6af886601e942316ef2834ee9de4409cc051f39913",
+        "video_sha256": "44ec4ba436b7b86f3bfed8f1b797b4885188f49a7b644ca98802871b7e19a8a8",
+        "object": "test-15"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 1,
+        "summary_sha256": "cb69e80c2434e37ab78acb43db304b19ba82139bda8379557cb2dfc14daeba91",
+        "benchmark_sha256": "3bd0f75adb9623f46eb7344c6f6c8eece0370bfc45f3c7c70f479e22a06c4a73",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-16",
+        "fitted": true,
+        "program_sha256": "bbf893667812fc3a334127f88839899736571dd9ecf914c73d0c42e2d44757c0",
+        "fit_sha256": "b87f025ed1fd04a3629c8f4b8e571e55b35685611ca05189261b3e7572d990a2",
+        "video_sha256": "8fce8e2448d61e983644586e86f435af5eaedcafe4c7773228037fd84fc9cd71",
+        "object": "test-16"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 7,
+        "summary_sha256": "4dda0989ce83eeb03f97d9589e27ed8bf888e5f7e8ed9684837d66a8d343c88b",
+        "benchmark_sha256": "1146ca61359c2b34884182b5c8a8bf558a307bed982bf076a5e2ddc49632f100",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-16",
+        "fitted": true,
+        "program_sha256": "ff7ace48e4b26629cb984942cd99ef4222c845c54d14b7a4e96fbacedec1ccfc",
+        "fit_sha256": "0f80bff5deee5f6db04a4823f61c2609269c8bb0d57c5812fbbe657acc56241b",
+        "video_sha256": "c33ffd69d5ca42b7dc51cab5ca72265ab7c304c3221c0cb988333de59f9837da",
+        "object": "test-16"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 3,
+        "summary_sha256": "c29c4e45b840ec8b5813ffb98dccc7cdb9b8063e4a247a1cfaac889ee358c124",
+        "benchmark_sha256": "3b0e70d65f8969e2cea35de4a74325c9bdcbe24bf722264f4607ae16dc97da92",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-17",
+        "fitted": true,
+        "program_sha256": "cfc0c903337c3aeef671d79ff955c4d770aa6f5247aca28200e484de9a838b2d",
+        "fit_sha256": "7cc0424f2c6e86c5d9060c63c5b44d3add34e25918476104941a355269b9c0db",
+        "video_sha256": "77a50a61eb036bd6cd91b1bc40fc184e5cc4deea121633b34f75a07c907a46db",
+        "object": "test-17"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 0,
+        "summary_sha256": "7a69fac1645e6b282be4d3e2eaf902d714aca7abb211817cbd0bf220627b172f",
+        "benchmark_sha256": "88a4a9f966be2c3688fedbbd8505bc52ba7beb0d3bb813a25211621399502b1a",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-17",
+        "fitted": true,
+        "program_sha256": "051a6aa5eb6f4d43c5774fe3fd0a996d75e0fa4fde4de17f39cd5f5a86f4c87d",
+        "fit_sha256": "ef605cfc2235e4b427a47206932bfd67ee1d431f39d56696f5591bbdcbd12d13",
+        "video_sha256": "57d21fd195d46f739f9e1d2fccb97a0a00694b49aed344dfafb68d078c6b3346",
+        "object": "test-17"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "8a41eef21a5cc4bc881027514d9160f84176850e34683b8189c9a025698e58af",
+        "benchmark_sha256": "d9c80a51d2966d3ef11ebf3554976a88bc774b42ea9d5c82ea70af665bce26d7",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-18",
+        "fitted": true,
+        "program_sha256": "76530dbbe5f8136583da2efb157e9268a267744f3dc99d92fd416ed0f0416a1c",
+        "fit_sha256": "7d2083e8294d8970a2bd0593337bb5e9c4a30816852f03e214b0d1cc122dd318",
+        "video_sha256": "369f6d827ea48a85ee414ff3328cfbf8d7b09ea5bcca3ed742ebc6f264627930",
+        "object": "test-18"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 3,
+        "summary_sha256": "8fe4ee024dd281baf624ce55670ee69ed50113e2361caf2f72ce8f7245e9fcea",
+        "benchmark_sha256": "cc12184981a948c32a7fe98ddaeb7824a4fcf8e45737f1c81096485a96501b14",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-18",
+        "fitted": true,
+        "program_sha256": "4139891f9e14eab3d5d68a8781fa7ee16d9774a738de433834f3fe313673069c",
+        "fit_sha256": "29b9de81f3eba3c503ac269f7afa20add946f873e61faa645ab20710ebc75e0f",
+        "video_sha256": "5c4919e3313791a34528e0875448af70bcee6e4af9a2b244f12d53e611ac4a72",
+        "object": "test-18"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "7ba60297061cfe30a8fa4ca56bd12091c1cd9735303042a89298df5a578d3499",
+        "benchmark_sha256": "ee293adca356613666f9f657046c7b8986d9eee6d7fc4948a1ceb765a89884ad",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-19",
+        "fitted": true,
+        "program_sha256": "0b4abf46610a57ae02827c516b9e847032cb388958084d1f830b3ed256283fb2",
+        "fit_sha256": "3205511de2a0bf769b60a779b20516d3deed198196011511cb135e25d4e91639",
+        "video_sha256": "aa6696dd2bf1d7da6e1f3979ea3c148c63458060df6331969bbf35471c20a2d1",
+        "object": "test-19"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 3,
+        "summary_sha256": "0cdb1fb7afa9a6ca574a56728d256d37ba59d395392d5e4a660c1b3b81a44f4e",
+        "benchmark_sha256": "fc1cf2722b738b3415c532affcf37aa30edb7c97ae82367404ea1650ef12a5e5",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-19",
+        "fitted": true,
+        "program_sha256": "90e1893b340802287e354ee14189f13df95fec94c1ad9dde0a389b76bbe240a5",
+        "fit_sha256": "f8f1984027f6a619faa8bc2280de3611e98b8a97f6231851445b776b17452bf5",
+        "video_sha256": "38a6c7a503b3dcb05fb2e9407ebc59b8a2f498bba76f3ec90fe9796cac6efaba",
+        "object": "test-19"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "2b0fcfdc8f2bb9c66c5030aea28dfc40f90697751d9aaaa39171cd2ade9e9d38",
+        "benchmark_sha256": "41e7373cd8210bf3665e26d8373f7d68b62a341f0e0108b3bbb55e38624b8df6",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-20",
+        "fitted": true,
+        "program_sha256": "b1e78054642afe400ab8ddff0a446c24f3faa25789696efb68368e883b133fc2",
+        "fit_sha256": "573a02d90ba7526ebed90ff00f25b32d827832a5da2c75ee7092609b47dd8c7a",
+        "video_sha256": "0f47bab411347a38ff89cd4317c1e460ee9fbadedcae1534f5631cebc0ef7b49",
+        "object": "test-20"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 1,
+        "summary_sha256": "2df369209ae9ef3a2e0b517c52a11750085b352a16bd2c5c9dffd68215fab516",
+        "benchmark_sha256": "6201f5f0d1b8ad9043205826c29ef1097f18c88150c4bde4e4160c22e337e00f",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-20",
+        "fitted": true,
+        "program_sha256": "992acc1b7b4863ca910763f8b326cccffabb618c0115de779f2cc7c16bf92784",
+        "fit_sha256": "ddcfc7b2102caa0e55cfbc1e25c6a26e43caa301d047b91046fa0526712c1cd8",
+        "video_sha256": "c8887e7234833d29ab145277413791444f0411d03000a0490ec1a461ec33aab8",
+        "object": "test-20"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 4,
+        "summary_sha256": "2beba7d3b30bd2a002b51af80c667b8b19c0729dd303cef2eeb85b8aa0ca6ff9",
+        "benchmark_sha256": "84a4e9f1a260632c10e8a2f59b9bee1f3178693a503beb2806dd50f0669024e6",
+        "source_search": "/Users/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-21",
+        "fitted": true,
+        "program_sha256": "4342c6784c9994e9425c2f736477223dcc5ab5eb266822ca65260c3687820858",
+        "fit_sha256": "2594fe3134d27a5f2d56397a9f5a4b64061a638ffde627dced19da4c5bf14ce7",
+        "video_sha256": "786b41ec367d027f39f93dbc4d383ed0eadd681a2d6c5a8699f42b3ae904b96c",
+        "object": "test-21"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 1,
+        "summary_sha256": "c9d89632ba59757823aa8af55f1ec641bce9b51cdf64da419c79097d046266d2",
+        "benchmark_sha256": "1d95461f024fbfce4e95fe3226b98c75425bbdbe8fcd7c7dd81b4877b4ca5ed9",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-21",
+        "fitted": true,
+        "program_sha256": "29d4cb2da6b324d45cc0daeec47178cdc47707ecca0812307e6c7a874a917236",
+        "fit_sha256": "3133353f9803bfb0523c4e3a2cf8a2846e0dcabec0b1bb292e5023e97b47acfa",
+        "video_sha256": "28e59117aa3aea22f1ccb0af528952a614137bcb0c3cd065ab52ea022e5f3dd7",
+        "object": "test-21"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "3a2be3f6e990c2bb435cfebdc710fdfe6e9f98d5f2f8b35dac5dde7c758bc2da",
+        "benchmark_sha256": "b8a028704eb1daf882463ca6ed55118f10f48e08c8f54b844f10ef5935cb5e8c",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-22",
+        "fitted": true,
+        "program_sha256": "546742ca587c57aa5b36366dd1b1a9ee62b9b336084e13e6bf6103f0a75b3445",
+        "fit_sha256": "c9c162cd2b627a032c3651eb6f2a73a548ede0d2084d2b5f8f03259ca877577e",
+        "video_sha256": "a3bbd81c697b3e903a2009e9c428da5262bc2f3a28d1b095e5185b0334d0ac5c",
+        "object": "test-22"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 3,
+        "summary_sha256": "13a445a7fffff1f4530a50cd7163ec2b3c696888235ec737322a150b84976112",
+        "benchmark_sha256": "c3926001b085e9f6f058b799c4d4f550d612f1d356c5d7f8a75a62663d2cfcca",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-23",
+        "fitted": true,
+        "program_sha256": "b84fe9e69e7f5306228c174a20101cbe6e57b9179303a759c40c72c5b4c6e16e",
+        "fit_sha256": "92ee23b77ad6c0304bac8dda30fd7bb81229a7463a5f84ef502dbe9d233172b1",
+        "video_sha256": "abb78997ae6dd7bb59e5cfe9abfd4e26e298d8da83bc44f8c89b30eaf3d3042b",
+        "object": "test-23"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 2,
+        "summary_sha256": "9f14fdb997ca46ef4c46ac5f98ac707e3e5d2da0dacc73cc9af9d71e8bc48168",
+        "benchmark_sha256": "07ea633d606db5604f4057b6f9f0b2189dff789a410e624fac21530a60117abc",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-23",
+        "fitted": true,
+        "program_sha256": "46a726e04764e0fe094772adbbaedddbc2b42e5430d5cd80c250a1cf93751ce6",
+        "fit_sha256": "ec715fffb6f6a5bf9342e81057b873e8165fa7f0bdecc4aab4077db28b2a55cf",
+        "video_sha256": "afb283936215de7604b573b0f1b66eb235a10100c22913fbc55b373b63cd68a8",
+        "object": "test-23"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": null,
+        "summary_sha256": "934732eee19aff99565524da52e63abd1662888a5e536e0fc4b348235a6e5158",
+        "benchmark_sha256": "3fb216471598a63c7c053e03af31169f64cf35d3a166412f1746fb090cd65fe6",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-24",
+        "fitted": false,
+        "object": "test-24"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 4,
+        "summary_sha256": "c715419139f82fb1b5e92a0289e01fc577c91392a6a09ad76297e0acc37229cc",
+        "benchmark_sha256": "404ac93e2e471191a942e654dfa5af3317d9ede6dbce024b3336570335593a9c",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-25",
+        "fitted": true,
+        "program_sha256": "6f7c706740a7407ad5d92534eafcbc576d13497512b88a4f57d77cdb416b2434",
+        "fit_sha256": "7ea4a06d25268a4f05f30f8428cd75ff218e68cf687c75b993dc2a10299eb8f4",
+        "video_sha256": "cb2dbe73f16f1bf374d9983dee69e83fb1122cd7ccbbd8c9a569cb6c54c111b2",
+        "object": "test-25"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 0,
+        "summary_sha256": "6500395fc35616432e7af8a7552f8fb9ed65a9551850bce4846551849aaa8205",
+        "benchmark_sha256": "1d3d0d2dfa13f29e29825d2bfac055529de18454f3be167974489cf7c0ca107e",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-25",
+        "fitted": true,
+        "program_sha256": "278e32298654f82c50bd369023d6240f922e7cf88ae1ef1c70fbd89b78f40686",
+        "fit_sha256": "a0e46ea20029af07debd70d5d323b1b41e73c6a482dbc9b223f1c137a62dfe9b",
+        "video_sha256": "3211ab377a65e041d36b49555ae9c626fae72e2459f6908aa44bcac1da9be20d",
+        "object": "test-25"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 0,
+        "summary_sha256": "f8e1ec1d1e2d73f8f00b5eda97f284dea4fbf7c320974b6a6a21cf198065fe0e",
+        "benchmark_sha256": "c8ecf32bbc8fd74982dab7455640b2c1b9e2274dc7ee8fd8af4bd8ca4675945a",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-26",
+        "fitted": true,
+        "program_sha256": "a6b80d09e64291ec910e5fdd499ab3d63adad3b402b61ae31c1f6f3362cd01f7",
+        "fit_sha256": "15d37bb87be7fe9a1638f08a31aae35b88580cbf3aef99faeddbc855e31f0bf3",
+        "video_sha256": "0ed308d14878f908a834b7dbbf97fede44dd733c9335fe40637cc70652eb37d6",
+        "object": "test-26"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 0,
+        "summary_sha256": "9d56fa633f039a0c87098e7f1afa415b59c597cf3eff12dd789377cf2d33f69c",
+        "benchmark_sha256": "caf83b9c0a2849b801b946fe3a5f88b9970353f72c00d411a505896991d4b6f2",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-27",
+        "fitted": true,
+        "program_sha256": "b76b9299ddd0328cbb947f97d5187ce650340285ba1ca9c2088cde951b65f55c",
+        "fit_sha256": "1a5eb5b28421202e4216c15fe1a618869a7c995bb0176ce22343f4a97fafd1ac",
+        "video_sha256": "5b5c384c34977ab91d6dc30bd45ee39ce4fff166a143def10cea3ca59dba13d1",
+        "object": "test-27"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 3,
+        "summary_sha256": "a6da1ceb2e5c20a19e6168b2c997415a91068f99a5f3b4d3e82185f28da9d299",
+        "benchmark_sha256": "2649c1197401726e4337cc826967905427554ff46427545833efda9d87d2638d",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-28",
+        "fitted": true,
+        "program_sha256": "21c2989136e08473a3ab98eb2e3a20b6ad0f3c251ec314149aa3789e3b41d91d",
+        "fit_sha256": "0ab8335fde44e84260ece6ed86ef33f03a34365b14b5ded0dcfd05d5c39707da",
+        "video_sha256": "e21ec202c16b01ba744b3214f2aba0cec462e2ad1af6390990d177a4651aefc6",
+        "object": "test-28"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 0,
+        "summary_sha256": "33323749fc2c045bb0aa1ee803143c69b0d4ca0c6d1278335b76ea4148609f7e",
+        "benchmark_sha256": "070cf64cffa7d674d4be6d7db8fc15bd028a9e634ffc2021f7ab9e86f3383afe",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-28",
+        "fitted": true,
+        "program_sha256": "e7b6f23ca6a1104f70534fda9492722554ca98d85e8b223a66ff2d02c875dd65",
+        "fit_sha256": "61a66ab9c730ce018f961636836516df22edde1dc754b8d8aca7f375d8fbc37e",
+        "video_sha256": "c6b36b57c72f71cc49c830c74a2f96eca1f7f3e8dc70f6abc6e8354af199e5dd",
+        "object": "test-28"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 0,
+        "summary_sha256": "05a15a0d36bf80fa8bdbf5c48efbad4a1f3eb62e9458f1fc1764097a3fa56497",
+        "benchmark_sha256": "9245b42649fc444ed4272ded9ebf5aceb95e5b71dfc2d2bfdd4eb0b087470269",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-29",
+        "fitted": true,
+        "program_sha256": "622afd58f84ea3be58f7ad75438d5dcc3a8213ada3e851c3efe4103b37f4e5aa",
+        "fit_sha256": "e9a98bac8c00ac80c2115f02097119468c849f92331bf027dd778c83ad1a07ea",
+        "video_sha256": "ae27ffc3353b8480348268c1b2ddc8f524be297d17eac5b184d27bd8193c7036",
+        "object": "test-29"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 3,
+        "summary_sha256": "1bc962447dfbf4122bfa1b983dcbcfbb1e80dd0e533371ac97d6edbbb9bb3f28",
+        "benchmark_sha256": "1008bf97cae90435b7ec9d513202eb739831f1dddbdeb4fc5d965cb0180627f2",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-30",
+        "fitted": true,
+        "program_sha256": "b0f851597772eb67b1ba0e898549e5e716bacd3d7f5aedb8aeac38f50cd4f9e1",
+        "fit_sha256": "626f1608095e1a814c2e7b70dc5a3ab84880fcebb6dbe3ac969ae19bdbe657e4",
+        "video_sha256": "d7cd0d108e34e0d1f89b9b3d2fb9977d2fa0ec4c1d8e07b560bd7b9b7bf87c0e",
+        "object": "test-30"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 0,
+        "summary_sha256": "d9338e6976be67543ad878ef7f781da7ab57435c6811ca91de6e729c0a4a1526",
+        "benchmark_sha256": "6d47cecab46a356d0fff2772331dda6533a4c0aaf2345dd9e79532923b7d021b",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-30",
+        "fitted": true,
+        "program_sha256": "f730f1d51627743c7ee888115595d8e18014a1f32baa1a1b521570c6f421bc68",
+        "fit_sha256": "c520ea29437886b13fa8e63f7985114837acdbf933de57cf542011861ecd575b",
+        "video_sha256": "0648a4caa7657e2952e49877ad3b89241a7de44a216404ff7fd8d03881d8e864",
+        "object": "test-30"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": null,
+        "summary_sha256": "0552643c1d09fab2491097d2a006779e442397f43a7ccf96d18c3dbb43094036",
+        "benchmark_sha256": "a026882ab83f5ad196f87123855756a13f91f5162e1ddba57431518fa729c2bf",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-31",
+        "fitted": false,
+        "object": "test-31"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 6,
+        "summary_sha256": "f68b38d5dd99fde97a4e43c838912af1e3e3e65f2213b6c6d356a86a31afe05b",
+        "benchmark_sha256": "f1d1683e767123948e56b61d4537f76a6cdc9a8630e59ddcf4054aa9b935d639",
+        "source_search": "/home/datnguyen/Marc/reconstruction-soft-collision-20261106/runs/gpt54-params/test-32",
+        "fitted": true,
+        "program_sha256": "1a3492854758bdc111f237c3e880ebeb872e84fe7db909df9a6e50693bc671a8",
+        "fit_sha256": "f2dab86123e3e105455e1248a08e9199b78a21e0866acc76d06cf80689f4fc3b",
+        "video_sha256": "b9c77efce35cd89c0d7691c01c76026e04ac835a1d3452fd4e35127a8baf0345",
+        "object": "test-32"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 0,
+        "summary_sha256": "54c70d8a2c2386a748483d61d4c2380d81afa3ec8616e8544e9067897b368096",
+        "benchmark_sha256": "31b0f9c6d8cf21fd545de9bf7d31781d0864ed3797860bb820f8ecd2a30729e3",
+        "source_search": "/home/datnguyen/Marc/reconstruction-soft-collision-20261106/runs/gpt54-connect/test-32",
+        "fitted": true,
+        "program_sha256": "0a5c3e1f58ae9a4416fd312a51d87af3a5902416adc79b187b6924e496f11f06",
+        "fit_sha256": "d3f9bdc1a8266902da64f657a3a8cd12695add3932c4e8a357d509234ec70bfb",
+        "video_sha256": "6b346d2fc6aa9fd66eb7a8b829af92b2268c7feb8150f162f2aa3b88ef8f6cf6",
+        "object": "test-32"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 1,
+        "summary_sha256": "0c8ccd43d268b92eecdc035b74dd35132003b5912924dbc2c4b402e02a68baa5",
+        "benchmark_sha256": "f61a6b72f5a9a60c82b7fd0dfa95f1c49b2ba71dab0f343f609e59a474def926",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-33",
+        "fitted": true,
+        "program_sha256": "c0be310bf34ae4cd3d8b1f4703b5a63a470010907068325dc0bc705cea4ef611",
+        "fit_sha256": "b8dd982827e807c0537c6468dee17b201e4f01a6709e38452be1eb88971dc3a6",
+        "video_sha256": "1f543595ee291ccf60b84127746c3600d8690296e6009b8c94e034986b15f113",
+        "object": "test-33"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 7,
+        "summary_sha256": "5ffc0ab3a907b56f14a52834259206b39fec3cd37d312b7f992c2cfe2d397c3a",
+        "benchmark_sha256": "b2292bcf0e9c9581907053ce7ffc2e9c32625c5a269736f8750acb116e93b5ad",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-34",
+        "fitted": true,
+        "program_sha256": "a61a9d1b88d55c605c0b1118e03910f5931af482f6e2a7fd52c5c89f89266460",
+        "fit_sha256": "7a6ea1693ea46667089517d93846a1074c2d9c130c3b188612eef90d5308bd91",
+        "video_sha256": "7affd0ebefe5719852734a936595cc8b934fe9a827440157fd97824417f1a86a",
+        "object": "test-34"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 2,
+        "summary_sha256": "0ca279ebcf5ae4a656a1fd21654b9af7daba691337eed0d3ed859b9ad704c4bf",
+        "benchmark_sha256": "52c341119be50dabbc7b0c150dd54ce96b296f9db93ec7a04f9d74d61cd7dce3",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-34",
+        "fitted": true,
+        "program_sha256": "308d452125ef80b049bb3e67ab6a90ed703c02c2173f3c8c8561acb72c37adee",
+        "fit_sha256": "d792ea5ab33714047eddc0fa03d70be2fb7b182929be0863ff925c6c3196f4a7",
+        "video_sha256": "58dde8c23a34efba918465d12982d2a5b567f1471ca7f6ded97745b5ddad115b",
+        "object": "test-34"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 7,
+        "summary_sha256": "6853e1a349f3731e2e3acf27c275a11811094a63a59f512e478bef22b8dec730",
+        "benchmark_sha256": "7d1c7375ffc5aed7d37bbc090850da66d977782d8383c452a0b32a157e373b6c",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-35",
+        "fitted": true,
+        "program_sha256": "114144df99f2edbd86226aca6e5b7192fccf3f920674ef20ee38a2ed7559143d",
+        "fit_sha256": "c6c9e12d65c6e8c7c7be758054d6d51a6482016095df13619f7da87534075087",
+        "video_sha256": "e751a75586aee67b0b0b5eb2c628488a66a051e4a41736b72d0f45346833ff71",
+        "object": "test-35"
+      },
+      {
+        "run": "gpt54-film",
+        "selected": 2,
+        "summary_sha256": "9d771e15fefd75a8fcde095a13baa844e5e69a35a02f4ced3a2bdd9a92504253",
+        "benchmark_sha256": "410a19371fc79295ebdde00ccbd2824fbe2ff00ca8b41c33ca67dd4b81c6c2cb",
+        "source_search": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-params/test-36",
+        "fitted": true,
+        "program_sha256": "931b93262a3ed84deee891e28171e742efb1d4a1ff39b67302e949a769db1f1a",
+        "fit_sha256": "91dcb0e0d1d137f5a53a48509ca3677b96a03c8cf88b6986fac66eaa0e8b92b1",
+        "video_sha256": "c938679f787ed677ae3bb4f1820f1759477569ed56e6912118154efa6ae13835",
+        "object": "test-36"
+      },
+      {
+        "run": "gpt54-connect",
+        "selected": 1,
+        "summary_sha256": "2c59dbc546e5292e60c05193068c88c6ca6885eb5b02908264e3fce7d835d9a2",
+        "benchmark_sha256": "ae557bfbe9acbaf3c0288f8a784ceb1852d092cb7d3e4ea9044605ce4bec8a23",
+        "source_search": "/home/amberli/Marc/reconstruction-gpt54-film-rerun-20261106/runs/gpt54-connect/test-36",
+        "fitted": true,
+        "program_sha256": "3250e9445762435918dd12715811abc0528ec08f367775737b95d4e055cb576a",
+        "fit_sha256": "c9a863a56210356f3067a3b8259daaa4f3e9a63f33059ab44cb381e7c12e68d7",
+        "video_sha256": "788f468770c21999b0abd411e2fc703fb7e5baa0a58886e223ddb5bce86071a4",
+        "object": "test-36"
+      }
+    ]
+  },
+  "exported_utc": "2026-11-06T15:16:21.623172+00:00",
+  "gemini_film_protocol": {
+    "source_commit": "1e71675",
+    "conditions": {
+      "gem31": "openai/google/gemini-3.1-pro-preview"
+    },
+    "settings": {
+      "max_wall_s": 2700,
+      "fit_timeout_s": 1500,
+      "proposals": 8,
+      "max_completion_tokens": 8192
+    },
+    "input_tree_sha256": "0ac8f4b04411760e54be5cf66197731ee520f200dffdd2bc048ebdd3ae4db67f",
+    "input_file_count": 17057,
+    "source_sha256": {
+      "code-film/src/robotl_reconstruction/__init__.py": "dadd01f01e9f90231efc747c0741290429725a913288996f2c71e34422b8802d",
+      "code-film/src/robotl_reconstruction/agent.py": "5d0fea84402b93a6bffcd374ad92bcc61f965c5f9bbb49931136896590f257e0",
+      "code-film/src/robotl_reconstruction/articulation.py": "ac9b7c49f8fc33118b640f542b792581e88b38551eb7377ef8108ce4b53931d5",
+      "code-film/src/robotl_reconstruction/budget.py": "0a5230b66549739a27c8b1544822520a3fd64a2fd20dfc0554b52270be4ff491",
+      "code-film/src/robotl_reconstruction/connections.py": "dea0fd236ed7502c04f874a2f731c2f6a724ebdadabad941d61d4fe23a33e634",
+      "code-film/src/robotl_reconstruction/evaluation.py": "1a10c67525b6c26fef6fd622329b720626c5eed916d95efe2af7cae39e805f74",
+      "code-film/src/robotl_reconstruction/image_tools.py": "b4201c42a64d0890afc4cc3935f6df260bce055e37bb4bf0a606c5f4025c8a25",
+      "code-film/src/robotl_reconstruction/observations.py": "ec16cbfaa8ff7dcbc03d218ad21e9b88d749ada6ca45a47b76942094eb9cf59b",
+      "code-film/src/robotl_reconstruction/runner.py": "5f67b780abe841c8f70598e8035d6e4b56756d58aeaa239733761c95112efb42",
+      "code-film/src/robotl_reconstruction/scene_example.py": "b5ea3a078a7e1efc73f99e73d1e38a889743a4d5e82f8d9b3b4d7fc19e3f8105",
+      "code-film/src/robotl_reconstruction/stubs/mujoco/__init__.pyi": "87b6833ffb7e97db70672a4a8878db98621a79c6689ca41ec89b3938915f0d1f",
+      "code-film/src/robotl_reconstruction/study.py": "2ed7bfe7e7ca1c676bb1012ff5e81c08772f87eb79f615931b69923d8428605b",
+      "code-film/src/robotl_reconstruction/utils/README.md": "21e9835f5cc7c13ca297ec3fd2b4e7a355cd5216a9e3a684a5e3eac62b512e65",
+      "code-film/src/robotl_reconstruction/utils/__init__.py": "1f516e3b36d5057c2ccb9ba1ef049ece953f1d3abab0616a49b1bd577743e484",
+      "code-film/src/robotl_reconstruction/utils/babyrobot.py": "29fcc7a0b3db6ecc7c63c57e1fd4d4f80920bf89a8f0de6fd79f2c68acb33a5c",
+      "code-film/src/robotl_reconstruction/utils/benchmark.py": "b838e6e8e52223408d7abd8166484f3df9a4f0b9df971e4b2d40c83ef3698b02",
+      "code-film/src/robotl_reconstruction/utils/cabinet_example.xml": "ed6ee583d3086a3f7ac8a0c931749e669895b8d0894c0725815907bedd61b1dd",
+      "code-film/src/robotl_reconstruction/utils/cli.py": "b183040091f0a4906801e14bd5d185a0d03441dc5d67d19e50cf5d7644ca224b",
+      "code-film/src/robotl_reconstruction/utils/fitting.py": "ae8c26e71ec7db64c332dae488313bbe9b4b6d5de0ad260c345d24f8f8d1ec76",
+      "code-film/src/robotl_reconstruction/utils/mjcf_agent.py": "5503c278c0ba330a97da51582cf57775be8345062edfaa76d845939d9a214b99",
+      "code-film/src/robotl_reconstruction/utils/mjcf_runner.py": "7dbca29e906bdaf8520a203b8bec4fca12e2e422e36bfa27aea8548a6a717edc",
+      "code-film/src/robotl_reconstruction/utils/programs.py": "209cdd34fb3292509b1e60a6aa43ff7c247ad53f3b102214bd3710222d994c9e",
+      "code-film/src/robotl_reconstruction/utils/real2code.py": "23622dbf1d3b1dbcbe9a1891eef50d1aecc27efd4f72cddd26256c82be865757",
+      "code-film/src/robotl_reconstruction/utils/scene_template.py": "74b5e9f162c2b994d8cd5523fe1c3e92ec6335586011efe628ce48cac64b4470",
+      "code-film/src/robotl_reconstruction/utils/segmentation.py": "9e0eeb6e53f9bc4ff08c959d50cc7852f24886f029c315e4fdb75f15373c17d5",
+      "code-connect/src/robotl_reconstruction/__init__.py": "dadd01f01e9f90231efc747c0741290429725a913288996f2c71e34422b8802d",
+      "code-connect/src/robotl_reconstruction/agent.py": "b17e053318f37aafcc8be9b201b761269624b9add4a26dfc62dacf292e6a5ecc",
+      "code-connect/src/robotl_reconstruction/articulation.py": "ac9b7c49f8fc33118b640f542b792581e88b38551eb7377ef8108ce4b53931d5",
+      "code-connect/src/robotl_reconstruction/budget.py": "0a5230b66549739a27c8b1544822520a3fd64a2fd20dfc0554b52270be4ff491",
+      "code-connect/src/robotl_reconstruction/connections.py": "dea0fd236ed7502c04f874a2f731c2f6a724ebdadabad941d61d4fe23a33e634",
+      "code-connect/src/robotl_reconstruction/evaluation.py": "1a10c67525b6c26fef6fd622329b720626c5eed916d95efe2af7cae39e805f74",
+      "code-connect/src/robotl_reconstruction/image_tools.py": "b4201c42a64d0890afc4cc3935f6df260bce055e37bb4bf0a606c5f4025c8a25",
+      "code-connect/src/robotl_reconstruction/observations.py": "ec16cbfaa8ff7dcbc03d218ad21e9b88d749ada6ca45a47b76942094eb9cf59b",
+      "code-connect/src/robotl_reconstruction/runner.py": "5f67b780abe841c8f70598e8035d6e4b56756d58aeaa239733761c95112efb42",
+      "code-connect/src/robotl_reconstruction/scene_example.py": "b5ea3a078a7e1efc73f99e73d1e38a889743a4d5e82f8d9b3b4d7fc19e3f8105",
+      "code-connect/src/robotl_reconstruction/stubs/mujoco/__init__.pyi": "87b6833ffb7e97db70672a4a8878db98621a79c6689ca41ec89b3938915f0d1f",
+      "code-connect/src/robotl_reconstruction/study.py": "2ed7bfe7e7ca1c676bb1012ff5e81c08772f87eb79f615931b69923d8428605b",
+      "code-connect/src/robotl_reconstruction/utils/README.md": "21e9835f5cc7c13ca297ec3fd2b4e7a355cd5216a9e3a684a5e3eac62b512e65",
+      "code-connect/src/robotl_reconstruction/utils/__init__.py": "1f516e3b36d5057c2ccb9ba1ef049ece953f1d3abab0616a49b1bd577743e484",
+      "code-connect/src/robotl_reconstruction/utils/babyrobot.py": "29fcc7a0b3db6ecc7c63c57e1fd4d4f80920bf89a8f0de6fd79f2c68acb33a5c",
+      "code-connect/src/robotl_reconstruction/utils/benchmark.py": "b838e6e8e52223408d7abd8166484f3df9a4f0b9df971e4b2d40c83ef3698b02",
+      "code-connect/src/robotl_reconstruction/utils/cabinet_example.xml": "ed6ee583d3086a3f7ac8a0c931749e669895b8d0894c0725815907bedd61b1dd",
+      "code-connect/src/robotl_reconstruction/utils/cli.py": "b183040091f0a4906801e14bd5d185a0d03441dc5d67d19e50cf5d7644ca224b",
+      "code-connect/src/robotl_reconstruction/utils/fitting.py": "ae8c26e71ec7db64c332dae488313bbe9b4b6d5de0ad260c345d24f8f8d1ec76",
+      "code-connect/src/robotl_reconstruction/utils/mjcf_agent.py": "5503c278c0ba330a97da51582cf57775be8345062edfaa76d845939d9a214b99",
+      "code-connect/src/robotl_reconstruction/utils/mjcf_runner.py": "7dbca29e906bdaf8520a203b8bec4fca12e2e422e36bfa27aea8548a6a717edc",
+      "code-connect/src/robotl_reconstruction/utils/programs.py": "209cdd34fb3292509b1e60a6aa43ff7c247ad53f3b102214bd3710222d994c9e",
+      "code-connect/src/robotl_reconstruction/utils/real2code.py": "23622dbf1d3b1dbcbe9a1891eef50d1aecc27efd4f72cddd26256c82be865757",
+      "code-connect/src/robotl_reconstruction/utils/scene_template.py": "74b5e9f162c2b994d8cd5523fe1c3e92ec6335586011efe628ce48cac64b4470",
+      "code-connect/src/robotl_reconstruction/utils/segmentation.py": "9e0eeb6e53f9bc4ff08c959d50cc7852f24886f029c315e4fdb75f15373c17d5"
+    },
+    "snapshot_date": "2026-11-05",
+    "comparison_note": "These searches use fit-on-evaluate at 1e71675. Archived GPT-6 film searches used 05fe792, with ten connect fits run after selection."
+  },
+  "replacement_composer": {
+    "script": "llm-recon-render/replace_slide_media.py",
+    "sha256": "be59793ea42be90a86bf0628fd9817dbd16124399de07d45403ed3a39397f3b8",
+    "tile_script": "llm-recon-render/compose_baseline_comparison.py",
+    "tile_sha256": "d5a7f163d205c78ef8d3aa1fd39ec6f066a5309879caf06fdce304a100424900"
+  }
 }

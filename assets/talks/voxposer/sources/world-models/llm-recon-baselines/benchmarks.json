@@ -1,49 +1,35 @@
 {
   "test-00": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-00",
-      "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793832988.810843,
-        "model_calls": 19,
-        "tokens": 578667
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-00",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-00",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/47391",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 1,
+        "predicted": 3,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.006817199344108018,
-            "chamfer_norm": 0.014256183011076815
+            "chamfer": 0.010331722055441632,
+            "chamfer_norm": 0.0219856476629516
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "10:root_door",
+            "chamfer": 0.0004605103335007391,
+            "chamfer_norm": 0.039417380527002555
           }
         ]
       },
-      "whole_chamfer": 0.0051995979182347255,
-      "whole_chamfer_norm": 0.008177355710163857,
+      "whole_chamfer": 0.0035524748633736685,
+      "whole_chamfer_norm": 0.006554899340520811,
       "joints": {
         "truth": 1,
-        "predicted": 0,
-        "missing": 1,
+        "predicted": 2,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
@@ -56,15 +42,67 @@
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793832988.8102849,
-        "model_calls": 29,
-        "tokens": 751428
+        "started_at": 1793936531.1166449,
+        "model_calls": 43,
+        "tokens": 918201
       },
-      "evaluations": 3
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-00",
+      "masks": "supplied",
+      "selected": 7,
+      "object": "StorageFurniture/47391",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.028337722538516012,
+            "chamfer_norm": 0.10552212188357615
+          },
+          {
+            "truth": "link_1",
+            "predicted": "13:root_front",
+            "chamfer": 0.0007470126769131553,
+            "chamfer_norm": 0.05913926560015612
+          }
+        ]
+      },
+      "whole_chamfer": 0.023412640371854865,
+      "whole_chamfer_norm": 0.063551539619348,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.742172573546372,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.11664078309207349
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793936533.4660375,
+        "model_calls": 59,
+        "tokens": 1134029
+      },
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-00",
@@ -135,43 +173,43 @@
   },
   "test-01": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-01",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-params/test-01",
       "masks": "supplied",
-      "selected": 1,
+      "selected": 2,
       "object": "StorageFurniture/45691",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 3,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.007800359388211005,
-            "chamfer_norm": 0.004819457980678589
+            "chamfer": 0.006160177156978251,
+            "chamfer_norm": 0.0031074000427961596
           },
           {
             "truth": "link_0",
-            "predicted": "10:root_door",
-            "chamfer": 0.021682936982553018,
-            "chamfer_norm": 0.06102564999704465
+            "predicted": "12:root_door",
+            "chamfer": 0.42440812729943667,
+            "chamfer_norm": 1.1967156171292843
           }
         ]
       },
-      "whole_chamfer": 0.008478566779190556,
-      "whole_chamfer_norm": 0.007338266853763227,
+      "whole_chamfer": 0.022181162354161954,
+      "whole_chamfer_norm": 0.011106848664859819,
       "joints": {
         "truth": 1,
-        "predicted": 2,
+        "predicted": 1,
         "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.10368123756364345,
+            "pos": 0.003318844767929763,
             "gt_type": 3,
-            "range": 0.2694646895891659
+            "range": 0.7625495887231097
           }
         ],
         "unpaired_ranges": []
@@ -180,50 +218,50 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793834057.3116913,
-        "model_calls": 35,
-        "tokens": 1091326
+        "started_at": 1793936874.657256,
+        "model_calls": 33,
+        "tokens": 683922
       },
-      "evaluations": 2
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-01",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-01",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 2,
       "object": "StorageFurniture/45691",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 3,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.0006061966861296425,
-            "chamfer_norm": 0.00033361628636079544
+            "chamfer": 0.28047646974620893,
+            "chamfer_norm": 0.1053203567269411
           },
           {
             "truth": "link_0",
-            "predicted": "11:root_right_door",
-            "chamfer": 0.015624254956850197,
-            "chamfer_norm": 0.04402507937421061
+            "predicted": "11:root_door",
+            "chamfer": 8.929929657394586e-05,
+            "chamfer_norm": 0.0002141672935374715
           }
         ]
       },
-      "whole_chamfer": 0.0024810787176120846,
-      "whole_chamfer_norm": 0.0013441091085907185,
+      "whole_chamfer": 0.20195914143246915,
+      "whole_chamfer_norm": 0.07950658160087198,
       "joints": {
         "truth": 1,
-        "predicted": 2,
+        "predicted": 1,
         "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
             "type": 1,
-            "rot": 0.049556130271734125,
-            "pos": 0.017291464249999642,
+            "rot": 0.0567785332400004,
+            "pos": 0.001668167878978585,
             "gt_type": 3,
-            "range": 0.040948365150013544
+            "range": 0.0392885834580623
           }
         ],
         "unpaired_ranges": []
@@ -232,11 +270,11 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793834362.214008,
-        "model_calls": 16,
-        "tokens": 354744
+        "started_at": 1793936531.175725,
+        "model_calls": 35,
+        "tokens": 761193
       },
-      "evaluations": 2
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-01",
@@ -307,21 +345,7 @@
   },
   "test-02": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-02",
-      "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793851179.364169,
-        "model_calls": 34,
-        "tokens": 965002
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-02",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-02",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/45961",
@@ -333,19 +357,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.1946973937469194,
-            "chamfer_norm": 0.12274711514889182
+            "chamfer": 0.013823463205007366,
+            "chamfer_norm": 0.007525899161542714
           },
           {
             "truth": "link_0",
-            "predicted": "10:root_drawer",
-            "chamfer": 1.7034890034319865,
-            "chamfer_norm": 3.3435858892788892
+            "predicted": "10:root_door",
+            "chamfer": 1.5926975464113076,
+            "chamfer_norm": 3.587307825810522
           }
         ]
       },
-      "whole_chamfer": 0.32271497287545464,
-      "whole_chamfer_norm": 0.1157905351653866,
+      "whole_chamfer": 0.09462071844075494,
+      "whole_chamfer_norm": 0.031219911547937983,
       "joints": {
         "truth": 1,
         "predicted": 2,
@@ -355,22 +379,74 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.6957787988058272,
+            "pos": 0.958778767728117,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.5853164096996497
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793851409.01219,
-        "model_calls": 26,
-        "tokens": 914015
+        "started_at": 1793936533.4465055,
+        "model_calls": 46,
+        "tokens": 999958
       },
-      "evaluations": 1
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-connect/test-02",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/45961",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.12638542849238177,
+            "chamfer_norm": 0.11146564931802604
+          },
+          {
+            "truth": "link_0",
+            "predicted": "11:root_door",
+            "chamfer": 0.7820336520769313,
+            "chamfer_norm": 1.323817399713797
+          }
+        ]
+      },
+      "whole_chamfer": 0.08596591072031592,
+      "whole_chamfer_norm": 0.030397288012183048,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.5129957241236457,
+            "pos": 0.055405114570484915,
+            "gt_type": 3,
+            "range": 0.9740802386333987
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793936874.546258,
+        "model_calls": 48,
+        "tokens": 916113
+      },
+      "evaluations": 2
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-02",
@@ -479,9 +555,9 @@
   },
   "test-03": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-03",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-03",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 5,
       "object": "StorageFurniture/48452",
       "bin": "2",
       "parts": {
@@ -490,20 +566,20 @@
         "pairs": [
           {
             "truth": "root",
-            "predicted": "9:root_door",
-            "chamfer": 1.3192844166953526,
-            "chamfer_norm": 1.1400535627481325
+            "predicted": "root",
+            "chamfer": 0.22190009980268954,
+            "chamfer_norm": 0.18023007455175893
           },
           {
             "truth": "link_0",
-            "predicted": "root",
-            "chamfer": 1.3282574056667333,
-            "chamfer_norm": 3.1397206019869284
+            "predicted": "11:root_door",
+            "chamfer": 0.3861044212984535,
+            "chamfer_norm": 1.456967100952798
           }
         ]
       },
-      "whole_chamfer": 0.13435434531162785,
-      "whole_chamfer_norm": 0.04752922169032235,
+      "whole_chamfer": 0.11973831845060141,
+      "whole_chamfer_norm": 0.033281514783910934,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -513,9 +589,9 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 1.0932250713374239,
+            "pos": 0.9567750413537783,
             "gt_type": 3,
-            "range": 0.8466485548093783
+            "range": 0.6441943806383321
           }
         ],
         "unpaired_ranges": []
@@ -524,63 +600,63 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793853158.296948,
-        "model_calls": 38,
-        "tokens": 1695457
+        "started_at": 1793936531.1055326,
+        "model_calls": 33,
+        "tokens": 715450
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-03",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-03",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 5,
       "object": "StorageFurniture/48452",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 1,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.2550543662708956,
-            "chamfer_norm": 0.2084474753166186
+            "chamfer": 0.144849307961519,
+            "chamfer_norm": 0.11491081023524083
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "9:root_door",
+            "chamfer": 0.000348371320989676,
+            "chamfer_norm": 0.0007784176526470778
           }
         ]
       },
-      "whole_chamfer": 0.14967158704363626,
-      "whole_chamfer_norm": 0.04595395191381364,
+      "whole_chamfer": 0.10936385030670487,
+      "whole_chamfer_norm": 0.028429339704877335,
       "joints": {
         "truth": 1,
-        "predicted": 0,
-        "missing": 1,
+        "predicted": 1,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.038764561685608497,
+            "pos": 0.013147928642610001,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.00377981598602406
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793853980.2464848,
-        "model_calls": 16,
-        "tokens": 470013
+        "started_at": 1793936533.4533381,
+        "model_calls": 62,
+        "tokens": 1400213
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-03",
@@ -689,43 +765,43 @@
   },
   "test-04": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-04",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-params/test-04",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 5,
       "object": "Refrigerator/10905",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 3,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.26472352591330267,
-            "chamfer_norm": 0.5174453598324582
+            "predicted": "11:root_door",
+            "chamfer": 0.19715118946864926,
+            "chamfer_norm": 0.35552921137535204
           },
           {
             "truth": "link_0",
-            "predicted": "12:root_drawer",
-            "chamfer": 0.13923929982306768,
-            "chamfer_norm": 0.5533846611125235
+            "predicted": "root",
+            "chamfer": 0.12138011438037585,
+            "chamfer_norm": 1.4453259957367708
           }
         ]
       },
-      "whole_chamfer": 0.12230992296503299,
-      "whole_chamfer_norm": 0.09378828725410038,
+      "whole_chamfer": 0.06318046927344682,
+      "whole_chamfer_norm": 0.04763993234263125,
       "joints": {
         "truth": 1,
-        "predicted": 2,
+        "predicted": 1,
         "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.028082444181817906,
+            "pos": 0.6969176051310513,
             "gt_type": 3,
-            "range": 0.7843132328930025
+            "range": 0.49138868781672906
           }
         ],
         "unpaired_ranges": []
@@ -734,25 +810,63 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793855381.7915223,
-        "model_calls": 26,
-        "tokens": 762798
+        "started_at": 1793936874.657182,
+        "model_calls": 50,
+        "tokens": 1082374
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-04",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-04",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 0,
+      "object": "Refrigerator/10905",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "12:root_door",
+            "chamfer": 0.18530936689735117,
+            "chamfer_norm": 0.328483275616901
+          },
+          {
+            "truth": "link_0",
+            "predicted": "root",
+            "chamfer": 0.12504495766124057,
+            "chamfer_norm": 0.7425366297155006
+          }
+        ]
+      },
+      "whole_chamfer": 0.04344811255231113,
+      "whole_chamfer_norm": 0.028141153604343175,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793855508.615365,
-        "model_calls": 36,
-        "tokens": 1125587
+        "started_at": 1793936533.4626899,
+        "model_calls": 136,
+        "tokens": 2715568
       },
-      "evaluations": 0
+      "evaluations": 4
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-04",
@@ -823,23 +937,9 @@
   },
   "test-05": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-05",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-05",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793856046.2051802,
-        "model_calls": 27,
-        "tokens": 850593
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-05",
-      "masks": "supplied",
-      "selected": 0,
+      "selected": 6,
       "object": "Laptop/9996",
       "bin": "2",
       "parts": {
@@ -849,19 +949,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.03834016927872243,
-            "chamfer_norm": 0.09262470462465516
+            "chamfer": 0.10214496059017773,
+            "chamfer_norm": 0.1272992949237886
           },
           {
             "truth": "link_0",
-            "predicted": "4:root_lid",
-            "chamfer": 0.005427662358794776,
-            "chamfer_norm": 0.007003956263450354
+            "predicted": "5:root_lid",
+            "chamfer": 0.50107123961541,
+            "chamfer_norm": 0.9963594041290227
           }
         ]
       },
-      "whole_chamfer": 0.016210194761016105,
-      "whole_chamfer_norm": 0.010185799887825836,
+      "whole_chamfer": 0.18781196839729924,
+      "whole_chamfer_norm": 0.15276603232325728,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -870,10 +970,10 @@
         "errors": [
           {
             "type": 1,
-            "rot": 1.2942755184240289,
-            "pos": 0.013279195310404003,
+            "rot": 0.0,
+            "pos": 0.015427029318629076,
             "gt_type": 3,
-            "range": 0.21687096322148725
+            "range": 0.4671433526105282
           }
         ],
         "unpaired_ranges": []
@@ -882,11 +982,63 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793856213.3757217,
-        "model_calls": 15,
-        "tokens": 339638
+        "started_at": 1793937391.9386358,
+        "model_calls": 73,
+        "tokens": 1413081
       },
-      "evaluations": 2
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-05",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "Laptop/9996",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 9.612791524404239e-05,
+            "chamfer_norm": 0.006815745290001585
+          },
+          {
+            "truth": "link_0",
+            "predicted": "5:root_lid",
+            "chamfer": 0.0025451255444949145,
+            "chamfer_norm": 0.005155732954981233
+          }
+        ]
+      },
+      "whole_chamfer": 0.0010435103329772435,
+      "whole_chamfer_norm": 0.0007595715952894549,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.8779301252882683,
+            "pos": 0.04283513388902358,
+            "gt_type": 3,
+            "range": 0.07286392285557197
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793938113.573614,
+        "model_calls": 41,
+        "tokens": 759915
+      },
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-05",
@@ -957,43 +1109,43 @@
   },
   "test-06": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-06",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-params/test-06",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 4,
       "object": "StorageFurniture/45621",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 3,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.21230220476788664,
-            "chamfer_norm": 0.12435069855328033
+            "predicted": "12:root_door",
+            "chamfer": 0.3084678711264839,
+            "chamfer_norm": 0.1310184118703855
           },
           {
             "truth": "link_0",
-            "predicted": "9:root_door",
-            "chamfer": 0.3190839282471006,
-            "chamfer_norm": 0.47093391213242153
+            "predicted": "root",
+            "chamfer": 0.1964219668251077,
+            "chamfer_norm": 0.40448105031303144
           }
         ]
       },
-      "whole_chamfer": 0.21742289859437589,
-      "whole_chamfer_norm": 0.1174489937360235,
+      "whole_chamfer": 0.0813142797743632,
+      "whole_chamfer_norm": 0.03432359599933517,
       "joints": {
         "truth": 1,
-        "predicted": 2,
+        "predicted": 1,
         "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.42115856730167145,
+            "pos": 0.01684146054627164,
             "gt_type": 3,
-            "range": 0.12757864308493372
+            "range": 0.4769155828273136
           }
         ],
         "unpaired_ranges": []
@@ -1002,16 +1154,16 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793857805.0246053,
-        "model_calls": 20,
-        "tokens": 476271
+        "started_at": 1793937588.1210601,
+        "model_calls": 49,
+        "tokens": 1034243
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-06",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-06",
       "masks": "supplied",
-      "selected": 1,
+      "selected": 5,
       "object": "StorageFurniture/45621",
       "bin": "2",
       "parts": {
@@ -1020,20 +1172,20 @@
         "pairs": [
           {
             "truth": "root",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "root",
+            "chamfer": 0.04727695229378463,
+            "chamfer_norm": 0.05350987527544703
           },
           {
             "truth": "link_0",
-            "predicted": "root",
-            "chamfer": 0.13450261078666806,
-            "chamfer_norm": 0.28918295606616534
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
           }
         ]
       },
-      "whole_chamfer": 0.07449631685444486,
-      "whole_chamfer_norm": 0.031153662151785264,
+      "whole_chamfer": 0.04375365458325214,
+      "whole_chamfer_norm": 0.020571096628589306,
       "joints": {
         "truth": 1,
         "predicted": 0,
@@ -1050,15 +1202,15 @@
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793857942.08858,
-        "model_calls": 23,
-        "tokens": 571913
+        "started_at": 1793937470.3613272,
+        "model_calls": 80,
+        "tokens": 1636327
       },
-      "evaluations": 2
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-06",
@@ -1129,7 +1281,7 @@
   },
   "test-07": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-07",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-07",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/48490",
@@ -1141,19 +1293,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.02445279510946642,
-            "chamfer_norm": 0.012872209850731911
+            "chamfer": 0.3609416599560174,
+            "chamfer_norm": 1.5375279291236597
           },
           {
             "truth": "link_1",
-            "predicted": "11:root_door",
-            "chamfer": 1.3028779091112084,
-            "chamfer_norm": 1.0883957527624692
+            "predicted": "14:root_door",
+            "chamfer": 0.7024502282107674,
+            "chamfer_norm": 0.4981219795927605
           }
         ]
       },
-      "whole_chamfer": 0.0722245084472411,
-      "whole_chamfer_norm": 0.025758736154146263,
+      "whole_chamfer": 0.14291300968244697,
+      "whole_chamfer_norm": 0.06048584545099838,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -1163,53 +1315,53 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 1.7829542089063257,
+            "pos": 0.00954574202398506,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.5503312560183728
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793858845.3096673,
-        "model_calls": 43,
-        "tokens": 1803111
+        "started_at": 1793938232.566277,
+        "model_calls": 50,
+        "tokens": 1083501
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-07",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-connect/test-07",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 2,
       "object": "StorageFurniture/48490",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 1,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.12381123102366015,
-            "chamfer_norm": 0.0760710902182692
+            "predicted": "13:root_door",
+            "chamfer": 0.034707981107776696,
+            "chamfer_norm": 0.12163947338605505
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "root",
+            "chamfer": 0.20494239961609279,
+            "chamfer_norm": 0.18843211992924472
           }
         ]
       },
-      "whole_chamfer": 0.2095141538424701,
-      "whole_chamfer_norm": 0.10205953716083964,
+      "whole_chamfer": 0.08223516112654428,
+      "whole_chamfer_norm": 0.029334529981867863,
       "joints": {
         "truth": 1,
-        "predicted": 0,
-        "missing": 1,
+        "predicted": 1,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
@@ -1222,15 +1374,15 @@
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793859146.8573108,
-        "model_calls": 24,
-        "tokens": 770643
+        "started_at": 1793937639.1423979,
+        "model_calls": 56,
+        "tokens": 1288449
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-07",
@@ -1301,9 +1453,9 @@
   },
   "test-08": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-08",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-08",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 2,
       "object": "Refrigerator/12054",
       "bin": "2",
       "parts": {
@@ -1313,19 +1465,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.11844859216558412,
-            "chamfer_norm": 0.30834738781414783
+            "chamfer": 0.39000146047852735,
+            "chamfer_norm": 0.1394075460164613
           },
           {
             "truth": "link_0",
-            "predicted": "9:root_door",
-            "chamfer": 0.19249075501665597,
-            "chamfer_norm": 0.6272805282511587
+            "predicted": "7:root_door",
+            "chamfer": 0.4198848387795652,
+            "chamfer_norm": 1.1673341628401617
           }
         ]
       },
-      "whole_chamfer": 0.061698174358973325,
-      "whole_chamfer_norm": 0.04933083268323007,
+      "whole_chamfer": 0.27300641468541875,
+      "whole_chamfer_norm": 0.13125816137296853,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -1335,9 +1487,9 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.08120790179067705,
+            "pos": 0.6977921917958554,
             "gt_type": 3,
-            "range": 0.8756716223035689
+            "range": 0.7890943255615744
           }
         ],
         "unpaired_ranges": []
@@ -1346,16 +1498,16 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793886538.0182023,
-        "model_calls": 37,
-        "tokens": 1071083
+        "started_at": 1793937721.2624497,
+        "model_calls": 87,
+        "tokens": 1826390
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-08",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-08",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 6,
       "object": "Refrigerator/12054",
       "bin": "2",
       "parts": {
@@ -1365,19 +1517,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.009352026438627856,
-            "chamfer_norm": 0.012579399530705545
+            "chamfer": 0.04991398603133124,
+            "chamfer_norm": 0.08690450676641295
           },
           {
             "truth": "link_0",
-            "predicted": "3:root_door",
-            "chamfer": 0.0006889844278900267,
-            "chamfer_norm": 0.00279634598881419
+            "predicted": "8:root_door",
+            "chamfer": 0.001218864085093041,
+            "chamfer_norm": 0.004982704007302197
           }
         ]
       },
-      "whole_chamfer": 0.006452864515311906,
-      "whole_chamfer_norm": 0.004662478820092392,
+      "whole_chamfer": 0.030732843290323122,
+      "whole_chamfer_norm": 0.025421352758779145,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -1386,10 +1538,10 @@
         "errors": [
           {
             "type": 1,
-            "rot": 1.2438180124464433,
-            "pos": 0.005393613902236402,
+            "rot": 0.13918113944492516,
+            "pos": 0.003955774803435576,
             "gt_type": 3,
-            "range": 0.02512694497143264
+            "range": 0.032849028564223115
           }
         ],
         "unpaired_ranges": []
@@ -1398,11 +1550,11 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793886821.2130098,
-        "model_calls": 29,
-        "tokens": 1047707
+        "started_at": 1793938337.6024425,
+        "model_calls": 53,
+        "tokens": 1108046
       },
-      "evaluations": 2
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-08",
@@ -1473,49 +1625,87 @@
   },
   "test-09": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-09",
-      "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793887933.591366,
-        "model_calls": 14,
-        "tokens": 340806
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-09",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-params/test-09",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/45717",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 1,
+        "predicted": 3,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.4420457337584887,
-            "chamfer_norm": 2.772275829244978
+            "chamfer": 0.0033614206698669028,
+            "chamfer_norm": 0.003604422899695494
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "14:root_upper_flap",
+            "chamfer": 2.32413323095654,
+            "chamfer_norm": 4.059946662488666
           }
         ]
       },
-      "whole_chamfer": 0.22021023953453528,
-      "whole_chamfer_norm": 0.06780842735294765,
+      "whole_chamfer": 0.21990289073016286,
+      "whole_chamfer_norm": 0.05479309669919312,
       "joints": {
         "truth": 1,
-        "predicted": 0,
-        "missing": 1,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.847775778604831,
+            "gt_type": 3,
+            "range": 0.8031345872268815
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793938369.767977,
+        "model_calls": 47,
+        "tokens": 1084230
+      },
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-09",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "StorageFurniture/45717",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.003748486046559094,
+            "chamfer_norm": 0.0049259813778771465
+          },
+          {
+            "truth": "link_1",
+            "predicted": "13:root_door",
+            "chamfer": 0.2539677821271911,
+            "chamfer_norm": 0.14763620387944146
+          }
+        ]
+      },
+      "whole_chamfer": 0.012662464145215201,
+      "whole_chamfer_norm": 0.003604564367929145,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
@@ -1528,15 +1718,15 @@
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793888010.271627,
-        "model_calls": 17,
-        "tokens": 340274
+        "started_at": 1793939247.0364301,
+        "model_calls": 169,
+        "tokens": 3389979
       },
-      "evaluations": 2
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-09",
@@ -1569,7 +1759,7 @@
   },
   "test-10": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-10",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-10",
       "masks": "supplied",
       "selected": 0,
       "object": "Laptop/9992",
@@ -1581,19 +1771,19 @@
           {
             "truth": "root",
             "predicted": "4:root_screen",
-            "chamfer": 0.28649243103516386,
-            "chamfer_norm": 28.736699548291313
+            "chamfer": 0.4036886713682648,
+            "chamfer_norm": 9.994786555988188
           },
           {
             "truth": "link_1",
             "predicted": "root",
-            "chamfer": 0.09632559563566494,
-            "chamfer_norm": 0.24669494226102395
+            "chamfer": 0.055275660164860095,
+            "chamfer_norm": 0.3200810651327664
           }
         ]
       },
-      "whole_chamfer": 0.08533152605111584,
-      "whole_chamfer_norm": 0.30707929828635777,
+      "whole_chamfer": 0.17829371787225307,
+      "whole_chamfer_norm": 0.30598284215281357,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -1603,74 +1793,74 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.025616921854320435,
+            "pos": 0.021383109169896608,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.8481320588576177
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793888619.34138,
-        "model_calls": 42,
-        "tokens": 1281416
+        "started_at": 1793938212.0583036,
+        "model_calls": 89,
+        "tokens": 1808677
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-10",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-10",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 1,
       "object": "Laptop/9992",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 1,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.21026562728554388,
-            "chamfer_norm": 8.48575978541989
+            "chamfer": 0.03214925906087935,
+            "chamfer_norm": 0.14836882489984965
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "4:root_lid",
+            "chamfer": 0.0018522734589017176,
+            "chamfer_norm": 0.003788230038571086
           }
         ]
       },
-      "whole_chamfer": 0.09367432790573071,
-      "whole_chamfer_norm": 0.2697028988023272,
+      "whole_chamfer": 0.007970036479197974,
+      "whole_chamfer_norm": 0.005787747268405714,
       "joints": {
         "truth": 1,
-        "predicted": 0,
-        "missing": 1,
+        "predicted": 1,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.12850413775621414,
+            "pos": 0.006083604465027185,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.26415245302943824
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793888872.8413076,
-        "model_calls": 29,
-        "tokens": 790308
+        "started_at": 1793939409.0357878,
+        "model_calls": 35,
+        "tokens": 706822
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-10",
@@ -1779,21 +1969,7 @@
   },
   "test-11": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-11",
-      "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793890626.5818677,
-        "model_calls": 35,
-        "tokens": 1001555
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-11",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-params/test-11",
       "masks": "supplied",
       "selected": 1,
       "object": "Laptop/10125",
@@ -1805,19 +1981,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.0003681141427810902,
-            "chamfer_norm": 0.06684464564849443
+            "chamfer": 0.00023524082025557983,
+            "chamfer_norm": 0.01548955970763483
           },
           {
             "truth": "link_1",
-            "predicted": "4:root_lid",
-            "chamfer": 0.006001059712673277,
-            "chamfer_norm": 0.01504173134924954
+            "predicted": "4:root_screen",
+            "chamfer": 0.045214823217225364,
+            "chamfer_norm": 0.11539649687096175
           }
         ]
       },
-      "whole_chamfer": 0.00063796417254678,
-      "whole_chamfer_norm": 0.0012809883242388958,
+      "whole_chamfer": 0.020509826972383224,
+      "whole_chamfer_norm": 0.0284957822377395,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -1826,10 +2002,10 @@
         "errors": [
           {
             "type": 1,
-            "rot": 2.3796905741103047,
-            "pos": 0.028182838927511375,
+            "rot": 0.0,
+            "pos": 0.005642091272110655,
             "gt_type": 3,
-            "range": 0.05701408679665643
+            "range": 0.2694050273772509
           }
         ],
         "unpaired_ranges": []
@@ -1838,11 +2014,63 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793890644.3594422,
-        "model_calls": 22,
-        "tokens": 804489
+        "started_at": 1793939585.436875,
+        "model_calls": 35,
+        "tokens": 788928
       },
-      "evaluations": 3
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-11",
+      "masks": "supplied",
+      "selected": 6,
+      "object": "Laptop/10125",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 9.377575077841206e-05,
+            "chamfer_norm": 0.011689346274924808
+          },
+          {
+            "truth": "link_1",
+            "predicted": "5:root_lid_back",
+            "chamfer": 5.9146595555175264e-05,
+            "chamfer_norm": 0.00012461462134384627
+          }
+        ]
+      },
+      "whole_chamfer": 9.204111640684018e-05,
+      "whole_chamfer_norm": 0.00014047527097711622,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.08508707509746498,
+            "pos": 0.0024754624500255185,
+            "gt_type": 3,
+            "range": 0.042942800881078824
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793938732.8725839,
+        "model_calls": 43,
+        "tokens": 826878
+      },
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-11",
@@ -1913,43 +2141,43 @@
   },
   "test-12": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-12",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-12",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 6,
       "object": "StorageFurniture/46029",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 3,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.16488979356657504,
-            "chamfer_norm": 0.11643355042980207
+            "chamfer": 0.08620953587403694,
+            "chamfer_norm": 0.07670471061782572
           },
           {
             "truth": "link_0",
-            "predicted": "9:root_door",
-            "chamfer": 0.7171665347916213,
-            "chamfer_norm": 1.8463874992448397
+            "predicted": "11:root_door",
+            "chamfer": 0.05978751224790278,
+            "chamfer_norm": 0.2653346238706976
           }
         ]
       },
-      "whole_chamfer": 0.1994782608222067,
-      "whole_chamfer_norm": 0.1040805343472227,
+      "whole_chamfer": 0.03450046424189346,
+      "whole_chamfer_norm": 0.01583099131896198,
       "joints": {
         "truth": 1,
-        "predicted": 2,
+        "predicted": 1,
         "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.6634936190383016,
+            "pos": 0.03749359762766019,
             "gt_type": 3,
-            "range": 0.15958681052113488
+            "range": 0.5009707851285592
           }
         ],
         "unpaired_ranges": []
@@ -1958,63 +2186,63 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793891068.7533662,
-        "model_calls": 25,
-        "tokens": 656066
+        "started_at": 1793939512.7643006,
+        "model_calls": 47,
+        "tokens": 1053980
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-12",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-connect/test-12",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 2,
       "object": "StorageFurniture/46029",
       "bin": "2",
       "parts": {
         "truth": 2,
-        "predicted": 1,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.17031137598168133,
-            "chamfer_norm": 0.12105790066914345
+            "predicted": "12:root_door",
+            "chamfer": 0.3185398615472909,
+            "chamfer_norm": 0.3873814449730409
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "root",
+            "chamfer": 0.16258843818030982,
+            "chamfer_norm": 0.6331010839801468
           }
         ]
       },
-      "whole_chamfer": 0.2505993779881678,
-      "whole_chamfer_norm": 0.11389921057070465,
+      "whole_chamfer": 0.18409395356337563,
+      "whole_chamfer_norm": 0.08732609724660514,
       "joints": {
         "truth": 1,
-        "predicted": 0,
-        "missing": 1,
+        "predicted": 1,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.013988133994955469,
+            "pos": 0.25136794840589166,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.9901669250983021
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793891427.6404333,
-        "model_calls": 16,
-        "tokens": 356275
+        "started_at": 1793939586.243053,
+        "model_calls": 429,
+        "tokens": 8249782
       },
-      "evaluations": 1
+      "evaluations": 5
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-12",
@@ -2085,9 +2313,9 @@
   },
   "test-13": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-13",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-13",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 5,
       "object": "StorageFurniture/45419",
       "bin": "2",
       "parts": {
@@ -2097,19 +2325,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.0032186316714931,
-            "chamfer_norm": 0.0021015477122323517
+            "chamfer": 0.20012888369803283,
+            "chamfer_norm": 0.722961703440363
           },
           {
             "truth": "link_1",
-            "predicted": "16:root_door",
-            "chamfer": 0.3795020982673124,
-            "chamfer_norm": 0.4706345987486532
+            "predicted": "21:root_door",
+            "chamfer": 2.4147742032665667,
+            "chamfer_norm": 1.902312113643761
           }
         ]
       },
-      "whole_chamfer": 0.05575152631022261,
-      "whole_chamfer_norm": 0.020367335312505404,
+      "whole_chamfer": 0.46675665376743464,
+      "whole_chamfer_norm": 0.16074269108929481,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -2119,9 +2347,9 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.009291046590626961,
+            "pos": 0.01329094400772346,
             "gt_type": 3,
-            "range": 0.49489222607213
+            "range": 0.4437213659117074
           }
         ],
         "unpaired_ranges": []
@@ -2130,16 +2358,16 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793893446.5935078,
-        "model_calls": 29,
-        "tokens": 859144
+        "started_at": 1793938740.8590982,
+        "model_calls": 46,
+        "tokens": 994990
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-13",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-13",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 5,
       "object": "StorageFurniture/45419",
       "bin": "2",
       "parts": {
@@ -2149,19 +2377,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.03785641930886935,
-            "chamfer_norm": 0.014590337145089798
+            "chamfer": 0.1359266080757247,
+            "chamfer_norm": 0.5651039123261892
           },
           {
             "truth": "link_1",
-            "predicted": "9:root_door",
-            "chamfer": 0.021966243695930525,
-            "chamfer_norm": 0.017192892684370357
+            "predicted": "15:root_door",
+            "chamfer": 0.0026260803232245064,
+            "chamfer_norm": 0.0018251566836218406
           }
         ]
       },
-      "whole_chamfer": 0.035301109719534124,
-      "whole_chamfer_norm": 0.013164175987796236,
+      "whole_chamfer": 0.11350221252342085,
+      "whole_chamfer_norm": 0.03393680740954116,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -2170,10 +2398,10 @@
         "errors": [
           {
             "type": 1,
-            "rot": 2.646377944478117,
-            "pos": 0.09371009898609872,
+            "rot": 0.07268497316620749,
+            "pos": 0.042501077846564796,
             "gt_type": 3,
-            "range": 0.09805173104567344
+            "range": 0.12071326820955319
           }
         ],
         "unpaired_ranges": []
@@ -2182,11 +2410,11 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793893702.1222525,
-        "model_calls": 17,
-        "tokens": 376606
+        "started_at": 1793940217.5253658,
+        "model_calls": 295,
+        "tokens": 5715932
       },
-      "evaluations": 1
+      "evaluations": 6
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-13",
@@ -2295,59 +2523,7 @@
   },
   "test-14": {
     "gpt54-film": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-14",
-      "masks": "supplied",
-      "selected": 0,
-      "object": "StorageFurniture/45203",
-      "bin": "2",
-      "parts": {
-        "truth": 2,
-        "predicted": 3,
-        "pairs": [
-          {
-            "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.04977639671346177,
-            "chamfer_norm": 0.03912998319653742
-          },
-          {
-            "truth": "link_0",
-            "predicted": "11:root_door",
-            "chamfer": 0.31069791964519233,
-            "chamfer_norm": 1.805083950671274
-          }
-        ]
-      },
-      "whole_chamfer": 0.05667329391042611,
-      "whole_chamfer_norm": 0.028404729359224865,
-      "joints": {
-        "truth": 1,
-        "predicted": 2,
-        "missing": 0,
-        "pairing": "permutation",
-        "errors": [
-          {
-            "type": 1,
-            "rot": 0.0,
-            "pos": 0.5262146295292367,
-            "gt_type": 3,
-            "range": 1.0
-          }
-        ],
-        "unpaired_ranges": []
-      },
-      "fitted": false,
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793895335.9419556,
-        "model_calls": 36,
-        "tokens": 956402
-      },
-      "evaluations": 1
-    },
-    "gpt54-connect": {
-      "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-14",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-params/test-14",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/45203",
@@ -2359,19 +2535,19 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.00404451806358373,
-            "chamfer_norm": 0.0031660460098123892
+            "chamfer": 0.02901727052234202,
+            "chamfer_norm": 0.022549817524170908
           },
           {
             "truth": "link_0",
             "predicted": "12:root_door",
-            "chamfer": 0.07311273618323579,
-            "chamfer_norm": 0.4579074252052124
+            "chamfer": 1.0460362501458018,
+            "chamfer_norm": 5.93428933310673
           }
         ]
       },
-      "whole_chamfer": 0.00762222046091577,
-      "whole_chamfer_norm": 0.004240061481945552,
+      "whole_chamfer": 0.06441083041085964,
+      "whole_chamfer_norm": 0.027494306265785626,
       "joints": {
         "truth": 1,
         "predicted": 1,
@@ -2381,22 +2557,74 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.5312146244120957,
+            "pos": 0.5512146130936586,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.7712128141669821
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793895500.5825634,
-        "model_calls": 32,
-        "tokens": 1027366
+        "started_at": 1793939680.0232608,
+        "model_calls": 74,
+        "tokens": 1687593
       },
-      "evaluations": 3
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-14",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "StorageFurniture/45203",
+      "bin": "2",
+      "parts": {
+        "truth": 2,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.008837531696011145,
+            "chamfer_norm": 0.006998196495110754
+          },
+          {
+            "truth": "link_0",
+            "predicted": "11:root_door",
+            "chamfer": 0.005451559955841815,
+            "chamfer_norm": 0.033408202098755994
+          }
+        ]
+      },
+      "whole_chamfer": 0.008263168196810397,
+      "whole_chamfer_norm": 0.005708277149245886,
+      "joints": {
+        "truth": 1,
+        "predicted": 1,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.614052666411181,
+            "pos": 0.04649611019823376,
+            "gt_type": 3,
+            "range": 0.17838557117809462
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793940862.2716575,
+        "model_calls": 58,
+        "tokens": 1223662
+      },
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/datnguyen/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-14",
@@ -2467,9 +2695,9 @@
   },
   "test-15": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-15",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-15",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 2,
       "object": "StorageFurniture/45146",
       "bin": "3",
       "parts": {
@@ -2479,25 +2707,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.18810215796562993,
-            "chamfer_norm": 0.1367514600144292
+            "chamfer": 0.5999120321862667,
+            "chamfer_norm": 0.5387118349133233
           },
           {
             "truth": "link_0",
-            "predicted": "9:root_door",
-            "chamfer": 0.22337860491990602,
-            "chamfer_norm": 0.42546047991719366
+            "predicted": "20:root_drawer",
+            "chamfer": 0.06930738821065666,
+            "chamfer_norm": 0.1171204783779717
           },
           {
             "truth": "link_1",
-            "predicted": "10:root_drawer",
-            "chamfer": 0.6525814445463987,
-            "chamfer_norm": 1.7575102021513858
+            "predicted": "18:root_door",
+            "chamfer": 0.13879828550266166,
+            "chamfer_norm": 0.42972405321331164
           }
         ]
       },
-      "whole_chamfer": 0.20769484522462292,
-      "whole_chamfer_norm": 0.10989039518350564,
+      "whole_chamfer": 0.3818298860305413,
+      "whole_chamfer_norm": 0.1470994627018174,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -2505,18 +2733,18 @@
         "pairing": "permutation",
         "errors": [
           {
-            "type": 1,
-            "rot": 0.0,
+            "type": 0,
+            "rot": null,
             "pos": null,
             "gt_type": 2,
-            "range": 0.749388443158968
+            "range": 1.0
           },
           {
-            "type": 1,
-            "rot": 0.0,
-            "pos": 0.5723656174683827,
+            "type": 0,
+            "rot": null,
+            "pos": null,
             "gt_type": 3,
-            "range": 0.08188696675771034
+            "range": 1.0
           }
         ],
         "unpaired_ranges": []
@@ -2525,25 +2753,76 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793833001.0179436,
-        "model_calls": 37,
-        "tokens": 1092922
+        "started_at": 1793938986.8893442,
+        "model_calls": 115,
+        "tokens": 2142556
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-15",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-15",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 1,
+      "object": "StorageFurniture/45146",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.010966257853277983,
+            "chamfer_norm": 0.008222053181577382
+          },
+          {
+            "truth": "link_0",
+            "predicted": "12:root_drawer",
+            "chamfer": 0.04347342455063714,
+            "chamfer_norm": 0.08172100822781334
+          },
+          {
+            "truth": "link_1",
+            "predicted": "7:root_door",
+            "chamfer": 0.02083724535996975,
+            "chamfer_norm": 0.06626554383669796
+          }
+        ]
+      },
+      "whole_chamfer": 0.011199133599982798,
+      "whole_chamfer_norm": 0.006786634848432652,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.08275547348641046,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.17727615373601546
+          },
+          {
+            "type": 1,
+            "rot": 0.3530474736094213,
+            "pos": 0.001654694766328422,
+            "gt_type": 3,
+            "range": 0.06431018318280746
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793833001.1384296,
-        "model_calls": 30,
-        "tokens": 857397
+        "started_at": 1793940874.9042158,
+        "model_calls": 170,
+        "tokens": 3134897
       },
-      "evaluations": 0
+      "evaluations": 2
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-15",
@@ -2627,9 +2906,9 @@
   },
   "test-16": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-16",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-params/test-16",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 1,
       "object": "StorageFurniture/48379",
       "bin": "3",
       "parts": {
@@ -2638,26 +2917,26 @@
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.23311004724888051,
-            "chamfer_norm": 0.14257757920929193
+            "predicted": "15:root_right_door",
+            "chamfer": 0.2941770883072453,
+            "chamfer_norm": 0.2615128114779349
           },
           {
             "truth": "link_0",
-            "predicted": "9:root_door",
-            "chamfer": 0.5334776964403953,
-            "chamfer_norm": 1.7300581390119139
+            "predicted": "root",
+            "chamfer": 0.4838134446038875,
+            "chamfer_norm": 1.9241594301293716
           },
           {
             "truth": "link_1",
-            "predicted": "10:root_drawer",
-            "chamfer": 0.926939356817835,
-            "chamfer_norm": 3.5865217953448765
+            "predicted": "13:root_left_door",
+            "chamfer": 0.47670838290838075,
+            "chamfer_norm": 1.7277521921657966
           }
         ]
       },
-      "whole_chamfer": 0.24539356889241878,
-      "whole_chamfer_norm": 0.12389082469673421,
+      "whole_chamfer": 0.020347154627237046,
+      "whole_chamfer_norm": 0.010129149057020864,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -2667,16 +2946,16 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.49229825709074065,
+            "pos": 1.3022983381150504,
             "gt_type": 3,
-            "range": 0.254657758087789
+            "range": 0.5142126009449794
           },
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.07520825130372322,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.6729666776383902
           }
         ],
         "unpaired_ranges": []
@@ -2685,76 +2964,76 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793833475.88677,
-        "model_calls": 53,
-        "tokens": 2371426
+        "started_at": 1793940120.400456,
+        "model_calls": 40,
+        "tokens": 870265
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-16",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-16",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 7,
       "object": "StorageFurniture/48379",
       "bin": "3",
       "parts": {
         "truth": 3,
-        "predicted": 1,
+        "predicted": 3,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.045478651058641434,
-            "chamfer_norm": 0.04512754255374512
+            "chamfer": 0.02329209280504263,
+            "chamfer_norm": 0.019178812869700988
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "15:root_left_door",
+            "chamfer": 0.02834856074512561,
+            "chamfer_norm": 0.11216767581961853
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "17:root_right_door",
+            "chamfer": 0.0016664435273848867,
+            "chamfer_norm": 0.006477684192758419
           }
         ]
       },
-      "whole_chamfer": 0.03723217129776936,
-      "whole_chamfer_norm": 0.017320681356505163,
+      "whole_chamfer": 0.020918228341230395,
+      "whole_chamfer_norm": 0.010073043017045407,
       "joints": {
         "truth": 2,
-        "predicted": 0,
-        "missing": 2,
+        "predicted": 2,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.09791759878759349,
+            "pos": 0.11013967317196313,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.21259034142815447
           },
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.046393704194310055,
+            "pos": 0.04360849663387981,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.1825971283804173
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793834249.2578633,
-        "model_calls": 29,
-        "tokens": 994004
+        "started_at": 1793939485.158409,
+        "model_calls": 47,
+        "tokens": 1021991
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-16",
@@ -2884,7 +3163,72 @@
   },
   "test-17": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-17",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-17",
+      "masks": "supplied",
+      "selected": 3,
+      "object": "Refrigerator/10586",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.00800497510213872,
+            "chamfer_norm": 0.009155729176788795
+          },
+          {
+            "truth": "link_1",
+            "predicted": "9:root_left_door",
+            "chamfer": 0.1982827197221475,
+            "chamfer_norm": 1.4597731727736816
+          },
+          {
+            "truth": "link_2",
+            "predicted": "12:root_right_door",
+            "chamfer": 0.9882388446033439,
+            "chamfer_norm": 7.28183635481158
+          }
+        ]
+      },
+      "whole_chamfer": 0.061437545280160356,
+      "whole_chamfer_norm": 0.028664467807900267,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.20152881882240714,
+            "gt_type": 3,
+            "range": 0.647602793075539
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.5567282574086959,
+            "gt_type": 3,
+            "range": 0.9369402764724808
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793941596.6614647,
+        "model_calls": 46,
+        "tokens": 990909
+      },
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-connect/test-17",
       "masks": "supplied",
       "selected": 0,
       "object": "Refrigerator/10586",
@@ -2895,26 +3239,26 @@
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.029460278969228017,
-            "chamfer_norm": 0.03158940516019115
+            "predicted": "11:root_right_door",
+            "chamfer": 0.3237179076554155,
+            "chamfer_norm": 0.37038779507043995
           },
           {
             "truth": "link_1",
-            "predicted": "8:root_left_door",
-            "chamfer": 0.174120264269543,
-            "chamfer_norm": 0.910598419098439
+            "predicted": "9:root_left_door",
+            "chamfer": 0.0014657560181620477,
+            "chamfer_norm": 0.011286964279196702
           },
           {
             "truth": "link_2",
-            "predicted": "9:root_right_door",
-            "chamfer": 0.10115693842429194,
-            "chamfer_norm": 0.7102999237826537
+            "predicted": "root",
+            "chamfer": 0.38326711678260417,
+            "chamfer_norm": 3.2248395386620357
           }
         ]
       },
-      "whole_chamfer": 0.056696461396610734,
-      "whole_chamfer_norm": 0.026912363338451633,
+      "whole_chamfer": 0.030142159822523024,
+      "whole_chamfer_norm": 0.013795788588921581,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -2923,17 +3267,17 @@
         "errors": [
           {
             "type": 1,
-            "rot": 0.0,
-            "pos": 0.021471288494013807,
+            "rot": 0.33131775897565263,
+            "pos": 0.004035610607442664,
             "gt_type": 3,
-            "range": 0.7152078015232874
+            "range": 0.0650370750627276
           },
           {
             "type": 1,
-            "rot": 0.0,
-            "pos": 0.04627181797399432,
+            "rot": 1.4990548596243176,
+            "pos": 0.420752326398563,
             "gt_type": 3,
-            "range": 0.6288624495842536
+            "range": 0.899519683136613
           }
         ],
         "unpaired_ranges": []
@@ -2942,74 +3286,9 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793851571.911212,
-        "model_calls": 44,
-        "tokens": 1580700
-      },
-      "evaluations": 1
-    },
-    "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-17",
-      "masks": "supplied",
-      "selected": 0,
-      "object": "Refrigerator/10586",
-      "bin": "3",
-      "parts": {
-        "truth": 3,
-        "predicted": 1,
-        "pairs": [
-          {
-            "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.03274728689338852,
-            "chamfer_norm": 0.03372926094283969
-          },
-          {
-            "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
-          },
-          {
-            "truth": "link_2",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
-          }
-        ]
-      },
-      "whole_chamfer": 0.04153837036877701,
-      "whole_chamfer_norm": 0.019677244898044306,
-      "joints": {
-        "truth": 2,
-        "predicted": 0,
-        "missing": 2,
-        "pairing": "permutation",
-        "errors": [
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 3,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 3,
-            "range": 1.0
-          }
-        ],
-        "unpaired_ranges": []
-      },
-      "fitted": false,
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793851729.5173066,
-        "model_calls": 22,
-        "tokens": 554456
+        "started_at": 1793940791.521427,
+        "model_calls": 225,
+        "tokens": 4270839
       },
       "evaluations": 1
     },
@@ -3095,21 +3374,7 @@
   },
   "test-18": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-18",
-      "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793852374.419897,
-        "model_calls": 35,
-        "tokens": 1220157
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-18",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-18",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/46732",
@@ -3121,25 +3386,25 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.16618639104306684,
-            "chamfer_norm": 0.07018618757226129
+            "chamfer": 0.0019351461806822292,
+            "chamfer_norm": 0.0012490202025220558
           },
           {
             "truth": "link_0",
-            "predicted": "10:root_drawer",
-            "chamfer": 0.7770262708493411,
-            "chamfer_norm": 2.689050103950468
+            "predicted": "12:root_lower_door",
+            "chamfer": 0.15643874841025696,
+            "chamfer_norm": 0.7415348546213045
           },
           {
             "truth": "link_1",
-            "predicted": "9:root_door",
-            "chamfer": 0.15157181662544417,
-            "chamfer_norm": 0.7333187750849679
+            "predicted": "14:root_upper_door",
+            "chamfer": 0.026032519499361202,
+            "chamfer_norm": 0.29684003421984967
           }
         ]
       },
-      "whole_chamfer": 0.1780850304453147,
-      "whole_chamfer_norm": 0.07403953545860681,
+      "whole_chamfer": 0.00785503235954217,
+      "whole_chamfer_norm": 0.010076728580546085,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -3149,7 +3414,72 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.11145050606667578,
+            "pos": 0.006450517716658388,
+            "gt_type": 3,
+            "range": 0.7337042606185586
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.006450464843700043,
+            "gt_type": 3,
+            "range": 0.3793274218792496
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793939490.2962453,
+        "model_calls": 35,
+        "tokens": 679210
+      },
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-18",
+      "masks": "supplied",
+      "selected": 3,
+      "object": "StorageFurniture/46732",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 1,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": "root",
+            "chamfer": 0.09338371986714954,
+            "chamfer_norm": 0.2577402481624312
+          }
+        ]
+      },
+      "whole_chamfer": 0.09925349910888599,
+      "whole_chamfer_norm": 0.12750577124972498,
+      "joints": {
+        "truth": 2,
+        "predicted": 0,
+        "missing": 2,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
             "gt_type": 3,
             "range": 1.0
           },
@@ -3163,15 +3493,15 @@
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793852482.3519747,
-        "model_calls": 20,
-        "tokens": 464063
+        "started_at": 1793942207.4725108,
+        "model_calls": 260,
+        "tokens": 5051463
       },
-      "evaluations": 1
+      "evaluations": 5
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-18",
@@ -3255,32 +3585,134 @@
   },
   "test-19": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-19",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-params/test-19",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 0,
+      "object": "StorageFurniture/46480",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "18:root_right_door",
+            "chamfer": 1.0459985169461177,
+            "chamfer_norm": 0.8159177710042247
+          },
+          {
+            "truth": "link_0",
+            "predicted": "root",
+            "chamfer": 0.5317299494650439,
+            "chamfer_norm": 2.4714705111042807
+          },
+          {
+            "truth": "link_1",
+            "predicted": "12:root_left_door",
+            "chamfer": 0.19338509222333244,
+            "chamfer_norm": 9.267097193868796
+          }
+        ]
+      },
+      "whole_chamfer": 0.0442165280316966,
+      "whole_chamfer_norm": 0.023949237991648588,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 1.2677548321712389,
+            "gt_type": 3,
+            "range": 0.2759042242241918
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.002519359931181242,
+            "gt_type": 3,
+            "range": 0.7077305166040346
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793853173.191991,
-        "model_calls": 12,
-        "tokens": 239529
+        "started_at": 1793941185.397221,
+        "model_calls": 215,
+        "tokens": 4279053
       },
-      "evaluations": 0
+      "evaluations": 1
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-19",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-19",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 3,
+      "object": "StorageFurniture/46480",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.022452127922648456,
+            "chamfer_norm": 0.022103299183942115
+          },
+          {
+            "truth": "link_0",
+            "predicted": "15:root_right_door",
+            "chamfer": 0.0006682192950848863,
+            "chamfer_norm": 0.002382262258833306
+          },
+          {
+            "truth": "link_1",
+            "predicted": "14:root_left_door",
+            "chamfer": 0.0004116490628273379,
+            "chamfer_norm": 0.008498598774370215
+          }
+        ]
+      },
+      "whole_chamfer": 0.017586073094431467,
+      "whole_chamfer_norm": 0.009298572367786868,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.2088888721845248,
+            "pos": 0.01599189511372105,
+            "gt_type": 3,
+            "range": 0.07544447920938802
+          },
+          {
+            "type": 1,
+            "rot": 0.4425688410253147,
+            "pos": 0.004857051578449087,
+            "gt_type": 3,
+            "range": 0.06381133653224902
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793853367.5848596,
-        "model_calls": 34,
-        "tokens": 1196189
+        "started_at": 1793942933.9945085,
+        "model_calls": 74,
+        "tokens": 1520984
       },
-      "evaluations": 0
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-19",
@@ -3364,55 +3796,41 @@
   },
   "test-20": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-20",
-      "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793854981.0143857,
-        "model_calls": 39,
-        "tokens": 1624557
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-20",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-20",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/49038",
       "bin": "3",
       "parts": {
         "truth": 3,
-        "predicted": 1,
+        "predicted": 4,
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.0846119112415392,
-            "chamfer_norm": 0.06440298588102646
+            "predicted": "10:root_drawer",
+            "chamfer": 1.144887204982559,
+            "chamfer_norm": 0.7231213037582211
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "root",
+            "chamfer": 0.9194802975312009,
+            "chamfer_norm": 3.9674023259975
           },
           {
             "truth": "link_2",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "13:root_left_door",
+            "chamfer": 0.3814264030886467,
+            "chamfer_norm": 18.312269107250906
           }
         ]
       },
-      "whole_chamfer": 0.009013341397434524,
-      "whole_chamfer_norm": 0.0040589663655683705,
+      "whole_chamfer": 0.07804637324143435,
+      "whole_chamfer_norm": 0.023971773636651348,
       "joints": {
         "truth": 2,
-        "predicted": 0,
-        "missing": 2,
+        "predicted": 3,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
@@ -3423,6 +3841,64 @@
             "range": 1.0
           },
           {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.0057577194004728716,
+            "gt_type": 3,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793940236.0643046,
+        "model_calls": 48,
+        "tokens": 1180234
+      },
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-20",
+      "masks": "supplied",
+      "selected": 1,
+      "object": "StorageFurniture/49038",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "6:root_drawer_front",
+            "chamfer": 0.11576921553674345,
+            "chamfer_norm": 0.09644516839852328
+          },
+          {
+            "truth": "link_1",
+            "predicted": "root",
+            "chamfer": 0.8525090924746493,
+            "chamfer_norm": 4.225144657104194
+          },
+          {
+            "truth": "link_2",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.061858229966668024,
+      "whole_chamfer_norm": 0.01811248575066415,
+      "joints": {
+        "truth": 2,
+        "predicted": 1,
+        "missing": 1,
+        "pairing": "permutation",
+        "errors": [
+          {
             "type": 0,
             "rot": null,
             "pos": null,
@@ -3430,17 +3906,19 @@
             "range": 1.0
           }
         ],
-        "unpaired_ranges": []
+        "unpaired_ranges": [
+          1.0
+        ]
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793855000.1650405,
-        "model_calls": 19,
-        "tokens": 446964
+        "started_at": 1793942996.2249858,
+        "model_calls": 171,
+        "tokens": 3522168
       },
-      "evaluations": 1
+      "evaluations": 3
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-20",
@@ -3570,9 +4048,9 @@
   },
   "test-21": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-21",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/mac/gpt54-params/test-21",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 4,
       "object": "StorageFurniture/45162",
       "bin": "3",
       "parts": {
@@ -3581,26 +4059,26 @@
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.18433673456105515,
-            "chamfer_norm": 0.13687970997840435
+            "predicted": "16:root_door",
+            "chamfer": 0.3312324026957287,
+            "chamfer_norm": 0.3809849028153111
           },
           {
             "truth": "link_0",
-            "predicted": "10:root_drawer",
-            "chamfer": 0.7325013004875733,
-            "chamfer_norm": 15.04397679768265
+            "predicted": "root",
+            "chamfer": 0.3163344981411588,
+            "chamfer_norm": 15.464871742865988
           },
           {
             "truth": "link_1",
-            "predicted": "9:root_door",
-            "chamfer": 0.13435253030518152,
-            "chamfer_norm": 0.39950454101843413
+            "predicted": "18:root_drawer",
+            "chamfer": 0.033609000489786295,
+            "chamfer_norm": 0.08412295930991531
           }
         ]
       },
-      "whole_chamfer": 0.21174530201486885,
-      "whole_chamfer_norm": 0.11086295351982985,
+      "whole_chamfer": 0.20531532311454165,
+      "whole_chamfer_norm": 0.09666706414746404,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -3608,15 +4086,15 @@
         "pairing": "permutation",
         "errors": [
           {
-            "type": 1,
-            "rot": 0.0,
-            "pos": 0.24320077374519794,
+            "type": 0,
+            "rot": null,
+            "pos": null,
             "gt_type": 3,
             "range": 1.0
           },
           {
-            "type": 1,
-            "rot": 0.0,
+            "type": 0,
+            "rot": null,
             "pos": null,
             "gt_type": 2,
             "range": 1.0
@@ -3624,29 +4102,75 @@
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793855827.4638872,
-        "model_calls": 43,
-        "tokens": 1444247
+        "started_at": 1793942317.149888,
+        "model_calls": 45,
+        "tokens": 917639
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-21",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-21",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 1,
+      "object": "StorageFurniture/45162",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_0",
+            "predicted": "root",
+            "chamfer": 0.21201281939965252,
+            "chamfer_norm": 10.152337111622732
+          },
+          {
+            "truth": "link_1",
+            "predicted": "15:root_drawer",
+            "chamfer": 0.08082813182338926,
+            "chamfer_norm": 0.16427736611605628
+          }
+        ]
+      },
+      "whole_chamfer": 0.14717647054653715,
+      "whole_chamfer_norm": 0.07203480924389818,
+      "joints": {
+        "truth": 2,
+        "predicted": 1,
+        "missing": 1,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 89.6501905596001,
+            "pos": 0.3732349990082233,
+            "gt_type": 3,
+            "range": 0.6849708884623191
+          }
+        ],
+        "unpaired_ranges": [
+          1.0
+        ]
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793856408.8940783,
-        "model_calls": 12,
-        "tokens": 231780
+        "started_at": 1793941117.9452908,
+        "model_calls": 143,
+        "tokens": 2654209
       },
-      "evaluations": 0
+      "evaluations": 3
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-21",
@@ -3730,7 +4254,7 @@
   },
   "test-22": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-22",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-22",
       "masks": "supplied",
       "selected": 0,
       "object": "Table/23472",
@@ -3741,26 +4265,26 @@
         "pairs": [
           {
             "truth": "root",
-            "predicted": "8:root_door",
-            "chamfer": 0.13528230602961988,
-            "chamfer_norm": 0.1322409414357406
+            "predicted": "14:root_door",
+            "chamfer": 0.21441927673184824,
+            "chamfer_norm": 0.16659175490206055
           },
           {
             "truth": "link_0",
             "predicted": "root",
-            "chamfer": 0.4405178235632147,
-            "chamfer_norm": 2.2996495881067944
+            "chamfer": 0.10763786924535232,
+            "chamfer_norm": 0.7604462511137804
           },
           {
             "truth": "link_1",
-            "predicted": "9:root_drawer",
-            "chamfer": 0.00937091669809156,
-            "chamfer_norm": 0.024101774083411846
+            "predicted": "15:root_drawer",
+            "chamfer": 0.004505415598799852,
+            "chamfer_norm": 0.01290242397869089
           }
         ]
       },
-      "whole_chamfer": 0.023862330299924805,
-      "whole_chamfer_norm": 0.013261995965030634,
+      "whole_chamfer": 0.10805516804702582,
+      "whole_chamfer_norm": 0.06316746927995351,
       "joints": {
         "truth": 2,
         "predicted": 2,
@@ -3770,94 +4294,89 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.7061605400565858,
+            "pos": 0.726160552542124,
             "gt_type": 3,
-            "range": 0.28453183196690346
+            "range": 0.32075463389604286
           },
           {
             "type": 1,
             "rot": 0.0,
             "pos": null,
             "gt_type": 2,
-            "range": 0.4878292985389273
+            "range": 0.47864127517608124
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793857217.486041,
+        "started_at": 1793943593.3187594,
         "model_calls": 41,
-        "tokens": 1184704
+        "tokens": 890813
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-22",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-22",
       "masks": "supplied",
       "selected": 0,
       "object": "Table/23472",
       "bin": "3",
       "parts": {
         "truth": 3,
-        "predicted": 3,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.007014835811555928,
-            "chamfer_norm": 0.005807642333671248
+            "chamfer": 0.009598832703096156,
+            "chamfer_norm": 0.007602234539726832
           },
           {
             "truth": "link_0",
-            "predicted": "9:root_door",
-            "chamfer": 0.0034365363475873114,
-            "chamfer_norm": 0.02220177588575349
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
           },
           {
             "truth": "link_1",
-            "predicted": "10:root_drawer",
-            "chamfer": 0.0063231206722237756,
-            "chamfer_norm": 0.024230654118642954
+            "predicted": "16:root_drawer",
+            "chamfer": 0.0349935858778353,
+            "chamfer_norm": 0.08685657808888225
           }
         ]
       },
-      "whole_chamfer": 0.006332725332213702,
-      "whole_chamfer_norm": 0.0034091077130829917,
+      "whole_chamfer": 0.018011434103934718,
+      "whole_chamfer_norm": 0.008750833393216377,
       "joints": {
         "truth": 2,
-        "predicted": 2,
-        "missing": 0,
+        "predicted": 1,
+        "missing": 1,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 1,
-            "rot": 0.0,
-            "pos": 0.0061604860492251445,
-            "gt_type": 3,
-            "range": 1.0
-          },
-          {
-            "type": 1,
-            "rot": 0.0,
+            "type": 0,
+            "rot": null,
             "pos": null,
-            "gt_type": 2,
+            "gt_type": 3,
             "range": 1.0
           }
         ],
-        "unpaired_ranges": []
+        "unpaired_ranges": [
+          1.0
+        ]
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793857888.1006942,
-        "model_calls": 19,
-        "tokens": 449799
+        "started_at": 1793968676.1461732,
+        "model_calls": 66,
+        "tokens": 1442446
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-22",
@@ -3941,83 +4460,134 @@
   },
   "test-23": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-23",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-23",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793859196.0059178,
-        "model_calls": 36,
-        "tokens": 1105565
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-23",
-      "masks": "supplied",
-      "selected": 0,
+      "selected": 3,
       "object": "StorageFurniture/45767",
       "bin": "3",
       "parts": {
         "truth": 3,
-        "predicted": 1,
+        "predicted": 3,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.07823645428696928,
-            "chamfer_norm": 0.5060847063331713
+            "chamfer": 0.19802799769801238,
+            "chamfer_norm": 1.3490270937750646
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "18:root_lower_door",
+            "chamfer": 0.12009228510736042,
+            "chamfer_norm": 8.032869660935468
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "19:root_upper_door",
+            "chamfer": 0.13138596516961565,
+            "chamfer_norm": 1.1938893316806367
           }
         ]
       },
-      "whole_chamfer": 0.03459809965464173,
-      "whole_chamfer_norm": 0.0643738885497786,
+      "whole_chamfer": 0.05422656550726514,
+      "whole_chamfer_norm": 0.11363987718599959,
       "joints": {
         "truth": 2,
-        "predicted": 0,
-        "missing": 2,
+        "predicted": 2,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.012153303660086517,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.7879305634181283
           },
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.012153331017059649,
             "gt_type": 3,
             "range": 1.0
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793859687.6351454,
-        "model_calls": 13,
-        "tokens": 277360
+        "started_at": 1793941291.414589,
+        "model_calls": 38,
+        "tokens": 846772
       },
-      "evaluations": 1
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-23",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "StorageFurniture/45767",
+      "bin": "3",
+      "parts": {
+        "truth": 3,
+        "predicted": 3,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.0047938957241569,
+            "chamfer_norm": 0.007285981994868122
+          },
+          {
+            "truth": "link_0",
+            "predicted": "9:root_lower_door",
+            "chamfer": 0.0010427508124015194,
+            "chamfer_norm": 0.048797336447175425
+          },
+          {
+            "truth": "link_1",
+            "predicted": "11:root_upper_door",
+            "chamfer": 0.0001762240636406815,
+            "chamfer_norm": 0.022101318253612712
+          }
+        ]
+      },
+      "whole_chamfer": 0.003974787606485055,
+      "whole_chamfer_norm": 0.004068381199384802,
+      "joints": {
+        "truth": 2,
+        "predicted": 2,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.03873329967985844,
+            "pos": 0.053376941798699964,
+            "gt_type": 3,
+            "range": 0.06384007684489335
+          },
+          {
+            "type": 1,
+            "rot": 0.12743884222435983,
+            "pos": 0.0048501597683775904,
+            "gt_type": 3,
+            "range": 0.11542007991537262
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793944925.61489,
+        "model_calls": 62,
+        "tokens": 1421955
+      },
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-23",
@@ -4152,30 +4722,94 @@
   },
   "test-24": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-24",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-24",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 0,
+      "object": "StorageFurniture/46874",
+      "bin": "4-5",
+      "parts": {
+        "truth": 4,
+        "predicted": 4,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.02489325804413025,
+            "chamfer_norm": 0.021575109016559613
+          },
+          {
+            "truth": "link_0",
+            "predicted": "15:root_left_door",
+            "chamfer": 0.14962184354334446,
+            "chamfer_norm": 0.2714003052491179
+          },
+          {
+            "truth": "link_1",
+            "predicted": "17:root_right_door",
+            "chamfer": 0.15286437912386192,
+            "chamfer_norm": 0.28373867658638524
+          },
+          {
+            "truth": "link_2",
+            "predicted": "11:root_drawer",
+            "chamfer": 0.8846597034262643,
+            "chamfer_norm": 11.179673341077173
+          }
+        ]
+      },
+      "whole_chamfer": 0.07653256954909093,
+      "whole_chamfer_norm": 0.04073906108915357,
+      "joints": {
+        "truth": 3,
+        "predicted": 3,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.004004297903490883,
+            "gt_type": 3,
+            "range": 0.2164770038972501
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.04267013963720123,
+            "gt_type": 3,
+            "range": 0.05449331058229112
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.7137122908546115
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793860799.1965716,
-        "model_calls": 27,
-        "tokens": 962129
+        "started_at": 1793968678.517117,
+        "model_calls": 40,
+        "tokens": 903140
       },
-      "evaluations": 0
+      "evaluations": 7
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-24",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-24",
       "masks": "supplied",
       "selected": null,
       "failure": "no evaluated scene",
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793861073.577166,
-        "model_calls": 19,
-        "tokens": 468111
+        "started_at": 1793945231.139568,
+        "model_calls": 267,
+        "tokens": 5176588
       },
       "evaluations": 0
     },
@@ -4274,34 +4908,111 @@
   },
   "test-25": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-25",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-25",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 4,
+      "object": "StorageFurniture/45332",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "21:root_right_door",
+            "chamfer": 0.3237061603375427,
+            "chamfer_norm": 0.18309707761137095
+          },
+          {
+            "truth": "link_0",
+            "predicted": "25:root_right_tray",
+            "chamfer": 0.25668845521004585,
+            "chamfer_norm": 2.9239598479850795
+          },
+          {
+            "truth": "link_1",
+            "predicted": "16:root_left_tray",
+            "chamfer": 0.22489732498191248,
+            "chamfer_norm": 0.4640491456071858
+          },
+          {
+            "truth": "link_2",
+            "predicted": "12:root_left_door",
+            "chamfer": 0.9562568882855726,
+            "chamfer_norm": 14.582306693537578
+          },
+          {
+            "truth": "link_3",
+            "predicted": "root",
+            "chamfer": 0.3720430354143635,
+            "chamfer_norm": 25.023642488746294
+          }
+        ]
+      },
+      "whole_chamfer": 0.025898465823698567,
+      "whole_chamfer_norm": 0.012761294771680157,
+      "joints": {
+        "truth": 4,
+        "predicted": 4,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.03885470850756053,
+            "pos": 0.7130134092452928,
+            "gt_type": 3,
+            "range": 0.911032366342875
+          },
+          {
+            "type": 1,
+            "rot": 0.03885470850756053,
+            "pos": 0.6745680069948669,
+            "gt_type": 3,
+            "range": 0.26109323333205725
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.5253140374359506
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.5216560149793166
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793861545.401226,
-        "model_calls": 41,
-        "tokens": 1385644
+        "started_at": 1793941820.6661568,
+        "model_calls": 54,
+        "tokens": 1333794
       },
-      "evaluations": 0
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-25",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-25",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/45332",
       "bin": "4-5",
       "parts": {
         "truth": 5,
-        "predicted": 1,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.1915927943287965,
-            "chamfer_norm": 0.20216888945065464
+            "chamfer": 0.15159808254317172,
+            "chamfer_norm": 0.17039766017191924
           },
           {
             "truth": "link_0",
@@ -4311,9 +5022,9 @@
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "8:root_left_door",
+            "chamfer": 0.0037274080184811842,
+            "chamfer_norm": 0.012990182114655904
           },
           {
             "truth": "link_2",
@@ -4329,12 +5040,12 @@
           }
         ]
       },
-      "whole_chamfer": 0.10164311934683298,
-      "whole_chamfer_norm": 0.045261570684182094,
+      "whole_chamfer": 0.035578275863492506,
+      "whole_chamfer_norm": 0.018138952939664756,
       "joints": {
         "truth": 4,
-        "predicted": 0,
-        "missing": 4,
+        "predicted": 1,
+        "missing": 3,
         "pairing": "permutation",
         "errors": [
           {
@@ -4343,40 +5054,23 @@
             "pos": null,
             "gt_type": 3,
             "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 3,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 2,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 2,
-            "range": 1.0
           }
         ],
-        "unpaired_ranges": []
+        "unpaired_ranges": [
+          1.0,
+          1.0,
+          1.0
+        ]
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793861843.3948536,
-        "model_calls": 41,
-        "tokens": 1414277
+        "started_at": 1793945387.1452985,
+        "model_calls": 255,
+        "tokens": 5065379
       },
-      "evaluations": 1
+      "evaluations": 2
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-25",
@@ -4409,9 +5103,9 @@
   },
   "test-26": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-26",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-26",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 4,
       "object": "StorageFurniture/45756",
       "bin": "4-5",
       "parts": {
@@ -4421,31 +5115,31 @@
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.03370848580546686,
-            "chamfer_norm": 0.03889807609661063
+            "chamfer": 0.04253321696165126,
+            "chamfer_norm": 0.057813570279489954
           },
           {
             "truth": "link_0",
-            "predicted": "12:root_top_drawer",
-            "chamfer": 0.007267103670979332,
-            "chamfer_norm": 0.03257201285282374
+            "predicted": "27:root_top_drawer",
+            "chamfer": 0.7513726837302075,
+            "chamfer_norm": 5.338798484161609
           },
           {
             "truth": "link_1",
-            "predicted": "10:root_bot_drawer",
-            "chamfer": 0.02019576487920087,
-            "chamfer_norm": 0.0523686693428395
+            "predicted": "11:root_bot_drawer",
+            "chamfer": 0.40403913198684116,
+            "chamfer_norm": 1.1153435318972118
           },
           {
             "truth": "link_2",
-            "predicted": "11:root_mid_drawer",
-            "chamfer": 0.04432273734146616,
-            "chamfer_norm": 0.09452347594033077
+            "predicted": "19:root_mid_drawer",
+            "chamfer": 0.32564342353738107,
+            "chamfer_norm": 0.679708144978985
           }
         ]
       },
-      "whole_chamfer": 0.025958685339456937,
-      "whole_chamfer_norm": 0.013183838047533916,
+      "whole_chamfer": 0.06222776355071177,
+      "whole_chamfer_norm": 0.029379294993549545,
       "joints": {
         "truth": 3,
         "predicted": 3,
@@ -4457,112 +5151,112 @@
             "rot": 0.0,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.7523884310922229
           },
           {
             "type": 1,
             "rot": 0.0,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.1626730515642103
           },
           {
             "type": 1,
             "rot": 0.0,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.5959862831125315
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793862096.6006885,
-        "model_calls": 35,
-        "tokens": 1229988
+        "started_at": 1793968676.1653304,
+        "model_calls": 37,
+        "tokens": 762399
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-26",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-26",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/45756",
       "bin": "4-5",
       "parts": {
         "truth": 4,
-        "predicted": 1,
+        "predicted": 4,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.07036974539113086,
-            "chamfer_norm": 0.1019356197858869
+            "chamfer": 0.32993419476357744,
+            "chamfer_norm": 0.51705416917576
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "12:root_top_drawer",
+            "chamfer": 0.04981056197777387,
+            "chamfer_norm": 0.10681831522055306
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "10:root_bottom_drawer",
+            "chamfer": 0.042064261026020656,
+            "chamfer_norm": 0.08587918571086961
           },
           {
             "truth": "link_2",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "11:root_middle_drawer",
+            "chamfer": 0.04235862211970521,
+            "chamfer_norm": 0.08622205207691686
           }
         ]
       },
-      "whole_chamfer": 0.01813076854506622,
-      "whole_chamfer_norm": 0.009531471939414572,
+      "whole_chamfer": 0.12121230547870827,
+      "whole_chamfer_norm": 0.06186052362572514,
       "joints": {
         "truth": 3,
-        "predicted": 0,
-        "missing": 3,
+        "predicted": 3,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 5.687150224136301,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.1618366423303762
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 6.796286885387946,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.14899660205373944
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 1.9062373170667066,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.0017795970926043347
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793862438.4015,
-        "model_calls": 15,
-        "tokens": 359240
+        "started_at": 1793942054.006316,
+        "model_calls": 41,
+        "tokens": 1137923
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-26",
@@ -4659,21 +5353,7 @@
   },
   "test-27": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-27",
-      "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793862952.7365046,
-        "model_calls": 41,
-        "tokens": 1420747
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-27",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-27",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/45759",
@@ -4684,38 +5364,38 @@
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.003288195634460844,
-            "chamfer_norm": 0.0022570808596337356
+            "predicted": "8:root_mid_door",
+            "chamfer": 0.18459434392931717,
+            "chamfer_norm": 0.20122584545655672
           },
           {
             "truth": "link_0",
-            "predicted": "11:root_low_door",
-            "chamfer": 0.1258073617415949,
-            "chamfer_norm": 1.0886523198211464
+            "predicted": "4:root_bot_door",
+            "chamfer": 0.5588756046317641,
+            "chamfer_norm": 2.8634899419940316
           },
           {
             "truth": "link_1",
-            "predicted": "12:root_mid_door",
-            "chamfer": 0.1374197409852005,
-            "chamfer_norm": 1.3954303530040422
+            "predicted": "root",
+            "chamfer": 0.2720605654582738,
+            "chamfer_norm": 1.453779610463849
           },
           {
             "truth": "link_2",
             "predicted": "13:root_top_door",
-            "chamfer": 0.060579776855777846,
-            "chamfer_norm": 0.3282860159987795
+            "chamfer": 0.08035580331491896,
+            "chamfer_norm": 0.4513527070686418
           },
           {
             "truth": "link_3",
-            "predicted": "10:root_drawer",
-            "chamfer": 0.07444964756255927,
-            "chamfer_norm": 0.2387139113613146
+            "predicted": "6:root_drawer",
+            "chamfer": 0.24083294969342856,
+            "chamfer_norm": 0.716932189015369
           }
         ]
       },
-      "whole_chamfer": 0.009164256675222866,
-      "whole_chamfer_norm": 0.009800236443722427,
+      "whole_chamfer": 0.020024953635257352,
+      "whole_chamfer_norm": 0.02724503204885664,
       "joints": {
         "truth": 4,
         "predicted": 4,
@@ -4725,30 +5405,30 @@
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.2836657153381988,
+            "pos": 0.5516657026600775,
+            "gt_type": 3,
+            "range": 0.81631788282203
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
             "gt_type": 3,
             "range": 1.0
           },
           {
             "type": 1,
             "rot": 0.0,
-            "pos": 0.2836657153381988,
+            "pos": 0.5516656918609754,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.8732273407447295
           },
           {
-            "type": 1,
-            "rot": 0.0,
-            "pos": 0.3036656351425618,
-            "gt_type": 3,
-            "range": 1.0
-          },
-          {
-            "type": 1,
-            "rot": 0.08508706979457378,
+            "type": 0,
+            "rot": null,
             "pos": null,
             "gt_type": 2,
-            "range": 0.23976510763168324
+            "range": 1.0
           }
         ],
         "unpaired_ranges": []
@@ -4757,11 +5437,25 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793863312.9021323,
-        "model_calls": 24,
-        "tokens": 918167
+        "started_at": 1793945711.7367258,
+        "model_calls": 129,
+        "tokens": 2538994
       },
       "evaluations": 1
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-27",
+      "masks": "supplied",
+      "selected": null,
+      "failure": "no evaluated scene",
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793968678.5171654,
+        "model_calls": 63,
+        "tokens": 1073328
+      },
+      "evaluations": 0
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-27",
@@ -4794,40 +5488,26 @@
   },
   "test-28": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-28",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-28",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793864095.758732,
-        "model_calls": 38,
-        "tokens": 982592
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-28",
-      "masks": "supplied",
-      "selected": 0,
+      "selected": 3,
       "object": "StorageFurniture/45642",
       "bin": "4-5",
       "parts": {
         "truth": 5,
-        "predicted": 1,
+        "predicted": 3,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.020892769378224412,
-            "chamfer_norm": 0.016750974741659555
+            "chamfer": 0.05028756030316387,
+            "chamfer_norm": 0.04497180321889387
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "36:root_upper_sash",
+            "chamfer": 0.2096757971810455,
+            "chamfer_norm": 504.06795127937016
           },
           {
             "truth": "link_1",
@@ -4843,18 +5523,18 @@
           },
           {
             "truth": "link_3",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "29:root_lower_flap",
+            "chamfer": 0.2165410394090152,
+            "chamfer_norm": 242.62267761314587
           }
         ]
       },
-      "whole_chamfer": 0.016551461769626224,
-      "whole_chamfer_norm": 0.014407042708665331,
+      "whole_chamfer": 0.03955705922917102,
+      "whole_chamfer_norm": 0.035366464483630504,
       "joints": {
         "truth": 4,
-        "predicted": 0,
-        "missing": 4,
+        "predicted": 2,
+        "missing": 2,
         "pairing": "permutation",
         "errors": [
           {
@@ -4865,38 +5545,101 @@
             "range": 1.0
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.0,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 2,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 2,
-            "range": 1.0
+            "range": 0.9681961082777316
           }
         ],
-        "unpaired_ranges": []
+        "unpaired_ranges": [
+          1.0,
+          1.0
+        ]
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793864250.8730323,
-        "model_calls": 19,
-        "tokens": 627113
+        "started_at": 1793943556.3067908,
+        "model_calls": 73,
+        "tokens": 1852357
       },
-      "evaluations": 1
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-28",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/45642",
+      "bin": "4-5",
+      "parts": {
+        "truth": 5,
+        "predicted": 2,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.03022468925147348,
+            "chamfer_norm": 0.055992632043549304
+          },
+          {
+            "truth": "link_0",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": "21:root_left_door",
+            "chamfer": 0.012749152978366908,
+            "chamfer_norm": 0.24859060819751366
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.023494096962112864,
+      "whole_chamfer_norm": 0.051805613056932195,
+      "joints": {
+        "truth": 4,
+        "predicted": 1,
+        "missing": 3,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 82.74900565041185,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.8518728319917097
+          }
+        ],
+        "unpaired_ranges": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793947005.8907702,
+        "model_calls": 138,
+        "tokens": 2847665
+      },
+      "evaluations": 3
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-28",
@@ -4929,98 +5672,98 @@
   },
   "test-29": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-29",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-29",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 6,
       "object": "Table/32324",
       "bin": "4-5",
       "parts": {
         "truth": 4,
-        "predicted": 1,
+        "predicted": 6,
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.10002035768483888,
-            "chamfer_norm": 0.09381430524906766
+            "predicted": "34:root_drawer_top",
+            "chamfer": 0.44610470792733514,
+            "chamfer_norm": 0.2750954463032506
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "37:root_left_door",
+            "chamfer": 0.9860844893801006,
+            "chamfer_norm": 4.914119391118183
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "root",
+            "chamfer": 0.31410469536943453,
+            "chamfer_norm": 5.8191634645250305
           },
           {
             "truth": "link_2",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "38:root_lid",
+            "chamfer": 0.5614429881049963,
+            "chamfer_norm": 13.16488599777477
           }
         ]
       },
-      "whole_chamfer": 0.07725461346455295,
-      "whole_chamfer_norm": 0.04845020993947517,
+      "whole_chamfer": 0.023358025163191173,
+      "whole_chamfer_norm": 0.01750310847883188,
       "joints": {
         "truth": 3,
-        "predicted": 0,
-        "missing": 3,
+        "predicted": 5,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 89.99999999999997,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.9808516587266969
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 89.99999999999997,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.9005282866898188
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 89.99999999999997,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.953201450803014
           }
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793864881.8178313,
-        "model_calls": 53,
-        "tokens": 1929323
+        "started_at": 1793968676.1111498,
+        "model_calls": 38,
+        "tokens": 806938
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-29",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-29",
       "masks": "supplied",
       "selected": 0,
       "object": "Table/32324",
       "bin": "4-5",
       "parts": {
         "truth": 4,
-        "predicted": 1,
+        "predicted": 3,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.05663835591881669,
-            "chamfer_norm": 0.04659876197008912
+            "chamfer": 0.07087793964788147,
+            "chamfer_norm": 0.07445727673920349
           },
           {
             "truth": "link_0",
@@ -5030,59 +5773,54 @@
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "24:root_drawer_mid",
+            "chamfer": 0.16375155701591618,
+            "chamfer_norm": 0.8984502131540171
           },
           {
             "truth": "link_2",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "25:root_drawer_top",
+            "chamfer": 0.00630610222716677,
+            "chamfer_norm": 0.04817934698341133
           }
         ]
       },
-      "whole_chamfer": 0.04258461957272165,
-      "whole_chamfer_norm": 0.025762144311705336,
+      "whole_chamfer": 0.022306036828053207,
+      "whole_chamfer_norm": 0.013864053081572479,
       "joints": {
         "truth": 3,
-        "predicted": 0,
-        "missing": 3,
+        "predicted": 2,
+        "missing": 1,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.9916019553119001,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.950073658084926
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 4.0553336014584715,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 2,
-            "range": 1.0
+            "range": 0.13234464605327567
           }
         ],
-        "unpaired_ranges": []
+        "unpaired_ranges": [
+          1.0
+        ]
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793865006.3395,
-        "model_calls": 19,
-        "tokens": 488615
+        "started_at": 1793947942.0932987,
+        "model_calls": 139,
+        "tokens": 2934015
       },
-      "evaluations": 1
+      "evaluations": 2
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-29",
@@ -5179,178 +5917,212 @@
   },
   "test-30": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-30",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-30",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 3,
       "object": "StorageFurniture/46109",
       "bin": "6-15",
       "parts": {
         "truth": 6,
-        "predicted": 3,
+        "predicted": 6,
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.30672481115419864,
-            "chamfer_norm": 0.21879803027406808
+            "predicted": "11:root_bin_drawer",
+            "chamfer": 0.2586632215766384,
+            "chamfer_norm": 0.14968885730892906
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "root",
+            "chamfer": 0.17878599842484244,
+            "chamfer_norm": 0.35152218053733236
           },
           {
             "truth": "link_2",
-            "predicted": "10:root_drawer",
-            "chamfer": 0.3760035936896902,
-            "chamfer_norm": 0.7930412733141808
+            "predicted": "17:root_lower_drawer",
+            "chamfer": 0.5526852245927316,
+            "chamfer_norm": 2.0279639885071608
           },
           {
             "truth": "link_3",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "23:root_middle_drawer",
+            "chamfer": 0.71233823027682,
+            "chamfer_norm": 0.9361120747526237
           },
           {
             "truth": "link_4",
-            "predicted": "9:root_door",
-            "chamfer": 0.27646200732254206,
-            "chamfer_norm": 0.5889394442305123
+            "predicted": "35:root_upper_drawer",
+            "chamfer": 0.7304644471154561,
+            "chamfer_norm": 0.7760631479954943
           },
           {
             "truth": "link_5",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "29:root_top_drawer",
+            "chamfer": 1.088213218373998,
+            "chamfer_norm": 0.9864661022376282
           }
         ]
       },
-      "whole_chamfer": 0.4040112005247703,
-      "whole_chamfer_norm": 0.1792454538286171,
+      "whole_chamfer": 0.010949322479735828,
+      "whole_chamfer_norm": 0.004451837309308901,
       "joints": {
         "truth": 5,
-        "predicted": 2,
-        "missing": 3,
+        "predicted": 5,
+        "missing": 0,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.0,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.1114255040884018
           },
           {
             "type": 1,
             "rot": 0.0,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
-          }
-        ],
-        "unpaired_ranges": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "fitted": false,
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793865663.300305,
-        "model_calls": 27,
-        "tokens": 813755
-      },
-      "evaluations": 1
-    },
-    "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-30",
-      "masks": "supplied",
-      "selected": 0,
-      "object": "StorageFurniture/46109",
-      "bin": "6-15",
-      "parts": {
-        "truth": 6,
-        "predicted": 3,
-        "pairs": [
-          {
-            "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.30834563936259746,
-            "chamfer_norm": 0.21979025444314818
-          },
-          {
-            "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
-          },
-          {
-            "truth": "link_2",
-            "predicted": "10:root_drawer",
-            "chamfer": 0.37606391513804444,
-            "chamfer_norm": 0.7923265691023325
-          },
-          {
-            "truth": "link_3",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
-          },
-          {
-            "truth": "link_4",
-            "predicted": "9:root_door",
-            "chamfer": 0.27926751008859624,
-            "chamfer_norm": 0.5921952545501405
-          },
-          {
-            "truth": "link_5",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
-          }
-        ]
-      },
-      "whole_chamfer": 0.40335923129711243,
-      "whole_chamfer_norm": 0.17860739275209295,
-      "joints": {
-        "truth": 5,
-        "predicted": 2,
-        "missing": 3,
-        "pairing": "permutation",
-        "errors": [
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 2,
-            "range": 1.0
+            "range": 0.27330873906612396
           },
           {
             "type": 1,
             "rot": 0.0,
             "pos": null,
             "gt_type": 2,
-            "range": 0.7459358369270126
+            "range": 0.32451600537580605
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.22409577820421311
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.1875538931173436
           }
         ],
-        "unpaired_ranges": [
-          1.0,
-          1.0,
-          1.0
-        ]
+        "unpaired_ranges": []
       },
       "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793866148.8227174,
-        "model_calls": 22,
-        "tokens": 667426
+        "started_at": 1793943826.8085783,
+        "model_calls": 43,
+        "tokens": 1189857
       },
-      "evaluations": 1
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-30",
+      "masks": "supplied",
+      "selected": 0,
+      "object": "StorageFurniture/46109",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 6,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.10779630737513242,
+            "chamfer_norm": 0.10016606932050429
+          },
+          {
+            "truth": "link_1",
+            "predicted": "10:root_bottom_drawer",
+            "chamfer": 0.0613486109000817,
+            "chamfer_norm": 0.05986870117875415
+          },
+          {
+            "truth": "link_2",
+            "predicted": "12:root_low_drawer",
+            "chamfer": 0.174969149223704,
+            "chamfer_norm": 0.19415566944432072
+          },
+          {
+            "truth": "link_3",
+            "predicted": "13:root_mid_drawer",
+            "chamfer": 0.16722757690708825,
+            "chamfer_norm": 0.1805458702039874
+          },
+          {
+            "truth": "link_4",
+            "predicted": "15:root_upper_drawer",
+            "chamfer": 0.29744506133970017,
+            "chamfer_norm": 0.2751292769121554
+          },
+          {
+            "truth": "link_5",
+            "predicted": "14:root_top_drawer",
+            "chamfer": 0.19942458166106664,
+            "chamfer_norm": 0.2055101162187329
+          }
+        ]
+      },
+      "whole_chamfer": 0.018663742623342538,
+      "whole_chamfer_norm": 0.008989517673054653,
+      "joints": {
+        "truth": 5,
+        "predicted": 5,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.5714689826728073,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.0005678691362044352
+          },
+          {
+            "type": 1,
+            "rot": 3.6722388503234273,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.8141443028169519
+          },
+          {
+            "type": 1,
+            "rot": 1.343992568382577,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.9157923212216335
+          },
+          {
+            "type": 1,
+            "rot": 3.1035913807441604,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.8140052048599019
+          },
+          {
+            "type": 1,
+            "rot": 0.49830455569643817,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.06717791811998197
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793948102.8686137,
+        "model_calls": 29,
+        "tokens": 582450
+      },
+      "evaluations": 2
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-30",
@@ -5563,30 +6335,175 @@
   },
   "test-31": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-31",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-31",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 1,
+      "object": "StorageFurniture/46172",
+      "bin": "6-15",
+      "parts": {
+        "truth": 12,
+        "predicted": 8,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "37:root_door",
+            "chamfer": 0.1405418549731857,
+            "chamfer_norm": 0.17563951699665534
+          },
+          {
+            "truth": "link_1",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_10",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_11",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_2",
+            "predicted": "21:root_drawer_5",
+            "chamfer": 0.18798865441287888,
+            "chamfer_norm": 1.0532609578668422
+          },
+          {
+            "truth": "link_3",
+            "predicted": "18:root_drawer_4",
+            "chamfer": 0.20102133207228423,
+            "chamfer_norm": 0.5457632111088895
+          },
+          {
+            "truth": "link_4",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_5",
+            "predicted": "root",
+            "chamfer": 0.5027181575264916,
+            "chamfer_norm": 13.261574043546949
+          },
+          {
+            "truth": "link_6",
+            "predicted": "15:root_drawer_3",
+            "chamfer": 0.19906521094480295,
+            "chamfer_norm": 0.9240734932223351
+          },
+          {
+            "truth": "link_7",
+            "predicted": "12:root_drawer_2",
+            "chamfer": 0.1959399441253909,
+            "chamfer_norm": 0.3997609686641663
+          },
+          {
+            "truth": "link_8",
+            "predicted": "9:root_drawer_1",
+            "chamfer": 0.19086280231157898,
+            "chamfer_norm": 0.6405250538293483
+          },
+          {
+            "truth": "link_9",
+            "predicted": "6:root_drawer_0",
+            "chamfer": 0.196783770988244,
+            "chamfer_norm": 1.7693121199289505
+          }
+        ]
+      },
+      "whole_chamfer": 0.12229661309321471,
+      "whole_chamfer_norm": 0.04800330715275898,
+      "joints": {
+        "truth": 11,
+        "predicted": 7,
+        "missing": 4,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.8753468764156422
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.9156818708042762
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.8476063024642759
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.966162527315097
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.7895384524679419
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.8235972309714057
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793867896.6528268,
-        "model_calls": 42,
-        "tokens": 1496970
+        "started_at": 1793968678.5379214,
+        "model_calls": 32,
+        "tokens": 778527
       },
-      "evaluations": 0
+      "evaluations": 3
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-31",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-31",
       "masks": "supplied",
       "selected": null,
       "failure": "no evaluated scene",
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793868302.1956866,
-        "model_calls": 34,
-        "tokens": 1140772
+        "started_at": 1793944261.0710473,
+        "model_calls": 21,
+        "tokens": 414830
       },
       "evaluations": 0
     },
@@ -5621,120 +6538,205 @@
   },
   "test-32": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-32",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-32",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 6,
+      "object": "StorageFurniture/45261",
+      "bin": "6-15",
+      "parts": {
+        "truth": 6,
+        "predicted": 6,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 1.170118813324263,
+            "chamfer_norm": 0.9193265003949299
+          },
+          {
+            "truth": "link_0",
+            "predicted": "30:root_top",
+            "chamfer": 0.06293116119846992,
+            "chamfer_norm": 0.06143963866577892
+          },
+          {
+            "truth": "link_1",
+            "predicted": "36:root_upper_mid",
+            "chamfer": 0.05705170574458944,
+            "chamfer_norm": 0.059369118198642615
+          },
+          {
+            "truth": "link_2",
+            "predicted": "24:root_middle",
+            "chamfer": 0.05506912050976205,
+            "chamfer_norm": 0.05721336308099038
+          },
+          {
+            "truth": "link_3",
+            "predicted": "18:root_lower_mid",
+            "chamfer": 0.04400405973189226,
+            "chamfer_norm": 0.047184759048157394
+          },
+          {
+            "truth": "link_4",
+            "predicted": "12:root_bottom",
+            "chamfer": 0.03977300313112056,
+            "chamfer_norm": 0.040683299277056065
+          }
+        ]
+      },
+      "whole_chamfer": 0.4005812567010453,
+      "whole_chamfer_norm": 0.09427822277159395,
+      "joints": {
+        "truth": 5,
+        "predicted": 5,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.547985497455316
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.7039640782636473
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.6323694924599137
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.6346677508975925
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.6657033424139365
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793868663.8218746,
-        "model_calls": 36,
-        "tokens": 1357205
+        "started_at": 1793935901.812276,
+        "model_calls": 42,
+        "tokens": 1034688
       },
-      "evaluations": 0
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-32",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-32",
       "masks": "supplied",
       "selected": 0,
       "object": "StorageFurniture/45261",
       "bin": "6-15",
       "parts": {
         "truth": 6,
-        "predicted": 1,
+        "predicted": 5,
         "pairs": [
           {
             "truth": "root",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "root",
+            "chamfer": 0.018116996864633608,
+            "chamfer_norm": 0.013910894776817647
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "15:root_drawer_top",
+            "chamfer": 0.0051918208539056074,
+            "chamfer_norm": 0.03368417341157053
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "17:root_drawer_upper",
+            "chamfer": 0.004646298312439784,
+            "chamfer_norm": 0.02609386479376136
           },
           {
             "truth": "link_2",
-            "predicted": "root",
-            "chamfer": 0.1722820752573731,
-            "chamfer_norm": 2.4221908027382106
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
           },
           {
             "truth": "link_3",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "13:root_drawer_lower",
+            "chamfer": 0.006115773624123659,
+            "chamfer_norm": 0.05289019627792937
           },
           {
             "truth": "link_4",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "11:root_drawer_bottom",
+            "chamfer": 0.00845532341037154,
+            "chamfer_norm": 0.015118108798038278
           }
         ]
       },
-      "whole_chamfer": 0.007644116753581842,
-      "whole_chamfer_norm": 0.0033176800112341785,
+      "whole_chamfer": 0.005646927440369971,
+      "whole_chamfer_norm": 0.0023804901491314735,
       "joints": {
         "truth": 5,
-        "predicted": 0,
-        "missing": 5,
+        "predicted": 4,
+        "missing": 1,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.18610133023566364,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.1543545976452444
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.036531136798194704,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.15906641217463213
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.6511700901538867,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.09940935612501967
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.06401861401854264,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 2,
-            "range": 1.0
+            "range": 0.11084502457079681
           }
         ],
-        "unpaired_ranges": []
+        "unpaired_ranges": [
+          1.0
+        ]
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793868887.1346695,
-        "model_calls": 17,
-        "tokens": 362523
+        "started_at": 1793935901.9644618,
+        "model_calls": 79,
+        "tokens": 1562804
       },
       "evaluations": 1
     },
@@ -5859,38 +6861,38 @@
   },
   "test-33": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-33",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-33",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 1,
       "object": "Table/22367",
       "bin": "6-15",
       "parts": {
         "truth": 9,
-        "predicted": 3,
+        "predicted": 6,
         "pairs": [
           {
             "truth": "root",
-            "predicted": "root",
-            "chamfer": 0.12696331966990745,
-            "chamfer_norm": 0.0907555423650225
+            "predicted": "20:root_top_right",
+            "chamfer": 0.3059490634272418,
+            "chamfer_norm": 0.20962325544380542
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "19:root_top_left",
+            "chamfer": 0.05330686783353206,
+            "chamfer_norm": 0.9309232974783688
           },
           {
             "truth": "link_1",
-            "predicted": "9:root_door",
-            "chamfer": 0.11409789566344633,
-            "chamfer_norm": 2.4590311972354204
+            "predicted": "root",
+            "chamfer": 0.09889888752838265,
+            "chamfer_norm": 2.491969086500307
           },
           {
             "truth": "link_2",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "18:root_mid_right",
+            "chamfer": 0.16086024012855674,
+            "chamfer_norm": 0.738745654887014
           },
           {
             "truth": "link_3",
@@ -5900,15 +6902,15 @@
           },
           {
             "truth": "link_4",
-            "predicted": "10:root_drawer",
-            "chamfer": 0.0976475397493754,
-            "chamfer_norm": 0.22818651786308303
+            "predicted": "17:root_mid_left",
+            "chamfer": 0.06789148437839779,
+            "chamfer_norm": 0.9824210828081619
           },
           {
             "truth": "link_5",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "16:root_bottom_drawer",
+            "chamfer": 0.06606004991250557,
+            "chamfer_norm": 0.37352466509884097
           },
           {
             "truth": "link_6",
@@ -5924,33 +6926,51 @@
           }
         ]
       },
-      "whole_chamfer": 0.13566759173919576,
-      "whole_chamfer_norm": 0.07853190933301502,
+      "whole_chamfer": 0.06436957649229086,
+      "whole_chamfer_norm": 0.03518542449355926,
       "joints": {
         "truth": 8,
-        "predicted": 2,
-        "missing": 6,
+        "predicted": 5,
+        "missing": 3,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 89.99999999999997,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.6581329161237026
           },
           {
             "type": 1,
-            "rot": 0.0,
+            "rot": 89.99999999999997,
             "pos": null,
             "gt_type": 2,
-            "range": 0.9364728040748705
+            "range": 0.8289101082703163
+          },
+          {
+            "type": 1,
+            "rot": 89.99999999999997,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.7690508591717686
+          },
+          {
+            "type": 1,
+            "rot": 89.99999999999997,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.682031096569423
+          },
+          {
+            "type": 1,
+            "rot": 89.99999999999997,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.6882338590663055
           }
         ],
         "unpaired_ranges": [
-          1.0,
-          1.0,
-          1.0,
           1.0,
           1.0,
           1.0
@@ -5960,33 +6980,33 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793870384.559224,
-        "model_calls": 32,
-        "tokens": 1077555
+        "started_at": 1793948432.4841206,
+        "model_calls": 43,
+        "tokens": 978158
       },
-      "evaluations": 1
+      "evaluations": 4
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-33",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-connect/test-33",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 2,
       "object": "Table/22367",
       "bin": "6-15",
       "parts": {
         "truth": 9,
-        "predicted": 1,
+        "predicted": 7,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.10444885988810168,
-            "chamfer_norm": 0.10693491266983793
+            "chamfer": 0.06357896214106147,
+            "chamfer_norm": 0.06552268748978603
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "19:root_drawer_rb",
+            "chamfer": 0.015651481754789667,
+            "chamfer_norm": 1.1723487652231388
           },
           {
             "truth": "link_1",
@@ -5996,15 +7016,15 @@
           },
           {
             "truth": "link_2",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "20:root_drawer_rm",
+            "chamfer": 0.04754355048032702,
+            "chamfer_norm": 1.766791522290339
           },
           {
             "truth": "link_3",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "16:root_drawer_lb",
+            "chamfer": 0.006935414653188135,
+            "chamfer_norm": 0.1420867874214281
           },
           {
             "truth": "link_4",
@@ -6014,100 +7034,89 @@
           },
           {
             "truth": "link_5",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "21:root_drawer_rt",
+            "chamfer": 0.036210169345763744,
+            "chamfer_norm": 1.621235249679921
           },
           {
             "truth": "link_6",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "17:root_drawer_lm",
+            "chamfer": 0.0043626427496517035,
+            "chamfer_norm": 0.03349599612833751
           },
           {
             "truth": "link_7",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "18:root_drawer_lt",
+            "chamfer": 0.05066103318987129,
+            "chamfer_norm": 0.08410155963079324
           }
         ]
       },
-      "whole_chamfer": 0.03466078014031082,
-      "whole_chamfer_norm": 0.02000207869682502,
+      "whole_chamfer": 0.01718489997278358,
+      "whole_chamfer_norm": 0.010134323705748707,
       "joints": {
         "truth": 8,
-        "predicted": 0,
-        "missing": 8,
+        "predicted": 6,
+        "missing": 2,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.4654123046866255,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.16927009945230775
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.5649253940012148,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.09481768388962675
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 1.0953045027508581,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.17369047443401908
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 0.5057101970278746,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.8619000269429303
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 4.033738534767405,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
+            "range": 0.2213096467587814
           },
           {
-            "type": 0,
-            "rot": null,
+            "type": 1,
+            "rot": 1.4300554775758576,
             "pos": null,
             "gt_type": 2,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 2,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 2,
-            "range": 1.0
+            "range": 0.08471359385270649
           }
         ],
-        "unpaired_ranges": []
+        "unpaired_ranges": [
+          1.0,
+          1.0
+        ]
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793870829.5286036,
-        "model_calls": 16,
-        "tokens": 390577
+        "started_at": 1793968676.1850252,
+        "model_calls": 107,
+        "tokens": 2106936
       },
-      "evaluations": 1
+      "evaluations": 3
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-33",
@@ -6140,32 +7149,149 @@
   },
   "test-34": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-34",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/parallel-score/test-34",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 7,
       "object": "StorageFurniture/49062",
       "bin": "6-15",
       "parts": {
         "truth": 7,
-        "predicted": 1,
+        "predicted": 7,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.34775138039929027,
-            "chamfer_norm": 0.24308295682132872
+            "chamfer": 0.06978022426601627,
+            "chamfer_norm": 0.07275243378860388
           },
           {
             "truth": "link_0",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "11:root_left_bot",
+            "chamfer": 0.08076969450415548,
+            "chamfer_norm": 2.791491754162943
           },
           {
             "truth": "link_1",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "14:root_right_bot",
+            "chamfer": 0.3222043337697213,
+            "chamfer_norm": 2.6813213371064832
+          },
+          {
+            "truth": "link_2",
+            "predicted": "12:root_left_mid",
+            "chamfer": 0.08178681781040445,
+            "chamfer_norm": 0.6970240211123544
+          },
+          {
+            "truth": "link_3",
+            "predicted": "15:root_right_mid",
+            "chamfer": 0.5287211901312125,
+            "chamfer_norm": 4.436895610465083
+          },
+          {
+            "truth": "link_4",
+            "predicted": "13:root_left_top",
+            "chamfer": 0.09897373835275902,
+            "chamfer_norm": 27.79227727440892
+          },
+          {
+            "truth": "link_5",
+            "predicted": "16:root_right_top",
+            "chamfer": 0.7159992839973892,
+            "chamfer_norm": 6.976721387647455
+          }
+        ]
+      },
+      "whole_chamfer": 0.04807654396175787,
+      "whole_chamfer_norm": 0.026583691741613083,
+      "joints": {
+        "truth": 6,
+        "predicted": 6,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.24544221933793892,
+            "gt_type": 3,
+            "range": 0.8461224002987584
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.6643836021791159,
+            "gt_type": 3,
+            "range": 0.837653878694889
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.24544219407727164,
+            "gt_type": 3,
+            "range": 0.8753705576936549
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.6643836229753256,
+            "gt_type": 3,
+            "range": 0.9130175648309737
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.2454422119290529,
+            "gt_type": 3,
+            "range": 0.9480468547961414
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.6643836218179571,
+            "gt_type": 3,
+            "range": 0.7606499158076817
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793944423.0047584,
+        "model_calls": 74,
+        "tokens": 1835375
+      },
+      "evaluations": 8
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-34",
+      "masks": "supplied",
+      "selected": 2,
+      "object": "StorageFurniture/49062",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.01488331525537364,
+            "chamfer_norm": 0.048836521842407804
+          },
+          {
+            "truth": "link_0",
+            "predicted": "12:root_bot_left_door",
+            "chamfer": 0.0004311048436385088,
+            "chamfer_norm": 0.009987196694854858
+          },
+          {
+            "truth": "link_1",
+            "predicted": "13:root_bot_right_door",
+            "chamfer": 0.007369410233967229,
+            "chamfer_norm": 0.06532069665421052
           },
           {
             "truth": "link_2",
@@ -6175,9 +7301,9 @@
           },
           {
             "truth": "link_3",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "15:root_mid_right_door",
+            "chamfer": 0.0002265053882571484,
+            "chamfer_norm": 0.001785263464199099
           },
           {
             "truth": "link_4",
@@ -6187,88 +7313,63 @@
           },
           {
             "truth": "link_5",
-            "predicted": null,
-            "chamfer": null,
-            "chamfer_norm": null
+            "predicted": "17:root_top_right_door",
+            "chamfer": 0.0002251471330444401,
+            "chamfer_norm": 0.00198881532326149
           }
         ]
       },
-      "whole_chamfer": 0.41945067979690415,
-      "whole_chamfer_norm": 0.16756608303021153,
+      "whole_chamfer": 0.008580823080243525,
+      "whole_chamfer_norm": 0.006479444587485514,
       "joints": {
         "truth": 6,
-        "predicted": 0,
-        "missing": 6,
+        "predicted": 4,
+        "missing": 2,
         "pairing": "permutation",
         "errors": [
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.2031908444705561,
+            "pos": 0.029373627475859285,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.778468430912934
           },
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.4345376060382543,
+            "pos": 0.006371807795786597,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.155018320308543
           },
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 1.3352282741012171,
+            "pos": 0.010217462273708598,
             "gt_type": 3,
-            "range": 1.0
+            "range": 0.3661978971629365
           },
           {
-            "type": 0,
-            "rot": null,
-            "pos": null,
+            "type": 1,
+            "rot": 0.06355309081727409,
+            "pos": 0.009424677995470346,
             "gt_type": 3,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 3,
-            "range": 1.0
-          },
-          {
-            "type": 0,
-            "rot": null,
-            "pos": null,
-            "gt_type": 3,
-            "range": 1.0
+            "range": 0.13546188927550207
           }
         ],
-        "unpaired_ranges": []
+        "unpaired_ranges": [
+          1.0,
+          1.0
+        ]
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793871190.921839,
-        "model_calls": 20,
-        "tokens": 511720
+        "started_at": 1793949727.4995475,
+        "model_calls": 39,
+        "tokens": 840325
       },
-      "evaluations": 1
-    },
-    "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-34",
-      "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793871296.0111651,
-        "model_calls": 11,
-        "tokens": 223128
-      },
-      "evaluations": 0
+      "evaluations": 3
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-34",
@@ -6507,34 +7608,126 @@
   },
   "test-35": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-35",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-params/test-35",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
-      "budget": {
-        "max_wall_s": 2700.0,
-        "model_timeout_s": 300.0,
-        "started_at": 1793872513.8293347,
-        "model_calls": 24,
-        "tokens": 964537
-      },
-      "evaluations": 0
-    },
-    "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-35",
-      "masks": "supplied",
-      "selected": 0,
+      "selected": 2,
       "object": "StorageFurniture/47235",
       "bin": "6-15",
       "parts": {
         "truth": 7,
-        "predicted": 3,
+        "predicted": 5,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "13:root_right",
+            "chamfer": 0.22161884545034236,
+            "chamfer_norm": 0.2547803416089663
+          },
+          {
+            "truth": "link_0",
+            "predicted": "11:root_bot_left",
+            "chamfer": 0.7947173240534564,
+            "chamfer_norm": 2.345441283999155
+          },
+          {
+            "truth": "link_1",
+            "predicted": "12:root_mid_left",
+            "chamfer": 0.8789571568032811,
+            "chamfer_norm": 2.584119316141022
+          },
+          {
+            "truth": "link_2",
+            "predicted": "14:root_top_left",
+            "chamfer": 0.7867584586273153,
+            "chamfer_norm": 2.3330045799544683
+          },
+          {
+            "truth": "link_3",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          },
+          {
+            "truth": "link_4",
+            "predicted": "root",
+            "chamfer": 0.2947122193185393,
+            "chamfer_norm": 0.9161618573065277
+          },
+          {
+            "truth": "link_5",
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
+          }
+        ]
+      },
+      "whole_chamfer": 0.0069586954000910705,
+      "whole_chamfer_norm": 0.0048014094477469415,
+      "joints": {
+        "truth": 6,
+        "predicted": 4,
+        "missing": 2,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.43616482242941856
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.410202220082283
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.2599065415561199
+          },
+          {
+            "type": 1,
+            "rot": 0.0,
+            "pos": null,
+            "gt_type": 2,
+            "range": 0.410202220082283
+          }
+        ],
+        "unpaired_ranges": [
+          1.0,
+          1.0
+        ]
+      },
+      "fitted": true,
+      "budget": {
+        "max_wall_s": 2700.0,
+        "model_timeout_s": 300.0,
+        "started_at": 1793968678.5338244,
+        "model_calls": 50,
+        "tokens": 1080058
+      },
+      "evaluations": 5
+    },
+    "gpt54-connect": {
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-35",
+      "masks": "supplied",
+      "selected": 7,
+      "object": "StorageFurniture/47235",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 2,
         "pairs": [
           {
             "truth": "root",
             "predicted": "root",
-            "chamfer": 0.04658032766665373,
-            "chamfer_norm": 0.0893790807627563
+            "chamfer": 0.07240924214028825,
+            "chamfer_norm": 0.18927870814631986
           },
           {
             "truth": "link_0",
@@ -6556,48 +7749,42 @@
           },
           {
             "truth": "link_3",
-            "predicted": "16:root_drawer_bot",
-            "chamfer": 0.1739718080130263,
-            "chamfer_norm": 0.5254589221137135
-          },
-          {
-            "truth": "link_4",
             "predicted": null,
             "chamfer": null,
             "chamfer_norm": null
           },
           {
+            "truth": "link_4",
+            "predicted": "16:root_right_front",
+            "chamfer": 0.0254001422433828,
+            "chamfer_norm": 0.09663407936857682
+          },
+          {
             "truth": "link_5",
-            "predicted": "18:root_drawer_top",
-            "chamfer": 0.19404042570475039,
-            "chamfer_norm": 0.6108585133117936
+            "predicted": null,
+            "chamfer": null,
+            "chamfer_norm": null
           }
         ]
       },
-      "whole_chamfer": 0.009123133024642877,
-      "whole_chamfer_norm": 0.006842929925499159,
+      "whole_chamfer": 0.0065364419579349055,
+      "whole_chamfer_norm": 0.004648015262684909,
       "joints": {
         "truth": 6,
-        "predicted": 2,
-        "missing": 4,
+        "predicted": 1,
+        "missing": 5,
         "pairing": "permutation",
         "errors": [
           {
             "type": 1,
-            "rot": 2.2445020217273406,
+            "rot": 5.279764283008163,
             "pos": null,
             "gt_type": 2,
-            "range": 0.8918138095257722
-          },
-          {
-            "type": 1,
-            "rot": 1.7032405981268208,
-            "pos": null,
-            "gt_type": 2,
-            "range": 0.9274909746686366
+            "range": 0.1989489774756259
           }
         ],
         "unpaired_ranges": [
+          1.0,
           1.0,
           1.0,
           1.0,
@@ -6608,11 +7795,11 @@
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793872997.3345096,
-        "model_calls": 11,
-        "tokens": 223723
+        "started_at": 1793950665.6314342,
+        "model_calls": 54,
+        "tokens": 1179064
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-35",
@@ -6748,9 +7935,9 @@
   },
   "test-36": {
     "gpt54-film": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-film/test-36",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/rolly/gpt54-params/test-36",
       "masks": "supplied",
-      "selected": 0,
+      "selected": 2,
       "object": "StorageFurniture/47926",
       "bin": "6-15",
       "parts": {
@@ -6759,50 +7946,50 @@
         "pairs": [
           {
             "truth": "root",
-            "predicted": "18:root_right_drawer",
-            "chamfer": 1.1543417756367014,
-            "chamfer_norm": 1.182171178740885
+            "predicted": "13:root_upper_right",
+            "chamfer": 1.4282649144818114,
+            "chamfer_norm": 2.203573645711492
           },
           {
             "truth": "link_0",
-            "predicted": "root",
-            "chamfer": 1.2894165371088775,
-            "chamfer_norm": 36.05052758419481
+            "predicted": "5:root_lower_mid",
+            "chamfer": 0.8139570339837137,
+            "chamfer_norm": 10.912399057591447
           },
           {
             "truth": "link_1",
-            "predicted": "14:root_left_drawer",
-            "chamfer": 1.3320791901528954,
-            "chamfer_norm": 15.985799696653366
+            "predicted": "7:root_lower_right",
+            "chamfer": 1.6358997741085148,
+            "chamfer_norm": 14.608263760222137
           },
           {
             "truth": "link_2",
-            "predicted": "17:root_mid_door",
-            "chamfer": 0.25342037570825127,
-            "chamfer_norm": 1.9168922846197072
+            "predicted": "root",
+            "chamfer": 0.4201995955611102,
+            "chamfer_norm": 6.337733672496607
           },
           {
             "truth": "link_3",
-            "predicted": "15:root_left_door",
-            "chamfer": 0.4848212078968282,
-            "chamfer_norm": 3.968919506262222
+            "predicted": "3:root_lower_left",
+            "chamfer": 0.8135317998372475,
+            "chamfer_norm": 8.148658516676482
           },
           {
             "truth": "link_4",
-            "predicted": "16:root_mid_drawer",
-            "chamfer": 0.9100327715454561,
-            "chamfer_norm": 13.262829182624275
+            "predicted": "11:root_upper_mid",
+            "chamfer": 0.5735847597855979,
+            "chamfer_norm": 10.767301621024469
           },
           {
             "truth": "link_5",
-            "predicted": "19:root_right_door",
-            "chamfer": 0.49534672031424976,
-            "chamfer_norm": 3.0663271276551907
+            "predicted": "9:root_upper_left",
+            "chamfer": 1.2164895871590369,
+            "chamfer_norm": 12.29036806281263
           }
         ]
       },
-      "whole_chamfer": 0.26809490488884735,
-      "whole_chamfer_norm": 0.18209339068470026,
+      "whole_chamfer": 0.20281110461507307,
+      "whole_chamfer_norm": 0.1331997683197498,
       "joints": {
         "truth": 6,
         "predicted": 6,
@@ -6817,18 +8004,18 @@
             "range": 1.0
           },
           {
+            "type": 1,
+            "rot": 0.0,
+            "pos": 0.05640293461603185,
+            "gt_type": 3,
+            "range": 0.38532757108531124
+          },
+          {
             "type": 0,
             "rot": null,
             "pos": null,
             "gt_type": 3,
             "range": 1.0
-          },
-          {
-            "type": 1,
-            "rot": 0.0,
-            "pos": 0.037988861600235846,
-            "gt_type": 3,
-            "range": 0.6306512974174345
           },
           {
             "type": 0,
@@ -6854,29 +8041,132 @@
         ],
         "unpaired_ranges": []
       },
-      "fitted": false,
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793873796.7502685,
-        "model_calls": 39,
-        "tokens": 1166096
+        "started_at": 1793945678.3328729,
+        "model_calls": 46,
+        "tokens": 1074657
       },
-      "evaluations": 1
+      "evaluations": 8
     },
     "gpt54-connect": {
-      "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gpt54-connect/test-36",
+      "study": "/home/datnguyen/Marc/reconstruction-gpt54-film-rerun-20261106/selected-records/polly/gpt54-connect/test-36",
       "masks": "supplied",
-      "selected": null,
-      "failure": "no evaluated scene",
+      "selected": 1,
+      "object": "StorageFurniture/47926",
+      "bin": "6-15",
+      "parts": {
+        "truth": 7,
+        "predicted": 7,
+        "pairs": [
+          {
+            "truth": "root",
+            "predicted": "root",
+            "chamfer": 0.01305353170764292,
+            "chamfer_norm": 0.018374286692332327
+          },
+          {
+            "truth": "link_0",
+            "predicted": "11:root_door_far_right",
+            "chamfer": 0.006210022414342113,
+            "chamfer_norm": 0.03279196280086909
+          },
+          {
+            "truth": "link_1",
+            "predicted": "13:root_door_right",
+            "chamfer": 0.05372498518816694,
+            "chamfer_norm": 2.1052684237660086
+          },
+          {
+            "truth": "link_2",
+            "predicted": "10:root_door_center",
+            "chamfer": 0.05248947828709907,
+            "chamfer_norm": 0.8582088241682968
+          },
+          {
+            "truth": "link_3",
+            "predicted": "12:root_door_left",
+            "chamfer": 0.1196059712685664,
+            "chamfer_norm": 0.8745663640762051
+          },
+          {
+            "truth": "link_4",
+            "predicted": "15:root_drawer_right",
+            "chamfer": 0.027413029129910896,
+            "chamfer_norm": 0.14545086440759075
+          },
+          {
+            "truth": "link_5",
+            "predicted": "14:root_drawer_left",
+            "chamfer": 0.02841811235103898,
+            "chamfer_norm": 0.15051434832287627
+          }
+        ]
+      },
+      "whole_chamfer": 0.01221842687231213,
+      "whole_chamfer_norm": 0.010503870049858378,
+      "joints": {
+        "truth": 6,
+        "predicted": 6,
+        "missing": 0,
+        "pairing": "permutation",
+        "errors": [
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.1774907735558164,
+            "pos": 0.29291230814917774,
+            "gt_type": 3,
+            "range": 0.9486035086252235
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 3,
+            "range": 1.0
+          },
+          {
+            "type": 1,
+            "rot": 0.0582966376211835,
+            "pos": 0.006589526480895069,
+            "gt_type": 3,
+            "range": 0.7518544332164294
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          },
+          {
+            "type": 0,
+            "rot": null,
+            "pos": null,
+            "gt_type": 2,
+            "range": 1.0
+          }
+        ],
+        "unpaired_ranges": []
+      },
+      "fitted": true,
       "budget": {
         "max_wall_s": 2700.0,
         "model_timeout_s": 300.0,
-        "started_at": 1793874089.8681083,
-        "model_calls": 26,
-        "tokens": 788038
+        "started_at": 1793950825.596253,
+        "model_calls": 23,
+        "tokens": 696520
       },
-      "evaluations": 0
+      "evaluations": 3
     },
     "gem31-film": {
       "study": "/home/amberli/Marc/reconstruction-baselines-20261104/runs/gem31-film/test-36",
