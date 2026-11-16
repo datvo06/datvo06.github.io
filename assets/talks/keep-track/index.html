@@ -46,7 +46,6 @@
     .reveal .tuple { font-family: "IBM Plex Mono", monospace; font-size: 0.75em; color: var(--blue); line-height: 1.6; }
     .reveal figure { margin: 0; }
     .reveal figure img { width: 100%; height: 390px; object-fit: contain; margin: 0; border: 0; box-shadow: none; }
-    #october-baselines figure img { height: 330px; }
     #paid-mappings .source-panel, #precision-failures .source-panel, #coverage-override .source-panel, #recall-failures .source-panel, #edit-budget .source-panel, #lexicon-results .source-panel { width: 1120px; }
     #lexicon-results figure img { height: 226px; }
     #agreement-rule table td:first-child { width: auto; }
@@ -65,10 +64,39 @@
     #agreement-rule .attempt-strip .dissent { border: 2px dashed var(--failure); }
     #lexicon-results .code-reference .source-panel { top: auto; bottom: 100%; }
     #lexicon-results .source-panel code.language-text { white-space: pre-wrap; }
+    #interpretation-fullrun table.study-cases { font-size: 0.5em; }
+    #interpretation-fullrun table.study-cases td:first-child { width: 18%; }
+    #interpretation-fullrun h2 { margin-bottom: 0.4em; }
+    /* The commitment tooltip anchors to its row so it spans the table width. */
+    #interpretation-fullrun tbody tr { position: relative; }
+    #interpretation-fullrun tbody tr:has(.relation-ref:hover, .relation-ref:focus) { z-index: 40; }
+    #interpretation-fullrun .relation-proof { font-size: 14px; line-height: 1.45; }
+    #interpretation-fullrun .relation-proof p { margin: 0 0 6px; }
+    #interpretation-fullrun .relation-proof code { display: inline; font-size: 13px; margin: 0; }
+    #interpretation-fullrun .relation-proof .counts span { display: inline-block; margin: 2px 10px 0 0; padding: 1px 6px; border: 1px solid #aebcd5; border-radius: 4px; }
+    #interpretation-fullrun .code-reference .source-panel { width: 1120px; max-height: 620px; }
+    #interpretation-fullrun .code-reference .source-panel pre { font-size: 18px; }
+    #interpretation-fullrun .saved-artifact .source-panel pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    #current-scope h2 { margin-bottom: 0.4em; }
+    #current-scope li { margin-bottom: 0.35em; }
+    #current-scope .inline .source-panel { max-height: 590px; }
     .relation-ref { cursor: help; border-bottom: 2px dotted var(--blue); }
     .relation-ref:focus { outline: 3px solid var(--blue); outline-offset: 3px; }
     .relation-ref > code { font-size: 0.8em; }
     #precision-failures td, #precision-failures tbody tr { position: relative; }
+    #biorelfact-setup td, #biorelfact-setup tbody tr { position: relative; }
+    #biorelfact-setup tbody tr:has(.relation-ref:hover, .relation-ref:focus) { z-index: 40; }
+    #biorelfact-setup .relation-proof { bottom: auto; top: calc(100% + 2px); }
+    #biorelfact-setup .relation-proof::after { top: auto; bottom: 100%; height: 14px; }
+    #biorelfact-setup .relation-proof p { margin: 0 0 8px; }
+    #biorelfact-setup .relation-proof small, .pair-list small { display: block; color: var(--muted); font-size: 13px; }
+    .pair-list h4 { margin: 12px 0 4px; font-size: 14px; color: var(--muted); font-weight: 600; }
+    .pair-list p { margin: 0 0 8px; font-size: 14px; line-height: 1.4; }
+    #biorelfact-setup .code-reference.inline .source-panel { top: calc(100% + 4px); bottom: auto; max-height: 560px; }
+    #biorelfact-setup .relation-proof { font-size: 13px; }
+    #biorelfact-setup blockquote { font-size: 0.8em; margin: 0.5em 0; }
+    #dev-3 { columns: 4; column-gap: 18px; font-size: 12px; }
+    #dev-3 .rel { display: block; break-inside: avoid; }
     /* Keeps the slide inside 760px with the relation chips. */
     #precision-failures table.study-cases { font-size: 0.6em; }
     /* Fragment rows are stacking contexts, so a row rises only while its own tree shows. */
@@ -121,8 +149,8 @@
     .code-reference .source-panel p { margin: 0 0 12px; }
     .code-reference .source-panel pre { margin: 10px 0 18px; font-size: 14px; line-height: 1.45; }
     .code-reference .source-panel pre code { padding: 12px; }
-    .code-reference.saved-artifact { position: relative; top: auto; right: auto; font-size: 0.64em; }
-    .code-reference.saved-artifact .source-panel { top: auto; bottom: 100%; left: 0; right: auto; width: 1050px; max-height: 490px; }
+    .code-reference.saved-artifact, .code-reference.inline { position: relative; top: auto; right: auto; font-size: 0.64em; }
+    .code-reference.saved-artifact .source-panel, .code-reference.inline .source-panel { top: auto; bottom: 100%; left: 0; right: auto; width: 1050px; max-height: 490px; }
     .reveal .result-table { font-size: 0.65em; }
     #method > .code-example > pre { font-size: 0.58em; line-height: 1.45; }
     .semantic-legend { position: absolute; top: 12px; left: 24px; z-index: 25; display: flex; gap: 12px; flex-wrap: wrap; font-size: 16px; line-height: 1.4; }
@@ -201,13 +229,13 @@
   <p class="nav"><a href="#/claims">Overview</a><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track">Repository</a></p>
 </section>
 
-<section id="research-map">
+<section id="research-map" class="no-marks">
   <p class="eyebrow">Research roadmap</p>
   <h2>Methods, experiment settings and results</h2>
   <nav class="research-map" aria-label="Research sections">
     <a href="#/claims"><strong>1. Methods</strong><span>Check claims against their source, then search for an extractor that covers more source words within an edit budget.</span></a>
-    <a href="#/study-setup"><strong>2. Experiment settings</strong><span>Ten authored sentences, expected answers and scoring criteria.</span></a>
-    <a href="#/agent-confusions"><strong>3. Results, in date order</strong><span>Authored sentences, BioRelFact search and agreement, reviewed interpretations and automatic checks.</span></a>
+    <a href="#/biorelfact-setup"><strong>2. Experiment settings</strong><span>The 65 BioRelFact pairs, their gold labels and relation F1.</span></a>
+    <a href="#/paid-mappings"><strong>3. Results, in date order</strong><span>BioRelFact search and agreement, reviewed interpretations and automatic checks.</span></a>
   </nav>
 </section>
 
@@ -458,7 +486,6 @@ def synthesize(source: Document, policy: Policy) -> Extractor | Failure:
   <aside class="notes">Conceptual loop. The real synthesize_extractor returns Annotated[RelationExtractorCallable, AfterValidator(accept_candidate)]; accept_candidate executes and checks the callable, then returns that same callable. The actual extractor takes a document key (str) and returns list[Relation]; these slides use Document and Claim for readability. Failure summarizes exhausted retries or the request limit rather than the implementation's exceptions. One request is one model call. Sources: <a href="https://github.com/datvo06/keep-track/pull/6">#6</a>, <a href="https://github.com/datvo06/keep-track/pull/10">#10</a>.</aside>
 </section>
 
-
 <section id="execution-validation" data-date="2026-09-28" data-prs="10,11">
   <p class="eyebrow">September 28 to 29, 2026</p>
   <h2>Approved normalization and paid text edits</h2>
@@ -536,7 +563,6 @@ def _add(
 <p><a href="https://github.com/datvo06/keep-track/blob/a3e1a968884861fba6c80dbf638b196224f7e4bb/examples/data/keeptrack_checked_v2_run.json#L8927" target="_blank" rel="noopener">Recorded submission · direct · line 8927</a></p>
 <pre><code class="language-python recorded-source" data-commit="a3e1a968884861fba6c80dbf638b196224f7e4bb" data-path="examples/data/keeptrack_checked_v2_run.json" data-record="direct" data-request="1">from collections.abc import Callable
 
-
 def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], list[Relation]]:
     def extract(key: str) -&gt; list[Relation]:
         return []
@@ -592,33 +618,10 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <aside class="notes">Conceptual view of source support used for coverage, not a claim that the evaluator recursively traverses every derivation node. The implementation reads each admitted relation proof's parsed role ranges, context mentions and negation cues, then checks grounded context values. It credits each source word once: 1 for relation-supported ranges, context_credit=0.5 for context-only ranges, otherwise 0. Only the scored document counts. The complete evidence quotation is not a coverage range. <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/keeptrack/coverage.py#L15-L59">Actual coverage and token_credits implementation</a>; <a href="https://github.com/datvo06/keep-track/pull/12">PR #12</a>.</aside>
 </section>
 
-<section id="search-objective" data-date="2026-10-01" data-prs="13">
-  <p class="eyebrow">October 1, 2026</p>
-  <h2>Maximize coverage minus edit cost</h2>
-  <p class="objective-terms"><strong>P</strong> is a proposed extractor; <strong>d</strong> is one source sentence. <strong>C(P, d)</strong> is its checked word coverage, e.g., 7/8 for our positive Drug A/Gene B sentence. <strong>u(P, d)</strong> is the cost of permitted transformations of source-derived text, e.g., an addition charged 1 unit. <strong>B &gt; 0</strong> is the allowance: spending 1 unit from B = 2 uses half.</p>
-  <div class="objective">
-    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="P star is an arg max over accepted submitted programs of coverage C of P and d minus lambda times edit cost u of P and d divided by budget B">
-      <msup><mi>P</mi><mo>⋆</mo></msup><mo>∈</mo>
-      <munder><mo movablelimits="false">arg max</mo><mrow><mi>P</mi><mo>∈</mo><msub><mi mathvariant="script">P</mi><mtext class="role-accepted">Accepted</mtext></msub></mrow></munder>
-      <mrow><mo>[</mo><mi>C</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><mi>d</mi><mo stretchy="false">)</mo><mo>−</mo><mi>λ</mi><mfrac><mrow><mi>u</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><mi>d</mi><mo stretchy="false">)</mo></mrow><mi>B</mi></mfrac><mo>]</mo></mrow>
-    </math>
-  </div>
-  <p class="objective-terms"><strong>arg max</strong> selects a program with the largest score. <strong>𝒫<sub>Accepted</sub></strong> contains submitted programs that pass source checks and all edit limits. <strong>λ</strong> sets the cost penalty; PR #13 uses λ = 0.5.</p>
-  <table class="study-cases">
-    <thead><tr><th>Illustrative accepted proposal</th><th>Coverage C</th><th>Cost u, with B = 2</th><th>C − 0.5 u / B</th></tr></thead>
-    <tbody>
-      <tr><td><strong>P₁: no paid edit</strong></td><td>0.60</td><td>0</td><td><strong>0.60 ← selected</strong></td></tr>
-      <tr><td>P₂: one approved paid edit</td><td>0.80</td><td>1</td><td>0.55</td></tr>
-    </tbody>
-  </table>
-  <p class="note">The controlling Python program asks the model for six extractor proposals, scores each with a fresh edit budget, and selects the highest-scoring passing submission. A Refusal scores −1.5. This search gives no global optimality guarantee; the table is illustrative.</p>
-  <aside class="notes">Equation summarizes final selection in <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/checked_experiment.py#L449-L556">run_search</a>, introduced in <a href="https://github.com/datvo06/keep-track/pull/13">PR #13</a>. Budget B is edit_limit(policy), capped by the aggregate edit limit and the sum of per-kind limits; each candidate must also satisfy those individual limits. u is edit_spending, summed once across edit kinds. These are evidence-operation costs, not edits to Python source or model request costs. The empty seed guides proposals but is excluded from final answers. The arg max is a set, so membership allows tied winners. The numerical example assumes a richer source with an approved paid normalization that unlocks extra supported content; the ten pilot sentences do not demonstrate this tradeoff.</aside>
-</section>
-
 <section id="budget-objective">
-  <p class="eyebrow">Alternative formulation</p>
+  <p class="eyebrow">Selection rule in the BioRelFact search</p>
   <h2>Maximize coverage within an edit budget</h2>
-  <p class="compact">Keep the same checked programs and cost units. Treat <strong>B</strong> as a hard spending cap, and select the program with the greatest coverage.</p>
+  <p class="objective-terms"><strong>P</strong> is a proposed extractor; <strong>d</strong> is one source sentence. <strong>C(P, d)</strong> is its checked word coverage, e.g., 7/8 for our positive Drug A/Gene B sentence. <strong>u(P, d)</strong> is the cost of permitted transformations of source-derived text, e.g., an addition charged 1 unit, or an undeclared predicate mapping charged 1 unit per word. <strong>B</strong> is a hard spending cap. <strong>𝒫<sub>Accepted</sub></strong> holds the attempts whose program ran and returned a decision the checker passed within B.</p>
   <div class="objective">
     <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="P star is an arg max of coverage C of P and d over accepted submitted programs, subject to edit cost u of P and d being at most B">
       <msup><mi>P</mi><mo>⋆</mo></msup><mo>∈</mo>
@@ -629,18 +632,17 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
     </math>
   </div>
   <table>
-    <thead><tr><th>Same illustrative proposals</th><th>Eligible programs</th><th>Selected program</th></tr></thead>
+    <thead><tr><th>Illustrative proposals</th><th>Eligible programs</th><th>Selected program</th></tr></thead>
     <tbody>
       <tr><td>B = 0: no paid edits</td><td>P₁ only</td><td>P₁: coverage 0.60</td></tr>
       <tr><td>B = 1: allow one cost unit</td><td>P₁ and P₂</td><td><strong>P₂: coverage 0.80</strong></td></tr>
     </tbody>
   </table>
-  <p class="compact">At B = 2, this formulation still selects P₂. The weighted objective with λ = 0.5 selects P₁: the extra 0.20 coverage does not offset the 0.25 penalty.</p>
-  <p class="note">The recorded <strong>coverage-first</strong> method (PR #12) lets the model call the evaluator when it chooses; it selects the passing proposal with greatest coverage, breaking ties by lower spending. The host-search method instead forces six proposals with the weighted score. The hard-cap comparison above is illustrative and was not run.</p>
-  <aside class="notes">The Accepted set is recomputed under the chosen policy and budget. Each proposal starts with a fresh allowance. The constraint repeats the total-cap part of acceptance to make the optimization problem explicit; per-kind limits and source checks still apply. A tie in coverage may be resolved by smaller spending. Weighted and constrained formulations need not pick the same program for arbitrary choices of lambda and B, especially over a discrete candidate set. This pure-coverage comparison has not been run in the displayed study.</aside>
+  <p class="note">The BioRelFact search ranks each passing attempt by covered words, then by fewer edits, with a fresh budget of B units per attempt (PR #22; the budget flag in PR #27). The recorded runs use B = 2, 4 and 8 on 65 pairs and B = 4 and 8 on all 1,767 pairs. The table is illustrative.</p>
+  <aside class="notes">The BioRelFact search implements this rule. Candidate.rank returns (covered_words, -edits); Search.consider keeps the first and the best eligible candidate, where eligible means the program ran and returned a decision the checker passed. Each evaluate_program call builds a fresh UnitEditContext that charges one unit per addition or deletion and one unit per source word of an undeclared predicate mapping, all against the single edit budget. The --edit-budget flag defaults to 2; the 65-pair study used 2, 4 and 8, and the full-corpus runs used 4 and 8. The table is illustrative; its programs are not from a run.</aside>
 </section>
 
-<section id="study-setup" data-date="2026-09-14" data-prs="6">
+<section id="study-setup" data-date="2026-09-14" data-prs="6" data-visibility="hidden">
   <p class="eyebrow">Experiment settings · Dataset and inclusion criteria</p>
   <h2>Which ten sentences, and why?</h2>
   <p class="definitions">We authored <strong>controlled contrasts</strong>: change the verb, polarity, roles or assay to test what must stay supported. The declared synonym rule equates <code>blocks</code> with <code>inhibits</code> only for a Drug subject and Gene object in assay X.</p>
@@ -658,7 +660,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <aside class="notes">The ten-source comparison appears on September 14; the explicit selection rationale and grammar-v2 study appear on September 15. <a href="https://github.com/datvo06/keep-track/blob/b05dd76/examples/negation_and_justification.ipynb">Notebook: why these ten synthetic examples</a>. “Our doc1” in the opening slides is illustrative; the actual negative fixture here uses block/Gene C.</aside>
 </section>
 
-<section id="study-boundaries" data-date="2026-09-14" data-prs="6">
+<section id="study-boundaries" data-date="2026-09-14" data-prs="6" data-visibility="hidden">
   <p class="eyebrow">Experiment settings · Dataset and inclusion criteria</p>
   <h2>When should we withhold or keep the relation?</h2>
   <p class="definitions"><strong>Abstention</strong> means returning no claim, <code>[]</code>. A failed synonym condition still permits the original <code>blocks</code> relation when the source asserts it.</p>
@@ -676,7 +678,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <aside class="notes"><a href="https://github.com/datvo06/keep-track/blob/b05dd76/examples/negation_and_justification.ipynb">September 15 notebook selection rationale</a>. The source strings remain unchanged through the October notebook revisions.</aside>
 </section>
 
-<section id="study-scoring" data-date="2026-09-14" data-prs="6">
+<section id="study-scoring" data-date="2026-09-14" data-prs="6" data-visibility="hidden">
   <p class="eyebrow">Experiment settings · Scoring</p>
   <h2>What counts as a recovered target?</h2>
   <p class="definitions">A <strong>reference</strong> is an independently authored correct claim. Approved <code>blocks</code>/<code>inhibits</code> spellings recover the same target once. Labels are kept outside the model-facing synthesis module.</p>
@@ -692,7 +694,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <aside class="notes">September 15 changed the main score from relation meaning alone to meaning + complete quotation. Grammar v2 also admitted “never”; its target had already been in the test set. <a href="https://github.com/datvo06/keep-track/blob/9cd1fdd/examples/negation_and_justification.ipynb">Complete-extraction scoring and grammar-v2 revision</a>. Failed runs never earn empty-answer credit. Precision is undefined when no claims are returned. Historical v1 outputs remain separate.</aside>
 </section>
 
-<section id="agent-confusions" data-date="2026-10-04" data-prs="14">
+<section id="agent-confusions" data-date="2026-10-04" data-prs="14" data-visibility="hidden">
   <p class="eyebrow">October 4, 2026</p>
   <h2>Search and clearer interfaces improve recovery</h2>
   <figure>
@@ -702,7 +704,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <aside class="notes"><a href="https://github.com/datvo06/keep-track/pull/12">#12</a>, <a href="https://github.com/datvo06/keep-track/pull/13">#13</a>, <a href="https://github.com/datvo06/keep-track/pull/14">#14</a>. Small sequential development comparisons, not isolated causal effects. Intermediate document-type runs are reported but not committed.</aside>
 </section>
 
-<section id="langextract-proof" data-date="2026-10-04" data-prs="14">
+<section id="langextract-proof" data-date="2026-10-04" data-prs="14" data-visibility="hidden">
   <p class="eyebrow">Baseline: LangExtract + proof reconstruction</p>
   <h2>Reconstructing proof from LangExtract's extraction</h2>
   <blockquote>Drug A blocks Gene B in assay X.</blockquote>
@@ -736,7 +738,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
   <aside class="notes">The example corresponds to positive_candidate with Drug A, predicate_source blocks, normalized predicate inhibits, Gene B, positive polarity and assay X. The proposal shape is illustrative, not a claim that this exact rendering is a recorded LangExtract response. Actual conversion and checking: <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_demo.py#L281-L375">evaluate, check_langextract and positive_candidate</a>. The <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/negation_demo.py#L668-L679">all-checks arm filters report.ok</a>. Synthesis searches for an executable extractor; this adapter reconstructs a checked relation from fixed proposed fields.</aside>
 </section>
 
-<section id="october-baselines" data-date="2026-10-04" data-prs="14">
+<section id="october-baselines" data-date="2026-10-04" data-prs="14" data-visibility="hidden">
   <p class="eyebrow">October 4, 2026</p>
   <h2>The fully checked baseline remains strong</h2>
   <p class="definitions">“Direct structured LLM” asks for fixed fields, e.g., <code>{subject: "Drug A", predicate: "inhibits", ...}</code>, without generating an extractor. These October runs use gpt-5.4-mini.</p>
@@ -750,20 +752,21 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
 
 <section id="biorelfact-setup" class="no-marks" data-date="2026-10-22">
   <p class="eyebrow">Experiment settings · BioRelFact</p>
-  <h2>65 development pairs from BioRelFact</h2>
-  <blockquote>“…characterized the clinical benefit for progression-free survival and overall survival for <span class="semantic-mark role-subject">ixabepilone</span> in special populations, such as patients with <span class="semantic-mark role-object">triple-negative breast cancer</span>…”</blockquote>
-  <p class="definitions">Each pair gives a sentence, two marked mentions and their types. The label is one of nine relations or NO_RELATION; here it is DRUG : DISEASE - THERAPEUTIC_USE.</p>
+  <h2>I conducted a small pilot study with BioRelFact</h2>
+  <div class="code-reference inline"><button type="button">All 65 development pairs · highlighted</button><div class="source-panel" role="region" aria-label="All 65 development pairs"><p><strong>The frozen development pairs the pilot studies used.</strong> Subject and object mentions highlighted; gold label, facticity and case id after each sentence.</p><div class="pair-list"><h4>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · 12</h4><p>“The review of the literature further revealed that later ages at onset and the presence of <span class="semantic-mark role-object">cerebellar ataxia</span> are the main characteristics of patients carrying the DNMT1 p.<span class="semantic-mark role-subject">Y511H</span> as compared with those carrying DNMT1 p.Y511C.” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L2010158947:663:886:17:31</small></p><p>“We have analyzed, in a group of ESRD patients and matched controls, a set of SNPs of genes (Klotho <span class="semantic-mark role-subject">rs577912</span>, rs564481, rs9536314; FGF23 rs7955866; IGF1 rs35767; TNFA rs1800629; IL6 rs1800795; MIF rs755622, rs1007888) chosen in relation to their possible involvement with <span class="semantic-mark role-object">renal disease</span> and concomitant pathologies.” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · possible · EMBASE:L2015580739:347:660:12:25</small></p><p>“We have analyzed, in a group of <span class="semantic-mark role-object">ESRD</span> patients and matched controls, a set of SNPs of genes (Klotho rs577912, rs564481, rs9536314; FGF23 <span class="semantic-mark role-subject">rs7955866</span>; IGF1 rs35767; TNFA rs1800629; IL6 rs1800795; MIF rs755622, rs1007888) chosen in relation to their possible involvement with renal disease and concomitant pathologies.” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · possible · EMBASE:L2015580739:347:660:16:21</small></p><p>“We have analyzed, in a group of ESRD patients and matched controls, a set of SNPs of genes (Klotho rs577912, rs564481, <span class="semantic-mark role-subject">rs9536314</span>; FGF23 rs7955866; IGF1 rs35767; TNFA rs1800629; IL6 rs1800795; MIF rs755622, rs1007888) chosen in relation to their possible involvement with <span class="semantic-mark role-object">renal disease</span> and concomitant pathologies.” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · possible · EMBASE:L2015580739:347:660:17:25</small></p><p>“Results: Our results indicate that carrying T allele in both <span class="semantic-mark role-subject">rs7597593</span> and rs10761482 is associated with <span class="semantic-mark role-object">Schizophrenia</span> (rs10761482: p-value&lt;inf&gt;Chi-square&lt;/inf&gt; = 0.007, OR&lt;inf&gt;(SCZ/control)&lt;/inf&gt; = 1.943195/ rs7597593: p-value&lt;inf&gt;Chi-squared&lt;/inf&gt; = 5.736 × 10&lt;sup&gt;−9&lt;/sup&gt;, OR&lt;inf&gt;(SCZ/control)&lt;/inf&gt; = 4.088313) and increases the risk of schizophrenia incidence in Iranian population (p-value&lt;inf&gt;rs759793&lt;/inf&gt; = 1.80 × 10&lt;sup&gt;−11&lt;/sup&gt;, p-value&lt;inf&gt;rs10761482&lt;/inf&gt; = 6.09 × 10&lt;sup&gt;−5&lt;/sup&gt;).” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L2016491593:864:1362:19:25</small></p><p>“Using the sequence information of the NGS-based IG clonality analysis, multiple related subclones could be distinguished in the PAX5 <span class="semantic-mark role-subject">P80R</span>-mutated <span class="semantic-mark role-object">B-ALL</span>.” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L2019595956:521:673:2:3</small></p><p>“The haplotype analysis revealed an association between the ACTATGG haplotype and higher risk of <span class="semantic-mark role-object">asthma</span> for the <span class="semantic-mark role-subject">rs1544410</span>, rs7975232, rs731236, rs4646536, rs703842, rs3782130 and rs10877012 genetic polymorphisms (p = 0.039).” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L2021764793:1168:1391:5:12</small></p><p>“Conclusions: KRAS <span class="semantic-mark role-subject">G12D</span> inhibition reprogrammed the TIME in pancreatic cancer experimental models, reversed <span class="semantic-mark role-object">tumor</span> growth, increased CD8&lt;sup&gt;+&lt;/sup&gt; T cell infiltration, decreased myeloid infiltration and elicited sustained tumor regression in response to MRTX1133 combined with immune checkpoint inhibitors.” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L2029407179:2481:2787:62:79</small></p><p>“Cytomegalovirus (<span class="semantic-mark role-object">CMV) infection</span> was more common in patients transplanted with TIM-3 <span class="semantic-mark role-subject">rs10515746</span> mismatched donors (p = 0.0229) and this association was also found to be independent of HLA incompatibility and pre-transplant CMV-IgG status.” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L2033279169:1454:1691:4:6</small></p><p>“Seven SNPs were associated with lower risk of moderate to severe <span class="semantic-mark role-object">xerostomia</span>, of which only one mapped to specific genomic region (15q21.3, <span class="semantic-mark role-subject">rs4776140</span>, MA = G, LOC105370826, a ncRNA class RNA gene, P = 1.5 × 10-5).” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L637848562:1055:1267:29:32</small></p><p>“Our GWAS identified eight SNPs suggestively associated with higher risk of moderate to severe <span class="semantic-mark role-object">xerostomia</span> in six genomic regions (2p13.3, rs6546481, Minor Allele (MA) = A, ANTXR1, P = 4.3 × 10-7; 5p13.2-p13.1, rs16903936, MA = G, EGFLAM, P = 5.1 × 10-6; 4q21.1, <span class="semantic-mark role-subject">rs10518156</span>, MA = G, SHROOM3, P = 7.1 × 10-6; 19q13.42, rs11882068, MA = G, NLRP9, P = 1.7 × 10-5; 12q24.33, rs4760542, MA = G, GLT1D1, P = 1.8 × 10-5; and 3q27.3, rs11714564, MA = G, RTP1, P = 2.9 × 10-5.” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L637848562:589:1054:24:31</small></p><p>“Of these, five missense variants were seen in cases of <span class="semantic-mark role-object">demyelinating diseases</span> but not in healthy controls: STAM2 (c.259C&amp;gt;T, p.Arg87Cys), CHMP4C (c.455G&amp;gt;A, <span class="semantic-mark role-subject">p.Arg152Gln</span>), TSG101 (c.501G&amp;gt;A, p.Met167Ile), VPS4A (c.1171G&amp;gt;A, p.Asp391Asn), IST1 (c.505G&amp;gt;A, p.Ala169Thr; c.22G&amp;gt;A, p.Ala8Thr; c.466G&amp;gt;A, p.Ala156Thr).” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L641754789:1483:1809:33:42</small></p><h4>DRUG : DISEASE - THERAPEUTIC_USE · 7</h4><p>“In a previously reported case of <span class="semantic-mark role-object">autoimmune hemolytic anemia</span> (AIHA) with TKS, we observed that AIHA initially resolved with <span class="semantic-mark role-subject">prednisolone</span>, but gradually became refractory to drug therapy.” <small>DRUG : DISEASE - THERAPEUTIC_USE · fact · EMBASE:L2020407718:397:583:0:2</small></p><p>“Purpose: We compared the clinical effects of Neurotropin, <span class="semantic-mark role-subject">limaprost alfadex</span>, and a combination of both drugs for <span class="semantic-mark role-object">lumbar spinal stenosis</span> (LSS) with low back pain (LBP).” <small>DRUG : DISEASE - THERAPEUTIC_USE · uncommitted · EMBASE:L2021063807:0:167:0:5</small></p><p>“Purpose: We compared the clinical effects of <span class="semantic-mark role-subject">Neurotropin</span>, limaprost alfadex, and a combination of both drugs for lumbar spinal stenosis (<span class="semantic-mark role-object">LSS</span>) with low back pain (LBP).” <small>DRUG : DISEASE - THERAPEUTIC_USE · fact · EMBASE:L2021063807:0:167:3:6</small></p><p>“Participants were patients diagnosed with <span class="semantic-mark role-object">LSS</span> by MRI and were randomly assigned to three groups: Neurotropin/<span class="semantic-mark role-subject">limaprost</span> combination (NL group), Neurotropin (N group), and limaprost group (L group).” <small>DRUG : DISEASE - THERAPEUTIC_USE · uncommitted · EMBASE:L2021063807:282:478:1:7</small></p><p>“This interventional study aimed to assess efficacy and safety of <span class="semantic-mark role-subject">perampanel</span> as an early add-on treatment of <span class="semantic-mark role-object">focal-onset seizures</span> (FOS) with or without focal-to-bilateral tonic–clonic seizures (FBTCS) in Chinese patients.” <small>DRUG : DISEASE - THERAPEUTIC_USE · uncommitted · EMBASE:L2025410597:226:446:4:8</small></p><p>“Background: <span class="semantic-mark role-subject">Vedolizumab</span> is a gut-selective anti-lymphocyte trafficking agent approved for the treatment of moderate to severely active inflammatory bowel disease (IBD: ulcerative colitis [UC] and <span class="semantic-mark role-object">Crohn&#x27;s disease [CD</span>]).” <small>DRUG : DISEASE - THERAPEUTIC_USE · fact · EMBASE:L2031903688:0:218:1:5</small></p><p>“Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for <span class="semantic-mark role-subject">ixabepilone</span> in special populations, such as patients with <span class="semantic-mark role-object">triple-negative breast cancer</span> or those who relapsed within 12 months of prior treatment.” <small>DRUG : DISEASE - THERAPEUTIC_USE · fact · EMBASE:L635534563:816:1120:2:4</small></p><h4>DRUG : GENE - ANTAGONIST · 4</h4><p>“Isometric tension recordings for roflumilast and <span class="semantic-mark role-subject">tadalafil</span>, PDE4 and <span class="semantic-mark role-object">PDE5</span> inhibitors, <span class="semantic-mark role-context">respectively</span>, electrical field stimulation (EFS) and β-adrenoceptor agonist isoproterenol and endogenous H&lt;inf&gt;2&lt;/inf&gt;S production measurement.” <small>DRUG : GENE - ANTAGONIST · fact · EMBASE:L2017030624:735:964:0:13</small></p><p>“Rat models of glucocorticoid-induced ANFH with AS-IV intervention were established, and osteogenesis, angiogenesis, apoptosis and oxidative stress were evaluated before and after blocking the PI3K/<span class="semantic-mark role-object">Akt pathway</span> with <span class="semantic-mark role-subject">LY294002</span>.” <small>DRUG : GENE - ANTAGONIST · fact · EMBASE:L2022855559:372:595:0:1</small></p><p>“Rat models of glucocorticoid-induced ANFH with AS-IV intervention were established, and osteogenesis, angiogenesis, apoptosis and oxidative stress were evaluated before and after blocking the <span class="semantic-mark role-object">PI3K</span>/Akt pathway with <span class="semantic-mark role-subject">LY294002</span>.” <small>DRUG : GENE - ANTAGONIST · fact · EMBASE:L2022855559:372:595:0:2</small></p><p>“After completing four cycles of intravenous <span class="semantic-mark role-subject">infliximab</span>, a tumor <span class="semantic-mark role-object">necrosis factor (TNF)</span> inhibitor, her vaginal and perianal discharge resolved completely.” <small>DRUG : GENE - ANTAGONIST · fact · EMBASE:L636172116:3342:3494:0:2</small></p><h4>GENE : DISEASE - MODULATES · 4</h4><p>“Accumulating evidence suggests that <span class="semantic-mark role-subject">insulin</span> deficiency is a risk factor for <span class="semantic-mark role-object">Alzheimer’s disease</span> (AD); however, the underlying molecular mechanisms are not completely understood.” <small>GENE : DISEASE - MODULATES · fact · EMBASE:L2017878452:0:177:5:7</small></p><p>“Overall, this work shows hypothalamic <span class="semantic-mark role-subject">ataxin-2</span> as a new player in metabolism regulation, which might contribute to the development of new strategies for <span class="semantic-mark role-object">metabolic disorders</span>.” <small>GENE : DISEASE - MODULATES · fact · EMBASE:L2018799259:1454:1627:12:15</small></p><p>“Treating <span class="semantic-mark role-object">craniosynostosis</span> mice with Yoda1, a small molecule agonist for <span class="semantic-mark role-subject">Piezo1</span>, reduces intracranial pressure and improves CSF flow, in addition to restoring meningeal lymphangiogenesis, drainage to the deep cervical lymph nodes, and brain-CSF perfusion.” <small>GENE : DISEASE - MODULATES · fact · EMBASE:L2027952435:771:1025:9:12</small></p><p>“The development of novel <span class="semantic-mark role-subject">5-HT2C</span> agonists for weight loss represents a potentially important approach for addressing antipsychotic-associated <span class="semantic-mark role-object">weight gain</span>.” <small>GENE : DISEASE - MODULATES · fact · EMBASE:L639855122:3622:3775:5:7</small></p><h4>DRUG : DISEASE - CAUSAL_EFFECT · 2</h4><p>“Reciprocal <span class="semantic-mark role-object">cross-sensitization</span> between <span class="semantic-mark role-subject">cocaine</span> and RU 24969 was evident in preweanling rats, whereas methamphetamine and RU 24969 did not cross-sensitize.” <small>DRUG : DISEASE - CAUSAL_EFFECT · fact · EMBASE:L2014287569:964:1118:0:6</small></p><p>“Similar adverse event profiles of <span class="semantic-mark role-object">constipation</span>, nausea, vomiting, and dizziness were observed between <span class="semantic-mark role-subject">methadone</span> and prior opioid regimens.” <small>DRUG : DISEASE - CAUSAL_EFFECT · fact · EMBASE:L2019940774:1213:1351:3:4</small></p><h4>DRUG : GENE - MODULATES · 2</h4><p>“Objectives <span class="semantic-mark role-subject">Elexacaftor</span>-tezacaftor-ivacaftor (ETI), a triple <span class="semantic-mark role-object">CFTR</span> modulator combination, has proven to be highly effective in patients with cystic fibrosis (CF) carrying at least one Phe508del mutation.” <small>DRUG : GENE - MODULATES · fact · EMBASE:L2025006436:0:201:1:2</small></p><p>“In the ARETHUSA clinical trial (NCT03519412), we revealed that treatment with <span class="semantic-mark role-subject">temozolomide</span> (TMZ) can pharmacologically deactivate the MMR machinery, as indicated by mutational signature analysis and the emergence of MMR<span class="semantic-mark role-object"> gene</span> mutations.” <small>DRUG : GENE - MODULATES · fact · EMBASE:L643159859:312:547:1:4</small></p><h4>GENE : DISEASE - BIOMARKER · 2</h4><p>“It was revealed that in children with a reduced level of <span class="semantic-mark role-subject">CD3</span>+ CD71+ and an increased level of CD3+ CD95+ in blood serum at the age of 3 months, frequent <span class="semantic-mark role-object">acute respiratory infections</span> occurred in the first year of life.” <small>GENE : DISEASE - BIOMARKER · fact · EMBASE:L2028758972:1338:1555:2:4</small></p><p>“Conclusion: Serum <span class="semantic-mark role-subject">KIM-1</span> and TNFR1 were associated with higher values for Vv (Mes/glom), GBM, and tubular <span class="semantic-mark role-object">atrophy</span> in persons with T1DM and normal kidney function, suggesting relevance as markers of early DN structural changes prior to UAE elevation or GFR decline.” <small>GENE : DISEASE - BIOMARKER · fact · EMBASE:L641933951:1078:1341:15:19</small></p><h4>GENE : DISEASE - CAUSAL_EFFECT · 2</h4><p>“Further investigation of the interactions of platelets, with <span class="semantic-mark role-object">inflammatory</span> <span class="semantic-mark role-subject">cytokines</span> and endothelial biomarkers, may help us to better understand the disease, and to recognize those patients at risk of bleeding, or conversely thrombosis.” <small>GENE : DISEASE - CAUSAL_EFFECT · fact · EMBASE:L2014355296:294:530:9:11</small></p><p>“Mutant <span class="semantic-mark role-subject">Galnt2</span> homozygote (Galnt2 &lt;sup&gt;tm1Lat/tm1Lat&lt;/sup&gt;) mimics human otitis media in comparable pathology and causes <span class="semantic-mark role-object">hearing loss</span>.” <small>GENE : DISEASE - CAUSAL_EFFECT · fact · EMBASE:L2021905593:81:214:7:9</small></p><h4>DRUG : GENE - AGONIST · 1</h4><p>“Though studies have also shown <span class="semantic-mark role-subject">imeglimin</span> to significantly improve <span class="semantic-mark role-object">insulin</span> secretion and decrease β-cell death, whether its physiologic effects are purely insulin dependent remains unclear.” <small>DRUG : GENE - AGONIST · fact · EMBASE:L2007463126:707:895:4:5</small></p><h4>NO_RELATION · 29</h4><p>“When considered alongside its benign safety profile reported in patients with <span class="semantic-mark role-object">chronic kidney disease</span>, <span class="semantic-mark role-subject">imeglimin</span> shows true promise to provide a novel mechanism for T2DM treatment, with potential application in a larger, more comprehensive patient population.” <small>NO_RELATION · EMBASE:L2007463126:1397:1655:0:1</small></p><p>“However, <span class="semantic-mark role-subject">rs4702</span>-A was associated with increased expression of FURIN and BDNF in the serum and PBMC of <span class="semantic-mark role-object">glioma</span> patients after radiotherapy.” <small>NO_RELATION · EMBASE:L2014563788:584:721:4:7</small></p><p>“Patients (N = 3621) on maximally tolerated statins were randomized 2:1 to oral <span class="semantic-mark role-subject">bempedoic acid</span> 180 mg or placebo once daily for 12 to 52 weeks with the results analysed by baseline glycaemic status (<span class="semantic-mark role-object">diabetes</span>, prediabetes, or normoglycaemia).” <small>NO_RELATION · EMBASE:L2014923282:312:552:0:3</small></p><p>“Starting with some preliminary indications that emerged from the analysis of online databases that suggested a possible overexpression of <span class="semantic-mark role-subject">KCTD15</span> in <span class="semantic-mark role-object">breast cancer</span>, in this study, we evaluated the expression levels of the protein in breast cancer cell lines and in patients and the effects of its silencing in the HER2+ cell model.” <small>NO_RELATION · EMBASE:L2015838383:305:634:13:14</small></p><p>“Significance: These results indicate that PDE4A is mainly expressed within the nerves cells of the rat CC, where <span class="semantic-mark role-subject">roflumilast</span> induces a potent corpus cavernous relaxation per se and potentiates the response induced by <span class="semantic-mark role-object">β-adrenoceptor</span> activation.” <small>NO_RELATION · EMBASE:L2017030624:1372:1615:3:10</small></p><p>“Isometric tension recordings for roflumilast and <span class="semantic-mark role-subject">tadalafil</span>, <span class="semantic-mark role-object">PDE4</span> and PDE5 inhibitors, <span class="semantic-mark role-context">respectively</span>, electrical field stimulation (EFS) and β-adrenoceptor agonist isoproterenol and endogenous H&lt;inf&gt;2&lt;/inf&gt;S production measurement.” <small>NO_RELATION · EMBASE:L2017030624:735:964:0:11</small></p><p>“Background: Plasma ceramides and sphingomyelins have been independently linked to <span class="semantic-mark role-object">diabetes</span> risk, glucose and <span class="semantic-mark role-subject">insulin</span> levels, and the risk of several cardiovascular (CVD) outcomes.” <small>NO_RELATION · EMBASE:L2018857856:0:179:1:3</small></p><p>“Survival analyses revealed a significant correlation between high expression of C1R, <span class="semantic-mark role-subject">CCL2</span>, and TNFRSF1A in the coronavirus disease-<span class="semantic-mark role-object">COVID-19</span> pathway and the poor survival in GBM patients.” <small>NO_RELATION · EMBASE:L2019017187:528:714:10:24</small></p><p>“The approval of <span class="semantic-mark role-subject">Onpattro</span>, a lipid-based siRNA therapeutic, and the proven clinical success of two lipid-based <span class="semantic-mark role-object">COVID-19</span> vaccines from Pfizer-BioNTech, and Moderna heralded the specific advantages of lipid-based systems among all other synthetic nucleic acid carriers.” <small>NO_RELATION · EMBASE:L2019384472:237:503:0:3</small></p><p>“In this study, we aimed to investigate the roles of tumor cell-derived <span class="semantic-mark role-object">CCL2</span> on <span class="semantic-mark role-subject">trastuzumab</span> resistance and overcome the resistance by treatment with the anti-CD40-scFv-linked anti-HER2 (CD40 ×HER2) bispecific antibody (bsAb).” <small>NO_RELATION · EMBASE:L2019469400:184:408:2:5</small></p><p>“On exposure to <span class="semantic-mark role-object">CCL2</span>, TAMs decreased the M1-like phenotype, thereby eliciting the <span class="semantic-mark role-subject">trastuzumab</span> resistance.” <small>NO_RELATION · EMBASE:L2019469400:982:1086:17:18</small></p><p>“By establishing an animal model, we found decreased miR-199a-5p expression and increased <span class="semantic-mark role-subject">HIF-1α</span> expression in OSAS with <span class="semantic-mark role-object">hypertension</span>.” <small>NO_RELATION · EMBASE:L2019671577:958:1091:5:7</small></p><p>“The nomogram identified the <span class="semantic-mark role-subject">rs17276588</span> variant genotype and several clinical parameters, including age, diabetes mellitus, body mass index (BMI), hypertension, history of alcohol use, history of smoking, and <span class="semantic-mark role-object">hyperlipidemia</span> as risk factors for developing IS.” <small>NO_RELATION · EMBASE:L2020582813:1338:1595:3:8</small></p><p>“In a number of malignancies, including <span class="semantic-mark role-object">gastric cancer</span>, esophageal squamous cell carcinoma, breast cancer, and prostatic cancer, <span class="semantic-mark role-subject">miR-22</span> is aberrantly expressed either up or down.” <small>NO_RELATION · EMBASE:L2022161454:770:947:0:4</small></p><p>“Conclusion: We demonstrate that the DNA methylation of Runx3 plays a critical role in CD8+ T-cell infiltration and differentiation during <span class="semantic-mark role-subject">decitabine</span>-primed <span class="semantic-mark role-object">PD-1</span>-ab immunotherapy, which provides a supporting mechanism for the essential role of epiregulation in immunotherapy.” <small>NO_RELATION · EMBASE:L2023238497:2195:2469:5:9</small></p><p>“Conclusion: EBUS can reliably obtain samples for detection of PDL1 testing in <span class="semantic-mark role-object">NSCLC</span> and a positive trend has been observed in our service over the last five years with 100% success rate of <span class="semantic-mark role-subject">PD-L1</span> testing in 2020 and 2021. Disclosure: No significant relationships.” <small>NO_RELATION · EMBASE:L2023808923:1273:1535:9:11</small></p><p>“The samples containing more than 100 <span class="semantic-mark role-object">tumour</span> cells were analysed using antibody <span class="semantic-mark role-subject">PDL1</span> IHC 22C3 pharmDx (Agilent, Dako) and results were presented as percentage of tumour cells expressing PD-L1.” <small>NO_RELATION · EMBASE:L2023808923:787:978:6:10</small></p><p>“Species and genotyping data from Burkholderia isolates received in 2021 and 2022 were compared with data from Burkholderia isolates received between 2015 and 2019, the 5-year period before the <span class="semantic-mark role-object">COVID-19 pandemic</span> and approval of <span class="semantic-mark role-subject">elexacaftor</span>-tezacaftor-ivacaftor.” <small>NO_RELATION · EMBASE:L2027771498:1346:1606:1:3</small></p><p>“Background: The ARROW study demonstrated favorable clinical efficacy and safety of <span class="semantic-mark role-subject">pralsetinib</span> (PRL) in treating rearranged during transfection (<span class="semantic-mark role-object">RET</span>) fusion positive non-small cell lung cancer (NSCLC) in clinical trials.” <small>NO_RELATION · EMBASE:L2027807039:0:220:0:3</small></p><p>“Further, <span class="semantic-mark role-object">craniosynostosis</span> exacerbates amyloid pathology and plaque buildup in <span class="semantic-mark role-subject">Twist1</span>&lt;sup&gt;+/-&lt;/sup&gt;:5xFAD transgenic Alzheimer’s disease models.” <small>NO_RELATION · EMBASE:L2027952435:627:770:8:11</small></p><p>“The direct effects of <span class="semantic-mark role-object">APC</span> on cofactor activity of <span class="semantic-mark role-subject">NXT007</span> or FVIIIa in a FXa generation assay were also measured.” <small>NO_RELATION · EMBASE:L2029073576:643:755:4:5</small></p><p>“Four patients had hepatic or renal findings: deranged liver function tests (<span class="semantic-mark role-subject">p.Gly292fs</span>, HNF1A); hepatic enlargement (p.Arg311Cys, HNF4A); <span class="semantic-mark role-object">renal hypoplasia</span> (p.Arg159Gln, HNF1A); liver cysts (p.Arg63Trp, HNF4A).” <small>NO_RELATION · EMBASE:L637188167:1576:1785:28:40</small></p><p>“In contrast, inflammatory pathway gene sets (<span class="semantic-mark role-object">Inflammatory</span> response, <span class="semantic-mark role-subject">IFNγ</span> response, IL2/STAT5) were enriched in MRD+ pts in the Ven-Obi arm, suggesting their role in Ven resistance.” <small>NO_RELATION · EMBASE:L638939930:2536:2716:6:10</small></p><p>“Classified as an interstitial lung disease, it can be secondary to <span class="semantic-mark role-object">infection</span>, drug toxicity, connective tissue disorders, inhalation injuries (<span class="semantic-mark role-subject">cocaine</span>), organ transplant, or radiotherapy, and also can be idiopathic.” <small>NO_RELATION · EMBASE:L640266223:170:385:0:1</small></p><p>“Classified as an interstitial lung disease, it can be secondary to infection, drug toxicity, <span class="semantic-mark role-object">connective tissue disorders</span>, inhalation injuries (<span class="semantic-mark role-subject">cocaine</span>), organ transplant, or radiotherapy, and also can be idiopathic.” <small>NO_RELATION · EMBASE:L640266223:170:385:0:3</small></p><p>“Objective responses (1 CR, 14 PRs) were achieved in 15/54 (27.8%) efficacy-evaluable pts, including 10/17 <span class="semantic-mark role-object">low-grade serous ovarian cancer</span> (LGSOC) (58.8%; median exposure ∼23 mo), 2 NSCLC (1 NRAS <span class="semantic-mark role-subject">Q61K</span>, 1 BRAF-V600E), 2 endometrial cancer (1 BRAF ZC3HAv1 fusion, 1 KRAS G12A), and 1 LG serous adenocarcinoma of Mullerian origin (KRAS G12V).” <small>NO_RELATION · EMBASE:L641474594:848:1186:11:14</small></p><p>“Objective responses (1 CR, 14 PRs) were achieved in 15/54 (27.8%) efficacy-evaluable pts, including 10/17 <span class="semantic-mark role-object">low-grade serous ovarian cancer</span> (LGSOC) (58.8%; median exposure ∼23 mo), 2 NSCLC (1 NRAS Q61K, 1 BRAF-<span class="semantic-mark role-subject">V600E</span>), 2 endometrial cancer (1 BRAF ZC3HAv1 fusion, 1 KRAS G12A), and 1 LG serous adenocarcinoma of Mullerian origin (KRAS G12V).” <small>NO_RELATION · EMBASE:L641474594:848:1186:13:14</small></p><p>“As we hypothesized that cytokine storm induced kidney injury in COVID-19, MA10-infected mice were treated with anti-<span class="semantic-mark role-object">IL-6R</span> mAb or <span class="semantic-mark role-subject">Baricitinib</span>.” <small>NO_RELATION · EMBASE:L642703453:1772:1913:2:7</small></p><p>“The serious cases of COVID-19 are treated with blockade of IL-6/JAK signaling, such as anti-IL-6 receptor antibody (anti-<span class="semantic-mark role-object">IL-6R</span> mAb) and JAK inhibitor <span class="semantic-mark role-subject">Baricitinib</span>.” <small>NO_RELATION · EMBASE:L642703453:206:368:1:6</small></p></div></div></div>
   <table class="study-cases">
     <thead><tr><th>Gold label</th><th>Pairs</th></tr></thead>
     <tbody>
-      <tr><td>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION</td><td>12</td></tr>
-      <tr><td>DRUG : DISEASE - THERAPEUTIC_USE</td><td>7</td></tr>
-      <tr><td>Seven other relations</td><td>17</td></tr>
-      <tr><td>NO_RELATION</td><td>29</td></tr>
+      <tr><td><span class="relation-ref" tabindex="0" aria-describedby="dev-1">GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION<span class="relation-proof" id="dev-1" role="tooltip"><p>“The review of the literature further revealed that later ages at onset and the presence of <span class="semantic-mark role-object">cerebellar ataxia</span> are the main characteristics of patients carrying the DNMT1 p.<span class="semantic-mark role-subject">Y511H</span> as compared with those carrying DNMT1 p.Y511C.” <small>GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION · fact · EMBASE:L2010158947:663:886:17:31</small></p></span></span></td><td>12</td></tr>
+      <tr><td><span class="relation-ref" tabindex="0" aria-describedby="dev-2">DRUG : DISEASE - THERAPEUTIC_USE<span class="relation-proof" id="dev-2" role="tooltip"><p>“Recent analyses of subpopulations within large pooled datasets have characterized the clinical benefit for progression-free survival and overall survival for <span class="semantic-mark role-subject">ixabepilone</span> in special populations, such as patients with <span class="semantic-mark role-object">triple-negative breast cancer</span> or those who relapsed within 12 months of prior treatment.” <small>DRUG : DISEASE - THERAPEUTIC_USE · fact · EMBASE:L635534563:816:1120:2:4</small></p></span></span></td><td>7</td></tr>
+      <tr><td><span class="relation-ref" tabindex="0" aria-describedby="dev-3">Seven other relations<span class="relation-proof" id="dev-3" role="tooltip"><span class="rel"><p><strong>DRUG : GENE - ANTAGONIST · 4</strong></p><p>“Isometric tension recordings for roflumilast and <span class="semantic-mark role-subject">tadalafil</span>, PDE4 and <span class="semantic-mark role-object">PDE5</span> inhibitors, <span class="semantic-mark role-context">respectively</span>, electrical field stimulation (EFS) and β-adrenoceptor agonist isoproterenol and endogenous H&lt;inf&gt;2&lt;/inf&gt;S production measurement.” <small>fact · EMBASE:L2017030624:735:964:0:13</small></p></span><span class="rel"><p><strong>GENE : DISEASE - MODULATES · 4</strong></p><p>“Accumulating evidence suggests that <span class="semantic-mark role-subject">insulin</span> deficiency is a risk factor for <span class="semantic-mark role-object">Alzheimer’s disease</span> (AD); however, the underlying molecular mechanisms are not completely understood.” <small>fact · EMBASE:L2017878452:0:177:5:7</small></p></span><span class="rel"><p><strong>DRUG : DISEASE - CAUSAL_EFFECT · 2</strong></p><p>“Reciprocal <span class="semantic-mark role-object">cross-sensitization</span> between <span class="semantic-mark role-subject">cocaine</span> and RU 24969 was evident in preweanling rats, whereas methamphetamine and RU 24969 did not cross-sensitize.” <small>fact · EMBASE:L2014287569:964:1118:0:6</small></p></span><span class="rel"><p><strong>DRUG : GENE - MODULATES · 2</strong></p><p>“Objectives <span class="semantic-mark role-subject">Elexacaftor</span>-tezacaftor-ivacaftor (ETI), a triple <span class="semantic-mark role-object">CFTR</span> modulator combination, has proven to be highly effective in patients with cystic fibrosis (CF) carrying at least one Phe508del mutation.” <small>fact · EMBASE:L2025006436:0:201:1:2</small></p></span><span class="rel"><p><strong>GENE : DISEASE - BIOMARKER · 2</strong></p><p>“It was revealed that in children with a reduced level of <span class="semantic-mark role-subject">CD3</span>+ CD71+ and an increased level of CD3+ CD95+ in blood serum at the age of 3 months, frequent <span class="semantic-mark role-object">acute respiratory infections</span> occurred in the first year of life.” <small>fact · EMBASE:L2028758972:1338:1555:2:4</small></p></span><span class="rel"><p><strong>GENE : DISEASE - CAUSAL_EFFECT · 2</strong></p><p>“Further investigation of the interactions of platelets, with <span class="semantic-mark role-object">inflammatory</span> <span class="semantic-mark role-subject">cytokines</span> and endothelial biomarkers, may help us to better understand the disease, and to recognize those patients at risk of bleeding, or conversely thrombosis.” <small>fact · EMBASE:L2014355296:294:530:9:11</small></p></span><span class="rel"><p><strong>DRUG : GENE - AGONIST · 1</strong></p><p>“Though studies have also shown <span class="semantic-mark role-subject">imeglimin</span> to significantly improve <span class="semantic-mark role-object">insulin</span> secretion and decrease β-cell death, whether its physiologic effects are purely insulin dependent remains unclear.” <small>fact · EMBASE:L2007463126:707:895:4:5</small></p></span></span></span></td><td>17</td></tr>
+      <tr><td><span class="relation-ref" tabindex="0" aria-describedby="dev-4">NO_RELATION<span class="relation-proof" id="dev-4" role="tooltip"><p>“When considered alongside its benign safety profile reported in patients with <span class="semantic-mark role-object">chronic kidney disease</span>, <span class="semantic-mark role-subject">imeglimin</span> shows true promise to provide a novel mechanism for T2DM treatment, with potential application in a larger, more comprehensive patient population.” <small>NO_RELATION · EMBASE:L2007463126:1397:1655:0:1</small></p></span></span></td><td>29</td></tr>
     </tbody>
   </table>
+  <blockquote>“…characterized the clinical benefit for progression-free survival and overall survival for <span class="semantic-mark role-subject">ixabepilone</span> in special populations, such as patients with <span class="semantic-mark role-object">triple-negative breast cancer</span>…”</blockquote>
+  <p class="definitions">Each pair gives a sentence, two marked mentions and their types. The label is one of nine relations or NO_RELATION; here it is DRUG : DISEASE - THERAPEUTIC_USE.</p>
   <p class="note">Relation F1 is micro F1 over the nine relations, with all 36 gold positives in the denominator. Every method runs three gpt-5.4-mini trials on the same pairs.</p>
-  <aside class="notes">Data: <a href="https://github.com/Bayer-Group/biomed-relation-factuality-detection">BioRelFact</a> (BSD-3-Clause), frozen development split. Setup and scoring: <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/README.md">experiments/README.md</a>. The example pair is EMBASE:L635534563:816:1120:2:4.</aside>
+  <aside class="notes">Data: <a href="https://github.com/Bayer-Group/biomed-relation-factuality-detection">BioRelFact</a> (BSD-3-Clause), frozen development split. Setup and scoring: <a href="https://github.com/datvo06/keep-track/blob/4ab0636/experiments/README.md">experiments/README.md</a>. The example pair is EMBASE:L635534563:816:1120:2:4. Hovering a row shows a highlighted example; the panel above the table lists all 65. The row tooltips and the panel list the 65 pairs from the October 28 edit-search run's trial-1/inputs.jsonl on rolly, joined with the frozen development gold file; the counts are 12, 7, 17 and 29.</aside>
 </section>
 
 <section id="paid-mappings" class="no-marks" data-date="2026-10-29">
@@ -807,7 +810,7 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
 <section id="precision-failures" class="no-marks problem" data-date="2026-10-29">
   <p class="eyebrow">Failure cases · false positives</p>
   <h2>Why false positives remain</h2>
-  <p class="definitions">Each trial selects a positive for 21 to 23 of the 29 NO_RELATION pairs. In 14, the agent never proposes NO_RELATION (rows 1 and 2). In 7 to 9, it does, and coverage ranking replaces it (row 3). Another 4 to 5 per trial put the wrong label on a positive pair.</p>
+  <p class="definitions">Each trial selects a positive for 21 to 23 of the 29 NO_RELATION pairs. Agent tried maximizing coverage and dropped NO_RELATION.</p>
   <div class="code-example">
     <div class="code-reference"><button type="button">Generated programs · rows 1 and 2</button><div class="source-panel" role="region" aria-label="Selected generated programs for the Baricitinib and p.Gly292fs pairs"><p><strong>Row 1: Baricitinib and IL-6R, trial 1, selected attempt 3 (verbatim)</strong></p><pre><code class="language-python">def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
     def extract(case: PairInput) -&gt; PairAnswer:
@@ -835,17 +838,16 @@ def synthesize_extractor(source: str, instructions: str) -&gt; Callable[[str], l
       </tbody>
     </table>
   </div>
-  <aside class="notes">Row 1: EMBASE:L642703453:206:368:1:6, trial 1; no attempt proposed NO_RELATION in any trial. Row 2: EMBASE:L637188167:1576:1785:28:40, trial 1. Both pass the type check, so only a check that the cue relates this subject to this object would reject them. The two dimensions combine: Baricitinib with “anti-IL-6R mAb or Baricitinib” (EMBASE:L642703453:1772:1913:2:7) and pralsetinib with RET (EMBASE:L2027807039:0:220:0:3) misread the cue and also had one accepted NO_RELATION that coverage ranking replaced. Counts come from experiments/PAID_REFINEMENT_RESULTS.md. Each selected relation and its proof tree come from the selected attempt's checker report, prediction and code in the full records: rows 1 and 2 as linked from the code panel, row 3 from sources/insulin-diabetes-trial-2.json.</aside>
+  <aside class="notes">Row 1: EMBASE:L642703453:206:368:1:6, trial 1; no attempt proposed NO_RELATION in any trial. Row 2: EMBASE:L637188167:1576:1785:28:40, trial 1. Both pass the type check, so only a check that the cue relates this subject to this object would reject them. The two dimensions combine: Baricitinib with “anti-IL-6R mAb or Baricitinib” (EMBASE:L642703453:1772:1913:2:7) and pralsetinib with RET (EMBASE:L2027807039:0:220:0:3) misread the cue and also had one accepted NO_RELATION that coverage ranking replaced. Counts come from experiments/PAID_REFINEMENT_RESULTS.md: in 14 pairs no attempt proposes NO_RELATION in any trial (rows 1 and 2); in 7 to 9 per trial it is proposed and coverage ranking replaces it (row 3); another 4 to 5 per trial put the wrong label on a positive pair. Each selected relation and its proof tree come from the selected attempt's checker report, prediction and code in the full records: rows 1 and 2 as linked from the code panel, row 3 from sources/insulin-diabetes-trial-2.json.</aside>
 </section>
 
 <section id="coverage-override" class="no-marks problem" data-date="2026-10-29">
   <p class="eyebrow">Failure case · trial 2</p>
-  <h2>Six NO_RELATION programs lose to one positive</h2>
+  <h2>We preferred one positive over six NO_RELATION</h2>
   <blockquote>“Plasma ceramides and sphingomyelins have been independently <span class="semantic-mark role-predicate">linked to</span> <span class="semantic-mark role-object">diabetes</span> risk, glucose and <span class="semantic-mark role-subject">insulin</span> levels, and the risk of several cardiovascular (CVD) outcomes.”</blockquote>
   <p class="definitions">Gold and LangExtract: NO_RELATION. “linked to” attaches ceramides and sphingomyelins to diabetes, not insulin.</p>
   <div class="code-example">
     <div class="code-reference"><button type="button">Generated programs · attempts 1 and 7</button><div class="source-panel" role="region" aria-label="Two generated programs for the insulin and diabetes pair"><p><strong>Attempt 1, NO_RELATION (verbatim)</strong></p><pre><code class="language-python">from typing import Literal
-
 
 def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
     def extract(case: PairInput) -&gt; PairAnswer:
@@ -925,10 +927,10 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   <table class="study-cases">
     <thead><tr><th>Failure and example</th><th>Why it is missed</th></tr></thead>
     <tbody>
-      <tr class="fragment"><td><strong>1. A different label (11).</strong> “…<span class="semantic-mark role-subject">insulin</span> deficiency is a risk factor for <span class="semantic-mark role-object">Alzheimer’s disease</span>…” gives BIOMARKER in all three trials.</td><td>Gold is GENE : DISEASE - MODULATES. Both labels fit the prompt's definitions and pass the type check; the dataset's convention decides.</td></tr>
-      <tr class="fragment"><td><strong>2. Read as NO_RELATION (5).</strong> “…roflumilast and <span class="semantic-mark role-subject">tadalafil</span>, PDE4 and <span class="semantic-mark role-object">PDE5</span> inhibitors, respectively…” gives NO_RELATION in trial 1.</td><td>“respectively” pairs tadalafil with PDE5; gold is ANTAGONIST. The other two trials got it.</td></tr>
-      <tr class="fragment"><td><strong>3. A cue over the price (3).</strong> “Similar adverse event profiles of <span class="semantic-mark role-object">constipation</span>… were observed between <span class="semantic-mark role-subject">methadone</span> and prior opioid regimens.” In trial 3, “adverse event profiles” is rejected.</td><td>The label is right, but three words cost 3 units of 2, and the agent did not shorten the cue. Trial 1 used “adverse event” and was accepted.</td></tr>
-      <tr class="fragment"><td><strong>4. Selection picks another label (2).</strong> “…hypothalamic <span class="semantic-mark role-subject">ataxin-2</span> as a new player in metabolism regulation, which might contribute to… <span class="semantic-mark role-object">metabolic disorders</span>.” Six programs say MODULATES, one says CAUSAL_EFFECT.</td><td>All seven cover 5 words at 1 unit. Ties go to the earliest program, which was the CAUSAL_EFFECT one.</td></tr>
+      <tr class="fragment"><td><strong>1. A different label (11).</strong> “…<span class="semantic-mark role-subject">insulin</span> deficiency is a risk factor for <span class="semantic-mark role-object">Alzheimer’s disease</span>…” gives BIOMARKER in all three trials.</td><td>Wrong relation label, the ground truth is GENE : DISEASE - MODULATES.</td></tr>
+      <tr class="fragment"><td><strong>2. Read as NO_RELATION (5).</strong> “…roflumilast and <span class="semantic-mark role-subject">tadalafil</span>, PDE4 and <span class="semantic-mark role-object">PDE5</span> inhibitors, <span class="semantic-mark role-context">respectively</span>…” gives NO_RELATION in trial 1.</td><td>“<span class="semantic-mark role-context">respectively</span>” pairs tadalafil with PDE5; gold is ANTAGONIST. The other two trials got it.</td></tr>
+      <tr class="fragment"><td><strong>3. A cue is too pricey (3).</strong> “Similar adverse event profiles of <span class="semantic-mark role-object">constipation</span>… were observed between <span class="semantic-mark role-subject">methadone</span> and prior opioid regimens.” In trial 3, “adverse event profiles” is rejected.</td><td>The label is right, but three words cost 3 units of 2, and the agent did not shorten the cue. Trial 1 used “adverse event” and was accepted.</td></tr>
+      <tr class="fragment"><td><strong>4. Wrong relation label (2).</strong> “…hypothalamic <span class="semantic-mark role-subject">ataxin-2</span> as a new player in metabolism regulation, which might contribute to… <span class="semantic-mark role-object">metabolic disorders</span>.” Six programs say MODULATES, one says CAUSAL_EFFECT.</td><td>All seven cover 5 words at 1 unit. Ties go to the earliest program, which was the CAUSAL_EFFECT one.</td></tr>
     </tbody>
   </table>
   </div>
@@ -989,7 +991,6 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   </figure>
   <div class="code-example">
     <div class="code-reference"><button type="button">Generated programs · GFAP</button><div class="source-panel" role="region" aria-label="Selected generated programs for GFAP and astrocyte injury, without and with the learned lexicon"><p><strong>Paid mappings + search, budget 4: selected attempt 1 of 8 (verbatim)</strong></p><pre><code class="language-python">from typing import Callable
-
 
 def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
     def extract(case: PairInput) -&gt; PairAnswer:
@@ -1064,7 +1065,6 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
         )
     return extract</code></pre><p>Predicate proof step:</p><pre><code class="language-text">'selective inhibitors' -&gt; 'DRUG : GENE - ANTAGONIST'; undeclared mapping; cost=2</code></pre><p><strong>Attempt 5, NO_RELATION (verbatim)</strong></p><pre><code class="language-python">from typing import Callable
 
-
 def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
     def extract(case: PairInput) -&gt; PairAnswer:
         subject: Span = span_at(case.case_id, 0, *case.head_range)
@@ -1088,25 +1088,6 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   <aside class="notes">Rule, formally: a Dung argumentation framework per pair with one argument per accepted attempt and rebuttal between different conclusions; grounded semantics; a label is accepted when its argument is in the grounded extension. With rebuttal only, grounded equals skeptical preferred, and by construction the outcome equals "any accepted dissent gives NO_RELATION" on any run: attempts disagree on 312, 291 and 299 pairs of the three runs. Scores from the critic's harness, af_harness.py with ref_plugins.py:rebut_only, grounded semantics, fallback NO_RELATION; paired bootstrap, 2,000 resamples, seed 20261103. The reverse, duplicate, deduplicate and gaming transforms change 0 decisions on every run. Against plain GPT: budget 4 +0.6 (−1.1 to 2.2), budget 4 with lexicon +0.5 (−1.5 to 2.3). The TAK-242 pair is EMBASE:L2030098430:711:889:1:2; "respectively" pairs TAK-242 with TLR4. In the two budget-4 runs every accepted attempt for it said ANTAGONIST, so the rule does not fix it there. A frozen fresh trial is the clean test.</aside>
 </section>
 
-<section id="dataset-search">
-  <p class="eyebrow">Proposed extension: one extractor across documents</p>
-  <h2>Search for a program that covers more examples</h2>
-  <p class="objective-terms">Let <strong>D = {d₁, …, dₙ}</strong> be n source documents, e.g., a positive Drug A/Gene B sentence, a negative Drug A/Gene C sentence, and “Drug A may inhibit Gene B in assay X.” Run the <strong>same P</strong> on all three.</p>
-  <div class="objective">
-    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="P star is an arg max over programs accepted on all documents of mean word coverage, subject to edit cost on each document being at most its budget B i">
-      <msup><mi>P</mi><mo>⋆</mo></msup><mo>∈</mo>
-      <munder><mo movablelimits="false">arg max</mo><mrow><mi>P</mi><mo>∈</mo><msub><mi mathvariant="script">P</mi><mtext class="role-accepted">Accepted on D</mtext></msub></mrow></munder>
-      <mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>C</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><msub><mi>d</mi><mi>i</mi></msub><mo stretchy="false">)</mo>
-      <mspace width="0.7em"/><mtext>subject to</mtext><mspace width="0.5em"/>
-      <mi>u</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><msub><mi>d</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>≤</mo><msub><mi>B</mi><mi>i</mi></msub><mo>,</mo><mspace width="0.3em"/><mo>∀</mo><mi>i</mi>
-    </math>
-  </div>
-  <p class="objective-terms"><strong>1/n ∑</strong> averages coverage across documents. <strong>∀i</strong> means every document has its own cap Bᵢ. <strong>Accepted on D</strong> requires all executions to pass; returning no claim on “may inhibit” remains valid.</p>
-  <p class="compact">This maximizes <strong>average word coverage</strong>. Counting correctly recovered examples is a separate evaluation using reference answers: for instance, recover both supported claims and abstain on the uncertain third sentence.</p>
-  <p class="note">Proposed aggregate objective, not an implemented result. The existing plan keeps coverage and spending separate for each document. PR #13 currently searches for a different program per source.</p>
-  <aside class="notes">Local design document: keep-track/.claude/worktrees/paper-plan/COVERAGE_OPTIMIZATION_PLAN.md, dataset-mode section. It proposes separate per-document coverage/edit objectives and retaining candidates not beaten on both, with final selection by coverage then spending. The displayed mean-coverage problem is a concrete proposed aggregation for discussion, not a claim that the plan or PRs implement it. Budgets here reset per document; there is no shared corpus-wide spending cap. The token-coverage surrogate does not certify completeness or correct abstention. Gold reference labels stay outside the search objective. No implemented dataset-mode study was found in the fetched PRs or branches as of October 19, 2026.</aside>
-</section>
-
 <section id="biorelfact-full" class="no-marks">
   <p class="eyebrow">November · BioRelFact · all 1,767 pairs</p>
   <h2>Full-corpus extraction results</h2>
@@ -1126,16 +1107,58 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
 </section>
 
 <section id="interpretation-fullrun" class="no-marks">
-  <p class="eyebrow">November · fresh full run</p>
-  <h2>Review improves precision and loses recall</h2>
-  <table>
-    <thead><tr><th>Compared with agreement</th><th>Pairs</th></tr></thead>
-    <tbody><tr><td>Errors repaired</td><td>254</td></tr><tr><td>Previously correct answers broken</td><td>175</td></tr><tr><td>Total pipeline errors</td><td>424 / 1,767</td></tr></tbody>
+  <p class="eyebrow">November · the reviewed interpretation</p>
+  <h2>What an interpretation is</h2>
+  <table class="study-cases">
+    <thead><tr><th>Field</th><th>What it holds</th><th>In the reviewed F0756 output</th></tr></thead>
+    <tbody>
+      <tr class="fragment"><td><code>trigger</code></td><td>the word that evokes the event, as a quote with its occurrence</td><td>“experienced”, occurrence 1</td></tr>
+      <tr class="fragment"><td><code>roles</code></td><td>participants, each a free-text role name and a quote</td><td>proportion “30%”, patient group “patients with loiasis and mansonellosis”, adverse outcome “treatment failure”</td></tr>
+      <tr class="fragment"><td><code>scope</code></td><td>prose on what the claim is restricted to</td><td>“The statement is about the reported 30% subset of the patients with loiasis and mansonellosis.”</td></tr>
+      <tr class="fragment"><td><code>commitment</code></td><td><span class="relation-ref" tabindex="0" aria-describedby="commitment-tip">prose epistemic status<span class="relation-proof" id="commitment-tip" role="tooltip"><p><strong>Nothing defines it.</strong> The interpret prompt never names commitment. Its closest instruction is “Preserve negation, uncertainty, comparison targets, coordination, and which event a modifier applies to.” The model meets the field in the response schema derived from <code>Event</code>: <code>&quot;commitment&quot;: {&quot;title&quot;: &quot;Commitment&quot;, &quot;type&quot;: &quot;string&quot;}</code>.</p><p><strong>“asserted” is the model’s word.</strong> F0756’s first draft wrote it for both events and the review kept it while correcting the roles and meanings. No code reads the value: <code>source_issues</code> checks quote occurrences, unique event ids and link targets. The final reader is told “Event meanings, roles, scope, references and uncertainty are your only evidence”.</p><p><strong>Across the full run</strong>, the 5,887 reviewed events use 528 different strings, 374 of them once.</p><p class="counts"><span>asserted 2,683</span><span>stated 1,649</span><span>uncertain 225</span><span>intended 122</span><span>reported 62</span><span>possible 50</span><span>negated 40</span><span>suggested 40</span><span>descriptive 38</span><span>stated as fact 37</span><span>hypothetical 36</span><span>517 others 905</span></p></span></span></td><td>“asserted”</td></tr>
+      <tr class="fragment"><td><code>links</code></td><td>a dependency from one event to another, with a prose meaning and an evidence quote</td><td>e1 → e2, “The reported treatment failure is further specified by the parenthetical disease-to-treatment mapping.”, evidence “with”, occurrence 2</td></tr>
+      <tr class="fragment"><td><code>reference resolutions, ambiguities, coverage</code></td><td>prose</td><td>“‘respectively’ maps ‘loiasis’ to ‘diethylcarbamazine’ and ‘mansonellosis’ to ‘levamisole-mebendazole’…”; no ambiguities; a coverage paragraph</td></tr>
+    </tbody>
   </table>
-  <p class="compact">F1 increases by 1.18 points. The paired document-bootstrap interval is −1.06 to +3.42 points.</p>
-  <p class="note">Conditional on one generation. This does not establish a repeatable improvement, or a causal benefit from formal reasoning.</p>
+  <p class="note">Code checks only that quotes occur and ids resolve; meaning, scope and commitment are read by the final LLM alone.</p>
+  <div class="code-reference inline"><button type="button">Pydantic models · source</button><div class="source-panel" role="region" aria-label="The interpretation models"><p><strong>Actual source.</strong> The four models the full run asked for.</p><pre><code class="language-python">class Role(BaseModel):
+    """A participant's semantic role in one event, anchored to the source."""
+
+    role: str
+    participant: Quote
+
+
+class Event(BaseModel):
+    """A source proposition with its participants and local scope."""
+
+    id: str
+    trigger: Quote
+    meaning: str
+    roles: list[Role]
+    scope: str
+    commitment: str
+
+
+class Link(BaseModel):
+    """A semantic dependency between propositions in the same sentence."""
+
+    source_event: str
+    target_event: str
+    meaning: str
+    evidence: Quote
+
+
+class Interpretation(BaseModel):
+    """An interpretation that does not contain a target relation classification."""
+
+    events: list[Event]
+    links: list[Link]
+    reference_resolutions: list[str]
+    ambiguities: list[str]
+    coverage: str
+</code></pre></div></div>
   <div class="code-reference saved-artifact" data-artifact="sources/fullrun-F0756.json"><button type="button" aria-expanded="false">Inspect the saved reviewed interpretation</button><div class="source-panel" role="region"><p>Actual full-run F0756 output. <a href="sources/fullrun-F0756.json" download>Download full artifact</a></p><pre><code class="language-json">Loading saved artifact…</code></pre></div></div>
-  <aside class="notes">Gold-NO_RELATION false positives fall from 281 to 118; wrong positive labels from 66 to 55; missed positives rise from 156 to 251. The remaining F1 gap is 24.88 points. Bootstrap: 2,000 paired document draws, seed 2026110502, with generation variability unmeasured.</aside>
+  <aside class="notes">The Interpretation model has events, links, reference_resolutions, ambiguities and coverage; an Event has id, trigger quote, meaning, roles, scope and commitment, all prose except the quotes and ids. The source_issues function checks quote occurrences, unique event ids and link references; nothing checks the prose. F0756's second event is the respectively mapping, its one link says the treatment failure is specified by the parenthetical mapping with the evidence quote "with", and its reference resolution reads the order of the two diseases and two treatments. Results of the fresh full run against agreement selection on the same 1,767 pairs: relation F1 75.12 against 73.93, precision 80.69 against 69.93, recall 70.26 against 78.43; 254 agreement errors repaired, 175 previously correct answers broken, 424 pipeline errors left; gold-NO_RELATION false positives fall from 281 to 118, wrong positive labels from 66 to 55, missed positives rise from 156 to 251. The paired document bootstrap (2,000 draws, seed 2026110502) gives −1.06 to +3.42 points for the F1 difference, conditional on one generation. This is a different three-call pipeline, not evidence about formal reasoning. Commitment tooltip: the schema line is Event.model_json_schema() from the run's code on rolly; the counts are over the 1,767 review files under fullrun/full in the debate3 scratchpad; F0756's raw draft and its review both say asserted for e1 and e2. The model classes are oracle/interpretation.py in the debate3 scratchpad.</aside>
 </section>
 
 <section id="formalization-coverage" class="no-marks">
@@ -1171,16 +1194,82 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
   <aside class="notes">First live run: zero requirements, 5/8 correct, eight calls; the model swapped treatment and disease roles. Follow-up adds validation against supplied target types: one requirement, one historical answer rejected and repaired, 6/8 correct, nine real calls plus one historical injection. All fresh follow-up premises passed first attempt, so the type check's causal contribution is unmeasured. Both runs remain available: sources/consistency-001-results.json and sources/consistency-002-results.json. F0755 and F1519 remain wrong. Directly emitting the derived requirement would avoid the repair call. No representative accuracy or full-corpus F1 claim follows.</aside>
 </section>
 
-<section id="current-scope">
-  <p class="eyebrow">Research questions ahead</p>
-  <h2>Coverage, reliability and broader source language</h2>
-  <ul>
-    <li class="fragment"><strong>Semantic coverage:</strong> can source operators reliably produce the premises that activate a check?</li>
-    <li class="fragment"><strong>Answer consistency:</strong> can final labels respect derived participant bindings without introducing regressions?</li>
-    <li class="fragment"><strong>Generalization:</strong> do gains repeat on fresh documents under a validated annotation policy?</li>
+<section id="current-scope" class="no-marks" data-date="2026-11-16">
+  <p class="eyebrow">November 16 · plan</p>
+  <h2>Formalizing the interpretation</h2>
+  <ul class="compact">
+    <li class="fragment"><strong>Typed meaning:</strong> the model builds a <code>SentenceMeaning</code> in Python under the restricted evaluator; every span comes from <code>span_at</code>.</li>
+    <li class="fragment"><strong>Checks live with their claims:</strong> roles bind the pair by span identity, pairing yields the assignments, scope composes into one commitment.</li>
+    <li class="fragment"><strong>The predicate is the domain's:</strong> a native keyword refined from the trigger and priced like an extractor's mapping.</li>
+    <li class="fragment"><strong>Each relation is an entailment:</strong> sentence as premise, relation and commitment as conclusion, unchecked steps as assumptions; NO_RELATION needs a closed-world premise.</li>
   </ul>
-  <p class="note">We have executable checks and source-support proofs for declared sentence patterns, such as “A inhibits B in assay X.” The current evidence does not yet establish a general extraction advantage.</p>
-  <p class="nav"><a href="#/research-map">Research map</a><a href="https://github.com/datvo06/keep-track/pull/28">Latest PR</a><a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">Experiment report</a></p>
+  <p class="note">No formal step has beaten agreement selection yet: 75.12 is an LLM pipeline, fixed rules reach 57.1, the hook caught only seeded defects. Next is a development-slice comparison with the JSON transport as control.</p>
+  <div class="code-reference inline"><button type="button">Proposed schema · excerpt</button><div class="source-panel" role="region" aria-label="Proposed meaning schema"><p><strong>Proposed interfaces from the plan, not implemented.</strong> Every class shares <code>ConfigDict(extra="forbid", frozen=True, revalidate_instances="always")</code>; spans are the existing <code>ExtractedSpan</code>, built through <code>span_at</code>. <code>Event</code> is assembled from the plan's diff; the plan is a local document with no link yet.</p><pre><code class="language-python">class Event(MeaningModel):
+    trigger: ExtractedSpan
+    predicate: PositiveRelation
+    meaning: str
+    roles: tuple[Role, ...]
+    pairing: Pairing | None
+    intervention: ExtractedSpan | None
+
+class Negation(MeaningModel):
+    child: "Node"
+    cue: ExtractedSpan
+
+type Node = Event | Negation | Modality | Attribution
+
+class Reading(MeaningModel):
+    roots: tuple[Node, ...]
+    references: tuple[Reference, ...]
+    coverage: Coverage
+    unresolved: tuple[str, ...]
+
+class SentenceMeaning(MeaningModel):
+    readings: Annotated[tuple[Reading, ...], Field(min_length=1)]</code></pre></div></div>
+  <p class="nav"><a href="#/research-map">Research map</a></p>
+  <aside class="notes">The plan replaces the string-ID interpretation graph with nested typed objects: scope wrappers hold their child, and pairing and intervention are attributes of the event, so six of the pilot's eight linking checks, seven raises plus a CycleError, disappear by construction; the two pairing checks move to a new pairing-group validator on Event, source_order on Role is kept from the pilot, price and type signature go to validate_answer, and consistency goes to the hook on SentenceMeaning. The predicate reuses refine_relation and validate_answer: an undeclared trigger-to-keyword mapping costs edit.refine per source word, a lexicon-declared one is free, and the type signature is checked by validate_edge. The domain's NativeRelation splits into PositiveRelation plus NO_RELATION so an event cannot carry the negative label. Three design points from the plan: a plain ValidationContext would reject every undeclared refinement, so the runner prices refinement the way the search does; the harness's num_retries is not used, because with a forced tool choice and no turn cap a failing body would loop until the token budget ran out; the search's --edit-budget default is two, and the runner records the value it is given. On the slide's numbers: 75.12 and 73.93 are full-corpus relation F1, while 57.1 is weighted over 120 development pairs. The plan document lives in the keep-track scratchpad, debate3/programmatic-plan.md, and is not committed. Nothing here is implemented or measured yet.</aside>
+</section>
+
+<section id="dataset-search">
+  <p class="eyebrow">Proposed extension: one extractor across documents</p>
+  <h2>Search for a program that covers more examples</h2>
+  <p class="objective-terms">Let <strong>D = {d₁, …, dₙ}</strong> be n source documents, e.g., a positive Drug A/Gene B sentence, a negative Drug A/Gene C sentence, and “Drug A may inhibit Gene B in assay X.” Run the <strong>same P</strong> on all three.</p>
+  <div class="objective">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="P star is an arg max over programs accepted on all documents of mean word coverage, subject to edit cost on each document being at most its budget B i">
+      <msup><mi>P</mi><mo>⋆</mo></msup><mo>∈</mo>
+      <munder><mo movablelimits="false">arg max</mo><mrow><mi>P</mi><mo>∈</mo><msub><mi mathvariant="script">P</mi><mtext class="role-accepted">Accepted on D</mtext></msub></mrow></munder>
+      <mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>C</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><msub><mi>d</mi><mi>i</mi></msub><mo stretchy="false">)</mo>
+      <mspace width="0.7em"/><mtext>subject to</mtext><mspace width="0.5em"/>
+      <mi>u</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><msub><mi>d</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>≤</mo><msub><mi>B</mi><mi>i</mi></msub><mo>,</mo><mspace width="0.3em"/><mo>∀</mo><mi>i</mi>
+    </math>
+  </div>
+  <p class="objective-terms"><strong>1/n ∑</strong> averages coverage across documents. <strong>∀i</strong> means every document has its own cap Bᵢ. <strong>Accepted on D</strong> requires all executions to pass; returning no claim on “may inhibit” remains valid.</p>
+  <p class="compact">This maximizes <strong>average word coverage</strong>. Counting correctly recovered examples is a separate evaluation using reference answers: for instance, recover both supported claims and abstain on the uncertain third sentence.</p>
+  <p class="note">Proposed aggregate objective, not an implemented result. The existing plan keeps coverage and spending separate for each document. PR #13 currently searches for a different program per source.</p>
+  <aside class="notes">Local design document: keep-track/.claude/worktrees/paper-plan/COVERAGE_OPTIMIZATION_PLAN.md, dataset-mode section. It proposes separate per-document coverage/edit objectives and retaining candidates not beaten on both, with final selection by coverage then spending. The displayed mean-coverage problem is a concrete proposed aggregation for discussion, not a claim that the plan or PRs implement it. Budgets here reset per document; there is no shared corpus-wide spending cap. The token-coverage surrogate does not certify completeness or correct abstention. Gold reference labels stay outside the search objective. No implemented dataset-mode study was found in the fetched PRs or branches as of October 19, 2026.</aside>
+</section>
+
+<section id="search-objective" data-date="2026-10-01" data-prs="13">
+  <p class="eyebrow">October 1, 2026</p>
+  <h2>Maximize coverage minus edit cost</h2>
+  <p class="objective-terms"><strong>P</strong> is a proposed extractor; <strong>d</strong> is one source sentence. <strong>C(P, d)</strong> is its checked word coverage, e.g., 7/8 for our positive Drug A/Gene B sentence. <strong>u(P, d)</strong> is the cost of permitted transformations of source-derived text, e.g., an addition charged 1 unit. <strong>B &gt; 0</strong> is the allowance: spending 1 unit from B = 2 uses half.</p>
+  <div class="objective">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="P star is an arg max over accepted submitted programs of coverage C of P and d minus lambda times edit cost u of P and d divided by budget B">
+      <msup><mi>P</mi><mo>⋆</mo></msup><mo>∈</mo>
+      <munder><mo movablelimits="false">arg max</mo><mrow><mi>P</mi><mo>∈</mo><msub><mi mathvariant="script">P</mi><mtext class="role-accepted">Accepted</mtext></msub></mrow></munder>
+      <mrow><mo>[</mo><mi>C</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><mi>d</mi><mo stretchy="false">)</mo><mo>−</mo><mi>λ</mi><mfrac><mrow><mi>u</mi><mo stretchy="false">(</mo><mi>P</mi><mo>,</mo><mi>d</mi><mo stretchy="false">)</mo></mrow><mi>B</mi></mfrac><mo>]</mo></mrow>
+    </math>
+  </div>
+  <p class="objective-terms"><strong>arg max</strong> selects a program with the largest score. <strong>𝒫<sub>Accepted</sub></strong> contains submitted programs that pass source checks and all edit limits. <strong>λ</strong> sets the cost penalty; PR #13 uses λ = 0.5.</p>
+  <table class="study-cases">
+    <thead><tr><th>Illustrative accepted proposal</th><th>Coverage C</th><th>Cost u, with B = 2</th><th>C − 0.5 u / B</th></tr></thead>
+    <tbody>
+      <tr><td><strong>P₁: no paid edit</strong></td><td>0.60</td><td>0</td><td><strong>0.60 ← selected</strong></td></tr>
+      <tr><td>P₂: one approved paid edit</td><td>0.80</td><td>1</td><td>0.55</td></tr>
+    </tbody>
+  </table>
+  <p class="note">The controlling Python program asks the model for six extractor proposals, scores each with a fresh edit budget, and selects the highest-scoring passing submission. A Refusal scores −1.5. The table is illustrative.</p>
+  <aside class="notes">This search gives no global optimality guarantee. Equation summarizes final selection in <a href="https://github.com/datvo06/keep-track/blob/5c43bdadb7df53b1d73213d9274ac27680be9e56/examples/checked_experiment.py#L449-L556">run_search</a>, introduced in <a href="https://github.com/datvo06/keep-track/pull/13">PR #13</a>. Budget B is edit_limit(policy), capped by the aggregate edit limit and the sum of per-kind limits; each candidate must also satisfy those individual limits. u is edit_spending, summed once across edit kinds. These are evidence-operation costs, not edits to Python source or model request costs. The empty seed guides proposals but is excluded from final answers. The arg max is a set, so membership allows tied winners. The numerical example assumes a richer source with an approved paid normalization that unlocks extra supported content; the ten pilot sentences do not demonstrate this tradeoff.</aside>
 </section>
 
 </div></div>
@@ -1212,8 +1301,8 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
     });
     const sections = [
       ['claims', '1 / 3 · Methods'],
-      ['study-setup', '2 / 3 · Experiment settings'],
-      ['agent-confusions', '3 / 3 · Results']
+      ['biorelfact-setup', '2 / 3 · Experiment settings'],
+      ['paid-mappings', '3 / 3 · Results']
     ];
     const position = document.querySelector('.research-position');
     const slides = Array.from(document.querySelectorAll('.slides > section'));
