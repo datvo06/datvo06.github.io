@@ -1,0 +1,103 @@
+{
+  "source": "keep-track PR #32; the 2-shot search at e8c2b18 (word price, budget 8, gpt-5.4-mini). The block is appended to this pair's search prompt, verbatim from attempt 1's saved invocation in cases.jsonl.",
+  "case_id": "EMBASE:L637923084:170:653:15:17",
+  "pair": {
+    "case_id": "EMBASE:L637923084:170:653:15:17",
+    "document_id": "EMBASE:L637923084",
+    "sentence": "To investigate the pathogenesis of SDCCAG8-associated retinal ciliopathies in vivo, we employed CRISPR/Cas9-mediated homology-directed recombination (HDR) to generate two knock-in mouse models, Sdccag8Y236X/Y236X and Sdccag8E451GfsX467/E451GfsX467 , which carry truncating mutations of the mouse Sdccag8, corresponding to mutations that cause Bardet-Biedl syndrome (BBS) and Senior-Løken syndrome (SLS) (c.696T&gt;G p.Y232X and c.1339-1340insG p.E447GfsX463) in humans, respectively.",
+    "sentence_start": 170,
+    "head_index": 15,
+    "tail_index": 17,
+    "head_range": [
+      416,
+      423
+    ],
+    "tail_range": [
+      343,
+      364
+    ],
+    "head_type": "Gene Variant",
+    "tail_type": "Indications",
+    "head_entity_id": "MU:PY232X",
+    "tail_entity_id": "SD:BAYPHTH009858"
+  },
+  "gold": {
+    "relation": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION",
+    "facticity": "fact"
+  },
+  "examples_block": "\n\nLabelled examples from other documents, up to two for each label of this pair's type group. Each gives a pair's input and the label the task's annotators gave it. They show how the labels are applied and are not evidence about this pair.\n- Input: {\"case_id\": \"EMBASE:L637135719:943:1098:0:1\", \"document_id\": \"EMBASE:L637135719\", \"sentence\": \"According to obesity status, the stratification revealed that the effect of rs10738760 was more pronounced in obese than non-obese individuals (p = 0.025).\", \"sentence_start\": 943, \"head_index\": 0, \"tail_index\": 1, \"head_range\": [76, 86], \"tail_range\": [13, 20], \"head_type\": \"Gene Variant\", \"tail_type\": \"Indications\", \"head_entity_id\": \"MU:RS10738760\", \"tail_entity_id\": \"SD:BAYPHTH010832\"}\n  Label: {\"relation\":\"NO_RELATION\",\"facticity\":null}\n- Input: {\"case_id\": \"EMBASE:L635998054:582:681:43:56\", \"document_id\": \"EMBASE:L635998054\", \"sentence\": \"The aim of our study was to determine the relationship between BRAF<sup>V600E</sup> and ACC in PTC.\", \"sentence_start\": 582, \"head_index\": 43, \"tail_index\": 56, \"head_range\": [72, 77], \"tail_range\": [95, 98], \"head_type\": \"Gene Variant\", \"tail_type\": \"Indications\", \"head_entity_id\": \"MU:PVAL600GLU\", \"tail_entity_id\": \"SD:BAYPHTH008593\"}\n  Label: {\"relation\":\"GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION\",\"facticity\":\"uncommitted\"}\n- Input: {\"case_id\": \"EMBASE:L2013783491:412:567:7:10\", \"document_id\": \"EMBASE:L2013783491\", \"sentence\": \"All participants underwent diagnostic interviews for IGD and an evaluation for the COMT val158met polymorphism, impulsivity, and reinforcement sensitivity.\", \"sentence_start\": 412, \"head_index\": 7, \"tail_index\": 10, \"head_range\": [88, 97], \"tail_range\": [112, 123], \"head_type\": \"Gene Variant\", \"tail_type\": \"Indications\", \"head_entity_id\": \"MU:PVAL158MET\", \"tail_entity_id\": \"SD:BAYPHTH014475\"}\n  Label: {\"relation\":\"NO_RELATION\",\"facticity\":null}\n- Input: {\"case_id\": \"EMBASE:L2025562456:0:127:5:6\", \"document_id\": \"EMBASE:L2025562456\", \"sentence\": \"DYT1 dystonia is a hereditary neurological movement disorder with a 3-bp hallmark deletion (c.907 909delGAG) in the TOR1A gene.\", \"sentence_start\": 0, \"head_index\": 5, \"tail_index\": 6, \"head_range\": [98, 107], \"tail_range\": [43, 60], \"head_type\": \"Gene Variant\", \"tail_type\": \"Indications\", \"head_entity_id\": \"MU:C909DELGAG\", \"tail_entity_id\": \"SD:BAYPHTH009454\"}\n  Label: {\"relation\":\"GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION\",\"facticity\":\"fact\"}\n",
+  "predictions": {
+    "plain gpt-5.4-mini, paper zero-shot prompt": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact",
+    "plain gpt-5.4-mini, our zero-shot prompt": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact",
+    "plain gpt-5.4-mini, our zero-shot prompt, OpenRouter (November 1)": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact",
+    "zero-shot search, most covered words": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact",
+    "2-shot search, most covered words": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact",
+    "zero-shot search, zero-shot ranker": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact",
+    "zero-shot search, 2-shot ranker": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact",
+    "2-shot search, zero-shot ranker": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact",
+    "2-shot search, 2-shot ranker": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact",
+    "plain gpt-5.4-mini, paper 2-shot prompt": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION / fact"
+  },
+  "selected_program": {
+    "attempt": 2,
+    "code": "def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -> PairProgram:\n    def extract(case: PairInput) -> PairAnswer:\n        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])\n        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])\n        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))\n        predicate_source: Span = find_span(retrieve(case.case_id), \"corresponding to mutations that cause\")\n        predicate: RefinedSpan = refine_relation(predicate_source, \"GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION\")\n        return make_relation(subject, predicate, object_, evidence, commitment=\"affirmed\")\n\n    return extract",
+    "predicate_proof": [
+      {
+        "kind": "span_at",
+        "detail": "source[305:342]: 'corresponding to mutations that cause'"
+      },
+      {
+        "kind": "refine_relation",
+        "detail": "'corresponding to mutations that cause' -> 'GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION'; undeclared mapping; cost=5"
+      }
+    ]
+  },
+  "selection_2_shot_search_zero_shot_ranker": {
+    "case_id": "EMBASE:L637923084:170:653:15:17",
+    "offered": [
+      {
+        "relation": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION",
+        "facticity": "fact"
+      },
+      {
+        "relation": "NO_RELATION",
+        "facticity": null
+      }
+    ],
+    "readings": [
+      "p.Y232X is associated with Bardet-Biedl syndrome, corresponding to mutations that cause it.",
+      "The sentence does not discuss any of the task's relations between p.Y232X and Bardet-Biedl syndrome, not even to deny, doubt or question one."
+    ],
+    "orders": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "chosen": 0,
+    "prediction": {
+      "case_id": "EMBASE:L637923084:170:653:15:17",
+      "outcome": "decision",
+      "decision": {
+        "relation": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION",
+        "facticity": "fact"
+      }
+    }
+  }
+}
