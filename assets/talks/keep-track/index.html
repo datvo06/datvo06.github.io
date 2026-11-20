@@ -1123,7 +1123,7 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
       <tr><td>Mini interpretation → GPT-5.4 review → mini reader</td><td>80.69</td><td>70.26</td><td>75.12</td></tr>
       <tr><td>LLM-priced search, budget 1.5</td><td>60.1</td><td>85.3</td><td>70.5</td></tr>
       <tr><td>Search + ranking LLM-written readings</td><td>75.6</td><td>81.1</td><td>78.3</td></tr>
-      <tr><td><strong>2-shot search + ranking LLM-written readings</strong></td><td>77.3</td><td>80.8</td><td><strong>79.0</strong></td></tr>
+      <tr><td>2-shot search + ranking LLM-written readings</td><td>77.3</td><td>80.8</td><td>79.0</td></tr>
     </tbody>
   </table>
   <p class="note">The pipeline reached 79.0 with labeled examples in its search; one plain call with the paper's prompt reaches 78.2. The table does not isolate formal reasoning. <a href="sources/fullrun-results.json">Interpretation</a> · <a href="sources/reading-ranking-examples.json">Ranking</a> · <a href="sources/two-shot-results.json">2-shot</a> · <a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">Lexicon report</a></p>
@@ -1399,7 +1399,7 @@ Sentence: Results Present study revealed that TF rs3917615 and rs958587 and APOH
   <aside class="notes">Source: keep-track PR #31 (commit 3166fda), gpt-4o-2024-08-06 through OpenAI directly, one run per prompt against the paper's mean over runs. The paper's factuality F1 is strict, relation and factuality both correct, which is joint F1 here. Per-group 2-shot relation F1: drug-disease 86.5 (paper 86.0), drug-gene 59.1 (63.1), gene-disease 60.3 (62.9), variant-disease 84.7 (84.0). Our 2-shot run predicts 1,357 positives against the paper's implied 1,231, so its precision is lower and recall higher. Our choices where the paper is silent: a pair is offered only its type group's relations and NO_RELATION; the 2-shot prompt shows two gold pairs for each of those labels, NO_RELATION included, drawn per target with a fixed seed and never from the target's document. The three runs used 6.9M input and 0.18M output tokens, about $19 at GPT-4o list prices. The paper's code repository, Bayer-Group/biomed-relation-factuality-detection, returned 404 on November 20, 2026; the data was pinned from it earlier at 7a05213. Paper: Gabryszak et al., LREC 2026, https://aclanthology.org/2026.lrec-1.602/.</aside>
 </section>
 
-<section id="two-shot" class="no-marks" data-date="2026-11-20" data-prs="31 32">
+<section id="two-shot" class="no-marks" data-date="2026-11-20" data-prs="31,32">
   <p class="eyebrow">November 20, 2026 · gpt-5.4-mini · all 1,767 pairs</p>
   <h2>Labeled examples and the plain prompt</h2>
   <p class="definitions">Plain prompting runs through one runner, so only the prompt differs. The pipeline sees the paper's 2-shot demonstrations, two gold pairs per label from other documents, in its search, its ranker, or both.</p>
@@ -1456,10 +1456,10 @@ def rank_readings_with_examples(
       <tbody>
         <tr class="fragment"><td>Plain, our zero-shot prompt</td><td class="num">67.1 / 81.0 / 73.4</td><td class="num">64.8</td></tr>
         <tr class="fragment"><td>Plain, paper's zero-shot prompt</td><td class="num">73.8 / 83.1 / 78.2</td><td class="num">67.2</td></tr>
-        <tr class="fragment"><td>Plain, paper's 2-shot prompt</td><td class="num">73.8 / 80.3 / 76.9</td><td class="num"><strong>67.6</strong></td></tr>
+        <tr class="fragment"><td>Plain, paper's 2-shot prompt</td><td class="num">73.8 / 80.3 / 76.9</td><td class="num">67.6</td></tr>
         <tr class="fragment"><td>Pipeline, zero-shot</td><td class="num">76.3 / 80.5 / 78.3</td><td class="num">66.5</td></tr>
         <tr class="fragment"><td>Pipeline, 2-shot ranker</td><td class="num">75.8 / 79.9 / 77.8</td><td class="num">66.9</td></tr>
-        <tr class="fragment"><td>Pipeline, 2-shot search</td><td class="num">77.3 / 80.8 / <strong>79.0</strong></td><td class="num">66.7</td></tr>
+        <tr class="fragment"><td>Pipeline, 2-shot search</td><td class="num">77.3 / 80.8 / 79.0</td><td class="num">66.7</td></tr>
         <tr class="fragment"><td>Pipeline, 2-shot search and ranker</td><td class="num">77.2 / 80.2 / 78.6</td><td class="num">66.6</td></tr>
       </tbody>
     </table>
