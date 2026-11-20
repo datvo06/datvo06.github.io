@@ -1,0 +1,96 @@
+{
+  "source": "keep-track PR #31; plain GPT-4o (gpt-4o-2024-08-06, temperature 0), one run each, all 1,767 pairs",
+  "runs": {
+    "ours-zero-shot": {
+      "all": {
+        "pairs": 1767,
+        "P": 63.4,
+        "R": 79.5,
+        "F1": 70.5,
+        "tp_fp_fn": [
+          818,
+          472,
+          211
+        ],
+        "joint_F1": 57.4
+      },
+      "pilot": {
+        "pairs": 65,
+        "P": 59.2,
+        "R": 80.6,
+        "F1": 68.2,
+        "tp_fp_fn": [
+          29,
+          20,
+          7
+        ],
+        "joint_F1": 54.1
+      }
+    },
+    "paper-zero-shot-definitions": {
+      "all": {
+        "pairs": 1767,
+        "P": 62.2,
+        "R": 81.9,
+        "F1": 70.7,
+        "tp_fp_fn": [
+          843,
+          512,
+          186
+        ],
+        "joint_F1": 55.6
+      },
+      "pilot": {
+        "pairs": 65,
+        "P": 56.0,
+        "R": 77.8,
+        "F1": 65.1,
+        "tp_fp_fn": [
+          28,
+          22,
+          8
+        ],
+        "joint_F1": 58.1
+      }
+    },
+    "paper-2-shot-definitions": {
+      "all": {
+        "pairs": 1767,
+        "P": 65.4,
+        "R": 86.2,
+        "F1": 74.4,
+        "tp_fp_fn": [
+          887,
+          470,
+          142
+        ],
+        "joint_F1": 60.2
+      },
+      "pilot": {
+        "pairs": 65,
+        "P": 61.1,
+        "R": 91.7,
+        "F1": 73.3,
+        "tp_fp_fn": [
+          33,
+          21,
+          3
+        ],
+        "joint_F1": 60.0
+      }
+    }
+  },
+  "paper_reported_GPT-4o": {
+    "zero-shot-definitions": {
+      "relation_F1": 70.6,
+      "factuality_F1": 54.5
+    },
+    "2-shot-definitions": {
+      "P": 69.6,
+      "R": 83.3,
+      "relation_F1": 75.9,
+      "factuality_F1": 60.2
+    }
+  },
+  "note": "The paper factuality F1 is strict: relation and factuality both correct, the same as joint F1 here."
+}

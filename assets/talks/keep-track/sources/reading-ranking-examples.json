@@ -1,0 +1,240 @@
+{
+  "source": "keep-track PR #30; full run on all 1,767 pairs, ranking the plain-b8 search trace (gpt-5.4-mini, word price, budget 8)",
+  "template_ranker": "readings from fixed templates, snapshot 93ad2ce",
+  "llm_readings_ranker": "readings written by the read_back Skill, ranked under the task rules, snapshot ede30d3",
+  "scores_all_pairs": {
+    "plain GPT (gpt-5.4-mini, zero-shot)": {
+      "P": 64.7,
+      "R": 81.1,
+      "F1": 72.0,
+      "joint_F1": 63.0
+    },
+    "plain-b8 coverage-first": {
+      "P": 60.2,
+      "R": 85.8,
+      "F1": 70.8,
+      "joint_F1": 59.0
+    },
+    "agreement rule": {
+      "P": 69.9,
+      "R": 78.4,
+      "F1": 73.9
+    },
+    "template readings, no relation": {
+      "P": 79.7,
+      "R": 68.1,
+      "F1": 73.4,
+      "joint_F1": 62.9
+    },
+    "LLM readings, no relation": {
+      "P": 75.6,
+      "R": 81.1,
+      "F1": 78.3,
+      "joint_F1": 66.0
+    },
+    "LLM price b1.5 + LLM readings, no relation": {
+      "P": 75.3,
+      "R": 79.6,
+      "F1": 77.4,
+      "joint_F1": 66.7
+    }
+  },
+  "paired_bootstrap_LLM_readings": {
+    "over coverage-first": [
+      7.5,
+      5.9,
+      9.0
+    ],
+    "over plain GPT": [
+      6.3,
+      4.4,
+      8.2
+    ],
+    "over agreement rule": [
+      4.4,
+      2.9,
+      5.9
+    ],
+    "over template readings": [
+      4.9,
+      3.1,
+      6.8
+    ]
+  },
+  "changes_vs_template": {
+    "now right": 180,
+    "true relations template rejected, now kept": 152,
+    "now wrong": 131,
+    "gold NO_RELATION now asserted": 109
+  },
+  "examples": [
+    {
+      "case_id": "EMBASE:L2007453892:1231:1366:3:9",
+      "sentence": "Normalization of urgency and incontinence was 19.1% and 60.7% for tamsulosin + mirabegron and 18.2% and 60.0% for tamsulosin + placebo.",
+      "head": "tamsulosin",
+      "tail": "incontinence",
+      "gold": {
+        "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+        "facticity": "fact"
+      },
+      "template_ranker": {
+        "readings": [
+          "The sentence states that tamsulosin treats incontinence, read from 'Normalization of urgency and incontinence' at character 0.",
+          "The sentence does not discuss any of the task's relations between tamsulosin and incontinence, not even to deny, doubt or question one."
+        ],
+        "orders": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "chosen": 1,
+        "prediction": {
+          "case_id": "EMBASE:L2007453892:1231:1366:3:9",
+          "outcome": "decision",
+          "decision": {
+            "relation": "NO_RELATION",
+            "facticity": null
+          }
+        }
+      },
+      "llm_readings_ranker": {
+        "readings": [
+          "Tamsulosin is presented as treating or relieving incontinence, based on the normalization of urgency and incontinence.",
+          "The sentence does not discuss any of the task's relations between tamsulosin and incontinence, not even to deny, doubt or question one."
+        ],
+        "orders": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "chosen": 0,
+        "prediction": {
+          "case_id": "EMBASE:L2007453892:1231:1366:3:9",
+          "outcome": "decision",
+          "decision": {
+            "relation": "DRUG : DISEASE - THERAPEUTIC_USE",
+            "facticity": "fact"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "EMBASE:L2010159116:947:1112:5:7",
+      "sentence": "Various small molecule tyrosine kinase inhibitors have been developed against these two receptors and proved to be highly efficacious in reducing tumor progressions.",
+      "head": "tyrosine kinase",
+      "tail": "tumor",
+      "gold": {
+        "relation": "GENE : DISEASE - MODULATES",
+        "facticity": "fact"
+      },
+      "template_ranker": {
+        "readings": [
+          "The sentence states that tyrosine kinase modifies tumor, read from 'receptors' at character 88.",
+          "The sentence does not discuss any of the task's relations between tyrosine kinase and tumor, not even to deny, doubt or question one."
+        ],
+        "orders": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "chosen": 1,
+        "prediction": {
+          "case_id": "EMBASE:L2010159116:947:1112:5:7",
+          "outcome": "decision",
+          "decision": {
+            "relation": "NO_RELATION",
+            "facticity": null
+          }
+        }
+      },
+      "llm_readings_ranker": {
+        "readings": [
+          "Tyrosine kinase receptors modulate tumor.",
+          "The sentence does not discuss any of the task's relations between tyrosine kinase and tumor, not even to deny, doubt or question one."
+        ],
+        "orders": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "chosen": 0,
+        "prediction": {
+          "case_id": "EMBASE:L2010159116:947:1112:5:7",
+          "outcome": "decision",
+          "decision": {
+            "relation": "GENE : DISEASE - MODULATES",
+            "facticity": "fact"
+          }
+        }
+      }
+    }
+  ]
+}
