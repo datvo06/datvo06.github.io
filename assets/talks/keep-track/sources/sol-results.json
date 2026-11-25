@@ -1,5 +1,5 @@
 {
- "source": "keep-track PRs #36, #38 and #39; all 1,767 pairs, one trial per row. Plain rows: the paper's zero-shot prompt through the paper-prompt runner, low reasoning effort, one call per pair (gpt-5.6-sol at a5d647a). Pipeline rows: the zero-shot search, word price at edit budget 8, 8 submissions, ranked over the offered labels plus no relation with 5 shuffles; the gpt-5.4-mini search is the November 20 zero-shot search at e8c2b18, ranked at 8bb3fe7 with typed claims and at e8c2b18 with LLM readings (PR #32); the gpt-5.6-sol search and ranking ran at a5d647a with gpt-5.6-sol for every call.",
+ "source": "keep-track PRs #36, #38 and #39; all 1,767 pairs, one trial per row. Plain rows: the paper's zero-shot prompt through the paper-prompt runner, low reasoning effort, one call per pair; plain gpt-5.4-mini ran at 09e04c8 (PR #31), plain gpt-5.6-sol at a5d647a (PR #39). Pipeline rows: the zero-shot search, word price at edit budget 8, 8 submissions, ranked over the offered labels plus no relation with 5 shuffles; the gpt-5.4-mini search is the November 20 zero-shot search at e8c2b18, ranked at 8bb3fe7 with typed claims and at e8c2b18 with LLM readings (PR #32); the gpt-5.6-sol search and ranking ran at a5d647a with gpt-5.6-sol for every call.",
  "scores": {
   "plain gpt-5.4-mini, paper zero-shot prompt": {
    "P": 73.8,
