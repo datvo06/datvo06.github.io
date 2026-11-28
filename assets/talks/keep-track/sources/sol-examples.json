@@ -1,0 +1,470 @@
+[
+ {
+  "case_id": "EMBASE:L636199642:0:83:0:1",
+  "picked": "a pipeline win, picked by hand: the second shortest sentence among the 23 pairs where gold is NO_RELATION, plain gpt-5.6-sol gave a relation, and the ranker put no relation above the one offered claim in all five shuffles; the shortest, EMBASE:L641164180:630:682:6:11, tags IR inside HOMA-IR",
+  "gold": {
+   "relation": "NO_RELATION",
+   "facticity": null
+  },
+  "plain gpt-5.6-sol": {
+   "request": {
+    "model": "gpt-5.6-sol",
+    "messages": [
+     {
+      "role": "system",
+      "content": "Your task is to analyze input sentences containing highlighted concept pairs that correspond to Drugs and Diseases. For each sentence, answer two questions about the relationship expressed between the highlighted concepts:\n1. **Question 1**: Does the sentence discuss any of the listed relations involving the highlighted concepts?\n\n2. **Question 2**: If the sentence discusses a relationship involving the highlighted concepts, is the relation presented as an established fact, a counterfact, a possibility or doubt, or an uncommitted association?\n\nPossible answers:\n- **Question 1**: Drug:Disease - Therapeutic_Use, Drug:Disease - Causal_Effect, NO_RELATION\n- **Question 2**: fact, counterfact, possible, doubtful, uncommitted, null\n\n### **Relation Name Structure**\nRelation names are structured as `Entity_Type1:Entity_Type2 - Relation`.\nThe relationship direction is always from `Entity_Type1` (Head) to `Entity_Type2` (Tail).\n\n**Examples**:\n- `Chemical : Gene - Agonist` means \"Chemical (Head) acts as an agonist for Gene (Tail).\"\n- `Chemical : Disease - Therapeutic_Use` means \"Chemical (Head) has a therapeutic use for Disease (Tail).\"\n\n### **Relation Definitions**\nRefer to the following relation definitions when choosing your answer to **Question 1**:\n**Drug:Disease - Therapeutic_Use: This label refers to the discussion of indications of drugs for treating, preventing or decreasing a disease, or to relieve disease symptoms.\nDrug:Disease - Causal_Effect: This label refers to the discussion of a drug causing a disease or negative medical conditions (including adverse effects).\nNO_RELATION: Select NO_RELATION if the concept types of highlighted phrases are correct, but no discussion of a listed relation between those concepts can be inferred by an expert. If a relation is described in very general, vague terms, so that a no relation is either explicitly discussed or its implication is clear for an expert, select the label 'NO_RELATION'.**\n\n### **Facticity Definitions**\nRefer to the following facticity definitions when choosing your answer to **Question 2**:\n**fact: a relation is assumed or presented as a known, established fact.\ncounterfact: a relation is assumed or presented as rather a false or negated fact.\npossible: a relation is assumed or presented as a possible, probable, or potential association.\ndoubtful: a relation is assumed or presented as a doubtful association.\nuncommitted: a relation is discussed; however, it is not clear whether it is factual, counterfactual, possible or doubtful, often due to insufficient evidence or information (e.g., because the sentence states that the relation is to be investigated first or because a study did not allow a conclusion about the relation state).\nnull: no relation is discussed; therefore, the factuality value cannot be specified.**\n\n### **Important Constraints**\nThe `sentence_id` must match **EXACTLY** as provided. Do not modify it.\nYou must choose answers only from the allowed answer list.\n\nThe output should be formatted as a JSON instance that conforms to the JSON schema below.\n\nHere is the output schema:\n\n{\n  \"sentence_id\": \"string\",\n  \"relations\": [\n    {\n      \"relation_type\": \"string\",\n      \"facticity_value\": \"string | null\"\n    }\n  ]\n}\n"
+     },
+     {
+      "role": "user",
+      "content": "Sentence_ID: EMBASE:L636199642:0:83:0:1\nSentence: Background: Estrogen unopposed by [[progestin (Drugs)]] increases [[endometrial cancer (Diseases)]] (EC) risk."
+     }
+    ],
+    "response_format": {
+     "type": "json_schema",
+     "json_schema": {
+      "name": "PaperReply",
+      "strict": true,
+      "schema": {
+       "$defs": {
+        "ReplyRelation": {
+         "additionalProperties": false,
+         "properties": {
+          "relation_type": {
+           "title": "Relation Type",
+           "type": "string"
+          },
+          "facticity_value": {
+           "anyOf": [
+            {
+             "type": "string"
+            },
+            {
+             "type": "null"
+            }
+           ],
+           "title": "Facticity Value"
+          }
+         },
+         "required": [
+          "relation_type",
+          "facticity_value"
+         ],
+         "title": "ReplyRelation",
+         "type": "object"
+        }
+       },
+       "additionalProperties": false,
+       "properties": {
+        "sentence_id": {
+         "title": "Sentence Id",
+         "type": "string"
+        },
+        "relations": {
+         "items": {
+          "$ref": "#/$defs/ReplyRelation"
+         },
+         "title": "Relations",
+         "type": "array"
+        }
+       },
+       "required": [
+        "sentence_id",
+        "relations"
+       ],
+       "title": "PaperReply",
+       "type": "object"
+      }
+     }
+    },
+    "reasoning_effort": "low",
+    "max_completion_tokens": 2048
+   },
+   "response": {
+    "id": "chatcmpl-EnwZf3sMfmnhUaKf4Q1NvRDHb7Khq",
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+       "content": "{\"sentence_id\":\"EMBASE:L636199642:0:83:0:1\",\"relations\":[{\"relation_type\":\"Drug:Disease - Causal_Effect\",\"facticity_value\":\"counterfact\"}]}",
+       "refusal": null,
+       "role": "assistant",
+       "annotations": [],
+       "audio": null,
+       "function_call": null,
+       "tool_calls": null
+      }
+     }
+    ],
+    "created": 1795571939,
+    "model": "gpt-5.6-sol",
+    "object": "chat.completion",
+    "moderation": null,
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+     "completion_tokens": 50,
+     "prompt_tokens": 871,
+     "total_tokens": 921,
+     "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": 0
+     },
+     "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+     }
+    }
+   },
+   "prediction": {
+    "case_id": "EMBASE:L636199642:0:83:0:1",
+    "outcome": "decision",
+    "decision": {
+     "relation": "DRUG : DISEASE - CAUSAL_EFFECT",
+     "facticity": "counterfact"
+    }
+   }
+  },
+  "gpt-5.6-sol pipeline selection": {
+   "case_id": "EMBASE:L636199642:0:83:0:1",
+   "offered": [
+    {
+     "relation": "DRUG : DISEASE - CAUSAL_EFFECT",
+     "facticity": "fact"
+    },
+    {
+     "relation": "NO_RELATION",
+     "facticity": null
+    }
+   ],
+   "readings": [
+    {
+     "claim": {
+      "relation": "DRUG : DISEASE - CAUSAL_EFFECT",
+      "facticity": "fact",
+      "subject": {
+       "doc_id": "EMBASE:L636199642:0:83:0:1",
+       "root_location": 0,
+       "root_start": 34,
+       "root_end": 43,
+       "source_surface": "progestin",
+       "rendered_surface": "progestin",
+       "chain": [
+        {
+         "kind": "span_at",
+         "detail": "source[34:43]: 'progestin'"
+        }
+       ]
+      },
+      "predicate": {
+       "doc_id": "EMBASE:L636199642:0:83:0:1",
+       "root_location": 0,
+       "root_start": 0,
+       "root_end": 54,
+       "source_surface": "Background: Estrogen unopposed by progestin increases ",
+       "rendered_surface": "DRUG : DISEASE - CAUSAL_EFFECT",
+       "chain": [
+        {
+         "kind": "span_at",
+         "detail": "source[0:54]: 'Background: Estrogen unopposed by progestin increases '"
+        },
+        {
+         "kind": "refine_relation",
+         "detail": "'Background: Estrogen unopposed by progestin increases ' -> 'DRUG : DISEASE - CAUSAL_EFFECT'; undeclared mapping; cost=6"
+        }
+       ]
+      },
+      "object": {
+       "doc_id": "EMBASE:L636199642:0:83:0:1",
+       "root_location": 0,
+       "root_start": 54,
+       "root_end": 72,
+       "source_surface": "endometrial cancer",
+       "rendered_surface": "endometrial cancer",
+       "chain": [
+        {
+         "kind": "span_at",
+         "detail": "source[54:72]: 'endometrial cancer'"
+        }
+       ]
+      }
+     },
+     "reading": "The words “Background: Estrogen unopposed by progestin increases” present as established that progestin causes endometrial cancer."
+    },
+    {
+     "relation": "NO_RELATION",
+     "facticity": null
+    }
+   ],
+   "orders": [
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "chosen": 1,
+   "prediction": {
+    "case_id": "EMBASE:L636199642:0:83:0:1",
+    "outcome": "decision",
+    "decision": {
+     "relation": "NO_RELATION",
+     "facticity": null
+    }
+   }
+  }
+ },
+ {
+  "case_id": "EMBASE:L2020408112:2693:2848:2:4",
+  "picked": "a pipeline loss in relation F1 (under joint F1 both miss it and plain also counts a false positive), the shortest sentence among the 3 pairs where plain gpt-5.6-sol gave the gold relation and the ranker put no relation above the one offered claim, which carried that relation, in all five shuffles",
+  "gold": {
+   "relation": "DRUG : GENE - AGONIST",
+   "facticity": "fact"
+  },
+  "plain gpt-5.6-sol": {
+   "request": {
+    "model": "gpt-5.6-sol",
+    "messages": [
+     {
+      "role": "system",
+      "content": "Your task is to analyze input sentences containing highlighted concept pairs that correspond to Drugs and Genes. For each sentence, answer two questions about the relationship expressed between the highlighted concepts:\n1. **Question 1**: Does the sentence discuss any of the listed relations involving the highlighted concepts?\n\n2. **Question 2**: If the sentence discusses a relationship involving the highlighted concepts, is the relation presented as an established fact, a counterfact, a possibility or doubt, or an uncommitted association?\n\nPossible answers:\n- **Question 1**: Drug:Gene - Agonist, Drug:Gene - Antagonist, Drug:Gene - Modulates, NO_RELATION\n- **Question 2**: fact, counterfact, possible, doubtful, uncommitted, null\n\n### **Relation Name Structure**\nRelation names are structured as `Entity_Type1:Entity_Type2 - Relation`.\nThe relationship direction is always from `Entity_Type1` (Head) to `Entity_Type2` (Tail).\n\n**Examples**:\n- `Chemical : Gene - Agonist` means \"Chemical (Head) acts as an agonist for Gene (Tail).\"\n- `Chemical : Disease - Therapeutic_Use` means \"Chemical (Head) has a therapeutic use for Disease (Tail).\"\n\n### **Relation Definitions**\nRefer to the following relation definitions when choosing your answer to **Question 1**:\n**Drug:Gene - Agonist: This label refers to the discussion whether a drug activates or increases gene activity. It might happen directly or indirectly, binding to a gene or its receptor is not a necessary condition to select this label. Do not select this label if the sentence discusses inverse agonism, for which there is a separate label.\nDrug:Gene - Antagonist: This label refers to the discussion whether a drug blocks or decreases gene activity. It might happen directly or indirectly, binding to a gene or its receptor is not a necessary condition to select this label.\nDrug:Gene - Modulates: This label refers to the discussion of drugs as allosteric modulators, compounds that increase or decrease the action of an (primary or orthosteric) agonist or antagonist by combining with a distinct (allosteric or allotropic) site on the receptor macromolecule. Also select this label if a drug regulates genes, but no information is available on whether the drug activates, increases, blocks or decreases gene activity.\nNO_RELATION: Select NO_RELATION if the concept types of highlighted phrases are correct, but no discussion of a listed relation between those concepts can be inferred by an expert. If a relation is described in very general, vague terms, so that a no relation is either explicitly discussed or its implication is clear for an expert, select the label 'NO_RELATION'.**\n\n### **Facticity Definitions**\nRefer to the following facticity definitions when choosing your answer to **Question 2**:\n**fact: a relation is assumed or presented as a known, established fact.\ncounterfact: a relation is assumed or presented as rather a false or negated fact.\npossible: a relation is assumed or presented as a possible, probable, or potential association.\ndoubtful: a relation is assumed or presented as a doubtful association.\nuncommitted: a relation is discussed; however, it is not clear whether it is factual, counterfactual, possible or doubtful, often due to insufficient evidence or information (e.g., because the sentence states that the relation is to be investigated first or because a study did not allow a conclusion about the relation state).\nnull: no relation is discussed; therefore, the factuality value cannot be specified.**\n\n### **Important Constraints**\nThe `sentence_id` must match **EXACTLY** as provided. Do not modify it.\nYou must choose answers only from the allowed answer list.\n\nThe output should be formatted as a JSON instance that conforms to the JSON schema below.\n\nHere is the output schema:\n\n{\n  \"sentence_id\": \"string\",\n  \"relations\": [\n    {\n      \"relation_type\": \"string\",\n      \"facticity_value\": \"string | null\"\n    }\n  ]\n}\n"
+     },
+     {
+      "role": "user",
+      "content": "Sentence_ID: EMBASE:L2020408112:2693:2848:2:4\nSentence: Underline the disadvantages of [[ziconotide (Drugs)]]: earlier recognition of possible complications, such as hallucinations, nausea, and elevation of creatine [[kinase (Genes)]]."
+     }
+    ],
+    "response_format": {
+     "type": "json_schema",
+     "json_schema": {
+      "name": "PaperReply",
+      "strict": true,
+      "schema": {
+       "$defs": {
+        "ReplyRelation": {
+         "additionalProperties": false,
+         "properties": {
+          "relation_type": {
+           "title": "Relation Type",
+           "type": "string"
+          },
+          "facticity_value": {
+           "anyOf": [
+            {
+             "type": "string"
+            },
+            {
+             "type": "null"
+            }
+           ],
+           "title": "Facticity Value"
+          }
+         },
+         "required": [
+          "relation_type",
+          "facticity_value"
+         ],
+         "title": "ReplyRelation",
+         "type": "object"
+        }
+       },
+       "additionalProperties": false,
+       "properties": {
+        "sentence_id": {
+         "title": "Sentence Id",
+         "type": "string"
+        },
+        "relations": {
+         "items": {
+          "$ref": "#/$defs/ReplyRelation"
+         },
+         "title": "Relations",
+         "type": "array"
+        }
+       },
+       "required": [
+        "sentence_id",
+        "relations"
+       ],
+       "title": "PaperReply",
+       "type": "object"
+      }
+     }
+    },
+    "reasoning_effort": "low",
+    "max_completion_tokens": 2048
+   },
+   "response": {
+    "id": "chatcmpl-EnwYg044qZajd7SrZj64ZnQpXprhm",
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+       "content": "{\"sentence_id\":\"EMBASE:L2020408112:2693:2848:2:4\",\"relations\":[{\"relation_type\":\"Drug:Gene - Agonist\",\"facticity_value\":\"possible\"}]}",
+       "refusal": null,
+       "role": "assistant",
+       "annotations": [],
+       "audio": null,
+       "function_call": null,
+       "tool_calls": null
+      }
+     }
+    ],
+    "created": 1795571878,
+    "model": "gpt-5.6-sol",
+    "object": "chat.completion",
+    "moderation": null,
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+     "completion_tokens": 51,
+     "prompt_tokens": 1029,
+     "total_tokens": 1080,
+     "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": 0
+     },
+     "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 1026,
+      "cached_tokens": 0
+     }
+    }
+   },
+   "prediction": {
+    "case_id": "EMBASE:L2020408112:2693:2848:2:4",
+    "outcome": "decision",
+    "decision": {
+     "relation": "DRUG : GENE - AGONIST",
+     "facticity": "possible"
+    }
+   }
+  },
+  "gpt-5.6-sol pipeline selection": {
+   "case_id": "EMBASE:L2020408112:2693:2848:2:4",
+   "offered": [
+    {
+     "relation": "DRUG : GENE - AGONIST",
+     "facticity": "possible"
+    },
+    {
+     "relation": "NO_RELATION",
+     "facticity": null
+    }
+   ],
+   "readings": [
+    {
+     "claim": {
+      "relation": "DRUG : GENE - AGONIST",
+      "facticity": "possible",
+      "subject": {
+       "doc_id": "EMBASE:L2020408112:2693:2848:2:4",
+       "root_location": 0,
+       "root_start": 31,
+       "root_end": 41,
+       "source_surface": "ziconotide",
+       "rendered_surface": "ziconotide",
+       "chain": [
+        {
+         "kind": "span_at",
+         "detail": "source[31:41]: 'ziconotide'"
+        }
+       ]
+      },
+      "predicate": {
+       "doc_id": "EMBASE:L2020408112:2693:2848:2:4",
+       "root_location": 0,
+       "root_start": 66,
+       "root_end": 135,
+       "source_surface": "possible complications, such as hallucinations, nausea, and elevation",
+       "rendered_surface": "DRUG : GENE - AGONIST",
+       "chain": [
+        {
+         "kind": "span_at",
+         "detail": "source[66:135]: 'possible complications, such as hallucinations, nausea, and elevation'"
+        },
+        {
+         "kind": "refine_relation",
+         "detail": "'possible complications, such as hallucinations, nausea, and elevation' -> 'DRUG : GENE - AGONIST'; undeclared mapping; cost=8"
+        }
+       ]
+      },
+      "object": {
+       "doc_id": "EMBASE:L2020408112:2693:2848:2:4",
+       "root_location": 0,
+       "root_start": 148,
+       "root_end": 154,
+       "source_surface": "kinase",
+       "rendered_surface": "kinase",
+       "chain": [
+        {
+         "kind": "span_at",
+         "detail": "source[148:154]: 'kinase'"
+        }
+       ]
+      }
+     },
+     "reading": "Ziconotide may activate or increase kinase activity, a claim resting on the words “possible complications, such as hallucinations, nausea, and elevation.”"
+    },
+    {
+     "relation": "NO_RELATION",
+     "facticity": null
+    }
+   ],
+   "orders": [
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "chosen": 1,
+   "prediction": {
+    "case_id": "EMBASE:L2020408112:2693:2848:2:4",
+    "outcome": "decision",
+    "decision": {
+     "relation": "NO_RELATION",
+     "facticity": null
+    }
+   }
+  }
+ }
+]

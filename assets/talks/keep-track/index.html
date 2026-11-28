@@ -77,6 +77,31 @@
     #interpretation-fullrun .code-reference .source-panel { width: 1120px; max-height: 620px; }
     #interpretation-fullrun .code-reference .source-panel pre { font-size: 18px; }
     #interpretation-fullrun .saved-artifact .source-panel pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    #llm-price .source-panel, #reading-ranking .source-panel, #paper-prompt .source-panel { width: 1120px; }
+    #llm-price table td:first-child, #reading-ranking table td:first-child, #paper-prompt table td:first-child { width: auto; }
+    #llm-price td.num, #reading-ranking td.num, #paper-prompt td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    #reading-ranking h2, #paper-prompt h2, #llm-price h2 { margin-bottom: 0.4em; }
+    #biorelfact-full .result-table { font-size: 0.52em; }
+    #biorelfact-full .result-table td { padding: 0.08em 0.5em; }
+    #open-models .code-example table { margin-top: 1em; }
+    #typed-two-shot .code-reference .source-panel { max-height: 410px; }
+    #biorelfact-models .result-table { font-size: 0.56em; }
+    #biorelfact-models .result-table td { padding: 0.14em 0.5em; }
+    #two-shot .source-panel, #sol-model .source-panel, #typed-two-shot .source-panel, #open-models .source-panel { width: 1120px; }
+    #two-shot .source-panel code.language-text, #sol-model .source-panel code.language-text, #typed-two-shot .source-panel code.language-text, #open-models .source-panel code.language-text { white-space: pre-wrap; }
+    #sol-model .source-panel code.language-json, #open-models .source-panel code.language-json { white-space: pre-wrap; overflow-wrap: anywhere; }
+    #two-shot table td:first-child, #sol-model table td:first-child, #typed-two-shot table td:first-child, #open-models table td:first-child { width: auto; }
+    #two-shot td.num, #sol-model td.num, #typed-two-shot td.num, #open-models td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    #two-shot h2, #sol-model h2, #typed-two-shot h2, #open-models h2 { margin-bottom: 0.4em; }
+    #two-shot table, #sol-model table, #typed-two-shot table, #open-models table { font-size: 0.6em; margin: 0.4em 0; }
+    #two-shot table td, #two-shot table th, #sol-model table td, #sol-model table th, #typed-two-shot table td, #typed-two-shot table th, #open-models table td, #open-models table th { padding: 0.32em 0.5em; }
+    #paper-prompt .source-panel code.language-text { white-space: pre-wrap; }
+    /* This slide is short and centred, so the panel is capped to end above the frame's bottom edge. */
+    #llm-price .code-reference .source-panel { max-height: 360px; }
+    #paper-prompt .code-reference .source-panel { max-height: 410px; }
+    #reading-ranking table { font-size: 0.6em; margin: 0.4em 0; }
+    #reading-ranking table td, #reading-ranking table th { padding: 0.36em 0.5em; }
+    #reading-ranking .note { margin-top: 0.5em; }
     #current-scope h2 { margin-bottom: 0.4em; }
     #current-scope li { margin-bottom: 0.35em; }
     #current-scope .inline .source-panel { max-height: 590px; }
@@ -1091,19 +1116,51 @@ def propose_program(public_input: str, instructions: str, current_code: str, fee
 <section id="biorelfact-full" class="no-marks">
   <p class="eyebrow">November · BioRelFact · all 1,767 pairs</p>
   <h2>Full-corpus extraction results</h2>
-  <p class="definitions">Nine relation types. Micro F1 excludes NO_RELATION as a positive class. Each method has one recorded run on this inspected development corpus.</p>
+  <p class="definitions">Nine relation types. Micro F1 excludes NO_RELATION as a positive class. Each row is one recorded run on this inspected development corpus.</p>
   <table class="result-table">
     <thead><tr><th>Method</th><th>Precision</th><th>Recall</th><th>Relation F1</th></tr></thead>
     <tbody>
       <tr><td>Plain GPT-5.4-mini</td><td>64.7</td><td>81.1</td><td>72.0</td></tr>
+      <tr><td>Plain GPT-5.4-mini, paper's zero-shot prompt</td><td>73.8</td><td>83.1</td><td>78.2</td></tr>
+      <tr><td>Plain GPT-5.4-mini, paper's 2-shot prompt</td><td>73.8</td><td>80.3</td><td>76.9</td></tr>
       <tr><td>Paid mappings + coverage search</td><td>60.3</td><td>84.7</td><td>70.5</td></tr>
       <tr><td>Search + learned predicate lexicon</td><td>61.3</td><td>82.3</td><td>70.3</td></tr>
       <tr><td>Agreement selection</td><td>69.93</td><td>78.43</td><td>73.93</td></tr>
-      <tr><td><strong>Mini interpretation → GPT-5.4 review → mini reader</strong></td><td>80.69</td><td>70.26</td><td><strong>75.12</strong></td></tr>
+      <tr><td>Mini interpretation → GPT-5.4 review → mini reader</td><td>80.69</td><td>70.26</td><td>75.12</td></tr>
+      <tr><td>LLM-priced search, budget 1.5</td><td>60.1</td><td>85.3</td><td>70.5</td></tr>
+      <tr><td>Search + ranking LLM-written readings</td><td>75.6</td><td>81.1</td><td>78.3</td></tr>
+      <tr><td>2-shot search + ranking LLM-written readings</td><td>77.3</td><td>80.8</td><td>79.0</td></tr>
+      <tr><td>Search + ranking typed claims</td><td>74.7</td><td>82.6</td><td>78.4</td></tr>
+      <tr><td>Search + ranking typed claims, guideline rules</td><td>76.4</td><td>79.5</td><td>77.9</td></tr>
+      <tr><td>2-shot search + ranking typed claims</td><td>76.3</td><td>82.9</td><td>79.5</td></tr>
     </tbody>
   </table>
-  <p class="note">75.12 is the latest verified full-run artifact here. Different prompts and compute: this table does not isolate formal reasoning. <a href="sources/fullrun-results.json">Full-run scores</a> · <a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">Search and lexicon report</a></p>
-  <aside class="notes">All 1,767 pairs come from 1,408 documents, with 1,029 positive relations. The reviewed pipeline uses 5,301 model completions. The 75.9 mentioned in the lexicon report is the paper's GPT-4o 2-shot definition baseline, not a verified result of this pipeline. Do not substitute it for 75.116883 without a new run artifact. Earlier 65-pair studies and different selection rules are not directly comparable to this table.</aside>
+  <p class="note">The last row ties the paper's zero-shot prompt, +1.3 (−0.3 to 2.9), and leads its 2-shot prompt, +2.6 (0.9 to 4.4). The table does not isolate formal reasoning. <a href="sources/fullrun-results.json">Interpretation</a> · <a href="sources/reading-ranking-examples.json">Ranking</a> · <a href="sources/two-shot-results.json">2-shot</a> · <a href="sources/sol-results.json">Typed claims</a> · <a href="sources/typed-two-shot-results.json">Typed 2-shot</a> · <a href="https://github.com/datvo06/keep-track/blob/b3bc8f9/experiments/LEXICON_RESULTS.md">Lexicon report</a></p>
+  <aside class="notes">All 1,767 pairs come from 1,408 documents, with 1,029 positive relations. The reviewed pipeline uses 5,301 model completions. The 75.9 mentioned in the lexicon report is the paper's GPT-4o 2-shot definition baseline, not a verified result of this pipeline. Do not substitute it for 75.116883 without a new run artifact; our own reproduction of that prompt gives 74.4 (see the paper-prompt slide). The LLM-priced search and the reading ranker rows are from keep-track PR #30: the LLM-priced search alone, and the November 19 budget-8 search's programs selected by ranking LLM-written readings with gpt-5.4-mini, both one trial on these 1,767 pairs. The paper's zero-shot row is gpt-5.4-mini with the paper's prompt through OpenAI (PR #31). The 2-shot search + LLM-written readings row is a fresh budget-8 search shown the paper's 2-shot demonstrations, gold labels of other documents, and ranked zero-shot (PR #32); it is +0.8 (−0.8 to 2.5) over the paper's zero-shot row. The paper's 2-shot row is the same runner with the paper's 2-shot prompt (PR #31). The two typed-claims rows on the November 20 zero-shot search are keep-track PRs #36 and #38, ranked by our rules and by the annotation guidelines' rules; the last row ranks the November 20 2-shot search with typed claims (PR #40) and is +1.0 (−0.4 to 2.4) over the zero-shot search. Ranked by the typed ranker shown the examples, the two searches score 77.1 and 78.5 (see the typed 2-shot slide). The proved arm was revised over three full gpt-5.4-mini runs on these pairs, and the "ranking typed claims" rows use its fourth version; the guideline ranker's prompt was revised twice, each time after a run that stopped partway. The GPT-5.6-sol rows are on the next slide. Rows without a model name use gpt-5.4-mini. The plain GPT-5.4-mini row is our prompt through OpenRouter; through OpenAI it scores 73.4. Earlier 65-pair studies and different selection rules are not directly comparable to this table.</aside>
+</section>
+
+<section id="biorelfact-models" class="no-marks">
+  <p class="eyebrow">November · BioRelFact · all 1,767 pairs</p>
+  <h2>Full-corpus results on other models</h2>
+  <p class="definitions">The same task and scoring. Each row is one trial; the open-weight rows are plain prompting with the paper's 2-shot prompt.</p>
+  <table class="result-table">
+    <thead><tr><th>Method</th><th>Precision</th><th>Recall</th><th>Relation F1</th></tr></thead>
+    <tbody>
+      <tr><td>Plain GPT-5.6-sol, paper's zero-shot prompt</td><td>75.3</td><td>85.1</td><td>79.9</td></tr>
+      <tr><td>Plain GPT-5.6-sol, paper's 2-shot prompt</td><td>77.8</td><td>85.6</td><td>81.5</td></tr>
+      <tr><td>GPT-5.6-sol search + ranking typed claims</td><td>79.7</td><td>84.1</td><td>81.8</td></tr>
+      <tr><td>GPT-5.6-sol 2-shot search + ranking typed claims</td><td>80.2</td><td>84.1</td><td>82.1</td></tr>
+      <tr><td>Plain gpt-oss-20b, reasoning low</td><td>64.3</td><td>81.2</td><td>71.8</td></tr>
+      <tr><td>Plain Qwen3-8B Thinking</td><td>68.0</td><td>85.2</td><td>75.7</td></tr>
+      <tr><td>Plain Qwen3-8B Non-Thinking</td><td>57.2</td><td>78.0</td><td>66.0</td></tr>
+      <tr><td>Plain Qwen2.5-7B-Instruct</td><td>54.4</td><td>77.0</td><td>63.7</td></tr>
+      <tr><td>Plain Qwen2.5-Aloe-Beta-7B</td><td>52.6</td><td>82.9</td><td>64.3</td></tr>
+      <tr><td>Plain Gemma 3 27B, 4-bit</td><td>57.8</td><td>83.8</td><td>68.4</td></tr>
+      <tr><td>Plain MedGemma 27B, 4-bit</td><td>59.3</td><td>82.8</td><td>69.1</td></tr>
+    </tbody>
+  </table>
+  <p class="note">On GPT-5.6-sol both pipelines tie the paper's 2-shot prompt, +0.3 (−0.9 to 1.6) and +0.6 (−0.7 to 1.7). <a href="sources/sol-results.json">GPT-5.6-sol</a> · <a href="sources/typed-two-shot-results.json">Typed 2-shot</a> · <a href="sources/open-models-results.json">Open-weight models</a></p>
+  <aside class="notes">The GPT-5.6-sol rows are keep-track PRs #39 and #40: the paper's prompts through the paper-prompt runner, and the zero-shot and 2-shot searches (word price, edit budget 8, 8 submissions) ranked with typed claims, gpt-5.6-sol for every call; the 2-shot search sees the seed-0 2-shot draw of our paper-prompt runs. The pipeline is +1.9 (0.8 to 3.2) over the zero-shot prompt and +0.3 (−0.9 to 1.6) over the 2-shot one; the 2-shot search adds +0.2 (−0.7 to 1.2). The zero-shot search row joins two runs of the same search, the first stopped after 365 pairs by a provider error. Ranked by the typed ranker shown the examples, the two GPT-5.6-sol searches score 81.8 and 81.8 (see the typed 2-shot slide). The typed ranker was revised over three full gpt-5.4-mini runs on these pairs, and gpt-5.6-sol ran its fourth version once on each search. The open-weight rows are keep-track PR #35, the paper's Table 6 configurations on vLLM, one run each at temperature 0; the paper reports their 2-shot definitions relation F1 as 77.3, 74.5, 65.9, 63.8, 62.5, 69.2 and 70.6 in this row order, means of three runs. Paired bootstrap over pairs, 2,000 resamples, seed 20261103.</aside>
 </section>
 
 <section id="interpretation-fullrun" class="no-marks">
@@ -1227,8 +1284,547 @@ class Reading(MeaningModel):
 
 class SentenceMeaning(MeaningModel):
     readings: Annotated[tuple[Reading, ...], Field(min_length=1)]</code></pre></div></div>
-  <p class="nav"><a href="#/research-map">Research map</a></p>
   <aside class="notes">The plan replaces the string-ID interpretation graph with nested typed objects: scope wrappers hold their child, and pairing and intervention are attributes of the event, so six of the pilot's eight linking checks, seven raises plus a CycleError, disappear by construction; the two pairing checks move to a new pairing-group validator on Event, source_order on Role is kept from the pilot, price and type signature go to validate_answer, and consistency goes to the hook on SentenceMeaning. The predicate reuses refine_relation and validate_answer: an undeclared trigger-to-keyword mapping costs edit.refine per source word, a lexicon-declared one is free, and the type signature is checked by validate_edge. The domain's NativeRelation splits into PositiveRelation plus NO_RELATION so an event cannot carry the negative label. Three design points from the plan: a plain ValidationContext would reject every undeclared refinement, so the runner prices refinement the way the search does; the harness's num_retries is not used, because with a forced tool choice and no turn cap a failing body would loop until the token budget ran out; the search's --edit-budget default is two, and the runner records the value it is given. On the slide's numbers: 75.12 and 73.93 are full-corpus relation F1, while 57.1 is weighted over 120 development pairs. The plan document lives in the keep-track scratchpad, debate3/programmatic-plan.md, and is not committed. Nothing here is implemented or measured yet.</aside>
+</section>
+
+<section id="llm-price" class="no-marks" data-date="2026-11-19" data-prs="30">
+  <p class="eyebrow">November 19, 2026 · all 1,767 pairs</p>
+  <h2>Pricing mappings with LLM judges</h2>
+  <p class="definitions">An undeclared mapping costs the mean of nine 0/1 answers: three judge prompts, three samples each. The search ran at budget 1.5, against word price at budget 8.</p>
+  <div class="code-example">
+    <div class="code-reference"><button type="button">Judge prompts · source</button><div class="source-panel" role="region" aria-label="The three judge Skills and judged prices from the smoke run"><p><strong>The three judge Skills (keeptrack/price_judges.py at 6470b93, verbatim).</strong> 0 means the phrase states the relation.</p><pre><code class="language-python">@Skill.define
+def states_relation(before: str, after: str) -&gt; Judgment:
+    """Used as the link between two entities, does the phrase "{before}" state
+    the relation "{after}"? Answer 0 if it does and 1 if it does not. An
+    inflection, a synonym or a nominalization of a word naming the relation
+    states it. Judge the phrase only; do not judge whether the relation holds."""
+    raise NotHandled
+
+
+@Skill.define
+def substitutes_for(before: str, after: str) -&gt; Judgment:
+    """Take a sentence that uses the phrase "{before}" between two entities, and
+    replace the phrase with a short phrase naming the relation "{after}". Answer
+    0 if the sentence would still say the same thing about the two entities,
+    and 1 if what it says would change."""
+    raise NotHandled
+
+
+@Skill.define
+def paraphrase_matches(before: str, after: str) -&gt; Judgment:
+    """Put in your own words the relation the phrase "{before}" expresses between
+    two entities. Answer 0 if that is the relation "{after}", and 1 if it is a
+    different relation or none."""
+    raise NotHandled</code></pre><p><strong>Two saved judgments from the scored run (prices.json, verbatim).</strong> Each list holds the nine answers; the price is their mean, so “antagonists” costs 0.56 as MODULATES and nothing as ANTAGONIST.</p><pre><code class="language-json">"associated": {"DRUG : DISEASE - CAUSAL_EFFECT": [1, 1, 1, 1, 1, 1, 1, 1, 1], "GENE : DISEASE - BIOMARKER": [1, 0, 0, 1, 1, 1, 1, 1, 1], "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION": [0, 0, 0, 0, 0, 0, 0, 0, 0]}
+"antagonists": {"DRUG : GENE - ANTAGONIST": [0, 0, 0, 0, 0, 0, 0, 0, 0], "GENE : DISEASE - MODULATES": [1, 0, 1, 0, 1, 0, 0, 1, 1]}</code></pre><p><strong>Smoke-run excerpt, a separate two-pair run:</strong> <code>'sm for T'</code> → THERAPEUTIC_USE 0.0, <code>'l mechanism for T2DM'</code> → THERAPEUTIC_USE 1.0, <code>'novel mechanism for T2DM treatment'</code> → THERAPEUTIC_USE 0.67.</p><p>Every judged mapping of the scored run: <a href="sources/llm-price-prices.json" download>prices.json</a> (2,462 mappings). Scores, bootstrap and the smoke-run answers: <a href="sources/llm-price-results.json" target="_blank" rel="noopener">summary</a>. The search programs and attempts are in the private HF dataset only.</p></div></div>
+    <table class="study-cases">
+      <thead><tr><th>Most covered words</th><th>P / R / F1</th><th>Joint F1</th></tr></thead>
+      <tbody>
+        <tr class="fragment"><td>Word price, budget 8</td><td class="num">60.2 / 85.8 / 70.8</td><td class="num">59.0</td></tr>
+        <tr class="fragment"><td>LLM price, budget 1.5</td><td class="num">60.1 / 85.3 / 70.5</td><td class="num">58.8</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="definitions fragment">The two pick the same relation on 1,582 pairs; the F1 difference is −0.3 (−1.4 to 0.9). The judges priced 338 of 2,462 mappings at zero; in the smoke run, that included the mid-word fragment “sm for T”.</p>
+  <aside class="notes">Source: keep-track PR #30 (commit 52f031c), gpt-5.4-mini through effectful's harness, 8 submissions per pair; the judges are the same model under JSON mode, with up to three attempts per answer. Mean judged price 0.71; 1,273 mappings cost the full unit. prices.json keeps every mapping's nine answers. Paired bootstrap over pairs, 2,000 resamples, seed 20261103. The search made 33,460 completions (307.5M prompt tokens, 265.8M cached, 6.9M completion); the whole-sentence control another 3,483. The 65 development pairs score 60.9 under LLM price, the same in the pilot run and the full run. One trial per arm. A word-boundary rule for priced cues would stop free fragments; it is not implemented. Run records: private HF dataset datvo06/keeptrack-biorelfact-runs, experiments/runs/llm-price-ranking-20261119.</aside>
+</section>
+
+<section id="reading-ranking" class="no-marks" data-date="2026-11-19" data-prs="30">
+  <p class="eyebrow">November 19, 2026 · selection over the budget-8 run · all 1,767 pairs</p>
+  <h2>Ranking readings written from each proof</h2>
+  <p class="definitions">An LLM writes each accepted label's claim from its proof, without the sentence. A second call ranks the claims and “no relation” against the sentence under the task's rules, five times shuffled.</p>
+  <div class="code-example">
+    <div class="code-reference"><button type="button">Skills · read_back and rank_readings</button><div class="source-panel" role="region" aria-label="The two ranking Skills"><p><strong>experiments/biorelfact_ranking.py at 6470b93 (verbatim).</strong> <code>RULES</code> is the baseline prompt's annotation rules and relation and facticity definitions.</p><pre><code class="language-python">@Skill.define
+def read_back(head: str, tail: str, relation: str, facticity: str, cue: str) -&gt; str:
+    """A program read a claim about {head} and {tail} from a biomedical sentence
+    that you do not see. The claim is the task relation {relation}, with
+    facticity {facticity}, read from the sentence's words "{cue}".
+
+    Write one plain English sentence stating this claim about {head} and {tail},
+    as the task's definitions below read the relation and the facticity. Say
+    what the claim rests on in terms of those words. State only what the claim
+    holds; add no detail it does not contain.
+
+    {RULES}
+    """
+    raise NotHandled
+
+
+@Skill.define
+def rank_readings(sentence: str, readings: list[str]) -&gt; Ranking:
+    """Rank these readings of a sentence, most faithful first.
+
+    Sentence, with the head tagged &lt;H&gt;...&lt;/H&gt; and the tail &lt;T&gt;...&lt;/T&gt;: {sentence}
+    Readings, each prefixed with its index: {readings}
+
+    Judge each reading the way the task's annotators would, by the rules and
+    definitions below. A sentence can discuss a relation without stating it in
+    so many words, so decide by the definitions and what the sentence says
+    about this pair, not by whether a reading's wording appears in it. A
+    sentence that denies, doubts or asks whether a relation holds still
+    discusses it, so the reading with that stance is faithful and a reading
+    that says no relation is discussed is not. Mere co-occurrence is no
+    relation.
+
+    First think it through in reasoning: what the sentence discusses about this
+    pair under these rules, and how each reading fits. Then give the order,
+    listing every index exactly once.
+
+    {RULES}
+    """
+    raise NotHandled</code></pre><p><strong>The tamsulosin pair's saved selection (selections.jsonl of the scored run, verbatim).</strong> Each order lists reading indices, most faithful first, from one of the five shuffled rankings.</p><pre><code class="language-json">{"case_id":"EMBASE:L2007453892:1231:1366:3:9","readings":["Tamsulosin is presented as treating or relieving incontinence, based on the normalization of urgency and incontinence.","The sentence does not discuss any of the task's relations between tamsulosin and incontinence, not even to deny, doubt or question one."],"orders":[[0,1],[0,1],[0,1],[0,1],[0,1]],"chosen":0,"prediction":{"case_id":"EMBASE:L2007453892:1231:1366:3:9","outcome":"decision","decision":{"relation":"DRUG : DISEASE - THERAPEUTIC_USE","facticity":"fact"}}}</code></pre><p>The ranker's written reasoning was not saved; a selection keeps the readings, the five orders and the choice. Every pair's selection: <a href="sources/reading-ranking-selections.jsonl" download>selections.jsonl</a> (1,767 pairs). Excerpt comparing both rankers on two pairs, with scores and bootstrap: <a href="sources/reading-ranking-examples.json" target="_blank" rel="noopener">examples</a>.</p></div></div>
+    <table class="study-cases">
+      <thead><tr><th>Selection</th><th>P / R / F1</th><th>Joint F1</th></tr></thead>
+      <tbody>
+        <tr class="fragment"><td>Plain GPT, one call</td><td class="num">64.7 / 81.1 / 72.0</td><td class="num">63.0</td></tr>
+        <tr class="fragment"><td>Most covered words</td><td class="num">60.2 / 85.8 / 70.8</td><td class="num">59.0</td></tr>
+        <tr class="fragment"><td>Agreement</td><td class="num">69.9 / 78.4 / 73.9</td><td class="num"></td></tr>
+        <tr class="fragment"><td>Template readings, literal ranker</td><td class="num">79.7 / 68.1 / 73.4</td><td class="num">62.9</td></tr>
+        <tr class="fragment"><td><strong>LLM-written readings, ranker with task rules</strong></td><td class="num">75.6 / 81.1 / <strong>78.3</strong></td><td class="num"><strong>66.0</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="definitions fragment">“Normalization of urgency and <span class="semantic-mark role-object">incontinence</span> was 19.1% and 60.7% for <span class="semantic-mark role-subject">tamsulosin</span> + mirabegron…” The template reading “tamsulosin treats incontinence” lost to no relation; the written reading “Tamsulosin is presented as treating or relieving incontinence, based on the normalization of urgency and incontinence” won all five rankings. Gold: THERAPEUTIC_USE.</p>
+  <p class="note fragment">+6.3 over plain GPT with our prompt (4.4 to 8.2) and +4.4 over agreement (2.9 to 5.9); the paper's plain prompt later reached 78.2. Readings and ranker prompt changed together, in one trial designed after the template ranker's errors.</p>
+  <aside class="notes">Source: keep-track PR #30 (commit 6470b93). The full run used ede30d3, a working-tree stash whose Skills and ranking prompt are the same as 6470b93's; only the runner script was cleaned up after. The reader and the ranker are gpt-5.4-mini. A pair with one option makes no call; options are one per distinct relation and facticity, from the best-covering candidate. The template ranker filled one fixed clause per relation ("{head} modifies {tail}") and its prompt asked for a literal reading ("no more and no less"); it rejected about 150 true relations with an exactly matching reading on the list, mostly indirect ones the annotators count. Against it, the written readings fix 180 pairs (152 of them true relations it had rejected) and break 131 (109 of them by asserting a relation where gold says none). Over the LLM-priced search the same ranker gives 75.3 / 79.6 / 77.4, joint 66.7. Paired bootstrap, 2,000 resamples, seed 20261103: +7.5 (5.9 to 9.0) over most covered words, +4.9 (3.1 to 6.8) over template readings. Ranking the budget-8 run took 9,006 completions: 59.8M prompt tokens, 46.5M cached, 2.0M completion. The 65 development pairs score 81.1 here and 79.5 in the pilot run. Second example in the source file: "tyrosine kinase inhibitors … proved to be highly efficacious in reducing tumor progressions", gold MODULATES; the written reading "Tyrosine kinase receptors modulate tumor" won four of five rankings. Run records: private HF dataset datvo06/keeptrack-biorelfact-runs, experiments/runs/llm-price-ranking-20261119.</aside>
+</section>
+
+<section id="paper-prompt" class="no-marks" data-date="2026-11-20" data-prs="31">
+  <p class="eyebrow">November 20, 2026 · plain GPT-4o · all 1,767 pairs</p>
+  <h2>Reproducing the paper's plain prompting</h2>
+  <p class="definitions">GPT-4o at temperature 0, one call per pair. The paper's prompt is rebuilt from its Figure 2 and Tables 12 and 13, since its repository is gone.</p>
+  <div class="code-example">
+    <div class="code-reference"><button type="button">Rebuilt system prompt · source</button><div class="source-panel" role="region" aria-label="The rebuilt paper system prompt"><p><strong>experiments/biorelfact_paper_prompt.txt at 3166fda (opening, verbatim).</strong> The placeholders take only the labels that fit the pair's entity types; the 2-shot variant adds labeled sentences from other documents as user and assistant turns.</p><pre><code class="language-text">Your task is to analyze input sentences containing highlighted concept pairs that correspond to {entity_types}. For each sentence, answer two questions about the relationship expressed between the highlighted concepts:
+1. **Question 1**: Does the sentence discuss any of the listed relations involving the highlighted concepts?
+
+2. **Question 2**: If the sentence discusses a relationship involving the highlighted concepts, is the relation presented as an established fact, a counterfact, a possibility or doubt, or an uncommitted association?
+
+Possible answers:
+- **Question 1**: {relation_names}
+- **Question 2**: {facticity_values}
+
+### **Relation Name Structure**
+Relation names are structured as `Entity_Type1:Entity_Type2 - Relation`.
+The relationship direction is always from `Entity_Type1` (Head) to `Entity_Type2` (Tail).
+
+**Examples**:
+- `Chemical : Gene - Agonist` means "Chemical (Head) acts as an agonist for Gene (Tail)."
+- `Chemical : Disease - Therapeutic_Use` means "Chemical (Head) has a therapeutic use for Disease (Tail)."
+
+### **Relation Definitions**
+Refer to the following relation definitions when choosing your answer to **Question 1**:
+**{relation_definitions}**
+
+### **Facticity Definitions**
+Refer to the following facticity definitions when choosing your answer to **Question 2**:
+**{facticity_definitions}**</code></pre><p><strong>One saved 2-shot exchange, a correct variant pair (verbatim).</strong> The request is the filled system prompt, four demonstrations as user and assistant turns (two ASSOCIATION, two NO_RELATION), then this user turn:</p><pre><code class="language-text">Sentence_ID: EMBASE:L2019421247:711:837:9:12
+Sentence: Results Present study revealed that TF rs3917615 and rs958587 and APOH [[rs4581 (Gene Variant)]] possibly predispose to joint involvement in [[SLE (Diseases)]].</code></pre><p>GPT-4o's reply:</p><pre><code class="language-json">{"sentence_id":"EMBASE:L2019421247:711:837:9:12","relations":[{"relation_type":"GeneVariant:Disease - Association","facticity_value":"possible"}]}</code></pre><p>This exchange in full, with the demonstrations: <a href="sources/paper-prompt-2shot-example.json" download>request and response</a>. Every request and response of the scored 2-shot run: <a href="sources/paper-prompt-2shot-requests.jsonl.gz" download>requests.jsonl.gz</a> (1,767 pairs, 2 MB). Scores of all three runs and the paper's reported numbers: <a href="sources/paper-prompt-results.json" target="_blank" rel="noopener">summary</a>.</p></div></div>
+    <table class="study-cases">
+      <thead><tr><th>Prompt</th><th>P / R / F1</th><th>Joint F1</th></tr></thead>
+      <tbody>
+        <tr class="fragment"><td>Ours, zero-shot</td><td class="num">63.4 / 79.5 / 70.5</td><td class="num">57.4</td></tr>
+        <tr class="fragment"><td>Paper, zero-shot with definitions</td><td class="num">62.2 / 81.9 / 70.7 <span class="muted">(paper 70.6)</span></td><td class="num">55.6</td></tr>
+        <tr class="fragment"><td>Paper, 2-shot with definitions</td><td class="num">65.4 / 86.2 / 74.4 <span class="muted">(paper 75.9)</span></td><td class="num">60.2 <span class="muted">(paper 60.2)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="definitions fragment">Zero-shot reproduces the paper; its gain comes from labeled BioRelFact sentences shown as examples.</p>
+  <aside class="notes">Source: keep-track PR #31 (commit 3166fda), gpt-4o-2024-08-06 through OpenAI directly, one run per prompt against the paper's mean over runs. The paper's factuality F1 is strict, relation and factuality both correct, which is joint F1 here. Per-group 2-shot relation F1: drug-disease 86.5 (paper 86.0), drug-gene 59.1 (63.1), gene-disease 60.3 (62.9), variant-disease 84.7 (84.0). Our 2-shot run predicts 1,357 positives against the paper's implied 1,231, so its precision is lower and recall higher. Our choices where the paper is silent: a pair is offered only its type group's relations and NO_RELATION; the 2-shot prompt shows two gold pairs for each of those labels, NO_RELATION included, drawn per target with a fixed seed and never from the target's document. The three runs used 6.9M input and 0.18M output tokens, about $19 at GPT-4o list prices. The paper's code repository, Bayer-Group/biomed-relation-factuality-detection, returned 404 on November 20, 2026; the data was pinned from it earlier at 7a05213. Paper: Gabryszak et al., LREC 2026, https://aclanthology.org/2026.lrec-1.602/.</aside>
+</section>
+
+<section id="two-shot" class="no-marks" data-date="2026-11-20" data-prs="31,32">
+  <p class="eyebrow">November 20, 2026 · gpt-5.4-mini · all 1,767 pairs</p>
+  <h2>Labeled examples and the plain prompt</h2>
+  <p class="definitions">Plain prompting runs through one runner, so only the prompt differs. The pipeline sees the paper's 2-shot demonstrations, two gold pairs per label from other documents, in its search, its ranker, or both.</p>
+  <div class="code-example">
+    <div class="code-reference"><button type="button">2-shot prompts · source</button><div class="source-panel" role="region" aria-label="The 2-shot search block and ranking Skill"><p><strong>The examples block the 2-shot search appended for pair EMBASE:L637923084:170:653:15:17 (verbatim, from attempt 1's saved invocation).</strong> Its gold label is GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION, fact, and every arm on this slide predicts it.</p><pre><code class="language-text">Labelled examples from other documents, up to two for each label of this pair's type group. Each gives a pair's input and the label the task's annotators gave it. They show how the labels are applied and are not evidence about this pair.
+- Input: {"case_id": "EMBASE:L637135719:943:1098:0:1", "document_id": "EMBASE:L637135719", "sentence": "According to obesity status, the stratification revealed that the effect of rs10738760 was more pronounced in obese than non-obese individuals (p = 0.025).", "sentence_start": 943, "head_index": 0, "tail_index": 1, "head_range": [76, 86], "tail_range": [13, 20], "head_type": "Gene Variant", "tail_type": "Indications", "head_entity_id": "MU:RS10738760", "tail_entity_id": "SD:BAYPHTH010832"}
+  Label: {"relation":"NO_RELATION","facticity":null}
+- Input: {"case_id": "EMBASE:L635998054:582:681:43:56", "document_id": "EMBASE:L635998054", "sentence": "The aim of our study was to determine the relationship between BRAF&lt;sup&gt;V600E&lt;/sup&gt; and ACC in PTC.", "sentence_start": 582, "head_index": 43, "tail_index": 56, "head_range": [72, 77], "tail_range": [95, 98], "head_type": "Gene Variant", "tail_type": "Indications", "head_entity_id": "MU:PVAL600GLU", "tail_entity_id": "SD:BAYPHTH008593"}
+  Label: {"relation":"GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION","facticity":"uncommitted"}
+- Input: {"case_id": "EMBASE:L2013783491:412:567:7:10", "document_id": "EMBASE:L2013783491", "sentence": "All participants underwent diagnostic interviews for IGD and an evaluation for the COMT val158met polymorphism, impulsivity, and reinforcement sensitivity.", "sentence_start": 412, "head_index": 7, "tail_index": 10, "head_range": [88, 97], "tail_range": [112, 123], "head_type": "Gene Variant", "tail_type": "Indications", "head_entity_id": "MU:PVAL158MET", "tail_entity_id": "SD:BAYPHTH014475"}
+  Label: {"relation":"NO_RELATION","facticity":null}
+- Input: {"case_id": "EMBASE:L2025562456:0:127:5:6", "document_id": "EMBASE:L2025562456", "sentence": "DYT1 dystonia is a hereditary neurological movement disorder with a 3-bp hallmark deletion (c.907 909delGAG) in the TOR1A gene.", "sentence_start": 0, "head_index": 5, "tail_index": 6, "head_range": [98, 107], "tail_range": [43, 60], "head_type": "Gene Variant", "tail_type": "Indications", "head_entity_id": "MU:C909DELGAG", "tail_entity_id": "SD:BAYPHTH009454"}
+  Label: {"relation":"GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION","facticity":"fact"}</code></pre><p><strong>The program the 2-shot search selected for this pair, attempt 2 of 8 (verbatim).</strong></p><pre><code class="language-python">def propose_program(public_input: str, instructions: str, current_code: str, feedback: str) -&gt; PairProgram:
+    def extract(case: PairInput) -&gt; PairAnswer:
+        subject: Span = span_at(case.case_id, 0, case.head_range[0], case.head_range[1])
+        object_: Span = span_at(case.case_id, 0, case.tail_range[0], case.tail_range[1])
+        evidence: Span = span_at(case.case_id, 0, 0, len(case.sentence))
+        predicate_source: Span = find_span(retrieve(case.case_id), "corresponding to mutations that cause")
+        predicate: RefinedSpan = refine_relation(predicate_source, "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION")
+        return make_relation(subject, predicate, object_, evidence, commitment="affirmed")
+
+    return extract</code></pre><p>Predicate proof step:</p><pre><code class="language-text">'corresponding to mutations that cause' -&gt; 'GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION'; undeclared mapping; cost=5</code></pre><p><strong>Its saved selection under the zero-shot ranker (selections.jsonl, verbatim).</strong></p><pre><code class="language-json">{"case_id":"EMBASE:L637923084:170:653:15:17","offered":[{"relation":"GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION","facticity":"fact"},{"relation":"NO_RELATION","facticity":null}],"readings":["p.Y232X is associated with Bardet-Biedl syndrome, corresponding to mutations that cause it.","The sentence does not discuss any of the task's relations between p.Y232X and Bardet-Biedl syndrome, not even to deny, doubt or question one."],"orders":[[0,1],[0,1],[0,1],[0,1],[0,1]],"chosen":0,"prediction":{"case_id":"EMBASE:L637923084:170:653:15:17","outcome":"decision","decision":{"relation":"GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION","facticity":"fact"}}}</code></pre><p><strong>The 2-shot ranker, experiments/biorelfact_ranking.py at e8c2b18 (verbatim).</strong> It is <code>rank_readings</code> with the examples paragraph added; each example is the pair's tagged sentence and its gold label.</p><pre><code class="language-python">@Skill.define
+def rank_readings_with_examples(
+    sentence: str, readings: list[str], examples: str
+) -&gt; Ranking:
+    """Rank these readings of a sentence, most faithful first.
+
+    Sentence, with the head tagged &lt;H&gt;...&lt;/H&gt; and the tail &lt;T&gt;...&lt;/T&gt;: {sentence}
+    Readings, each prefixed with its index: {readings}
+
+    Judge each reading the way the task's annotators would, by the rules and
+    definitions below. A sentence can discuss a relation without stating it in
+    so many words, so decide by the definitions and what the sentence says
+    about this pair, not by whether a reading's wording appears in it. A
+    sentence that denies, doubts or asks whether a relation holds still
+    discusses it, so the reading with that stance is faithful and a reading
+    that says no relation is discussed is not. Mere co-occurrence is no
+    relation.
+
+    These sentences from other documents show how the annotators apply the
+    rules. Each is tagged the same way and given the label the annotators chose
+    for its pair; they say nothing about this sentence.
+    {examples}
+
+    First think it through in reasoning: what the sentence discusses about this
+    pair under these rules, and how each reading fits. Then give the order,
+    listing every index exactly once.
+
+    {RULES}
+    """
+    raise NotHandled</code></pre><p>The ranker's filled prompts and its reasoning were not saved; a selection keeps the readings, orders and choice. The program behind every pair's chosen label in this arm: <a href="sources/two-shot-selected-programs.json.gz" download>selected programs</a>; the full search traces, with every attempt, are not published here. This pair's record with the program, selection and every arm's prediction: <a href="sources/two-shot-search-examples.json" download>example</a>. Every pair's label in every arm: <a href="sources/two-shot-predictions.json" download>predictions</a>. Scores, bootstrap and ranking usage: <a href="sources/two-shot-results.json" target="_blank" rel="noopener">summary</a>.</p></div></div>
+    <table class="study-cases">
+      <thead><tr><th>gpt-5.4-mini</th><th>P / R / F1</th><th>Joint F1</th></tr></thead>
+      <tbody>
+        <tr class="fragment"><td>Plain, our zero-shot prompt</td><td class="num">67.1 / 81.0 / 73.4</td><td class="num">64.8</td></tr>
+        <tr class="fragment"><td>Plain, paper's zero-shot prompt</td><td class="num">73.8 / 83.1 / 78.2</td><td class="num">67.2</td></tr>
+        <tr class="fragment"><td>Plain, paper's 2-shot prompt</td><td class="num">73.8 / 80.3 / 76.9</td><td class="num">67.6</td></tr>
+        <tr class="fragment"><td>Pipeline, zero-shot</td><td class="num">76.3 / 80.5 / 78.3</td><td class="num">66.5</td></tr>
+        <tr class="fragment"><td>Pipeline, 2-shot ranker</td><td class="num">75.8 / 79.9 / 77.8</td><td class="num">66.9</td></tr>
+        <tr class="fragment"><td>Pipeline, 2-shot search</td><td class="num">77.3 / 80.8 / 79.0</td><td class="num">66.7</td></tr>
+        <tr class="fragment"><td>Pipeline, 2-shot search and ranker</td><td class="num">77.2 / 80.2 / 78.6</td><td class="num">66.6</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="definitions fragment">No clear gain from examples: −1.3 (−2.7 to 0.0) for the paper's plain prompt; for the pipeline +0.7 (−0.9 to 2.2) in the search, −0.5 (−1.6 to 0.5) in the ranker. The best arm is +0.8 (−0.8 to 2.5) over the paper's zero-shot prompt.</p>
+  <aside class="notes">Source: keep-track PRs #31 and #32 (commit e8c2b18). One trial per row on all 1,767 pairs. The pipeline searches use word-priced mappings at edit budget 8 with 8 submissions; both ran at e8c2b18, and each was ranked with LLM readings plus no relation, 5 shuffles, zero-shot and 2-shot. The demonstrations are written once by experiments.biorelfact_demonstrations with the paper prompt's sampler and seed 0, and match the plain 2-shot run's for all 1,767 pairs: 4, 6 or 8 per pair by type group. Without the option the search and ranker prompts are unchanged. All three plain rows are gpt-5.4-mini at low reasoning effort through OpenAI and the paper-prompt runner at 09e04c8, one call per pair; the paper's zero-shot run had 8 failed replies (6 invalid labels, 2 not listing exactly one relation), the others none. The deck's earlier plain GPT row, our prompt through OpenRouter on November 1, scores 72.0 / 63.0, and +1.4 (−0.1 to 3.0) separates it from our prompt here. Paired bootstrap over pairs, 2,000 resamples, seed 20261103, relation F1: paper's zero-shot over our zero-shot +4.7 (3.0 to 6.5); paper's 2-shot over its zero-shot −1.3 (−2.7 to 0.0), joint +0.4 (−1.5 to 2.2); zero-shot pipeline over the paper's zero-shot +0.1 (−1.4 to 1.7), joint −0.7 (−3.0 to 1.6); 2-shot search arm over the paper's zero-shot +0.8 (−0.8 to 2.5), joint −0.5 (−2.9 to 1.8). Within the pipeline: 2-shot search alone +0.7 (−0.9 to 2.2), 2-shot ranker alone −0.5 (−1.6 to 0.5), both +0.3 (−1.2 to 1.8); under most covered words the 2-shot search gains +1.3 (0.0 to 2.6), 70.0 to 71.3. The pipeline's +6.3 over plain GPT on the reading-ranking slide is against our weaker prompt. What makes the paper's prompt stronger is untested: it offers only the pair's type-group labels, marks the mentions inline and asks two questions. The fresh zero-shot pipeline reproduces the November 19 one at a different revision: 78.3 relation F1 both times, joint 66.5 against 66.0. Each ranking took about 9,000 completions.</aside>
+</section>
+
+<section id="sol-model" class="no-marks" data-date="2026-11-24" data-prs="36,38,39">
+  <p class="eyebrow">November 20 to 25, 2026 · gpt-5.4-mini and gpt-5.6-sol · all 1,767 pairs</p>
+  <h2>Ranking typed claims on two models</h2>
+  <p class="definitions">The typed ranker sees each claim as its type: its label, a reading written from its proofs without the sentence, and the proofs of its subject, predicate and object. The no-relation option is shown as its label. The guideline ranker judges by the annotation guidelines' own rules. Every call in a row uses that row's model.</p>
+  <div class="code-example">
+    <div class="code-reference"><button type="button">Rankers and two selections · source</button><div class="source-panel" role="region" aria-label="The typed claims rankers and two gpt-5.6-sol selections"><p><strong>experiments/biorelfact_ranking.py at 8bb3fe7, lines 63 to 139 and 167 to 227, unchanged at a5d647a where gpt-5.6-sol ranked (verbatim).</strong> <code>RULES</code> is the annotation rules and relation and facticity definitions of our own plain prompt, not the paper's; <code>GUIDELINE_RULES</code> is <a href="https://github.com/datvo06/keep-track/blob/8bb3fe7/experiments/biorelfact_guideline_rules.txt" target="_blank" rel="noopener">biorelfact_guideline_rules.txt</a>, the annotators' two questions, rules and definitions.</p><pre><code class="language-python">@Skill.define
+def read_back_proof(
+    label: PairLabel, subject: SpanProof, predicate: SpanProof, object: SpanProof
+) -&gt; str:
+    """A program read a claim from a biomedical sentence that you do not see.
+    Its label, the task relation and facticity it asserts: {label}
+
+    Its proofs, one per role of the claim. Each gives the source characters
+    it cites, the words there, the surface it made of them, and every step
+    that made it, edits and the relation's refinement with its price
+    included.
+    Subject: {subject}
+    Predicate: {predicate}
+    Object: {object}
+
+    Write one plain English sentence that states the claim and the words it
+    rests on, as the task's definitions below read the relation and the
+    facticity. State only what the label and the proofs hold; add no detail
+    they do not contain.
+
+    {RULES}
+    """
+    raise NotHandled
+
+
+@dataclass(frozen=True)
+class Claim:
+    """What a positive decision's proof asserts: its relation and facticity,
+    and the proofs of the triplet the program built, the predicate's holding
+    the source words it was read from."""
+
+    relation: NativeRelation
+    facticity: NativeFacticity
+    subject: SpanProof
+    predicate: SpanProof
+    object: SpanProof
+
+    @property
+    def label(self) -&gt; PairLabel:
+        return PairLabel(relation=self.relation, facticity=self.facticity)
+
+    def reading(self, case: PairInput) -&gt; str:
+        """The claim in words, read back from its predicate's words without
+        the sentence."""
+        return read_back(
+            case.head_text,
+            case.tail_text,
+            self.relation,
+            self.facticity,
+            self.predicate.source_surface,
+        )
+
+    def proof_reading(self) -&gt; str:
+        """The claim in words, read back from its label and its triplet's
+        proofs without the sentence."""
+        return read_back_proof(self.label, self.subject, self.predicate, self.object)
+
+
+@dataclass(frozen=True)
+class ReadClaim:
+    """A claim, and its proof read back into words without the sentence."""
+
+    claim: Claim
+    reading: str
+
+
+# What the proved arm shows its ranker for an option: a read claim, or the
+# no-relation label.
+type Shown = ReadClaim | PairLabel
+
+
+@dataclass(frozen=True)
+class Numbered:
+    """An option as the ranker sees it, with the index its order refers to."""
+
+    index: int
+    option: Shown</code></pre><pre><code class="language-python"># The proved arm's ranker: rank_readings' rules, shown each claim as its type.
+# It gets no rule about citations; the arm prefers candidates citing real words
+# in code when it picks each label's candidate.
+@Skill.define
+def rank_proved_readings(sentence: str, readings: list[Numbered]) -&gt; Ranking:
+    """Rank these options for a pair, most faithful to its sentence first.
+
+    Sentence, with the head tagged &lt;H&gt;...&lt;/H&gt; and the tail &lt;T&gt;...&lt;/T&gt;: {sentence}
+    Options, each with its index. A claim comes with its relation and
+    facticity, its proof read back into words without the sentence, and the
+    proofs of its subject, predicate and object. Each proof gives the source
+    characters it cites, the words there, the surface it made of them, and
+    every step that made it, edits and the relation's refinement with its
+    price included. The option stating that the sentence discusses no task
+    relation for the pair is shown as its label: {readings}
+
+    Judge each option the way the task's annotators would, by the rules and
+    definitions below. A sentence can discuss a relation without stating it in
+    so many words, so decide by the definitions and what the sentence says
+    about this pair, not by whether a claim's wording appears in it. A
+    sentence that denies, doubts or asks whether a relation holds still
+    discusses it, so the claim with that stance is faithful and the option
+    that no relation is discussed is not. Mere co-occurrence is no relation.
+
+    First think it through in reasoning: what the sentence discusses about this
+    pair under these rules, and how each option fits. Then give the order of
+    all the options, the no-relation option and any you judge wrong included,
+    listing every index exactly once.
+
+    {RULES}
+    """
+    raise NotHandled
+
+
+# The guideline arm's ranker: the proved arm's ranker, judging by the annotation
+# guidelines' own rules and definitions rather than our paraphrase of them.
+@Skill.define
+def rank_guideline_readings(sentence: str, readings: list[Numbered]) -&gt; Ranking:
+    """Rank these options for a pair, most faithful to its sentence first.
+
+    Sentence, with the head tagged &lt;H&gt;...&lt;/H&gt; and the tail &lt;T&gt;...&lt;/T&gt;: {sentence}
+    Options, each with its index. A claim comes with its relation and
+    facticity, its proof read back into words without the sentence, and the
+    proofs of its subject, predicate and object. Each proof gives the source
+    characters it cites, the words there, the surface it made of them, and
+    every step that made it, edits and the relation's refinement with its
+    price included. The option stating that the sentence discusses no task
+    relation for the pair is shown as its label: {readings}
+
+    Judge each option the way the task's annotators would answer both of their
+    questions, by their rules and definitions below, where the highlighted
+    concepts are the tagged head and tail.
+
+    First think it through in reasoning: what the sentence discusses about this
+    pair under these rules, and how each option fits. Then give the order of
+    all the options, the no-relation option and any you judge wrong included,
+    listing every index exactly once.
+
+    {GUIDELINE_RULES}
+    """
+    raise NotHandled</code></pre><p><strong>A win: pair EMBASE:L636199642:0:83:0:1, gold NO_RELATION.</strong> Of the 159 pairs where the pipeline and plain gpt-5.6-sol differ in relation, the pipeline is right on 101 and plain on 46. This one was picked by hand, the second shortest sentence among the 23 where gold says no relation, plain gave a relation, and the ranker put no relation above the one offered claim in all five shuffles; the shortest, “HOMA-IR was calculated from GLUC and insulin values.”, tags IR inside HOMA-IR. Plain gpt-5.6-sol's user turn and reply (verbatim, from requests.jsonl.gz of the scored run):</p><pre><code class="language-text">Sentence_ID: EMBASE:L636199642:0:83:0:1
+Sentence: Background: Estrogen unopposed by [[progestin (Drugs)]] increases [[endometrial cancer (Diseases)]] (EC) risk.</code></pre><pre><code class="language-json">{"sentence_id":"EMBASE:L636199642:0:83:0:1","relations":[{"relation_type":"Drug:Disease - Causal_Effect","facticity_value":"counterfact"}]}</code></pre><p><strong>The pipeline's saved selection (selections.jsonl, verbatim).</strong></p><pre><code class="language-json">{"case_id":"EMBASE:L636199642:0:83:0:1","offered":[{"relation":"DRUG : DISEASE - CAUSAL_EFFECT","facticity":"fact"},{"relation":"NO_RELATION","facticity":null}],"readings":[{"claim":{"relation":"DRUG : DISEASE - CAUSAL_EFFECT","facticity":"fact","subject":{"doc_id":"EMBASE:L636199642:0:83:0:1","root_location":0,"root_start":34,"root_end":43,"source_surface":"progestin","rendered_surface":"progestin","chain":[{"kind":"span_at","detail":"source[34:43]: 'progestin'"}]},"predicate":{"doc_id":"EMBASE:L636199642:0:83:0:1","root_location":0,"root_start":0,"root_end":54,"source_surface":"Background: Estrogen unopposed by progestin increases ","rendered_surface":"DRUG : DISEASE - CAUSAL_EFFECT","chain":[{"kind":"span_at","detail":"source[0:54]: 'Background: Estrogen unopposed by progestin increases '"},{"kind":"refine_relation","detail":"'Background: Estrogen unopposed by progestin increases ' -&gt; 'DRUG : DISEASE - CAUSAL_EFFECT'; undeclared mapping; cost=6"}]},"object":{"doc_id":"EMBASE:L636199642:0:83:0:1","root_location":0,"root_start":54,"root_end":72,"source_surface":"endometrial cancer","rendered_surface":"endometrial cancer","chain":[{"kind":"span_at","detail":"source[54:72]: 'endometrial cancer'"}]}},"reading":"The words “Background: Estrogen unopposed by progestin increases” present as established that progestin causes endometrial cancer."},{"relation":"NO_RELATION","facticity":null}],"orders":[[1,0],[1,0],[1,0],[1,0],[1,0]],"chosen":1,"prediction":{"case_id":"EMBASE:L636199642:0:83:0:1","outcome":"decision","decision":{"relation":"NO_RELATION","facticity":null}}}</code></pre><p><strong>A relation F1 loss: pair EMBASE:L2020408112:2693:2848:2:4, gold DRUG : GENE - AGONIST, fact.</strong> The shortest sentence among the 3 pairs where plain gpt-5.6-sol gave the gold relation and the ranker put no relation above the one offered claim with that relation in all five shuffles. Plain gpt-5.6-sol's user turn and reply (verbatim):</p><pre><code class="language-text">Sentence_ID: EMBASE:L2020408112:2693:2848:2:4
+Sentence: Underline the disadvantages of [[ziconotide (Drugs)]]: earlier recognition of possible complications, such as hallucinations, nausea, and elevation of creatine [[kinase (Genes)]].</code></pre><pre><code class="language-json">{"sentence_id":"EMBASE:L2020408112:2693:2848:2:4","relations":[{"relation_type":"Drug:Gene - Agonist","facticity_value":"possible"}]}</code></pre><p><strong>The pipeline's saved selection (selections.jsonl, verbatim).</strong></p><pre><code class="language-json">{"case_id":"EMBASE:L2020408112:2693:2848:2:4","offered":[{"relation":"DRUG : GENE - AGONIST","facticity":"possible"},{"relation":"NO_RELATION","facticity":null}],"readings":[{"claim":{"relation":"DRUG : GENE - AGONIST","facticity":"possible","subject":{"doc_id":"EMBASE:L2020408112:2693:2848:2:4","root_location":0,"root_start":31,"root_end":41,"source_surface":"ziconotide","rendered_surface":"ziconotide","chain":[{"kind":"span_at","detail":"source[31:41]: 'ziconotide'"}]},"predicate":{"doc_id":"EMBASE:L2020408112:2693:2848:2:4","root_location":0,"root_start":66,"root_end":135,"source_surface":"possible complications, such as hallucinations, nausea, and elevation","rendered_surface":"DRUG : GENE - AGONIST","chain":[{"kind":"span_at","detail":"source[66:135]: 'possible complications, such as hallucinations, nausea, and elevation'"},{"kind":"refine_relation","detail":"'possible complications, such as hallucinations, nausea, and elevation' -&gt; 'DRUG : GENE - AGONIST'; undeclared mapping; cost=8"}]},"object":{"doc_id":"EMBASE:L2020408112:2693:2848:2:4","root_location":0,"root_start":148,"root_end":154,"source_surface":"kinase","rendered_surface":"kinase","chain":[{"kind":"span_at","detail":"source[148:154]: 'kinase'"}]}},"reading":"Ziconotide may activate or increase kinase activity, a claim resting on the words “possible complications, such as hallucinations, nausea, and elevation.”"},{"relation":"NO_RELATION","facticity":null}],"orders":[[1,0],[1,0],[1,0],[1,0],[1,0]],"chosen":1,"prediction":{"case_id":"EMBASE:L2020408112:2693:2848:2:4","outcome":"decision","decision":{"relation":"NO_RELATION","facticity":null}}}</code></pre><p>The ranker's reasoning was not saved; a selection keeps the shown claims, the five orders and the choice. Both pairs' requests, replies and selections: <a href="sources/sol-examples.json" download>examples</a>. Every gpt-5.6-sol selection: <a href="sources/sol-selections.jsonl.gz" download>selections.jsonl.gz</a> (1,767 pairs). Every pair's label in every row: <a href="sources/sol-predictions.json" download>predictions</a>. Scores, bootstrap and usage: <a href="sources/sol-results.json" target="_blank" rel="noopener">summary</a>.</p></div></div>
+    <table class="study-cases">
+      <thead><tr><th>Model and arm</th><th>P / R / F1</th><th>Joint F1</th></tr></thead>
+      <tbody>
+        <tr class="fragment"><td>gpt-5.4-mini, plain, paper's zero-shot prompt</td><td class="num">73.8 / 83.1 / 78.2</td><td class="num">67.2</td></tr>
+        <tr class="fragment"><td>gpt-5.4-mini, pipeline, typed claims</td><td class="num">74.7 / 82.6 / 78.4</td><td class="num">67.8</td></tr>
+        <tr class="fragment"><td>gpt-5.4-mini, pipeline, typed claims, guideline rules</td><td class="num">76.4 / 79.5 / 77.9</td><td class="num">67.3</td></tr>
+        <tr class="fragment"><td>gpt-5.6-sol, plain, paper's zero-shot prompt</td><td class="num">75.3 / 85.1 / 79.9</td><td class="num">71.4</td></tr>
+        <tr class="fragment"><td>gpt-5.6-sol, pipeline, typed claims</td><td class="num">79.7 / 84.1 / 81.8</td><td class="num">73.3</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="definitions fragment">On gpt-5.6-sol the pipeline is +1.9 (0.8 to 3.2) over plain, joint +1.9 (0.3 to 3.5), but ties the paper's 2-shot prompt (81.5), +0.3 (−0.9 to 1.6); on gpt-5.4-mini the pipeline and the zero-shot prompt tie, +0.3 (−1.3 to 1.9). The ranker was revised on these pairs with gpt-5.4-mini, and the comparison does not isolate the proofs.</p>
+  <aside class="notes">Source: keep-track PRs #36 (the typed claims ranker, arm proved-readings-none), #38 (the guideline rules ranker, arm guideline-readings-none, and the instruction to order every option, 8bb3fe7) and #39 (gpt-5.6-sol in the paper-prompt runner, a5d647a, on top of #38). One trial per row on all 1,767 pairs; every ranking shows the offered labels plus no relation, 5 shuffles. There are no held-out pairs. The proved arm went through four full gpt-5.4-mini runs on these pairs, relation F1 69.8, 77.5, 78.0, then 78.4 at 8bb3fe7, the row shown (rank-proved to rank-proved-v4); its ranker sees typed claims from the third run (7a4c59f), and the second ran from a working-tree stash of e724925's change (11c2f50), which also changed the arm's pick of each label's candidate. The guideline ranker's prompt was revised twice, each time after a ranking that left out an option stopped the run: 1,616 pairs ranked at f0f1da5, then 1,509 at 59788b7 (which adds the annotators' facticity question; two shards rerun, one stopping again); 8bb3fe7 tells both typed rankers to order every option, and rank-guideline-v3 at 8bb3fe7 is the guideline ranker's first complete run. Both rankers were also piloted on 65 of these pairs, the proved arm, in its first two versions, over this search (zero-b8-pilot) and over PR #37's search (pilot-cited), the guideline one over this search only, and a third arm, both-readings-none, was piloted twice and dropped. gpt-5.6-sol ran the typed ranker's final prompt once; the plain prompt was not revised. The pipeline-over-plain comparison does not isolate the proofs: on gpt-5.6-sol the pipeline made 34,047 completions (26,477 search, 7,570 ranking) against plain's 1,767, and no arm gives plain prompting a second look against no relation. On the same November 20 search, typed claims against the LLM-written readings of the 2-shot slide are +0.1 (−0.9 to 1.2), joint +1.3 (0.1 to 2.7); gpt-5.6-sol has no readings arm, so its gain belongs to the pipeline, not to typed claims over readings. The gpt-5.4-mini pipeline rows rank the November 20 zero-shot search (e8c2b18, word price at edit budget 8, 8 submissions) at 8bb3fe7; their plain row is the paper's zero-shot row of the 2-shot slide. The gpt-5.6-sol search used the same settings with gpt-5.6-sol, low reasoning effort and 2,048 output tokens at a5d647a; its plain row is the paper-prompt runner at a5d647a with gpt-5.4-mini's settings, 1,767 replies and none failed. The gpt-5.6-sol search stopped once after 365 pairs, when a provider rate-limit error outlasted LiteLLM's retries; the other 1,402 pairs were searched with the same settings and the two traces joined before ranking, so each pair's trace is one finished per-pair search, from one of the two runs, and was ranked once; up to 12 pairs in flight when it stopped (12 workers) were searched again from scratch, and their aborted calls are not in the usage below. 14,133 of 14,136 attempts produced a candidate, and the gold relation was never offered on 122 pairs. Paired bootstrap over pairs by compare.py in keep-track-proof-readings-20261121, 2,000 resamples drawn with random.Random(20261103).randrange, 2.5th and 97.5th percentiles: guideline rules minus typed claims −0.5 (−1.7 to 0.5), joint −0.5 (−1.7 to 0.7); the guideline ranker picks no relation more often (696 pairs against 629), so gold no-relation pairs given a relation fall from 214 to 180 while true relations lost to no relation rise from 105 to 138. On gpt-5.6-sol the gain over the zero-shot prompt is precision: gold no-relation pairs given a relation fall from 231 to 165, while true relations lost to no relation go from 96 to 109; of the 159 pairs where pipeline and plain differ in relation, the pipeline is right on 101 and plain on 46. The paper's 2-shot prompt on gpt-5.6-sol, 77.8 / 85.6 / 81.5 with joint 72.9, is the paper-prompt runner at a5d647a with the seed-0 demonstrations of gpt-5.4-mini's 2-shot run (runs/sol-paper-2-shot-definitions, one failed reply); the pipeline is +0.3 (−0.9 to 1.6) over it, joint +0.4 (−1.2 to 2.0). gpt-5.6-sol over gpt-5.4-mini: plain +1.7 (0.2 to 3.1), joint +4.2 (2.2 to 6.2); pipeline +3.4 (1.8 to 4.9), joint +5.5 (3.5 to 7.5). The progestin pair: the one claim the search offered reads progestin as causing endometrial cancer, and the ranker put no relation first in all five shuffles; plain gpt-5.6-sol answered CAUSAL_EFFECT, counterfact. The ziconotide pair: the offered AGONIST claim cites "possible complications, such as hallucinations, nausea, and elevation", and the ranker put no relation first in all five shuffles; plain gpt-5.6-sol answered AGONIST, possible, and gold is AGONIST, fact, so under joint F1 both miss it and plain also counts a false positive. Failed replies count as missed gold relations, never as false positives, as the harness scores them; only the gpt-5.4-mini plain row of the table has any (8). Usage: the gpt-5.6-sol search made 26,477 completions (369.1M prompt tokens, 342.7M cached, 8.7M completion), its ranking 7,570 (77.2M prompt, 72.0M cached, 1.2M completion), the plain run 1,767 (1.7M prompt, 0.15M completion); the gpt-5.4-mini rankings took 9,006 (typed claims) and 9,009 (guideline rules). The guideline rules file holds the annotation guidelines' rules 1, 4, 5, 6 and 7 without examples and their definitions under our label names, from DFKI-NLP/biomed-relation-factuality-detection under its BSD 3-Clause license. The runs are keep-track-sol-20261124/runs and keep-track-proof-readings-20261121/runs/zero-b8-all/rank-proved-v4 and rank-guideline-v3 on rolly, not yet in the HF archive.</aside>
+</section>
+
+<section id="typed-two-shot" class="no-marks" data-date="2026-11-26" data-prs="40">
+  <p class="eyebrow">November 25 to 26, 2026 · gpt-5.4-mini and gpt-5.6-sol · all 1,767 pairs</p>
+  <h2>2-shot examples in the search or the ranker</h2>
+  <p class="definitions">The examples are the 2-shot draw of our paper-prompt runs: two gold pairs per label of the pair's type group, from other documents. The search gets them in its instructions; the typed ranker gets them as tagged sentences with their labels.</p>
+  <div class="code-example">
+    <div class="code-reference"><button type="button">Examples ranker · source</button><div class="source-panel" role="region" aria-label="The typed ranker shown examples and one rendered prompt"><p><strong>experiments/biorelfact_ranking.py at d0246ec, lines 142 to 148 and 271 to 308 (verbatim).</strong> The Skill is <code>rank_proved_readings</code> with <code>rank_readings_with_examples</code>' examples paragraph.</p><pre><code class="language-python">@dataclass(frozen=True)
+class Example:
+    """A labelled pair from another document, as the ranker sees it: its
+    sentence tagged as the target's is, and the label the annotators chose."""
+
+    sentence: str
+    label: PairLabel</code></pre><pre><code class="language-python"># The proved arm's ranker shown labelled examples: rank_proved_readings with
+# rank_readings_with_examples' examples paragraph.
+@Skill.define
+def rank_proved_readings_with_examples(
+    sentence: str, readings: list[Numbered], examples: list[Example]
+) -&gt; Ranking:
+    """Rank these options for a pair, most faithful to its sentence first.
+
+    Sentence, with the head tagged &lt;H&gt;...&lt;/H&gt; and the tail &lt;T&gt;...&lt;/T&gt;: {sentence}
+    Options, each with its index. A claim comes with its relation and
+    facticity, its proof read back into words without the sentence, and the
+    proofs of its subject, predicate and object. Each proof gives the source
+    characters it cites, the words there, the surface it made of them, and
+    every step that made it, edits and the relation's refinement with its
+    price included. The option stating that the sentence discusses no task
+    relation for the pair is shown as its label: {readings}
+
+    Judge each option the way the task's annotators would, by the rules and
+    definitions below. A sentence can discuss a relation without stating it in
+    so many words, so decide by the definitions and what the sentence says
+    about this pair, not by whether a claim's wording appears in it. A
+    sentence that denies, doubts or asks whether a relation holds still
+    discusses it, so the claim with that stance is faithful and the option
+    that no relation is discussed is not. Mere co-occurrence is no relation.
+
+    These sentences from other documents show how the annotators apply the
+    rules. Each is tagged the same way and given the label the annotators chose
+    for its pair; they say nothing about this sentence.
+    {examples}
+
+    First think it through in reasoning: what the sentence discusses about this
+    pair under these rules, and how each option fits. Then give the order of
+    all the options, the no-relation option and any you judge wrong included,
+    listing every index exactly once.
+
+    {RULES}
+    """
+    raise NotHandled</code></pre><p><strong>experiments/rank_biorelfact_readings.py at d0246ec, lines 191 to 201 (verbatim).</strong></p><pre><code class="language-python">def proved_with_examples(shown: Sequence[Demonstration]) -&gt; Rank[Shown]:
+    """The typed ranker shown these labelled pairs, each tagged as the target is."""
+    examples = [
+        Example(mark(d.pair.sentence, d.pair.head_range, d.pair.tail_range), d.label)
+        for d in shown
+    ]
+
+    def rank(sentence: str, readings: list[Numbered]) -&gt; Ranking:
+        return rank_proved_readings_with_examples(sentence, readings, examples)
+
+    return numbered(rank)</code></pre><p><strong>The progestin pair's sentence and examples as the ranker received them, gpt-5.6-sol's 2-shot search (excerpt of the rendered prompt).</strong> Prompts are not saved; this one was rendered from the saved selection by running the ranker with only the provider call stubbed, so no model was asked. On this search both rankers chose THERAPEUTIC_USE, fact, for the pair; gold is NO_RELATION.</p><pre><code class="language-text">Sentence, with the head tagged &lt;H&gt;...&lt;/H&gt; and the tail &lt;T&gt;...&lt;/T&gt;: Background: Estrogen unopposed by &lt;H&gt;progestin&lt;/H&gt; increases &lt;T&gt;endometrial cancer&lt;/T&gt; (EC) risk.
+...
+These sentences from other documents show how the annotators apply the
+rules. Each is tagged the same way and given the label the annotators chose
+for its pair; they say nothing about this sentence.
+[{"sentence": "However, &lt;H&gt;gentian&lt;/H&gt; violet ink carries the risks of carcinogenicity and venous injury, which causes microvascular &lt;T&gt;thrombosis&lt;/T&gt;.", "label": {"relation": "DRUG : DISEASE - CAUSAL_EFFECT", "facticity": "fact"}}, {"sentence": "These results indicate that &lt;H&gt;eugenol&lt;/H&gt; may be considered a good alternative to treat chronic &lt;T&gt;dermatophytosis&lt;/T&gt; caused by T. rubrum in practice.", "label": {"relation": "DRUG : DISEASE - THERAPEUTIC_USE", "facticity": "fact"}}, {"sentence": "CONCLUSIONS: Although it was observed in our study that &lt;H&gt;hesperidin&lt;/H&gt; had positive effects on MDA levels, which is a marker of oxidative damage, in the &lt;T&gt;cataract&lt;/T&gt; model, further studies on hesperidin are needed.", "label": {"relation": "DRUG : DISEASE - THERAPEUTIC_USE", "facticity": "uncommitted"}}, {"sentence": "Background: Plasma ceramides and sphingomyelins have been independently linked to &lt;T&gt;diabetes&lt;/T&gt; risk, glucose and &lt;H&gt;insulin&lt;/H&gt; levels, and the risk of several cardiovascular (CVD) outcomes.", "label": {"relation": "NO_RELATION", "facticity": null}}, {"sentence": "To assess the mechanism of CSF-1-mediated suppression of immunotherapy, Isolated PBMC, activated with phytohemagglutinin (PHA) with or without &lt;H&gt;pembrolizumab&lt;/H&gt; (20 nM), were cultured alone, or in the presence of macrophages or on an established &lt;T&gt;NSCLC&lt;/T&gt; monolayer.", "label": {"relation": "NO_RELATION", "facticity": null}}, {"sentence": "While the adverse events associated with &lt;H&gt;abemaciclib&lt;/H&gt; have been well documented in clinical trials, it is unknown if adverse events, specifically &lt;T&gt;diarrhea&lt;/T&gt;, impact adherence.", "label": {"relation": "DRUG : DISEASE - CAUSAL_EFFECT", "facticity": "fact"}}]</code></pre><p>The whole rendered request, system and user messages: <a href="sources/typed-two-shot-rendered-prompt.txt" download>rendered prompt</a>. Every pair's label in every row: <a href="sources/typed-two-shot-predictions.json" download>predictions</a>. Scores, bootstrap and usage: <a href="sources/typed-two-shot-results.json" target="_blank" rel="noopener">summary</a>.</p></div></div>
+    <table class="study-cases">
+      <thead><tr><th>Arm</th><th>gpt-5.4-mini F1</th><th>Joint F1</th><th>gpt-5.6-sol F1</th><th>Joint F1</th></tr></thead>
+      <tbody>
+        <tr class="fragment"><td>zero-shot search, zero-shot ranker</td><td class="num">78.4</td><td class="num">67.8</td><td class="num">81.8</td><td class="num">73.3</td></tr>
+        <tr class="fragment"><td>zero-shot search, ranker shown examples</td><td class="num">77.1</td><td class="num">66.8</td><td class="num">81.8</td><td class="num">73.3</td></tr>
+        <tr class="fragment"><td>2-shot search, zero-shot ranker</td><td class="num">79.5</td><td class="num">67.9</td><td class="num">82.1</td><td class="num">73.1</td></tr>
+        <tr class="fragment"><td>2-shot search, ranker shown examples</td><td class="num">78.5</td><td class="num">67.0</td><td class="num">81.8</td><td class="num">72.7</td></tr>
+        <tr class="fragment"><td>plain, paper's 2-shot prompt</td><td class="num">76.9</td><td class="num">67.6</td><td class="num">81.5</td><td class="num">72.9</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="definitions fragment">The 2-shot search is +1.0 (−0.4 to 2.4) on gpt-5.4-mini and +0.2 (−0.7 to 1.2) on gpt-5.6-sol. Examples in the ranker cost −1.3 (−2.3 to −0.4) on gpt-5.4-mini's zero-shot search and −1.0 (−1.88 to −0.04) on its 2-shot search, with no clear change on gpt-5.6-sol.</p>
+  <aside class="notes">Source: keep-track PR #40 (d0246ec, merged into #39). One trial per row on all 1,767 pairs. The examples are keep-track-two-shot-20261120/demonstrations.jsonl, the seed-0 draw of our paper-prompt runner, identical to the plain 2-shot runs'; the paper draws its own. gpt-5.4-mini's searches are the November 20 zero-shot and 2-shot searches (word price, edit budget 8, 8 submissions); gpt-5.6-sol's are the zero-shot search of #39 and a 2-shot search run on November 25 to 26 with the same sandboxed command plus the examples and 8 workers, which finished in one go: 14,134 of 14,136 attempts produced a candidate, from 24,134 completions and 368.3M prompt tokens, 333.8M cached. Every ranking is the typed arm, 5 shuffles, no relation offered; the rankers shown examples ran from d0246ec; the zero-shot rankers ran from 8bb3fe7 (gpt-5.4-mini's zero-shot search), a5d647a (gpt-5.4-mini's 2-shot search and gpt-5.6-sol's zero-shot search) and d0246ec (gpt-5.6-sol's 2-shot search), whose zero-shot path is the same in all three. The plain 2-shot rows are the paper-prompt runner at 09e04c8 (gpt-5.4-mini, no failed replies) and a5d647a (gpt-5.6-sol, sol-paper-2-shot-definitions, one failed reply). Each ranking took 7,563 to 9,018 calls. Precision / recall: gpt-5.4-mini 74.7 / 82.6, 72.5 / 82.4, 76.3 / 82.9, 74.2 / 83.4, plain 73.8 / 80.3; gpt-5.6-sol 79.7 / 84.1, 80.2 / 83.4, 80.2 / 84.1, 79.7 / 84.0, plain 77.8 / 85.6. Paired bootstrap over pairs by compare.py, 2,000 resamples, seed 20261103, with differences taken from unrounded scores: examples in the ranker on the 2-shot search −1.0 (−1.88 to −0.04) on gpt-5.4-mini, −0.3 (−1.1 to 0.5) on gpt-5.6-sol; on the zero-shot search −0.1 (−1.0 to 0.7) on gpt-5.6-sol. With examples the gpt-5.4-mini ranker picks no relation less often (597 against 629 pairs on the zero-shot search), so gold no-relation pairs given a relation rise from 214 to 240 while true relations lost to no relation only drop from 105 to 99. On gpt-5.6-sol the 2-shot search is +0.6 (−0.7 to 1.7), joint +0.3 (−1.4 to 1.9), and the zero-shot search +0.3 (−0.9 to 1.6), joint +0.4 (−1.2 to 2.0), over the paper's 2-shot prompt. On gpt-5.4-mini the 2-shot search is +2.6 (0.9 to 4.4) over the paper's 2-shot prompt but +1.3 (−0.3 to 2.9) over its zero-shot prompt, a tie. The paper's 2-shot prompt alone gains +1.6 (0.5 to 2.7) on gpt-5.6-sol and ties on gpt-5.4-mini, −1.3 (−2.7 to 0.0). The rendered prompt is the gpt-5.6-sol 2-shot search's progestin selection replayed through proved_with_examples with completion stubbed (render_ranker_prompt.py in keep-track-typed-two-shot-20261125 on rolly). The runs are under keep-track-typed-two-shot-20261125/runs on rolly, not yet in the HF archive.</aside>
+</section>
+
+<section id="open-models" class="no-marks" data-date="2026-11-27" data-prs="35">
+  <p class="eyebrow">November 27, 2026 · the paper's open-weight models · all 1,767 pairs</p>
+  <h2>Plain prompting with the paper's open-weight models</h2>
+  <p class="definitions">The paper's zero-shot and 2-shot definitions prompts, one call per pair at temperature 0, served by vLLM on one H100. Each cell is ours, then the paper's mean of three runs; the paper's factuality F1 is our joint F1.</p>
+  <div class="code-example">
+    <div class="code-reference"><button type="button">Models and one reply · source</button><div class="source-panel" role="region" aria-label="The open-weight configurations and one saved gpt-oss-20b reply"><p><strong>experiments/run_biorelfact_paper_prompt.py at 81786ed, lines 100 to 143 (verbatim).</strong> Each configuration names the model id vLLM serves, the endpoint and the reply's token allowance.</p><pre><code class="language-python">MAX_TOKENS: Final = 512
+# The plain gpt-5.4-mini baseline's allowance, which its reasoning shares.
+REASONING_MAX_TOKENS: Final = 2048
+# The allowance of gpt-oss-20b and of Qwen3-8B Thinking, which their reasoning
+# shares; the paper states none.
+OPEN_REASONING_MAX_TOKENS: Final = 8192
+
+
+@dataclass(frozen=True)
+class Configuration:
+    """A --model choice: the model id its endpoint serves, that endpoint, and
+    the reply's token allowance, reasoning included. `build_request` gives its
+    body type and the body's other settings."""
+
+    served: Served
+    endpoint: Endpoint
+    max_tokens: int
+
+
+CONFIGURATIONS: Final[dict[Model, Configuration]] = {
+    "gpt-4o-2024-08-06": Configuration("gpt-4o-2024-08-06", "openai", MAX_TOKENS),
+    "gpt-5.4-mini": Configuration("gpt-5.4-mini", "openai", REASONING_MAX_TOKENS),
+    "gpt-5.6-sol": Configuration("gpt-5.6-sol", "openai", REASONING_MAX_TOKENS),
+    "Qwen/Qwen2.5-7B-Instruct": Configuration(
+        "Qwen/Qwen2.5-7B-Instruct", "local", MAX_TOKENS
+    ),
+    "HPAI-BSC/Qwen2.5-Aloe-Beta-7B": Configuration(
+        "HPAI-BSC/Qwen2.5-Aloe-Beta-7B", "local", MAX_TOKENS
+    ),
+    "Qwen/Qwen3-8B:non-thinking": Configuration("Qwen/Qwen3-8B", "local", MAX_TOKENS),
+    "Qwen/Qwen3-8B:thinking": Configuration(
+        "Qwen/Qwen3-8B", "local", OPEN_REASONING_MAX_TOKENS
+    ),
+    "unsloth/gemma-3-27b-it-unsloth-bnb-4bit": Configuration(
+        "unsloth/gemma-3-27b-it-unsloth-bnb-4bit", "local", MAX_TOKENS
+    ),
+    "unsloth/medgemma-27b-text-it-unsloth-bnb-4bit": Configuration(
+        "unsloth/medgemma-27b-text-it-unsloth-bnb-4bit", "local", MAX_TOKENS
+    ),
+    "openai/gpt-oss-20b": Configuration(
+        "openai/gpt-oss-20b", "local", OPEN_REASONING_MAX_TOKENS
+    ),
+}
+MODELS: Final[tuple[Model, ...]] = tuple(CONFIGURATIONS)</code></pre><p><strong>The run script on the GPU host, not in the repository (verbatim excerpt).</strong> Each model is served alone, under its Hugging Face id, then both prompts run against it. vLLM 0.34.0 serves all but the two 4-bit Gemma models, which need bitsandbytes and run on vLLM 0.11.0.</p><pre><code class="language-bash">  "$VLLM/vllm" serve "$served" --host 127.0.0.1 --port 8000 --max-model-len 16384 \
+    $flags &gt; "$ROOT/logs/serve-${served//\//_}.log" 2&gt;&amp;1 &amp;
+...
+serve_and_run openai/gpt-oss-20b "--reasoning-parser openai_gptoss" openai/gpt-oss-20b
+serve_and_run Qwen/Qwen3-8B "--reasoning-parser qwen3" \
+  Qwen/Qwen3-8B:non-thinking Qwen/Qwen3-8B:thinking
+serve_and_run Qwen/Qwen2.5-7B-Instruct "" Qwen/Qwen2.5-7B-Instruct
+serve_and_run HPAI-BSC/Qwen2.5-Aloe-Beta-7B "" HPAI-BSC/Qwen2.5-Aloe-Beta-7B
+VLLM=$ROOT/vllm-bnb/bin
+serve_and_run unsloth/gemma-3-27b-it-unsloth-bnb-4bit "--quantization bitsandbytes" \
+  unsloth/gemma-3-27b-it-unsloth-bnb-4bit
+serve_and_run unsloth/medgemma-27b-text-it-unsloth-bnb-4bit "--quantization bitsandbytes" \
+  unsloth/medgemma-27b-text-it-unsloth-bnb-4bit</code></pre><p><strong>Pair EMBASE:L2007728299:432:758:10:16, gold GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION, uncommitted.</strong> The first invalid-label reply in gpt-oss-20b's zero-shot requests file, one of 52; 50 give a variant-disease association without a facticity. Its saved reasoning: “We have highlighted Gene Variant Leu72Met and Disease NAFLD. Sentence says they were genotyped in cases with NAFLD. It discusses association? It says they were genotyped, not that association found. So no relation discussed. So Question1: NO_RELATION. Question2: null.” The user turn and the reply's content (verbatim):</p><pre><code class="language-text">Sentence_ID: EMBASE:L2007728299:432:758:10:16
+Sentence: Methods: In this case-control retrospective study which was conducted between April 2010 and July 2013, GHRL (rs696217 or [[Leu72Met (Gene Variant)]]) and GHSR (rs2922126) gene polymorphisms were genotyped in 153 cases with biopsy-proven [[NAFLD (Diseases)]] and 157 controls using the polymerase chain reaction-restriction fragment length polymorphism method.</code></pre><pre><code class="language-json">{
+  "sentence_id": "EMBASE:L2007728299:432:758:10:16",
+  "relations": [
+    {
+      "relation_type": "GeneVariant:Disease - Association",
+      "facticity_value": null
+    }
+  ]
+}</code></pre><p>This exchange in full: <a href="sources/open-models-example.json" download>request and response</a>. The run script: <a href="sources/open-models-run.sh" download="run_open_models.sh">run_open_models.sh</a>. Every pair's label in every run: <a href="sources/open-models-predictions.json" download>predictions</a>. Scores, the paper's Table 6 rows, bootstrap and failures: <a href="sources/open-models-results.json" target="_blank" rel="noopener">summary</a>.</p></div></div>
+    <table class="study-cases">
+      <thead><tr><th>Model</th><th>Zero-shot F1</th><th>Joint F1</th><th>2-shot F1</th><th>Joint F1</th></tr></thead>
+      <tbody>
+        <tr class="fragment"><td>gpt-oss-20b, reasoning low</td><td class="num">71.8 <span class="muted">(74.4)</span></td><td class="num">56.9 <span class="muted">(59.0)</span></td><td class="num">71.8 <span class="muted">(77.3)</span></td><td class="num">59.4 <span class="muted">(63.2)</span></td></tr>
+        <tr class="fragment"><td>Qwen3-8B Thinking</td><td class="num">75.5 <span class="muted">(74.5)</span></td><td class="num">58.5 <span class="muted">(57.2)</span></td><td class="num">75.7 <span class="muted">(74.5)</span></td><td class="num">61.9 <span class="muted">(56.5)</span></td></tr>
+        <tr class="fragment"><td>Qwen3-8B Non-Thinking</td><td class="num">61.0 <span class="muted">(56.9)</span></td><td class="num">49.2 <span class="muted">(44.8)</span></td><td class="num">66.0 <span class="muted">(65.9)</span></td><td class="num">52.0 <span class="muted">(51.3)</span></td></tr>
+        <tr class="fragment"><td>Qwen2.5-7B-Instruct</td><td class="num">61.6 <span class="muted">(50.3)</span></td><td class="num">49.1 <span class="muted">(35.4)</span></td><td class="num">63.7 <span class="muted">(63.8)</span></td><td class="num">46.5 <span class="muted">(49.7)</span></td></tr>
+        <tr class="fragment"><td>Qwen2.5-Aloe-Beta-7B</td><td class="num">57.4 <span class="muted">(54.3)</span></td><td class="num">45.2 <span class="muted">(37.9)</span></td><td class="num">64.3 <span class="muted">(62.5)</span></td><td class="num">50.8 <span class="muted">(46.0)</span></td></tr>
+        <tr class="fragment"><td>Gemma 3 27B, 4-bit</td><td class="num">63.7 <span class="muted">(65.7)</span></td><td class="num">49.0 <span class="muted">(49.9)</span></td><td class="num">68.4 <span class="muted">(69.2)</span></td><td class="num">53.8 <span class="muted">(56.5)</span></td></tr>
+        <tr class="fragment"><td>MedGemma 27B, 4-bit</td><td class="num">65.6 <span class="muted">(67.9)</span></td><td class="num">52.6 <span class="muted">(51.9)</span></td><td class="num">69.1 <span class="muted">(70.6)</span></td><td class="num">59.6 <span class="muted">(60.7)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="definitions fragment">Except gpt-oss-20b at 2-shot, 5.5 below, every relation F1 is within about 3 points of the paper's or above it. 52 of gpt-oss-20b's 58 failed zero-shot replies carry an invalid label.</p>
+  <p class="nav"><a href="#/research-map">Research map</a></p>
+  <aside class="notes">Source: keep-track PR #35 at 81786ed, merged with #39 and #40, run on November 27, 2026 (US Eastern; set up the evening before) on a rented H100 80GB. One trial per row, temperature 0, the paper's Table 6 configurations: Qwen3-8B Thinking and gpt-oss-20b get 8,192 output tokens, the others 512; the paper states no allowance. vLLM 0.34.0 with the openai_gptoss and qwen3 reasoning parsers, so a reply's content holds no reasoning; vLLM 0.34 dropped bitsandbytes, so the unsloth 4-bit Gemma 3 27B and MedGemma 27B ran on vLLM 0.11.0 with transformers 4.57.1, whose 5.x releases break Gemma 3's rope configuration under vLLM 0.11; vLLM 0.34.0 ran with transformers 5.22.2 (versions.txt beside the runs). Max model length 16,384. gpt-oss-20b's saved reasoning can disagree with its reply: the example's reasoning concludes NO_RELATION while the content gives an association with facticity null. The 2-shot demonstrations are the seed-0 draw of our GPT runs; the paper draws its own and averages three runs. Failed replies, zero-shot then 2-shot: gpt-oss-20b 58 and 8, Qwen3-8B Thinking 67 and 69, Non-Thinking 45 and 23, Qwen2.5-7B 269 and 39, Aloe 414 and 70, Gemma 55 and 4, MedGemma 95 and 0; most are a reply that does not list exactly one relation, or an invalid label, and each counts as a missed gold relation. The paper's runs and failures are not public, so how it counted them is unknown. 2-shot over zero-shot, paired bootstrap, 2,000 resamples, seed 20261103, relation F1: gpt-oss-20b 0.0 (−1.7 to 1.7), joint +2.5 (0.5 to 4.6); Qwen3-8B Thinking +0.2 (−1.7 to 2.0); Non-Thinking +5.1 (3.1 to 7.1); Qwen2.5-7B +2.1 (−0.2 to 4.3), joint −2.5 (−5.1 to 0.0); Aloe +6.9 (4.8 to 9.0); Gemma +4.7 (2.9 to 6.6); MedGemma +3.5 (1.8 to 5.1). Precision and recall per run and the paper's are in the summary file. What lowers gpt-oss-20b is untested; how vLLM serves its reasoning format next to the structured output, or a serving setup the paper does not state, are candidates. The paper also reports labels-only and 5-shot prompts, which the runner does not have; its best overall is gpt-oss-20b, 77.3 relation F1 with 2-shot definitions and 65.3 factuality F1 with 5-shot. The runs are under keep-track-open-models-20261127 on rolly; the paper is Gabryszak et al., LREC 2026, Table 6.</aside>
 </section>
 
 <section id="dataset-search">

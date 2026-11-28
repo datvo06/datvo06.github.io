@@ -1,0 +1,135 @@
+{
+ "picked": "the first reply with an invalid label in gpt-oss-20b's zero-shot requests file, one of 52; 50 give a variant-disease association without a facticity (44 as JSON null, 6 as the string null) and 2 give NO_RELATION with facticity fact",
+ "case_id": "EMBASE:L2007728299:432:758:10:16",
+ "gold": {
+  "relation": "GENEVARIANT : DISEASE/PHENOTYPE - ASSOCIATION",
+  "facticity": "uncommitted"
+ },
+ "request": {
+  "model": "openai/gpt-oss-20b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "Your task is to analyze input sentences containing highlighted concept pairs that correspond to Gene Variant and Diseases. For each sentence, answer two questions about the relationship expressed between the highlighted concepts:\n1. **Question 1**: Does the sentence discuss any of the listed relations involving the highlighted concepts?\n\n2. **Question 2**: If the sentence discusses a relationship involving the highlighted concepts, is the relation presented as an established fact, a counterfact, a possibility or doubt, or an uncommitted association?\n\nPossible answers:\n- **Question 1**: GeneVariant:Disease - Association, NO_RELATION\n- **Question 2**: fact, counterfact, possible, doubtful, uncommitted, null\n\n### **Relation Name Structure**\nRelation names are structured as `Entity_Type1:Entity_Type2 - Relation`.\nThe relationship direction is always from `Entity_Type1` (Head) to `Entity_Type2` (Tail).\n\n**Examples**:\n- `Chemical : Gene - Agonist` means \"Chemical (Head) acts as an agonist for Gene (Tail).\"\n- `Chemical : Disease - Therapeutic_Use` means \"Chemical (Head) has a therapeutic use for Disease (Tail).\"\n\n### **Relation Definitions**\nRefer to the following relation definitions when choosing your answer to **Question 1**:\n**GeneVariant:Disease - Association: This label refers to the discussion of any association stated between the highlighted gen variant and a disease (including disease related phenotypes).\nNO_RELATION: Select NO_RELATION if the concept types of highlighted phrases are correct, but no discussion of a listed relation between those concepts can be inferred by an expert. If a relation is described in very general, vague terms, so that a no relation is either explicitly discussed or its implication is clear for an expert, select the label 'NO_RELATION'.**\n\n### **Facticity Definitions**\nRefer to the following facticity definitions when choosing your answer to **Question 2**:\n**fact: a relation is assumed or presented as a known, established fact.\ncounterfact: a relation is assumed or presented as rather a false or negated fact.\npossible: a relation is assumed or presented as a possible, probable, or potential association.\ndoubtful: a relation is assumed or presented as a doubtful association.\nuncommitted: a relation is discussed; however, it is not clear whether it is factual, counterfactual, possible or doubtful, often due to insufficient evidence or information (e.g., because the sentence states that the relation is to be investigated first or because a study did not allow a conclusion about the relation state).\nnull: no relation is discussed; therefore, the factuality value cannot be specified.**\n\n### **Important Constraints**\nThe `sentence_id` must match **EXACTLY** as provided. Do not modify it.\nYou must choose answers only from the allowed answer list.\n\nThe output should be formatted as a JSON instance that conforms to the JSON schema below.\n\nHere is the output schema:\n\n{\n  \"sentence_id\": \"string\",\n  \"relations\": [\n    {\n      \"relation_type\": \"string\",\n      \"facticity_value\": \"string | null\"\n    }\n  ]\n}\n"
+   },
+   {
+    "role": "user",
+    "content": "Sentence_ID: EMBASE:L2007728299:432:758:10:16\nSentence: Methods: In this case-control retrospective study which was conducted between April 2010 and July 2013, GHRL (rs696217 or [[Leu72Met (Gene Variant)]]) and GHSR (rs2922126) gene polymorphisms were genotyped in 153 cases with biopsy-proven [[NAFLD (Diseases)]] and 157 controls using the polymerase chain reaction-restriction fragment length polymorphism method."
+   }
+  ],
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "PaperReply",
+    "strict": true,
+    "schema": {
+     "$defs": {
+      "ReplyRelation": {
+       "additionalProperties": false,
+       "properties": {
+        "relation_type": {
+         "title": "Relation Type",
+         "type": "string"
+        },
+        "facticity_value": {
+         "anyOf": [
+          {
+           "type": "string"
+          },
+          {
+           "type": "null"
+          }
+         ],
+         "title": "Facticity Value"
+        }
+       },
+       "required": [
+        "relation_type",
+        "facticity_value"
+       ],
+       "title": "ReplyRelation",
+       "type": "object"
+      }
+     },
+     "additionalProperties": false,
+     "properties": {
+      "sentence_id": {
+       "title": "Sentence Id",
+       "type": "string"
+      },
+      "relations": {
+       "items": {
+        "$ref": "#/$defs/ReplyRelation"
+       },
+       "title": "Relations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "sentence_id",
+      "relations"
+     ],
+     "title": "PaperReply",
+     "type": "object"
+    }
+   }
+  },
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "reasoning_effort": "low"
+ },
+ "response": {
+  "id": "chatcmpl-b6c92af6da188aa7",
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\n  \"sentence_id\": \"EMBASE:L2007728299:432:758:10:16\",\n  \"relations\": [\n    {\n      \"relation_type\": \"GeneVariant:Disease - Association\",\n      \"facticity_value\": null\n    }\n  ]\n}",
+     "refusal": null,
+     "role": "assistant",
+     "annotations": null,
+     "audio": null,
+     "function_call": null,
+     "tool_calls": null,
+     "reasoning": "We have highlighted Gene Variant Leu72Met and Disease NAFLD. Sentence says they were genotyped in cases with NAFLD. It discusses association? It says they were genotyped, not that association found. So no relation discussed. So Question1: NO_RELATION. Question2: null."
+    },
+    "stop_reason": null,
+    "token_ids": null,
+    "routed_experts": null,
+    "weight_versions": null
+   }
+  ],
+  "created": 1795755652,
+  "model": "openai/gpt-oss-20b",
+  "object": "chat.completion",
+  "moderation": null,
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.34.0-6e17462f",
+  "usage": {
+   "completion_tokens": 134,
+   "prompt_tokens": 839,
+   "total_tokens": 973,
+   "completion_tokens_details": {
+    "accepted_prediction_tokens": null,
+    "audio_tokens": null,
+    "reasoning_tokens": 64,
+    "rejected_prediction_tokens": null
+   },
+   "prompt_tokens_details": null
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+ },
+ "issue": "invalid-label",
+ "prediction": {
+  "case_id": "EMBASE:L2007728299:432:758:10:16",
+  "outcome": "failure",
+  "decision": null
+ }
+}

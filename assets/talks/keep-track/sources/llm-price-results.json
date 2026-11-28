@@ -1,0 +1,109 @@
+{
+  "source": "keep-track PR #30; search with judged mapping prices at edit budget 1.5, gpt-5.4-mini, all 1,767 pairs",
+  "scores_all_pairs": {
+    "LLM price b1.5 coverage-first": {
+      "P": 60.1,
+      "R": 85.3,
+      "F1": 70.5,
+      "joint_F1": 58.8
+    },
+    "word price b8 coverage-first (plain-b8)": {
+      "P": 60.2,
+      "R": 85.8,
+      "F1": 70.8,
+      "joint_F1": 59.0
+    }
+  },
+  "paired_bootstrap_vs_word_price": [
+    -0.3,
+    -1.4,
+    0.9
+  ],
+  "same_relation_pairs": 1582,
+  "judged_mappings": {
+    "count": 2462,
+    "mean_price": 0.71,
+    "free": 338,
+    "full_unit": 1273
+  },
+  "smoke_run_batches": {
+    "Though studies have also shown imeglimin to significantly improve insulin secretion and decrease β-cell death, whether its physiologic effects are purely insulin dependent remains unclear.": {
+      "DRUG : GENE - ANTAGONIST": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "insulin dependent": {
+      "DRUG : GENE - MODULATES": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "insulin secretion": {
+      "DRUG : GENE - MODULATES": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "l mechanism for T2DM": {
+      "DRUG : DISEASE - THERAPEUTIC_USE": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "novel mechanism for T2DM treatment": {
+      "DRUG : DISEASE - THERAPEUTIC_USE": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+      ]
+    },
+    "sm for T": {
+      "DRUG : DISEASE - THERAPEUTIC_USE": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  }
+}
