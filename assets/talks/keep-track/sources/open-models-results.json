@@ -1,0 +1,490 @@
+{
+ "source": "keep-track PR #35 at 81786ed (merged with #39 and #40): the paper-prompt runner sends the paper's zero-shot and 2-shot definitions prompts to each open-weight configuration of the paper's Table 6, temperature 0, one trial each on all 1,767 pairs, served by vLLM on one H100 80GB (vLLM 0.34.0; vLLM 0.11.0 with bitsandbytes for the two 4-bit Gemma models). Qwen3-8B Thinking and gpt-oss-20b get 8,192 output tokens, the others 512. The 2-shot demonstrations are the seed-0 draw of our GPT runs.",
+ "paper": "Gabryszak et al., LREC 2026, Table 6: mean ± std over three runs; its factuality P/R/F1 is strict, relation and factuality both right, which is our joint F1",
+ "scoring": "relation micro F1 without NO_RELATION as a positive class; joint F1 needs relation and facticity both right; a failed reply is a missed gold relation, never a false positive",
+ "bootstrap": "compare.py in keep-track-proof-readings-20261121 on rolly: paired over pairs, 2,000 resamples drawn with random.Random(20261103).randrange; [point, 2.5th, 97.5th percentile]",
+ "models": {
+  "openai/gpt-oss-20b": {
+   "paper-zero-shot-definitions": {
+    "ours": {
+     "P": 64.7,
+     "R": 80.7,
+     "F1": 71.8,
+     "joint_F1": 56.9,
+     "failed_replies": 58,
+     "issues": {
+      "invalid-label": 52,
+      "reply-length": 6
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 1606505,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 277312
+     }
+    },
+    "paper": {
+     "P": "66.8±0.2",
+     "R": "83.8±0.4",
+     "F1": "74.4±0.3",
+     "factuality_P": "52.3±0.3",
+     "factuality_R": "67.6±0.7",
+     "factuality_F1": "59.0±0.5"
+    }
+   },
+   "paper-2-shot-definitions": {
+    "ours": {
+     "P": 64.3,
+     "R": 81.2,
+     "F1": 71.8,
+     "joint_F1": 59.4,
+     "failed_replies": 8,
+     "issues": {
+      "reply-length": 8
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 3102311,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 216960
+     }
+    },
+    "paper": {
+     "P": "69.6±0.9",
+     "R": "87.0±0.9",
+     "F1": "77.3±0.7",
+     "factuality_P": "56.9±0.9",
+     "factuality_R": "71.1±0.6",
+     "factuality_F1": "63.2±0.6"
+    }
+   },
+   "2-shot minus zero-shot": {
+    "relation_F1": [
+     -0.0,
+     -1.7,
+     1.7
+    ],
+    "joint_F1": [
+     2.5,
+     0.5,
+     4.6
+    ]
+   }
+  },
+  "Qwen/Qwen2.5-7B-Instruct": {
+   "paper-zero-shot-definitions": {
+    "ours": {
+     "P": 53.7,
+     "R": 72.4,
+     "F1": 61.6,
+     "joint_F1": 49.1,
+     "failed_replies": 269,
+     "issues": {
+      "invalid-label": 56,
+      "reply-length": 204,
+      "sentence-id": 9
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 1526058,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 132588
+     }
+    },
+    "paper": {
+     "P": "45.8±0.3",
+     "R": "55.8±0.5",
+     "F1": "50.3±0.4",
+     "factuality_P": "29.0±0.3",
+     "factuality_R": "45.5±0.5",
+     "factuality_F1": "35.4±0.5"
+    }
+   },
+   "paper-2-shot-definitions": {
+    "ours": {
+     "P": 54.4,
+     "R": 77.0,
+     "F1": 63.7,
+     "joint_F1": 46.5,
+     "failed_replies": 39,
+     "issues": {
+      "reply-length": 19,
+      "invalid-label": 19,
+      "sentence-id": 1
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 3312466,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 92565
+     }
+    },
+    "paper": {
+     "P": "58.8±0.3",
+     "R": "69.6±0.3",
+     "F1": "63.8±0.3",
+     "factuality_P": "45.7±0.6",
+     "factuality_R": "54.3±0.5",
+     "factuality_F1": "49.7±0.5"
+    }
+   },
+   "2-shot minus zero-shot": {
+    "relation_F1": [
+     2.1,
+     -0.2,
+     4.3
+    ],
+    "joint_F1": [
+     -2.5,
+     -5.1,
+     0.0
+    ]
+   }
+  },
+  "HPAI-BSC/Qwen2.5-Aloe-Beta-7B": {
+   "paper-zero-shot-definitions": {
+    "ours": {
+     "P": 50.6,
+     "R": 66.5,
+     "F1": 57.4,
+     "joint_F1": 45.2,
+     "failed_replies": 414,
+     "issues": {
+      "reply-length": 358,
+      "invalid-label": 56
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 1526058,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 142510
+     }
+    },
+    "paper": {
+     "P": "47.4±0.1",
+     "R": "63.6±0.5",
+     "F1": "54.3±0.2",
+     "factuality_P": "30.1±0.2",
+     "factuality_R": "51.4±0.4",
+     "factuality_F1": "37.9±0.3"
+    }
+   },
+   "paper-2-shot-definitions": {
+    "ours": {
+     "P": 52.6,
+     "R": 82.9,
+     "F1": 64.3,
+     "joint_F1": 50.8,
+     "failed_replies": 70,
+     "issues": {
+      "reply-length": 36,
+      "invalid-label": 34
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 3312466,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 93467
+     }
+    },
+    "paper": {
+     "P": "51.9±0.1",
+     "R": "78.5±0.2",
+     "F1": "62.5±0.1",
+     "factuality_P": "37.4±0.4",
+     "factuality_R": "59.8±0.8",
+     "factuality_F1": "46.0±0.5"
+    }
+   },
+   "2-shot minus zero-shot": {
+    "relation_F1": [
+     6.9,
+     4.8,
+     9.0
+    ],
+    "joint_F1": [
+     5.7,
+     3.5,
+     7.9
+    ]
+   }
+  },
+  "Qwen/Qwen3-8B:non-thinking": {
+   "paper-zero-shot-definitions": {
+    "ours": {
+     "P": 52.5,
+     "R": 72.8,
+     "F1": 61.0,
+     "joint_F1": 49.2,
+     "failed_replies": 45,
+     "issues": {
+      "sentence-id": 4,
+      "reply-length": 38,
+      "invalid-label": 3
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 1533126,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 125046
+     }
+    },
+    "paper": {
+     "P": "46.4±0.1",
+     "R": "73.6±0.1",
+     "F1": "56.9±0.1",
+     "factuality_P": "36.6±0.1",
+     "factuality_R": "57.9±0.1",
+     "factuality_F1": "44.8±0.1"
+    }
+   },
+   "paper-2-shot-definitions": {
+    "ours": {
+     "P": 57.2,
+     "R": 78.0,
+     "F1": 66.0,
+     "joint_F1": 52.0,
+     "failed_replies": 23,
+     "issues": {
+      "invalid-label": 2,
+      "reply-length": 20,
+      "sentence-id": 1
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 3319534,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 123970
+     }
+    },
+    "paper": {
+     "P": "59.1±0.2",
+     "R": "74.5±0.2",
+     "F1": "65.9±0.3",
+     "factuality_P": "45.9±0.4",
+     "factuality_R": "58.1±0.5",
+     "factuality_F1": "51.3±0.4"
+    }
+   },
+   "2-shot minus zero-shot": {
+    "relation_F1": [
+     5.1,
+     3.1,
+     7.1
+    ],
+    "joint_F1": [
+     2.8,
+     0.8,
+     5.0
+    ]
+   }
+  },
+  "Qwen/Qwen3-8B:thinking": {
+   "paper-zero-shot-definitions": {
+    "ours": {
+     "P": 70.5,
+     "R": 81.3,
+     "F1": 75.5,
+     "joint_F1": 58.5,
+     "failed_replies": 67,
+     "issues": {
+      "invalid-label": 26,
+      "reply-length": 34,
+      "incomplete": 7
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 1526058,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 1408185
+     }
+    },
+    "paper": {
+     "P": "67.2±0.3",
+     "R": "83.4±0.7",
+     "F1": "74.5±0.5",
+     "factuality_P": "51.3±0.1",
+     "factuality_R": "64.7±0.6",
+     "factuality_F1": "57.2±0.3"
+    }
+   },
+   "paper-2-shot-definitions": {
+    "ours": {
+     "P": 68.0,
+     "R": 85.2,
+     "F1": 75.7,
+     "joint_F1": 61.9,
+     "failed_replies": 69,
+     "issues": {
+      "invalid-label": 59,
+      "reply-length": 3,
+      "sentence-id": 2,
+      "incomplete": 5
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 3312466,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 1226896
+     }
+    },
+    "paper": {
+     "P": "65.9±0.2",
+     "R": "85.8±0.2",
+     "F1": "74.5±0.1",
+     "factuality_P": "49.3±0.3",
+     "factuality_R": "66.1±0.2",
+     "factuality_F1": "56.5±0.2"
+    }
+   },
+   "2-shot minus zero-shot": {
+    "relation_F1": [
+     0.2,
+     -1.7,
+     2.0
+    ],
+    "joint_F1": [
+     3.5,
+     1.4,
+     5.8
+    ]
+   }
+  },
+  "unsloth/gemma-3-27b-it-unsloth-bnb-4bit": {
+   "paper-zero-shot-definitions": {
+    "ours": {
+     "P": 51.3,
+     "R": 83.9,
+     "F1": 63.7,
+     "joint_F1": 49.0,
+     "failed_replies": 55,
+     "issues": {
+      "reply-length": 49,
+      "invalid-label": 5,
+      "sentence-id": 1
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 1564450,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 145559
+     }
+    },
+    "paper": {
+     "P": "52.9±0.0",
+     "R": "86.6±0.0",
+     "F1": "65.7±0.0",
+     "factuality_P": "40.2±0.0",
+     "factuality_R": "65.8±0.0",
+     "factuality_F1": "49.9±0.0"
+    }
+   },
+   "paper-2-shot-definitions": {
+    "ours": {
+     "P": 57.8,
+     "R": 83.8,
+     "F1": 68.4,
+     "joint_F1": 53.8,
+     "failed_replies": 4,
+     "issues": {
+      "invalid-label": 2,
+      "reply-length": 1,
+      "sentence-id": 1
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 3331645,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 97097
+     }
+    },
+    "paper": {
+     "P": "61.6±0.2",
+     "R": "79.0±0.1",
+     "F1": "69.2±0.1",
+     "factuality_P": "50.3±0.5",
+     "factuality_R": "64.6±0.4",
+     "factuality_F1": "56.5±0.5"
+    }
+   },
+   "2-shot minus zero-shot": {
+    "relation_F1": [
+     4.7,
+     2.9,
+     6.6
+    ],
+    "joint_F1": [
+     4.8,
+     2.8,
+     6.8
+    ]
+   }
+  },
+  "unsloth/medgemma-27b-text-it-unsloth-bnb-4bit": {
+   "paper-zero-shot-definitions": {
+    "ours": {
+     "P": 53.0,
+     "R": 86.1,
+     "F1": 65.6,
+     "joint_F1": 52.6,
+     "failed_replies": 95,
+     "issues": {
+      "invalid-label": 91,
+      "reply-length": 3,
+      "sentence-id": 1
+     },
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 1564450,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 116964
+     }
+    },
+    "paper": {
+     "P": "56.2±2.8",
+     "R": "86.0±0.5",
+     "F1": "67.9±1.9",
+     "factuality_P": "43.0±2.4",
+     "factuality_R": "65.7±0.1",
+     "factuality_F1": "51.9±1.8"
+    }
+   },
+   "paper-2-shot-definitions": {
+    "ours": {
+     "P": 59.3,
+     "R": 82.8,
+     "F1": 69.1,
+     "joint_F1": 59.6,
+     "failed_replies": 0,
+     "issues": {},
+     "usage": {
+      "responses": 1767,
+      "prompt_tokens": 3331645,
+      "cached_prompt_tokens": 0,
+      "completion_tokens": 96816
+     }
+    },
+    "paper": {
+     "P": "64.3±0.4",
+     "R": "78.4±0.2",
+     "F1": "70.6±0.3",
+     "factuality_P": "55.2±0.8",
+     "factuality_R": "67.4±0.6",
+     "factuality_F1": "60.7±0.7"
+    }
+   },
+   "2-shot minus zero-shot": {
+    "relation_F1": [
+     3.5,
+     1.8,
+     5.1
+    ],
+    "joint_F1": [
+     7.0,
+     5.1,
+     9.1
+    ]
+   }
+  }
+ }
+}
